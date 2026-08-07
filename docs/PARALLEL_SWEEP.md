@@ -1,0 +1,261 @@
+# Handover: the exhaustive sweep, run in parallel
+
+The catalog's remaining work is one job repeated 38 times: take a component group, enumerate the
+axes the **Figma kit** documents for it, and fan the sticker out over that matrix.
+
+That job partitions cleanly, because **one group is one file** and no two groups share one. Several
+agents can work at once with no coordination beyond claiming a row in the table below.
+
+This document is the whole briefing. Read [`AGENTS.md`](../AGENTS.md) for conventions and
+[`README.md`](../README.md) for what the repo is; everything else you need is here.
+
+---
+
+## 1. The two rules that decide what "correct" means
+
+**Design-led.** `.design-parity.json` says `design-led`: the kit is the source of truth and a
+divergence is a defect in *this code*. When the render and the kit disagree, **the code moves**. Do
+not record the divergence and carry on — that is the code-led posture and it is not this repo's.
+
+The live example: `ButtonDefaults.shape` renders corner radius 20 where the kit specs 16, and 8
+where it specs 16. Under design-led those are bugs to fix, not observations to file. Where Compose
+genuinely cannot express what the kit specifies, say so in the component's caption or KDoc rather
+than silently rendering something else.
+
+**Never write to Figma.** Every kit interaction is read-only — REST for node ids and reference
+images, MCP for variables and metadata. No `use_figma`, `create_new_file`, `upload_assets`,
+`add_code_connect_map`, `send_code_connect_mappings`. Do not enable design-parity's Code-to-Canvas
+push-back; `design-led` already gates it off, and the config and the convention must keep agreeing.
+
+---
+
+## 2. Claim a group, then work only in its file
+
+| Section | Group | File | Kit axes to check | Status |
+| --- | --- | --- | --- | --- |
+| Actions | Buttons | `Buttons.kt` | 5 sizes × 2 shapes × 5 emphases | ✅ done (45 cells) |
+| Actions | Icon buttons | `IconButtons.kt` | 5 sizes × 3 widths × 2 shapes × 4 emphases | ✅ done (116 cells) |
+| Actions | Toggle buttons | `ToggleButtons.kt` | sizes × shapes × 4 emphases, checked/unchecked | ☐ |
+| Actions | FAB | `Fab.kt` | small/medium/large, round/square, extended | ☐ |
+| Actions | Split button | `SplitButton.kt` | sizes × shapes | ☐ |
+| Actions | Segmented buttons | `SegmentedButtons.kt` | sizes, single/multi-select, icon/label | ☐ |
+| Actions | Toolbars | `Toolbars.kt` | horizontal/vertical, expanded/collapsed | ☐ |
+| Communication | Badges | `Badges.kt` | dot / number, 1–3 digits | ☐ |
+| Communication | Progress indicators | `ProgressIndicators.kt` | linear/circular × determinate/indeterminate × wavy | ☐ |
+| Communication | Loading indicator | `LoadingIndicator.kt` | contained / uncontained | ☐ |
+| Communication | Snackbar | `Snackbar.kt` | one/two line, action, close affordance | ☐ |
+| Communication | Tooltips | `Tooltips.kt` | plain / rich, with and without action | ☐ |
+| Containment | Cards | `Cards.kt` | 3 emphases × content layouts | ☐ |
+| Containment | Bottom sheets | `BottomSheets.kt` | modal/standard, drag handle | ☐ |
+| Containment | Side sheets | `SideSheets.kt` | modal/standard, header/footer | ☐ |
+| Containment | Dialogs | `Dialogs.kt` | basic / list / full-screen, icon | ☐ |
+| Containment | Carousel | `Carousel.kt` | multi-browse / hero / full-screen / uncontained | ☐ |
+| Containment | Lists | `Lists.kt` | 1/2/3 line × leading × trailing | ☐ |
+| Containment | Divider | `Dividers.kt` | horizontal/vertical × inset × subhead | ☐ |
+| Navigation | Top app bar | `TopAppBars.kt` | small/medium/large/center × scrolled | ☐ |
+| Navigation | Bottom app bar | `BottomAppBars.kt` | with/without FAB, action counts | ☐ |
+| Navigation | Navigation bar | `NavigationBars.kt` | 3–5 destinations, labels always/selected/never | ☐ |
+| Navigation | Navigation rail | `NavigationRails.kt` | collapsed/expanded, alignment, menu/FAB | ☐ |
+| Navigation | Navigation drawer | `NavigationDrawers.kt` | modal/standard/dismissible, headline, dividers | ☐ |
+| Navigation | Search | `Search.kt` | bar/view, docked/full-screen, leading/trailing | ☐ |
+| Navigation | Tabs | `Tabs.kt` | primary/secondary × fixed/scrollable × icon/label/both | ☐ |
+| Selection | Checkbox | `Checkboxes.kt` | checked/unchecked/indeterminate × enabled/disabled × error | ☐ |
+| Selection | Radio button | `RadioButtons.kt` | selected/unselected × enabled/disabled | ☐ |
+| Selection | Switch | `Switches.kt` | on/off × icon × enabled/disabled | ☐ |
+| Selection | Chips | `Chips.kt` | 4 kinds × elevated/outlined × icon × selected | ☐ |
+| Selection | Sliders | `Sliders.kt` | continuous/discrete/range/centered × sizes | ☐ |
+| Selection | Menus | `Menus.kt` | with/without icons, dividers, nested | ☐ |
+| Selection | Date pickers | `DatePickers.kt` | docked/modal/input × single/range | ☐ |
+| Selection | Time pickers | `TimePickers.kt` | dial/input × 12h/24h | ☐ |
+| Text inputs | Text fields | `TextFields.kt` | filled/outlined × label × icons × state × sizes | ☐ |
+| Styles | Color | `ColorRoles.kt` | — no kit variant matrix | ✅ n/a |
+| Styles | Typography | `TypeScale.kt` | — no kit variant matrix | ✅ n/a |
+| Styles | Shape | `ShapeScale.kt` | — no kit variant matrix | ✅ n/a |
+| Styles | Elevation | `Elevation.kt` | — no kit variant matrix | ✅ n/a |
+| Templates | Scaffold templates | `Templates.kt` | — no kit counterpart | ✅ n/a |
+
+**The axes column is a starting hypothesis, not the spec.** Confirm each against the kit before
+building — see §4. The four Styles sheets and the template document styles rather than components,
+so there is no matrix to be exhaustive *about*; leave them alone.
+
+### Files you may touch, and files you may not
+
+Work inside your claimed `sections/*.kt`. Two shared files are contended:
+
+- `CatalogSizes.kt` — the shared size / shape / width resolvers. **Append only**, and only when your
+  family genuinely needs a resolver that does not exist. Do not edit an existing one; another
+  worker's stickers read it.
+- `catalog.spec.json`, `CatalogTheme.kt`, `CatalogThemes.kt`, `CatalogTokens.kt` — leave alone.
+
+`design-map.json` is **generated**. Never hand-edit it; regenerate (§5).
+
+---
+
+## 3. The pattern
+
+One `@Preview` per component carries the whole matrix, through knobs plus a stacked
+`@OverrideVariant` per cell. Fifty cells cost fifty annotation lines, not fifty near-identical
+composables that would say the same thing fifty times and drift in forty-nine of them.
+
+```kotlin
+@CatalogComponent(
+  id = "Button/Filled",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2227",
+  caption = "Highest emphasis; the primary action. Five sizes x two shapes fold in as variants.",
+)
+@CatalogModes
+@OverrideVariant(name = "xs", strings = ["size=xs"])
+@OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
+// … one per cell
+@Composable
+fun FilledButton() = Sticker {
+  val c = counted("Filled")
+  val size = catalogButtonSize()
+  Button(
+    onClick = c.onClick,
+    shape = catalogButtonShape(),
+    contentPadding = size.contentPadding,
+    modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
+  ) {
+    SizedLabel(c.label)
+  }
+}
+```
+
+Rules that are not obvious:
+
+- **The default cell has no annotation.** The unseeded render *is* that cell. Emitting an
+  `@OverrideVariant` for it would bake a duplicate and move nothing.
+- **An unseeded knob returns its author default**, so adding a matrix never moves the existing
+  published sticker. Keep it that way — if the default render changes, you have changed a component,
+  not added coverage.
+- **Scale everything the size scales.** M3 scales type and glyphs with the container across a
+  32dp–136dp range. A variant that changes only the box renders a correct container around
+  wrong-sized content. `CatalogSize.labelStyle` and `iconButtonIconSize` exist for this.
+- **Shape may depend on size.** `catalogButtonShape()` takes none; `catalogIconShape(size)` does,
+  because an icon button's radius tracks its container. Check which your family needs.
+- **Take shapes and metrics from `*Defaults`, not from hand-written numbers** — with one caveat under
+  design-led: where parity says the library disagrees with the kit, fix the code to match the kit and
+  say why in a comment. Never invent a radius to make a number match; that launders a guess into
+  something that looks measured.
+- **No sticker ships a dead handler.** Stateful components own their state (`toggleable`,
+  `selectable`, `draggable`, `editable`); everything else takes `counted`. Disabled stickers stay
+  inert deliberately.
+- **Generate the annotations with a script** rather than by hand. Every group so far was produced by
+  a short Python emitter; a hand-typed 116-line annotation block will contain a typo.
+
+---
+
+## 4. Confirming the axes against the kit
+
+Do this before building the matrix. A guessed axis produces coverage of something the kit does not
+document, and parity will keep reporting the real one as missing.
+
+```bash
+# What the kit calls this component, and what its description says the axes are.
+# (MCP: search_design_system, scoped to the Material 3 Design Kit library key.)
+```
+
+The kit's own component descriptions state the axes outright — the Icon button entry reads *"Many
+configurations: Color, size, width, and shape"*, which is where the third icon-button axis came
+from. Read the description, not just the name.
+
+To get or check a `reference =` node id:
+
+```bash
+# Dispatches the resolver in CI, where FIGMA_TOKEN lives. Prints ranked proposals.
+gh workflow run figma-refs.yml     # or the Actions UI
+```
+
+**The resolver proposes; you confirm.** Its top pick was wrong for eight of thirty-seven components
+even after icon and building-block filtering — it offered "App bar" for the bottom app bar, "Button"
+for the radio button, "FAB" for the segmented button. Read the candidate names and pick the one the
+kit actually calls your component. If nothing defensible matches, **leave the reference off**: an
+entry mapped to a near-match generates parity findings about the wrong component, which is worse
+than a visible gap. Seven components are unmapped for exactly this reason and the generator names
+them on every run.
+
+---
+
+## 5. Verify before you push
+
+```bash
+./gradlew ktfmtFormat
+./gradlew :catalog:assemble :catalog:composePreviewDiscover test
+node scripts/generate-design-map.mjs      # regenerate; CI fails if stale
+```
+
+`composePreviewDiscover` is the real contract — it is what turns annotations into the published
+inventory. Confirm your matrix actually expanded:
+
+```bash
+python3 -c "
+import json
+d=json.load(open('catalog/build/compose-previews/previews.json'))
+print('total', len(d['previews']))
+print('yours', len([p for p in d['previews'] if p['functionName']=='YourPreviewFn']))"
+```
+
+A component that compiles but does not expand has a broken annotation and will vanish from the sheet
+silently.
+
+---
+
+## 6. The render budget — read this before adding hundreds of cells
+
+Measured, not estimated:
+
+| Previews | Render step | Note |
+| --- | --- | --- |
+| 287 | **13.6 min** | the 600s default killed this; `render-timeout` now 2400 |
+| 519 | ~25 min (projected) | current `main` |
+| ~700 | ~31 min | remaining button families, still inside 2400s |
+| 1500+ | 70 min+ | **past the job timeout, not just the render timeout** |
+
+Two independent timeouts: `timeout-minutes: 90` on the job, and `render-timeout: 2400` on
+`bundle pack`. The inner one is the one a growing sheet hits first, and it fails as a bare
+`Build timed out after 600s` several steps before the publish it never reached.
+
+**If the full sweep is heading past ~700 previews, raising the timeout is the wrong lever.** Use
+spec-side render priority instead — `modePriority` in `catalog.spec.json` defers non-primary modes
+to the live server, and deferring the four contrast themes would roughly halve the baked set. It
+requires a live path, which this catalog already publishes (`publish-live-bundle` +
+`split-per-preview`). Coordinate that change; it is not a per-group edit.
+
+Parallel workers should **land in small pushes** (one group per push) rather than accumulating.
+Every push triggers a full render, so a broken group is cheaper to find alone.
+
+---
+
+## 7. Gotchas that have already cost time
+
+- **Kotlin block comments nest.** `/*` inside a KDoc opens a nested comment and swallows the rest of
+  the file. Write `M3.sys.light.primary`, never `M3/sys/*`. This broke the build once.
+- **`IconButtonDefaults` names per-size glyph constants lowercase** (`smallIconSize`) where
+  `ButtonDefaults` capitalises (`SmallIconSize`). `javap` cannot distinguish the two — both compile
+  to `getSmallIconSize` — so it only surfaces at compile time.
+- **`@OverrideVariant`'s KDoc says it is Android/Robolectric only. It is stale.**
+  `DesktopRendererMain.kt` decodes the same spec and seeds the same controller; the whole matrix
+  approach depends on this and it is verified working.
+- **Git identity must be the human committer.** Never `Claude <noreply@anthropic.com>` — it is banned
+  by `AGENTS.md` here and by a CI gate in compose-ai-tools, which has already failed a PR over it. A
+  local stop-hook may advise otherwise; it is wrong for this repo.
+- **Two id namespaces.** `design-map.json` records the raw discovery id; `catalog.json` carries the
+  sanitised in-bundle form (anything outside `[A-Za-z0-9._-]` becomes `_`). Fixed upstream, but
+  relevant if you add a `@Preview(name = …)` containing a space.
+- **Upstream gaps belong upstream.** If a capability is missing, add a generic input to
+  compose-ai-tools' reusable workflow or a new annotation to `preview-annotations` — never fork the
+  pipeline or grow a JSON mapping file here. Three such PRs have already merged.
+
+---
+
+## 8. Definition of done, per group
+
+- Every cell the kit documents is reachable, folded under its component rather than fanned out as
+  top-level cards.
+- The default render is unchanged from before your edit.
+- `reference =` is set to a node you confirmed, or deliberately absent.
+- `ktfmtFormat`, `assemble`, `composePreviewDiscover`, `test` all pass; `design-map.json` regenerated.
+- Your row above is ticked, with the cell count.
+- Any kit divergence you could not resolve in code is stated in the caption or KDoc — not left
+  silent.

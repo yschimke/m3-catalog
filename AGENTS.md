@@ -1,5 +1,9 @@
 # Repository instructions for AI agents
 
+Doing the exhaustive variant sweep? Read [docs/PARALLEL_SWEEP.md](docs/PARALLEL_SWEEP.md) — it is
+the full briefing, including which groups are claimed, the render budget, and the gotchas that have
+already cost time.
+
 Read [README.md](README.md) first — it describes what this repo is and how it is laid out. This
 file records the conventions that are easy to violate by accident.
 
@@ -16,6 +20,24 @@ upstream libraries are missing an annotation — **raise it in
 rather than growing a JSON file here. The same rule applies to the CI pipeline: a capability any
 catalog could want belongs as a generic input on the reusable `design-artifacts-reusable.yml`
 workflow, never as a forked copy of the pipeline in this repo.
+
+## Direction: design-led, and Figma is read-only
+
+Two rules that together decide what "correct" means here.
+
+**The kit is the source of truth.** `.design-parity.json` says `design-led`, so a parity finding is
+a defect in this code, not a note about the kit. When the render and the kit disagree — the corner
+radii are the live example, where `ButtonDefaults.shape` gives 20 against the kit's 16 — the code
+moves. Recording the divergence and moving on is the *code-led* posture, and it is not this repo's.
+Where Compose genuinely cannot express what the kit specifies, say so in the caption or the
+component's KDoc rather than silently rendering something else.
+
+**Never write to Figma.** Every interaction with the kit is read-only: the REST API for node ids
+and reference images, the MCP server for variables and metadata. Do not call `use_figma`,
+`create_new_file`, `upload_assets`, `add_code_connect_map`, `send_code_connect_mappings`, or any
+other mutating Figma tool, and do not enable design-parity's Code-to-Canvas push-back. The
+`design-led` direction already gates that push-back off, so the config and the convention agree —
+keep them that way.
 
 ## Sticker conventions
 

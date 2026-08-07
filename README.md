@@ -3,9 +3,19 @@
 The [Material 3 Design Kit][kit] rebuilt as **Jetpack Compose `@Preview`s**, published as an
 importable design catalog.
 
-The Figma kit is the seed and the reference; **this render is the source of truth**. A divergence
-between the two is read as a bug in the kit-to-code translation, not as a change the code has to
-chase — that is what `direction: "code-led"` in [`.design-parity.json`](.design-parity.json) says.
+**The Figma kit is the source of truth.** A divergence between the two is a bug in this code, and
+the code is what changes — that is what `direction: "design-led"` in
+[`.design-parity.json`](.design-parity.json) says.
+
+That is the opposite of the component-system catalogs in compose-ai-tools, and deliberately so:
+those publish a system whose own render is authoritative, whereas this one exists to *reproduce* a
+published kit. The direction also has teeth beyond reporting — design-parity's Code-to-Canvas
+push-back is gated on `code-led`, so `design-led` makes writing back to the Figma file structurally
+impossible rather than merely forbidden by convention.
+
+**Nothing in this repo writes to Figma.** Every Figma interaction is read-only: the REST API for
+node ids and reference images, and the MCP server for variables and metadata. No `use_figma`, no
+`create_new_file`, no `upload_assets`, no Code Connect publishing.
 
 - **Browse it:** the published catalog is served at `preview.coo.ee/m3-catalog/`.
 - **Import it:** the generated bundle lives on the `design-artifacts/m3-catalog` branch —
@@ -179,6 +189,12 @@ FIGMA_TOKEN=figd_... node scripts/resolve-figma-refs.mjs
 Dependencies update themselves via Renovate ([`renovate.json`](.github/renovate.json)). The
 compose-ai-tools CLI, Gradle plugin and annotation coordinates are grouped into one automerged PR,
 because a skew between them breaks preview discovery outright.
+
+## Contributing
+
+The remaining work is the exhaustive variant sweep, and it partitions one-group-per-file so several
+people (or agents) can run it at once. [`docs/PARALLEL_SWEEP.md`](docs/PARALLEL_SWEEP.md) is the
+handover: claim a row, confirm the axes against the kit, fan the sticker out, verify, push.
 
 ## Licence
 
