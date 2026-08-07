@@ -24,7 +24,9 @@ jobs:
   apply:
     name: Render previews (baseline or PR comment, auto-selected)
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # The render alone is ~43 min at 1095 previews; 90 leaves room for setup and publish. Same
+    # budget design-artifacts.yml carries, and for the same reason.
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: ./.github/actions/setup
@@ -39,3 +41,11 @@ jobs:
           cli-version: catalog
           catalog-key: composePreviewPlugin
           only: compose
+          # The action defaults to 600s, which was never resized as the sweep grew. At 1095
+          # previews the measured fit in docs/PARALLEL_RENDER.md (~3.7 min fixed + ~2.15s/preview)
+          # puts the render near 43 min, so every run has been dying at 10 min with the baseline
+          # unrefreshed — including runs whose only change was documentation.
+          #
+          # 4800 matches design-artifacts.yml, which renders the same sheet. Past roughly 2400
+          # previews the job timeout binds instead and sharding is the answer, not a bigger number.
+          timeout: '4800'
