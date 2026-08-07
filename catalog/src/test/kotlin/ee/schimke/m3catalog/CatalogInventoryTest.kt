@@ -135,7 +135,15 @@ class CatalogInventoryTest {
     // so it is deliberately NOT reflectable at runtime. The annotation's presence is checked in the
     // source, and what reflection CAN prove is the half that would break the render: the provider
     // must implement `PreviewWrapperProvider`, because that is how the renderer invokes it.
-    val providers = listOf(BaselineLightTheme(), BaselineDarkTheme())
+    val providers =
+      listOf(
+        BaselineLightTheme(),
+        BaselineDarkTheme(),
+        LightMediumContrastTheme(),
+        LightHighContrastTheme(),
+        DarkMediumContrastTheme(),
+        DarkHighContrastTheme(),
+      )
     for (provider in providers) {
       assertTrue(
         provider is PreviewWrapperProvider,

@@ -20,6 +20,8 @@ compose-material-icons = "1.7.3"
 # `preview-annotations` artifact the catalog annotations come from, and the
 # reusable CI actions/workflows are one release — keep all three pinned
 # together (Renovate groups them; see .github/renovate.json).
+materialKolor = "5.0.0"
+
 composePreviewPlugin = "0.19.41"
 composePreviewAnnotations = "0.19.41"
 
@@ -36,6 +38,8 @@ compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.r
 compose-ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose-multiplatform" }
 compose-ui-test = { module = "org.jetbrains.compose.ui:ui-test", version.ref = "compose-multiplatform" }
 compose-ui-test-junit4 = { module = "org.jetbrains.compose.ui:ui-test-junit4", version.ref = "compose-multiplatform" }
+
+materialkolor = { module = "com.materialkolor:material-kolor", version.ref = "materialKolor" }
 
 composeai-preview-annotations = { module = "ee.schimke.composeai:preview-annotations", version.ref = "composePreviewAnnotations" }
 

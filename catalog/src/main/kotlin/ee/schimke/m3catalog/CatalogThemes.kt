@@ -16,9 +16,10 @@ import ee.schimke.composeai.preview.ThemeCatalog
  * actually resolves to. Those synthesised sheets are theme-fixed by construction, so the browse
  * surface never re-renders a "Baseline Light" card in dark.
  *
- * It is also the N-ary generalisation of `@Preview(uiMode = …)`: the kit's modes are a list of
- * named themes, not a single light/dark bit, and each one declared here becomes an entry in the
- * preview server's **Theme** select — so any sticker can be re-rendered under any of them.
+ * It is also the N-ary generalisation of `@Preview(uiMode = …)`: the kit's modes are a list of six
+ * named themes — light and dark, each at standard, medium and high contrast — not a single
+ * light/dark bit, and each one declared here becomes an entry in the preview server's **Theme**
+ * select — so any sticker can be re-rendered under any of them.
  *
  * A provider sets [LocalCatalogScheme] rather than composing `MaterialTheme` directly, because each
  * sticker composes its own theme inside. Without the handshake the inner theme would shadow the
@@ -41,4 +42,36 @@ class BaselineLightTheme : PreviewWrapperProvider {
 class BaselineDarkTheme : PreviewWrapperProvider {
   @Composable
   override fun Wrap(content: @Composable () -> Unit) = ThemeOverride(BaselineDark, content)
+}
+
+// The kit's four accessibility contrast tiers. Compose has no primitive for these, so they are
+// generated from the baseline seed — see `CatalogSchemes.kt` for what that does and does not
+// reproduce exactly.
+
+@ThemeCatalog(name = "Light Medium Contrast", group = "Contrast")
+class LightMediumContrastTheme : PreviewWrapperProvider {
+  @Composable
+  override fun Wrap(content: @Composable () -> Unit) =
+    ThemeOverride(BaselineLightMediumContrast, content)
+}
+
+@ThemeCatalog(name = "Light High Contrast", group = "Contrast")
+class LightHighContrastTheme : PreviewWrapperProvider {
+  @Composable
+  override fun Wrap(content: @Composable () -> Unit) =
+    ThemeOverride(BaselineLightHighContrast, content)
+}
+
+@ThemeCatalog(name = "Dark Medium Contrast", group = "Contrast")
+class DarkMediumContrastTheme : PreviewWrapperProvider {
+  @Composable
+  override fun Wrap(content: @Composable () -> Unit) =
+    ThemeOverride(BaselineDarkMediumContrast, content)
+}
+
+@ThemeCatalog(name = "Dark High Contrast", group = "Contrast")
+class DarkHighContrastTheme : PreviewWrapperProvider {
+  @Composable
+  override fun Wrap(content: @Composable () -> Unit) =
+    ThemeOverride(BaselineDarkHighContrast, content)
 }

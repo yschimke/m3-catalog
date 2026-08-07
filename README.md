@@ -87,12 +87,34 @@ disabled stickers, which stay inert because unresponsiveness is the state they d
 
 ## Themes
 
-The baseline light and dark schemes are declared as `@ThemeCatalog` wrapper providers, so the
-renderer builds a specimen sheet per theme and the viewer offers them in its theme select. They are
-expressed as Compose's stock `lightColorScheme()` / `darkColorScheme()` rather than as re-typed hex,
-because those defaults *are* the Material 3 baseline — verified against the kit's own published
-`M3.sys.light.*` variables (`primary` `#6750A4`, `on-surface` `#1D1B20`, `outline-variant`
-`#CAC4D0`, …) and pinned by a test. Nothing to drift.
+The kit defines six colour modes — light and dark, each at standard, medium and high contrast — and
+all six are declared as `@ThemeCatalog` wrapper providers, so the renderer builds a specimen sheet
+per theme and the viewer offers them in its theme select. Any sticker can be re-rendered under any
+of them.
+
+| Mode | Source |
+| --- | --- |
+| Baseline Light / Baseline Dark | Compose's stock `lightColorScheme()` / `darkColorScheme()` |
+| Light + Dark × Medium / High Contrast | generated from the baseline seed via MaterialKolor |
+
+The standard pair is expressed as the stock schemes rather than re-typed hex, because those defaults
+*are* the Material 3 baseline — verified against the kit's own published `M3.sys.light.*` variables
+(`primary` `#6750A4`, `on-surface` `#1D1B20`, `outline-variant` `#CAC4D0`, …) and pinned by a test.
+Nothing to drift.
+
+Compose ships no contrast schemes, and a contrast level isn't a lookup table — it shifts every role
+along its tonal palette by a continuous function of the level — so the four tiers are **computed**
+by MaterialKolor, a multiplatform port of the `material-color-utilities` algorithm behind the
+Material Theme Builder plugin that produced the kit's variables.
+
+One caveat, documented rather than hidden: running that generator at *zero* contrast does not
+exactly reproduce the published baseline (`primary` comes out `#65558F` vs `#6750A4`, and `error`
+differs outright because M3's error family is hand-authored, not seed-derived). The published
+baseline is a tuned artefact, not the raw output of its own seed. So the catalog keeps both — exact
+stock schemes for the standard modes, generated schemes for the tiers Compose has no primitive for.
+The tests pin the generator's output so a dependency bump can't silently re-tint four published
+themes, and assert the property a tier actually promises: each one holds its content further off its
+surface than the one below.
 
 ## Building
 

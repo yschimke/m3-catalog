@@ -33,6 +33,17 @@ dependencies {
   // providers implement) on the desktop JVM target.
   implementation(libs.compose.ui.tooling.preview)
 
+  // The kit's six theme modes are Light/Dark x standard/medium/high contrast. Compose ships no
+  // baseline contrast schemes, and the contrast role-to-tone mapping is a continuous function of
+  // the contrast level rather than a table anyone can re-type correctly. MaterialKolor is a
+  // multiplatform port of Google's material-color-utilities — the same generator the Material Theme
+  // Builder plugin that produced the kit's variables runs — so the six schemes are COMPUTED from
+  // the baseline seed instead of transcribed. `CatalogThemesTest` pins that by asserting the
+  // zero-contrast pair reproduces Compose's own `lightColorScheme()` / `darkColorScheme()`: if the
+  // generator ever disagrees with the baseline, the build says so rather than publishing a sheet
+  // that quietly isn't Material 3.
+  implementation(libs.materialkolor)
+
   // The catalog annotations: `@CatalogGroup`, `@CatalogComponent`,
   // `@CatalogVariant`, `@OverrideVariant`, `@ThemeCatalog`, `@ColorCatalog`,
   // `@TypographyCatalog`, `@ShapeCatalog`, `@FixedTheme`.
