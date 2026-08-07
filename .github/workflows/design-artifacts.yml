@@ -79,13 +79,17 @@ jobs:
       # default and died as a bare "Build timed out after 600s", several steps before the publish it
       # never reached, while the job itself sat at ~12% of its 90 minutes.
       #
-      # Sized with headroom rather than to the current render, because the exhaustive sweep is only
-      # part-done — every remaining button family carries the same size x shape matrix that took
-      # buttons from 193 previews to 287. When this stops being enough the next lever is spec-side
-      # render priority (`modePriority`) rather than a bigger number: deferring the four contrast
-      # themes would thin the baked set substantially, and the live bundle it requires is already
-      # published.
-      render-timeout: 2400
+      # The exhaustive sweep is now complete at 1095 previews. Measured on four runs the render
+      # costs ~3.7 min fixed plus ~2.15s per preview (see docs/PARALLEL_RENDER.md), so today's sheet
+      # lands near 43 min — past the 2400s this used to carry, which is why it moves to 4800s. That
+      # still leaves ~10 min of the job's 90 for setup, generate and publish.
+      #
+      # 4800 is the last useful bump: another doubling of the sheet would exceed the job timeout,
+      # not just this one. The next levers, in order of cost, are spec-side render priority
+      # (`modePriority`, deferring the four contrast themes to the live server — a one-file change,
+      # and the live bundle it needs is already published) and then render sharding, which needs an
+      # upstream `render-shards` input. Both are written up in docs/PARALLEL_RENDER.md.
+      render-timeout: 4800
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
     secrets:
       # Publishes the `figma:` entries in design-map.json as **design references** on the delivery
