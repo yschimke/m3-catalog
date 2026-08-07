@@ -2,17 +2,6 @@
 
 Auto-generated from `main`. Browse inline or compare against PR branches.
 
-> [!WARNING]
-> 1 preview(s) failed to render in the latest update (1 with no prior baseline to retain). See **Render Failures** below.
-
-## Render Failures
-
-The render task completed but no PNG was produced for these previews. Entries with a prior baseline keep their previous image; the rest are absent from the gallery until a successful render lands.
-
-| Preview | Module | Function | Source | Baseline |
-|---------|--------|----------|--------|----------|
-| `catalog/ee.schimke.m3catalog.sections.DatePickersKt.DatePickerSticker_Light_VARIANT_input` | catalog | `DatePickerSticker` | `src/main/kotlin/ee/schimke/m3catalog/sections/DatePickers.kt` | none |
-
 ## catalog
 
 | Preview | Image |
@@ -256,6 +245,7 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `DatePickerSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DatePickerSticker_Dark_VARIANT_input_toggle.png" width="150" /> |
 | `DatePickerSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DatePickerSticker_Dark_VARIANT_toggle.png" width="150" /> |
 | `DatePickerSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DatePickerSticker_Light.png" width="150" /> |
+| `DatePickerSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DatePickerSticker_Light_VARIANT_input.png" width="150" /> |
 | `DatePickerSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DatePickerSticker_Light_VARIANT_input_toggle.png" width="150" /> |
 | `DatePickerSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DatePickerSticker_Light_VARIANT_toggle.png" width="150" /> |
 | `DateRangePickerSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DateRangePickerSticker_Dark.png" width="150" /> |
