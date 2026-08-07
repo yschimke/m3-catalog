@@ -1,0 +1,47 @@
+[versions]
+kotlin = "2.4.10"
+ktfmt = "0.26.0"
+
+# Compose Multiplatform (desktop). 1.11.x is the first line that ships
+# `androidx.compose.ui.tooling.preview.PreviewWrapperProvider` on the desktop
+# target, which is what `@ThemeCatalog` needs — the catalog's named themes are
+# declared as wrapper providers rather than as knob strings.
+compose-multiplatform = "1.11.1"
+# Material 3 is versioned independently of the Compose Multiplatform BOM; the
+# 1.11 line matches `compose-multiplatform = 1.11.1`.
+compose-multiplatform-material3 = "1.11.0-alpha07"
+# The extended Material icon set is frozen at 1.7.3 upstream (Google stopped
+# shipping new releases of it); it is pure icon `ImageVector` definitions, so it
+# resolves cleanly alongside the 1.11 line. Only `material-icons-core` — which
+# material3 pulls in itself — tracks the main version.
+compose-material-icons = "1.7.3"
+
+# compose-ai-tools: the `ee.schimke.composeai.preview` Gradle plugin, the
+# `preview-annotations` artifact the catalog annotations come from, and the
+# reusable CI actions/workflows are one release — keep all three pinned
+# together (Renovate groups them; see .github/renovate.json).
+composePreviewPlugin = "0.19.41"
+composePreviewAnnotations = "0.19.41"
+
+[libraries]
+compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "compose-multiplatform-material3" }
+compose-material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "compose-material-icons" }
+compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose-multiplatform" }
+compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose-multiplatform" }
+compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose-multiplatform" }
+compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "compose-multiplatform" }
+# Republishes the `androidx.compose.ui.tooling.preview.*` surface — `@Preview`
+# (the FQN compose-preview's discovery scans for) and `PreviewWrapperProvider` —
+# on the desktop JVM target.
+compose-ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose-multiplatform" }
+compose-ui-test = { module = "org.jetbrains.compose.ui:ui-test", version.ref = "compose-multiplatform" }
+compose-ui-test-junit4 = { module = "org.jetbrains.compose.ui:ui-test-junit4", version.ref = "compose-multiplatform" }
+
+composeai-preview-annotations = { module = "ee.schimke.composeai:preview-annotations", version.ref = "composePreviewAnnotations" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+composePreview = { id = "ee.schimke.composeai.preview", version.ref = "composePreviewPlugin" }
+ktfmt = { id = "com.ncorti.ktfmt.gradle", version = "0.26.0" }

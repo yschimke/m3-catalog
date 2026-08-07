@@ -1,0 +1,146 @@
+name: Design parity
+
+# Compare the rendered catalog against the Material 3 Design Kit in Figma and
+# publish the triptych report to the long-lived `design-parity/main` branch.
+#
+# The direction is **code-led** (.design-parity.json): this repo's render is the
+# subject and the Figma kit is the reference, so a divergence is read as a bug
+# in the kit-to-code translation, not as a change the code must chase.
+#
+# The map is not hand-written. `scripts/generate-design-map.mjs` projects it out
+# of the discovered preview manifest, joining each component's
+# `@CatalogComponent(reference = "figma:<fileKey>/<nodeId>")` to its light
+# preview id — so adding a component to the comparison is one annotation
+# argument, not a JSON edit that can drift from a renamed preview.
+#
+# PREREQUISITES, both of which make the job skip rather than fail while absent:
+#   1. A `FIGMA_TOKEN` repository secret — a read-only personal access token
+#      with `file_content:read`. @design-parity/adapter-figma fetches the node
+#      structure and renders the reference image over the Figma REST API.
+#   2. At least one `@CatalogComponent(reference = …)` naming a kit node.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write # push the regenerated artifacts to design-parity/main
+
+concurrency:
+  group: design-parity-artifacts
+  cancel-in-progress: true
+
+jobs:
+  artifacts:
+    name: Render + publish design-parity artifacts
+    if: ${{ github.repository == 'yschimke/m3-catalog' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: ./.github/actions/setup
+
+      - name: Install compose-preview CLI
+        uses: yschimke/compose-ai-tools/.github/actions/install@v0.19.41
+        with:
+          # Keep the CLI aligned with the applied Gradle plugin; a skew breaks
+          # the id translation `bundle pack` does between filename-safe render
+          # ids and raw discovery ids.
+          version: catalog
+          catalog-key: composePreviewPlugin
+
+      - name: Discover previews and derive the design map
+        id: map
+        run: |
+          set -euo pipefail
+          ./gradlew :catalog:composePreviewDiscover --stacktrace
+          node scripts/generate-design-map.mjs
+          count="$(jq '.components | length' design-map.json)"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          if [ "$count" -eq 0 ]; then
+            echo "::notice::No component carries @CatalogComponent(reference = …) yet — nothing to compare."
+          fi
+
+      # The desktop (Skiko/CPU) render daemon links libGL; install Mesa's
+      # software GL and a font stack.
+      - name: Install desktop (Skiko) render deps
+        if: ${{ steps.map.outputs.count != '0' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            xvfb libgl1 libglx-mesa0 libgl1-mesa-dri libfreetype6 libfontconfig1 fontconfig
+
+      - name: Render the candidate bundle
+        if: ${{ steps.map.outputs.count != '0' }}
+        env:
+          LANG: C.UTF-8
+          LC_ALL: C.UTF-8
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: |
+          set -euo pipefail
+          mkdir -p build/design-parity
+          # --with-semantics injects each preview's a11y tree, resolved
+          # foreground/background colours and per-node design tokens, so
+          # design-parity's token / contrast / a11y checks can evaluate instead
+          # of reporting them as missing from the candidate.
+          mapfile -t IDS < <(jq -r '.components[].previewId' design-map.json)
+          args=()
+          for id in "${IDS[@]}"; do args+=(--id "$id"); done
+          xvfb-run -a -s "-screen 0 2000x1400x24" \
+            compose-preview bundle pack --module catalog "${args[@]}" \
+              --with-semantics -o build/design-parity/candidates.bundle.png --timeout 900
+          # Assert the artifact rather than trusting the exit status: a failed
+          # Gradle model query has been observed printing an error and still
+          # exiting 0, which would sail past `set -e` and leave design-parity
+          # reporting "no candidate render available" on a green job.
+          test -s build/design-parity/candidates.bundle.png
+
+      - uses: actions/setup-node@v7.0.0
+        if: ${{ steps.map.outputs.count != '0' }}
+        with:
+          node-version: 24.18.1
+
+      - name: Run design-parity
+        if: ${{ steps.map.outputs.count != '0' }}
+        env:
+          LANG: C.UTF-8
+          LC_ALL: C.UTF-8
+          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${FIGMA_TOKEN:-}" ]; then
+            echo "::warning::FIGMA_TOKEN is not set — skipping the parity run."
+            exit 0
+          fi
+          components="$(jq -r '[.components[].code] | join(",")' design-map.json)"
+          npx -y design-parity@0.1.38 run \
+            --repo . \
+            --components "$components" \
+            --candidate-bundles build/design-parity/candidates.bundle.png \
+            --out build/design-parity/out \
+            --repo-slug "${GITHUB_REPOSITORY}" \
+            --branch design-parity/main \
+            --source-commit "${GITHUB_SHA}"
+
+      - name: Publish artifacts to design-parity/main
+        if: ${{ steps.map.outputs.count != '0' && hashFiles('build/design-parity/out/**') != '' }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          art="$(mktemp -d)"
+          cp -a build/design-parity/out/. "$art/"
+          cp build/design-parity/candidates.bundle.png "$art/" || true
+          printf '%s\n' "$GITHUB_SHA" > "$art/SOURCE_COMMIT"
+          cd "$art"
+          git init -q
+          git checkout -q -b design-parity/main
+          git add -A
+          git \
+            -c user.name='github-actions[bot]' \
+            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -q -m "design-parity artifacts for ${GITHUB_SHA}"
+          git push -f \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            design-parity/main

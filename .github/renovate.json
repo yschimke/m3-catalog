@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["github>yschimke/renovate-config"],
+  "packageRules": [
+    {
+      "description": "compose-ai-tools ships the preview CLI, the ee.schimke.composeai Gradle artifacts (the preview-annotations dependency and the ee.schimke.composeai.preview plugin marker) and the reusable CI actions/workflows as a single release. Group the pinned action refs and the Gradle coords into ONE PR so the CLI, plugin and annotation pins can never skew apart — a skew breaks preview discovery outright. Track it aggressively and automerge once CI is green: the release moves several times a day and the pin is only useful if it keeps up. Republishing the catalog against the new renderer needs no extra step, because design-artifacts.yml has a push trigger on main covering the manifest paths this PR touches.",
+      "matchPackageNames": [
+        "yschimke/compose-ai-tools",
+        "/^ee\\.schimke\\.composeai($|[.:])/"
+      ],
+      "groupName": "compose-ai-tools",
+      "schedule": ["at any time"],
+      "automerge": true,
+      "automergeSchedule": ["at any time"]
+    },
+    {
+      "description": "Compose Multiplatform and its independently-versioned Material 3 artifact move together; a mismatched pair drags in a foundation version the other half wasn't compiled against. One PR so CI judges them as a unit.",
+      "matchPackageNames": ["/^org\\.jetbrains\\.compose($|[.:])/"],
+      "groupName": "Compose Multiplatform"
+    }
+  ]
+}

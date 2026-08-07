@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/yschimke/compose-ai-tools/main/scripts/design-artifacts/catalog.spec.schema.json",
+  "$comment": "Cover-sheet spec only. The component inventory — ids, sections, groups, captions and per-variant tags — lives next to the @Previews as @CatalogGroup / @CatalogComponent / @CatalogVariant annotations under catalog/src/main/kotlin/ee/schimke/m3catalog/sections/, and the design-artifacts export builds the catalog from those. This file carries just the fields that are not per-component code metadata: the system slug, title, the libraries covered, the primary modes, the documented breakpoints, the front-door hero, and the seed-kit reference. To override or add a component from here, add a `groups` array — a spec component is layered on top of its matching annotation as a field-level override.",
+  "system": "m3-catalog",
+  "title": "Material 3 Design Kit",
+  "library": [
+    "org.jetbrains.compose.material3:material3",
+    "org.jetbrains.compose.material:material-icons-extended"
+  ],
+  "module": ":catalog",
+  "modes": ["light", "dark"],
+  "display": {
+    "hero": "Template/AppScaffold"
+  },
+  "breakpoints": [
+    { "size": "compact", "widthDp": 412 },
+    { "size": "medium", "widthDp": 700 },
+    { "size": "expanded", "widthDp": 960 }
+  ],
+  "referenceKits": [
+    "https://www.figma.com/design/ocdacdEsnHipMJD3egzxKb/Material-3-Design-Kit--Community-"
+  ]
+}
