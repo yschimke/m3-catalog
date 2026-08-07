@@ -35,7 +35,7 @@ push-back; `design-led` already gates it off, and the config and the convention 
 | --- | --- | --- | --- | --- |
 | Actions | Buttons | `Buttons.kt` | 5 sizes × 2 shapes × 5 emphases | ✅ done (45 cells) |
 | Actions | Icon buttons | `IconButtons.kt` | 5 sizes × 3 widths × 2 shapes × 4 emphases | ✅ done (116 cells) |
-| Actions | Toggle buttons | `ToggleButtons.kt` | sizes × shapes × 4 emphases, checked/unchecked | ☐ |
+| Actions | Toggle buttons | `ToggleButtons.kt` | 5 sizes × 2 shapes × 2 selected × 4 emphases, + leading icon | ✅ done (80 cells) |
 | Actions | FAB | `Fab.kt` | small/medium/large, round/square, extended | ☐ |
 | Actions | Split button | `SplitButton.kt` | sizes × shapes | ☐ |
 | Actions | Segmented buttons | `SegmentedButtons.kt` | sizes, single/multi-select, icon/label | ☐ |
@@ -208,9 +208,17 @@ Measured, not estimated:
 | Previews | Render step | Note |
 | --- | --- | --- |
 | 287 | **13.6 min** | the 600s default killed this; `render-timeout` now 2400 |
-| 519 | ~25 min (projected) | current `main` |
+| 519 | ~25 min (projected) | `main` before the toggle-button sweep |
+| 673 | ~32 min (projected) | **current**, after toggle buttons (+154) |
 | ~700 | ~31 min | remaining button families, still inside 2400s |
 | 1500+ | 70 min+ | **past the job timeout, not just the render timeout** |
+
+**The ~700 ceiling is now essentially spent, with 32 of 38 groups still to go.** Toggle buttons
+alone cost 154 previews, because its matrix is four kit component sets deep rather than one. Groups
+of that shape remaining — segmented buttons, chips, text fields, FAB, split button — will each cost
+something similar, so the next worker to take one should expect to hit the render timeout rather
+than to squeak under it. Pull the `modePriority` lever below **before** the next multi-set group,
+not after a red run.
 
 Two independent timeouts: `timeout-minutes: 90` on the job, and `render-timeout: 2400` on
 `bundle pack`. The inner one is the one a growing sheet hits first, and it fails as a bare
