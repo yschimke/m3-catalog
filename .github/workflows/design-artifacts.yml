@@ -75,3 +75,19 @@ jobs:
       commit-user-email: yuri@schimke.ee
       timeout-minutes: 90
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
+    secrets:
+      # Publishes the `figma:` entries in design-map.json as **design references** on the delivery
+      # branch (`references/index.json` + one normalised reference image each), which is what feeds
+      # the preview server's PNG ↔ Design reference lane. Without it those entries are skipped with
+      # a warning and the catalog still publishes — but a visitor gets no side-by-side against the
+      # kit, which is most of the point of mapping them.
+      #
+      # This is a DIFFERENT surface from the design-parity/main branch: that carries the triptych
+      # reports and verdicts as its own artifact branch, and the preview server does not serve it.
+      # design-map.json feeds both.
+      #
+      # Safe to name only because the reusable workflow declares `figma_token` in its
+      # `on.workflow_call.secrets`. GitHub rejects a named secret the called workflow does not
+      # declare, and the run fails to parse before any job starts — so keep that in mind if the
+      # `@main` pin ever moves to a ref without the declaration.
+      figma_token: ${{ secrets.FIGMA_TOKEN }}

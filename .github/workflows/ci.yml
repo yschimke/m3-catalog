@@ -94,3 +94,34 @@ jobs:
         run: |
           node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
             --spec catalog.spec.json --module-dir catalog
+
+  design-map:
+    name: design-map.json is current
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: ./.github/actions/setup
+        with:
+          cache-read-only: 'true'
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 24.18.1
+
+      # design-map.json is GENERATED from the @CatalogComponent(reference = …) annotations, but it
+      # is also COMMITTED, because design-artifacts.yml reads the committed copy to publish design
+      # references onto the delivery branch. That combination can drift: add a reference in Kotlin,
+      # forget to regenerate, and the delivery branch silently keeps publishing the old reference
+      # set while the annotations say otherwise.
+      #
+      # So regenerate and diff. The annotations stay the single source of truth and the committed
+      # file stays a faithful projection of them.
+      - name: Regenerate and compare
+        run: |
+          set -euo pipefail
+          ./gradlew :catalog:composePreviewDiscover --stacktrace
+          node scripts/generate-design-map.mjs
+          if ! git diff --exit-code --stat -- design-map.json; then
+            echo "::error::design-map.json is stale. Run: ./gradlew :catalog:composePreviewDiscover && node scripts/generate-design-map.mjs"
+            exit 1
+          fi
