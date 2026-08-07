@@ -62,7 +62,7 @@ private fun DialogActions(confirm: String, dismiss: String) {
 
 @CatalogComponent(
   id = "Dialog/Basic",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/50723:10929",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/50723:10948",
   caption = "Headline, supporting text and two actions. The hero icon folds in.",
 )
 @CatalogModes

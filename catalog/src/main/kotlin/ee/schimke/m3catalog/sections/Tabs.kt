@@ -51,7 +51,7 @@ private fun tabIcon(icon: ImageVector): (@Composable () -> Unit)? =
 
 @CatalogComponent(
   id = "Tabs/Primary",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40023",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40116",
   caption = "Top-level content categories under an app bar. Icon and icon+label fold in.",
 )
 @CatalogModes

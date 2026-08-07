@@ -71,7 +71,7 @@ private fun SheetBody() {
 
 @CatalogComponent(
   id = "BottomSheet/Modal",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/51827:5859",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51827:5863",
   caption = "Secondary content anchored to the bottom. Handle and header fold in.",
 )
 @CatalogModes

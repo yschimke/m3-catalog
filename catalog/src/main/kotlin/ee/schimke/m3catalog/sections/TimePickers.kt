@@ -27,7 +27,7 @@ import ee.schimke.m3catalog.Sticker
 
 @CatalogComponent(
   id = "TimePicker/Dial",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/52949:27916",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/52949:27946",
   caption = "Clock dial for picking an hour and minute. 12-hour and the landscape layout fold in.",
 )
 @CatalogModes

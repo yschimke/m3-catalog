@@ -40,7 +40,7 @@ import ee.schimke.m3catalog.counted
 
 @CatalogComponent(
   id = "SideSheet/Standard",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/53198:27851",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53198:27873",
   caption = "Supporting pane anchored to the side. NO M3 Compose API — composed from Surface.",
 )
 @CatalogModes

@@ -41,7 +41,7 @@ private fun radioColors(): RadioButtonColors =
 
 @CatalogComponent(
   id = "RadioButton/Selected",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/51739:4608",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51739:4609",
   caption = "Select exactly one option from a set. Unselected, disabled and error fold in.",
 )
 @CatalogModes

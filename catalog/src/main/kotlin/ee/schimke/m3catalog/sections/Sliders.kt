@@ -42,7 +42,7 @@ private fun sliderEnabled(): Boolean = previewOverrideString("status", "enabled"
 
 @CatalogComponent(
   id = "Slider/Continuous",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58008:10356",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58008:10357",
   caption = "Select a value from a range. Discrete stops, a centered track and disabled fold in.",
 )
 @CatalogModes

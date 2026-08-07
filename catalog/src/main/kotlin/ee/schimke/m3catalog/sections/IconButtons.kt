@@ -36,7 +36,7 @@ import ee.schimke.m3catalog.toggleable
 
 @CatalogComponent(
   id = "IconButton/Standard",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58663:30358",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:10132",
   caption =
     "Lowest emphasis; inline on a surface. Five sizes x three widths x two shapes fold in as variants.",
 )

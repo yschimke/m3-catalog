@@ -34,7 +34,7 @@ import ee.schimke.m3catalog.toggleable
 
 @CatalogComponent(
   id = "Switch/On",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/54446:25289",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54446:25290",
   caption = "Toggle a single setting on or off. Off, thumb icon and disabled fold in.",
 )
 @CatalogModes

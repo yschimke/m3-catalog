@@ -72,7 +72,7 @@ private fun fieldSpec(): FieldSpec {
 
 @CatalogComponent(
   id = "TextField/Filled",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/52798:24373",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/52798:24430",
   caption =
     "The default; a filled container. Empty, error, disabled, icons, supporting text and the " +
       "label-less form fold in.",
@@ -107,6 +107,7 @@ fun FilledTextField() = Sticker {
 
 @CatalogComponent(
   id = "TextField/Outlined",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/52798:24397",
   caption = "Outlined container; less visual weight. Carries the same matrix as the filled field.",
 )
 @CatalogModes

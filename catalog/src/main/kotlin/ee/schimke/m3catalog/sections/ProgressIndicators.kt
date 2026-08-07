@@ -31,7 +31,7 @@ private fun progress(): Float = previewOverrideString("progress", "0.7").toFloat
 
 @CatalogComponent(
   id = "Progress/Linear",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:7997",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8017",
   caption = "Determinate linear progress. Values across the range fold in.",
 )
 @CatalogModes
@@ -48,7 +48,7 @@ fun LinearProgress() = Sticker {
 
 @CatalogComponent(
   id = "Progress/Circular",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8459",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8492",
   caption = "Determinate circular progress. Values across the range fold in.",
 )
 @CatalogModes

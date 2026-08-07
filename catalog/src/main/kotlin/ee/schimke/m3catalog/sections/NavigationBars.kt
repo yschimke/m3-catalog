@@ -48,6 +48,7 @@ private val DESTINATIONS: List<Pair<String, ImageVector>> =
 
 @CatalogComponent(
   id = "NavigationBar/Standard",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:37260",
   caption = "Three to five top-level destinations. Count, labels and badges fold in.",
 )
 @CatalogModes

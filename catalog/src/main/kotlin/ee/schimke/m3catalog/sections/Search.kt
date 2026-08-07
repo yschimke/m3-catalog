@@ -88,7 +88,7 @@ private fun searchTrailing(): (@Composable () -> Unit)? =
 
 @CatalogComponent(
   id = "Search/Bar",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/52977:33813",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/52977:33948",
   caption = "The collapsed entry point, floating over content. Query and avatar states fold in.",
 )
 @CatalogModes

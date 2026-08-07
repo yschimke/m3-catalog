@@ -68,7 +68,7 @@ private const val W = 360
 
 @CatalogComponent(
   id = "TopAppBar/Small",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20565",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20585",
   caption = "The default; title beside the actions. Nav icon and action count fold in.",
 )
 @CatalogModes

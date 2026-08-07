@@ -53,7 +53,7 @@ private fun SegmentContent(label: String, checked: Boolean) {
 
 @CatalogComponent(
   id = "SegmentedButton/SingleChoice",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:36615",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:36653",
   caption = "Two to five related options; exactly one selected. Count and content fold in.",
 )
 @CatalogModes

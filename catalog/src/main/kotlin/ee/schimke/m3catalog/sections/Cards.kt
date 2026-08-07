@@ -61,6 +61,7 @@ private fun CardBody(title: String) {
 
 @CatalogComponent(
   id = "Card/Filled",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58710:12668",
   caption = "Default container for related content. Media and action layouts fold in.",
 )
 @CatalogModes

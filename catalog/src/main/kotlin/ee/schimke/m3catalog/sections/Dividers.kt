@@ -29,6 +29,7 @@ import ee.schimke.m3catalog.Sticker
 
 @CatalogComponent(
   id = "Divider/Horizontal",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51816:5860",
   caption = "Separates content in a vertical list. Inset and subhead fold in.",
 )
 @CatalogModes
