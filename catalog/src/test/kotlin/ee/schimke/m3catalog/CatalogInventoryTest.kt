@@ -86,7 +86,10 @@ class CatalogInventoryTest {
     val uncaptioned = sources.flatMap { (file, text) ->
       Regex("""@CatalogComponent\((.*?)\)\s*\n""", RegexOption.DOT_MATCHES_ALL)
         .findAll(text)
-        .filterNot { it.groupValues[1].contains("caption = ") }
+        // `caption\s*=`, not the literal `"caption = "`: ktfmt breaks the line after the `=` once
+        // the caption is long enough to wrap, which every multi-axis component's is. Matching the
+        // spaced literal made this assert "no caption" for captions that were plainly there.
+        .filterNot { it.groupValues[1].contains(Regex("""\bcaption\s*=""")) }
         .map { "${file.name}: ${it.groupValues[1].trim()}" }
     }
     assertEquals(

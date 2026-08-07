@@ -7,11 +7,14 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ToggleButtonDefaults
+import androidx.compose.material3.ToggleButtonShapes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
+import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.overrides.previewOverrideString
 
 /**
@@ -170,3 +173,65 @@ val CatalogSize.iconButtonIconSize: Dp
       CatalogSize.Large -> IconButtonDefaults.largeIconSize
       CatalogSize.ExtraLarge -> IconButtonDefaults.extraLargeIconSize
     }
+
+// --- Toggle buttons ----------------------------------------------------------------------------
+//
+// A toggle button's shape is a PAIR, not one value. M3 morphs the container as the button is
+// selected, and `ToggleButtonShapes` carries both ends of that morph plus the pressed shape — so
+// unlike `catalogButtonShape`, which answers with a single `Shape`, this family's resolver has to
+// answer with the whole triple.
+//
+// `ToggleButtonDefaults.shapesFor(height)` is the library's own size-to-shape mapping, so the round
+// option comes straight from it rather than from a triple assembled here out of guessed radii.
+
+/** The square container shape [CatalogSize] carries, for the `shape=square` cells. */
+val CatalogSize.toggleSquareShape: Shape
+  @Composable
+  get() =
+    when (this) {
+      // `squareShape` IS the small one — the per-size constants skip small rather than naming it,
+      // the same shape the family's `…CheckedSquareShape` set has.
+      CatalogSize.ExtraSmall -> ToggleButtonDefaults.extraSmallSquareShape
+      CatalogSize.Small -> ToggleButtonDefaults.squareShape
+      CatalogSize.Medium -> ToggleButtonDefaults.mediumSquareShape
+      CatalogSize.Large -> ToggleButtonDefaults.largeSquareShape
+      CatalogSize.ExtraLarge -> ToggleButtonDefaults.extraLargeSquareShape
+    }
+
+/**
+ * The shape pair for [size], honouring the `shape` knob.
+ *
+ * The knob moves the **unselected** container only; the selected shape stays the library's per-size
+ * `…CheckedSquareShape`. "Round" and "square" name where the morph starts, not whether it happens —
+ * a square toggle button still reshapes when it is selected, which is the affordance the component
+ * exists to carry.
+ *
+ * One divergence to be aware of, and deliberately not papered over here: `shapesFor` returns
+ * `ButtonSmallTokens.ContainerShapeRound` as the unselected shape at **every** size, so the round
+ * radius does not scale with the container the way the square one does. That is this library
+ * version's behaviour, not a choice made in this catalog. Under `design-led` the kit decides — if
+ * it specs a per-size round radius, design-parity reports it and the code moves. Hard-coding a
+ * scaled radius here to make the numbers agree would launder a guess into something that looks
+ * measured.
+ */
+@Composable
+fun catalogToggleShapes(size: CatalogSize): ToggleButtonShapes {
+  val round = ToggleButtonDefaults.shapesFor(size.containerHeight)
+  if (previewOverrideString("shape", "round") != "square") return round
+  return ToggleButtonDefaults.shapes(
+    shape = size.toggleSquareShape,
+    pressedShape = round.pressedShape,
+    checkedShape = round.checkedShape,
+  )
+}
+
+/**
+ * The selected state, from the `selected` knob.
+ *
+ * [default] is per component rather than one constant for the family, because an unseeded knob must
+ * return the value its sticker already published — the filled and tonal toggles were authored
+ * selected, the outlined and elevated ones unselected, and a shared default would silently move two
+ * of the four published renders.
+ */
+@Composable
+fun catalogToggleSelected(default: Boolean): Boolean = previewOverrideBoolean("selected", default)
