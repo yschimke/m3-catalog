@@ -35,9 +35,9 @@ push-back; `design-led` already gates it off, and the config and the convention 
 | --- | --- | --- | --- | --- |
 | Actions | Buttons | `Buttons.kt` | 5 sizes × 2 shapes × 5 emphases | ✅ done (45 cells) |
 | Actions | Icon buttons | `IconButtons.kt` | 5 sizes × 3 widths × 2 shapes × 4 emphases | ✅ done (116 cells) |
-| Actions | Toggle buttons | `ToggleButtons.kt` | sizes × shapes × 4 emphases, checked/unchecked | ☐ |
-| Actions | FAB | `Fab.kt` | small/medium/large, round/square, extended | ☐ |
-| Actions | Split button | `SplitButton.kt` | sizes × shapes | ☐ |
+| Actions | Toggle buttons | `ToggleButtons.kt` | 5 sizes × 2 shapes × 4 emphases | ✅ done (36 cells) |
+| Actions | FAB | `Fab.kt` | 4 sizes × standard/extended; no shape axis | ✅ done (6 variants) |
+| Actions | Split button | `SplitButton.kt` | 5 sizes; no shape axis | ✅ done (4 cells) |
 | Actions | Segmented buttons | `SegmentedButtons.kt` | sizes, single/multi-select, icon/label | ☐ |
 | Actions | Toolbars | `Toolbars.kt` | horizontal/vertical, expanded/collapsed | ☐ |
 | Communication | Badges | `Badges.kt` | dot / number, 1–3 digits | ☐ |
@@ -208,7 +208,8 @@ Measured, not estimated:
 | Previews | Render step | Note |
 | --- | --- | --- |
 | 287 | **13.6 min** | the 600s default killed this; `render-timeout` now 2400 |
-| 519 | ~25 min (projected) | current `main` |
+| 519 | ~25 min (projected) | buttons + icon buttons |
+| 607 | ~29 min (projected) | current `main` — toggle / FAB / split added |
 | ~700 | ~31 min | remaining button families, still inside 2400s |
 | 1500+ | 70 min+ | **past the job timeout, not just the render timeout** |
 

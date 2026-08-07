@@ -86,7 +86,11 @@ class CatalogInventoryTest {
     val uncaptioned = sources.flatMap { (file, text) ->
       Regex("""@CatalogComponent\((.*?)\)\s*\n""", RegexOption.DOT_MATCHES_ALL)
         .findAll(text)
-        .filterNot { it.groupValues[1].contains("caption = ") }
+        // `caption\s*=`, not `"caption = "`: ktfmt wraps a long caption onto a continuation line
+        // (`caption =\n    "…"`), and matching the literal with its trailing space failed every
+        // component whose caption grew past the column limit — a green-to-red flip caused by
+        // formatting, with nothing wrong in the catalog.
+        .filterNot { Regex("""caption\s*=""").containsMatchIn(it.groupValues[1]) }
         .map { "${file.name}: ${it.groupValues[1].trim()}" }
     }
     assertEquals(

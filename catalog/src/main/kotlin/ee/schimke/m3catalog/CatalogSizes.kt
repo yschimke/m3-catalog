@@ -7,6 +7,9 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SplitButtonDefaults
+import androidx.compose.material3.ToggleButtonDefaults
+import androidx.compose.material3.ToggleButtonShapes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
@@ -169,4 +172,85 @@ val CatalogSize.iconButtonIconSize: Dp
       CatalogSize.Medium -> IconButtonDefaults.mediumIconSize
       CatalogSize.Large -> IconButtonDefaults.largeIconSize
       CatalogSize.ExtraLarge -> IconButtonDefaults.extraLargeIconSize
+    }
+
+// --- Toggle buttons ----------------------------------------------------------------------------
+
+/**
+ * A toggle button's **shape set** — resting, pressed and checked — for [size] and the `shape` knob.
+ *
+ * `ToggleButton` takes a whole `ToggleButtonShapes` rather than one shape, because M3 gives the
+ * checked and pressed states their own corners: a toggle button shape-shifts as it turns on and as
+ * it is held. Handing it a single shape is not possible, and picking only the resting one would
+ * lose the state morph the component exists to show.
+ *
+ * The round side defers to `shapesFor(containerHeight)`, the library's own size-to-shapes mapping,
+ * rather than a `when` over the five sizes here — that keeps one source of truth for which corner
+ * belongs to which height. The square side is assembled by hand because there is no
+ * `squareShapesFor`, pairing the per-size square and checked-square constants with the shared
+ * pressed shape.
+ */
+@Composable
+fun catalogToggleButtonShapes(size: CatalogSize): ToggleButtonShapes {
+  if (previewOverrideString("shape", "round") != "square") {
+    return ToggleButtonDefaults.shapesFor(size.containerHeight)
+  }
+  val (square, checkedSquare) =
+    when (size) {
+      CatalogSize.ExtraSmall ->
+        ToggleButtonDefaults.extraSmallSquareShape to
+          ToggleButtonDefaults.extraSmallCheckedSquareShape
+      CatalogSize.Small -> ToggleButtonDefaults.squareShape to ToggleButtonDefaults.checkedShape
+      CatalogSize.Medium ->
+        ToggleButtonDefaults.mediumSquareShape to ToggleButtonDefaults.mediumCheckedSquareShape
+      CatalogSize.Large ->
+        ToggleButtonDefaults.largeSquareShape to ToggleButtonDefaults.largeCheckedSquareShape
+      CatalogSize.ExtraLarge ->
+        ToggleButtonDefaults.extraLargeSquareShape to
+          ToggleButtonDefaults.extraLargeCheckedSquareShape
+    }
+  return ToggleButtonDefaults.shapes(
+    shape = square,
+    pressedShape = ToggleButtonDefaults.pressedShape,
+    checkedShape = checkedSquare,
+  )
+}
+
+// --- Split button ------------------------------------------------------------------------------
+//
+// No shape axis: the kit models a split button's corners as inner/outer corner sizes the component
+// derives, not as a round/square variant property. A `shape` knob here would invent an axis the kit
+// does not document.
+
+/** Leading-half content padding for [CatalogSize]. */
+val CatalogSize.splitLeadingContentPadding: PaddingValues
+  get() =
+    when (this) {
+      CatalogSize.ExtraSmall -> SplitButtonDefaults.ExtraSmallLeadingButtonContentPadding
+      CatalogSize.Small -> SplitButtonDefaults.SmallLeadingButtonContentPadding
+      CatalogSize.Medium -> SplitButtonDefaults.MediumLeadingButtonContentPadding
+      CatalogSize.Large -> SplitButtonDefaults.LargeLeadingButtonContentPadding
+      CatalogSize.ExtraLarge -> SplitButtonDefaults.ExtraLargeLeadingButtonContentPadding
+    }
+
+/** Trailing-half content padding for [CatalogSize]. */
+val CatalogSize.splitTrailingContentPadding: PaddingValues
+  get() =
+    when (this) {
+      CatalogSize.ExtraSmall -> SplitButtonDefaults.ExtraSmallTrailingButtonContentPadding
+      CatalogSize.Small -> SplitButtonDefaults.SmallTrailingButtonContentPadding
+      CatalogSize.Medium -> SplitButtonDefaults.MediumTrailingButtonContentPadding
+      CatalogSize.Large -> SplitButtonDefaults.LargeTrailingButtonContentPadding
+      CatalogSize.ExtraLarge -> SplitButtonDefaults.ExtraLargeTrailingButtonContentPadding
+    }
+
+/** Trailing-half glyph size for [CatalogSize]. */
+val CatalogSize.splitTrailingIconSize: Dp
+  get() =
+    when (this) {
+      CatalogSize.ExtraSmall -> SplitButtonDefaults.ExtraSmallTrailingButtonIconSize
+      CatalogSize.Small -> SplitButtonDefaults.SmallTrailingButtonIconSize
+      CatalogSize.Medium -> SplitButtonDefaults.MediumTrailingButtonIconSize
+      CatalogSize.Large -> SplitButtonDefaults.LargeTrailingButtonIconSize
+      CatalogSize.ExtraLarge -> SplitButtonDefaults.ExtraLargeTrailingButtonIconSize
     }
