@@ -143,6 +143,25 @@ compose-preview show --module :catalog \
 | [`design-artifacts.yml`](.github/workflows/design-artifacts.yml) | renders and publishes the importable bundle to `design-artifacts/m3-catalog` |
 | [`design-parity.yml`](.github/workflows/design-parity.yml) | compares the render against the Figma kit and publishes the report to `design-parity/main` |
 
+design-parity is wired but **inert** until two things exist, and it skips with a notice rather than
+failing while either is missing:
+
+1. a `FIGMA_TOKEN` repository secret — a read-only PAT with `file_content:read`;
+2. at least one component carrying a kit handle on its annotation,
+   `@CatalogComponent(reference = "figma:<fileKey>/<nodeId>")`.
+
+Node ids aren't discoverable without API access (the Figma MCP server exposes only the page you're
+looking at, and Code Connect needs a Dev/Full seat), so
+[`scripts/resolve-figma-refs.mjs`](scripts/resolve-figma-refs.mjs) resolves them over the REST API
+and **proposes** a ref per catalogued component, ranked by name similarity. It writes no mapping
+file: you paste the ref onto the annotation, and
+[`scripts/generate-design-map.mjs`](scripts/generate-design-map.mjs) projects `design-map.json` out
+of the discovered manifest from there.
+
+```sh
+FIGMA_TOKEN=figd_... node scripts/resolve-figma-refs.mjs
+```
+
 Dependencies update themselves via Renovate ([`renovate.json`](.github/renovate.json)). The
 compose-ai-tools CLI, Gradle plugin and annotation coordinates are grouped into one automerged PR,
 because a skew between them breaks preview discovery outright.
