@@ -49,6 +49,16 @@ dependencies {
   // `@TypographyCatalog`, `@ShapeCatalog`, `@FixedTheme`.
   implementation(libs.composeai.preview.annotations)
 
+  // `previewOverrideString` — the knob surface `@OverrideVariant` seeds. This is what lets ONE
+  // `@Preview` carry a whole variant matrix: the sticker reads its size and shape from named knobs,
+  // and each stacked `@OverrideVariant` bakes an extra capture with those knobs seeded, instead of
+  // the catalog growing one near-identical `@Composable` per cell.
+  //
+  // A released Maven coordinate rather than a project dependency, so `bundle pack` records a small
+  // re-resolvable reference in the published bundle instead of inlining the runtime jar into every
+  // per-preview bundle.
+  implementation(libs.composeai.preview.overrides)
+
   testImplementation(kotlin("test"))
   testImplementation(libs.compose.ui.test)
   testImplementation(libs.compose.ui.test.junit4)
