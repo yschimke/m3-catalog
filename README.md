@@ -37,7 +37,7 @@ customising the live render are two ends of one workflow.
 | | |
 | --- | --- |
 | Components | **50** |
-| Rendered images (PNG) | **188** |
+| Rendered images (PNG) | **278** |
 | Editable wireframes (SVG) | **50** |
 | Editable design vectors (figma-svg) | **50** |
 | Components with a11y greenlines | **28** |
