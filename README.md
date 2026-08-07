@@ -9,8 +9,10 @@ chase — that is what `direction: "code-led"` in [`.design-parity.json`](.desig
 
 - **Browse it:** the published catalog is served at `preview.coo.ee/m3-catalog/`.
 - **Import it:** the generated bundle lives on the `design-artifacts/m3-catalog` branch —
-  `catalog.json`, `tokens.dtcg.json`, `figma-variables.json`, raster `images/` and editable
-  layered `figma/*.svg` vectors, regenerated from the code on every change.
+  `catalog.json` (the inventory), raster `images/`, editable layered `figma/*.svg` vectors,
+  schematic `wireframes/`, `code-connect.json`, and a browsable `index.html`. Regenerated from the
+  code on every change, and appended as a commit rather than force-pushed, so the branch is
+  diffable over time.
 
 [kit]: https://www.figma.com/design/ocdacdEsnHipMJD3egzxKb/Material-3-Design-Kit--Community-
 
@@ -135,6 +137,18 @@ compose-preview show --module :catalog \
 [cat]: https://github.com/yschimke/compose-ai-tools
 
 ## CI
+
+### Where the grouped view lives
+
+Two long-lived branches carry rendered output, and they are **not** the same thing:
+
+| Branch | Shape | For |
+| --- | --- | --- |
+| `compose-preview/main` | flat — one PNG per `@Preview` expansion, `renders/catalog/<Fn>_<Mode>.png` | the pixel **baseline** the visual-diff bot compares a PR against. Deliberately ungrouped: it is keyed by render id so a diff can be taken, not browsed |
+| `design-artifacts/m3-catalog` | grouped — `catalog.json` folds every render under its component | the **catalog** you browse and import. `Button/Filled` is one entry carrying six images tagged `theme: light\|dark`, `state: default\|disabled`, `props: {content: icon+label}` |
+
+So light/dark and states being flat on `compose-preview/main` is expected; the grouping is on
+`design-artifacts/m3-catalog` and in the served viewer.
 
 | Workflow | Does |
 | --- | --- |
