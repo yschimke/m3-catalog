@@ -167,9 +167,16 @@ hits this wall.
   adding a slot, and carrying the semantics sidecar with it.
 - `scripts/design-artifacts/shard-preview-ids.mjs` beside `deferred-preview-ids.mjs` (the precedent
   it reuses `previewsFromJson` from), with a `node --test` suite CI already picks up.
-- Interaction with `--exclude-preview-id`: **deferred ids are removed before partitioning and
-  re-excluded in every shard**, so a `modePriority` deferral shrinks the work the shards divide
-  instead of competing with the partition for slots.
+- Interaction with the two existing filters: **anything the render will not produce is removed
+  before partitioning and re-applied in every shard** — the ids `modePriority` defers, and the ids
+  the pre-flight's positive function-name filter drops. Both are exclusions, so a naive union would
+  have them compete with the partition for slots; worse, a shard whose whole share happened to be
+  filtered-out ids would report work to do and then exclude every id the filter kept, which
+  `composePreviewRender` refuses.
+- A **CLI-version pre-flight** in the matrix job. The merge runs last, so a `cli-version: catalog`
+  pin older than `bundle merge` — which is this catalog's exact configuration until its plugin pin
+  moves — would fail the run having already burned six twenty-minute shards. The probe fails it in
+  the first minute instead, naming the pin to raise.
 
 **Here:** one line, `render-shards: 6`, which is now in
 [`design-artifacts.yml`](../.github/workflows/design-artifacts.yml). It must not reach `main` before
