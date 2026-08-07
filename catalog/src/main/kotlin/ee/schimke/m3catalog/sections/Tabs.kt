@@ -1,55 +1,137 @@
 @file:CatalogGroup(name = "Tabs", section = "Navigation")
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
+import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.PrimaryTabRow
+import androidx.compose.material3.SecondaryScrollableTabRow
 import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
-import ee.schimke.composeai.preview.CatalogVariant
+import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.selectable
 
-private val tabTitles = listOf("Overview", "Specs", "Reviews")
+// Emphasis (primary / secondary) and scroll behaviour (fixed / scrollable) are four separate row
+// composables, so they are four components. The foldable axis within each is the tab CONTENT:
+// label, icon, or both.
+
+private val TABS: List<Pair<String, ImageVector>> =
+  listOf(
+    "Overview" to Icons.Filled.Home,
+    "Specs" to Icons.Filled.Search,
+    "Reviews" to Icons.Filled.Person,
+    "Related" to Icons.Filled.Favorite,
+  )
+
+@Composable private fun tabContent(): String = previewOverrideString("content", "label")
+
+@Composable
+private fun tabText(label: String): (@Composable () -> Unit)? =
+  if (tabContent() == "icon") null else ({ Text(label) })
+
+@Composable
+private fun tabIcon(icon: ImageVector): (@Composable () -> Unit)? =
+  if (tabContent() == "label") null else ({ Icon(icon, contentDescription = null) })
 
 @CatalogComponent(
   id = "Tabs/Primary",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40023",
-  caption = "Top-level content categories under an app bar.",
+  caption = "Top-level content categories under an app bar. Icon and icon+label fold in.",
 )
 @CatalogModes
+@OverrideVariant(name = "icon", strings = ["content=icon"])
+@OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
 @Composable
 fun PrimaryTabs() = Sticker {
   val (selected, select) = selectable(0)
   PrimaryTabRow(selectedTabIndex = selected, modifier = Modifier.width(360.dp)) {
-    tabTitles.forEachIndexed { index, title ->
-      Tab(selected = index == selected, onClick = { select(index) }, text = { Text(title) })
+    TABS.take(3).forEachIndexed { index, (title, icon) ->
+      Tab(
+        selected = index == selected,
+        onClick = { select(index) },
+        text = tabText(title),
+        icon = tabIcon(icon),
+      )
     }
   }
 }
 
-@CatalogVariant(
-  of = "Tabs/Primary",
-  props = ["emphasis=secondary"],
-  caption = "Nested categories within a primary tab.",
+@CatalogComponent(
+  id = "Tabs/Secondary",
+  caption = "Nested categories within a primary tab. Icon and icon+label fold in.",
 )
 @CatalogModes
+@OverrideVariant(name = "icon", strings = ["content=icon"])
+@OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
 @Composable
 fun SecondaryTabs() = Sticker {
   val (selected, select) = selectable(1)
   SecondaryTabRow(selectedTabIndex = selected, modifier = Modifier.width(360.dp)) {
-    tabTitles.forEachIndexed { index, title ->
-      Tab(selected = index == selected, onClick = { select(index) }, text = { Text(title) })
+    TABS.take(3).forEachIndexed { index, (title, icon) ->
+      Tab(
+        selected = index == selected,
+        onClick = { select(index) },
+        text = tabText(title),
+        icon = tabIcon(icon),
+      )
+    }
+  }
+}
+
+@CatalogComponent(
+  id = "Tabs/PrimaryScrollable",
+  caption = "More categories than fit; the row scrolls.",
+)
+@CatalogModes
+@OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
+@Composable
+fun PrimaryScrollableTabs() = Sticker {
+  val (selected, select) = selectable(0)
+  PrimaryScrollableTabRow(selectedTabIndex = selected, modifier = Modifier.width(360.dp)) {
+    TABS.forEachIndexed { index, (title, icon) ->
+      Tab(
+        selected = index == selected,
+        onClick = { select(index) },
+        text = tabText(title),
+        icon = tabIcon(icon),
+      )
+    }
+  }
+}
+
+@CatalogComponent(
+  id = "Tabs/SecondaryScrollable",
+  caption = "The scrolling form of the nested row.",
+)
+@CatalogModes
+@OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
+@Composable
+fun SecondaryScrollableTabs() = Sticker {
+  val (selected, select) = selectable(0)
+  SecondaryScrollableTabRow(selectedTabIndex = selected, modifier = Modifier.width(360.dp)) {
+    TABS.forEachIndexed { index, (title, icon) ->
+      Tab(
+        selected = index == selected,
+        onClick = { select(index) },
+        text = tabText(title),
+        icon = tabIcon(icon),
+      )
     }
   }
 }

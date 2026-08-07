@@ -1,5 +1,5 @@
 @file:CatalogGroup(name = "Bottom app bar", section = "Navigation")
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
 package ee.schimke.m3catalog.sections
 
@@ -10,7 +10,6 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -18,41 +17,61 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ee.schimke.composeai.overrides.previewOverrideBoolean
+import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
 
+// The kit's axes: the FAB slot, and how many actions sit beside it (two to four).
+
 @CatalogComponent(
   id = "BottomAppBar/Standard",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/51159:5105",
-  caption = "Screen-level actions along the bottom, with the primary action as a FAB.",
+  caption = "Screen-level actions along the bottom. FAB and action count fold in.",
 )
 @CatalogModes
+@OverrideVariant(name = "no-fab", booleans = ["fab=false"])
+@OverrideVariant(name = "two-actions", strings = ["actions=2"])
+@OverrideVariant(name = "four-actions", strings = ["actions=4"])
+@OverrideVariant(name = "four-actions-no-fab", strings = ["actions=4"], booleans = ["fab=false"])
 @Composable
 fun BottomAppBarSticker() = Sticker {
   val check = counted("Check")
   val edit = counted("Edit")
   val more = counted("More")
   val add = counted("Add")
+  val count = previewOverrideString("actions", "3").toIntOrNull() ?: 3
   BottomAppBar(
     modifier = Modifier.width(360.dp),
     actions = {
       IconButton(onClick = check.onClick) {
         Icon(Icons.Filled.Check, contentDescription = check.label)
       }
-      IconButton(onClick = edit.onClick) {
-        Icon(Icons.Filled.Edit, contentDescription = edit.label)
+      if (count >= 2) {
+        IconButton(onClick = edit.onClick) {
+          Icon(Icons.Filled.Edit, contentDescription = edit.label)
+        }
       }
-      IconButton(onClick = more.onClick) {
-        Icon(Icons.Filled.MoreVert, contentDescription = more.label)
+      if (count >= 3) {
+        IconButton(onClick = more.onClick) {
+          Icon(Icons.Filled.MoreVert, contentDescription = more.label)
+        }
+      }
+      if (count >= 4) {
+        IconButton(onClick = add.onClick) { Icon(Icons.Filled.Add, contentDescription = add.label) }
       }
     },
-    floatingActionButton = {
-      FloatingActionButton(onClick = add.onClick) {
-        Icon(Icons.Filled.Add, contentDescription = add.label)
-      }
-    },
+    floatingActionButton =
+      if (previewOverrideBoolean("fab", true)) {
+        {
+          FloatingActionButton(onClick = add.onClick) {
+            Icon(Icons.Filled.Add, contentDescription = add.label)
+          }
+        }
+      } else null,
   )
 }
