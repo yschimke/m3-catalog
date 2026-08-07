@@ -19,11 +19,7 @@ import ee.schimke.m3catalog.counted
 // Snackbars are composed directly rather than through a `SnackbarHost`: the host is a dispatcher
 // with nothing of its own to draw, and a sticker must show the surface itself.
 
-@CatalogComponent(
-  id = "Snackbar/Message",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/53977:33575",
-  caption = "Brief message about a process.",
-)
+@CatalogComponent(id = "Snackbar/Message", caption = "Brief message about a process.")
 @CatalogModes
 @Composable
 fun SnackbarMessage() = Sticker { Snackbar { Text("Message sent") } }
