@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
+import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.overrides.previewOverrideString
 
 /**
@@ -211,7 +212,11 @@ fun catalogToggleButtonShapes(size: CatalogSize): ToggleButtonShapes {
     }
   return ToggleButtonDefaults.shapes(
     shape = square,
-    pressedShape = ToggleButtonDefaults.pressedShape,
+    // Per-size, from the same `shapesFor` the round branch defers to. `ToggleButtonDefaults`
+    // exposes `extraSmallPressedShape` … `extraLargePressedShape`, and the bare `pressedShape` is
+    // the SMALL one — using it here gave an extra-large square toggle a small button's pressed
+    // corner, so the two branches disagreed about a shape that is per-size on both.
+    pressedShape = ToggleButtonDefaults.shapesFor(size.containerHeight).pressedShape,
     checkedShape = checkedSquare,
   )
 }
@@ -254,3 +259,17 @@ val CatalogSize.splitTrailingIconSize: Dp
       CatalogSize.Large -> SplitButtonDefaults.LargeTrailingButtonIconSize
       CatalogSize.ExtraLarge -> SplitButtonDefaults.ExtraLargeTrailingButtonIconSize
     }
+
+/**
+ * The selected state, from the `selected` knob.
+ *
+ * [default] is per component rather than one constant for the family, because an unseeded knob has
+ * to return the value its sticker already published — the filled and tonal toggles were authored
+ * selected, the outlined and elevated ones unselected, and a shared default would silently move two
+ * of the four published renders.
+ *
+ * This is a real axis of the kit's toggle-button sets rather than a state footnote: the container
+ * shape morphs across it, so the selected and unselected cells of one size are different renders.
+ */
+@Composable
+fun catalogToggleSelected(default: Boolean): Boolean = previewOverrideBoolean("selected", default)

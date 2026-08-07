@@ -35,7 +35,7 @@ push-back; `design-led` already gates it off, and the config and the convention 
 | --- | --- | --- | --- | --- |
 | Actions | Buttons | `Buttons.kt` | 5 sizes × 2 shapes × 5 emphases | ✅ done (45 cells) |
 | Actions | Icon buttons | `IconButtons.kt` | 5 sizes × 3 widths × 2 shapes × 4 emphases | ✅ done (116 cells) |
-| Actions | Toggle buttons | `ToggleButtons.kt` | 5 sizes × 2 shapes × 4 emphases | ✅ done (36 cells) |
+| Actions | Toggle buttons | `ToggleButtons.kt` | 5 sizes × 2 shapes × 2 selected × 4 emphases, + leading icon | ✅ done (80 cells) |
 | Actions | FAB | `Fab.kt` | 4 sizes × standard/extended; no shape axis | ✅ done (6 variants) |
 | Actions | Split button | `SplitButton.kt` | 5 sizes; no shape axis | ✅ done (4 cells) |
 | Actions | Segmented buttons | `SegmentedButtons.kt` | sizes, single/multi-select, icon/label | ☐ |
@@ -209,7 +209,8 @@ Measured, not estimated:
 | --- | --- | --- |
 | 287 | **13.6 min** | the 600s default killed this; `render-timeout` now 2400 |
 | 519 | ~25 min (projected) | buttons + icon buttons |
-| 607 | ~29 min (projected) | current `main` — toggle / FAB / split added |
+| 607 | ~29 min (projected) | toggle / FAB / split, first pass |
+| 689 | ~33 min (projected) | **current** — toggle buttons' selected axis + icon |
 | ~700 | ~31 min | remaining button families, still inside 2400s |
 | 1500+ | 70 min+ | **past the job timeout, not just the render timeout** |
 
@@ -222,6 +223,17 @@ spec-side render priority instead — `modePriority` in `catalog.spec.json` defe
 to the live server, and deferring the four contrast themes would roughly halve the baked set. It
 requires a live path, which this catalog already publishes (`publish-live-bundle` +
 `split-per-preview`). Coordinate that change; it is not a per-group edit.
+
+**The ceiling is now essentially spent, with 30 of 38 groups still to go.** Toggle buttons alone
+came to 80 cells / 162 previews once its selected axis was counted, because the kit ships it as four
+component sets and each carries the full matrix. The groups left of that shape — segmented buttons,
+chips, text fields, tabs — will each cost something similar, so the next worker to take one should
+expect to hit the render timeout rather than squeak under it. Pull the `modePriority` lever **before**
+the next multi-set group, not after a red run.
+
+A note for whoever writes the next axis table: two of this group's five axes were missing from its
+row (`selected`, and the optional leading icon), and both are stated outright in the kit's own
+component description. Read the description, not just the component name — §4 means it literally.
 
 Parallel workers should **land in small pushes** (one group per push) rather than accumulating.
 Every push triggers a full render, so a broken group is cheaper to find alone.

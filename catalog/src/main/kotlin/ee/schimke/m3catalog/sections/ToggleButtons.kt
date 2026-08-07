@@ -3,29 +3,45 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.ElevatedToggleButton
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedToggleButton
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleButton
+import androidx.compose.material3.ToggleButtonDefaults
 import androidx.compose.material3.TonalToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.catalogToggleButtonShapes
+import ee.schimke.m3catalog.catalogToggleSelected
 import ee.schimke.m3catalog.toggleable
 
 // A toggle button is a button whose selection persists, so unlike the plain buttons it owns state
 // and the interactive lane really flips it. It also shape-shifts when checked — M3 gives the
 // checked state its own corner — which `catalogToggleButtonShape` resolves from BOTH the size and
 // the checked flag, where `catalogButtonShape` needs neither.
+//
+// Selected/unselected is a full axis, not a footnote: the kit's four sets each carry it as a
+// component property, and the container SHAPE morphs across it, so a selected and an unselected
+// cell of the same size differ by design. The `selected` knob defaults per component to the state
+// its sticker was authored in, so no unseeded render moves; the unsuffixed variant names are that
+// authored state, and the `-on` / `-off` ones name the state absolutely.
 
 @CatalogComponent(
   id = "ToggleButton/Filled",
@@ -42,9 +58,35 @@ import ee.schimke.m3catalog.toggleable
 @OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
 @OverrideVariant(name = "xl", strings = ["size=xl"])
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
+@OverrideVariant(name = "xs-off", booleans = ["selected=false"], strings = ["size=xs"])
+@OverrideVariant(
+  name = "xs-square-off",
+  booleans = ["selected=false"],
+  strings = ["size=xs", "shape=square"],
+)
+@OverrideVariant(name = "s-off", booleans = ["selected=false"])
+@OverrideVariant(name = "s-square-off", booleans = ["selected=false"], strings = ["shape=square"])
+@OverrideVariant(name = "m-off", booleans = ["selected=false"], strings = ["size=m"])
+@OverrideVariant(
+  name = "m-square-off",
+  booleans = ["selected=false"],
+  strings = ["size=m", "shape=square"],
+)
+@OverrideVariant(name = "l-off", booleans = ["selected=false"], strings = ["size=l"])
+@OverrideVariant(
+  name = "l-square-off",
+  booleans = ["selected=false"],
+  strings = ["size=l", "shape=square"],
+)
+@OverrideVariant(name = "xl-off", booleans = ["selected=false"], strings = ["size=xl"])
+@OverrideVariant(
+  name = "xl-square-off",
+  booleans = ["selected=false"],
+  strings = ["size=xl", "shape=square"],
+)
 @Composable
 fun ToggleButtonSticker() = Sticker {
-  val (on, set) = toggleable(true)
+  val (on, set) = toggleable(catalogToggleSelected(default = true))
   val size = catalogButtonSize()
   ToggleButton(
     checked = on,
@@ -59,6 +101,7 @@ fun ToggleButtonSticker() = Sticker {
 
 @CatalogComponent(
   id = "ToggleButton/Tonal",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58653:17539",
   caption = "Secondary emphasis toggle. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
@@ -71,9 +114,35 @@ fun ToggleButtonSticker() = Sticker {
 @OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
 @OverrideVariant(name = "xl", strings = ["size=xl"])
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
+@OverrideVariant(name = "xs-off", booleans = ["selected=false"], strings = ["size=xs"])
+@OverrideVariant(
+  name = "xs-square-off",
+  booleans = ["selected=false"],
+  strings = ["size=xs", "shape=square"],
+)
+@OverrideVariant(name = "s-off", booleans = ["selected=false"])
+@OverrideVariant(name = "s-square-off", booleans = ["selected=false"], strings = ["shape=square"])
+@OverrideVariant(name = "m-off", booleans = ["selected=false"], strings = ["size=m"])
+@OverrideVariant(
+  name = "m-square-off",
+  booleans = ["selected=false"],
+  strings = ["size=m", "shape=square"],
+)
+@OverrideVariant(name = "l-off", booleans = ["selected=false"], strings = ["size=l"])
+@OverrideVariant(
+  name = "l-square-off",
+  booleans = ["selected=false"],
+  strings = ["size=l", "shape=square"],
+)
+@OverrideVariant(name = "xl-off", booleans = ["selected=false"], strings = ["size=xl"])
+@OverrideVariant(
+  name = "xl-square-off",
+  booleans = ["selected=false"],
+  strings = ["size=xl", "shape=square"],
+)
 @Composable
 fun TonalToggleButtonSticker() = Sticker {
-  val (on, set) = toggleable(true)
+  val (on, set) = toggleable(catalogToggleSelected(default = true))
   val size = catalogButtonSize()
   TonalToggleButton(
     checked = on,
@@ -86,6 +155,11 @@ fun TonalToggleButtonSticker() = Sticker {
   }
 }
 
+// Deliberately unreferenced. The kit ships "Toggle button - outline" as its own set, but that node
+// is not reachable in this file: the resolver's best offer is "Toggle button" — the FILLED set's
+// node, which ToggleButton/Filled already points at. Aiming both at it would report every finding
+// against the wrong component, which is worse than a visible gap the generator names on every run.
+// Button/Outlined has the same gap for the same reason.
 @CatalogComponent(
   id = "ToggleButton/Outlined",
   caption = "Medium emphasis on a busy surface. Five sizes x two shapes fold in as variants.",
@@ -100,9 +174,35 @@ fun TonalToggleButtonSticker() = Sticker {
 @OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
 @OverrideVariant(name = "xl", strings = ["size=xl"])
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
+@OverrideVariant(name = "xs-on", booleans = ["selected=true"], strings = ["size=xs"])
+@OverrideVariant(
+  name = "xs-square-on",
+  booleans = ["selected=true"],
+  strings = ["size=xs", "shape=square"],
+)
+@OverrideVariant(name = "s-on", booleans = ["selected=true"])
+@OverrideVariant(name = "s-square-on", booleans = ["selected=true"], strings = ["shape=square"])
+@OverrideVariant(name = "m-on", booleans = ["selected=true"], strings = ["size=m"])
+@OverrideVariant(
+  name = "m-square-on",
+  booleans = ["selected=true"],
+  strings = ["size=m", "shape=square"],
+)
+@OverrideVariant(name = "l-on", booleans = ["selected=true"], strings = ["size=l"])
+@OverrideVariant(
+  name = "l-square-on",
+  booleans = ["selected=true"],
+  strings = ["size=l", "shape=square"],
+)
+@OverrideVariant(name = "xl-on", booleans = ["selected=true"], strings = ["size=xl"])
+@OverrideVariant(
+  name = "xl-square-on",
+  booleans = ["selected=true"],
+  strings = ["size=xl", "shape=square"],
+)
 @Composable
 fun OutlinedToggleButtonSticker() = Sticker {
-  val (on, set) = toggleable(false)
+  val (on, set) = toggleable(catalogToggleSelected(default = false))
   val size = catalogButtonSize()
   OutlinedToggleButton(
     checked = on,
@@ -117,6 +217,7 @@ fun OutlinedToggleButtonSticker() = Sticker {
 
 @CatalogComponent(
   id = "ToggleButton/Elevated",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58653:13968",
   caption = "Separated by shadow. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
@@ -129,9 +230,35 @@ fun OutlinedToggleButtonSticker() = Sticker {
 @OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
 @OverrideVariant(name = "xl", strings = ["size=xl"])
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
+@OverrideVariant(name = "xs-on", booleans = ["selected=true"], strings = ["size=xs"])
+@OverrideVariant(
+  name = "xs-square-on",
+  booleans = ["selected=true"],
+  strings = ["size=xs", "shape=square"],
+)
+@OverrideVariant(name = "s-on", booleans = ["selected=true"])
+@OverrideVariant(name = "s-square-on", booleans = ["selected=true"], strings = ["shape=square"])
+@OverrideVariant(name = "m-on", booleans = ["selected=true"], strings = ["size=m"])
+@OverrideVariant(
+  name = "m-square-on",
+  booleans = ["selected=true"],
+  strings = ["size=m", "shape=square"],
+)
+@OverrideVariant(name = "l-on", booleans = ["selected=true"], strings = ["size=l"])
+@OverrideVariant(
+  name = "l-square-on",
+  booleans = ["selected=true"],
+  strings = ["size=l", "shape=square"],
+)
+@OverrideVariant(name = "xl-on", booleans = ["selected=true"], strings = ["size=xl"])
+@OverrideVariant(
+  name = "xl-square-on",
+  booleans = ["selected=true"],
+  strings = ["size=xl", "shape=square"],
+)
 @Composable
 fun ElevatedToggleButtonSticker() = Sticker {
-  val (on, set) = toggleable(false)
+  val (on, set) = toggleable(catalogToggleSelected(default = false))
   val size = catalogButtonSize()
   ElevatedToggleButton(
     checked = on,
@@ -141,5 +268,30 @@ fun ElevatedToggleButtonSticker() = Sticker {
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
     ProvideTextStyle(size.labelStyle) { Text(if (on) "On" else "Elevated") }
+  }
+}
+
+// --- Content axis, folded under the filled toggle ------------------------------------------------
+// The kit's remaining documented axis: "Can contain an optional leading icon". It also specifies
+// the glyph swap — outlined when unselected, filled when selected — so this variant reads its own
+// state rather than pinning one icon.
+
+@CatalogVariant(
+  of = "ToggleButton/Filled",
+  props = ["content=icon+label"],
+  caption = "Leading icon + label; the glyph fills as the button is selected.",
+)
+@CatalogModes
+@Composable
+fun ToggleButtonIconLabel() = Sticker {
+  val (on, set) = toggleable(true)
+  ToggleButton(checked = on, onCheckedChange = set) {
+    Icon(
+      if (on) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+      contentDescription = null,
+      modifier = Modifier.size(ToggleButtonDefaults.IconSize),
+    )
+    Spacer(Modifier.width(ToggleButtonDefaults.IconSpacing))
+    Text("Favourite")
   }
 }
