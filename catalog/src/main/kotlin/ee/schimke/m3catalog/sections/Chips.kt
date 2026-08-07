@@ -29,7 +29,11 @@ import ee.schimke.m3catalog.toggleable
 // A filter chip carries selection state and owns it; the other three are actions and take the
 // click tally instead.
 
-@CatalogComponent(id = "Chip/Assist", caption = "A smart action related to the content.")
+@CatalogComponent(
+  id = "Chip/Assist",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:28089",
+  caption = "A smart action related to the content.",
+)
 @CatalogModes
 @Composable
 fun AssistChipSticker() = Sticker {
@@ -37,7 +41,11 @@ fun AssistChipSticker() = Sticker {
   AssistChip(onClick = c.onClick, label = { Text(c.label) })
 }
 
-@CatalogComponent(id = "Chip/Filter", caption = "Filters content; carries a selected state.")
+@CatalogComponent(
+  id = "Chip/Filter",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:28270",
+  caption = "Filters content; carries a selected state.",
+)
 @CatalogModes
 @Composable
 fun FilterChipSticker() = Sticker {
@@ -59,7 +67,11 @@ fun FilterChipSticker() = Sticker {
   )
 }
 
-@CatalogComponent(id = "Chip/Input", caption = "A discrete piece of user input, removable.")
+@CatalogComponent(
+  id = "Chip/Input",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:27888",
+  caption = "A discrete piece of user input, removable.",
+)
 @CatalogModes
 @Composable
 fun InputChipSticker() = Sticker {
@@ -72,7 +84,11 @@ fun InputChipSticker() = Sticker {
   )
 }
 
-@CatalogComponent(id = "Chip/Suggestion", caption = "A dynamically generated suggestion.")
+@CatalogComponent(
+  id = "Chip/Suggestion",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:28679",
+  caption = "A dynamically generated suggestion.",
+)
 @CatalogModes
 @Composable
 fun SuggestionChipSticker() = Sticker {

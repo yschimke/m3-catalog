@@ -22,7 +22,11 @@ import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 
-@CatalogComponent(id = "List/OneLine", caption = "A single line of primary text.")
+@CatalogComponent(
+  id = "List/OneLine",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/59106:13028",
+  caption = "A single line of primary text.",
+)
 @CatalogModes
 @Composable
 fun OneLineListItem() = Sticker {

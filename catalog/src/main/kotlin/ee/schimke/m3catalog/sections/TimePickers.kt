@@ -17,7 +17,11 @@ import ee.schimke.m3catalog.Sticker
 
 // Pinned to 10:10 — the traditional watch-face time, and deterministic across renders.
 
-@CatalogComponent(id = "TimePicker/Dial", caption = "Clock dial for picking an hour and minute.")
+@CatalogComponent(
+  id = "TimePicker/Dial",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/52949:27916",
+  caption = "Clock dial for picking an hour and minute.",
+)
 @CatalogModes
 @Composable
 fun TimePickerSticker() = Sticker {

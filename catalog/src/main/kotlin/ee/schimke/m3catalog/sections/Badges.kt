@@ -20,7 +20,11 @@ import ee.schimke.m3catalog.Sticker
 
 // A badge is a status carrier, not a control: it has nothing to respond to, so it ships no handler.
 
-@CatalogComponent(id = "Badge/Number", caption = "Unread count over its anchor icon.")
+@CatalogComponent(
+  id = "Badge/Number",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51592:4768",
+  caption = "Unread count over its anchor icon.",
+)
 @CatalogModes
 @Composable
 fun NumberBadge() = Sticker {

@@ -26,6 +26,7 @@ import ee.schimke.m3catalog.counted
 
 @CatalogComponent(
   id = "BottomAppBar/Standard",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51159:5105",
   caption = "Screen-level actions along the bottom, with the primary action as a FAB.",
 )
 @CatalogModes

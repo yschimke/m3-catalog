@@ -28,6 +28,7 @@ import ee.schimke.m3catalog.Sticker
 
 @CatalogComponent(
   id = "Carousel/MultiBrowse",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53912:27480",
   caption = "Scrollable items that resize as they enter and leave the viewport.",
 )
 @CatalogModes

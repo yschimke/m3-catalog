@@ -29,7 +29,11 @@ import ee.schimke.m3catalog.Sticker
 // `initialIsVisible = true` and `isPersistent = true`, which is what the component looks like in
 // use rather than a hand-drawn lookalike of its surface.
 
-@CatalogComponent(id = "Tooltip/Plain", caption = "Short label for an unlabelled element.")
+@CatalogComponent(
+  id = "Tooltip/Plain",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54061:33881",
+  caption = "Short label for an unlabelled element.",
+)
 @CatalogModes
 @Composable
 fun PlainTooltipSticker() = Sticker {

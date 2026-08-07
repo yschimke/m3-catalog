@@ -23,6 +23,7 @@ import ee.schimke.m3catalog.counted
 
 @CatalogComponent(
   id = "Toolbar/HorizontalFloating",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58467:8206",
   caption = "A floating cluster of related actions over the content.",
 )
 @CatalogModes

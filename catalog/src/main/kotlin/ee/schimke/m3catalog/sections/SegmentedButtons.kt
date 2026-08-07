@@ -20,6 +20,7 @@ import ee.schimke.m3catalog.selectable
 
 @CatalogComponent(
   id = "SegmentedButton/SingleChoice",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:36615",
   caption = "Two to five related options; exactly one selected.",
 )
 @CatalogModes

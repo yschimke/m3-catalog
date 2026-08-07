@@ -19,7 +19,11 @@ import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogInteractive
 import ee.schimke.m3catalog.draggable
 
-@CatalogComponent(id = "Slider/Continuous", caption = "Select a value from a continuous range.")
+@CatalogComponent(
+  id = "Slider/Continuous",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58008:10356",
+  caption = "Select a value from a continuous range.",
+)
 @CatalogModes
 @Composable
 fun ContinuousSlider() = Sticker {

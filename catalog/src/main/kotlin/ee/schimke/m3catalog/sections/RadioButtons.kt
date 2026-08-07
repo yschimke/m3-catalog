@@ -17,7 +17,11 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.selectable
 
-@CatalogComponent(id = "RadioButton/Selected", caption = "Select exactly one option from a set.")
+@CatalogComponent(
+  id = "RadioButton/Selected",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51739:4608",
+  caption = "Select exactly one option from a set.",
+)
 @CatalogModes
 @Composable
 fun RadioSelected() = Sticker {

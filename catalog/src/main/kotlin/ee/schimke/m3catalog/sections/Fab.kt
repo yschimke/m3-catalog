@@ -23,7 +23,11 @@ import ee.schimke.m3catalog.counted
 
 // The floating action button family: one primary action, raised above the content.
 
-@CatalogComponent(id = "Fab/Standard", caption = "The screen's single primary action.")
+@CatalogComponent(
+  id = "Fab/Standard",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57998:43426",
+  caption = "The screen's single primary action.",
+)
 @CatalogModes
 @Composable
 fun Fab() = Sticker {
@@ -53,7 +57,11 @@ fun FabLarge() = Sticker {
   }
 }
 
-@CatalogComponent(id = "Fab/Extended", caption = "FAB with a label; the action is named.")
+@CatalogComponent(
+  id = "Fab/Extended",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57998:43095",
+  caption = "FAB with a label; the action is named.",
+)
 @CatalogModes
 @Composable
 fun ExtendedFab() = Sticker {

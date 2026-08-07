@@ -28,7 +28,11 @@ import ee.schimke.m3catalog.counted
 // the catalog identity (`@CatalogComponent`) sits next to the composable rather than being restated
 // in `catalog.spec.json`, and each carries the click tally so a live session responds to a pointer.
 
-@CatalogComponent(id = "Button/Filled", caption = "Highest emphasis; the primary action.")
+@CatalogComponent(
+  id = "Button/Filled",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2227",
+  caption = "Highest emphasis; the primary action.",
+)
 @CatalogModes
 @Composable
 fun FilledButton() = Sticker {
@@ -36,7 +40,11 @@ fun FilledButton() = Sticker {
   Button(onClick = c.onClick) { Text(c.label) }
 }
 
-@CatalogComponent(id = "Button/Tonal", caption = "Secondary, still prominent.")
+@CatalogComponent(
+  id = "Button/Tonal",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58651:11237",
+  caption = "Secondary, still prominent.",
+)
 @CatalogModes
 @Composable
 fun TonalButton() = Sticker {
@@ -52,7 +60,11 @@ fun OutlinedButtonSticker() = Sticker {
   OutlinedButton(onClick = c.onClick) { Text(c.label) }
 }
 
-@CatalogComponent(id = "Button/Elevated", caption = "Outlined alternative needing separation.")
+@CatalogComponent(
+  id = "Button/Elevated",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58650:9294",
+  caption = "Outlined alternative needing separation.",
+)
 @CatalogModes
 @Composable
 fun ElevatedButtonSticker() = Sticker {
@@ -60,7 +72,11 @@ fun ElevatedButtonSticker() = Sticker {
   ElevatedButton(onClick = c.onClick) { Text(c.label) }
 }
 
-@CatalogComponent(id = "Button/Text", caption = "Lowest emphasis; inline actions.")
+@CatalogComponent(
+  id = "Button/Text",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58650:8094",
+  caption = "Lowest emphasis; inline actions.",
+)
 @CatalogModes
 @Composable
 fun TextButtonSticker() = Sticker {

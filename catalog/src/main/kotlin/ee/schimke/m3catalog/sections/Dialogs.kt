@@ -34,7 +34,11 @@ import ee.schimke.m3catalog.counted
 // elevation and colours) rather than an `AlertDialog` whose window would render off-frame. The
 // pixels are the component; only the scrim and the window are absent.
 
-@CatalogComponent(id = "Dialog/Basic", caption = "Icon, headline, supporting text and two actions.")
+@CatalogComponent(
+  id = "Dialog/Basic",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/50723:10929",
+  caption = "Icon, headline, supporting text and two actions.",
+)
 @CatalogModes
 @Composable
 fun BasicDialog() = Sticker {

@@ -24,7 +24,11 @@ import ee.schimke.m3catalog.toggleable
 // Icon buttons carry no label, so they read as a favourite **toggle** on the interactive lane
 // rather than taking the click tally: the glyph swaps between outlined and filled.
 
-@CatalogComponent(id = "IconButton/Standard", caption = "Lowest emphasis; inline on a surface.")
+@CatalogComponent(
+  id = "IconButton/Standard",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58663:30358",
+  caption = "Lowest emphasis; inline on a surface.",
+)
 @CatalogModes
 @Composable
 fun StandardIconButton() = Sticker {

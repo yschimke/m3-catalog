@@ -24,7 +24,11 @@ import ee.schimke.m3catalog.editable
 // Collapsed is the sticker: an expanded search bar fills the screen and is a *screen*, not a
 // component. The input field owns its query, so typing works on the live lane.
 
-@CatalogComponent(id = "Search/Bar", caption = "Collapsed search entry point.")
+@CatalogComponent(
+  id = "Search/Bar",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/52977:33813",
+  caption = "Collapsed search entry point.",
+)
 @CatalogModes
 @Composable
 fun SearchBarSticker() = Sticker {

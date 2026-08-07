@@ -40,7 +40,11 @@ private fun OverflowIcon() {
   IconButton(onClick = c.onClick) { Icon(Icons.Filled.MoreVert, contentDescription = c.label) }
 }
 
-@CatalogComponent(id = "TopAppBar/Small", caption = "The default; title beside the actions.")
+@CatalogComponent(
+  id = "TopAppBar/Small",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20565",
+  caption = "The default; title beside the actions.",
+)
 @CatalogModes
 @Composable
 fun SmallTopAppBar() = Sticker {

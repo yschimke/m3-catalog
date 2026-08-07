@@ -33,6 +33,7 @@ private val drawerDestinations: List<Pair<String, ImageVector>> =
 
 @CatalogComponent(
   id = "NavigationDrawer/Modal",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51593:5827",
   caption = "Top-level destinations in a sheet that slides over the content.",
 )
 @CatalogModes

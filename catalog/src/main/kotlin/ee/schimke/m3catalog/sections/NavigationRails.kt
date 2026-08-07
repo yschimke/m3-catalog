@@ -29,6 +29,7 @@ private val railDestinations: List<Pair<String, ImageVector>> =
 
 @CatalogComponent(
   id = "NavigationRail/Standard",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:36879",
   caption = "Top-level destinations along the side, medium and expanded widths.",
 )
 @CatalogModes

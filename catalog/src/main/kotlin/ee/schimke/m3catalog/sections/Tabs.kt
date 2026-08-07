@@ -22,7 +22,11 @@ import ee.schimke.m3catalog.selectable
 
 private val tabTitles = listOf("Overview", "Specs", "Reviews")
 
-@CatalogComponent(id = "Tabs/Primary", caption = "Top-level content categories under an app bar.")
+@CatalogComponent(
+  id = "Tabs/Primary",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40023",
+  caption = "Top-level content categories under an app bar.",
+)
 @CatalogModes
 @Composable
 fun PrimaryTabs() = Sticker {

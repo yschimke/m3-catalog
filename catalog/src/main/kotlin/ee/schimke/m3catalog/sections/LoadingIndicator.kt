@@ -17,6 +17,7 @@ import ee.schimke.m3catalog.Sticker
 
 @CatalogComponent(
   id = "LoadingIndicator/Standard",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8555",
   caption = "Expressive shape-morph loading indicator.",
 )
 @CatalogModes

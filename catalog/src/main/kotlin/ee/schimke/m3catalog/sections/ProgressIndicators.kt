@@ -21,12 +21,20 @@ import ee.schimke.m3catalog.Sticker
 // Determinate progress is the primary sticker: an indeterminate spinner is an animation, and a
 // baked PNG would freeze it at an arbitrary frame — so the fixed fraction is what gets published.
 
-@CatalogComponent(id = "Progress/Linear", caption = "Determinate linear progress at 70%.")
+@CatalogComponent(
+  id = "Progress/Linear",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:7997",
+  caption = "Determinate linear progress at 70%.",
+)
 @CatalogModes
 @Composable
 fun LinearProgress() = Sticker { LinearProgressIndicator(progress = { 0.7f }) }
 
-@CatalogComponent(id = "Progress/Circular", caption = "Determinate circular progress at 70%.")
+@CatalogComponent(
+  id = "Progress/Circular",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8459",
+  caption = "Determinate circular progress at 70%.",
+)
 @CatalogModes
 @Composable
 fun CircularProgress() = Sticker { CircularProgressIndicator(progress = { 0.7f }) }

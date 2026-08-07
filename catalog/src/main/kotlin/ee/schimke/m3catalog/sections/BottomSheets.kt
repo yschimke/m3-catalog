@@ -29,7 +29,11 @@ import ee.schimke.m3catalog.Sticker
 // container itself — `BottomSheetDefaults`' expanded shape, container colour and real drag handle —
 // so the published pixels are the component, minus the scrim and the window.
 
-@CatalogComponent(id = "BottomSheet/Modal", caption = "Secondary content anchored to the bottom.")
+@CatalogComponent(
+  id = "BottomSheet/Modal",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51827:5859",
+  caption = "Secondary content anchored to the bottom.",
+)
 @CatalogModes
 @Composable
 fun ModalBottomSheetSticker() = Sticker {

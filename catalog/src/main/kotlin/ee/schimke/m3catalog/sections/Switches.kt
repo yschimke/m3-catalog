@@ -20,7 +20,11 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.toggleable
 
-@CatalogComponent(id = "Switch/On", caption = "Toggle a single setting on or off.")
+@CatalogComponent(
+  id = "Switch/On",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54446:25289",
+  caption = "Toggle a single setting on or off.",
+)
 @CatalogModes
 @Composable
 fun SwitchOn() = Sticker {

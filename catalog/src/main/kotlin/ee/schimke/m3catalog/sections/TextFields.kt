@@ -25,7 +25,11 @@ import ee.schimke.m3catalog.editable
 // Text fields own their text, so typing works on the live lane and the baked capture is frozen at
 // the seeded value.
 
-@CatalogComponent(id = "TextField/Filled", caption = "The default; a filled container.")
+@CatalogComponent(
+  id = "TextField/Filled",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/52798:24373",
+  caption = "The default; a filled container.",
+)
 @CatalogModes
 @Composable
 fun FilledTextField() = Sticker {

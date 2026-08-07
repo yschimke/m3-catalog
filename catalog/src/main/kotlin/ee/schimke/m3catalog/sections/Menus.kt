@@ -29,7 +29,11 @@ import ee.schimke.m3catalog.counted
 // are plain composables, so the sticker composes them in the menu container the component uses —
 // the real `DropdownMenuItem` rows, in the real surface shape and colour.
 
-@CatalogComponent(id = "Menu/Dropdown", caption = "A list of choices on a temporary surface.")
+@CatalogComponent(
+  id = "Menu/Dropdown",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58966:3975",
+  caption = "A list of choices on a temporary surface.",
+)
 @CatalogModes
 @Composable
 fun DropdownMenuSticker() = Sticker {

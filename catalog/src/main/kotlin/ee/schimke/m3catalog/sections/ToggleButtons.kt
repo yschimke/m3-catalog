@@ -20,7 +20,11 @@ import ee.schimke.m3catalog.toggleable
 
 // The expressive toggle button: a button that stays on. It owns its checked state.
 
-@CatalogComponent(id = "ToggleButton/Filled", caption = "A button whose selection persists.")
+@CatalogComponent(
+  id = "ToggleButton/Filled",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2328",
+  caption = "A button whose selection persists.",
+)
 @CatalogModes
 @Composable
 fun ToggleButtonSticker() = Sticker {
