@@ -140,6 +140,46 @@ async function kitComponentsViaTree() {
   return found;
 }
 
+// --- Candidate filtering ------------------------------------------------------------------------
+//
+// The kit's 350-odd components are not 350 candidates. Most are noise for this purpose, and leaving
+// them in doesn't merely add clutter — it wins matches it shouldn't, because an icon named
+// `radio_button_checked` shares more tokens with "Checkbox Checked" than the real `Checkbox`
+// component set does. The first run proposed exactly that, plus `format_color_fill` for the colour
+// role sheet and `text_fields` for the text field.
+//
+// Three classes get dropped or demoted:
+//
+//   * **Icons.** The kit vendors Material Symbols as components named in snake_case
+//     (`do_not_disturb_on`, `stars_filled`). A design catalog compares components, never glyphs, so
+//     they are dropped outright — nothing here should ever resolve to one.
+//   * **Building blocks.** `.Building Blocks/…` are the internal parts a component set is assembled
+//     from (one segment of a segmented button, a calendar cell). Real nodes, wrong altitude —
+//     demoted rather than dropped, so they can still win when nothing else fits.
+//   * **XR.** `XR/XR Navigation bar` is a different platform's component. Demoted, because this
+//     catalog documents the phone/desktop set.
+
+/** True for a Material Symbols glyph: snake_case with no spaces. */
+const isIcon = (name) => /^[a-z0-9]+(_[a-z0-9]+)+$/.test(name.trim());
+
+const isBuildingBlock = (name, containing) =>
+  /(^|\/)\.?Building [Bb]locks\//.test(name) || /Building [Bb]locks/.test(containing);
+
+const isXr = (name, containing) => /(^|\/)XR(\/|$)/.test(name) || /\bXR\b/.test(containing);
+
+/** Leading-dot names are the kit's own private components (`.Tonal palettes`, `.Shape`). */
+const isPrivate = (name) => name.trim().startsWith(".");
+
+/** Multiplier applied to a candidate's raw name score. 0 drops it entirely. */
+function candidateWeight(name, containing) {
+  if (isIcon(name)) return 0;
+  let w = 1;
+  if (isBuildingBlock(name, containing)) w *= 0.35;
+  if (isXr(name, containing)) w *= 0.4;
+  if (isPrivate(name)) w *= 0.5;
+  return w;
+}
+
 // --- Matching ---------------------------------------------------------------------------------
 
 const normalise = (s) =>
@@ -184,14 +224,20 @@ for (const [componentId, meta] of [...catalogued].sort()) {
   // "Button/Tonal" is "Button - tonal" there, and the group carries the word the leaf drops.
   const subject = `${meta.group} ${componentId.replace("/", " ")}`;
   const ranked = kit
-    .map((k) => ({ ...k, s: score(subject, `${k.name} ${k.containing}`) }))
-    .sort((a, b) => b.s - a.s)
+    .map((k) => {
+      // Score against the bare component name first and the name-plus-trail second, taking the
+      // better. The trail rescues a component whose own name is generic ("Button segment") and
+      // hurts one whose name is already exact, since every extra token dilutes the overlap.
+      const raw = Math.max(score(subject, k.name), score(subject, `${k.name} ${k.containing}`));
+      return { ...k, s: raw * candidateWeight(k.name, k.containing) };
+    })
+    .filter((k) => k.s > 0)
+    .sort((a, b) => b.s - a.s || a.name.length - b.name.length)
     .slice(0, 3);
   const best = ranked[0];
   const confidence = !best || best.s < 0.34 ? "LOW " : best.s < 0.67 ? "MAYBE" : "GOOD ";
   console.log(`${confidence} ${componentId}`);
   for (const r of ranked) {
-    if (!r.s) continue;
     console.log(`        ${r.s.toFixed(2)}  ${r.name}  ->  figma:${fileKey}/${r.nodeId}`);
   }
   if (best?.s) {
