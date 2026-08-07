@@ -74,6 +74,18 @@ jobs:
       commit-user-name: Yuri Schimke
       commit-user-email: yuri@schimke.ee
       timeout-minutes: 90
+      # `bundle pack`'s OWN timeout, not the job's. The two are independent, and this is the one a
+      # growing sheet hits first: at 287 previews the render blew the reusable workflow's 600s
+      # default and died as a bare "Build timed out after 600s", several steps before the publish it
+      # never reached, while the job itself sat at ~12% of its 90 minutes.
+      #
+      # Sized with headroom rather than to the current render, because the exhaustive sweep is only
+      # part-done — every remaining button family carries the same size x shape matrix that took
+      # buttons from 193 previews to 287. When this stops being enough the next lever is spec-side
+      # render priority (`modePriority`) rather than a bigger number: deferring the four contrast
+      # themes would thin the baked set substantially, and the live bundle it requires is already
+      # published.
+      render-timeout: 2400
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
     secrets:
       # Publishes the `figma:` entries in design-map.json as **design references** on the delivery
