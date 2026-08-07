@@ -36,11 +36,11 @@ customising the live render are two ends of one workflow.
 
 | | |
 | --- | --- |
-| Components | **69** |
-| Rendered images (PNG) | **818** |
-| Editable wireframes (SVG) | **69** |
-| Editable design vectors (figma-svg) | **69** |
-| Components with a11y greenlines | **37** |
+| Components | **93** |
+| Rendered images (PNG) | **1086** |
+| Editable wireframes (SVG) | **93** |
+| Editable design vectors (figma-svg) | **93** |
+| Components with a11y greenlines | **55** |
 | Library | `org.jetbrains.compose.material3:material3`<br>`org.jetbrains.compose.material:material-icons-extended` |
 | Renderer | compose-preview 0.19.41 |
 | Schema | `design-parity-catalog/v1` |
@@ -50,12 +50,18 @@ customising the live render are two ends of one workflow.
 
 | Group | Count |
 | --- | ---: |
+| Search | 6 |
+| Top app bar | 6 |
 | Buttons | 5 |
 | Chips | 4 |
 | Icon buttons | 4 |
 | Progress indicators | 4 |
+| Tabs | 4 |
 | Toggle buttons | 4 |
 | Cards | 3 |
+| Date pickers | 3 |
+| Navigation drawer | 3 |
+| Sliders | 3 |
 | Toolbars | 3 |
 | Badges | 2 |
 | Carousel | 2 |
@@ -64,31 +70,25 @@ customising the live render are two ends of one workflow.
 | FAB | 2 |
 | Lists | 2 |
 | Loading indicator | 2 |
+| Menus | 2 |
+| Navigation bar | 2 |
+| Navigation rail | 2 |
 | Segmented buttons | 2 |
 | Text fields | 2 |
+| Time pickers | 2 |
+| Tooltips | 2 |
 | Bottom app bar | 1 |
 | Bottom sheets | 1 |
 | Checkbox | 1 |
 | Color | 1 |
-| Date pickers | 1 |
 | Elevation | 1 |
-| Menus | 1 |
-| Navigation bar | 1 |
-| Navigation drawer | 1 |
-| Navigation rail | 1 |
 | Radio button | 1 |
-| Search | 1 |
 | Shape | 1 |
 | Side sheets | 1 |
-| Sliders | 1 |
 | Snackbar | 1 |
 | Split button | 1 |
 | Switch | 1 |
-| Tabs | 1 |
 | Scaffold templates | 1 |
-| Time pickers | 1 |
-| Tooltips | 1 |
-| Top app bar | 1 |
 | Typography | 1 |
 
 ## What's in this branch
