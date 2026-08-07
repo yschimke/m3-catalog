@@ -36,7 +36,8 @@ jobs:
     name: Render + publish design-parity artifacts
     if: ${{ github.repository == 'yschimke/m3-catalog' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # Render (up to 40 min) + parity + publish. Raised with the render timeout below.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: ./.github/actions/setup
@@ -87,9 +88,18 @@ jobs:
           mapfile -t IDS < <(jq -r '.components[].previewId' design-map.json)
           args=()
           for id in "${IDS[@]}"; do args+=(--id "$id"); done
+          # 900s was sized against 38 mapped components on a smaller catalog, where this step took
+          # 8 min. Two things grew under it: the mapped set (38 -> 77, one --id each) and the module
+          # itself (1095 previews), which the ~3.7 min compile inside the step pays for whether or
+          # not a preview is rendered. The first run past both died on the timeout at 15 min.
+          #
+          # 2400s is the same number design-artifacts carried at a comparable size, and leaves the
+          # job's 60 min room for the parity run and publish behind it. When this stops being
+          # enough the lever is the same one docs/PARALLEL_RENDER.md names for the sweep — the fixed
+          # compile, not the per-preview cost, is what dominates here.
           xvfb-run -a -s "-screen 0 2000x1400x24" \
             compose-preview bundle pack --module catalog "${args[@]}" \
-              --with-semantics -o build/design-parity/candidates.bundle.png --timeout 900
+              --with-semantics -o build/design-parity/candidates.bundle.png --timeout 2400
           # Assert the artifact rather than trusting the exit status: a failed
           # Gradle model query has been observed printing an error and still
           # exiting 0, which would sail past `set -e` and leave design-parity
