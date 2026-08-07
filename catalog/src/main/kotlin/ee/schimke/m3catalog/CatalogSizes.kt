@@ -5,11 +5,13 @@ package ee.schimke.m3catalog
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import ee.schimke.composeai.overrides.previewOverrideString
 
 /**
@@ -105,3 +107,66 @@ fun catalogButtonSize(): CatalogSize = CatalogSize.of(previewOverrideString("siz
 fun catalogButtonShape(): Shape =
   if (previewOverrideString("shape", "round") == "square") ButtonDefaults.squareShape
   else ButtonDefaults.shape
+
+// --- Icon buttons ------------------------------------------------------------------------------
+//
+// Icon buttons carry a THIRD axis the plain buttons don't: width (narrow / uniform / wide), which
+// the kit lists alongside colour, size and shape. Thirty cells per emphasis rather than ten.
+//
+// Their shapes are per-size constants (`IconButtonDefaults.smallRoundShape`, …) rather than one
+// shape for the family, because an icon button's corner radius tracks its container — so unlike
+// `catalogButtonShape`, the resolver needs the size to answer.
+
+/** Container size for [size] at the resolved width option. */
+@Composable
+fun catalogIconContainerSize(size: CatalogSize): DpSize {
+  val width = catalogIconWidthOption()
+  return when (size) {
+    CatalogSize.ExtraSmall -> IconButtonDefaults.extraSmallContainerSize(width)
+    CatalogSize.Small -> IconButtonDefaults.smallContainerSize(width)
+    CatalogSize.Medium -> IconButtonDefaults.mediumContainerSize(width)
+    CatalogSize.Large -> IconButtonDefaults.largeContainerSize(width)
+    CatalogSize.ExtraLarge -> IconButtonDefaults.extraLargeContainerSize(width)
+  }
+}
+
+/** The `width` knob: `narrow`, `uniform` (the default) or `wide`. */
+@Composable
+fun catalogIconWidthOption(): IconButtonDefaults.IconButtonWidthOption =
+  when (previewOverrideString("width", "uniform")) {
+    "narrow" -> IconButtonDefaults.IconButtonWidthOption.Narrow
+    "wide" -> IconButtonDefaults.IconButtonWidthOption.Wide
+    else -> IconButtonDefaults.IconButtonWidthOption.Uniform
+  }
+
+/** Per-size round or square shape, from the `shape` knob. */
+@Composable
+fun catalogIconShape(size: CatalogSize): Shape {
+  val square = previewOverrideString("shape", "round") == "square"
+  return when (size) {
+    CatalogSize.ExtraSmall ->
+      if (square) IconButtonDefaults.extraSmallSquareShape
+      else IconButtonDefaults.extraSmallRoundShape
+    CatalogSize.Small ->
+      if (square) IconButtonDefaults.smallSquareShape else IconButtonDefaults.smallRoundShape
+    CatalogSize.Medium ->
+      if (square) IconButtonDefaults.mediumSquareShape else IconButtonDefaults.mediumRoundShape
+    CatalogSize.Large ->
+      if (square) IconButtonDefaults.largeSquareShape else IconButtonDefaults.largeRoundShape
+    CatalogSize.ExtraLarge ->
+      if (square) IconButtonDefaults.extraLargeSquareShape
+      else IconButtonDefaults.extraLargeRoundShape
+  }
+}
+
+/** The glyph size [size] carries — an icon button scales its glyph with its container. */
+val CatalogSize.iconButtonIconSize: Dp
+  @Composable
+  get() =
+    when (this) {
+      CatalogSize.ExtraSmall -> IconButtonDefaults.extraSmallIconSize
+      CatalogSize.Small -> IconButtonDefaults.smallIconSize
+      CatalogSize.Medium -> IconButtonDefaults.mediumIconSize
+      CatalogSize.Large -> IconButtonDefaults.largeIconSize
+      CatalogSize.ExtraLarge -> IconButtonDefaults.extraLargeIconSize
+    }
