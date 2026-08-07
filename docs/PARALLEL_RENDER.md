@@ -8,6 +8,16 @@ Parallelising the *authoring* does not help. It makes this worse: every componen
 adds lengthens the same serial render. That is a different document
 ([`PARALLEL_SWEEP.md`](PARALLEL_SWEEP.md)) solving a different problem.
 
+> **Status: built.** `render-shards` is an input on the upstream reusable workflow and this repo
+> passes `render-shards: 6`. §1–§3 are the measurements the design was chosen from; §4–§6 are what
+> was built and how the three open questions resolved — the first of them, *does `repack` merge
+> semantics sidecars*, resolved to **no**, which is why there is now a `bundle merge`. §7 records a
+> claim the earlier draft made about `modePriority` that does not hold for this catalog.
+>
+> The upstream input has to land on `compose-ai-tools`' `main` before the `render-shards: 6` line
+> here does: the caller pins `@main`, and GitHub rejects an input the called workflow does not
+> declare.
+
 ---
 
 ## 1. What the render actually costs
@@ -49,62 +59,85 @@ the job timeout binds, and that is not a number worth chasing upward either.
 
 ## 3. Sharded projection
 
-Per-shard wall clock is `1 min setup + 3.7 min compile + 2.15s × (previews / N)`, plus a merge job
-of ~4 min:
+Per-shard wall clock is `1 min setup + 3.7 min compile + ~0.9 min discovery + 2.15s × (previews / N)`,
+plus a merge + generate job of ~4 min:
 
 | Previews | N=1 | N=4 | N=6 | N=8 |
 | --- | --- | --- | --- | --- |
-| 689 | 29.4 | 14.9 | 12.8 | 11.8 |
-| 1000 | 40.5 | 17.6 | 14.7 | 13.2 |
-| 1500 | 58.4 | 22.1 | 17.6 | 15.4 |
-| 2500 | 94.2 | 31.1 | 23.6 | 19.9 |
+| 689 | 29.4 | 15.8 | 13.7 | 12.7 |
+| 1000 | 40.5 | 18.6 | 15.6 | 14.1 |
+| 1500 | 58.4 | 23.0 | 18.6 | 16.3 |
+| 2500 | 94.3 | 32.0 | 24.5 | 20.8 |
 
-**N=4 to N=6 is the sweet spot.** Going 6→8 at 1500 previews saves 2.2 min for two more runners,
-because the 4.7 min every shard pays before rendering anything now dominates. Anyone reaching for
+**N=4 to N=6 is the sweet spot.** Going 6→8 at 1500 previews saves 2.3 min for two more runners,
+because the ~5.6 min every shard pays before rendering anything now dominates. Anyone reaching for
 N=16 is buying compile time, not throughput.
 
-Sharding turns the worst case from *impossible* into ~24 min. It does not need to be perfect.
+Sharding turns the worst case from *impossible* into ~25 min. It does not need to be perfect.
+
+> The 0.9 min of discovery is per shard, not once: each shard derives its own partition from its own
+> `compose-preview list --json` rather than waiting on a central plan job. A central plan would have
+> to compile before it could discover, so it would add its *whole* 4.6 min to the critical path
+> instead of 0.9 min inside each shard's own compile.
 
 ---
 
 ## 4. The two mechanisms it rests on
 
-Both already exist. Nothing here needs inventing.
+**Restricting what a shard renders — already existed.** `bundle pack` forwards `composePreview.filter`
+(a preview-function name pattern, via `ORG_GRADLE_PROJECT_composePreview.filter`) and
+`--exclude-preview-id` down to the render. `--exclude-preview-id` is the load-bearing one, and its
+documented behaviour is exactly right: *"Excluded previews stay listed in the bundle (addressable,
+just without a baked PNG)."* So every shard emits a structurally identical bundle — same
+`previews.json`, same manifest, same re-render classpath — differing only in which
+`previews/<id>.*` slots are filled.
 
-**Restricting what a shard renders.** `bundle pack` forwards `composePreview.filter` (a
-preview-function name pattern, via `ORG_GRADLE_PROJECT_composePreview.filter`) and
-`--exclude-preview-id` down to the render. The reusable workflow already wires the first, for
-render-priority deferral.
+**Merging shard renders — did not exist, and `repack` could not be made to do it.** This was the
+open question at the top of §6, and the answer decided the shape of everything else:
 
-**Merging shard renders.** `compose-preview bundle repack <bundle.png> --renders <dir> -o <out.png>`
-swaps re-rendered PNGs — and their `figma.svg` siblings — into an existing bundle. Its documented
-behaviour is the load-bearing part: *"a filename that matches no baked slot is skipped (reported),
-so a partial re-render repacks what it matched."* Partial merge is the supported case, not a hack.
+> **`bundle repack` merges PNG + `figma.svg` only, and only into slots the target already has.**
+> `repackRethemedPreviews` collects the baked `previews/<id>.png` / `previews/<id>.figma.svg` entries
+> and swaps matching filenames in; a render with no matching slot is reported *unmatched and dropped*
+> (`BundleRepackTest` pins that), and the JSON sidecars are explicitly preserved verbatim rather than
+> merged. Against a shard base, every other shard's previews are unmatched — the base's render
+> excluded them, so there is no slot — and any that did land would arrive without their
+> `.semantics.json`, which the completeness gate fails.
 
-**Why a shard still yields a complete bundle.** A preview excluded from the render stays listed in
-`previews.json` and simply carries no PNG — the same mechanism render-priority deferral relies on.
-So every shard emits a structurally identical bundle, differing only in which slots are filled,
-which is exactly what `repack` consumes.
+So the merge is a new primitive:
+
+```
+compose-preview bundle merge <base.png> <shard.png>… -o <out.png>
+```
+
+It unions the per-preview artifacts — the raster, its `.semantics.json` / `.layout.json` /
+`.fonts.json` / `.figma.svg` / `.catalog.json` / `.overrides.json` sidecars, the nested
+`figma-raster/` crops, `ir/<id>.rc`, `extensions/<id>.json` — adding the slot where the base has
+none, base-wins on collision, earlier shards over later ones.
 
 ---
 
-## 5. The shape
+## 5. The shape, as built
 
 ```
-                    ┌── shard 1: bundle pack, partition 1 ──┐
- discover ids ──────┼── shard 2: bundle pack, partition 2 ──┼── repack ── generate ── publish
-  (seconds)         ├── shard 3: …                          │  (merge)
-                    └── shard N: …                          ┘
+          ┌── shard 1: discover → plan → bundle pack → upload ──┐
+ matrix ──┼── shard 2: …                                        ┼── merge ── generate ── publish
+ [1..N]   └── shard N: …                                        ┘
 ```
 
-1. **Discover once.** `compose-preview list --json` enumerates preview ids without rendering —
-   seconds, not minutes. The workflow already runs this when a spec defers a mode.
-2. **Partition by preview id, never by function name.** One function expands to 30 previews (the
-   icon-button matrix); a name split is wildly unbalanced. Sort ids, then round-robin, so the split
-   is deterministic and reproducible across re-runs.
-3. **Render in parallel** — an Actions `matrix`, each shard packing only its partition.
-4. **Merge** — one job downloads every shard artifact and `repack`s them together.
-5. **Generate and publish** unchanged, from the merged bundle.
+1. **Matrix.** `render-shards: N` becomes `[1 … N]`. No checkout, no toolchain — Actions simply has
+   no range expression.
+2. **Each shard discovers and plans for itself.** `compose-preview list --json` runs
+   `composePreviewDiscover`; that compile is shared with the shard's own render, so it costs
+   discovery, not a second compile.
+3. **Partition by preview id, never by function name.** One function expands to 30 previews (the
+   icon-button matrix); a name split is wildly unbalanced. Sort the ids, then round-robin — which is
+   both balanced and deterministic, so independent shards agree without talking to each other.
+4. **Render in parallel**, each shard excluding everything that is not its share.
+5. **Merge**, after cross-checking the shards' uploaded plans (`shard-preview-ids.mjs --verify`):
+   same discovered set, pairwise disjoint, complete cover. Without that check a disagreement would
+   reach the operator as a completeness-gate failure naming a component, with nothing pointing at
+   the shards.
+6. **Generate and publish** unchanged, from the merged bundle.
 
 ### Balance beats shard count
 
@@ -113,9 +146,14 @@ more than a 32dp extra-small button, and the slowest shard sets wall clock. Roun
 sorted id list spreads template-heavy groups rather than clustering them, which is enough to start.
 Bin-packing from recorded per-preview times is worth it only if a straggler shows up.
 
+The one axis it cannot balance is a `@PreviewParameter` provider's **rows**: discovery emits one id
+for the parameterized function and the renderer expands the rows later, so such a preview travels
+whole into one shard. That is correct — the rows must not be split across bundles — and it is the
+most likely source of a straggler.
+
 ---
 
-## 6. Where the work goes
+## 6. Where the work went
 
 Per [`AGENTS.md`](../AGENTS.md), a capability any catalog could want belongs upstream as a generic
 input on `design-artifacts-reusable.yml` — **never a forked pipeline here.** Every large catalog
@@ -123,43 +161,71 @@ hits this wall.
 
 **Upstream (`yschimke/compose-ai-tools`):**
 
-- A `render-shards` input, default `1`, preserving today's behaviour byte for byte.
-- When `> 1`: the discover step, the partition, the `matrix` render, and the `repack` merge.
-- The partition helper beside the existing `scripts/design-artifacts/*.mjs`.
-  `deferred-preview-ids.mjs` is the precedent — it already derives id lists from
-  `compose-preview list --json` — with a self-test in the style of `test-scope-systems.sh`.
-- Interaction with `--exclude-preview-id`: mode-deferral exclusions must apply *within* each shard,
-  not compete with the partition.
+- `render-shards`, default `1`, preserving today's behaviour byte for byte — at the default the two
+  new jobs do not run at all and `generate` renders inline as before.
+- `compose-preview bundle merge`, with `BundleMergeTest` pinning the two things repack cannot do:
+  adding a slot, and carrying the semantics sidecar with it.
+- `scripts/design-artifacts/shard-preview-ids.mjs` beside `deferred-preview-ids.mjs` (the precedent
+  it reuses `previewsFromJson` from), with a `node --test` suite CI already picks up.
+- Interaction with `--exclude-preview-id`: **deferred ids are removed before partitioning and
+  re-excluded in every shard**, so a `modePriority` deferral shrinks the work the shards divide
+  instead of competing with the partition for slots.
 
-**Here:** one line, `render-shards: 6`, once the input exists.
+**Here:** one line, `render-shards: 6`, which is now in
+[`design-artifacts.yml`](../.github/workflows/design-artifacts.yml). It must not reach `main` before
+the upstream input does — the caller pins `@main`, and GitHub rejects an input the called workflow
+does not declare, failing the run before any job starts.
 
-### Settle these before building
+### The three questions, settled
 
-- **Does `repack` merge semantics sidecars, or only PNG + `figma.svg`?** The completeness gate fails
-  a preview that has pixels but no semantics, so if the sidecar is dropped, every shard past the
-  first fails the gate and the whole design collapses. **Check this first** — it is the one answer
-  that decides whether the rest is worth writing.
-- **Live-bundle interaction.** This catalog publishes `publish-live-bundle: true` +
-  `split-per-preview: true`. Does the live classpath survive a repack, or must the merge take it
-  from a designated shard?
-- **Cache contention.** Six shards restoring the same Gradle cache concurrently may serialise on
-  download, eroding the compile-time assumption above. Measure before trusting the projection.
+- **Does `repack` merge semantics sidecars?** **No** — see §4. That is why `bundle merge` exists,
+  and it was worth checking first: it is the one answer that decided whether the rest was worth
+  writing.
+- **Live-bundle interaction.** No designated shard is needed. Every shard packs the same module at
+  the same commit, so `classes/app.jar` + `libs/` + `android/` are identical in all of them; the
+  merge **inherits** the base shard's rather than merging them, along with the manifests and the
+  cover. `publish-live-bundle: true` + `split-per-preview: true` therefore see exactly the bundle
+  they would have seen unsharded.
+- **Cache contention.** Not a factor: this pipeline has **no Actions-level Gradle cache** to contend
+  on — no `setup-gradle` cache step, no `actions/cache` over `~/.gradle`. The only shared caches are
+  the downloadable-font cache (small; the save key now carries the shard index, because Actions
+  caches are immutable and N shards writing one key would have the first win and the rest log a
+  conflict) and the **read-only** BuildFetch remote cache, which six concurrent readers is what it
+  is for. The real new cost is the shard bundles moving through the artifact store, which is why
+  they upload with `compression-level: 0` (a bundle is already a zip) and `retention-days: 1`.
 
 ---
 
-## 7. Do this first: `modePriority`
+## 7. `modePriority` here: the arithmetic does not hold
 
-`modePriority` in `catalog.spec.json` defers non-primary modes to the live server — not rendered,
-not baked, not counted by the completeness gate, but still addressable through the daemon.
+The earlier draft of this page said: *"This catalog renders six themes. Deferring the four contrast
+tiers cuts the baked set to roughly a third."* **That is wrong for this catalog**, and worth
+recording so nobody re-derives it.
 
-This catalog renders **six themes**. Deferring the four contrast tiers cuts the baked set to roughly
-a third: at 1500 previews that is ~58 min → ~22 min, from **a one-file change with no upstream work
-at all**. Upstream measured ~59% fewer renders doing the same thing on a nine-theme catalog.
+The six themes are [`@ThemeCatalog`](../catalog/src/main/kotlin/ee/schimke/m3catalog/CatalogThemes.kt)
+wrapper providers — Baseline Light/Dark plus four contrast tiers. They are entries in the preview
+server's **Theme** select and a handful of synthesised specimen sheets; they are *not* a per-preview
+fan-out. Nothing renders each component six times.
 
-It requires a live path, which this catalog already publishes. It beats 4× sharding, lands today,
-and the two compose — deferral shrinks the work, sharding divides what remains.
+The per-preview mode axis is
+[`@CatalogModes`](../catalog/src/main/kotlin/ee/schimke/m3catalog/CatalogTheme.kt) — **light and
+dark**, and that is what `catalog.spec.json` declares in `modes`. Every component in the sweep
+carries it (99 of them today, plus `@CatalogTemplate`'s light/dark pair). `modePriority` resolves a
+mode by reading the trailing segment of a discovered preview id against `modes`, so the only thing
+this catalog *can* defer is:
 
-**If you only do one thing on this page, do this one.**
+```jsonc
+"modePriority": { "light": "required", "dark": "deferred" }
+```
+
+which is a **~50% cut, not a two-thirds one — and the coverage it gives up is every baked dark
+sticker.** `images/`, the `figma/*.svg` vectors and the Figma import would carry light only; dark
+would exist solely through the serve host's live lane. That is a real product decision about what
+the published sheet *is*, not the free win the earlier draft described, so it is deliberately **not
+applied here**. Sharding, which gives up nothing, is.
+
+If the trade is acceptable, the one-line change above composes with sharding exactly as designed —
+deferral shrinks the work, sharding divides what remains.
 
 ---
 

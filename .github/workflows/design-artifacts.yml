@@ -86,6 +86,27 @@ jobs:
       # themes would thin the baked set substantially, and the live bundle it requires is already
       # published.
       render-timeout: 2400
+      # Split the render across six parallel jobs. The bottleneck was one serial `bundle pack`
+      # growing linearly with the sheet — `render_minutes ≈ 3.7 + 2.15s × previews`, measured over
+      # four runs on main — which at the ~1500 previews the exhaustive sweep is heading for would
+      # blow the `render-timeout` above, and at ~2400 the job timeout. No number in `render-timeout`
+      # fixes that; only dividing the marginal 2.15s does.
+      #
+      # Six, not sixteen: every shard pays the ~3.7 min of Gradle configure + compile in full, so
+      # past about six the fixed cost dominates and extra runners buy compile time rather than
+      # throughput. At 1500 previews this is ~58 min → ~19 min.
+      #
+      # Each shard renders its own partition of the discovered preview ids (sorted, round-robined)
+      # by excluding the rest, then `compose-preview bundle merge` unions the shard bundles back
+      # into the one a serial render would have produced. See
+      # compose-ai-tools/docs/design/DESIGN_CATALOGS.md, "Sharding the render across parallel jobs",
+      # and docs/PARALLEL_RENDER.md here for how the shape was chosen.
+      #
+      # REQUIRES the `render-shards` input to exist on the reusable workflow this pins to `@main`.
+      # GitHub rejects an input the called workflow does not declare, and the run fails to parse
+      # before any job starts — so this line must not land before that change is on
+      # compose-ai-tools' main.
+      render-shards: 6
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
     secrets:
       # Publishes the `figma:` entries in design-map.json as **design references** on the delivery
