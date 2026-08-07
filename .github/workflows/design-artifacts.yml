@@ -80,16 +80,36 @@ jobs:
       # never reached, while the job itself sat at ~12% of its 90 minutes.
       #
       # The exhaustive sweep is now complete at 1095 previews. Measured on four runs the render
-      # costs ~3.7 min fixed plus ~2.15s per preview (see docs/PARALLEL_RENDER.md), so today's sheet
-      # lands near 43 min — past the 2400s this used to carry, which is why it moves to 4800s. That
-      # still leaves ~10 min of the job's 90 for setup, generate and publish.
+      # costs ~3.7 min fixed plus ~2.15s per preview (see docs/PARALLEL_RENDER.md), so a SERIAL
+      # render of today's sheet lands near 43 min. Sharded six ways each shard renders ~183
+      # previews, or ~3.7 + 6.5 = ~10 min, so this is now a per-shard budget with ~4x headroom
+      # rather than the whole sheet's. It stays generous on purpose: it exists to catch a hung
+      # render, not to pace a healthy one.
+      render-timeout: 2400
+      # Split the render across six parallel jobs. The bottleneck was one serial `bundle pack`
+      # growing linearly with the sheet — `render_minutes ~= 3.7 + 2.15s x previews`, measured over
+      # four runs on main. At 1095 previews that is ~43 min; the next doubling would pass the job
+      # timeout, not just the render one, and no value of `render-timeout` fixes that. Only
+      # dividing the marginal 2.15s does: ~43 min -> ~10 min here.
       #
-      # 4800 is the last useful bump: another doubling of the sheet would exceed the job timeout,
-      # not just this one. The next levers, in order of cost, are spec-side render priority
-      # (`modePriority`, deferring the four contrast themes to the live server — a one-file change,
-      # and the live bundle it needs is already published) and then render sharding, which needs an
-      # upstream `render-shards` input. Both are written up in docs/PARALLEL_RENDER.md.
-      render-timeout: 4800
+      # Six, not sixteen: every shard pays the ~3.7 min of Gradle configure + compile in full, so
+      # past about six the fixed cost dominates and extra runners buy compile time, not throughput.
+      #
+      # Each shard renders its own partition of the discovered preview ids (sorted, round-robined)
+      # by excluding the rest, then `compose-preview bundle merge` unions the shard bundles back
+      # into the one a serial render would have produced. See compose-ai-tools
+      # docs/design/DESIGN_CATALOGS.md, "Sharding the render across parallel jobs", and
+      # docs/PARALLEL_RENDER.md here for how the shape was chosen.
+      #
+      # TWO UPSTREAM REQUIREMENTS, both satisfied only from compose-preview 0.19.44:
+      #   - the `render-shards` input must exist on the reusable workflow pinned `@main` above.
+      #     GitHub rejects an input the called workflow does not declare, and the run fails to
+      #     parse before any job starts.
+      #   - `compose-preview bundle merge` must exist in the CLI that `cli-version: catalog`
+      #     resolves from `composePreviewPlugin` below. On an older CLI the six shards each render
+      #     in full and only then does the merge step die on an unknown subcommand.
+      # That is why the `composePreviewPlugin` bump to 0.19.44 is in this same commit.
+      render-shards: 6
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
     secrets:
       # Publishes the `figma:` entries in design-map.json as **design references** on the delivery
