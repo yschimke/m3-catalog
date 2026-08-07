@@ -83,6 +83,7 @@ fun FilledCard() = Sticker {
 
 @CatalogComponent(
   id = "Card/Elevated",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58710:12665",
   caption = "Separated by shadow. Media and action layouts fold in.",
 )
 @CatalogModes
@@ -99,6 +100,7 @@ fun ElevatedCardSticker() = Sticker {
 
 @CatalogComponent(
   id = "Card/Outlined",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58710:12662",
   caption = "Separated by outline. Media and action layouts fold in.",
 )
 @CatalogModes

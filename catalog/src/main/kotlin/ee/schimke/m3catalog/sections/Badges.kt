@@ -40,6 +40,7 @@ fun NumberBadge() = Sticker {
 
 @CatalogComponent(
   id = "Badge/Dot",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51592:4769",
   caption = "Something changed, without a count — the smallest form.",
 )
 @CatalogModes

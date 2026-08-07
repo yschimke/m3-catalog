@@ -71,6 +71,7 @@ fun ContinuousSlider() = Sticker {
 
 @CatalogComponent(
   id = "Slider/Range",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58008:11811",
   caption = "Two thumbs bounding a sub-range. Discrete stops and disabled fold in.",
 )
 @CatalogModes
@@ -88,6 +89,7 @@ fun RangeSliderSticker() = Sticker {
 
 @CatalogComponent(
   id = "Slider/Vertical",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58008:10668",
   caption = "The same control rotated for vertical controls such as volume and brightness.",
 )
 @CatalogModes

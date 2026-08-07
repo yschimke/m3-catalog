@@ -48,6 +48,7 @@ fun TimePickerSticker() = Sticker {
 
 @CatalogComponent(
   id = "TimePicker/Input",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/52949:28069",
   caption = "Keyboard entry instead of the dial. 12-hour folds in.",
 )
 @CatalogModes

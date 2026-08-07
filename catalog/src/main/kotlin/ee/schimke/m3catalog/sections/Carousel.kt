@@ -66,6 +66,7 @@ fun MultiBrowseCarousel() = Sticker {
 
 @CatalogComponent(
   id = "Carousel/Uncontained",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54577:26035",
   caption = "Items keep their size and scroll past the edge.",
 )
 @CatalogModes

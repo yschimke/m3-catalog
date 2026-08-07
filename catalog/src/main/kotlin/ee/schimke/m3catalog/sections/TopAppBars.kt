@@ -86,7 +86,11 @@ fun SmallTopAppBar() = Sticker {
   )
 }
 
-@CatalogComponent(id = "TopAppBar/CenterAligned", caption = "Title centred; one action at most.")
+@CatalogComponent(
+  id = "TopAppBar/CenterAligned",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20566",
+  caption = "Title centred; one action at most.",
+)
 @CatalogModes
 @OverrideVariant(name = "no-nav", booleans = ["nav=false"])
 @OverrideVariant(name = "no-actions", strings = ["actions=0"])
@@ -101,7 +105,11 @@ fun CenterTopAppBar() = Sticker {
   )
 }
 
-@CatalogComponent(id = "TopAppBar/Medium", caption = "Two rows; title below the actions.")
+@CatalogComponent(
+  id = "TopAppBar/Medium",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20592",
+  caption = "Two rows; title below the actions.",
+)
 @CatalogModes
 @OverrideVariant(name = "two-actions", strings = ["actions=2"])
 @Composable
@@ -115,7 +123,11 @@ fun MediumTopAppBarSticker() = Sticker {
   )
 }
 
-@CatalogComponent(id = "TopAppBar/Large", caption = "The tallest form, for a prominent headline.")
+@CatalogComponent(
+  id = "TopAppBar/Large",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20600",
+  caption = "The tallest form, for a prominent headline.",
+)
 @CatalogModes
 @OverrideVariant(name = "two-actions", strings = ["actions=2"])
 @Composable

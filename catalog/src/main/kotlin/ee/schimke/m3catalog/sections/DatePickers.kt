@@ -73,6 +73,7 @@ fun DatePickerSticker() = Sticker {
 
 @CatalogComponent(
   id = "DatePicker/Range",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51954:18254",
   caption = "Start and end dates in one grid. Keyboard entry folds in.",
 )
 @CatalogModes
@@ -93,6 +94,7 @@ fun DateRangePickerSticker() = Sticker {
 
 @CatalogComponent(
   id = "DatePicker/Modal",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51954:18137",
   caption = "The picker on its own dialog surface, with confirm and dismiss actions.",
 )
 @CatalogModes

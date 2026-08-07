@@ -63,6 +63,7 @@ fun HorizontalFloatingToolbarSticker() = Sticker {
 
 @CatalogComponent(
   id = "Toolbar/VerticalFloating",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58467:8325",
   caption = "The side-anchored form. Expanded and vibrant fold in.",
 )
 @CatalogModes

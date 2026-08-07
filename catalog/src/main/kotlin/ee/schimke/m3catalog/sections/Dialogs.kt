@@ -94,7 +94,11 @@ fun BasicDialog() = Sticker {
   }
 }
 
-@CatalogComponent(id = "Dialog/List", caption = "A choice list in place of supporting text.")
+@CatalogComponent(
+  id = "Dialog/List",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/50723:10964",
+  caption = "A choice list in place of supporting text.",
+)
 @CatalogModes
 @Composable
 fun ListDialog() = Sticker {

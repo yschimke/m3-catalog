@@ -63,6 +63,7 @@ fun CircularProgress() = Sticker {
 
 @CatalogComponent(
   id = "Progress/LinearWavy",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8115",
   caption = "The expressive wavy track. Values across the range fold in.",
 )
 @CatalogModes
@@ -76,6 +77,7 @@ fun LinearWavyProgress() = Sticker {
 
 @CatalogComponent(
   id = "Progress/CircularWavy",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8498",
   caption = "The expressive wavy circular track. Values across the range fold in.",
 )
 @CatalogModes

@@ -64,6 +64,7 @@ fun PlainTooltipSticker() = Sticker {
 
 @CatalogComponent(
   id = "Tooltip/Rich",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54061:33872",
   caption =
     "Longer guidance on its own surface. The title and the single action each fold in as knobs.",
 )

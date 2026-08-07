@@ -82,6 +82,7 @@ fun SegmentedButtons() = Sticker {
 
 @CatalogComponent(
   id = "SegmentedButton/MultiChoice",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:36653",
   caption = "Any number of the options selected at once. Count and content fold in.",
 )
 @CatalogModes

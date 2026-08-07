@@ -90,6 +90,7 @@ fun NavigationRailSticker() = Sticker {
 
 @CatalogComponent(
   id = "NavigationRail/Wide",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:36671",
   caption = "The expanded form, labels beside the icons. Count folds in.",
 )
 @CatalogModes

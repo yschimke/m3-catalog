@@ -27,6 +27,7 @@ fun LoadingIndicatorSticker() = Sticker { LoadingIndicator() }
 
 @CatalogComponent(
   id = "LoadingIndicator/Contained",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8559",
   caption = "The same indicator inside its container surface.",
 )
 @CatalogModes

@@ -162,6 +162,7 @@ fun TonalToggleButtonSticker() = Sticker {
 // Button/Outlined has the same gap for the same reason.
 @CatalogComponent(
   id = "ToggleButton/Outlined",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2405",
   caption = "Medium emphasis on a busy surface. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
