@@ -10,7 +10,12 @@
 > and `git ls-remote --heads origin` first — recent commits name their group, and an in-flight
 > branch is a claim.
 
-The catalog's remaining work is one job repeated 38 times: take a component group, enumerate the
+**The first sweep is complete.** Every group in the table below has been fanned out over the axes
+the kit documents for it — 1095 previews across 40 files. What is left is not fan-out but
+*verification*: design-parity findings, the seven components with no confirmed Figma reference, and
+whatever the next kit release adds. The claim protocol still applies to that work.
+
+The job this document describes is one repeated per group: take a component group, enumerate the
 axes the **Figma kit** documents for it, and fan the sticker out over that matrix.
 
 That job partitions cleanly, because **one group is one file** and no two groups share one. Several
@@ -48,36 +53,36 @@ push-back; `design-led` already gates it off, and the config and the convention 
 | Actions | Toggle buttons | `ToggleButtons.kt` | 5 sizes × 2 shapes × 2 selected × 4 emphases, + leading icon | ✅ done (80 cells) |
 | Actions | FAB | `Fab.kt` | 4 sizes × standard/extended; no shape axis | ✅ done (6 variants) |
 | Actions | Split button | `SplitButton.kt` | 5 sizes; no shape axis | ✅ done (4 cells) |
-| Actions | Segmented buttons | `SegmentedButtons.kt` | sizes, single/multi-select, icon/label | ☐ |
-| Actions | Toolbars | `Toolbars.kt` | horizontal/vertical, expanded/collapsed | ☐ |
-| Communication | Badges | `Badges.kt` | dot / number, 1–3 digits | ☐ |
-| Communication | Progress indicators | `ProgressIndicators.kt` | linear/circular × determinate/indeterminate × wavy | ☐ |
-| Communication | Loading indicator | `LoadingIndicator.kt` | contained / uncontained | ☐ |
-| Communication | Snackbar | `Snackbar.kt` | one/two line, action, close affordance | ☐ |
-| Communication | Tooltips | `Tooltips.kt` | plain / rich, with and without action | ☐ |
-| Containment | Cards | `Cards.kt` | 3 emphases × content layouts | ☐ |
-| Containment | Bottom sheets | `BottomSheets.kt` | modal/standard, drag handle | ☐ |
-| Containment | Side sheets | `SideSheets.kt` | modal/standard, header/footer | ☐ |
-| Containment | Dialogs | `Dialogs.kt` | basic / list / full-screen, icon | ☐ |
-| Containment | Carousel | `Carousel.kt` | multi-browse / hero / full-screen / uncontained | ☐ |
-| Containment | Lists | `Lists.kt` | 1/2/3 line × leading × trailing | ☐ |
-| Containment | Divider | `Dividers.kt` | horizontal/vertical × inset × subhead | ☐ |
-| Navigation | Top app bar | `TopAppBars.kt` | small/medium/large/center × scrolled | ☐ |
-| Navigation | Bottom app bar | `BottomAppBars.kt` | with/without FAB, action counts | ☐ |
-| Navigation | Navigation bar | `NavigationBars.kt` | 3–5 destinations, labels always/selected/never | ☐ |
-| Navigation | Navigation rail | `NavigationRails.kt` | collapsed/expanded, alignment, menu/FAB | ☐ |
-| Navigation | Navigation drawer | `NavigationDrawers.kt` | modal/standard/dismissible, headline, dividers | ☐ |
-| Navigation | Search | `Search.kt` | bar/view, docked/full-screen, leading/trailing | ☐ |
-| Navigation | Tabs | `Tabs.kt` | primary/secondary × fixed/scrollable × icon/label/both | ☐ |
-| Selection | Checkbox | `Checkboxes.kt` | checked/unchecked/indeterminate × enabled/disabled × error | ☐ |
-| Selection | Radio button | `RadioButtons.kt` | selected/unselected × enabled/disabled | ☐ |
-| Selection | Switch | `Switches.kt` | on/off × icon × enabled/disabled | ☐ |
-| Selection | Chips | `Chips.kt` | 4 kinds × elevated/outlined × icon × selected | ☐ |
-| Selection | Sliders | `Sliders.kt` | continuous/discrete/range/centered × sizes | ☐ |
-| Selection | Menus | `Menus.kt` | with/without icons, dividers, nested | ☐ |
-| Selection | Date pickers | `DatePickers.kt` | docked/modal/input × single/range | ☐ |
-| Selection | Time pickers | `TimePickers.kt` | dial/input × 12h/24h | ☐ |
-| Text inputs | Text fields | `TextFields.kt` | filled/outlined × label × icons × state × sizes | ☐ |
+| Actions | Segmented buttons | `SegmentedButtons.kt` | sizes, single/multi-select, icon/label | ✅ done (26 previews) |
+| Actions | Toolbars | `Toolbars.kt` | horizontal/vertical, expanded/collapsed | ✅ done (18 previews) |
+| Communication | Badges | `Badges.kt` | dot / number, 1–3 digits | ✅ done (10 previews) |
+| Communication | Progress indicators | `ProgressIndicators.kt` | linear/circular × determinate/indeterminate × wavy | ✅ done (28 previews) |
+| Communication | Loading indicator | `LoadingIndicator.kt` | contained / uncontained | ✅ done (4 previews) |
+| Communication | Snackbar | `Snackbar.kt` | one/two line, action, close affordance | ✅ done (12 previews) |
+| Communication | Tooltips | `Tooltips.kt` | plain / rich, with and without action | ✅ done (12 previews) |
+| Containment | Cards | `Cards.kt` | 3 emphases × content layouts | ✅ done (24 previews) |
+| Containment | Bottom sheets | `BottomSheets.kt` | modal/standard, drag handle | ✅ done (8 previews) |
+| Containment | Side sheets | `SideSheets.kt` | modal/standard, header/footer | ✅ done (8 previews) |
+| Containment | Dialogs | `Dialogs.kt` | basic / list / full-screen, icon | ✅ done (6 previews) |
+| Containment | Carousel | `Carousel.kt` | multi-browse / hero / full-screen / uncontained | ✅ done (8 previews) |
+| Containment | Lists | `Lists.kt` | 1/2/3 line × leading × trailing | ✅ done (20 previews) |
+| Containment | Divider | `Dividers.kt` | horizontal/vertical × inset × subhead | ✅ done (10 previews) |
+| Navigation | Top app bar | `TopAppBars.kt` | small/medium/large/center × scrolled | ✅ done (26 previews) |
+| Navigation | Bottom app bar | `BottomAppBars.kt` | with/without FAB, action counts | ✅ done (10 previews) |
+| Navigation | Navigation bar | `NavigationBars.kt` | 3–5 destinations, labels always/selected/never | ✅ done (22 previews) |
+| Navigation | Navigation rail | `NavigationRails.kt` | collapsed/expanded, alignment, menu/FAB | ✅ done (16 previews) |
+| Navigation | Navigation drawer | `NavigationDrawers.kt` | modal/standard/dismissible, headline, dividers | ✅ done (20 previews) |
+| Navigation | Search | `Search.kt` | bar/view, docked/full-screen, leading/trailing | ✅ done (28 previews) |
+| Navigation | Tabs | `Tabs.kt` | primary/secondary × fixed/scrollable × icon/label/both | ✅ done (20 previews) |
+| Selection | Checkbox | `Checkboxes.kt` | checked/unchecked/indeterminate × enabled/disabled × error | ✅ done (18 previews) |
+| Selection | Radio button | `RadioButtons.kt` | selected/unselected × enabled/disabled | ✅ done (12 previews) |
+| Selection | Switch | `Switches.kt` | on/off × icon × enabled/disabled | ✅ done (16 previews) |
+| Selection | Chips | `Chips.kt` | 4 kinds × elevated/outlined × icon × selected | ✅ done (44 previews) |
+| Selection | Sliders | `Sliders.kt` | continuous/discrete/range/centered × sizes | ✅ done (24 previews) |
+| Selection | Menus | `Menus.kt` | with/without icons, dividers, nested | ✅ done (18 previews) |
+| Selection | Date pickers | `DatePickers.kt` | docked/modal/input × single/range | ✅ done (16 previews) |
+| Selection | Time pickers | `TimePickers.kt` | dial/input × 12h/24h | ✅ done (12 previews) |
+| Text inputs | Text fields | `TextFields.kt` | filled/outlined × label × icons × state × sizes | ✅ done (38 previews) |
 | Styles | Color | `ColorRoles.kt` | — no kit variant matrix | ✅ n/a |
 | Styles | Typography | `TypeScale.kt` | — no kit variant matrix | ✅ n/a |
 | Styles | Shape | `ShapeScale.kt` | — no kit variant matrix | ✅ n/a |

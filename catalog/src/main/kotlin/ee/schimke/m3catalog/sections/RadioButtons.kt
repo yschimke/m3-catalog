@@ -3,35 +3,61 @@
 
 package ee.schimke.m3catalog.sections
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonColors
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.dp
+import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
-import ee.schimke.composeai.preview.CatalogVariant
+import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
-import ee.schimke.m3catalog.selectable
+import ee.schimke.m3catalog.toggleable
+
+// Selection × status, the same two axes the kit gives the checkbox. A lone radio button cannot be
+// deselected by clicking it, so the live lane toggles it rather than pretending a single-button
+// group behaves like a real one — the sticker is the control, not the group.
+//
+// As with the checkbox, Compose has no `error` flag; the kit's error radio is the error role
+// driving
+// both the selected and unselected outline.
+
+@Composable private fun radioSelection(): String = previewOverrideString("state", "selected")
+
+@Composable private fun radioStatus(): String = previewOverrideString("status", "enabled")
+
+@Composable
+private fun radioColors(): RadioButtonColors =
+  if (radioStatus() == "error") {
+    val scheme = MaterialTheme.colorScheme
+    RadioButtonDefaults.colors(selectedColor = scheme.error, unselectedColor = scheme.error)
+  } else {
+    RadioButtonDefaults.colors()
+  }
 
 @CatalogComponent(
   id = "RadioButton/Selected",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/51739:4608",
-  caption = "Select exactly one option from a set.",
+  caption = "Select exactly one option from a set. Unselected, disabled and error fold in.",
 )
 @CatalogModes
+@OverrideVariant(name = "unselected", strings = ["state=unselected"])
+@OverrideVariant(name = "disabled", strings = ["status=disabled"])
+@OverrideVariant(name = "disabled-unselected", strings = ["state=unselected", "status=disabled"])
+@OverrideVariant(name = "error", strings = ["status=error"])
+@OverrideVariant(name = "error-unselected", strings = ["state=unselected", "status=error"])
 @Composable
 fun RadioSelected() = Sticker {
-  val (selected, select) = selectable(0)
-  Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-    repeat(2) { index -> RadioButton(selected = index == selected, onClick = { select(index) }) }
-  }
+  val enabled = radioStatus() != "disabled"
+  val (selected, set) = toggleable(radioSelection() == "selected")
+  RadioButton(
+    selected = selected,
+    onClick = if (enabled) ({ set(!selected) }) else null,
+    enabled = enabled,
+    colors = radioColors(),
+  )
 }
-
-@CatalogVariant(of = "RadioButton/Selected", state = "disabled")
-@CatalogModes
-@Composable
-fun RadioDisabled() = Sticker { RadioButton(selected = true, onClick = null, enabled = false) }

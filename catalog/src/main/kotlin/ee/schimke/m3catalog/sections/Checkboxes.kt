@@ -4,47 +4,87 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxColors
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.state.ToggleableState
+import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
-import ee.schimke.composeai.preview.CatalogVariant
+import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.toggleable
 
-// A checkbox carries state, so it owns it: the primary sticker is checked, and the unchecked and
-// disabled states fold under it as variants.
+// The kit's checkbox matrix is selection × status: three selection values (checked, unchecked,
+// indeterminate) against three statuses (enabled, disabled, error). Both are states of one kit
+// component, so both fold onto one sticker as knobs — even though indeterminate reaches for
+// `TriStateCheckbox` internally, which is a Compose implementation detail rather than a second
+// component.
+//
+// Compose has no `error` flag on `Checkbox`; the kit's error checkbox is expressed by driving the
+// container and outline from the error role, which is what `errorCheckboxColors` does.
 
-@CatalogComponent(id = "Checkbox/Checked", caption = "Select one or more items from a set.")
+@Composable private fun checkboxSelection(): String = previewOverrideString("state", "checked")
+
+@Composable private fun checkboxStatus(): String = previewOverrideString("status", "enabled")
+
+@Composable
+private fun checkboxColors(): CheckboxColors =
+  if (checkboxStatus() == "error") {
+    val scheme = MaterialTheme.colorScheme
+    CheckboxDefaults.colors(
+      checkedColor = scheme.error,
+      checkmarkColor = scheme.onError,
+      uncheckedColor = scheme.error,
+    )
+  } else {
+    CheckboxDefaults.colors()
+  }
+
+@CatalogComponent(
+  id = "Checkbox/Checked",
+  caption =
+    "Select one or more items from a set. Unchecked, indeterminate, disabled and error fold in.",
+)
 @CatalogModes
+@OverrideVariant(name = "unchecked", strings = ["state=unchecked"])
+@OverrideVariant(name = "indeterminate", strings = ["state=indeterminate"])
+@OverrideVariant(name = "disabled", strings = ["status=disabled"])
+@OverrideVariant(name = "disabled-unchecked", strings = ["state=unchecked", "status=disabled"])
+@OverrideVariant(
+  name = "disabled-indeterminate",
+  strings = ["state=indeterminate", "status=disabled"],
+)
+@OverrideVariant(name = "error", strings = ["status=error"])
+@OverrideVariant(name = "error-unchecked", strings = ["state=unchecked", "status=error"])
+@OverrideVariant(name = "error-indeterminate", strings = ["state=indeterminate", "status=error"])
 @Composable
 fun CheckboxChecked() = Sticker {
-  val (checked, set) = toggleable(true)
-  Checkbox(checked = checked, onCheckedChange = set)
-}
-
-@CatalogVariant(of = "Checkbox/Checked", state = "unchecked")
-@CatalogModes
-@Composable
-fun CheckboxUnchecked() = Sticker {
-  val (checked, set) = toggleable(false)
-  Checkbox(checked = checked, onCheckedChange = set)
-}
-
-@CatalogVariant(of = "Checkbox/Checked", state = "indeterminate", caption = "A partial selection.")
-@CatalogModes
-@Composable
-fun CheckboxIndeterminate() = Sticker {
-  TriStateCheckbox(state = ToggleableState.Indeterminate, onClick = {})
-}
-
-@CatalogVariant(of = "Checkbox/Checked", state = "disabled")
-@CatalogModes
-@Composable
-fun CheckboxDisabled() = Sticker {
-  Checkbox(checked = true, onCheckedChange = null, enabled = false)
+  val enabled = checkboxStatus() != "disabled"
+  val colors = checkboxColors()
+  when (checkboxSelection()) {
+    "indeterminate" ->
+      TriStateCheckbox(
+        state = ToggleableState.Indeterminate,
+        // Cycling the tri-state on the live lane would leave the sticker on whatever the last
+        // visitor clicked; the indeterminate frame is the one the kit specifies, so it stays put.
+        onClick = null,
+        enabled = enabled,
+        colors = colors,
+      )
+    else -> {
+      val (checked, set) = toggleable(checkboxSelection() == "checked")
+      Checkbox(
+        checked = checked,
+        onCheckedChange = if (enabled) set else null,
+        enabled = enabled,
+        colors = colors,
+      )
+    }
+  }
 }
