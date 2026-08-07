@@ -139,6 +139,7 @@ fun ToggleButtonSticker() = Sticker {
 
 @CatalogComponent(
   id = "ToggleButton/Tonal",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58653:17539",
   caption =
     "Secondary emphasis, still filled. Five sizes x two shapes x selected/unselected fold in as " +
       "variants.",
@@ -210,6 +211,11 @@ fun TonalToggleButtonSticker() = Sticker {
   }
 }
 
+// Deliberately unreferenced. The kit ships "Toggle button - outline" as its own set, but that node
+// is not reachable in this file: the resolver's best offer is "Toggle button" — the FILLED set's
+// node, the one `ToggleButton/Filled` already points at. Pointing both at it would report every
+// finding against the wrong component, which is worse than a visible gap. `Button/Outlined` has the
+// same gap for the same reason.
 @CatalogComponent(
   id = "ToggleButton/Outlined",
   caption =
@@ -285,6 +291,7 @@ fun OutlinedToggleButtonSticker() = Sticker {
 
 @CatalogComponent(
   id = "ToggleButton/Elevated",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58653:13968",
   caption =
     "Outlined alternative needing separation. Five sizes x two shapes x selected/unselected " +
       "fold in as variants.",
