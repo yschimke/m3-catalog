@@ -48,14 +48,38 @@ if (!token) {
   process.exit(1);
 }
 
-async function figma(path) {
-  const res = await fetch(`https://api.figma.com/v1${path}`, {
-    headers: { "X-Figma-Token": token },
-  });
-  if (!res.ok) {
-    throw new Error(`GET ${path} -> ${res.status} ${res.statusText}: ${await res.text()}`);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * One REST call, with backoff.
+ *
+ * Figma rate-limits per token, and the tree walk below is exactly the shape that trips it: one
+ * request per page of a large kit, back to back. A 429 is transient and expected here, not an
+ * error — retry it (honouring `Retry-After` when the server sends one) rather than throwing away
+ * a walk that is most of the way done. 5xx gets the same treatment; a 4xx that isn't 429 is a real
+ * problem (bad token, bad file key) and fails immediately, because retrying it just wastes time.
+ */
+async function figma(path, { attempts = 5 } = {}) {
+  for (let attempt = 1; ; attempt++) {
+    const res = await fetch(`https://api.figma.com/v1${path}`, {
+      headers: { "X-Figma-Token": token },
+    });
+    if (res.ok) return res.json();
+
+    const retryable = res.status === 429 || res.status >= 500;
+    if (!retryable || attempt >= attempts) {
+      throw new Error(`GET ${path} -> ${res.status} ${res.statusText}: ${await res.text()}`);
+    }
+    const retryAfter = Number(res.headers.get("retry-after"));
+    const waitMs = Number.isFinite(retryAfter) && retryAfter > 0
+      ? retryAfter * 1000
+      : Math.min(60_000, 2 ** attempt * 1000);
+    console.log(
+      `  ${res.status} on ${path.slice(0, 60)}… — retrying in ${Math.round(waitMs / 1000)}s ` +
+        `(attempt ${attempt}/${attempts - 1})`,
+    );
+    await sleep(waitMs);
   }
-  return res.json();
 }
 
 // --- The kit side -----------------------------------------------------------------------------
@@ -78,12 +102,26 @@ async function kitComponentsViaTree() {
   const file = await figma(`/files/${fileKey}?depth=1`);
   const pages = file.document.children ?? [];
   const found = [];
-  for (const page of pages) {
+  const failed = [];
+  console.log(`Walking ${pages.length} page(s).`);
+  for (const [i, page] of pages.entries()) {
+    // Pace the walk. The kit's pages are large and the limiter is per token, so hammering it just
+    // converts into backoff waits above; a small gap between pages avoids most of them outright.
+    if (i > 0) await sleep(1_500);
+
     // depth=3 reaches the component sets sitting inside a page's sections/frames, which is where
     // the kit puts them, without descending into every variant's inner layers.
-    const nodes = await figma(
-      `/files/${fileKey}/nodes?ids=${encodeURIComponent(page.id)}&depth=3`,
-    );
+    let nodes;
+    try {
+      nodes = await figma(`/files/${fileKey}/nodes?ids=${encodeURIComponent(page.id)}&depth=3`);
+    } catch (e) {
+      // One unreachable page shouldn't discard the pages that did resolve — a partial proposal
+      // list is useful, and the summary at the end names what is missing from it.
+      console.log(`  page "${page.name}" failed: ${e.message.slice(0, 120)}`);
+      failed.push(page.name);
+      continue;
+    }
+    console.log(`  [${i + 1}/${pages.length}] ${page.name}`);
     const root = nodes.nodes?.[page.id]?.document;
     if (!root) continue;
     const walk = (node, trail) => {
@@ -94,6 +132,10 @@ async function kitComponentsViaTree() {
       for (const child of node.children ?? []) walk(child, [...trail, node.name]);
     };
     walk(root, []);
+  }
+  if (failed.length) {
+    console.log(`\nWARNING: ${failed.length} page(s) did not resolve: ${failed.join(", ")}`);
+    console.log("Components living only on those pages will show as LOW / no candidate.");
   }
   return found;
 }
