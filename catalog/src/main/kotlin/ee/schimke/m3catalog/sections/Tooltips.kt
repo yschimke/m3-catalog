@@ -36,7 +36,7 @@ import ee.schimke.m3catalog.counted
 
 @CatalogComponent(
   id = "Tooltip/Plain",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/54061:33881",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54061:33882",
   caption = "Short label for an unlabelled element. The caret pointing at the anchor folds in.",
 )
 @CatalogModes
@@ -64,6 +64,7 @@ fun PlainTooltipSticker() = Sticker {
 
 @CatalogComponent(
   id = "Tooltip/Rich",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54061:33872",
   caption =
     "Longer guidance on its own surface. The title and the single action each fold in as knobs.",
 )

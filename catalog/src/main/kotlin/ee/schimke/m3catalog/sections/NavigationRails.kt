@@ -62,7 +62,7 @@ private fun railHeader(): (@Composable androidx.compose.foundation.layout.Column
 
 @CatalogComponent(
   id = "NavigationRail/Standard",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:36879",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:36880",
   caption = "Destinations along the side. Count, menu, FAB and labels fold in.",
 )
 @CatalogModes
@@ -90,6 +90,7 @@ fun NavigationRailSticker() = Sticker {
 
 @CatalogComponent(
   id = "NavigationRail/Wide",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:36671",
   caption = "The expanded form, labels beside the icons. Count folds in.",
 )
 @CatalogModes

@@ -36,7 +36,7 @@ import ee.schimke.m3catalog.counted
 
 @CatalogComponent(
   id = "Fab/Standard",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/57998:43426",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57998:43658",
   caption = "The screen's single primary action.",
 )
 @CatalogModes
@@ -80,7 +80,7 @@ fun FabLarge() = Sticker {
 
 @CatalogComponent(
   id = "Fab/Extended",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/57998:43095",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57998:43398",
   caption = "FAB with a label; the action is named.",
 )
 @CatalogModes

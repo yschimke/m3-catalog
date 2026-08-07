@@ -41,7 +41,7 @@ private fun ToolbarActions() {
 
 @CatalogComponent(
   id = "Toolbar/HorizontalFloating",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58467:8206",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58467:8210",
   caption = "A floating cluster of related actions over the content. Expanded and vibrant fold in.",
 )
 @CatalogModes
@@ -63,6 +63,7 @@ fun HorizontalFloatingToolbarSticker() = Sticker {
 
 @CatalogComponent(
   id = "Toolbar/VerticalFloating",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58467:8325",
   caption = "The side-anchored form. Expanded and vibrant fold in.",
 )
 @CatalogModes

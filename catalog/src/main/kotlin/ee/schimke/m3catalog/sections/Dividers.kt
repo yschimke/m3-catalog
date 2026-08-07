@@ -29,6 +29,7 @@ import ee.schimke.m3catalog.Sticker
 
 @CatalogComponent(
   id = "Divider/Horizontal",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51816:5860",
   caption = "Separates content in a vertical list. Inset and subhead fold in.",
 )
 @CatalogModes
@@ -53,7 +54,11 @@ fun HorizontalDividerSticker() = Sticker {
   }
 }
 
-@CatalogComponent(id = "Divider/Vertical", caption = "Separates content in a horizontal row.")
+@CatalogComponent(
+  id = "Divider/Vertical",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51816:5862",
+  caption = "Separates content in a horizontal row.",
+)
 @CatalogModes
 @Composable
 fun VerticalDividerSticker() = Sticker {

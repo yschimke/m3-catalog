@@ -18,7 +18,7 @@ import ee.schimke.m3catalog.Sticker
 
 @CatalogComponent(
   id = "LoadingIndicator/Uncontained",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8555",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8556",
   caption = "The shape-morph indicator on its own.",
 )
 @CatalogModes
@@ -27,6 +27,7 @@ fun LoadingIndicatorSticker() = Sticker { LoadingIndicator() }
 
 @CatalogComponent(
   id = "LoadingIndicator/Contained",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8559",
   caption = "The same indicator inside its container surface.",
 )
 @CatalogModes

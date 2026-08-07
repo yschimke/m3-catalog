@@ -45,7 +45,7 @@ import ee.schimke.m3catalog.toggleable
 
 @CatalogComponent(
   id = "ToggleButton/Filled",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2328",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2475",
   caption = "A button whose selection persists. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
@@ -101,7 +101,7 @@ fun ToggleButtonSticker() = Sticker {
 
 @CatalogComponent(
   id = "ToggleButton/Tonal",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58653:17539",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2435",
   caption = "Secondary emphasis toggle. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
@@ -162,6 +162,7 @@ fun TonalToggleButtonSticker() = Sticker {
 // Button/Outlined has the same gap for the same reason.
 @CatalogComponent(
   id = "ToggleButton/Outlined",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2405",
   caption = "Medium emphasis on a busy surface. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
@@ -217,7 +218,7 @@ fun OutlinedToggleButtonSticker() = Sticker {
 
 @CatalogComponent(
   id = "ToggleButton/Elevated",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58653:13968",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2365",
   caption = "Separated by shadow. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes

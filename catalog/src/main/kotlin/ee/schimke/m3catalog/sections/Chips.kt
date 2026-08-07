@@ -80,7 +80,7 @@ private fun chipIcon(): (@Composable () -> Unit)? =
 
 @CatalogComponent(
   id = "Chip/Assist",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:28089",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:28267",
   caption = "A smart action related to the content. Elevated, leading icon and disabled fold in.",
 )
 @CatalogModes
@@ -112,7 +112,7 @@ fun AssistChipSticker() = Sticker {
 
 @CatalogComponent(
   id = "Chip/Filter",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:28270",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:28465",
   caption =
     "Filters content; carries a selected state. Unselected, elevated and disabled fold in. The " +
       "check mark is the selected state's leading icon, so it follows selection rather than a knob.",
@@ -159,7 +159,7 @@ fun FilterChipSticker() = Sticker {
 
 @CatalogComponent(
   id = "Chip/Input",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:27888",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:28082",
   caption =
     "A discrete piece of user input, removable. Leading icon, avatar, selected and disabled fold in.",
 )
@@ -191,7 +191,7 @@ fun InputChipSticker() = Sticker {
 
 @CatalogComponent(
   id = "Chip/Suggestion",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:28679",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:28845",
   caption = "A dynamically generated suggestion. Elevated and disabled fold in.",
 )
 @CatalogModes

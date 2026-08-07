@@ -24,7 +24,7 @@ import ee.schimke.m3catalog.Sticker
 
 @CatalogComponent(
   id = "Badge/Number",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/51592:4768",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51592:4770",
   caption = "Unread count over its anchor icon. One to three digits and overflow fold in.",
 )
 @CatalogModes
@@ -40,6 +40,7 @@ fun NumberBadge() = Sticker {
 
 @CatalogComponent(
   id = "Badge/Dot",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51592:4769",
   caption = "Something changed, without a count — the smallest form.",
 )
 @CatalogModes

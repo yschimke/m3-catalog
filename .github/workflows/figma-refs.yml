@@ -37,6 +37,26 @@ jobs:
         with:
           node-version: 24.18.1
 
+      # Investigation aid for #3 / #2: the kit's full inventory per page, deeper than the resolver
+      # walks, plus the type/visibility/radius of every ref already in use. Needs no Gradle.
+      - name: Dump inventory
+        env:
+          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
+          FIGMA_FILE: ${{ inputs.file }}
+        run: |
+          set -euo pipefail
+          node scripts/dump-figma-inventory.mjs --file "$FIGMA_FILE" --depth 8 \
+            --out figma-inventory.json | tee figma-inventory.txt
+
+      - uses: actions/upload-artifact@v7.0.1
+        if: always()
+        with:
+          name: figma-inventory
+          path: |
+            figma-inventory.json
+            figma-inventory.txt
+          if-no-files-found: warn
+
       # The resolver reads the discovered manifest, so the annotations are the list of things to
       # resolve — same single source of truth the catalog itself is built from.
       - name: Discover previews

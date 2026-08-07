@@ -51,7 +51,7 @@ private fun tabIcon(icon: ImageVector): (@Composable () -> Unit)? =
 
 @CatalogComponent(
   id = "Tabs/Primary",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40023",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40116",
   caption = "Top-level content categories under an app bar. Icon and icon+label fold in.",
 )
 @CatalogModes
@@ -74,6 +74,7 @@ fun PrimaryTabs() = Sticker {
 
 @CatalogComponent(
   id = "Tabs/Secondary",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40047",
   caption = "Nested categories within a primary tab. Icon and icon+label fold in.",
 )
 @CatalogModes
@@ -96,6 +97,7 @@ fun SecondaryTabs() = Sticker {
 
 @CatalogComponent(
   id = "Tabs/PrimaryScrollable",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40124",
   caption = "More categories than fit; the row scrolls.",
 )
 @CatalogModes
@@ -117,6 +119,7 @@ fun PrimaryScrollableTabs() = Sticker {
 
 @CatalogComponent(
   id = "Tabs/SecondaryScrollable",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40055",
   caption = "The scrolling form of the nested row.",
 )
 @CatalogModes

@@ -36,7 +36,7 @@ import ee.schimke.m3catalog.toggleable
 
 @CatalogComponent(
   id = "SplitButton/Filled",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:15751",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:16184",
   caption = "Primary action plus a related-choices affordance. Five sizes fold in as variants.",
 )
 @CatalogModes

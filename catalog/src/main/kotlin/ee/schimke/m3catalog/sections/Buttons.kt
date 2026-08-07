@@ -57,7 +57,7 @@ private fun SizedLabel(label: String) {
 
 @CatalogComponent(
   id = "Button/Filled",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2227",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2324",
   caption = "Highest emphasis; the primary action. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
@@ -86,7 +86,7 @@ fun FilledButton() = Sticker {
 
 @CatalogComponent(
   id = "Button/Tonal",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58651:11237",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2304",
   caption = "Secondary, still prominent. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
@@ -115,6 +115,7 @@ fun TonalButton() = Sticker {
 
 @CatalogComponent(
   id = "Button/Outlined",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2284",
   caption = "Medium emphasis on a busy surface. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
@@ -143,7 +144,7 @@ fun OutlinedButtonSticker() = Sticker {
 
 @CatalogComponent(
   id = "Button/Elevated",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58650:9294",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2244",
   caption = "Outlined alternative needing separation. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
@@ -172,7 +173,7 @@ fun ElevatedButtonSticker() = Sticker {
 
 @CatalogComponent(
   id = "Button/Text",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58650:8094",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2264",
   caption = "Lowest emphasis; inline actions. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes

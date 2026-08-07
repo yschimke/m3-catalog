@@ -36,7 +36,7 @@ import ee.schimke.m3catalog.toggleable
 
 @CatalogComponent(
   id = "IconButton/Standard",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58663:30358",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:10132",
   caption =
     "Lowest emphasis; inline on a surface. Five sizes x three widths x two shapes fold in as variants.",
 )
@@ -89,6 +89,7 @@ fun StandardIconButton() = Sticker {
 
 @CatalogComponent(
   id = "IconButton/Filled",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:10312",
   caption =
     "Highest emphasis icon-only action. Five sizes x three widths x two shapes fold in as variants.",
 )
@@ -141,6 +142,7 @@ fun FilledIconButtonSticker() = Sticker {
 
 @CatalogComponent(
   id = "IconButton/Tonal",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:10252",
   caption = "Secondary emphasis. Five sizes x three widths x two shapes fold in as variants.",
 )
 @CatalogModes
@@ -192,6 +194,7 @@ fun TonalIconButton() = Sticker {
 
 @CatalogComponent(
   id = "IconButton/Outlined",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:10192",
   caption =
     "Medium emphasis on a busy surface. Five sizes x three widths x two shapes fold in as variants.",
 )

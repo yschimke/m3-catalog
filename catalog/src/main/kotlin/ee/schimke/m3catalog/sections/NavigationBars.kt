@@ -84,6 +84,7 @@ fun NavigationBarSticker() = Sticker {
 
 @CatalogComponent(
   id = "NavigationBar/Short",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:37260",
   caption = "The expressive compact bar. Count and labels fold in.",
 )
 @CatalogModes

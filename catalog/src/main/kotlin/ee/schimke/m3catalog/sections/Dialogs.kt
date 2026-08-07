@@ -62,7 +62,7 @@ private fun DialogActions(confirm: String, dismiss: String) {
 
 @CatalogComponent(
   id = "Dialog/Basic",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/50723:10929",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/50723:10948",
   caption = "Headline, supporting text and two actions. The hero icon folds in.",
 )
 @CatalogModes
@@ -94,7 +94,11 @@ fun BasicDialog() = Sticker {
   }
 }
 
-@CatalogComponent(id = "Dialog/List", caption = "A choice list in place of supporting text.")
+@CatalogComponent(
+  id = "Dialog/List",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/50723:10964",
+  caption = "A choice list in place of supporting text.",
+)
 @CatalogModes
 @Composable
 fun ListDialog() = Sticker {

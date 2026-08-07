@@ -48,6 +48,7 @@ private fun checkboxColors(): CheckboxColors =
 
 @CatalogComponent(
   id = "Checkbox/Checked",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51859:5629",
   caption =
     "Select one or more items from a set. Unchecked, indeterminate, disabled and error fold in.",
 )

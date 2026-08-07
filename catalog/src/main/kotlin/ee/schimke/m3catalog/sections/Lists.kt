@@ -59,7 +59,7 @@ private fun trailing(): (@Composable () -> Unit)? {
 
 @CatalogComponent(
   id = "List/Item",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/59106:13028",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/59106:13049",
   caption = "A list row. Line count, leading and trailing slots all fold in.",
 )
 @CatalogModes

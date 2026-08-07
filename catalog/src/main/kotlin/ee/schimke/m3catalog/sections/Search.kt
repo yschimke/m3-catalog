@@ -88,7 +88,7 @@ private fun searchTrailing(): (@Composable () -> Unit)? =
 
 @CatalogComponent(
   id = "Search/Bar",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/52977:33813",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/52977:33948",
   caption = "The collapsed entry point, floating over content. Query and avatar states fold in.",
 )
 @CatalogModes
@@ -116,6 +116,7 @@ fun SearchBarSticker() = Sticker {
 
 @CatalogComponent(
   id = "Search/Docked",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/52977:33948",
   caption =
     "The collapsed bar anchored in the layout rather than floating; expands into a dropdown.",
 )
@@ -173,6 +174,7 @@ fun TopSearchBarSticker() = Sticker {
 
 @CatalogComponent(
   id = "Search/AppBar",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20571",
   caption = "A top app bar that carries a search field between its navigation icon and its actions.",
 )
 @CatalogModes
@@ -210,6 +212,7 @@ fun AppBarWithSearchSticker() = Sticker {
 
 @CatalogComponent(
   id = "Search/ExpandedDocked",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/59178:4993",
   caption = "The docked search view: field plus suggestion list, in the dropdown's own shape.",
 )
 @CatalogModes
@@ -247,6 +250,7 @@ fun ExpandedDockedSearchBarSticker() = Sticker {
 
 @CatalogComponent(
   id = "Search/ExpandedFullScreen",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/59178:4964",
   caption = "The full-screen search view, where results take the whole surface.",
 )
 @CatalogModes

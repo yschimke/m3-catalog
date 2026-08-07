@@ -55,7 +55,7 @@ private val MENU_ROWS =
 
 @CatalogComponent(
   id = "Menu/Dropdown",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58966:3975",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58966:4078",
   caption =
     "A list of choices on a temporary surface. Leading icons, trailing shortcuts, dividers and a " +
       "disabled item fold in.",
