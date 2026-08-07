@@ -1,0 +1,62 @@
+name: Resolve Figma refs
+
+# Print the proposed `figma:<fileKey>/<nodeId>` ref for each catalogued component, so the handles
+# can be pasted onto `@CatalogComponent(reference = …)` and design-parity has something to compare.
+#
+# This is a manual, read-only job rather than part of the pipeline, and deliberately so: the
+# resolver *proposes* matches by name similarity against the kit's own taxonomy ("Button - tonal",
+# "Connected button group"), which doesn't always agree with M3's documented component names. A
+# proposal wants a human to confirm it before it becomes the reference a parity report is judged
+# against. Nothing here writes to the repo.
+#
+# FIGMA_TOKEN is a read-only PAT with `file_content:read` — the scope that covers
+# /v1/files/:key/components, /v1/files/:key/nodes and /v1/images.
+
+on:
+  workflow_dispatch:
+    inputs:
+      file:
+        description: 'Figma file key to resolve against (defaults to the Material 3 Design Kit).'
+        type: string
+        default: ocdacdEsnHipMJD3egzxKb
+
+permissions:
+  contents: read
+
+jobs:
+  resolve:
+    name: Propose refs
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: ./.github/actions/setup
+        with:
+          cache-read-only: 'true'
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 24.18.1
+
+      # The resolver reads the discovered manifest, so the annotations are the list of things to
+      # resolve — same single source of truth the catalog itself is built from.
+      - name: Discover previews
+        run: ./gradlew :catalog:composePreviewDiscover --stacktrace
+
+      - name: Resolve
+        env:
+          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${FIGMA_TOKEN:-}" ]; then
+            echo "::error::FIGMA_TOKEN secret is not set."
+            exit 1
+          fi
+          node scripts/resolve-figma-refs.mjs --file "${{ inputs.file }}" \
+            | tee figma-refs.txt
+
+      - uses: actions/upload-artifact@v7.0.1
+        if: always()
+        with:
+          name: figma-refs
+          path: figma-refs.txt
+          if-no-files-found: warn
