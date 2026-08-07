@@ -1,4 +1,14 @@
-# Handover: the exhaustive sweep, run in parallel
+# Handover: dividing up the authoring work
+
+> **This is not the document about render timeouts.** Parallelising *authoring* does not shorten the
+> render — it lengthens it, because every component added grows the same serial `bundle pack`. For
+> the timeout, see [`PARALLEL_RENDER.md`](PARALLEL_RENDER.md), which shards the render itself.
+>
+> **Claim before you start.** Two sessions independently fanned out Toggle buttons because nothing
+> recorded who held what. Tick your row below in its own commit and push it *before* doing the work;
+> a claim that lands with the finished work is not a claim. Check `git log --oneline -15 origin/main`
+> and `git ls-remote --heads origin` first — recent commits name their group, and an in-flight
+> branch is a claim.
 
 The catalog's remaining work is one job repeated 38 times: take a component group, enumerate the
 axes the **Figma kit** documents for it, and fan the sticker out over that matrix.

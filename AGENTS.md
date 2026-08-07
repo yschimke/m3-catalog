@@ -1,8 +1,11 @@
 # Repository instructions for AI agents
 
-Doing the exhaustive variant sweep? Read [docs/PARALLEL_SWEEP.md](docs/PARALLEL_SWEEP.md) — it is
-the full briefing, including which groups are claimed, the render budget, and the gotchas that have
-already cost time.
+Two handover docs, for two different problems:
+
+- **Render too slow / timing out?** [docs/PARALLEL_RENDER.md](docs/PARALLEL_RENDER.md) — shards the
+  render across parallel jobs. This is the one that addresses the timeout.
+- **Adding component coverage?** [docs/PARALLEL_SWEEP.md](docs/PARALLEL_SWEEP.md) — divides the
+  authoring work, with a claim protocol. It does *not* help with the timeout.
 
 Read [README.md](README.md) first — it describes what this repo is and how it is laid out. This
 file records the conventions that are easy to violate by accident.
