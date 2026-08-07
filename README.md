@@ -186,6 +186,17 @@ of the discovered manifest from there.
 FIGMA_TOKEN=figd_... node scripts/resolve-figma-refs.mjs
 ```
 
+Page ids are undiscoverable for the same reason, one level up.
+[`docs/FIGMA_PAGES.md`](docs/FIGMA_PAGES.md) indexes the kit's pages — which
+`design-map.json` refs live on which page, and which page holds the composed
+example screens (the only one that can back a design-parity page backdrop).
+[`scripts/list-figma-pages.mjs`](scripts/list-figma-pages.mjs) regenerates the
+list in one REST call.
+
+```sh
+FIGMA_TOKEN=figd_... node scripts/list-figma-pages.mjs
+```
+
 Dependencies update themselves via Renovate ([`renovate.json`](.github/renovate.json)). The
 compose-ai-tools CLI, Gradle plugin and annotation coordinates are grouped into one automerged PR,
 because a skew between them breaks preview discovery outright.
