@@ -65,13 +65,17 @@ jobs:
       - name: Resolve
         env:
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
+          # Through env rather than interpolated into the script: `${{ inputs.file }}` expands
+          # before bash sees the line, so a dispatch input containing shell metacharacters would
+          # run as part of this step. The dump step above already reads it this way.
+          FIGMA_FILE: ${{ inputs.file }}
         run: |
           set -euo pipefail
           if [ -z "${FIGMA_TOKEN:-}" ]; then
             echo "::error::FIGMA_TOKEN secret is not set."
             exit 1
           fi
-          node scripts/resolve-figma-refs.mjs --file "${{ inputs.file }}" \
+          node scripts/resolve-figma-refs.mjs --file "$FIGMA_FILE" \
             | tee figma-refs.txt
 
       - uses: actions/upload-artifact@v7.0.1
