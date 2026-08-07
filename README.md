@@ -36,11 +36,11 @@ customising the live render are two ends of one workflow.
 
 | | |
 | --- | --- |
-| Components | **53** |
-| Rendered images (PNG) | **510** |
-| Editable wireframes (SVG) | **53** |
-| Editable design vectors (figma-svg) | **53** |
-| Components with a11y greenlines | **31** |
+| Components | **56** |
+| Rendered images (PNG) | **598** |
+| Editable wireframes (SVG) | **56** |
+| Editable design vectors (figma-svg) | **56** |
+| Components with a11y greenlines | **34** |
 | Library | `org.jetbrains.compose.material3:material3`<br>`org.jetbrains.compose.material:material-icons-extended` |
 | Renderer | compose-preview 0.19.41 |
 | Schema | `design-parity-catalog/v1` |
@@ -53,6 +53,7 @@ customising the live render are two ends of one workflow.
 | Buttons | 5 |
 | Chips | 4 |
 | Icon buttons | 4 |
+| Toggle buttons | 4 |
 | FAB | 2 |
 | Progress indicators | 2 |
 | Text fields | 2 |
@@ -85,7 +86,6 @@ customising the live render are two ends of one workflow.
 | Tabs | 1 |
 | Scaffold templates | 1 |
 | Time pickers | 1 |
-| Toggle buttons | 1 |
 | Toolbars | 1 |
 | Tooltips | 1 |
 | Top app bar | 1 |
