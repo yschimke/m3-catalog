@@ -85,8 +85,16 @@ for (const [i, page] of pages.entries()) {
         h: Math.round(node.absoluteBoundingBox?.height ?? 0),
         radius: radiusOf(node),
         variants: (node.children ?? []).length,
-        firstVariant: node.children?.[0]?.name ?? null,
         trail: trail.join(" / "),
+        // Every variant, because a ref belongs on one of these rather than on the set: a set frame
+        // is a variant grid, and its own radius is an editor artifact (see #2).
+        children: (node.children ?? []).map((v) => ({
+          name: v.name,
+          id: v.id,
+          w: Math.round(v.absoluteBoundingBox?.width ?? 0),
+          h: Math.round(v.absoluteBoundingBox?.height ?? 0),
+          radius: radiusOf(v),
+        })),
       });
       return; // a set's variants are not separate components for this purpose
     }
