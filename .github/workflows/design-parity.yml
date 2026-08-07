@@ -43,7 +43,7 @@ jobs:
       - uses: ./.github/actions/setup
 
       - name: Install compose-preview CLI
-        uses: yschimke/compose-ai-tools/.github/actions/install@v0.19.41
+        uses: yschimke/compose-ai-tools/.github/actions/install@v0.19.45
         with:
           # Keep the CLI aligned with the applied Gradle plugin; a skew breaks
           # the id translation `bundle pack` does between filename-safe render
