@@ -1,0 +1,5910 @@
+{
+  "schema": "design-parity-catalog/v1",
+  "system": "m3-catalog",
+  "title": "Material 3 Design Kit",
+  "components": [
+    {
+      "componentId": "Badge/Number",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/badge-number/ideal__default__dark.png",
+          "state": "default",
+          "width": 147,
+          "height": 147,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/badge-number__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.BadgesKt.NumberBadge_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/badge-number/ideal__default__light.png",
+          "state": "default",
+          "width": 147,
+          "height": 147,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/badge-number__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.BadgesKt.NumberBadge_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/badge-number/ideal__default__dark__content-none.png",
+          "state": "default",
+          "width": 147,
+          "height": 147,
+          "theme": "dark",
+          "props": {
+            "content": "none"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/badge-number__ideal__default__dark__content-none",
+          "previewId": "ee.schimke.m3catalog.sections.BadgesKt.DotBadge_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/badge-number/ideal__default__light__content-none.png",
+          "state": "default",
+          "width": 147,
+          "height": 147,
+          "theme": "light",
+          "props": {
+            "content": "none"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/badge-number__ideal__default__light__content-none",
+          "previewId": "ee.schimke.m3catalog.sections.BadgesKt.DotBadge_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 84,
+            "y": 37,
+            "width": 20,
+            "height": 42
+          },
+          "padding": {
+            "start": 4,
+            "top": 0,
+            "end": 4,
+            "bottom": 0
+          },
+          "cornerRadius": 3.81
+        }
+      ],
+      "section": "Communication",
+      "group": "Badges",
+      "caption": "Unread count over its anchor icon.",
+      "wireframe": "wireframes/badge-number.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Badges.kt"
+    },
+    {
+      "componentId": "BottomAppBar/Standard",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/bottomappbar-standard/ideal__default__dark.png",
+          "state": "default",
+          "width": 1029,
+          "height": 294,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/bottomappbar-standard__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.BottomAppBarsKt.BottomAppBarSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/bottomappbar-standard/ideal__default__light.png",
+          "state": "default",
+          "width": 1029,
+          "height": 294,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/bottomappbar-standard__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.BottomAppBarsKt.BottomAppBarSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 64,
+              "y": 101,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 64,
+            "y": 101,
+            "width": 105,
+            "height": 105
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 190,
+              "y": 101,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 190,
+            "y": 101,
+            "width": 105,
+            "height": 105
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 316,
+              "y": 101,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 316,
+            "y": 101,
+            "width": 105,
+            "height": 105
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 797,
+              "y": 74,
+              "width": 147,
+              "height": 147
+            }
+          },
+          "bounds": {
+            "x": 797,
+            "y": 74,
+            "width": 147,
+            "height": 147
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 64,
+            "y": 101,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        },
+        {
+          "bounds": {
+            "x": 190,
+            "y": 101,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        },
+        {
+          "bounds": {
+            "x": 316,
+            "y": 101,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        },
+        {
+          "bounds": {
+            "x": 797,
+            "y": 74,
+            "width": 147,
+            "height": 147
+          },
+          "role": "Button",
+          "cornerRadius": 16
+        }
+      ],
+      "section": "Navigation",
+      "group": "Bottom app bar",
+      "caption": "Screen-level actions along the bottom, with the primary action as a FAB.",
+      "wireframe": "wireframes/bottomappbar-standard.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/BottomAppBars.kt"
+    },
+    {
+      "componentId": "BottomSheet/Modal",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/bottomsheet-modal/ideal__default__dark.png",
+          "state": "default",
+          "width": 1029,
+          "height": 694,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/bottomsheet-modal__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.BottomSheetsKt.ModalBottomSheetSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/bottomsheet-modal/ideal__default__light.png",
+          "state": "default",
+          "width": 1029,
+          "height": 694,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/bottomsheet-modal__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.BottomSheetsKt.ModalBottomSheetSticker_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 945,
+            "height": 610
+          },
+          "cornerRadius": 28
+        },
+        {
+          "bounds": {
+            "x": 473,
+            "y": 100,
+            "width": 84,
+            "height": 11
+          },
+          "label": "Drag handle",
+          "padding": {
+            "start": 0,
+            "top": 22,
+            "end": 0,
+            "bottom": 22
+          },
+          "cornerRadius": 28
+        }
+      ],
+      "section": "Containment",
+      "group": "Bottom sheets",
+      "caption": "Secondary content anchored to the bottom.",
+      "wireframe": "wireframes/bottomsheet-modal.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/BottomSheets.kt"
+    },
+    {
+      "componentId": "Button/Filled",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/button-filled/ideal__default__dark.png",
+          "state": "default",
+          "width": 300,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-filled__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.FilledButton_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/button-filled/ideal__default__light.png",
+          "state": "default",
+          "width": 300,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-filled__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.FilledButton_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/button-filled/ideal__disabled__dark.png",
+          "state": "disabled",
+          "width": 300,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-filled__ideal__disabled__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.FilledButtonDisabled_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/button-filled/ideal__disabled__light.png",
+          "state": "disabled",
+          "width": 300,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-filled__ideal__disabled__light",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.FilledButtonDisabled_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/button-filled/ideal__default__dark__content-icon-label.png",
+          "state": "default",
+          "width": 347,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "content": "icon+label"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-filled__ideal__default__dark__content-icon-label",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.FilledButtonIconLabel_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/button-filled/ideal__default__light__content-icon-label.png",
+          "state": "default",
+          "width": 347,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "content": "icon+label"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-filled__ideal__default__light__content-icon-label",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.FilledButtonIconLabel_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 42,
+              "y": 53,
+              "width": 216,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 216,
+            "height": 105
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 216,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        }
+      ],
+      "section": "Actions",
+      "group": "Buttons",
+      "caption": "Highest emphasis; the primary action.",
+      "wireframe": "wireframes/button-filled.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Buttons.kt"
+    },
+    {
+      "componentId": "Button/Tonal",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/button-tonal/ideal__default__dark.png",
+          "state": "default",
+          "width": 300,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-tonal__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.TonalButton_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/button-tonal/ideal__default__light.png",
+          "state": "default",
+          "width": 300,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-tonal__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.TonalButton_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 42,
+              "y": 53,
+              "width": 216,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 216,
+            "height": 105
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 216,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        }
+      ],
+      "section": "Actions",
+      "group": "Buttons",
+      "caption": "Secondary, still prominent.",
+      "wireframe": "wireframes/button-tonal.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Buttons.kt"
+    },
+    {
+      "componentId": "Button/Outlined",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/button-outlined/ideal__default__dark.png",
+          "state": "default",
+          "width": 350,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-outlined__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.OutlinedButtonSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/button-outlined/ideal__default__light.png",
+          "state": "default",
+          "width": 350,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-outlined__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.OutlinedButtonSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 42,
+              "y": 53,
+              "width": 266,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 266,
+            "height": 105
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 266,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        }
+      ],
+      "section": "Actions",
+      "group": "Buttons",
+      "caption": "Medium emphasis on a busy surface.",
+      "wireframe": "wireframes/button-outlined.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Buttons.kt"
+    },
+    {
+      "componentId": "Button/Elevated",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/button-elevated/ideal__default__dark.png",
+          "state": "default",
+          "width": 350,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-elevated__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.ElevatedButtonSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/button-elevated/ideal__default__light.png",
+          "state": "default",
+          "width": 350,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-elevated__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.ElevatedButtonSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 42,
+              "y": 53,
+              "width": 266,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 266,
+            "height": 105
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 266,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        }
+      ],
+      "section": "Actions",
+      "group": "Buttons",
+      "caption": "Outlined alternative needing separation.",
+      "wireframe": "wireframes/button-elevated.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Buttons.kt"
+    },
+    {
+      "componentId": "Button/Text",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/button-text/ideal__default__dark.png",
+          "state": "default",
+          "width": 236,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-text__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.TextButtonSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/button-text/ideal__default__light.png",
+          "state": "default",
+          "width": 236,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/button-text__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.TextButtonSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 42,
+              "y": 53,
+              "width": 152,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 152,
+            "height": 105
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 152,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        }
+      ],
+      "section": "Actions",
+      "group": "Buttons",
+      "caption": "Lowest emphasis; inline actions.",
+      "wireframe": "wireframes/button-text.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Buttons.kt"
+    },
+    {
+      "componentId": "Card/Filled",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/card-filled/ideal__default__dark.png",
+          "state": "default",
+          "width": 819,
+          "height": 284,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/card-filled__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.CardsKt.FilledCard_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/card-filled/ideal__default__light.png",
+          "state": "default",
+          "width": 819,
+          "height": 284,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/card-filled__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.CardsKt.FilledCard_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/card-filled/ideal__default__dark__emphasis-elevated.png",
+          "state": "default",
+          "width": 819,
+          "height": 284,
+          "theme": "dark",
+          "props": {
+            "emphasis": "elevated"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/card-filled__ideal__default__dark__emphasis-elevated",
+          "previewId": "ee.schimke.m3catalog.sections.CardsKt.ElevatedCardSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/card-filled/ideal__default__light__emphasis-elevated.png",
+          "state": "default",
+          "width": 819,
+          "height": 284,
+          "theme": "light",
+          "props": {
+            "emphasis": "elevated"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/card-filled__ideal__default__light__emphasis-elevated",
+          "previewId": "ee.schimke.m3catalog.sections.CardsKt.ElevatedCardSticker_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/card-filled/ideal__default__dark__emphasis-outlined.png",
+          "state": "default",
+          "width": 819,
+          "height": 284,
+          "theme": "dark",
+          "props": {
+            "emphasis": "outlined"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/card-filled__ideal__default__dark__emphasis-outlined",
+          "previewId": "ee.schimke.m3catalog.sections.CardsKt.OutlinedCardSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/card-filled/ideal__default__light__emphasis-outlined.png",
+          "state": "default",
+          "width": 819,
+          "height": 284,
+          "theme": "light",
+          "props": {
+            "emphasis": "outlined"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/card-filled__ideal__default__light__emphasis-outlined",
+          "previewId": "ee.schimke.m3catalog.sections.CardsKt.OutlinedCardSticker_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 735,
+            "height": 200
+          },
+          "cornerRadius": 12
+        }
+      ],
+      "section": "Containment",
+      "group": "Cards",
+      "caption": "Default container for related content.",
+      "wireframe": "wireframes/card-filled.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Cards.kt"
+    },
+    {
+      "componentId": "Carousel/MultiBrowse",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/carousel-multibrowse/ideal__default__dark.png",
+          "state": "default",
+          "width": 924,
+          "height": 557,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/carousel-multibrowse__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.CarouselKt.MultiBrowseCarousel_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/carousel-multibrowse/ideal__default__light.png",
+          "state": "default",
+          "width": 924,
+          "height": 557,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/carousel-multibrowse__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.CarouselKt.MultiBrowseCarousel_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 706,
+            "y": 42,
+            "width": 176,
+            "height": 473
+          },
+          "cornerRadius": 16
+        },
+        {
+          "bounds": {
+            "x": 619,
+            "y": 42,
+            "width": 263,
+            "height": 473
+          },
+          "cornerRadius": 16
+        },
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 420,
+            "height": 473
+          },
+          "cornerRadius": 16
+        },
+        {
+          "bounds": {
+            "x": 409,
+            "y": 42,
+            "width": 420,
+            "height": 473
+          },
+          "cornerRadius": 16
+        }
+      ],
+      "section": "Containment",
+      "group": "Carousel",
+      "caption": "Scrollable items that resize as they enter and leave the viewport.",
+      "wireframe": "wireframes/carousel-multibrowse.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Carousel.kt"
+    },
+    {
+      "componentId": "Checkbox/Checked",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/checkbox-checked/ideal__default__dark.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/checkbox-checked__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.CheckboxesKt.CheckboxChecked_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/checkbox-checked/ideal__default__light.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/checkbox-checked__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.CheckboxesKt.CheckboxChecked_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/checkbox-checked/ideal__unchecked__dark.png",
+          "state": "unchecked",
+          "width": 210,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/checkbox-checked__ideal__unchecked__dark",
+          "previewId": "ee.schimke.m3catalog.sections.CheckboxesKt.CheckboxUnchecked_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/checkbox-checked/ideal__unchecked__light.png",
+          "state": "unchecked",
+          "width": 210,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/checkbox-checked__ideal__unchecked__light",
+          "previewId": "ee.schimke.m3catalog.sections.CheckboxesKt.CheckboxUnchecked_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/checkbox-checked/ideal__indeterminate__dark.png",
+          "state": "indeterminate",
+          "width": 210,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/checkbox-checked__ideal__indeterminate__dark",
+          "previewId": "ee.schimke.m3catalog.sections.CheckboxesKt.CheckboxIndeterminate_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/checkbox-checked/ideal__indeterminate__light.png",
+          "state": "indeterminate",
+          "width": 210,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/checkbox-checked__ideal__indeterminate__light",
+          "previewId": "ee.schimke.m3catalog.sections.CheckboxesKt.CheckboxIndeterminate_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/checkbox-checked/ideal__disabled__dark.png",
+          "state": "disabled",
+          "width": 147,
+          "height": 147,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/checkbox-checked__ideal__disabled__dark",
+          "previewId": "ee.schimke.m3catalog.sections.CheckboxesKt.CheckboxDisabled_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/checkbox-checked/ideal__disabled__light.png",
+          "state": "disabled",
+          "width": 147,
+          "height": 147,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/checkbox-checked__ideal__disabled__light",
+          "previewId": "ee.schimke.m3catalog.sections.CheckboxesKt.CheckboxDisabled_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "checkbox",
+          "detail": {
+            "role": "checkbox",
+            "bounds": {
+              "x": 74,
+              "y": 74,
+              "width": 63,
+              "height": 63
+            }
+          },
+          "bounds": {
+            "x": 74,
+            "y": 74,
+            "width": 63,
+            "height": 63
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 74,
+            "y": 74,
+            "width": 63,
+            "height": 63
+          },
+          "role": "Checkbox",
+          "padding": {
+            "start": 2,
+            "top": 2,
+            "end": 2,
+            "bottom": 2
+          }
+        }
+      ],
+      "section": "Selection",
+      "group": "Checkbox",
+      "caption": "Select one or more items from a set.",
+      "wireframe": "wireframes/checkbox-checked.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Checkboxes.kt"
+    },
+    {
+      "componentId": "Chip/Assist",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/chip-assist/ideal__default__dark.png",
+          "state": "default",
+          "width": 429,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/chip-assist__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ChipsKt.AssistChipSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/chip-assist/ideal__default__light.png",
+          "state": "default",
+          "width": 429,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/chip-assist__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ChipsKt.AssistChipSticker_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/chip-assist/ideal__disabled__dark.png",
+          "state": "disabled",
+          "width": 429,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/chip-assist__ideal__disabled__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ChipsKt.AssistChipDisabled_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/chip-assist/ideal__disabled__light.png",
+          "state": "disabled",
+          "width": 429,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/chip-assist__ideal__disabled__light",
+          "previewId": "ee.schimke.m3catalog.sections.ChipsKt.AssistChipDisabled_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 42,
+              "y": 63,
+              "width": 345,
+              "height": 84
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 63,
+            "width": 345,
+            "height": 84
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 63,
+            "width": 345,
+            "height": 84
+          },
+          "role": "Button",
+          "cornerRadius": 8
+        }
+      ],
+      "section": "Selection",
+      "group": "Chips",
+      "caption": "A smart action related to the content.",
+      "wireframe": "wireframes/chip-assist.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Chips.kt"
+    },
+    {
+      "componentId": "Chip/Filter",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/chip-filter/ideal__default__dark.png",
+          "state": "default",
+          "width": 335,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/chip-filter__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ChipsKt.FilterChipSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/chip-filter/ideal__default__light.png",
+          "state": "default",
+          "width": 335,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/chip-filter__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ChipsKt.FilterChipSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "checkbox",
+          "detail": {
+            "role": "checkbox",
+            "bounds": {
+              "x": 42,
+              "y": 63,
+              "width": 251,
+              "height": 84
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 63,
+            "width": 251,
+            "height": 84
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 63,
+            "width": 251,
+            "height": 84
+          },
+          "role": "Checkbox",
+          "cornerRadius": 8
+        }
+      ],
+      "section": "Selection",
+      "group": "Chips",
+      "caption": "Filters content; carries a selected state.",
+      "wireframe": "wireframes/chip-filter.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Chips.kt"
+    },
+    {
+      "componentId": "Chip/Input",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/chip-input/ideal__default__dark.png",
+          "state": "default",
+          "width": 302,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/chip-input__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ChipsKt.InputChipSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/chip-input/ideal__default__light.png",
+          "state": "default",
+          "width": 302,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/chip-input__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ChipsKt.InputChipSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "checkbox",
+          "detail": {
+            "role": "checkbox",
+            "bounds": {
+              "x": 42,
+              "y": 63,
+              "width": 218,
+              "height": 84
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 63,
+            "width": 218,
+            "height": 84
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 63,
+            "width": 218,
+            "height": 84
+          },
+          "role": "Checkbox",
+          "cornerRadius": 8
+        }
+      ],
+      "section": "Selection",
+      "group": "Chips",
+      "caption": "A discrete piece of user input, removable.",
+      "wireframe": "wireframes/chip-input.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Chips.kt"
+    },
+    {
+      "componentId": "Chip/Suggestion",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/chip-suggestion/ideal__default__dark.png",
+          "state": "default",
+          "width": 387,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/chip-suggestion__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ChipsKt.SuggestionChipSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/chip-suggestion/ideal__default__light.png",
+          "state": "default",
+          "width": 387,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/chip-suggestion__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ChipsKt.SuggestionChipSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 42,
+              "y": 63,
+              "width": 303,
+              "height": 84
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 63,
+            "width": 303,
+            "height": 84
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 63,
+            "width": 303,
+            "height": 84
+          },
+          "role": "Button",
+          "cornerRadius": 8
+        }
+      ],
+      "section": "Selection",
+      "group": "Chips",
+      "caption": "A dynamically generated suggestion.",
+      "wireframe": "wireframes/chip-suggestion.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Chips.kt"
+    },
+    {
+      "componentId": "Color/AccentRoles",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/color-accentroles/ideal__default__dark.png",
+          "state": "default",
+          "width": 1050,
+          "height": 1003,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/color-accentroles__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ColorRolesKt.AccentColorRoles_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/color-accentroles/ideal__default__light.png",
+          "state": "default",
+          "width": 1050,
+          "height": 1003,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/color-accentroles__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ColorRolesKt.AccentColorRoles_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/color-accentroles/ideal__default__dark__roles-surface.png",
+          "state": "default",
+          "width": 1050,
+          "height": 1071,
+          "theme": "dark",
+          "props": {
+            "roles": "surface"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/color-accentroles__ideal__default__dark__roles-surface",
+          "previewId": "ee.schimke.m3catalog.sections.ColorRolesKt.SurfaceColorRoles_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/color-accentroles/ideal__default__light__roles-surface.png",
+          "state": "default",
+          "width": 1050,
+          "height": 1071,
+          "theme": "light",
+          "props": {
+            "roles": "surface"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/color-accentroles__ideal__default__light__roles-surface",
+          "previewId": "ee.schimke.m3catalog.sections.ColorRolesKt.SurfaceColorRoles_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 127,
+            "height": 53
+          },
+          "label": "Primary",
+          "padding": {
+            "start": 0,
+            "top": 0,
+            "end": 0,
+            "bottom": 4
+          }
+        },
+        {
+          "bounds": {
+            "x": 74,
+            "y": 111,
+            "width": 461,
+            "height": 116
+          },
+          "padding": {
+            "start": 12,
+            "top": 0,
+            "end": 12,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 74,
+            "y": 232,
+            "width": 461,
+            "height": 116
+          },
+          "padding": {
+            "start": 12,
+            "top": 0,
+            "end": 12,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 74,
+            "y": 353,
+            "width": 461,
+            "height": 116
+          },
+          "padding": {
+            "start": 12,
+            "top": 0,
+            "end": 12,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 74,
+            "y": 474,
+            "width": 461,
+            "height": 116
+          },
+          "padding": {
+            "start": 12,
+            "top": 0,
+            "end": 12,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 588,
+            "y": 42,
+            "width": 175,
+            "height": 53
+          },
+          "label": "Secondary",
+          "padding": {
+            "start": 0,
+            "top": 0,
+            "end": 0,
+            "bottom": 4
+          }
+        },
+        {
+          "bounds": {
+            "x": 620,
+            "y": 111,
+            "width": 356,
+            "height": 116
+          },
+          "padding": {
+            "start": 12,
+            "top": 0,
+            "end": 12,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 620,
+            "y": 232,
+            "width": 356,
+            "height": 116
+          },
+          "padding": {
+            "start": 12,
+            "top": 0,
+            "end": 12,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 620,
+            "y": 353,
+            "width": 356,
+            "height": 116
+          },
+          "padding": {
+            "start": 12,
+            "top": 0,
+            "end": 12,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 620,
+            "y": 474,
+            "width": 356,
+            "height": 116
+          },
+          "padding": {
+            "start": 12,
+            "top": 0,
+            "end": 12,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "label": "Tertiary",
+          "padding": {
+            "start": 0,
+            "top": 0,
+            "end": 0,
+            "bottom": 4
+          }
+        },
+        {
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "padding": {
+            "start": 12,
+            "top": 0,
+            "end": 12,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "padding": {
+            "start": 12,
+            "top": 0,
+            "end": 12,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "padding": {
+            "start": 12,
+            "top": 0,
+            "end": 12,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "padding": {
+            "start": 12,
+            "top": 0,
+            "end": 12,
+            "bottom": 0
+          }
+        }
+      ],
+      "section": "Styles",
+      "group": "Color",
+      "caption": "Primary, secondary and tertiary — each accent role with its `on` pair.",
+      "wireframe": "wireframes/color-accentroles.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/ColorRoles.kt"
+    },
+    {
+      "componentId": "DatePicker/Docked",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/datepicker-docked/ideal__default__dark.png",
+          "state": "default",
+          "width": 1050,
+          "height": 1428,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/datepicker-docked__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/datepicker-docked/ideal__default__light.png",
+          "state": "default",
+          "width": 1050,
+          "height": 1428,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/datepicker-docked__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerSticker_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/datepicker-docked/ideal__default__dark__selection-range.png",
+          "state": "default",
+          "width": 1050,
+          "height": 2100,
+          "theme": "dark",
+          "props": {
+            "selection": "range"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/datepicker-docked__ideal__default__dark__selection-range",
+          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DateRangePickerSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/datepicker-docked/ideal__default__light__selection-range.png",
+          "state": "default",
+          "width": 1050,
+          "height": 2100,
+          "theme": "light",
+          "props": {
+            "selection": "range"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/datepicker-docked__ideal__default__light__selection-range",
+          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DateRangePickerSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 861,
+              "y": 207,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 861,
+            "y": 207,
+            "width": 105,
+            "height": 105
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 74,
+              "y": 379,
+              "width": 374,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 74,
+            "y": 379,
+            "width": 374,
+            "height": 105
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 735,
+              "y": 379,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 735,
+            "y": 379,
+            "width": 105,
+            "height": 105
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 861,
+              "y": 379,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 861,
+            "y": 379,
+            "width": 105,
+            "height": 105
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Monday, January 1, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Monday, January 1, 2024",
+            "bounds": {
+              "x": 205,
+              "y": 630,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 205,
+            "y": 630,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Tuesday, January 2, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Tuesday, January 2, 2024",
+            "bounds": {
+              "x": 334,
+              "y": 630,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 334,
+            "y": 630,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Wednesday, January 3, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Wednesday, January 3, 2024",
+            "bounds": {
+              "x": 462,
+              "y": 630,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 462,
+            "y": 630,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Thursday, January 4, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Thursday, January 4, 2024",
+            "bounds": {
+              "x": 591,
+              "y": 630,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 591,
+            "y": 630,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Friday, January 5, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Friday, January 5, 2024",
+            "bounds": {
+              "x": 719,
+              "y": 630,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 719,
+            "y": 630,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Saturday, January 6, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Saturday, January 6, 2024",
+            "bounds": {
+              "x": 848,
+              "y": 630,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 848,
+            "y": 630,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Sunday, January 7, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Sunday, January 7, 2024",
+            "bounds": {
+              "x": 77,
+              "y": 756,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 77,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Monday, January 8, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Monday, January 8, 2024",
+            "bounds": {
+              "x": 205,
+              "y": 756,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 205,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Tuesday, January 9, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Tuesday, January 9, 2024",
+            "bounds": {
+              "x": 334,
+              "y": 756,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 334,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Wednesday, January 10, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Wednesday, January 10, 2024",
+            "bounds": {
+              "x": 462,
+              "y": 756,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 462,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Thursday, January 11, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Thursday, January 11, 2024",
+            "bounds": {
+              "x": 591,
+              "y": 756,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 591,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Friday, January 12, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Friday, January 12, 2024",
+            "bounds": {
+              "x": 719,
+              "y": 756,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 719,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Saturday, January 13, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Saturday, January 13, 2024",
+            "bounds": {
+              "x": 848,
+              "y": 756,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 848,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Sunday, January 14, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Sunday, January 14, 2024",
+            "bounds": {
+              "x": 77,
+              "y": 882,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 77,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Monday, January 15, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Monday, January 15, 2024",
+            "bounds": {
+              "x": 205,
+              "y": 882,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 205,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Tuesday, January 16, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Tuesday, January 16, 2024",
+            "bounds": {
+              "x": 334,
+              "y": 882,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 334,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Wednesday, January 17, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Wednesday, January 17, 2024",
+            "bounds": {
+              "x": 462,
+              "y": 882,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 462,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Thursday, January 18, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Thursday, January 18, 2024",
+            "bounds": {
+              "x": 591,
+              "y": 882,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 591,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Friday, January 19, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Friday, January 19, 2024",
+            "bounds": {
+              "x": 719,
+              "y": 882,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 719,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Saturday, January 20, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Saturday, January 20, 2024",
+            "bounds": {
+              "x": 848,
+              "y": 882,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 848,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Sunday, January 21, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Sunday, January 21, 2024",
+            "bounds": {
+              "x": 77,
+              "y": 1008,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 77,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Monday, January 22, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Monday, January 22, 2024",
+            "bounds": {
+              "x": 205,
+              "y": 1008,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 205,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Tuesday, January 23, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Tuesday, January 23, 2024",
+            "bounds": {
+              "x": 334,
+              "y": 1008,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 334,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Wednesday, January 24, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Wednesday, January 24, 2024",
+            "bounds": {
+              "x": 462,
+              "y": 1008,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 462,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Thursday, January 25, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Thursday, January 25, 2024",
+            "bounds": {
+              "x": 591,
+              "y": 1008,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 591,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Friday, January 26, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Friday, January 26, 2024",
+            "bounds": {
+              "x": 719,
+              "y": 1008,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 719,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Saturday, January 27, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Saturday, January 27, 2024",
+            "bounds": {
+              "x": 848,
+              "y": 1008,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 848,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Sunday, January 28, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Sunday, January 28, 2024",
+            "bounds": {
+              "x": 77,
+              "y": 1134,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 77,
+            "y": 1134,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Monday, January 29, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Monday, January 29, 2024",
+            "bounds": {
+              "x": 205,
+              "y": 1134,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 205,
+            "y": 1134,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Tuesday, January 30, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Tuesday, January 30, 2024",
+            "bounds": {
+              "x": 334,
+              "y": 1134,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 334,
+            "y": 1134,
+            "width": 126,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button \"Wednesday, January 31, 2024\"",
+          "detail": {
+            "role": "button",
+            "label": "Wednesday, January 31, 2024",
+            "bounds": {
+              "x": 462,
+              "y": 1134,
+              "width": 126,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 462,
+            "y": 1134,
+            "width": 126,
+            "height": 126
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 861,
+            "y": 207,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        },
+        {
+          "bounds": {
+            "x": 74,
+            "y": 379,
+            "width": 374,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        },
+        {
+          "bounds": {
+            "x": 735,
+            "y": 379,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        },
+        {
+          "bounds": {
+            "x": 861,
+            "y": 379,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        },
+        {
+          "bounds": {
+            "x": 205,
+            "y": 630,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Monday, January 1, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 334,
+            "y": 630,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Tuesday, January 2, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 462,
+            "y": 630,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Wednesday, January 3, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 591,
+            "y": 630,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Thursday, January 4, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 719,
+            "y": 630,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Friday, January 5, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 848,
+            "y": 630,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Saturday, January 6, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 77,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Sunday, January 7, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 205,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Monday, January 8, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 334,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Tuesday, January 9, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 462,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Wednesday, January 10, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 591,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Thursday, January 11, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 719,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Friday, January 12, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 848,
+            "y": 756,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Saturday, January 13, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 77,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Sunday, January 14, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 205,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Monday, January 15, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 334,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Tuesday, January 16, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 462,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Wednesday, January 17, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 591,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Thursday, January 18, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 719,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Friday, January 19, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 848,
+            "y": 882,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Saturday, January 20, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 77,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Sunday, January 21, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 205,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Monday, January 22, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 334,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Tuesday, January 23, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 462,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Wednesday, January 24, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 591,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Thursday, January 25, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 719,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Friday, January 26, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 848,
+            "y": 1008,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Saturday, January 27, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 77,
+            "y": 1134,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Sunday, January 28, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 205,
+            "y": 1134,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Monday, January 29, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 334,
+            "y": 1134,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Tuesday, January 30, 2024",
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 462,
+            "y": 1134,
+            "width": 126,
+            "height": 126
+          },
+          "role": "Button",
+          "label": "Wednesday, January 31, 2024",
+          "cornerRadius": 24
+        }
+      ],
+      "section": "Selection",
+      "group": "Date pickers",
+      "caption": "Calendar grid for picking a single date.",
+      "wireframe": "wireframes/datepicker-docked.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/DatePickers.kt"
+    },
+    {
+      "componentId": "Dialog/Basic",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/dialog-basic/ideal__default__dark.png",
+          "state": "default",
+          "width": 903,
+          "height": 715,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/dialog-basic__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.DialogsKt.BasicDialog_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/dialog-basic/ideal__default__light.png",
+          "state": "default",
+          "width": 903,
+          "height": 715,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/dialog-basic__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.DialogsKt.BasicDialog_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 450,
+              "y": 495,
+              "width": 178,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 450,
+            "y": 495,
+            "width": 178,
+            "height": 105
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 628,
+              "y": 495,
+              "width": 170,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 628,
+            "y": 495,
+            "width": 170,
+            "height": 105
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 819,
+            "height": 631
+          },
+          "cornerRadius": 28
+        },
+        {
+          "bounds": {
+            "x": 450,
+            "y": 495,
+            "width": 178,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        },
+        {
+          "bounds": {
+            "x": 628,
+            "y": 495,
+            "width": 170,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        }
+      ],
+      "section": "Containment",
+      "group": "Dialogs",
+      "caption": "Icon, headline, supporting text and two actions.",
+      "wireframe": "wireframes/dialog-basic.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Dialogs.kt"
+    },
+    {
+      "componentId": "Divider/Horizontal",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/divider-horizontal/ideal__default__dark.png",
+          "state": "default",
+          "width": 819,
+          "height": 297,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/divider-horizontal__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.DividersKt.HorizontalDividerSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/divider-horizontal/ideal__default__light.png",
+          "state": "default",
+          "width": 819,
+          "height": 297,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/divider-horizontal__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.DividersKt.HorizontalDividerSticker_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/divider-horizontal/ideal__default__dark__orientation-vertical.png",
+          "state": "default",
+          "width": 353,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "orientation": "vertical"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/divider-horizontal__ideal__default__dark__orientation-vertical",
+          "previewId": "ee.schimke.m3catalog.sections.DividersKt.VerticalDividerSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/divider-horizontal/ideal__default__light__orientation-vertical.png",
+          "state": "default",
+          "width": 353,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "orientation": "vertical"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/divider-horizontal__ideal__default__light__orientation-vertical",
+          "previewId": "ee.schimke.m3catalog.sections.DividersKt.VerticalDividerSticker_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 63,
+            "width": 122,
+            "height": 63
+          },
+          "label": "Above",
+          "padding": {
+            "start": 0,
+            "top": 8,
+            "end": 0,
+            "bottom": 8
+          }
+        },
+        {
+          "bounds": {
+            "x": 42,
+            "y": 171,
+            "width": 121,
+            "height": 63
+          },
+          "label": "Below",
+          "padding": {
+            "start": 0,
+            "top": 8,
+            "end": 0,
+            "bottom": 8
+          }
+        }
+      ],
+      "section": "Containment",
+      "group": "Divider",
+      "caption": "Separates content in a vertical list.",
+      "wireframe": "wireframes/divider-horizontal.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Dividers.kt"
+    },
+    {
+      "componentId": "Elevation/Tonal",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/elevation-tonal/ideal__default__dark.png",
+          "state": "default",
+          "width": 1050,
+          "height": 273,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/elevation-tonal__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ElevationKt.TonalElevation_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/elevation-tonal/ideal__default__light.png",
+          "state": "default",
+          "width": 1050,
+          "height": 273,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/elevation-tonal__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ElevationKt.TonalElevation_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/elevation-tonal/ideal__default__dark__kind-shadow.png",
+          "state": "default",
+          "width": 1050,
+          "height": 273,
+          "theme": "dark",
+          "props": {
+            "kind": "shadow"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/elevation-tonal__ideal__default__dark__kind-shadow",
+          "previewId": "ee.schimke.m3catalog.sections.ElevationKt.ShadowElevation_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/elevation-tonal/ideal__default__light__kind-shadow.png",
+          "state": "default",
+          "width": 1050,
+          "height": 273,
+          "theme": "light",
+          "props": {
+            "kind": "shadow"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/elevation-tonal__ideal__default__light__kind-shadow",
+          "previewId": "ee.schimke.m3catalog.sections.ElevationKt.ShadowElevation_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 189,
+            "height": 189
+          },
+          "cornerRadius": 12
+        },
+        {
+          "bounds": {
+            "x": 263,
+            "y": 42,
+            "width": 189,
+            "height": 189
+          },
+          "cornerRadius": 12
+        },
+        {
+          "bounds": {
+            "x": 484,
+            "y": 42,
+            "width": 189,
+            "height": 189
+          },
+          "cornerRadius": 12
+        },
+        {
+          "bounds": {
+            "x": 705,
+            "y": 42,
+            "width": 189,
+            "height": 189
+          },
+          "cornerRadius": 12
+        },
+        {
+          "bounds": {
+            "x": 926,
+            "y": 42,
+            "width": 82,
+            "height": 189
+          },
+          "cornerRadius": 12
+        },
+        {
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "cornerRadius": 12
+        }
+      ],
+      "section": "Styles",
+      "group": "Elevation",
+      "caption": "Levels 0–5 as a surface tint.",
+      "wireframe": "wireframes/elevation-tonal.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Elevation.kt"
+    },
+    {
+      "componentId": "Fab/Standard",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/fab-standard/ideal__default__dark.png",
+          "state": "default",
+          "width": 231,
+          "height": 231,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/fab-standard__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.FabKt.Fab_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/fab-standard/ideal__default__light.png",
+          "state": "default",
+          "width": 231,
+          "height": 231,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/fab-standard__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.FabKt.Fab_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/fab-standard/ideal__default__dark__size-small.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "size": "small"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/fab-standard__ideal__default__dark__size-small",
+          "previewId": "ee.schimke.m3catalog.sections.FabKt.FabSmall_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/fab-standard/ideal__default__light__size-small.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "size": "small"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/fab-standard__ideal__default__light__size-small",
+          "previewId": "ee.schimke.m3catalog.sections.FabKt.FabSmall_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/fab-standard/ideal__default__dark__size-large.png",
+          "state": "default",
+          "width": 336,
+          "height": 336,
+          "theme": "dark",
+          "props": {
+            "size": "large"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/fab-standard__ideal__default__dark__size-large",
+          "previewId": "ee.schimke.m3catalog.sections.FabKt.FabLarge_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/fab-standard/ideal__default__light__size-large.png",
+          "state": "default",
+          "width": 336,
+          "height": 336,
+          "theme": "light",
+          "props": {
+            "size": "large"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/fab-standard__ideal__default__light__size-large",
+          "previewId": "ee.schimke.m3catalog.sections.FabKt.FabLarge_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 42,
+              "y": 42,
+              "width": 147,
+              "height": 147
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 147,
+            "height": 147
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 147,
+            "height": 147
+          },
+          "role": "Button",
+          "cornerRadius": 16
+        }
+      ],
+      "section": "Actions",
+      "group": "FAB",
+      "caption": "The screen's single primary action.",
+      "wireframe": "wireframes/fab-standard.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Fab.kt"
+    },
+    {
+      "componentId": "Fab/Extended",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/fab-extended/ideal__default__dark.png",
+          "state": "default",
+          "width": 433,
+          "height": 231,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/fab-extended__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/fab-extended/ideal__default__light.png",
+          "state": "default",
+          "width": 433,
+          "height": 231,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/fab-extended__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 42,
+              "y": 42,
+              "width": 349,
+              "height": 147
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 349,
+            "height": 147
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 349,
+            "height": 147
+          },
+          "role": "Button",
+          "cornerRadius": 16
+        }
+      ],
+      "section": "Actions",
+      "group": "FAB",
+      "caption": "FAB with a label; the action is named.",
+      "wireframe": "wireframes/fab-extended.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Fab.kt"
+    },
+    {
+      "componentId": "IconButton/Standard",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/iconbutton-standard/ideal__default__dark.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/iconbutton-standard__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.IconButtonsKt.StandardIconButton_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/iconbutton-standard/ideal__default__light.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/iconbutton-standard__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.IconButtonsKt.StandardIconButton_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/iconbutton-standard/ideal__default__dark__emphasis-filled.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "emphasis": "filled"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/iconbutton-standard__ideal__default__dark__emphasis-filled",
+          "previewId": "ee.schimke.m3catalog.sections.IconButtonsKt.FilledIconButtonSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/iconbutton-standard/ideal__default__light__emphasis-filled.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "emphasis": "filled"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/iconbutton-standard__ideal__default__light__emphasis-filled",
+          "previewId": "ee.schimke.m3catalog.sections.IconButtonsKt.FilledIconButtonSticker_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/iconbutton-standard/ideal__default__dark__emphasis-tonal.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "emphasis": "tonal"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/iconbutton-standard__ideal__default__dark__emphasis-tonal",
+          "previewId": "ee.schimke.m3catalog.sections.IconButtonsKt.TonalIconButton_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/iconbutton-standard/ideal__default__light__emphasis-tonal.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "emphasis": "tonal"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/iconbutton-standard__ideal__default__light__emphasis-tonal",
+          "previewId": "ee.schimke.m3catalog.sections.IconButtonsKt.TonalIconButton_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/iconbutton-standard/ideal__default__dark__emphasis-outlined.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "emphasis": "outlined"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/iconbutton-standard__ideal__default__dark__emphasis-outlined",
+          "previewId": "ee.schimke.m3catalog.sections.IconButtonsKt.OutlinedIconButtonSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/iconbutton-standard/ideal__default__light__emphasis-outlined.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "emphasis": "outlined"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/iconbutton-standard__ideal__default__light__emphasis-outlined",
+          "previewId": "ee.schimke.m3catalog.sections.IconButtonsKt.OutlinedIconButtonSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 53,
+              "y": 53,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 53,
+            "y": 53,
+            "width": 105,
+            "height": 105
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 53,
+            "y": 53,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        }
+      ],
+      "section": "Actions",
+      "group": "Icon buttons",
+      "caption": "Lowest emphasis; inline on a surface.",
+      "wireframe": "wireframes/iconbutton-standard.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/IconButtons.kt"
+    },
+    {
+      "componentId": "List/OneLine",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/list-oneline/ideal__default__dark.png",
+          "state": "default",
+          "width": 924,
+          "height": 231,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/list-oneline__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ListsKt.OneLineListItem_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/list-oneline/ideal__default__light.png",
+          "state": "default",
+          "width": 924,
+          "height": 231,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/list-oneline__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ListsKt.OneLineListItem_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/list-oneline/ideal__default__dark__lines-2.png",
+          "state": "default",
+          "width": 924,
+          "height": 273,
+          "theme": "dark",
+          "props": {
+            "lines": "2"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/list-oneline__ideal__default__dark__lines-2",
+          "previewId": "ee.schimke.m3catalog.sections.ListsKt.TwoLineListItem_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/list-oneline/ideal__default__light__lines-2.png",
+          "state": "default",
+          "width": 924,
+          "height": 273,
+          "theme": "light",
+          "props": {
+            "lines": "2"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/list-oneline__ideal__default__light__lines-2",
+          "previewId": "ee.schimke.m3catalog.sections.ListsKt.TwoLineListItem_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/list-oneline/ideal__default__dark__content-group.png",
+          "state": "default",
+          "width": 924,
+          "height": 657,
+          "theme": "dark",
+          "props": {
+            "content": "group"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/list-oneline__ideal__default__dark__content-group",
+          "previewId": "ee.schimke.m3catalog.sections.ListsKt.ListItemGroup_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/list-oneline/ideal__default__light__content-group.png",
+          "state": "default",
+          "width": 924,
+          "height": 657,
+          "theme": "light",
+          "props": {
+            "content": "group"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/list-oneline__ideal__default__light__content-group",
+          "previewId": "ee.schimke.m3catalog.sections.ListsKt.ListItemGroup_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [],
+      "section": "Containment",
+      "group": "Lists",
+      "caption": "A single line of primary text.",
+      "wireframe": "wireframes/list-oneline.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Lists.kt"
+    },
+    {
+      "componentId": "LoadingIndicator/Standard",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/loadingindicator-standard/ideal__default__dark.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/loadingindicator-standard__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.LoadingIndicatorKt.LoadingIndicatorSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/loadingindicator-standard/ideal__default__light.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/loadingindicator-standard__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.LoadingIndicatorKt.LoadingIndicatorSticker_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 126,
+            "height": 126
+          },
+          "cornerRadius": 24
+        }
+      ],
+      "section": "Communication",
+      "group": "Loading indicator",
+      "caption": "Expressive shape-morph loading indicator.",
+      "wireframe": "wireframes/loadingindicator-standard.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/LoadingIndicator.kt"
+    },
+    {
+      "componentId": "Menu/Dropdown",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/menu-dropdown/ideal__default__dark.png",
+          "state": "default",
+          "width": 609,
+          "height": 462,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/menu-dropdown__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.MenusKt.DropdownMenuSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/menu-dropdown/ideal__default__light.png",
+          "state": "default",
+          "width": 609,
+          "height": 462,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/menu-dropdown__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.MenusKt.DropdownMenuSticker_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 525,
+            "height": 378
+          },
+          "cornerRadius": 4
+        }
+      ],
+      "section": "Selection",
+      "group": "Menus",
+      "caption": "A list of choices on a temporary surface.",
+      "wireframe": "wireframes/menu-dropdown.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Menus.kt"
+    },
+    {
+      "componentId": "NavigationBar/Standard",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/navigationbar-standard/ideal__default__dark.png",
+          "state": "default",
+          "width": 1029,
+          "height": 294,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/navigationbar-standard__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.NavigationBarsKt.NavigationBarSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/navigationbar-standard/ideal__default__light.png",
+          "state": "default",
+          "width": 1029,
+          "height": 294,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/navigationbar-standard__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.NavigationBarsKt.NavigationBarSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "tab",
+          "detail": {
+            "role": "tab",
+            "bounds": {
+              "x": 42,
+              "y": 42,
+              "width": 301,
+              "height": 210
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 301,
+            "height": 210
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "tab",
+          "detail": {
+            "role": "tab",
+            "bounds": {
+              "x": 364,
+              "y": 42,
+              "width": 301,
+              "height": 210
+            }
+          },
+          "bounds": {
+            "x": 364,
+            "y": 42,
+            "width": 301,
+            "height": 210
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "tab",
+          "detail": {
+            "role": "tab",
+            "bounds": {
+              "x": 686,
+              "y": 42,
+              "width": 301,
+              "height": 210
+            }
+          },
+          "bounds": {
+            "x": 686,
+            "y": 42,
+            "width": 301,
+            "height": 210
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 945,
+            "height": 210
+          },
+          "gap": 8
+        },
+        {
+          "bounds": {
+            "x": 119,
+            "y": 73,
+            "width": 147,
+            "height": 84
+          },
+          "cornerRadius": 16
+        },
+        {
+          "bounds": {
+            "x": 119,
+            "y": 74,
+            "width": 147,
+            "height": 84
+          },
+          "cornerRadius": 16
+        },
+        {
+          "bounds": {
+            "x": 441,
+            "y": 74,
+            "width": 147,
+            "height": 84
+          },
+          "cornerRadius": 16
+        },
+        {
+          "bounds": {
+            "x": 763,
+            "y": 74,
+            "width": 147,
+            "height": 84
+          },
+          "cornerRadius": 16
+        }
+      ],
+      "section": "Navigation",
+      "group": "Navigation bar",
+      "caption": "Three to five top-level destinations, compact widths.",
+      "wireframe": "wireframes/navigationbar-standard.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/NavigationBars.kt"
+    },
+    {
+      "componentId": "NavigationDrawer/Modal",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/navigationdrawer-modal/ideal__default__dark.png",
+          "state": "default",
+          "width": 1029,
+          "height": 2100,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/navigationdrawer-modal__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.NavigationDrawersKt.ModalDrawerSheetSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/navigationdrawer-modal/ideal__default__light.png",
+          "state": "default",
+          "width": 1029,
+          "height": 2100,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/navigationdrawer-modal__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.NavigationDrawersKt.ModalDrawerSheetSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "tab",
+          "detail": {
+            "role": "tab",
+            "bounds": {
+              "x": 74,
+              "y": 189,
+              "width": 881,
+              "height": 147
+            }
+          },
+          "bounds": {
+            "x": 74,
+            "y": 189,
+            "width": 881,
+            "height": 147
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "tab",
+          "detail": {
+            "role": "tab",
+            "bounds": {
+              "x": 74,
+              "y": 336,
+              "width": 881,
+              "height": 147
+            }
+          },
+          "bounds": {
+            "x": 74,
+            "y": 336,
+            "width": 881,
+            "height": 147
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "tab",
+          "detail": {
+            "role": "tab",
+            "bounds": {
+              "x": 74,
+              "y": 483,
+              "width": 881,
+              "height": 147
+            }
+          },
+          "bounds": {
+            "x": 74,
+            "y": 483,
+            "width": 881,
+            "height": 147
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 945,
+            "height": 2016
+          },
+          "cornerRadius": 0
+        },
+        {
+          "bounds": {
+            "x": 84,
+            "y": 84,
+            "width": 86,
+            "height": 63
+          },
+          "label": "Mail",
+          "padding": {
+            "start": 16,
+            "top": 16,
+            "end": 16,
+            "bottom": 16
+          }
+        },
+        {
+          "bounds": {
+            "x": 74,
+            "y": 189,
+            "width": 881,
+            "height": 147
+          },
+          "role": "Tab",
+          "cornerRadius": 28
+        },
+        {
+          "bounds": {
+            "x": 74,
+            "y": 336,
+            "width": 881,
+            "height": 147
+          },
+          "role": "Tab",
+          "cornerRadius": 28
+        },
+        {
+          "bounds": {
+            "x": 74,
+            "y": 483,
+            "width": 881,
+            "height": 147
+          },
+          "role": "Tab",
+          "cornerRadius": 28
+        }
+      ],
+      "section": "Navigation",
+      "group": "Navigation drawer",
+      "caption": "Top-level destinations in a sheet that slides over the content.",
+      "wireframe": "wireframes/navigationdrawer-modal.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/NavigationDrawers.kt"
+    },
+    {
+      "componentId": "NavigationRail/Standard",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/navigationrail-standard/ideal__default__dark.png",
+          "state": "default",
+          "width": 294,
+          "height": 819,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/navigationrail-standard__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.NavigationRailsKt.NavigationRailSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/navigationrail-standard/ideal__default__light.png",
+          "state": "default",
+          "width": 294,
+          "height": 819,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/navigationrail-standard__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.NavigationRailsKt.NavigationRailSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "tab",
+          "detail": {
+            "role": "tab",
+            "bounds": {
+              "x": 42,
+              "y": 53,
+              "width": 210,
+              "height": 147
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 210,
+            "height": 147
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "tab",
+          "detail": {
+            "role": "tab",
+            "bounds": {
+              "x": 42,
+              "y": 211,
+              "width": 210,
+              "height": 147
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 211,
+            "width": 210,
+            "height": 147
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "tab",
+          "detail": {
+            "role": "tab",
+            "bounds": {
+              "x": 42,
+              "y": 369,
+              "width": 210,
+              "height": 147
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 369,
+            "width": 210,
+            "height": 147
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 210,
+            "height": 713
+          },
+          "padding": {
+            "start": 0,
+            "top": 4,
+            "end": 0,
+            "bottom": 4
+          },
+          "gap": 4
+        },
+        {
+          "bounds": {
+            "x": 73,
+            "y": 53,
+            "width": 147,
+            "height": 84
+          },
+          "cornerRadius": 16
+        },
+        {
+          "bounds": {
+            "x": 73,
+            "y": 53,
+            "width": 147,
+            "height": 84
+          },
+          "cornerRadius": 16
+        },
+        {
+          "bounds": {
+            "x": 73,
+            "y": 211,
+            "width": 147,
+            "height": 84
+          },
+          "cornerRadius": 16
+        },
+        {
+          "bounds": {
+            "x": 73,
+            "y": 369,
+            "width": 147,
+            "height": 84
+          },
+          "cornerRadius": 16
+        }
+      ],
+      "section": "Navigation",
+      "group": "Navigation rail",
+      "caption": "Top-level destinations along the side, medium and expanded widths.",
+      "wireframe": "wireframes/navigationrail-standard.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/NavigationRails.kt"
+    },
+    {
+      "componentId": "Progress/Linear",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/progress-linear/ideal__default__dark.png",
+          "state": "default",
+          "width": 714,
+          "height": 95,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-linear__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearProgress_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/progress-linear/ideal__default__light.png",
+          "state": "default",
+          "width": 714,
+          "height": 95,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-linear__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearProgress_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/progress-linear/ideal__default__dark__shape-wavy.png",
+          "state": "default",
+          "width": 714,
+          "height": 110,
+          "theme": "dark",
+          "props": {
+            "shape": "wavy"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-linear__ideal__default__dark__shape-wavy",
+          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/progress-linear/ideal__default__light__shape-wavy.png",
+          "state": "default",
+          "width": 714,
+          "height": 110,
+          "theme": "light",
+          "props": {
+            "shape": "wavy"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-linear__ideal__default__light__shape-wavy",
+          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 16,
+            "width": 630,
+            "height": 63
+          },
+          "padding": {
+            "start": 0,
+            "top": 10,
+            "end": 0,
+            "bottom": 10
+          }
+        }
+      ],
+      "section": "Communication",
+      "group": "Progress indicators",
+      "caption": "Determinate linear progress at 70%.",
+      "wireframe": "wireframes/progress-linear.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt"
+    },
+    {
+      "componentId": "Progress/Circular",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/progress-circular/ideal__default__dark.png",
+          "state": "default",
+          "width": 189,
+          "height": 189,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-circular__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.CircularProgress_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/progress-circular/ideal__default__light.png",
+          "state": "default",
+          "width": 189,
+          "height": 189,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-circular__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.CircularProgress_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [],
+      "section": "Communication",
+      "group": "Progress indicators",
+      "caption": "Determinate circular progress at 70%.",
+      "wireframe": "wireframes/progress-circular.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt"
+    },
+    {
+      "componentId": "RadioButton/Selected",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/radiobutton-selected/ideal__default__dark.png",
+          "state": "default",
+          "width": 357,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/radiobutton-selected__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.RadioButtonsKt.RadioSelected_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/radiobutton-selected/ideal__default__light.png",
+          "state": "default",
+          "width": 357,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/radiobutton-selected__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.RadioButtonsKt.RadioSelected_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/radiobutton-selected/ideal__disabled__dark.png",
+          "state": "disabled",
+          "width": 147,
+          "height": 147,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/radiobutton-selected__ideal__disabled__dark",
+          "previewId": "ee.schimke.m3catalog.sections.RadioButtonsKt.RadioDisabled_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/radiobutton-selected/ideal__disabled__light.png",
+          "state": "disabled",
+          "width": 147,
+          "height": 147,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/radiobutton-selected__ideal__disabled__light",
+          "previewId": "ee.schimke.m3catalog.sections.RadioButtonsKt.RadioDisabled_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 74,
+            "y": 74,
+            "width": 63,
+            "height": 63
+          },
+          "role": "RadioButton",
+          "padding": {
+            "start": 2,
+            "top": 2,
+            "end": 2,
+            "bottom": 2
+          }
+        },
+        {
+          "bounds": {
+            "x": 221,
+            "y": 74,
+            "width": 63,
+            "height": 63
+          },
+          "role": "RadioButton",
+          "padding": {
+            "start": 2,
+            "top": 2,
+            "end": 2,
+            "bottom": 2
+          }
+        }
+      ],
+      "section": "Selection",
+      "group": "Radio button",
+      "caption": "Select exactly one option from a set.",
+      "wireframe": "wireframes/radiobutton-selected.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/RadioButtons.kt"
+    },
+    {
+      "componentId": "Search/Bar",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/search-bar/ideal__default__dark.png",
+          "state": "default",
+          "width": 1029,
+          "height": 255,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/search-bar__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.SearchKt.SearchBarSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/search-bar/ideal__default__light.png",
+          "state": "default",
+          "width": 1029,
+          "height": 255,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/search-bar__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.SearchKt.SearchBarSticker_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [],
+      "section": "Navigation",
+      "group": "Search",
+      "caption": "Collapsed search entry point.",
+      "wireframe": "wireframes/search-bar.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Search.kt"
+    },
+    {
+      "componentId": "SegmentedButton/SingleChoice",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/segmentedbutton-singlechoice/ideal__default__dark.png",
+          "state": "default",
+          "width": 795,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-singlechoice__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.SegmentedButtons_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/segmentedbutton-singlechoice/ideal__default__light.png",
+          "state": "default",
+          "width": 795,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-singlechoice__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.SegmentedButtons_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 514,
+            "y": 53,
+            "width": 239,
+            "height": 105
+          },
+          "role": "RadioButton",
+          "cornerRadius": 0
+        },
+        {
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 239,
+            "height": 105
+          },
+          "role": "RadioButton",
+          "cornerRadius": 20
+        }
+      ],
+      "section": "Actions",
+      "group": "Segmented buttons",
+      "caption": "Two to five related options; exactly one selected.",
+      "wireframe": "wireframes/segmentedbutton-singlechoice.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/SegmentedButtons.kt"
+    },
+    {
+      "componentId": "Shape/Scale",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/shape-scale/ideal__default__dark.png",
+          "state": "default",
+          "width": 1050,
+          "height": 315,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/shape-scale__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ShapeScaleKt.ShapeScale_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/shape-scale/ideal__default__light.png",
+          "state": "default",
+          "width": 1050,
+          "height": 315,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/shape-scale__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ShapeScaleKt.ShapeScale_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 189,
+            "height": 189
+          },
+          "cornerRadius": 4
+        },
+        {
+          "bounds": {
+            "x": 263,
+            "y": 42,
+            "width": 189,
+            "height": 189
+          },
+          "cornerRadius": 8
+        },
+        {
+          "bounds": {
+            "x": 484,
+            "y": 42,
+            "width": 189,
+            "height": 189
+          },
+          "cornerRadius": 12
+        },
+        {
+          "bounds": {
+            "x": 705,
+            "y": 42,
+            "width": 189,
+            "height": 189
+          },
+          "cornerRadius": 16
+        },
+        {
+          "bounds": {
+            "x": 926,
+            "y": 42,
+            "width": 82,
+            "height": 189
+          },
+          "cornerRadius": 28
+        }
+      ],
+      "section": "Styles",
+      "group": "Shape",
+      "caption": "extraSmall 4dp through extraLarge 28dp.",
+      "wireframe": "wireframes/shape-scale.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/ShapeScale.kt"
+    },
+    {
+      "componentId": "SideSheet/Standard",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/sidesheet-standard/ideal__default__dark.png",
+          "state": "default",
+          "width": 756,
+          "height": 819,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/sidesheet-standard__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.SideSheetsKt.StandardSideSheet_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/sidesheet-standard/ideal__default__light.png",
+          "state": "default",
+          "width": 756,
+          "height": 819,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/sidesheet-standard__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.SideSheetsKt.StandardSideSheet_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 557,
+              "y": 95,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 557,
+            "y": 95,
+            "width": 105,
+            "height": 105
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 672,
+            "height": 735
+          },
+          "cornerRadius": 16
+        },
+        {
+          "bounds": {
+            "x": 557,
+            "y": 95,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        }
+      ],
+      "section": "Containment",
+      "group": "Side sheets",
+      "caption": "Supporting pane anchored to the side (composed from Surface; no M3 Compose API).",
+      "wireframe": "wireframes/sidesheet-standard.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/SideSheets.kt"
+    },
+    {
+      "componentId": "Slider/Continuous",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/slider-continuous/ideal__default__dark.png",
+          "state": "default",
+          "width": 819,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-continuous__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.ContinuousSlider_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/slider-continuous/ideal__default__light.png",
+          "state": "default",
+          "width": 819,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-continuous__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.ContinuousSlider_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/slider-continuous/ideal__default__dark__steps-discrete.png",
+          "state": "default",
+          "width": 819,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "steps": "discrete"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-continuous__ideal__default__dark__steps-discrete",
+          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.DiscreteSlider_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/slider-continuous/ideal__default__light__steps-discrete.png",
+          "state": "default",
+          "width": 819,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "steps": "discrete"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-continuous__ideal__default__light__steps-discrete",
+          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.DiscreteSlider_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/slider-continuous/ideal__default__dark__selection-range.png",
+          "state": "default",
+          "width": 819,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "selection": "range"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-continuous__ideal__default__dark__selection-range",
+          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.RangeSliderSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/slider-continuous/ideal__default__light__selection-range.png",
+          "state": "default",
+          "width": 819,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "selection": "range"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-continuous__ideal__default__light__selection-range",
+          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.RangeSliderSticker_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 16,
+            "y": 47,
+            "width": 787,
+            "height": 116
+          },
+          "padding": {
+            "start": 10,
+            "top": 0,
+            "end": 10,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 404,
+            "y": 47,
+            "width": 11,
+            "height": 116
+          },
+          "cornerRadius": 2.1
+        }
+      ],
+      "section": "Selection",
+      "group": "Sliders",
+      "caption": "Select a value from a continuous range.",
+      "wireframe": "wireframes/slider-continuous.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Sliders.kt"
+    },
+    {
+      "componentId": "Snackbar/Message",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/snackbar-message/ideal__default__dark.png",
+          "state": "default",
+          "width": 1050,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/snackbar-message__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/snackbar-message/ideal__default__light.png",
+          "state": "default",
+          "width": 1050,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/snackbar-message__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/snackbar-message/ideal__default__dark__content-action.png",
+          "state": "default",
+          "width": 1050,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "content": "action"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/snackbar-message__ideal__default__dark__content-action",
+          "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarWithAction_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/snackbar-message/ideal__default__light__content-action.png",
+          "state": "default",
+          "width": 1050,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "content": "action"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/snackbar-message__ideal__default__light__content-action",
+          "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarWithAction_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 966,
+            "height": 126
+          },
+          "cornerRadius": 4
+        }
+      ],
+      "section": "Communication",
+      "group": "Snackbar",
+      "caption": "Brief message about a process.",
+      "wireframe": "wireframes/snackbar-message.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Snackbar.kt"
+    },
+    {
+      "componentId": "SplitButton/Filled",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/splitbutton-filled/ideal__default__dark.png",
+          "state": "default",
+          "width": 421,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/splitbutton-filled__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.SplitButtonKt.SplitButton_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/splitbutton-filled/ideal__default__light.png",
+          "state": "default",
+          "width": 421,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/splitbutton-filled__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.SplitButtonKt.SplitButton_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 42,
+              "y": 53,
+              "width": 201,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 201,
+            "height": 105
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 248,
+              "y": 53,
+              "width": 131,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 248,
+            "y": 53,
+            "width": 131,
+            "height": 105
+          }
+        }
+      ],
+      "redlines": [],
+      "section": "Actions",
+      "group": "Split button",
+      "caption": "Primary action plus a related-choices affordance.",
+      "wireframe": "wireframes/splitbutton-filled.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/SplitButton.kt"
+    },
+    {
+      "componentId": "Switch/On",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/switch-on/ideal__default__dark.png",
+          "state": "default",
+          "width": 221,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/switch-on__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.SwitchesKt.SwitchOn_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/switch-on/ideal__default__light.png",
+          "state": "default",
+          "width": 221,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/switch-on__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.SwitchesKt.SwitchOn_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/switch-on/ideal__off__dark.png",
+          "state": "off",
+          "width": 221,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/switch-on__ideal__off__dark",
+          "previewId": "ee.schimke.m3catalog.sections.SwitchesKt.SwitchOff_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/switch-on/ideal__off__light.png",
+          "state": "off",
+          "width": 221,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/switch-on__ideal__off__light",
+          "previewId": "ee.schimke.m3catalog.sections.SwitchesKt.SwitchOff_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/switch-on/ideal__default__dark__content-icon.png",
+          "state": "default",
+          "width": 221,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "content": "icon"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/switch-on__ideal__default__dark__content-icon",
+          "previewId": "ee.schimke.m3catalog.sections.SwitchesKt.SwitchWithIcon_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/switch-on/ideal__default__light__content-icon.png",
+          "state": "default",
+          "width": 221,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "content": "icon"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/switch-on__ideal__default__light__content-icon",
+          "previewId": "ee.schimke.m3catalog.sections.SwitchesKt.SwitchWithIcon_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/switch-on/ideal__disabled__dark.png",
+          "state": "disabled",
+          "width": 221,
+          "height": 168,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/switch-on__ideal__disabled__dark",
+          "previewId": "ee.schimke.m3catalog.sections.SwitchesKt.SwitchDisabled_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/switch-on/ideal__disabled__light.png",
+          "state": "disabled",
+          "width": 221,
+          "height": 168,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/switch-on__ideal__disabled__light",
+          "previewId": "ee.schimke.m3catalog.sections.SwitchesKt.SwitchDisabled_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "switch",
+          "detail": {
+            "role": "switch",
+            "bounds": {
+              "x": 42,
+              "y": 63,
+              "width": 137,
+              "height": 84
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 63,
+            "width": 137,
+            "height": 84
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 63,
+            "width": 137,
+            "height": 84
+          },
+          "role": "Switch",
+          "cornerRadius": 16
+        },
+        {
+          "bounds": {
+            "x": 105,
+            "y": 74,
+            "width": 63,
+            "height": 63
+          },
+          "cornerRadius": 12
+        }
+      ],
+      "section": "Selection",
+      "group": "Switch",
+      "caption": "Toggle a single setting on or off.",
+      "wireframe": "wireframes/switch-on.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Switches.kt"
+    },
+    {
+      "componentId": "Tabs/Primary",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/tabs-primary/ideal__default__dark.png",
+          "state": "default",
+          "width": 1029,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/tabs-primary__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.TabsKt.PrimaryTabs_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/tabs-primary/ideal__default__light.png",
+          "state": "default",
+          "width": 1029,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/tabs-primary__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.TabsKt.PrimaryTabs_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/tabs-primary/ideal__default__dark__emphasis-secondary.png",
+          "state": "default",
+          "width": 1029,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "emphasis": "secondary"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/tabs-primary__ideal__default__dark__emphasis-secondary",
+          "previewId": "ee.schimke.m3catalog.sections.TabsKt.SecondaryTabs_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/tabs-primary/ideal__default__light__emphasis-secondary.png",
+          "state": "default",
+          "width": 1029,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "emphasis": "secondary"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/tabs-primary__ideal__default__light__emphasis-secondary",
+          "previewId": "ee.schimke.m3catalog.sections.TabsKt.SecondaryTabs_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "tab",
+          "detail": {
+            "role": "tab",
+            "bounds": {
+              "x": 42,
+              "y": 42,
+              "width": 315,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 315,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "tab",
+          "detail": {
+            "role": "tab",
+            "bounds": {
+              "x": 357,
+              "y": 42,
+              "width": 315,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 357,
+            "y": 42,
+            "width": 315,
+            "height": 126
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "tab",
+          "detail": {
+            "role": "tab",
+            "bounds": {
+              "x": 672,
+              "y": 42,
+              "width": 315,
+              "height": 126
+            }
+          },
+          "bounds": {
+            "x": 672,
+            "y": 42,
+            "width": 315,
+            "height": 126
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 124,
+            "y": 160,
+            "width": 151,
+            "height": 8
+          },
+          "cornerRadius": 3
+        }
+      ],
+      "section": "Navigation",
+      "group": "Tabs",
+      "caption": "Top-level content categories under an app bar.",
+      "wireframe": "wireframes/tabs-primary.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Tabs.kt"
+    },
+    {
+      "componentId": "Template/AppScaffold",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/template-appscaffold/ideal__default__dark__compact.png",
+          "state": "default",
+          "width": 1078,
+          "height": 2399,
+          "theme": "dark",
+          "size": "compact",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/template-appscaffold__ideal__default__dark__compact",
+          "previewId": "ee.schimke.m3catalog.sections.TemplatesKt.AppScaffoldTemplate_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/template-appscaffold/ideal__default__light__compact.png",
+          "state": "default",
+          "width": 1078,
+          "height": 2399,
+          "theme": "light",
+          "size": "compact",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/template-appscaffold__ideal__default__light__compact",
+          "previewId": "ee.schimke.m3catalog.sections.TemplatesKt.AppScaffoldTemplate_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 22,
+              "y": 95,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 22,
+            "y": 95,
+            "width": 105,
+            "height": 105
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 889,
+              "y": 2147,
+              "width": 147,
+              "height": 147
+            }
+          },
+          "bounds": {
+            "x": 889,
+            "y": 2147,
+            "width": 147,
+            "height": 147
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 22,
+            "y": 95,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        },
+        {
+          "bounds": {
+            "x": 148,
+            "y": 110,
+            "width": 141,
+            "height": 74
+          },
+          "padding": {
+            "start": 4,
+            "top": 0,
+            "end": 4,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 889,
+            "y": 2147,
+            "width": 147,
+            "height": 147
+          },
+          "role": "Button",
+          "cornerRadius": 16
+        },
+        {
+          "bounds": {
+            "x": 42,
+            "y": 0,
+            "width": 994,
+            "height": 63
+          },
+          "padding": {
+            "start": 16,
+            "top": 0,
+            "end": 16,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 397,
+            "y": 2368,
+            "width": 284,
+            "height": 11
+          },
+          "padding": {
+            "start": 0,
+            "top": 4,
+            "end": 0,
+            "bottom": 0
+          },
+          "cornerRadius": 2
+        }
+      ],
+      "section": "Templates",
+      "group": "Scaffold templates",
+      "caption": "Top app bar, list and FAB — the canonical full-screen M3 layout.",
+      "wireframe": "wireframes/template-appscaffold.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Templates.kt"
+    },
+    {
+      "componentId": "TextField/Filled",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/textfield-filled/ideal__default__dark.png",
+          "state": "default",
+          "width": 819,
+          "height": 231,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/textfield-filled__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.FilledTextField_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/textfield-filled/ideal__default__light.png",
+          "state": "default",
+          "width": 819,
+          "height": 231,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/textfield-filled__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.FilledTextField_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/textfield-filled/ideal__empty__dark.png",
+          "state": "empty",
+          "width": 819,
+          "height": 231,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/textfield-filled__ideal__empty__dark",
+          "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.FilledTextFieldEmpty_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/textfield-filled/ideal__empty__light.png",
+          "state": "empty",
+          "width": 819,
+          "height": 231,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/textfield-filled__ideal__empty__light",
+          "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.FilledTextFieldEmpty_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/textfield-filled/ideal__error__dark.png",
+          "state": "error",
+          "width": 819,
+          "height": 284,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/textfield-filled__ideal__error__dark",
+          "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.FilledTextFieldError_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/textfield-filled/ideal__error__light.png",
+          "state": "error",
+          "width": 819,
+          "height": 284,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/textfield-filled__ideal__error__light",
+          "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.FilledTextFieldError_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/textfield-filled/ideal__default__dark__content-icon.png",
+          "state": "default",
+          "width": 819,
+          "height": 231,
+          "theme": "dark",
+          "props": {
+            "content": "icon"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/textfield-filled__ideal__default__dark__content-icon",
+          "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.FilledTextFieldWithIcon_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/textfield-filled/ideal__default__light__content-icon.png",
+          "state": "default",
+          "width": 819,
+          "height": 231,
+          "theme": "light",
+          "props": {
+            "content": "icon"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/textfield-filled__ideal__default__light__content-icon",
+          "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.FilledTextFieldWithIcon_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/textfield-filled/ideal__disabled__dark.png",
+          "state": "disabled",
+          "width": 819,
+          "height": 231,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/textfield-filled__ideal__disabled__dark",
+          "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.FilledTextFieldDisabled_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/textfield-filled/ideal__disabled__light.png",
+          "state": "disabled",
+          "width": 819,
+          "height": 231,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/textfield-filled__ideal__disabled__light",
+          "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.FilledTextFieldDisabled_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [],
+      "section": "Text inputs",
+      "group": "Text fields",
+      "caption": "The default; a filled container.",
+      "wireframe": "wireframes/textfield-filled.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TextFields.kt"
+    },
+    {
+      "componentId": "TextField/Outlined",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/textfield-outlined/ideal__default__dark.png",
+          "state": "default",
+          "width": 819,
+          "height": 252,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/textfield-outlined__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.OutlinedTextFieldSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/textfield-outlined/ideal__default__light.png",
+          "state": "default",
+          "width": 819,
+          "height": 252,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/textfield-outlined__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.OutlinedTextFieldSticker_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 42,
+            "y": 42,
+            "width": 735,
+            "height": 168
+          },
+          "padding": {
+            "start": 0,
+            "top": 8,
+            "end": 0,
+            "bottom": 0
+          }
+        }
+      ],
+      "section": "Text inputs",
+      "group": "Text fields",
+      "caption": "Outlined container; less visual weight.",
+      "wireframe": "wireframes/textfield-outlined.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TextFields.kt"
+    },
+    {
+      "componentId": "TimePicker/Dial",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/timepicker-dial/ideal__default__dark.png",
+          "state": "default",
+          "width": 756,
+          "height": 1124,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/timepicker-dial__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/timepicker-dial/ideal__default__light.png",
+          "state": "default",
+          "width": 756,
+          "height": 1124,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/timepicker-dial__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerSticker_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/timepicker-dial/ideal__default__dark__entry-input.png",
+          "state": "default",
+          "width": 651,
+          "height": 375,
+          "theme": "dark",
+          "props": {
+            "entry": "input"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/timepicker-dial__ideal__default__dark__entry-input",
+          "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/timepicker-dial/ideal__default__light__entry-input.png",
+          "state": "default",
+          "width": 651,
+          "height": 375,
+          "theme": "light",
+          "props": {
+            "entry": "input"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/timepicker-dial__ideal__default__light__entry-input",
+          "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 95,
+            "y": 42,
+            "width": 252,
+            "height": 210
+          },
+          "role": "RadioButton",
+          "label": "Select hour",
+          "cornerRadius": 8
+        },
+        {
+          "bounds": {
+            "x": 410,
+            "y": 42,
+            "width": 252,
+            "height": 210
+          },
+          "role": "RadioButton",
+          "label": "Select minutes",
+          "cornerRadius": 8
+        },
+        {
+          "bounds": {
+            "x": 42,
+            "y": 347,
+            "width": 672,
+            "height": 672
+          },
+          "cornerRadius": 128
+        },
+        {
+          "bounds": {
+            "x": 42,
+            "y": 347,
+            "width": 672,
+            "height": 672
+          },
+          "cornerRadius": 128
+        }
+      ],
+      "section": "Selection",
+      "group": "Time pickers",
+      "caption": "Clock dial for picking an hour and minute.",
+      "wireframe": "wireframes/timepicker-dial.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TimePickers.kt"
+    },
+    {
+      "componentId": "ToggleButton/Filled",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/togglebutton-filled/ideal__default__dark.png",
+          "state": "default",
+          "width": 216,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/togglebutton-filled__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.ToggleButtonSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/togglebutton-filled/ideal__default__light.png",
+          "state": "default",
+          "width": 216,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/togglebutton-filled__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.ToggleButtonSticker_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/togglebutton-filled/ideal__default__dark__emphasis-tonal.png",
+          "state": "default",
+          "width": 258,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "emphasis": "tonal"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/togglebutton-filled__ideal__default__dark__emphasis-tonal",
+          "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.TonalToggleButtonSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/togglebutton-filled/ideal__default__light__emphasis-tonal.png",
+          "state": "default",
+          "width": 258,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "emphasis": "tonal"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/togglebutton-filled__ideal__default__light__emphasis-tonal",
+          "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.TonalToggleButtonSticker_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/togglebutton-filled/ideal__default__dark__emphasis-outlined.png",
+          "state": "default",
+          "width": 308,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "emphasis": "outlined"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/togglebutton-filled__ideal__default__dark__emphasis-outlined",
+          "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.OutlinedToggleButtonSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/togglebutton-filled/ideal__default__light__emphasis-outlined.png",
+          "state": "default",
+          "width": 308,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "emphasis": "outlined"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/togglebutton-filled__ideal__default__light__emphasis-outlined",
+          "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.OutlinedToggleButtonSticker_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/togglebutton-filled/ideal__default__dark__emphasis-elevated.png",
+          "state": "default",
+          "width": 308,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "emphasis": "elevated"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/togglebutton-filled__ideal__default__dark__emphasis-elevated",
+          "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.ElevatedToggleButtonSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/togglebutton-filled/ideal__default__light__emphasis-elevated.png",
+          "state": "default",
+          "width": 308,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "emphasis": "elevated"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/togglebutton-filled__ideal__default__light__emphasis-elevated",
+          "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.ElevatedToggleButtonSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "checkbox",
+          "detail": {
+            "role": "checkbox",
+            "bounds": {
+              "x": 42,
+              "y": 53,
+              "width": 132,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 42,
+            "y": 53,
+            "width": 132,
+            "height": 105
+          }
+        }
+      ],
+      "redlines": [],
+      "section": "Actions",
+      "group": "Toggle buttons",
+      "caption": "A button whose selection persists.",
+      "wireframe": "wireframes/togglebutton-filled.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/ToggleButtons.kt"
+    },
+    {
+      "componentId": "Toolbar/HorizontalFloating",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/toolbar-horizontalfloating/ideal__default__dark.png",
+          "state": "default",
+          "width": 504,
+          "height": 252,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-horizontalfloating__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.HorizontalFloatingToolbarSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/toolbar-horizontalfloating/ideal__default__light.png",
+          "state": "default",
+          "width": 504,
+          "height": 252,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-horizontalfloating__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.HorizontalFloatingToolbarSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 74,
+              "y": 74,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 74,
+            "y": 74,
+            "width": 105,
+            "height": 105
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 200,
+              "y": 74,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 200,
+            "y": 74,
+            "width": 105,
+            "height": 105
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 326,
+              "y": 74,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 326,
+            "y": 74,
+            "width": 105,
+            "height": 105
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 63,
+            "y": 63,
+            "width": 378,
+            "height": 126
+          },
+          "cornerRadius": 24
+        },
+        {
+          "bounds": {
+            "x": 74,
+            "y": 74,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        },
+        {
+          "bounds": {
+            "x": 200,
+            "y": 74,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        },
+        {
+          "bounds": {
+            "x": 326,
+            "y": 74,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        }
+      ],
+      "section": "Actions",
+      "group": "Toolbars",
+      "caption": "A floating cluster of related actions over the content.",
+      "wireframe": "wireframes/toolbar-horizontalfloating.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Toolbars.kt"
+    },
+    {
+      "componentId": "Tooltip/Plain",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/tooltip-plain/ideal__default__dark.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/tooltip-plain__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.TooltipsKt.PlainTooltipSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/tooltip-plain/ideal__default__light.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/tooltip-plain__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.TooltipsKt.PlainTooltipSticker_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/tooltip-plain/ideal__default__dark__kind-rich.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "dark",
+          "props": {
+            "kind": "rich"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/tooltip-plain__ideal__default__dark__kind-rich",
+          "previewId": "ee.schimke.m3catalog.sections.TooltipsKt.RichTooltipSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/tooltip-plain/ideal__default__light__kind-rich.png",
+          "state": "default",
+          "width": 210,
+          "height": 210,
+          "theme": "light",
+          "props": {
+            "kind": "rich"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/tooltip-plain__ideal__default__light__kind-rich",
+          "previewId": "ee.schimke.m3catalog.sections.TooltipsKt.RichTooltipSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 53,
+              "y": 53,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 53,
+            "y": 53,
+            "width": 105,
+            "height": 105
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 53,
+            "y": 53,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        }
+      ],
+      "section": "Communication",
+      "group": "Tooltips",
+      "caption": "Short label for an unlabelled element.",
+      "wireframe": "wireframes/tooltip-plain.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Tooltips.kt"
+    },
+    {
+      "componentId": "TopAppBar/Small",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/topappbar-small/ideal__default__dark.png",
+          "state": "default",
+          "width": 1029,
+          "height": 252,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/topappbar-small__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.SmallTopAppBar_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/topappbar-small/ideal__default__light.png",
+          "state": "default",
+          "width": 1029,
+          "height": 252,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/topappbar-small__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.SmallTopAppBar_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/topappbar-small/ideal__default__dark__size-centered.png",
+          "state": "default",
+          "width": 1029,
+          "height": 252,
+          "theme": "dark",
+          "props": {
+            "size": "centered"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/topappbar-small__ideal__default__dark__size-centered",
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.CenterTopAppBar_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/topappbar-small/ideal__default__light__size-centered.png",
+          "state": "default",
+          "width": 1029,
+          "height": 252,
+          "theme": "light",
+          "props": {
+            "size": "centered"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/topappbar-small__ideal__default__light__size-centered",
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.CenterTopAppBar_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/topappbar-small/ideal__default__dark__size-medium.png",
+          "state": "default",
+          "width": 1029,
+          "height": 378,
+          "theme": "dark",
+          "props": {
+            "size": "medium"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/topappbar-small__ideal__default__dark__size-medium",
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.MediumTopAppBarSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/topappbar-small/ideal__default__light__size-medium.png",
+          "state": "default",
+          "width": 1029,
+          "height": 378,
+          "theme": "light",
+          "props": {
+            "size": "medium"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/topappbar-small__ideal__default__light__size-medium",
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.MediumTopAppBarSticker_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/topappbar-small/ideal__default__dark__size-large.png",
+          "state": "default",
+          "width": 1029,
+          "height": 483,
+          "theme": "dark",
+          "props": {
+            "size": "large"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/topappbar-small__ideal__default__dark__size-large",
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.LargeTopAppBarSticker_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/topappbar-small/ideal__default__light__size-large.png",
+          "state": "default",
+          "width": 1029,
+          "height": 483,
+          "theme": "light",
+          "props": {
+            "size": "large"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/topappbar-small__ideal__default__light__size-large",
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.LargeTopAppBarSticker_Light"
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 64,
+              "y": 74,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 64,
+            "y": 74,
+            "width": 105,
+            "height": 105
+          }
+        },
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 861,
+              "y": 74,
+              "width": 105,
+              "height": 105
+            }
+          },
+          "bounds": {
+            "x": 861,
+            "y": 74,
+            "width": 105,
+            "height": 105
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 64,
+            "y": 74,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        },
+        {
+          "bounds": {
+            "x": 190,
+            "y": 89,
+            "width": 111,
+            "height": 74
+          },
+          "padding": {
+            "start": 4,
+            "top": 0,
+            "end": 4,
+            "bottom": 0
+          }
+        },
+        {
+          "bounds": {
+            "x": 861,
+            "y": 74,
+            "width": 105,
+            "height": 105
+          },
+          "role": "Button",
+          "cornerRadius": 20
+        }
+      ],
+      "section": "Navigation",
+      "group": "Top app bar",
+      "caption": "The default; title beside the actions.",
+      "wireframe": "wireframes/topappbar-small.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt"
+    },
+    {
+      "componentId": "Typography/Display",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/typography-display/ideal__default__dark.png",
+          "state": "default",
+          "width": 1050,
+          "height": 537,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/typography-display__ideal__default__dark",
+          "previewId": "ee.schimke.m3catalog.sections.TypeScaleKt.DisplayScale_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/typography-display/ideal__default__light.png",
+          "state": "default",
+          "width": 1050,
+          "height": 537,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/typography-display__ideal__default__light",
+          "previewId": "ee.schimke.m3catalog.sections.TypeScaleKt.DisplayScale_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/typography-display/ideal__default__dark__scale-headline.png",
+          "state": "default",
+          "width": 1050,
+          "height": 400,
+          "theme": "dark",
+          "props": {
+            "scale": "headline"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/typography-display__ideal__default__dark__scale-headline",
+          "previewId": "ee.schimke.m3catalog.sections.TypeScaleKt.HeadlineScale_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/typography-display/ideal__default__light__scale-headline.png",
+          "state": "default",
+          "width": 1050,
+          "height": 400,
+          "theme": "light",
+          "props": {
+            "scale": "headline"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/typography-display__ideal__default__light__scale-headline",
+          "previewId": "ee.schimke.m3catalog.sections.TypeScaleKt.HeadlineScale_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/typography-display/ideal__default__dark__scale-title.png",
+          "state": "default",
+          "width": 1050,
+          "height": 306,
+          "theme": "dark",
+          "props": {
+            "scale": "title"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/typography-display__ideal__default__dark__scale-title",
+          "previewId": "ee.schimke.m3catalog.sections.TypeScaleKt.TitleScale_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/typography-display/ideal__default__light__scale-title.png",
+          "state": "default",
+          "width": 1050,
+          "height": 306,
+          "theme": "light",
+          "props": {
+            "scale": "title"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/typography-display__ideal__default__light__scale-title",
+          "previewId": "ee.schimke.m3catalog.sections.TypeScaleKt.TitleScale_Light"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/typography-display/ideal__default__dark__scale-body-label.png",
+          "state": "default",
+          "width": 1050,
+          "height": 459,
+          "theme": "dark",
+          "props": {
+            "scale": "body+label"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/typography-display__ideal__default__dark__scale-body-label",
+          "previewId": "ee.schimke.m3catalog.sections.TypeScaleKt.BodyAndLabelScale_Dark"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/typography-display/ideal__default__light__scale-body-label.png",
+          "state": "default",
+          "width": 1050,
+          "height": 459,
+          "theme": "light",
+          "props": {
+            "scale": "body+label"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/typography-display__ideal__default__light__scale-body-label",
+          "previewId": "ee.schimke.m3catalog.sections.TypeScaleKt.BodyAndLabelScale_Light"
+        }
+      ],
+      "greenlines": [],
+      "redlines": [],
+      "section": "Styles",
+      "group": "Typography",
+      "caption": "Display large, medium and small.",
+      "wireframe": "wireframes/typography-display.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TypeScale.kt"
+    }
+  ],
+  "library": [
+    "org.jetbrains.compose.material3:material3",
+    "org.jetbrains.compose.material:material-icons-extended"
+  ],
+  "renderer": "compose-preview 0.19.41",
+  "generatedAt": "2026-08-07T07:06:13.282Z",
+  "display": {
+    "hero": "Template/AppScaffold"
+  },
+  "liveBundle": {
+    "path": "bundle/",
+    "file": "bundle.png"
+  },
+  "source": {
+    "repo": "yschimke/m3-catalog",
+    "ref": "main",
+    "module": ":catalog"
+  }
+}
