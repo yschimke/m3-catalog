@@ -3,9 +3,10 @@ name: Design parity
 # Compare the rendered catalog against the Material 3 Design Kit in Figma and
 # publish the triptych report to the long-lived `design-parity/main` branch.
 #
-# The direction is **code-led** (.design-parity.json): this repo's render is the
-# subject and the Figma kit is the reference, so a divergence is read as a bug
-# in the kit-to-code translation, not as a change the code must chase.
+# The direction is **design-led** (.design-parity.json): the kit is authoritative
+# and a divergence is a bug in this code, which is the opposite of the
+# component-system catalogs and the reason Code-to-Canvas push-back is
+# structurally unavailable here. See the README.
 #
 # The map is not hand-written. `scripts/generate-design-map.mjs` projects it out
 # of the discovered preview manifest, joining each component's
@@ -36,8 +37,8 @@ jobs:
     name: Render + publish design-parity artifacts
     if: ${{ github.repository == 'yschimke/m3-catalog' }}
     runs-on: ubuntu-latest
-    # Render (up to 40 min) + parity + publish. Raised with the render timeout below.
-    timeout-minutes: 60
+    # The scoped render is ~6 min; 90 covers the full-module fallback the timeout below allows for.
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: ./.github/actions/setup
@@ -88,18 +89,29 @@ jobs:
           mapfile -t IDS < <(jq -r '.components[].previewId' design-map.json)
           args=()
           for id in "${IDS[@]}"; do args+=(--id "$id"); done
-          # 900s was sized against 38 mapped components on a smaller catalog, where this step took
-          # 8 min. Two things grew under it: the mapped set (38 -> 77, one --id each) and the module
-          # itself (1095 previews), which the ~3.7 min compile inside the step pays for whether or
-          # not a preview is rendered. The first run past both died on the timeout at 15 min.
+
+          # `--id` selects what the bundle CONTAINS, not what gets rendered: the render walks the
+          # whole module regardless, so this step was paying for all 1095 previews to compare 77 of
+          # them. That is what killed it at 900s and again at 2400s — ~43 min of rendering for ~6
+          # min of useful work.
           #
-          # 2400s is the same number design-artifacts carried at a comparable size, and leaves the
-          # job's 60 min room for the parity run and publish behind it. When this stops being
-          # enough the lever is the same one docs/PARALLEL_RENDER.md names for the sweep — the fixed
-          # compile, not the per-preview cost, is what dominates here.
+          # `--exclude-preview-id` is the lever that scopes the render, the same one the sharded
+          # design-artifacts run uses (docs/PARALLEL_RENDER.md §4). An excluded preview stays listed
+          # in the bundle, just without a baked PNG, which is exactly right here — design-parity
+          # only ever reads the mapped slots. The ids agree spelling-for-spelling between the
+          # manifest and design-map.json, both being projections of the same discovery.
+          mapfile -t SKIP < <(comm -23 \
+            <(jq -r '.previews[].id' catalog/build/compose-previews/previews.json | sort -u) \
+            <(printf '%s\n' "${IDS[@]}" | sort -u))
+          for id in "${SKIP[@]}"; do args+=(--exclude-preview-id "$id"); done
+          echo "Rendering ${#IDS[@]} mapped preview(s); excluding ${#SKIP[@]}."
+
+          # 4800s is a backstop, not the budget: if the exclusions stop taking effect the step
+          # degrades to a full-module render (~43 min) and still completes rather than dying at the
+          # timeout with nothing published. The line above is what keeps it near 6 min.
           xvfb-run -a -s "-screen 0 2000x1400x24" \
             compose-preview bundle pack --module catalog "${args[@]}" \
-              --with-semantics -o build/design-parity/candidates.bundle.png --timeout 2400
+              --with-semantics -o build/design-parity/candidates.bundle.png --timeout 4800
           # Assert the artifact rather than trusting the exit status: a failed
           # Gradle model query has been observed printing an error and still
           # exiting 0, which would sail past `set -e` and leave design-parity
