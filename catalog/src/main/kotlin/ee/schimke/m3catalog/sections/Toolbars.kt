@@ -102,6 +102,9 @@ fun VerticalFloatingToolbarSticker() = Sticker {
 @CatalogComponent(
   id = "Toolbar/WithFab",
   caption = "Horizontal toolbar paired with the screen's primary action.",
+  noReference =
+    "the kit's Toolbar set is Configuration x Orientation x Color with no FAB among them; it " +
+      "models the toolbar and the FAB as separate components, which Compose combines here",
 )
 @CatalogModes
 @OverrideVariant(name = "collapsed", booleans = ["expanded=false"])

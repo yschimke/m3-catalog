@@ -106,6 +106,7 @@ fun ListItemSticker() = Sticker {
 
 @CatalogComponent(
   id = "List/Group",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/59106:13049",
   caption = "Several rows with dividers — the shape a real list takes.",
 )
 @CatalogModes
