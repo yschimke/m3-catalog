@@ -188,6 +188,30 @@ egress to `figma.com` at all — in the environment this was tried in, both
 `www.figma.com` and `api.figma.com` were refused at the proxy with `403
 CONNECT`, so no token would have helped either.
 
+### A screen uses sibling variants, so a per-variant ref under-links
+
+The first real import of the Upcoming screen linked **3 of 11** placements. Not
+a coordinate problem and not a missing mapping: the two big misses — five list
+items and a carousel — are instances of components this catalog *already maps*,
+but of **sibling variants** of the node the sticker pictures. The screen's list
+items are `51964:65404`; `Lists.kt#ListItemSticker` names a different variant of
+the same family (`51964:63037`). Matching on the mapped variant alone can only
+hit when the screen happens to use exactly the variant a catalog chose to
+picture, which is rare.
+
+All three links that *did* land matched on the instance's `componentId`, not on
+its `componentSetId` — worth stating because it contradicts the guess that these
+refs are already set ids. They are not; set-only matching would have linked
+**zero**.
+
+The fix is a second handle rather than a widened one, because the two readers
+want opposite things: a parity diff needs the single renderable node, whole-page
+matching needs the family. So `@CatalogComponent` gained
+[`referenceSet`](https://github.com/yschimke/compose-ai-tools/pull/3530),
+[`design-map.json` gained `refSet`](https://github.com/yschimke/design-parity/pull/299),
+and `generate-design-map.mjs` projects one to the other. `ref` is unchanged, and
+a component that names no set behaves exactly as before.
+
 Because this repo is `design-led`, anything the overlay shows drifting is by
 definition a bug in the code — which is the whole reason a whole-screen view is
 worth having here and not everywhere.

@@ -19,6 +19,12 @@
 // reference are skipped and reported, so an unmapped component reads as itself
 // rather than as a silent gap.
 //
+// A component may also name the component SET its reference is one variant of
+// (`@CatalogComponent(referenceSet = …)`), which projects to `refSet`. `ref`
+// stays the single node parity diffs the render against; `refSet` is what a
+// whole-screen import matches an instance through, because a screen almost
+// never uses the exact variant this catalog chose to picture.
+//
 //   node scripts/generate-design-map.mjs \
 //     --previews catalog/build/compose-previews/previews.json \
 //     --out design-map.json
@@ -157,13 +163,22 @@ for (const preview of previews) {
     );
   }
 
+  const binding =
+    refs.length === 1
+      ? { ref: catalog.reference, previewId: preview.id }
+      : { ref: refs, previewId: previewIds };
+
   components.push({
     // design-parity addresses a code subject as `<path>#<function>`.
     code: `catalog/${preview.sourceFile}#${preview.functionName}`,
     source: catalog.reference.startsWith("figma:") ? "figma" : "claude-design",
-    ...(refs.length === 1
-      ? { ref: catalog.reference, previewId: preview.id }
-      : { ref: refs, previewId: previewIds }),
+    ref: binding.ref,
+    // The component SET, when the annotation names one. `ref` stays the one
+    // variant parity diffs against; `refSet` is what a whole-screen import
+    // matches an instance through, since a screen rarely uses the exact variant
+    // this sticker pictures. Absent unless the annotation says so.
+    ...(catalog.referenceSet ? { refSet: catalog.referenceSet } : {}),
+    previewId: binding.previewId,
   });
 }
 
@@ -174,9 +189,11 @@ const variantRefs = components.reduce(
   (n, c) => n + (Array.isArray(c.ref) ? c.ref.length - 1 : 0),
   0,
 );
+const withSet = components.filter((c) => c.refSet).length;
 console.log(
   `Wrote ${outPath}: ${components.length} mapped component(s), ` +
-    `${variantRefs} variant reference(s) beside them.`,
+    `${variantRefs} variant reference(s) beside them, ` +
+    `${withSet} naming their component set.`,
 );
 if (propertyVariants.length) {
   console.log(
