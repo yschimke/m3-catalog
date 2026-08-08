@@ -132,6 +132,11 @@ jobs:
             }
           ')
           printf '### Page backdrop\n\n%s\n' "$out" >> "$GITHUB_STEP_SUMMARY"
+          # Also to the log. The summary is the nice rendering, but it is not readable from the
+          # API — only by opening the run — and the artifact lives on a host some networks block.
+          # The linked count is the number this workflow exists to report, so put it where anyone
+          # reading the run (or a CI log) can see it without downloading anything.
+          echo "$out"
 
       - uses: actions/upload-artifact@v7.0.1
         if: always()

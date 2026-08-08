@@ -45,6 +45,7 @@ private fun swatches(): List<Color> =
 @CatalogComponent(
   id = "Carousel/MultiBrowse",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/53912:27490",
+  referenceSet = "figma:ocdacdEsnHipMJD3egzxKb/53912:27480",
   caption = "Items that resize as they enter and leave the viewport. Item widths fold in.",
 )
 @CatalogModes
