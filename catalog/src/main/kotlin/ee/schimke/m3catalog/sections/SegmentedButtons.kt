@@ -24,14 +24,28 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.segment_all
+import ee.schimke.m3catalog.generated.resources.segment_day
+import ee.schimke.m3catalog.generated.resources.segment_month
+import ee.schimke.m3catalog.generated.resources.segment_week
+import ee.schimke.m3catalog.generated.resources.segment_year
 import ee.schimke.m3catalog.selectable
 import ee.schimke.m3catalog.toggleable
+import org.jetbrains.compose.resources.stringResource
 
 // Two axes the kit documents: segment COUNT (2-5) and segment CONTENT (label, icon, or both). The
 // selection mode is the third, but single- and multi-choice are separate row composables rather
 // than a parameter, so they are separate components rather than knob cells.
 
-private val LABELS = listOf("Day", "Week", "Month", "Year", "All")
+private val LABELS =
+  listOf(
+    Res.string.segment_day,
+    Res.string.segment_week,
+    Res.string.segment_month,
+    Res.string.segment_year,
+    Res.string.segment_all,
+  )
 
 @Composable private fun segmentCount(): Int = previewOverrideString("count", "3").toIntOrNull() ?: 3
 
@@ -74,7 +88,7 @@ fun SegmentedButtons() = Sticker {
         onClick = { select(index) },
         shape = SegmentedButtonDefaults.itemShape(index = index, count = count),
       ) {
-        SegmentContent(label, index == selected)
+        SegmentContent(stringResource(label), index == selected)
       }
     }
   }
@@ -104,7 +118,7 @@ fun MultiChoiceSegmentedButtons() = Sticker {
         onCheckedChange = { if (index == 0) setFirst(it) else if (index == 1) setSecond(it) },
         shape = SegmentedButtonDefaults.itemShape(index = index, count = count),
       ) {
-        SegmentContent(label, checked)
+        SegmentContent(stringResource(label), checked)
       }
     }
   }

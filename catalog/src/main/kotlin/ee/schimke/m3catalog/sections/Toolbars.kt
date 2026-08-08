@@ -22,6 +22,12 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_add
+import ee.schimke.m3catalog.generated.resources.action_edit
+import ee.schimke.m3catalog.generated.resources.action_more
+import ee.schimke.m3catalog.generated.resources.action_new
+import org.jetbrains.compose.resources.stringResource
 
 // The expressive floating toolbar: a small cluster of related actions floating over content.
 //
@@ -31,12 +37,18 @@ import ee.schimke.m3catalog.counted
 
 @Composable
 private fun ToolbarActions() {
-  val add = counted("Add")
-  val edit = counted("Edit")
-  val more = counted("More")
-  IconButton(onClick = add.onClick) { Icon(Icons.Filled.Add, contentDescription = "Add") }
-  IconButton(onClick = edit.onClick) { Icon(Icons.Filled.Edit, contentDescription = "Edit") }
-  IconButton(onClick = more.onClick) { Icon(Icons.Filled.MoreVert, contentDescription = "More") }
+  val add = counted(stringResource(Res.string.action_add))
+  val edit = counted(stringResource(Res.string.action_edit))
+  val more = counted(stringResource(Res.string.action_more))
+  IconButton(onClick = add.onClick) {
+    Icon(Icons.Filled.Add, contentDescription = stringResource(Res.string.action_add))
+  }
+  IconButton(onClick = edit.onClick) {
+    Icon(Icons.Filled.Edit, contentDescription = stringResource(Res.string.action_edit))
+  }
+  IconButton(onClick = more.onClick) {
+    Icon(Icons.Filled.MoreVert, contentDescription = stringResource(Res.string.action_more))
+  }
 }
 
 @CatalogComponent(
@@ -90,7 +102,7 @@ fun VerticalFloatingToolbarSticker() = Sticker {
 @OverrideVariant(name = "collapsed", booleans = ["expanded=false"])
 @Composable
 fun FloatingToolbarWithFab() = Sticker {
-  val fab = counted("New")
+  val fab = counted(stringResource(Res.string.action_new))
   HorizontalFloatingToolbar(
     expanded = previewOverrideBoolean("expanded", true),
     floatingActionButton = {

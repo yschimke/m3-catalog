@@ -29,6 +29,16 @@ import ee.schimke.m3catalog.CatalogTemplate
 import ee.schimke.m3catalog.FullScreenM3
 import ee.schimke.m3catalog.SYSTEM_BAR_INSET
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_menu
+import ee.schimke.m3catalog.generated.resources.action_new
+import ee.schimke.m3catalog.generated.resources.template_row_captions
+import ee.schimke.m3catalog.generated.resources.template_row_parity
+import ee.schimke.m3catalog.generated.resources.template_row_pipeline
+import ee.schimke.m3catalog.generated.resources.template_row_spec
+import ee.schimke.m3catalog.generated.resources.template_row_tokens
+import ee.schimke.m3catalog.generated.resources.template_title
+import org.jetbrains.compose.resources.stringResource
 
 // Beyond the per-component stickers, the catalog ships full-screen **templates**: screen skeletons
 // an app copies whole. They sit on a real device frame with `showSystemUi = true`, so the renderer
@@ -41,13 +51,15 @@ import ee.schimke.m3catalog.counted
 // otherwise settles on a lone filled button, which is true to the inventory and useless as a shop
 // window.
 
+// The sender names stay literals — a person's name is not copy to translate; the message
+// beside each one is.
 private val ROWS =
   listOf(
-    "Alice" to "Reviewed the design tokens",
-    "Bala" to "Pushed the render pipeline fix",
-    "Chen" to "Opened three parity findings",
-    "Dara" to "Updated the sticker captions",
-    "Emre" to "Merged the catalog spec",
+    "Alice" to Res.string.template_row_tokens,
+    "Bala" to Res.string.template_row_pipeline,
+    "Chen" to Res.string.template_row_parity,
+    "Dara" to Res.string.template_row_captions,
+    "Emre" to Res.string.template_row_spec,
   )
 
 @CatalogComponent(
@@ -57,12 +69,12 @@ private val ROWS =
 @CatalogTemplate
 @Composable
 fun AppScaffoldTemplate() = FullScreenM3 {
-  val menu = counted("Menu")
-  val add = counted("New")
+  val menu = counted(stringResource(Res.string.action_menu))
+  val add = counted(stringResource(Res.string.action_new))
   Scaffold(
     topBar = {
       TopAppBar(
-        title = { Text("Inbox") },
+        title = { Text(stringResource(Res.string.template_title)) },
         navigationIcon = {
           IconButton(onClick = menu.onClick) {
             Icon(Icons.Filled.Menu, contentDescription = menu.label)
@@ -84,7 +96,7 @@ fun AppScaffoldTemplate() = FullScreenM3 {
         if (index > 0) HorizontalDivider()
         ListItem(
           headlineContent = { Text(name) },
-          supportingContent = { Text(message) },
+          supportingContent = { Text(stringResource(message)) },
           leadingContent = { Icon(Icons.Filled.Person, contentDescription = null) },
         )
       }

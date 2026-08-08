@@ -21,6 +21,13 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.divider_above
+import ee.schimke.m3catalog.generated.resources.divider_below
+import ee.schimke.m3catalog.generated.resources.divider_left
+import ee.schimke.m3catalog.generated.resources.divider_right
+import ee.schimke.m3catalog.generated.resources.divider_section
+import org.jetbrains.compose.resources.stringResource
 
 // A divider is a static separator: no state, nothing to click, so it ships no handler.
 //
@@ -40,17 +47,17 @@ import ee.schimke.m3catalog.Sticker
 fun HorizontalDividerSticker() = Sticker {
   val inset = previewOverrideString("inset", "0").toIntOrNull() ?: 0
   Column(Modifier.width(280.dp)) {
-    Text("Above", Modifier.padding(vertical = 8.dp))
+    Text(stringResource(Res.string.divider_above), Modifier.padding(vertical = 8.dp))
     if (previewOverrideBoolean("subhead", false)) {
       Text(
-        "Section",
+        stringResource(Res.string.divider_section),
         Modifier.padding(start = inset.dp, top = 8.dp, bottom = 4.dp),
         style = MaterialTheme.typography.titleSmall,
         color = MaterialTheme.colorScheme.primary,
       )
     }
     HorizontalDivider(Modifier.padding(start = inset.dp))
-    Text("Below", Modifier.padding(vertical = 8.dp))
+    Text(stringResource(Res.string.divider_below), Modifier.padding(vertical = 8.dp))
   }
 }
 
@@ -63,8 +70,8 @@ fun HorizontalDividerSticker() = Sticker {
 @Composable
 fun VerticalDividerSticker() = Sticker {
   Row(Modifier.height(48.dp)) {
-    Text("Left", Modifier.padding(horizontal = 8.dp))
+    Text(stringResource(Res.string.divider_left), Modifier.padding(horizontal = 8.dp))
     VerticalDivider()
-    Text("Right", Modifier.padding(horizontal = 8.dp))
+    Text(stringResource(Res.string.divider_right), Modifier.padding(horizontal = 8.dp))
   }
 }

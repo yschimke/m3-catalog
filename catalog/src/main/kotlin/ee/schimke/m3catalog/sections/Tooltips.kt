@@ -24,6 +24,13 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_learn_more
+import ee.schimke.m3catalog.generated.resources.label_add_to_favourites
+import ee.schimke.m3catalog.generated.resources.label_favourite
+import ee.schimke.m3catalog.generated.resources.tooltip_body
+import ee.schimke.m3catalog.generated.resources.tooltip_title
+import org.jetbrains.compose.resources.stringResource
 
 // A tooltip is normally keyed to hover / long-press, neither of which a baked capture can express.
 // `PlainTooltip` / `RichTooltip` are `TooltipScope` extensions, so they can only be composed inside
@@ -43,7 +50,7 @@ import ee.schimke.m3catalog.counted
 @OverrideVariant(name = "caret", strings = ["caret=on"])
 @Composable
 fun PlainTooltipSticker() = Sticker {
-  val anchor = counted("Favourite")
+  val anchor = counted(stringResource(Res.string.label_favourite))
   TooltipBox(
     positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
     tooltip = {
@@ -51,7 +58,7 @@ fun PlainTooltipSticker() = Sticker {
         caretShape =
           if (previewOverrideString("caret", "off") == "on") TooltipDefaults.caretShape() else null
       ) {
-        Text("Add to favourites")
+        Text(stringResource(Res.string.label_add_to_favourites))
       }
     },
     state = rememberTooltipState(initialIsVisible = true, isPersistent = true),
@@ -74,19 +81,20 @@ fun PlainTooltipSticker() = Sticker {
 @OverrideVariant(name = "body-only", strings = ["title=off", "action=off"])
 @Composable
 fun RichTooltipSticker() = Sticker {
-  val anchor = counted("Favourite")
-  val learn = counted("Learn more")
+  val anchor = counted(stringResource(Res.string.label_favourite))
+  val learn = counted(stringResource(Res.string.action_learn_more))
   TooltipBox(
     positionProvider = TooltipDefaults.rememberRichTooltipPositionProvider(),
     tooltip = {
       RichTooltip(
         title =
-          if (previewOverrideString("title", "on") == "off") null else ({ Text("Favourites") }),
+          if (previewOverrideString("title", "on") == "off") null
+          else ({ Text(stringResource(Res.string.tooltip_title)) }),
         action =
           if (previewOverrideString("action", "on") == "off") null
           else ({ TextButton(onClick = learn.onClick) { Text(learn.label) } }),
       ) {
-        Text("Items you mark are kept here and sync across your devices.")
+        Text(stringResource(Res.string.tooltip_body))
       }
     },
     state = rememberTooltipState(initialIsVisible = true, isPersistent = true),

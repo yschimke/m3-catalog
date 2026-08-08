@@ -28,7 +28,14 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.label_mail
+import ee.schimke.m3catalog.generated.resources.nav_home
+import ee.schimke.m3catalog.generated.resources.nav_saved
+import ee.schimke.m3catalog.generated.resources.nav_search
+import ee.schimke.m3catalog.generated.resources.nav_you
 import ee.schimke.m3catalog.selectable
+import org.jetbrains.compose.resources.stringResource
 
 // The drawer SHEET is the component; `ModalNavigationDrawer` is the host that slides it in, and a
 // sticker of the host at rest would be an empty screen. So the sheets are composed directly — and
@@ -39,10 +46,10 @@ import ee.schimke.m3catalog.selectable
 
 private val DRAWER =
   listOf(
-    "Home" to Icons.Filled.Home,
-    "Search" to Icons.Filled.Search,
-    "You" to Icons.Filled.Person,
-    "Saved" to Icons.Filled.Favorite,
+    Res.string.nav_home to Icons.Filled.Home,
+    Res.string.nav_search to Icons.Filled.Search,
+    Res.string.nav_you to Icons.Filled.Person,
+    Res.string.nav_saved to Icons.Filled.Favorite,
   )
 
 @Composable
@@ -53,12 +60,16 @@ private fun DrawerItems() {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
   val (selected, select) = selectable(0)
   if (headline) {
-    Text("Mail", Modifier.padding(16.dp), style = MaterialTheme.typography.titleSmall)
+    Text(
+      stringResource(Res.string.label_mail),
+      Modifier.padding(16.dp),
+      style = MaterialTheme.typography.titleSmall,
+    )
   }
   DRAWER.take(count).forEachIndexed { index, (label, icon) ->
     if (dividers && index == 2) HorizontalDivider(Modifier.padding(vertical = 8.dp))
     NavigationDrawerItem(
-      label = { Text(label) },
+      label = { Text(stringResource(label)) },
       icon = { Icon(icon, contentDescription = null) },
       badge = if (badge && index == 1) ({ Badge { Text("3") } }) else null,
       selected = index == selected,

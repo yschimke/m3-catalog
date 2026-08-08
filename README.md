@@ -128,6 +128,30 @@ The tests pin the generator's output so a dependency bump can't silently re-tint
 themes, and assert the property a tier actually promises: each one holds its content further off its
 surface than the one below.
 
+## Translations
+
+Every string a sticker renders comes from Compose Multiplatform string resources under
+[`catalog/src/main/composeResources/`](catalog/src/main/composeResources) — English in `values/`
+and **17 translations** beside it: `ar de es fr hi id it ja ko nl pl pt-rBR ru th tr zh-rCN
+zh-rTW`. Nothing in a sticker body is a hard-coded label, so any render that carries a locale — a
+`@Preview(locale = …)`, a `localeTag` on a render spec, or the preview server's locale control —
+comes back translated rather than as English text in a differently-shaped layout.
+
+The desktop renderer applies the tag twice, and both halves matter: the composition's `LocaleList`
+(which flips layout direction, so `ar` mirrors) and the JVM default `Locale` (which is what CMP
+`stringResource(...)` actually reads on Skiko). One override therefore moves the copy *and* the
+layout together.
+
+What stays a Kotlin literal, deliberately: design-system token names (`primary`, `Display Large`,
+`XS`) — they are API identifiers, not copy — and sample data that isn't language (`10:30`,
+`alice@example.com`, `⌘E`, the sender names in the inbox template).
+
+`Template/AppScaffold` carries two baked i18n variants (`ja`, `ar`) so the published sheet shows
+the translations without anyone touching the locale control, and a translation that regresses turns
+up as a render diff. `CatalogTranslationsTest` pins the rest: every locale carries exactly the keys
+`values/strings.xml` declares, no locale silently repeats the English copy, and no key is declared
+that no sticker renders.
+
 ## Building
 
 ```sh

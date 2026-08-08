@@ -33,6 +33,15 @@ dependencies {
   // providers implement) on the desktop JVM target.
   implementation(libs.compose.ui.tooling.preview)
 
+  // Compose Multiplatform string resources. Every string a sticker renders resolves from
+  // `src/main/composeResources/values*/strings.xml`, so a render carrying `localeTag` — or a
+  // `@Preview(locale = …)` — comes back translated instead of English-with-a-different-layout.
+  // The desktop renderer applies the tag twice on purpose: the composition's `LocaleList` (which
+  // steers layout direction and locale-aware text) AND the JVM default `Locale`, which is what
+  // `stringResource(...)` actually reads on Skiko. Both halves are already in the daemon, so this
+  // module only has to declare its strings.
+  @Suppress("DEPRECATION") implementation(compose.components.resources)
+
   // The kit's six theme modes are Light/Dark x standard/medium/high contrast. Compose ships no
   // baseline contrast schemes, and the contrast role-to-tone mapping is a continuous function of
   // the contrast level rather than a table anyone can re-type correctly. MaterialKolor is a
@@ -63,3 +72,8 @@ dependencies {
   testImplementation(libs.compose.ui.test)
   testImplementation(libs.compose.ui.test.junit4)
 }
+
+// The generated `Res` accessor's package. Without this it derives from the module's group/name,
+// which would put `Res` somewhere no section file expects; pinning it keeps the imports in the
+// stickers (`ee.schimke.m3catalog.generated.resources.*`) stable across a module rename.
+compose.resources { packageOfResClass = "ee.schimke.m3catalog.generated.resources" }

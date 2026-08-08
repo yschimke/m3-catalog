@@ -22,7 +22,15 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_more
+import ee.schimke.m3catalog.generated.resources.list_item
+import ee.schimke.m3catalog.generated.resources.list_last_seen
+import ee.schimke.m3catalog.generated.resources.list_overline
+import ee.schimke.m3catalog.generated.resources.list_supporting
+import ee.schimke.m3catalog.generated.resources.list_supporting_long
 import ee.schimke.m3catalog.toggleable
+import org.jetbrains.compose.resources.stringResource
 
 // Three axes the kit documents: LINE COUNT (one, two, three), the LEADING slot (none, icon,
 // avatar), and the TRAILING slot (none, text, icon, checkbox, switch). They compose, so one
@@ -45,7 +53,7 @@ private fun trailing(): (@Composable () -> Unit)? {
       { Text("10:30") }
     }
     "icon" -> {
-      { Icon(Icons.Filled.MoreVert, contentDescription = "More") }
+      { Icon(Icons.Filled.MoreVert, contentDescription = stringResource(Res.string.action_more)) }
     }
     "checkbox" -> {
       { Checkbox(checked = checked, onCheckedChange = set) }
@@ -76,18 +84,19 @@ fun ListItemSticker() = Sticker {
   val lines = previewOverrideString("lines", "2").toIntOrNull() ?: 2
   Column(Modifier.width(340.dp)) {
     ListItem(
-      headlineContent = { Text("List item") },
+      headlineContent = { Text(stringResource(Res.string.list_item)) },
       supportingContent =
         if (lines >= 2) {
           {
             Text(
-              if (lines >= 3)
-                "Supporting text that runs long enough to wrap onto a second line and make this a three-line row."
-              else "Supporting text"
+              stringResource(
+                if (lines >= 3) Res.string.list_supporting_long else Res.string.list_supporting
+              )
             )
           }
         } else null,
-      overlineContent = if (lines >= 3) ({ Text("OVERLINE") }) else null,
+      overlineContent =
+        if (lines >= 3) ({ Text(stringResource(Res.string.list_overline)) }) else null,
       leadingContent = leading(),
       trailingContent = trailing(),
     )
@@ -106,7 +115,7 @@ fun ListItemGroup() = Sticker {
       if (index > 0) HorizontalDivider()
       ListItem(
         headlineContent = { Text(name) },
-        supportingContent = { Text("Last seen recently") },
+        supportingContent = { Text(stringResource(Res.string.list_last_seen)) },
         leadingContent = { Icon(Icons.Filled.Person, contentDescription = null) },
       )
     }

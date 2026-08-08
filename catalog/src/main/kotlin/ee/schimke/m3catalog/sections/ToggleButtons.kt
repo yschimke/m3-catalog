@@ -30,7 +30,15 @@ import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.catalogToggleButtonShapes
 import ee.schimke.m3catalog.catalogToggleSelected
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.label_elevated
+import ee.schimke.m3catalog.generated.resources.label_favourite
+import ee.schimke.m3catalog.generated.resources.label_filled
+import ee.schimke.m3catalog.generated.resources.label_on
+import ee.schimke.m3catalog.generated.resources.label_outlined
+import ee.schimke.m3catalog.generated.resources.label_tonal
 import ee.schimke.m3catalog.toggleable
+import org.jetbrains.compose.resources.stringResource
 
 // A toggle button is a button whose selection persists, so unlike the plain buttons it owns state
 // and the interactive lane really flips it. It also shape-shifts when checked — M3 gives the
@@ -95,7 +103,9 @@ fun ToggleButtonSticker() = Sticker {
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
-    ProvideTextStyle(size.labelStyle) { Text(if (on) "On" else "Filled") }
+    ProvideTextStyle(size.labelStyle) {
+      Text(stringResource(if (on) Res.string.label_on else Res.string.label_filled))
+    }
   }
 }
 
@@ -151,7 +161,9 @@ fun TonalToggleButtonSticker() = Sticker {
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
-    ProvideTextStyle(size.labelStyle) { Text(if (on) "On" else "Tonal") }
+    ProvideTextStyle(size.labelStyle) {
+      Text(stringResource(if (on) Res.string.label_on else Res.string.label_tonal))
+    }
   }
 }
 
@@ -212,7 +224,9 @@ fun OutlinedToggleButtonSticker() = Sticker {
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
-    ProvideTextStyle(size.labelStyle) { Text(if (on) "On" else "Outlined") }
+    ProvideTextStyle(size.labelStyle) {
+      Text(stringResource(if (on) Res.string.label_on else Res.string.label_outlined))
+    }
   }
 }
 
@@ -268,7 +282,9 @@ fun ElevatedToggleButtonSticker() = Sticker {
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
-    ProvideTextStyle(size.labelStyle) { Text(if (on) "On" else "Elevated") }
+    ProvideTextStyle(size.labelStyle) {
+      Text(stringResource(if (on) Res.string.label_on else Res.string.label_elevated))
+    }
   }
 }
 
@@ -293,6 +309,6 @@ fun ToggleButtonIconLabel() = Sticker {
       modifier = Modifier.size(ToggleButtonDefaults.IconSize),
     )
     Spacer(Modifier.width(ToggleButtonDefaults.IconSpacing))
-    Text("Favourite")
+    Text(stringResource(Res.string.label_favourite))
   }
 }

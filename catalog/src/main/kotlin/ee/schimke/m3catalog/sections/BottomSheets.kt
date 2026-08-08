@@ -26,6 +26,12 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_share
+import ee.schimke.m3catalog.generated.resources.label_add_to_favourites
+import ee.schimke.m3catalog.generated.resources.label_report
+import ee.schimke.m3catalog.generated.resources.sheet_share_to
+import org.jetbrains.compose.resources.stringResource
 
 // Like a dialog, a modal bottom sheet is hosted in its own window, so the sticker composes the
 // sheet CONTAINER itself — BottomSheetDefaults' expanded shape, container colour and real drag
@@ -55,17 +61,18 @@ private fun SheetBody() {
     }
     if (previewOverrideBoolean("header", false)) {
       Text(
-        "Share to",
+        stringResource(Res.string.sheet_share_to),
         Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
         style = MaterialTheme.typography.titleLarge,
       )
     }
-    listOf("Share", "Add to favourites", "Report").forEach { label ->
-      ListItem(
-        headlineContent = { Text(label) },
-        leadingContent = { Icon(Icons.Filled.Share, contentDescription = null) },
-      )
-    }
+    listOf(Res.string.action_share, Res.string.label_add_to_favourites, Res.string.label_report)
+      .forEach { label ->
+        ListItem(
+          headlineContent = { Text(stringResource(label)) },
+          leadingContent = { Icon(Icons.Filled.Share, contentDescription = null) },
+        )
+      }
   }
 }
 

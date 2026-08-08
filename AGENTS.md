@@ -58,6 +58,13 @@ keep them that way.
 - Renders must be **deterministic**: a date picker is pinned to a fixed instant, a time picker to
   10:10. An unpinned picker would open on "today" and every nightly render would differ from the
   last, which turns the delivery branch's history into noise.
+- **User-visible copy is a string resource, never a literal.** A sticker's labels, titles,
+  supporting text and `contentDescription`s resolve with `stringResource(Res.string.…)` from
+  `catalog/src/main/composeResources/values*/strings.xml`. Adding a string means adding it to
+  `values/` **and to all 17 locale files** — `CatalogTranslationsTest` fails the build for a key
+  that is missing from a locale, left as the English copy, or declared and never rendered. What
+  stays a literal: token names (`primary`, `Display Large`, `XS`) and sample data that isn't
+  language (`10:30`, `alice@example.com`, `⌘E`, person names).
 - Components hosted in their own platform window (dialogs, modal sheets, dropdown menus) cannot be
   reached by a single-surface capture. Compose the component's **container** from its own
   `*Defaults` shape / colour / elevation and say so in a comment — never a hand-drawn lookalike, and

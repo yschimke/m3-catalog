@@ -33,6 +33,15 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_delete
+import ee.schimke.m3catalog.generated.resources.action_duplicate
+import ee.schimke.m3catalog.generated.resources.action_edit
+import ee.schimke.m3catalog.generated.resources.action_share
+import ee.schimke.m3catalog.generated.resources.menu_size_label
+import ee.schimke.m3catalog.generated.resources.menu_size_value
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource
 
 // `DropdownMenu` renders into a popup window a single-surface capture cannot reach. Its **items**
 // are plain composables, so the sticker composes them in the menu container the component uses —
@@ -43,14 +52,14 @@ import ee.schimke.m3catalog.counted
 // items. The exposed dropdown menu is a different component (a text field that opens a menu) and
 // gets its own sticker, collapsed, since the open state is again a popup.
 
-private data class MenuRow(val label: String, val icon: ImageVector, val shortcut: String)
+private data class MenuRow(val label: StringResource, val icon: ImageVector, val shortcut: String)
 
 private val MENU_ROWS =
   listOf(
-    MenuRow("Edit", Icons.Filled.Edit, "⌘E"),
-    MenuRow("Duplicate", Icons.Filled.ContentCopy, "⌘D"),
-    MenuRow("Share", Icons.Filled.Share, "⌘S"),
-    MenuRow("Delete", Icons.Filled.Delete, "⌫"),
+    MenuRow(Res.string.action_edit, Icons.Filled.Edit, "⌘E"),
+    MenuRow(Res.string.action_duplicate, Icons.Filled.ContentCopy, "⌘D"),
+    MenuRow(Res.string.action_share, Icons.Filled.Share, "⌘S"),
+    MenuRow(Res.string.action_delete, Icons.Filled.Delete, "⌫"),
   )
 
 @CatalogComponent(
@@ -85,7 +94,7 @@ fun DropdownMenuSticker() = Sticker {
         // The kit groups destructive actions behind a divider, so the divider lands before the
         // last row rather than between every pair.
         if (dividers && index == MENU_ROWS.lastIndex) HorizontalDivider()
-        val c = counted(row.label)
+        val c = counted(stringResource(row.label))
         val enabled = !(disabledLast && index == MENU_ROWS.lastIndex)
         DropdownMenuItem(
           text = { Text(c.label) },
@@ -115,11 +124,11 @@ fun ExposedDropdownMenuSticker() = Sticker {
     modifier = Modifier.width(220.dp),
   ) {
     TextField(
-      value = "Medium",
+      value = stringResource(Res.string.menu_size_value),
       onValueChange = {},
       readOnly = true,
       enabled = previewOverrideString("status", "enabled") != "disabled",
-      label = { Text("Size") },
+      label = { Text(stringResource(Res.string.menu_size_label)) },
       trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = false) },
       modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
     )

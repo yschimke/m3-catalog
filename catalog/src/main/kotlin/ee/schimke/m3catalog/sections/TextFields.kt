@@ -23,6 +23,14 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.editable
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_clear
+import ee.schimke.m3catalog.generated.resources.field_email
+import ee.schimke.m3catalog.generated.resources.field_error
+import ee.schimke.m3catalog.generated.resources.field_name
+import ee.schimke.m3catalog.generated.resources.field_placeholder
+import ee.schimke.m3catalog.generated.resources.field_supporting
+import org.jetbrains.compose.resources.stringResource
 
 // Filled and outlined are two composables, so two components. Everything the kit varies inside each
 // — value / empty / error / disabled, leading and trailing icons, supporting text, and whether the
@@ -52,18 +60,22 @@ private fun fieldSpec(): FieldSpec {
     value = if (state == "empty") "" else if (error) "not-an-email" else "Alice",
     label =
       if (previewOverrideString("label", "on") == "off") null
-      else ({ Text(if (error) "Email" else "Name") }),
-    placeholder = if (state == "empty") ({ Text("Your name") }) else null,
+      else ({ Text(stringResource(if (error) Res.string.field_email else Res.string.field_name)) }),
+    placeholder =
+      if (state == "empty") ({ Text(stringResource(Res.string.field_placeholder)) }) else null,
     leading =
       if (content != "leading" && content != "both") null
       else ({ Icon(Icons.Filled.Search, contentDescription = null) }),
     trailing =
       if (content != "trailing" && content != "both") null
-      else ({ Icon(Icons.Filled.Cancel, contentDescription = "Clear") }),
+      else
+        ({
+          Icon(Icons.Filled.Cancel, contentDescription = stringResource(Res.string.action_clear))
+        }),
     supporting =
-      if (error) ({ Text("Enter a valid email address") })
+      if (error) ({ Text(stringResource(Res.string.field_error)) })
       else if (previewOverrideString("supporting", "off") == "on")
-        ({ Text("Shown on your profile") })
+        ({ Text(stringResource(Res.string.field_supporting)) })
       else null,
     isError = error,
     enabled = state != "disabled",

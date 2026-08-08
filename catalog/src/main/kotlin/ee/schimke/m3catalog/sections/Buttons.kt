@@ -30,6 +30,13 @@ import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonShape
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.label_elevated
+import ee.schimke.m3catalog.generated.resources.label_filled
+import ee.schimke.m3catalog.generated.resources.label_outlined
+import ee.schimke.m3catalog.generated.resources.label_text
+import ee.schimke.m3catalog.generated.resources.label_tonal
+import org.jetbrains.compose.resources.stringResource
 
 // The five common M3 buttons, highest to lowest emphasis.
 //
@@ -72,7 +79,7 @@ private fun SizedLabel(label: String) {
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
 @Composable
 fun FilledButton() = Sticker {
-  val c = counted("Filled")
+  val c = counted(stringResource(Res.string.label_filled))
   val size = catalogButtonSize()
   Button(
     onClick = c.onClick,
@@ -101,7 +108,7 @@ fun FilledButton() = Sticker {
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
 @Composable
 fun TonalButton() = Sticker {
-  val c = counted("Tonal")
+  val c = counted(stringResource(Res.string.label_tonal))
   val size = catalogButtonSize()
   FilledTonalButton(
     onClick = c.onClick,
@@ -130,7 +137,7 @@ fun TonalButton() = Sticker {
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
 @Composable
 fun OutlinedButtonSticker() = Sticker {
-  val c = counted("Outlined")
+  val c = counted(stringResource(Res.string.label_outlined))
   val size = catalogButtonSize()
   OutlinedButton(
     onClick = c.onClick,
@@ -159,7 +166,7 @@ fun OutlinedButtonSticker() = Sticker {
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
 @Composable
 fun ElevatedButtonSticker() = Sticker {
-  val c = counted("Elevated")
+  val c = counted(stringResource(Res.string.label_elevated))
   val size = catalogButtonSize()
   ElevatedButton(
     onClick = c.onClick,
@@ -188,7 +195,7 @@ fun ElevatedButtonSticker() = Sticker {
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
 @Composable
 fun TextButtonSticker() = Sticker {
-  val c = counted("Text")
+  val c = counted(stringResource(Res.string.label_text))
   val size = catalogButtonSize()
   TextButton(
     onClick = c.onClick,
@@ -210,7 +217,9 @@ fun TextButtonSticker() = Sticker {
 )
 @CatalogModes
 @Composable
-fun FilledButtonDisabled() = Sticker { Button(onClick = {}, enabled = false) { Text("Filled") } }
+fun FilledButtonDisabled() = Sticker {
+  Button(onClick = {}, enabled = false) { Text(stringResource(Res.string.label_filled)) }
+}
 
 @CatalogVariant(
   of = "Button/Filled",
@@ -220,7 +229,7 @@ fun FilledButtonDisabled() = Sticker { Button(onClick = {}, enabled = false) { T
 @CatalogModes
 @Composable
 fun FilledButtonIconLabel() = Sticker {
-  val c = counted("Filled")
+  val c = counted(stringResource(Res.string.label_filled))
   Button(onClick = c.onClick, contentPadding = ButtonDefaults.ButtonWithIconContentPadding) {
     Icon(
       Icons.Filled.Add,

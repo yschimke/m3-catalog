@@ -30,20 +30,28 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.nav_home
+import ee.schimke.m3catalog.generated.resources.nav_saved
+import ee.schimke.m3catalog.generated.resources.nav_search
+import ee.schimke.m3catalog.generated.resources.nav_settings
+import ee.schimke.m3catalog.generated.resources.nav_you
 import ee.schimke.m3catalog.selectable
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource
 
 // The bar owns its selected destination, so a click on the live lane really moves the indicator.
 //
 // The kit's axes: DESTINATION COUNT (three to five), LABEL VISIBILITY (always / selected only /
 // never), and an optional badge.
 
-private val DESTINATIONS: List<Pair<String, ImageVector>> =
+private val DESTINATIONS: List<Pair<StringResource, ImageVector>> =
   listOf(
-    "Home" to Icons.Filled.Home,
-    "Search" to Icons.Filled.Search,
-    "You" to Icons.Filled.Person,
-    "Saved" to Icons.Filled.Favorite,
-    "Settings" to Icons.Filled.Settings,
+    Res.string.nav_home to Icons.Filled.Home,
+    Res.string.nav_search to Icons.Filled.Search,
+    Res.string.nav_you to Icons.Filled.Person,
+    Res.string.nav_saved to Icons.Filled.Favorite,
+    Res.string.nav_settings to Icons.Filled.Settings,
   )
 
 @CatalogComponent(
@@ -75,7 +83,7 @@ fun NavigationBarSticker() = Sticker {
             Icon(icon, contentDescription = null)
           }
         },
-        label = if (labels == "none") null else ({ Text(label) }),
+        label = if (labels == "none") null else ({ Text(stringResource(label)) }),
         alwaysShowLabel = labels == "always",
       )
     }
@@ -102,7 +110,7 @@ fun ShortNavigationBarSticker() = Sticker {
         selected = index == selected,
         onClick = { select(index) },
         icon = { Icon(icon, contentDescription = null) },
-        label = if (labels == "none") null else ({ Text(label) }),
+        label = if (labels == "none") null else ({ Text(stringResource(label)) }),
       )
     }
   }

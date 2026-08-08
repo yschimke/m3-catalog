@@ -30,6 +30,10 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_cancel
+import ee.schimke.m3catalog.generated.resources.action_ok
+import org.jetbrains.compose.resources.stringResource
 
 // The date is pinned to a fixed instant so the baked capture is deterministic: an unpinned picker
 // would open on "today" and every nightly render would differ from the last.
@@ -103,8 +107,8 @@ fun DateRangePickerSticker() = Sticker {
 fun DatePickerModalSticker() = Sticker {
   // `DatePickerDialog` hosts itself in a platform window; the container is composed here from
   // `DatePickerDefaults` so the sticker carries the real shape, colour and elevation.
-  val confirm = counted("OK")
-  val dismiss = counted("Cancel")
+  val confirm = counted(stringResource(Res.string.action_ok))
+  val dismiss = counted(stringResource(Res.string.action_cancel))
   Surface(
     shape = DatePickerDefaults.shape,
     color = MaterialTheme.colorScheme.surfaceContainerHigh,
