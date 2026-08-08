@@ -3,9 +3,12 @@ name: Design parity
 # Compare the rendered catalog against the Material 3 Design Kit in Figma and
 # publish the triptych report to the long-lived `design-parity/main` branch.
 #
-# The direction is **code-led** (.design-parity.json): this repo's render is the
-# subject and the Figma kit is the reference, so a divergence is read as a bug
-# in the kit-to-code translation, not as a change the code must chase.
+# The direction is **design-led** (`.design-parity.json`): this catalog exists to
+# reproduce the published kit, so the kit is authoritative and a divergence is a
+# bug in this code. That is the opposite of the component-system catalogs in
+# compose-ai-tools, whose own render is the source of truth. It also has teeth
+# beyond reporting — Code-to-Canvas push-back is gated on `code-led`, so
+# `design-led` makes writing back to the Figma file structurally impossible.
 #
 # The map is not hand-written. `scripts/generate-design-map.mjs` projects it out
 # of the discovered preview manifest, joining each component's
@@ -13,10 +16,13 @@ name: Design parity
 # preview id — so adding a component to the comparison is one annotation
 # argument, not a JSON edit that can drift from a renamed preview.
 #
-# PREREQUISITES, both of which make the job skip rather than fail while absent:
+# Everything below the `uses:` line — install the CLI, discover, scope the
+# render, compare, publish, apply the verdict — lives in design-parity's
+# reusable workflow. This file is the configuration, not a copy of the pipeline.
+#
+# PREREQUISITES, both of which make the run skip rather than fail while absent:
 #   1. A `FIGMA_TOKEN` repository secret — a read-only personal access token
-#      with `file_content:read`. @design-parity/adapter-figma fetches the node
-#      structure and renders the reference image over the Figma REST API.
+#      with `file_content:read`.
 #   2. At least one `@CatalogComponent(reference = …)` naming a kit node.
 
 on:
@@ -24,133 +30,44 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: write # push the regenerated artifacts to design-parity/main
+permissions: {}
 
 concurrency:
   group: design-parity-artifacts
   cancel-in-progress: true
 
 jobs:
-  artifacts:
-    name: Render + publish design-parity artifacts
+  parity:
+    name: Design parity
     if: ${{ github.repository == 'yschimke/m3-catalog' }}
-    runs-on: ubuntu-latest
-    # Render (up to 40 min) + parity + publish. Raised with the render timeout below.
-    timeout-minutes: 60
-    steps:
-      - uses: actions/checkout@v7.0.1
-      - uses: ./.github/actions/setup
+    uses: yschimke/design-parity/.github/workflows/design-parity-reusable.yml@main
+    permissions:
+      contents: write # publish the regenerated artifacts to design-parity/main
+    with:
+      module: ':catalog'
 
-      - name: Install compose-preview CLI
-        uses: yschimke/compose-ai-tools/.github/actions/install@v0.19.45
-        with:
-          # Keep the CLI aligned with the applied Gradle plugin; a skew breaks
-          # the id translation `bundle pack` does between filename-safe render
-          # ids and raw discovery ids.
-          version: catalog
-          catalog-key: composePreviewPlugin
+      # ONE job, deliberately. The render is the cost that was breaking this
+      # workflow, and scoping it — not sharding — is what fixes that: the module
+      # draws 1,095 previews and 77 carry a `reference`, so the reusable workflow
+      # excludes the other 1,018 from the render and this drops from ~43 min to
+      # ~4. Sharding divides only what is left, which is ~77 comparisons, and it
+      # would divide the Figma token N ways at the same time: the adapter has no
+      # 429 retry and a rate-limited component produces no verdict on a green run
+      # (#12). Raise this only once #12 is fixed, and only if the scoped single
+      # job stops fitting.
+      shards: 1
 
-      - name: Discover previews and derive the design map
-        id: map
-        run: |
-          set -euo pipefail
-          ./gradlew :catalog:composePreviewDiscover --stacktrace
-          node scripts/generate-design-map.mjs
-          count="$(jq '.components | length' design-map.json)"
-          echo "count=$count" >> "$GITHUB_OUTPUT"
-          if [ "$count" -eq 0 ]; then
-            echo "::notice::No component carries @CatalogComponent(reference = …) yet — nothing to compare."
-          fi
+      # Writes `catalog/build/compose-previews/previews.json` (the manifest the
+      # render exclusion is derived from — the reusable workflow finds it at the
+      # path `module` implies) and projects `design-map.json` out of it.
+      design-map-command: >
+        ./gradlew :catalog:composePreviewDiscover --stacktrace &&
+        node scripts/generate-design-map.mjs
 
-      # The desktop (Skiko/CPU) render daemon links libGL; install Mesa's
-      # software GL and a font stack.
-      - name: Install desktop (Skiko) render deps
-        if: ${{ steps.map.outputs.count != '0' }}
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            xvfb libgl1 libglx-mesa0 libgl1-mesa-dri libfreetype6 libfontconfig1 fontconfig
-
-      - name: Render the candidate bundle
-        if: ${{ steps.map.outputs.count != '0' }}
-        env:
-          LANG: C.UTF-8
-          LC_ALL: C.UTF-8
-          LIBGL_ALWAYS_SOFTWARE: '1'
-        run: |
-          set -euo pipefail
-          mkdir -p build/design-parity
-          # --with-semantics injects each preview's a11y tree, resolved
-          # foreground/background colours and per-node design tokens, so
-          # design-parity's token / contrast / a11y checks can evaluate instead
-          # of reporting them as missing from the candidate.
-          mapfile -t IDS < <(jq -r '.components[].previewId' design-map.json)
-          args=()
-          for id in "${IDS[@]}"; do args+=(--id "$id"); done
-          # 900s was sized against 38 mapped components on a smaller catalog, where this step took
-          # 8 min. Two things grew under it: the mapped set (38 -> 77, one --id each) and the module
-          # itself (1095 previews), which the ~3.7 min compile inside the step pays for whether or
-          # not a preview is rendered. The first run past both died on the timeout at 15 min.
-          #
-          # 2400s is the same number design-artifacts carried at a comparable size, and leaves the
-          # job's 60 min room for the parity run and publish behind it. When this stops being
-          # enough the lever is the same one docs/PARALLEL_RENDER.md names for the sweep — the fixed
-          # compile, not the per-preview cost, is what dominates here.
-          xvfb-run -a -s "-screen 0 2000x1400x24" \
-            compose-preview bundle pack --module catalog "${args[@]}" \
-              --with-semantics -o build/design-parity/candidates.bundle.png --timeout 2400
-          # Assert the artifact rather than trusting the exit status: a failed
-          # Gradle model query has been observed printing an error and still
-          # exiting 0, which would sail past `set -e` and leave design-parity
-          # reporting "no candidate render available" on a green job.
-          test -s build/design-parity/candidates.bundle.png
-
-      - uses: actions/setup-node@v7.0.0
-        if: ${{ steps.map.outputs.count != '0' }}
-        with:
-          node-version: 24.18.1
-
-      - name: Run design-parity
-        if: ${{ steps.map.outputs.count != '0' }}
-        env:
-          LANG: C.UTF-8
-          LC_ALL: C.UTF-8
-          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
-        run: |
-          set -euo pipefail
-          if [ -z "${FIGMA_TOKEN:-}" ]; then
-            echo "::warning::FIGMA_TOKEN is not set — skipping the parity run."
-            exit 0
-          fi
-          components="$(jq -r '[.components[].code] | join(",")' design-map.json)"
-          npx -y design-parity@0.1.38 run \
-            --repo . \
-            --components "$components" \
-            --candidate-bundles build/design-parity/candidates.bundle.png \
-            --out build/design-parity/out \
-            --repo-slug "${GITHUB_REPOSITORY}" \
-            --branch design-parity/main \
-            --source-commit "${GITHUB_SHA}"
-
-      - name: Publish artifacts to design-parity/main
-        if: ${{ steps.map.outputs.count != '0' && hashFiles('build/design-parity/out/**') != '' }}
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          art="$(mktemp -d)"
-          cp -a build/design-parity/out/. "$art/"
-          cp build/design-parity/candidates.bundle.png "$art/" || true
-          printf '%s\n' "$GITHUB_SHA" > "$art/SOURCE_COMMIT"
-          cd "$art"
-          git init -q
-          git checkout -q -b design-parity/main
-          git add -A
-          git \
-            -c user.name='github-actions[bot]' \
-            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
-            commit -q -m "design-parity artifacts for ${GITHUB_SHA}"
-          git push -f \
-            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
-            design-parity/main
+      # A backstop, not a budget: the scoped render takes ~4 min. If the
+      # exclusions ever stop taking effect this degrades to a full render and
+      # still publishes, instead of dying with nothing to show for it.
+      render-timeout: 4800
+      timeout-minutes: 90
+    secrets:
+      figma-token: ${{ secrets.FIGMA_TOKEN }}
