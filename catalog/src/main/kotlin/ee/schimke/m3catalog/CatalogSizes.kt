@@ -16,7 +16,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import ee.schimke.composeai.overrides.previewOverrideBoolean
-import ee.schimke.composeai.overrides.previewOverrideString
 
 /**
  * The expressive **size** and **shape** axes, resolved from preview knobs.
@@ -35,11 +34,11 @@ import ee.schimke.composeai.overrides.previewOverrideString
  * per emphasis.
  */
 enum class CatalogSize(
-  val knob: String,
+  override val knob: String,
   val containerHeight: Dp,
   val contentPadding: PaddingValues,
   val iconSize: Dp,
-) {
+) : CatalogKnob {
   ExtraSmall(
     "xs",
     ButtonDefaults.ExtraSmallContainerHeight,
@@ -88,17 +87,16 @@ enum class CatalogSize(
       }
 
   companion object {
-    /** Resolves a knob value to its size, falling back to the M3 default rather than throwing. */
-    fun of(knob: String): CatalogSize = entries.firstOrNull { it.knob == knob } ?: Small
+    /**
+     * The `size` axis, defaulting to [Small] — the size a bare `Button(...)` is, so an unseeded
+     * render is pixel-identical to the pre-matrix sticker.
+     */
+    val Axis = CatalogKnobAxis("size", entries, Small)
   }
 }
 
-/**
- * The size this sticker should render at: the `size` knob, defaulting to [CatalogSize.Small] — the
- * size a bare `Button(...)` is, so an unseeded render is pixel-identical to the pre-matrix sticker.
- */
-@Composable
-fun catalogButtonSize(): CatalogSize = CatalogSize.of(previewOverrideString("size", "s"))
+/** The size this sticker should render at. See [CatalogSize.Axis]. */
+@Composable fun catalogButtonSize(): CatalogSize = CatalogSize.Axis.current()
 
 /**
  * The shape this sticker should render in: the `shape` knob, `round` (the default) or `square`.
@@ -109,8 +107,10 @@ fun catalogButtonSize(): CatalogSize = CatalogSize.of(previewOverrideString("siz
  */
 @Composable
 fun catalogButtonShape(): Shape =
-  if (previewOverrideString("shape", "round") == "square") ButtonDefaults.squareShape
-  else ButtonDefaults.shape
+  when (CatalogShape.Axis.current()) {
+    CatalogShape.Round -> ButtonDefaults.shape
+    CatalogShape.Square -> ButtonDefaults.squareShape
+  }
 
 // --- Icon buttons ------------------------------------------------------------------------------
 //
@@ -124,7 +124,7 @@ fun catalogButtonShape(): Shape =
 /** Container size for [size] at the resolved width option. */
 @Composable
 fun catalogIconContainerSize(size: CatalogSize): DpSize {
-  val width = catalogIconWidthOption()
+  val width = catalogIconWidth().option
   return when (size) {
     CatalogSize.ExtraSmall -> IconButtonDefaults.extraSmallContainerSize(width)
     CatalogSize.Small -> IconButtonDefaults.smallContainerSize(width)
@@ -134,19 +134,28 @@ fun catalogIconContainerSize(size: CatalogSize): DpSize {
   }
 }
 
-/** The `width` knob: `narrow`, `uniform` (the default) or `wide`. */
-@Composable
-fun catalogIconWidthOption(): IconButtonDefaults.IconButtonWidthOption =
-  when (previewOverrideString("width", "uniform")) {
-    "narrow" -> IconButtonDefaults.IconButtonWidthOption.Narrow
-    "wide" -> IconButtonDefaults.IconButtonWidthOption.Wide
-    else -> IconButtonDefaults.IconButtonWidthOption.Uniform
-  }
+/** The width this sticker should render at. See [CatalogIconWidth.Axis]. */
+@Composable fun catalogIconWidth(): CatalogIconWidth = CatalogIconWidth.Axis.current()
+
+/**
+ * The library's width option for this axis value.
+ *
+ * A property on the enum rather than a `when` at the call site, so the axis and the option it maps
+ * to cannot fall out of step — adding a width to [CatalogIconWidth] fails to compile here until it
+ * names the option it means.
+ */
+val CatalogIconWidth.option: IconButtonDefaults.IconButtonWidthOption
+  get() =
+    when (this) {
+      CatalogIconWidth.Narrow -> IconButtonDefaults.IconButtonWidthOption.Narrow
+      CatalogIconWidth.Uniform -> IconButtonDefaults.IconButtonWidthOption.Uniform
+      CatalogIconWidth.Wide -> IconButtonDefaults.IconButtonWidthOption.Wide
+    }
 
 /** Per-size round or square shape, from the `shape` knob. */
 @Composable
 fun catalogIconShape(size: CatalogSize): Shape {
-  val square = previewOverrideString("shape", "round") == "square"
+  val square = CatalogShape.Axis.current() == CatalogShape.Square
   return when (size) {
     CatalogSize.ExtraSmall ->
       if (square) IconButtonDefaults.extraSmallSquareShape
@@ -193,7 +202,7 @@ val CatalogSize.iconButtonIconSize: Dp
  */
 @Composable
 fun catalogToggleButtonShapes(size: CatalogSize): ToggleButtonShapes {
-  if (previewOverrideString("shape", "round") != "square") {
+  if (CatalogShape.Axis.current() != CatalogShape.Square) {
     return ToggleButtonDefaults.shapesFor(size.containerHeight)
   }
   val (square, checkedSquare) =
