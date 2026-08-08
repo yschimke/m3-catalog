@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Parity report: catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Badges.kt#NumberBadge</title>
+<style>:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0f0f14;color:#e7e7ef}
+a{color:inherit}
+header.page{padding:24px 28px;border-bottom:1px solid #26262f}
+header.page h1{margin:0 0 6px;font-size:18px}
+.subtitle{color:#9a9ab0;font-size:13px}
+.status{display:inline-block;margin-left:10px;padding:2px 10px;border-radius:999px;font-weight:600;font-size:12px;vertical-align:middle}
+.status-pass{background:#16351f;color:#7ee29a}
+.status-warn{background:#3a3115;color:#e8c66b}
+.status-fail{background:#3a1820;color:#f08a9c}
+main{padding:20px 28px;display:grid;gap:24px;max-width:1200px}
+.variant{border:1px solid #26262f;border-radius:10px;padding:16px;background:#15151c}
+.variant-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.variant-head h3{margin:0;font-size:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.chip{display:inline-block;padding:1px 8px;border-radius:6px;background:#222230;color:#b8b8cc;font-size:11px;margin-left:4px}
+.section-title{margin:0 0 -8px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#9a9ab0}
+.matrix-wrap{overflow-x:auto;border:1px solid #26262f;border-radius:10px;background:#15151c}
+table.matrix{border-collapse:collapse;width:100%}
+table.matrix th,table.matrix td{padding:10px;border-bottom:1px solid #26262f;text-align:center;vertical-align:middle}
+table.matrix th+th,table.matrix td{border-left:1px solid #26262f}
+table.matrix tbody tr:last-child th,table.matrix tbody tr:last-child td{border-bottom:none}
+table.matrix thead th{background:#191921;color:#9a9ab0;font-weight:600;font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+th.matrix-corner{text-align:left;color:#9a9ab0;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+th.matrix-row{text-align:left;white-space:nowrap;background:#13131a;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#c9c9dd;font-weight:600}
+.matrix-cell{background:#0c0c11}
+.matrix-link{display:inline-block;line-height:0}
+.matrix-img{display:block;max-width:220px;max-height:200px;width:auto;height:auto;margin:0 auto;border-radius:6px;image-rendering:pixelated}
+.view-controls{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:12px}
+.mode-select{display:inline-flex;gap:2px;background:#0c0c11;border:1px solid #26262f;border-radius:8px;padding:3px}
+.mode-toggle{display:inline-flex;align-items:center;gap:6px;color:#9a9ab0;font-size:12px;cursor:pointer;padding:4px 12px;border-radius:6px}
+.mode-toggle:has(input:checked){background:#222230;color:#fff}
+.mode-toggle input{position:absolute;width:1px;height:1px;opacity:0;margin:0}
+.pair{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.diff-view,.slider-view{display:flex;justify-content:center}
+.views .view[hidden]{display:none}
+.diff-view .panel{max-width:360px}
+.panel{margin:0;border:1px solid #26262f;border-radius:8px;overflow:hidden;background:#0c0c11}
+.panel figcaption{padding:6px 10px;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#9a9ab0;border-bottom:1px solid #26262f}
+.panel-body{display:flex;align-items:center;justify-content:center;min-height:64px;padding:10px}
+.panel-img{max-width:100%;height:auto;image-rendering:pixelated}
+.matrix-img.is-vector,.panel-img.is-vector{image-rendering:auto}
+.panel-empty{color:#666;font-size:12px;padding:20px}
+.panel-figure{position:relative;display:inline-block;line-height:0;max-width:100%}
+.panel-figure .panel-img{display:block}
+.anno{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.anno g[data-layer]{display:none}
+.anno g[data-layer].on{display:inline}
+.anno-controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.anno-controls-label{color:#9a9ab0;text-transform:uppercase;font-size:11px;letter-spacing:.05em}
+.anno-toggle{display:flex;align-items:center;gap:6px;color:#c9c9dd;font-size:13px;cursor:pointer}
+.overlay{margin-top:14px}
+.overlay-stack{position:relative;display:inline-block;border:1px solid #26262f;border-radius:8px;overflow:hidden;background:#0c0c11}
+.overlay-stack img{display:block;max-width:100%}
+.overlay-cand{position:absolute;inset:0;width:100%;height:100%}
+.overlay-control{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:12px;color:#9a9ab0}
+.overlay-control input{flex:1;max-width:280px}
+.findings{border:1px solid #26262f;border-radius:10px;padding:16px;background:#15151c}
+.finding-section+.finding-section{margin-top:16px}
+.finding-section h3{margin:0 0 8px;font-size:13px;color:#c9c9dd}
+.finding-list,.score-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.finding{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;background:#0f0f15;border:1px solid #222230}
+.sev-tag{flex:none;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:2px 7px;border-radius:999px;font-weight:700}
+.sev-info .sev-tag{background:#16283a;color:#7db4e8}
+.sev-warn .sev-tag{background:#3a3115;color:#e8c66b}
+.sev-error .sev-tag{background:#3a1820;color:#f08a9c}
+.finding-body{display:flex;flex-direction:column;gap:4px}
+.delta{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;color:#9a9ab0}
+.delta code{background:#222230;padding:1px 6px;border-radius:5px}
+.delta .expected{color:#7ee29a}
+.delta .actual{color:#f08a9c}
+.score-list code{background:#222230;padding:1px 6px;border-radius:5px}
+.match{color:#7ee29a}
+.differ{color:#e8c66b}
+.no-findings{color:#7ee29a;margin:0}
+@media (max-width:760px){.pair{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<header class="page">
+  <h1>catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Badges.kt#NumberBadge<span class="status status-fail">Fail</span></h1>
+  <div class="subtitle">figma reference vs candidate render</div>
+</header>
+<main>
+<section class="matrix-wrap">
+            <table class="matrix">
+              <thead><tr><th class="matrix-corner">state</th><th scope="col">Light</th><th scope="col">Default</th></tr></thead>
+              <tbody><tr><th class="matrix-row" scope="row">default</th><td class="matrix-cell"><a class="matrix-link" href="#v-default-light"><img class="matrix-img" src="data:image/png;base64,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" alt="default/light candidate render" loading="lazy" /></a></td><td class="matrix-cell"><span class="panel-empty">no candidate</span></td></tr></tbody>
+            </table>
+          </section>
+<h2 class="section-title">Variant detail</h2>
+<section class="variant" id="v-default" data-variant="default">
+            <header class="variant-head">
+              <h3>default</h3>
+              <div class="variant-meta"><span class="chip">default</span></div>
+            </header>
+            <div class="view-controls"><div class="anno-controls">
+            <span class="anno-controls-label">Annotations</span>
+            <label class="anno-toggle"><input type="checkbox" data-anno-layer="spacing" /> Box model (size · padding · radius)</label>
+            <label class="anno-toggle"><input type="checkbox" data-anno-layer="typography" /> Typography</label>
+          </div></div>
+            <div class="views">
+              <div class="view pair" data-view-panel="0" data-view-value="side">
+              <figure class="panel" data-role="reference">
+            <figcaption>Reference</figcaption>
+            <div class="panel-body"><div class="panel-figure"><img class="panel-img is-vector" data-role="reference" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiByeD0iOCIgZmlsbD0iI0IzMjYxRSIvPgo8cGF0aCBkPSJNNi45ODQ4NiA3LjUwNDM5SDcuNzU4M0M4LjA1OTA4IDcuNTA0MzkgOC4zMDc5NCA3LjQ1MjQ3IDguNTA0ODggNy4zNDg2M0M4LjcwNTQgNy4yNDQ3OSA4Ljg1NCA3LjEwMTU2IDguOTUwNjggNi45MTg5NUM5LjA0NzM2IDYuNzM2MzMgOS4wOTU3IDYuNTI2ODYgOS4wOTU3IDYuMjkwNTNDOS4wOTU3IDYuMDQzNDYgOS4wNTA5NCA1LjgzMjE5IDguOTYxNDMgNS42NTY3NEM4Ljg3NTQ5IDUuNDc3NyA4Ljc0MyA1LjMzOTg0IDguNTYzOTYgNS4yNDMxNkM4LjM4ODUxIDUuMTQ2NDggOC4xNjQ3MSA1LjA5ODE0IDcuODkyNTggNS4wOTgxNEM3LjY2MzQxIDUuMDk4MTQgNy40NTU3MyA1LjE0NDY5IDcuMjY5NTMgNS4yMzc3OUM3LjA4NjkxIDUuMzI3MzEgNi45NDE4OSA1LjQ1NjIyIDYuODM0NDcgNS42MjQ1MUM2LjcyNzA1IDUuNzg5MjMgNi42NzMzNCA1Ljk4NjE3IDYuNjczMzQgNi4yMTUzM0g1LjM3MzU0QzUuMzczNTQgNS43OTk5NyA1LjQ4Mjc1IDUuNDMxMTUgNS43MDExNyA1LjEwODg5QzUuOTE5NiA0Ljc4NjYyIDYuMjE2OCA0LjUzNDE4IDYuNTkyNzcgNC4zNTE1NkM2Ljk3MjMzIDQuMTY1MzYgNy4zOTg0NCA0LjA3MjI3IDcuODcxMDkgNC4wNzIyN0M4LjM3NTk4IDQuMDcyMjcgOC44MTY0MSA0LjE1NjQxIDkuMTkyMzggNC4zMjQ3MUM5LjU3MTk0IDQuNDg5NDIgOS44NjczNSA0LjczNjQ5IDEwLjA3ODYgNS4wNjU5MkMxMC4yODk5IDUuMzk1MzUgMTAuMzk1NSA1LjgwMzU1IDEwLjM5NTUgNi4yOTA1M0MxMC4zOTU1IDYuNTEyNTMgMTAuMzQzNiA2LjczODEyIDEwLjIzOTcgNi45NjcyOUMxMC4xMzU5IDcuMTk2NDUgOS45ODE5MyA3LjQwNTkyIDkuNzc3ODMgNy41OTU3QzkuNTczNzMgNy43ODE5IDkuMzE5NSA3LjkzNDA4IDkuMDE1MTQgOC4wNTIyNUM4LjcxMDc3IDguMTY2ODMgOC4zNTgwNyA4LjIyNDEyIDcuOTU3MDMgOC4yMjQxMkg2Ljk4NDg2VjcuNTA0MzlaTTYuOTg0ODYgOC41MTQxNlY3LjgwNTE4SDcuOTU3MDNDOC40MTUzNiA3LjgwNTE4IDguODA1NjYgNy44NTg4OSA5LjEyNzkzIDcuOTY2MzFDOS40NTM3OCA4LjA3MzczIDkuNzE4NzUgOC4yMjIzMyA5LjkyMjg1IDguNDEyMTFDMTAuMTI3IDguNTk4MzEgMTAuMjc1NiA4LjgxMTM2IDEwLjM2ODcgOS4wNTEyN0MxMC40NjUzIDkuMjkxMTggMTAuNTEzNyA5LjU0NTQxIDEwLjUxMzcgOS44MTM5NkMxMC41MTM3IDEwLjE3OTIgMTAuNDQ3NCAxMC41MDUgMTAuMzE0OSAxMC43OTE1QzEwLjE4NiAxMS4wNzQ0IDEwLjAwMTYgMTEuMzE0MyA5Ljc2MTcyIDExLjUxMTJDOS41MjE4MSAxMS43MDgyIDkuMjQwNzIgMTEuODU2OCA4LjkxODQ2IDExLjk1N0M4LjU5OTc3IDEyLjA1NzMgOC4yNTI0NCAxMi4xMDc0IDcuODc2NDYgMTIuMTA3NEM3LjUzOTg4IDEyLjEwNzQgNy4yMTc2MSAxMi4wNjA5IDYuOTA5NjcgMTEuOTY3OEM2LjYwMTczIDExLjg3NDcgNi4zMjYwMSAxMS43MzY4IDYuMDgyNTIgMTEuNTU0MkM1LjgzOTAzIDExLjM2OCA1LjY0NTY3IDExLjEzNyA1LjUwMjQ0IDEwLjg2MTNDNS4zNjI3OSAxMC41ODIgNS4yOTI5NyAxMC4yNTk4IDUuMjkyOTcgOS44OTQ1M0g2LjU4NzRDNi41ODc0IDEwLjEyNzMgNi42NDExMSAxMC4zMzMyIDYuNzQ4NTQgMTAuNTEyMkM2Ljg1OTU0IDEwLjY4NzcgNy4wMTM1MSAxMC44MjU1IDcuMjEwNDUgMTAuOTI1OEM3LjQxMDk3IDExLjAyNiA3LjY0MDE0IDExLjA3NjIgNy44OTc5NSAxMS4wNzYyQzguMTcwMDggMTEuMDc2MiA4LjQwNDYyIDExLjAyNzggOC42MDE1NiAxMC45MzEyQzguNzk4NSAxMC44MzQ1IDguOTQ4ODkgMTAuNjkxMiA5LjA1MjczIDEwLjUwMTVDOS4xNjAxNiAxMC4zMTE3IDkuMjEzODcgMTAuMDgyNSA5LjIxMzg3IDkuODEzOTZDOS4yMTM4NyA5LjUwOTYgOS4xNTQ3OSA5LjI2MjUzIDkuMDM2NjIgOS4wNzI3NUM4LjkxODQ2IDguODgyOTggOC43NTAxNiA4Ljc0MzMzIDguNTMxNzQgOC42NTM4MUM4LjMxMzMxIDguNTYwNzEgOC4wNTU1IDguNTE0MTYgNy43NTgzIDguNTE0MTZINi45ODQ4NloiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=" alt="Reference" /><svg class="anno" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g data-layer="spacing"><g class="anno-box"><rect x="4" y="0" width="8" height="16" rx="0" fill="none" stroke="#7db4e8" stroke-width="0"/><g transform="translate(4,0)"><rect width="1.3" height="0.6" rx="0.1" fill="#16283a" fill-opacity="0.92"/><text x="0.1" y="0.5" font-size="0.4" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#cfe6ff">8×16</text></g></g></g><g data-layer="typography"><g class="anno-type"><g transform="translate(4,-0.8)"><rect width="7.2" height="0.6" rx="0.1" fill="#241a33" fill-opacity="0.92"/><text x="0.1" y="0.5" font-size="0.4" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#e6d8ff">Roboto · 11sp · 500 · lh 16</text></g></g></g><g data-layer="layout"></g></svg></div></div>
+          </figure>
+              <figure class="panel" data-role="candidate">
+            <figcaption>Candidate</figcaption>
+            <div class="panel-body"><div class="panel-empty">no image</div></div>
+          </figure>
+            </div>
+              
+              
+            </div>
+          </section>
+<section class="variant" id="v-default-light" data-variant="default/light">
+            <header class="variant-head">
+              <h3>default/light</h3>
+              <div class="variant-meta"><span class="chip">default</span> <span class="chip">light</span></div>
+            </header>
+            <div class="view-controls"><div class="anno-controls">
+            <span class="anno-controls-label">Annotations</span>
+            <label class="anno-toggle"><input type="checkbox" data-anno-layer="spacing" /> Box model (size · padding · radius)</label>
+            <label class="anno-toggle"><input type="checkbox" data-anno-layer="typography" /> Typography</label>
+          </div></div>
+            <div class="views">
+              <div class="view pair" data-view-panel="1" data-view-value="side">
+              <figure class="panel" data-role="reference">
+            <figcaption>Reference</figcaption>
+            <div class="panel-body"><div class="panel-empty">no image</div></div>
+          </figure>
+              <figure class="panel" data-role="candidate">
+            <figcaption>Candidate</figcaption>
+            <div class="panel-body"><div class="panel-figure"><img class="panel-img" data-role="candidate" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJMAAACTCAYAAACK5SsVAAAIA0lEQVR4Xu3dX4xUZxnH8W16ocY/iVhcd+b8mVlmlvaywYsmmqgX9sYYL0y80RgTNEqjthrEqomtmqCJqbWlYhtbhNgaW6W4M9sVWi00xNoCUrJWLRSoZFFg/wDLLuxf9vV9ZneG6fPO7pyZObPLbL+f5Be6nHPeObPPk3PeOecwbWsDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKxM3enE2nzW/0o+42/JZYN8rsvvy2eDEcncf/s5WSbryLp6e7zF5TPeR3NdwW9sg5zOdwWmpthtCtvaMfS4eAt5pjPZZZuh22mQOmOPXH+UMfXrYAXrzXxgtW2irfkuf1o3ROOxY9qx5TX062KFeTqZfJ8t+H63CeJNLuvv682seo9+fawQubXtaTuRPqEL36zYhnq1Jxt06v1Ai+teE3zIHpEGdcGbnqw/0LMmWKf3By2qe+1N77aNdNQp9BIllw0Oc8pbAUxb2w326LBbF3ipYz/p9cq+6P1DCylcgKxQ3GWJ3Re9f2gRe1evfpfMWZyiLlfsvsgpV+8nWoCdq/zEKWiEHN54pxl6+W9mcmjQzE5NmdmZGTN9acSM/Ptf5tgvHnDWryWyT3o/cZ3ryXbcks8GE7qY1XLqyd+aq1OTZjHnX/m72XPbrc62kWL3KdeZCPT+4jpWz1Hptft/aszVq4WGmZ2eNsOHDpiTO7aZ1x9+yJx59k9mevRSqaEG9r/gbB81HJ1aTK4reE0XsVouHTtaapaT2x9zlh/YsN5Mj40Wll+dnDDP3/4RZ50okX3T+4sGeJ63yk+kNwZe6t6483Hff0gXMEqmLl4sNMrk8JCzrBiZSxX13fs9Z3n0JG7WvxPUwU+G37QZ9ZMp04ysD8MKxaueiYFzhSaZOHfOWVbM4F/3l5rp4Fe/7CyPmlwmuFv/XlAjW+xf6+LHnXs63eJFyfCBl+a6xM6b/vnjHznL933y9sJRS0yeH3aW1xb/d/p3gxoEHcE6Xfhm5L46m+mlL36+dKqTuVH/rj+YQ1/fYF783GfMsa0Pmiun+wvL5FLB649sdbavJfJUgf79oAa20D/ThW9Gtmfc4kXNoTs3mLE3Ts4doSqQZmu0kSRMwhvkJdM9uvA2Qzb74syujD+rixc1B+/4krnQd0T3UMn4ubPm6Jb7ne1qTS4bXNS/H9TAFvpZ320mybYgCN6r16+XFEoXL0qOfGejmRqZO83NjI8XriXJUUia53Rul5kYHJjrKDunOvXkE872tYRmatAizSQZ8Lzws3qbetRzjUkyfvbMXCNdvlxoLL1crisVT4Eybzr8rbucdaKG01yDqjRTIUEy9Xy6Ix3qbWshk1tdvGqRI1DR/3p7nOXFvLLpG6X1hg8ddJZHDRPwBkVppvlc8RKpTXaTG/UYUcjHbl28ajnz3J5Sk/zjh993lpeneCq83H/KWRY9XBpoiJ8Mn6vQOIulz/c7P6jHqUYuCLrFWzzlFyOrNtP85YPFLm5WCxctG+RXOjJ54Rb75w7n78sSJMIH29vb36nHW4jcqtDFq5bT3U+Xmmmx05w8nmJmZwvrjR4/5iyPHm6nNKRSM9nT2T2yLJkMP2Z/PqGXX0vYHybDT+gxF1LrJFwuTsqkWsyMjS08AT95otR0/bt2OutECZPvGFQ6zcmN2eLyTCbzNvt3m22m9Hpl2RmGYUfZsBXls97PdRGrRS4FFMmlATn1Hf/VLwsPxP23p/vapQEzd72p3meaeAQlBl4y/WfdHOXNVBR2hLf4ifCgXrcULzVil9/RtsgD+vJv5OwnphldyGoZfHF/6TS2EJl4y60XvW2UyD49k+5o6NMq2qI307wbpGEKjaObqRjbcNJ4esMiW7iHdTGj5NXNPzAXjhw2k+fPX3tsd2y0MEd64/Edzvq1RPZJ7yfqUGMzFcgpza63U29XFjklbpZTpN62O/3+9nw2GNcFXbbYfeE7CGJSTzMVyeRbJuF6+7KckEl8+Tby86Z0fbdWmhHmSjHykqm/6CaI2kxCLg/IZQI9hsqOIAg65U/5uTMZmgfWuIVd8mT9l3szbc7RE3VqtJmK5EKmLxc03UaqmJttQz3WwGMpjcbOk47v9rxV+n2gAXE107wb5ZaLHeOKHrNS1nnh+M6sP6YL3ezkuvwhvgmlCeQmri5yA81UIDeFK437pteYv3ksH8nlSyR0wZsX/wj/Rq5JKhW90WYqksdX7HgDanznsZanPO8d8nWBbuHjjXy56t5U6u3lr40YNbOZhDxgZ8fcNj/2gg/cybeR2HnMF+QUpJug0ciYuYy3nm88abKY50wLinK7RchXEtriP2o/adX9mG8pMkbW3yZj6tdBE9jm2bsUzVSrXFfwYdsQT9k5Th0TdLtNNvi9jKHHRRNdr81ULpfxP2WPMNvlupDc3bdzn7PFxnk8E5hHM77Z0umbu9OB+XTg9+ntsURaoZkWIvup991mn14PS4RmQmzkl68LQjOhLjQTYkMzITY0E2LjJ1Iv6ILQTKgLzYTY0EyIDc2E2Pheao8uiJdM/UeKcr1nfj/f3EyJ1G79HrFEIjy/3WJJ36ffI5ZIMpm6zS1I6yZMhLfq94glZE8NT+iitGLsae8R/d6wDPxk+F1bkMu6QC2SC56X/pp+T1hGiUTXTfYT0rflU1LLJJm6K7Mqw//REgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAZfZ/ESkF031nVJsAAAAASUVORK5CYII=" alt="Candidate" /><svg class="anno" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g data-layer="spacing"><g class="anno-box"><rect x="4.6" y="4.6" width="6.9" height="6.9" rx="0" fill="none" stroke="#7db4e8" stroke-width="0"/><g transform="translate(4.6,4.6)"><rect width="1" height="0.6" rx="0.1" fill="#16283a" fill-opacity="0.92"/><text x="0.1" y="0.5" font-size="0.4" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#cfe6ff">7×7</text></g></g><g class="anno-box"><rect x="9.3" y="4" width="2" height="4.6" rx="0" fill="none" stroke="#7db4e8" stroke-width="0"/><g transform="translate(9.3,4)"><rect width="1" height="0.6" rx="0.1" fill="#16283a" fill-opacity="0.92"/><text x="0.1" y="0.5" font-size="0.4" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#cfe6ff">2×5</text></g></g></g><g data-layer="typography"><g class="anno-type"><rect x="9.3" y="3.3" width="0.6" height="0.6" rx="0.1" fill="#ffffffff" stroke="#000" stroke-width="0"/><g transform="translate(10,3.3)"><rect width="8.2" height="0.6" rx="0.1" fill="#241a33" fill-opacity="0.92"/><text x="0.1" y="0.5" font-size="0.4" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#e6d8ff">RobotoFlex · 11sp · 500 · lh 16</text></g></g></g><g data-layer="layout"></g></svg></div></div>
+          </figure>
+            </div>
+              
+              
+            </div>
+          </section>
+<section class="findings">
+<div class="finding-section">
+                <h3>Accessibility &amp; i18n</h3>
+                <ul class="finding-list"><li class="finding sev-info">
+                    <span class="sev-tag">info</span>
+                    <div class="finding-body">
+                      <span class="finding-msg">Light-theme contrast 6.54:1 for &quot;8&quot; meets AA but not AAA (needs 7:1).</span>
+                      
+                    </div>
+                  </li></ul>
+              </div>
+<div class="finding-section">
+                <h3>Token compliance</h3>
+                <ul class="finding-list"><li class="finding sev-error">
+                    <span class="sev-tag">error</span>
+                    <div class="finding-body">
+                      <span class="finding-msg">radius.corner: 3.81 vs spec 100 (Δ96.19)</span>
+                      <div class="delta">
+                   <code>radius.corner</code>
+                   <span class="expected">expected 100</span>
+                   <span class="actual">actual 3.81</span>
+                 </div>
+                    </div>
+                  </li>
+<li class="finding sev-info">
+                    <span class="sev-tag">info</span>
+                    <div class="finding-body">
+                      <span class="finding-msg">colors.label has no Material-role mapping; unverified (spec #FFFFFF)</span>
+                      <div class="delta">
+                   <code>colors.label</code>
+                   <span class="expected">expected #FFFFFF</span>
+                   <span class="actual">actual —</span>
+                 </div>
+                    </div>
+                  </li>
+<li class="finding sev-info">
+                    <span class="sev-tag">info</span>
+                    <div class="finding-body">
+                      <span class="finding-msg">typography.label has no Material-role mapping; unverified (spec {&quot;fontFamily&quot;:&quot;Roboto&quot;,&quot;fontSize&quot;:11,&quot;fontWeight&quot;:500,&quot;lineHeight&quot;:16,&quot;letterSpacing&quot;:0.5})</span>
+                      <div class="delta">
+                   <code>typography.label</code>
+                   <span class="expected">expected {&quot;fontFamily&quot;:&quot;Roboto&quot;,&quot;fontSize&quot;:11,&quot;fontWeight&quot;:500,&quot;lineHeight&quot;:16,&quot;letterSpacing&quot;:0.5}</span>
+                   <span class="actual">actual —</span>
+                 </div>
+                    </div>
+                  </li></ul>
+              </div>
+<div class="finding-section">
+                <h3>Semantics</h3>
+                <ul class="finding-list"><li class="finding sev-warn">
+                    <span class="sev-tag">warn</span>
+                    <div class="finding-body">
+                      <span class="finding-msg">reference variant &#39;default&#39; has no candidate render to compare</span>
+                      
+                    </div>
+                  </li></ul>
+              </div>
+
+</section>
+</main>
+<script>(function(){
+  var modes=document.querySelectorAll('input[data-view]');
+  for(var m=0;m<modes.length;m++){
+    (function(radio){
+      var id=radio.getAttribute('data-view');
+      var scope=radio.closest('.variant')||document;
+      function apply(){
+        if(!radio.checked) return;
+        var views=scope.querySelectorAll('[data-view-panel="'+id+'"]');
+        for(var k=0;k<views.length;k++){
+          views[k].hidden=(views[k].getAttribute('data-view-value')!==radio.value);
+        }
+      }
+      radio.addEventListener('change',apply);
+      apply();
+    })(modes[m]);
+  }
+  var sliders=document.querySelectorAll('input[data-slider]');
+  for(var i=0;i<sliders.length;i++){
+    (function(slider){
+      var id=slider.getAttribute('data-slider');
+      var cand=document.querySelector('img[data-overlay="'+id+'"]');
+      function apply(){ if(cand){ cand.style.opacity=(slider.value/100).toString(); } }
+      slider.addEventListener('input',apply);
+      apply();
+    })(sliders[i]);
+  }
+  var toggles=document.querySelectorAll('input[data-anno-layer]');
+  for(var j=0;j<toggles.length;j++){
+    (function(box){
+      var layer=box.getAttribute('data-anno-layer');
+      var scope=box.closest('.variant')||document;
+      function apply(){
+        var gs=scope.querySelectorAll('.anno g[data-layer="'+layer+'"]');
+        for(var k=0;k<gs.length;k++){ gs[k].classList[box.checked?'add':'remove']('on'); }
+      }
+      box.addEventListener('change',apply);
+      apply();
+    })(toggles[j]);
+  }
+})();</script>
+</body>
+</html>

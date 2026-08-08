@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Parity report: catalog/src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt#LinearProgress</title>
+<style>:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0f0f14;color:#e7e7ef}
+a{color:inherit}
+header.page{padding:24px 28px;border-bottom:1px solid #26262f}
+header.page h1{margin:0 0 6px;font-size:18px}
+.subtitle{color:#9a9ab0;font-size:13px}
+.status{display:inline-block;margin-left:10px;padding:2px 10px;border-radius:999px;font-weight:600;font-size:12px;vertical-align:middle}
+.status-pass{background:#16351f;color:#7ee29a}
+.status-warn{background:#3a3115;color:#e8c66b}
+.status-fail{background:#3a1820;color:#f08a9c}
+main{padding:20px 28px;display:grid;gap:24px;max-width:1200px}
+.variant{border:1px solid #26262f;border-radius:10px;padding:16px;background:#15151c}
+.variant-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.variant-head h3{margin:0;font-size:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.chip{display:inline-block;padding:1px 8px;border-radius:6px;background:#222230;color:#b8b8cc;font-size:11px;margin-left:4px}
+.section-title{margin:0 0 -8px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#9a9ab0}
+.matrix-wrap{overflow-x:auto;border:1px solid #26262f;border-radius:10px;background:#15151c}
+table.matrix{border-collapse:collapse;width:100%}
+table.matrix th,table.matrix td{padding:10px;border-bottom:1px solid #26262f;text-align:center;vertical-align:middle}
+table.matrix th+th,table.matrix td{border-left:1px solid #26262f}
+table.matrix tbody tr:last-child th,table.matrix tbody tr:last-child td{border-bottom:none}
+table.matrix thead th{background:#191921;color:#9a9ab0;font-weight:600;font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+th.matrix-corner{text-align:left;color:#9a9ab0;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+th.matrix-row{text-align:left;white-space:nowrap;background:#13131a;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#c9c9dd;font-weight:600}
+.matrix-cell{background:#0c0c11}
+.matrix-link{display:inline-block;line-height:0}
+.matrix-img{display:block;max-width:220px;max-height:200px;width:auto;height:auto;margin:0 auto;border-radius:6px;image-rendering:pixelated}
+.view-controls{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:12px}
+.mode-select{display:inline-flex;gap:2px;background:#0c0c11;border:1px solid #26262f;border-radius:8px;padding:3px}
+.mode-toggle{display:inline-flex;align-items:center;gap:6px;color:#9a9ab0;font-size:12px;cursor:pointer;padding:4px 12px;border-radius:6px}
+.mode-toggle:has(input:checked){background:#222230;color:#fff}
+.mode-toggle input{position:absolute;width:1px;height:1px;opacity:0;margin:0}
+.pair{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.diff-view,.slider-view{display:flex;justify-content:center}
+.views .view[hidden]{display:none}
+.diff-view .panel{max-width:360px}
+.panel{margin:0;border:1px solid #26262f;border-radius:8px;overflow:hidden;background:#0c0c11}
+.panel figcaption{padding:6px 10px;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#9a9ab0;border-bottom:1px solid #26262f}
+.panel-body{display:flex;align-items:center;justify-content:center;min-height:64px;padding:10px}
+.panel-img{max-width:100%;height:auto;image-rendering:pixelated}
+.matrix-img.is-vector,.panel-img.is-vector{image-rendering:auto}
+.panel-empty{color:#666;font-size:12px;padding:20px}
+.panel-figure{position:relative;display:inline-block;line-height:0;max-width:100%}
+.panel-figure .panel-img{display:block}
+.anno{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.anno g[data-layer]{display:none}
+.anno g[data-layer].on{display:inline}
+.anno-controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.anno-controls-label{color:#9a9ab0;text-transform:uppercase;font-size:11px;letter-spacing:.05em}
+.anno-toggle{display:flex;align-items:center;gap:6px;color:#c9c9dd;font-size:13px;cursor:pointer}
+.overlay{margin-top:14px}
+.overlay-stack{position:relative;display:inline-block;border:1px solid #26262f;border-radius:8px;overflow:hidden;background:#0c0c11}
+.overlay-stack img{display:block;max-width:100%}
+.overlay-cand{position:absolute;inset:0;width:100%;height:100%}
+.overlay-control{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:12px;color:#9a9ab0}
+.overlay-control input{flex:1;max-width:280px}
+.findings{border:1px solid #26262f;border-radius:10px;padding:16px;background:#15151c}
+.finding-section+.finding-section{margin-top:16px}
+.finding-section h3{margin:0 0 8px;font-size:13px;color:#c9c9dd}
+.finding-list,.score-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.finding{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;background:#0f0f15;border:1px solid #222230}
+.sev-tag{flex:none;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:2px 7px;border-radius:999px;font-weight:700}
+.sev-info .sev-tag{background:#16283a;color:#7db4e8}
+.sev-warn .sev-tag{background:#3a3115;color:#e8c66b}
+.sev-error .sev-tag{background:#3a1820;color:#f08a9c}
+.finding-body{display:flex;flex-direction:column;gap:4px}
+.delta{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;color:#9a9ab0}
+.delta code{background:#222230;padding:1px 6px;border-radius:5px}
+.delta .expected{color:#7ee29a}
+.delta .actual{color:#f08a9c}
+.score-list code{background:#222230;padding:1px 6px;border-radius:5px}
+.match{color:#7ee29a}
+.differ{color:#e8c66b}
+.no-findings{color:#7ee29a;margin:0}
+@media (max-width:760px){.pair{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<header class="page">
+  <h1>catalog/src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt#LinearProgress<span class="status status-fail">Fail</span></h1>
+  <div class="subtitle">figma reference vs candidate render</div>
+</header>
+<main>
+<section class="matrix-wrap">
+            <table class="matrix">
+              <thead><tr><th class="matrix-corner">state</th><th scope="col">Light</th><th scope="col">Default</th></tr></thead>
+              <tbody><tr><th class="matrix-row" scope="row">default</th><td class="matrix-cell"><a class="matrix-link" href="#v-default-light"><img class="matrix-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAsoAAABfCAYAAADxouGZAAADp0lEQVR4Xu3cTWtcZRiA4bosrurKbXXVuvBfiCh6ThbuFLOoZ6yCkEXFr1oqbgwaIYsqfpNzBkMqQqW0kGhSaNWCVrG02qATMwl2JiA2YsJMoOF14qq8M2kJE0YzXhfcf+DNQ54nE5JduwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6BMHHyzvKSXF0VbnSmkRJEna8SXFQpYU5dLD+f3x3tuK5WrYU6s0jtYrjXP1uWaQ/q2+PXM1fHzsuzDy4nT44I3zC5PHZ9/9czHcEc8s2+iJpBjI0vxa2zcYSZL6pCwtTj1239jt8Q68laX5tYHWgXItPlikXlb5YTmMvnymba43evPw9Nr3M7XH49llGxx4aGxvluQr8aNLktRvZUnxdrwHb6Y+39jbOlJW4qNF6nWvP/952zzf2MgLX1yvV5t3xTNMl/75lVSHB5ckqR/L0vG74124mXqlUY4PFqnXzZyotM1xp06Wf5qOZ5gulZLiSvzQkiT1a1map/Eu3ExtrnklPlqkXvfhyPm2Oe7U+8NfLcUzTBeGHpnYXUrz9fihJUnq17KkeC7eh52ExbC7daSsx0eL1OteeeZU2xx3avjQ5PUQwm3xLNMFnyhLkv5XbeE/YPhEWf+F8tFv2ue4Q++99uVv8QzTpdZP1uPxQ0uS1K899cDEnfEu3Ex9rjEeHy1Sr5v65Oe2Oe7UxDsXp+IZpkulpNifJflq/NiSJPVbWVp8FO/Bm6lV1/bX5pqr8eEi9bLF2dVw5OmTbfN8Y4cPfrZ+6ezSvfEMsw2eTMuD8YNLktRPZWn+48bf5sQ78FZqvzYG48NF6nWzF/4IQ48eb5vrjQ4Nfhq+nloYimeXbXRgYGxfKclPZ0lejb8AkiTtxLK0WM6S4mIpLb8U772t+H1+bV9trnm6VmlU4wNG6lVXf2mEE2OXwluvng3Dz06G0SMzK+VjFy5XL/91TzyzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADsVH8D7ZAYVDql8KUAAAAASUVORK5CYII=" alt="default/light candidate render" loading="lazy" /></a></td><td class="matrix-cell"><span class="panel-empty">no candidate</span></td></tr>
+<tr><th class="matrix-row" scope="row">empty</th><td class="matrix-cell"><span class="panel-empty">—</span></td><td class="matrix-cell"><a class="matrix-link" href="#v-empty"><img class="matrix-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAsoAAABfCAYAAADxouGZAAACt0lEQVR4Xu3YTUtUURzHcVu2rHdQu2rRW6l9kLuIIHBhUGFStEnKYBYGPUIlRUZgSIGWCvYglEWhlNRMjpJ3BqKMlDsDysl2cu7sZsCbfD7wfQPnv/lx2toAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANgilsphR1JMz1aK6YtKqRYkSZKUr96OL4Z7fe9C7+nRcPPS5PzwwOy13wthZ7zraKHqXP3g+uP/io8hSZKkza/4YSkUzoyHIwfuZrrcNVp/P5YcjvcdLVCZS3etH2A5PogkSZLy0cWTzzIDeWO9p56vVsq13fHOo0mVYtofH0OSJEn5aGywmBnGjRrq/zQa7zyalJRqn+ODSJIkKR/d6p3MjOJG3eh5VY13Hk0IC2H7+gHW4oNIkiQpH507/iQzihvV0zm8GkLYFu89muBHWZIkKb/dKbzJjOJGXb/w8nu882hSpZTejw8iSZKkfDTy8EtmFDfqwdWPI/HOo0lJub43KdVW4qNIkiRp81uYXQndx4Yyw3hjXUcfr01PVPfHO48WSL6l7fFRJEmSlI9mp36GjkMDmYH8r872R+H1yHxHvO9ooR9z9T1JqfY0Kabl+DiSJEna3Ba/pmHw9nS4cn4i9JwYDoXuseX+vqmZ8syfffGuAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgf/UXjcqL0v2HckAAAAAASUVORK5CYII=" alt="empty candidate render" loading="lazy" /></a></td></tr>
+<tr><th class="matrix-row" scope="row">full</th><td class="matrix-cell"><span class="panel-empty">—</span></td><td class="matrix-cell"><a class="matrix-link" href="#v-full"><img class="matrix-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAsoAAABfCAYAAADxouGZAAACbElEQVR4Xu3dMU4UURzH8bW01BtgBxYewwLZtxTUmAhvpOQInoPGMDMJ4QIWJFZewcRWEwsrGyhIIPiYtfG/W2wym/ggn0/yzSaP7m3zmw3ZnUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHgkjrb7Z03qPpS+NLPuTpIkSXWVU3lN89fSj5zak3evz5/HXccaHaZuN8/a3/HNkCRJUg21w0BePB8G83Wedvtx37EGBzunG+Vp5DJeuiRJkuooLzn75++pvTna7l/EncdI5Smkj5ctSZKkOsr3nyYvOY8dpu5z3HmM1KTuW7xoSZIk1dJqQ7lJ7a+48xjheO/8abn824WLliRJUhXltNpQvv/3i8nk7knce4zgE2VJkqSKW3kodz/jzmOkcqln8aIlSZJUR8NXwi05j+VpfxF3HiM1qdvKqb2Kly1JkqQ6WuFbL26bN2ev4s5jDd7P+rfxwiVJklRJf39kZOF8Nh/ROfXHcd+xRge7p5tNaj+VJ5Lv8Q2QJEnS/20YxMMPj8zL0/ay7Lav+zsfX8ZdBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAQ/UHCLSEqWln3RsAAAAASUVORK5CYII=" alt="full candidate render" loading="lazy" /></a></td></tr></tbody>
+            </table>
+          </section>
+<h2 class="section-title">Variant detail</h2>
+<section class="variant" id="v-default" data-variant="default">
+            <header class="variant-head">
+              <h3>default</h3>
+              <div class="variant-meta"><span class="chip">default</span></div>
+            </header>
+            
+            <div class="views">
+              <div class="view pair" data-view-panel="0" data-view-value="side">
+              <figure class="panel" data-role="reference">
+            <figcaption>Reference</figcaption>
+            <div class="panel-body"><img class="panel-img is-vector" data-role="reference" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDA0IiBoZWlnaHQ9IjEyIiB2aWV3Qm94PSIwIDAgNDA0IDEyIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNMiA2SDEwMkgzMDJINDAyIiBzdHJva2U9IiM2NzUwQTQiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo=" alt="Reference" /></div>
+          </figure>
+              <figure class="panel" data-role="candidate">
+            <figcaption>Candidate</figcaption>
+            <div class="panel-body"><div class="panel-empty">no image</div></div>
+          </figure>
+            </div>
+              
+              
+            </div>
+          </section>
+<section class="variant" id="v-empty" data-variant="empty">
+            <header class="variant-head">
+              <h3>empty</h3>
+              <div class="variant-meta"><span class="chip">empty</span></div>
+            </header>
+            <div class="view-controls"><div class="mode-select" role="group" aria-label="View mode"><label class="mode-toggle"><input type="radio" name="view-1" value="side" data-view="1" checked /> Side by side</label><label class="mode-toggle"><input type="radio" name="view-1" value="diff" data-view="1" /> Differences</label><label class="mode-toggle"><input type="radio" name="view-1" value="slider" data-view="1" /> Slider</label></div></div>
+            <div class="views">
+              <div class="view pair" data-view-panel="1" data-view-value="side">
+              <figure class="panel" data-role="reference">
+            <figcaption>Reference</figcaption>
+            <div class="panel-body"><img class="panel-img is-vector" data-role="reference" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDA0IiBoZWlnaHQ9IjEyIiB2aWV3Qm94PSIwIDAgNDA0IDEyIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNMiA2SDEwMkgzMDJINDAyIiBzdHJva2U9IiM2NzUwQTQiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo=" alt="Reference" /></div>
+          </figure>
+              <figure class="panel" data-role="candidate">
+            <figcaption>Candidate</figcaption>
+            <div class="panel-body"><img class="panel-img" data-role="candidate" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAsoAAABfCAYAAADxouGZAAACt0lEQVR4Xu3YTUtUURzHcVu2rHdQu2rRW6l9kLuIIHBhUGFStEnKYBYGPUIlRUZgSIGWCvYglEWhlNRMjpJ3BqKMlDsDysl2cu7sZsCbfD7wfQPnv/lx2toAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANgilsphR1JMz1aK6YtKqRYkSZKUr96OL4Z7fe9C7+nRcPPS5PzwwOy13wthZ7zraKHqXP3g+uP/io8hSZKkza/4YSkUzoyHIwfuZrrcNVp/P5YcjvcdLVCZS3etH2A5PogkSZLy0cWTzzIDeWO9p56vVsq13fHOo0mVYtofH0OSJEn5aGywmBnGjRrq/zQa7zyalJRqn+ODSJIkKR/d6p3MjOJG3eh5VY13Hk0IC2H7+gHW4oNIkiQpH507/iQzihvV0zm8GkLYFu89muBHWZIkKb/dKbzJjOJGXb/w8nu882hSpZTejw8iSZKkfDTy8EtmFDfqwdWPI/HOo0lJub43KdVW4qNIkiRp81uYXQndx4Yyw3hjXUcfr01PVPfHO48WSL6l7fFRJEmSlI9mp36GjkMDmYH8r872R+H1yHxHvO9ooR9z9T1JqfY0Kabl+DiSJEna3Ba/pmHw9nS4cn4i9JwYDoXuseX+vqmZ8syfffGuAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgf/UXjcqL0v2HckAAAAAASUVORK5CYII=" alt="Candidate" /></div>
+          </figure>
+            </div>
+              <div class="view diff-view" data-view-panel="1" data-view-value="diff" hidden>
+              <figure class="panel" data-role="diff">
+            <figcaption>Diff</figcaption>
+            <div class="panel-body"><img class="panel-img" data-role="diff" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAsoAAAAVCAYAAABfYciTAAAAjklEQVR4Ae3BgUlEAQxAsffL7b9ylUPQoyOY5NlvAQAAHyYAAOCYAACAYwIAAI4JAAA4JgAA4JgAAIDj1dvT2xMAAPxv27ft2doAAIBfWxMAAHBMAADAp6emDQAA+GtrAgAAjqmtDQAA2H5sr962NgAAYHubAACAYwIAAI4JAAA4JgAA4JgAAIBjAgAAji/hmxIeqocaWwAAAABJRU5ErkJggg==" alt="Diff" /></div>
+          </figure>
+            </div>
+              <div class="view slider-view" data-view-panel="1" data-view-value="slider" hidden>
+              <div class="overlay">
+                <div class="overlay-stack">
+                  <img class="overlay-ref" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDA0IiBoZWlnaHQ9IjEyIiB2aWV3Qm94PSIwIDAgNDA0IDEyIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNMiA2SDEwMkgzMDJINDAyIiBzdHJva2U9IiM2NzUwQTQiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo=" alt="reference" />
+                  <img class="overlay-cand" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAsoAAABfCAYAAADxouGZAAACt0lEQVR4Xu3YTUtUURzHcVu2rHdQu2rRW6l9kLuIIHBhUGFStEnKYBYGPUIlRUZgSIGWCvYglEWhlNRMjpJ3BqKMlDsDysl2cu7sZsCbfD7wfQPnv/lx2toAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANgilsphR1JMz1aK6YtKqRYkSZKUr96OL4Z7fe9C7+nRcPPS5PzwwOy13wthZ7zraKHqXP3g+uP/io8hSZKkza/4YSkUzoyHIwfuZrrcNVp/P5YcjvcdLVCZS3etH2A5PogkSZLy0cWTzzIDeWO9p56vVsq13fHOo0mVYtofH0OSJEn5aGywmBnGjRrq/zQa7zyalJRqn+ODSJIkKR/d6p3MjOJG3eh5VY13Hk0IC2H7+gHW4oNIkiQpH507/iQzihvV0zm8GkLYFu89muBHWZIkKb/dKbzJjOJGXb/w8nu882hSpZTejw8iSZKkfDTy8EtmFDfqwdWPI/HOo0lJub43KdVW4qNIkiRp81uYXQndx4Yyw3hjXUcfr01PVPfHO48WSL6l7fFRJEmSlI9mp36GjkMDmYH8r872R+H1yHxHvO9ooR9z9T1JqfY0Kabl+DiSJEna3Ba/pmHw9nS4cn4i9JwYDoXuseX+vqmZ8syfffGuAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgf/UXjcqL0v2HckAAAAAASUVORK5CYII=" alt="candidate" data-overlay="1" />
+                </div>
+                <label class="overlay-control">
+                  <span>reference</span>
+                  <input type="range" min="0" max="100" value="100" data-slider="1" />
+                  <span>candidate</span>
+                </label>
+              </div>
+            </div>
+            </div>
+          </section>
+<section class="variant" id="v-full" data-variant="full">
+            <header class="variant-head">
+              <h3>full</h3>
+              <div class="variant-meta"><span class="chip">full</span></div>
+            </header>
+            <div class="view-controls"><div class="mode-select" role="group" aria-label="View mode"><label class="mode-toggle"><input type="radio" name="view-2" value="side" data-view="2" checked /> Side by side</label><label class="mode-toggle"><input type="radio" name="view-2" value="diff" data-view="2" /> Differences</label><label class="mode-toggle"><input type="radio" name="view-2" value="slider" data-view="2" /> Slider</label></div></div>
+            <div class="views">
+              <div class="view pair" data-view-panel="2" data-view-value="side">
+              <figure class="panel" data-role="reference">
+            <figcaption>Reference</figcaption>
+            <div class="panel-body"><img class="panel-img is-vector" data-role="reference" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDA0IiBoZWlnaHQ9IjEyIiB2aWV3Qm94PSIwIDAgNDA0IDEyIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNMiA2SDEwMkgzMDJINDAyIiBzdHJva2U9IiM2NzUwQTQiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo=" alt="Reference" /></div>
+          </figure>
+              <figure class="panel" data-role="candidate">
+            <figcaption>Candidate</figcaption>
+            <div class="panel-body"><img class="panel-img" data-role="candidate" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAsoAAABfCAYAAADxouGZAAACbElEQVR4Xu3dMU4UURzH8bW01BtgBxYewwLZtxTUmAhvpOQInoPGMDMJ4QIWJFZewcRWEwsrGyhIIPiYtfG/W2wym/ggn0/yzSaP7m3zmw3ZnUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHgkjrb7Z03qPpS+NLPuTpIkSXWVU3lN89fSj5zak3evz5/HXccaHaZuN8/a3/HNkCRJUg21w0BePB8G83Wedvtx37EGBzunG+Vp5DJeuiRJkuooLzn75++pvTna7l/EncdI5Smkj5ctSZKkOsr3nyYvOY8dpu5z3HmM1KTuW7xoSZIk1dJqQ7lJ7a+48xjheO/8abn824WLliRJUhXltNpQvv/3i8nk7knce4zgE2VJkqSKW3kodz/jzmOkcqln8aIlSZJUR8NXwi05j+VpfxF3HiM1qdvKqb2Kly1JkqQ6WuFbL26bN2ev4s5jDd7P+rfxwiVJklRJf39kZOF8Nh/ROfXHcd+xRge7p5tNaj+VJ5Lv8Q2QJEnS/20YxMMPj8zL0/ay7Lav+zsfX8ZdBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAQ/UHCLSEqWln3RsAAAAASUVORK5CYII=" alt="Candidate" /></div>
+          </figure>
+            </div>
+              <div class="view diff-view" data-view-panel="2" data-view-value="diff" hidden>
+              <figure class="panel" data-role="diff">
+            <figcaption>Diff</figcaption>
+            <div class="panel-body"><img class="panel-img" data-role="diff" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAsoAAAAVCAYAAABfYciTAAAAjklEQVR4Ae3BgUlEAQxAsffL7b9ylUPQoyOY5NlvAQAAHyYAAOCYAACAYwIAAI4JAAA4JgAA4JgAAIDj1dvT2xMAAPxv27ft2doAAIBfWxMAAHBMAADAp6emDQAA+GtrAgAAjqmtDQAA2H5sr962NgAAYHubAACAYwIAAI4JAAA4JgAA4JgAAIBjAgAAji/hmxIeqocaWwAAAABJRU5ErkJggg==" alt="Diff" /></div>
+          </figure>
+            </div>
+              <div class="view slider-view" data-view-panel="2" data-view-value="slider" hidden>
+              <div class="overlay">
+                <div class="overlay-stack">
+                  <img class="overlay-ref" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDA0IiBoZWlnaHQ9IjEyIiB2aWV3Qm94PSIwIDAgNDA0IDEyIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNMiA2SDEwMkgzMDJINDAyIiBzdHJva2U9IiM2NzUwQTQiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo=" alt="reference" />
+                  <img class="overlay-cand" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAsoAAABfCAYAAADxouGZAAACbElEQVR4Xu3dMU4UURzH8bW01BtgBxYewwLZtxTUmAhvpOQInoPGMDMJ4QIWJFZewcRWEwsrGyhIIPiYtfG/W2wym/ggn0/yzSaP7m3zmw3ZnUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHgkjrb7Z03qPpS+NLPuTpIkSXWVU3lN89fSj5zak3evz5/HXccaHaZuN8/a3/HNkCRJUg21w0BePB8G83Wedvtx37EGBzunG+Vp5DJeuiRJkuooLzn75++pvTna7l/EncdI5Smkj5ctSZKkOsr3nyYvOY8dpu5z3HmM1KTuW7xoSZIk1dJqQ7lJ7a+48xjheO/8abn824WLliRJUhXltNpQvv/3i8nk7knce4zgE2VJkqSKW3kodz/jzmOkcqln8aIlSZJUR8NXwi05j+VpfxF3HiM1qdvKqb2Kly1JkqQ6WuFbL26bN2ev4s5jDd7P+rfxwiVJklRJf39kZOF8Nh/ROfXHcd+xRge7p5tNaj+VJ5Lv8Q2QJEnS/20YxMMPj8zL0/ay7Lav+zsfX8ZdBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAQ/UHCLSEqWln3RsAAAAASUVORK5CYII=" alt="candidate" data-overlay="2" />
+                </div>
+                <label class="overlay-control">
+                  <span>reference</span>
+                  <input type="range" min="0" max="100" value="100" data-slider="2" />
+                  <span>candidate</span>
+                </label>
+              </div>
+            </div>
+            </div>
+          </section>
+<section class="variant" id="v-default-light" data-variant="default/light">
+            <header class="variant-head">
+              <h3>default/light</h3>
+              <div class="variant-meta"><span class="chip">default</span> <span class="chip">light</span></div>
+            </header>
+            
+            <div class="views">
+              <div class="view pair" data-view-panel="3" data-view-value="side">
+              <figure class="panel" data-role="reference">
+            <figcaption>Reference</figcaption>
+            <div class="panel-body"><div class="panel-empty">no image</div></div>
+          </figure>
+              <figure class="panel" data-role="candidate">
+            <figcaption>Candidate</figcaption>
+            <div class="panel-body"><img class="panel-img" data-role="candidate" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAsoAAABfCAYAAADxouGZAAADp0lEQVR4Xu3cTWtcZRiA4bosrurKbXXVuvBfiCh6ThbuFLOoZ6yCkEXFr1oqbgwaIYsqfpNzBkMqQqW0kGhSaNWCVrG02qATMwl2JiA2YsJMoOF14qq8M2kJE0YzXhfcf+DNQ54nE5JduwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6BMHHyzvKSXF0VbnSmkRJEna8SXFQpYU5dLD+f3x3tuK5WrYU6s0jtYrjXP1uWaQ/q2+PXM1fHzsuzDy4nT44I3zC5PHZ9/9czHcEc8s2+iJpBjI0vxa2zcYSZL6pCwtTj1239jt8Q68laX5tYHWgXItPlikXlb5YTmMvnymba43evPw9Nr3M7XH49llGxx4aGxvluQr8aNLktRvZUnxdrwHb6Y+39jbOlJW4qNF6nWvP/952zzf2MgLX1yvV5t3xTNMl/75lVSHB5ckqR/L0vG74124mXqlUY4PFqnXzZyotM1xp06Wf5qOZ5gulZLiSvzQkiT1a1map/Eu3ExtrnklPlqkXvfhyPm2Oe7U+8NfLcUzTBeGHpnYXUrz9fihJUnq17KkeC7eh52ExbC7daSsx0eL1OteeeZU2xx3avjQ5PUQwm3xLNMFnyhLkv5XbeE/YPhEWf+F8tFv2ue4Q++99uVv8QzTpdZP1uPxQ0uS1K899cDEnfEu3Ex9rjEeHy1Sr5v65Oe2Oe7UxDsXp+IZpkulpNifJflq/NiSJPVbWVp8FO/Bm6lV1/bX5pqr8eEi9bLF2dVw5OmTbfN8Y4cPfrZ+6ezSvfEMsw2eTMuD8YNLktRPZWn+48bf5sQ78FZqvzYG48NF6nWzF/4IQ48eb5vrjQ4Nfhq+nloYimeXbXRgYGxfKclPZ0lejb8AkiTtxLK0WM6S4mIpLb8U772t+H1+bV9trnm6VmlU4wNG6lVXf2mEE2OXwluvng3Dz06G0SMzK+VjFy5XL/91TzyzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADsVH8D7ZAYVDql8KUAAAAASUVORK5CYII=" alt="Candidate" /></div>
+          </figure>
+            </div>
+              
+              
+            </div>
+          </section>
+<section class="findings">
+<div class="finding-section">
+                <h3>Token compliance</h3>
+                <ul class="finding-list"><li class="finding sev-error">
+                    <span class="sev-tag">error</span>
+                    <div class="finding-body">
+                      <span class="finding-msg">spacing.padding missing from candidate (spec 2)</span>
+                      <div class="delta">
+                   <code>spacing.padding</code>
+                   <span class="expected">expected 2</span>
+                   <span class="actual">actual —</span>
+                 </div>
+                    </div>
+                  </li></ul>
+              </div>
+<div class="finding-section">
+                <h3>Semantics</h3>
+                <ul class="finding-list"><li class="finding sev-warn">
+                    <span class="sev-tag">warn</span>
+                    <div class="finding-body">
+                      <span class="finding-msg">candidate exposes no accessibility roles</span>
+                      
+                    </div>
+                  </li>
+<li class="finding sev-warn">
+                    <span class="sev-tag">warn</span>
+                    <div class="finding-body">
+                      <span class="finding-msg">candidate exposes no accessible labels</span>
+                      
+                    </div>
+                  </li>
+<li class="finding sev-warn">
+                    <span class="sev-tag">warn</span>
+                    <div class="finding-body">
+                      <span class="finding-msg">reference variant &#39;default&#39; has no candidate render to compare</span>
+                      
+                    </div>
+                  </li></ul>
+              </div>
+<div class="finding-section">
+                <h3>Visual</h3>
+                <ul class="finding-list"><li class="finding sev-warn">
+                    <span class="sev-tag">warn</span>
+                    <div class="finding-body">
+                      <span class="finding-msg">empty: reference 714×21 vs candidate 714×95; compared over their 714×21 overlap, 77.9% of the frame uncovered</span>
+                      
+                    </div>
+                  </li>
+<li class="finding sev-warn">
+                    <span class="sev-tag">warn</span>
+                    <div class="finding-body">
+                      <span class="finding-msg">empty: 85.2% of pixels differ from reference</span>
+                      
+                    </div>
+                  </li>
+<li class="finding sev-warn">
+                    <span class="sev-tag">warn</span>
+                    <div class="finding-body">
+                      <span class="finding-msg">full: reference 714×21 vs candidate 714×95; compared over their 714×21 overlap, 77.9% of the frame uncovered</span>
+                      
+                    </div>
+                  </li>
+<li class="finding sev-warn">
+                    <span class="sev-tag">warn</span>
+                    <div class="finding-body">
+                      <span class="finding-msg">full: 85.2% of pixels differ from reference</span>
+                      
+                    </div>
+                  </li></ul>
+              </div>
+<div class="finding-section">
+            <h3>Visual scores</h3>
+            <ul class="score-list"><li><code>empty</code> <span class="differ">85.2% differ</span></li>
+<li><code>full</code> <span class="differ">85.2% differ</span></li></ul>
+          </div>
+</section>
+</main>
+<script>(function(){
+  var modes=document.querySelectorAll('input[data-view]');
+  for(var m=0;m<modes.length;m++){
+    (function(radio){
+      var id=radio.getAttribute('data-view');
+      var scope=radio.closest('.variant')||document;
+      function apply(){
+        if(!radio.checked) return;
+        var views=scope.querySelectorAll('[data-view-panel="'+id+'"]');
+        for(var k=0;k<views.length;k++){
+          views[k].hidden=(views[k].getAttribute('data-view-value')!==radio.value);
+        }
+      }
+      radio.addEventListener('change',apply);
+      apply();
+    })(modes[m]);
+  }
+  var sliders=document.querySelectorAll('input[data-slider]');
+  for(var i=0;i<sliders.length;i++){
+    (function(slider){
+      var id=slider.getAttribute('data-slider');
+      var cand=document.querySelector('img[data-overlay="'+id+'"]');
+      function apply(){ if(cand){ cand.style.opacity=(slider.value/100).toString(); } }
+      slider.addEventListener('input',apply);
+      apply();
+    })(sliders[i]);
+  }
+  var toggles=document.querySelectorAll('input[data-anno-layer]');
+  for(var j=0;j<toggles.length;j++){
+    (function(box){
+      var layer=box.getAttribute('data-anno-layer');
+      var scope=box.closest('.variant')||document;
+      function apply(){
+        var gs=scope.querySelectorAll('.anno g[data-layer="'+layer+'"]');
+        for(var k=0;k<gs.length;k++){ gs[k].classList[box.checked?'add':'remove']('on'); }
+      }
+      box.addEventListener('change',apply);
+      apply();
+    })(toggles[j]);
+  }
+})();</script>
+</body>
+</html>
