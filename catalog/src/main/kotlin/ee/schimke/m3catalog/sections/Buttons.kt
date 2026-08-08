@@ -24,8 +24,8 @@ import androidx.compose.ui.Modifier
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
-import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.SizeShapeMatrix
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonShape
 import ee.schimke.m3catalog.catalogButtonSize
@@ -69,16 +69,7 @@ private fun SizedLabel(label: String) {
   caption = "Highest emphasis; the primary action. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
-@OverrideVariant(name = "xs", strings = ["size=xs"])
-@OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["shape=square"])
-@OverrideVariant(name = "m", strings = ["size=m"])
-@OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
-@OverrideVariant(name = "l", strings = ["size=l"])
-@OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
-@OverrideVariant(name = "xl", strings = ["size=xl"])
-@OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
-@OverrideVariant(name = "disabled", strings = ["state=disabled"])
+@SizeShapeMatrix
 @Composable
 fun FilledButton() = Sticker {
   val c = counted(stringResource(Res.string.label_filled))
@@ -100,16 +91,7 @@ fun FilledButton() = Sticker {
   caption = "Secondary, still prominent. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
-@OverrideVariant(name = "xs", strings = ["size=xs"])
-@OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["shape=square"])
-@OverrideVariant(name = "m", strings = ["size=m"])
-@OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
-@OverrideVariant(name = "l", strings = ["size=l"])
-@OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
-@OverrideVariant(name = "xl", strings = ["size=xl"])
-@OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
-@OverrideVariant(name = "disabled", strings = ["state=disabled"])
+@SizeShapeMatrix
 @Composable
 fun TonalButton() = Sticker {
   val c = counted(stringResource(Res.string.label_tonal))
@@ -131,16 +113,7 @@ fun TonalButton() = Sticker {
   caption = "Medium emphasis on a busy surface. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
-@OverrideVariant(name = "xs", strings = ["size=xs"])
-@OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["shape=square"])
-@OverrideVariant(name = "m", strings = ["size=m"])
-@OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
-@OverrideVariant(name = "l", strings = ["size=l"])
-@OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
-@OverrideVariant(name = "xl", strings = ["size=xl"])
-@OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
-@OverrideVariant(name = "disabled", strings = ["state=disabled"])
+@SizeShapeMatrix
 @Composable
 fun OutlinedButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_outlined))
@@ -162,16 +135,7 @@ fun OutlinedButtonSticker() = Sticker {
   caption = "Outlined alternative needing separation. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
-@OverrideVariant(name = "xs", strings = ["size=xs"])
-@OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["shape=square"])
-@OverrideVariant(name = "m", strings = ["size=m"])
-@OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
-@OverrideVariant(name = "l", strings = ["size=l"])
-@OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
-@OverrideVariant(name = "xl", strings = ["size=xl"])
-@OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
-@OverrideVariant(name = "disabled", strings = ["state=disabled"])
+@SizeShapeMatrix
 @Composable
 fun ElevatedButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_elevated))
@@ -193,16 +157,7 @@ fun ElevatedButtonSticker() = Sticker {
   caption = "Lowest emphasis; inline actions. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
-@OverrideVariant(name = "xs", strings = ["size=xs"])
-@OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["shape=square"])
-@OverrideVariant(name = "m", strings = ["size=m"])
-@OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
-@OverrideVariant(name = "l", strings = ["size=l"])
-@OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
-@OverrideVariant(name = "xl", strings = ["size=xl"])
-@OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
-@OverrideVariant(name = "disabled", strings = ["state=disabled"])
+@SizeShapeMatrix
 @Composable
 fun TextButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_text))

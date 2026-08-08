@@ -24,9 +24,10 @@ import androidx.compose.ui.Modifier
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
-import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.SelectedToggleButtonMatrix
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.UnselectedToggleButtonMatrix
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.catalogEnabled
 import ee.schimke.m3catalog.catalogToggleButtonShapes
@@ -58,42 +59,7 @@ import org.jetbrains.compose.resources.stringResource
   caption = "A button whose selection persists. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
-@OverrideVariant(name = "xs", strings = ["size=xs"])
-@OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["shape=square"])
-@OverrideVariant(name = "m", strings = ["size=m"])
-@OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
-@OverrideVariant(name = "l", strings = ["size=l"])
-@OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
-@OverrideVariant(name = "xl", strings = ["size=xl"])
-@OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
-@OverrideVariant(name = "xs-off", booleans = ["selected=false"], strings = ["size=xs"])
-@OverrideVariant(
-  name = "xs-square-off",
-  booleans = ["selected=false"],
-  strings = ["size=xs", "shape=square"],
-)
-@OverrideVariant(name = "s-off", booleans = ["selected=false"])
-@OverrideVariant(name = "s-square-off", booleans = ["selected=false"], strings = ["shape=square"])
-@OverrideVariant(name = "m-off", booleans = ["selected=false"], strings = ["size=m"])
-@OverrideVariant(
-  name = "m-square-off",
-  booleans = ["selected=false"],
-  strings = ["size=m", "shape=square"],
-)
-@OverrideVariant(name = "l-off", booleans = ["selected=false"], strings = ["size=l"])
-@OverrideVariant(
-  name = "l-square-off",
-  booleans = ["selected=false"],
-  strings = ["size=l", "shape=square"],
-)
-@OverrideVariant(name = "xl-off", booleans = ["selected=false"], strings = ["size=xl"])
-@OverrideVariant(
-  name = "xl-square-off",
-  booleans = ["selected=false"],
-  strings = ["size=xl", "shape=square"],
-)
-@OverrideVariant(name = "disabled", strings = ["state=disabled"])
+@SelectedToggleButtonMatrix
 @Composable
 fun ToggleButtonSticker() = Sticker {
   val (on, set) = toggleable(catalogToggleSelected(default = true))
@@ -118,42 +84,7 @@ fun ToggleButtonSticker() = Sticker {
   caption = "Secondary emphasis toggle. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
-@OverrideVariant(name = "xs", strings = ["size=xs"])
-@OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["shape=square"])
-@OverrideVariant(name = "m", strings = ["size=m"])
-@OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
-@OverrideVariant(name = "l", strings = ["size=l"])
-@OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
-@OverrideVariant(name = "xl", strings = ["size=xl"])
-@OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
-@OverrideVariant(name = "xs-off", booleans = ["selected=false"], strings = ["size=xs"])
-@OverrideVariant(
-  name = "xs-square-off",
-  booleans = ["selected=false"],
-  strings = ["size=xs", "shape=square"],
-)
-@OverrideVariant(name = "s-off", booleans = ["selected=false"])
-@OverrideVariant(name = "s-square-off", booleans = ["selected=false"], strings = ["shape=square"])
-@OverrideVariant(name = "m-off", booleans = ["selected=false"], strings = ["size=m"])
-@OverrideVariant(
-  name = "m-square-off",
-  booleans = ["selected=false"],
-  strings = ["size=m", "shape=square"],
-)
-@OverrideVariant(name = "l-off", booleans = ["selected=false"], strings = ["size=l"])
-@OverrideVariant(
-  name = "l-square-off",
-  booleans = ["selected=false"],
-  strings = ["size=l", "shape=square"],
-)
-@OverrideVariant(name = "xl-off", booleans = ["selected=false"], strings = ["size=xl"])
-@OverrideVariant(
-  name = "xl-square-off",
-  booleans = ["selected=false"],
-  strings = ["size=xl", "shape=square"],
-)
-@OverrideVariant(name = "disabled", strings = ["state=disabled"])
+@SelectedToggleButtonMatrix
 @Composable
 fun TonalToggleButtonSticker() = Sticker {
   val (on, set) = toggleable(catalogToggleSelected(default = true))
@@ -183,42 +114,7 @@ fun TonalToggleButtonSticker() = Sticker {
   caption = "Medium emphasis on a busy surface. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
-@OverrideVariant(name = "xs", strings = ["size=xs"])
-@OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["shape=square"])
-@OverrideVariant(name = "m", strings = ["size=m"])
-@OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
-@OverrideVariant(name = "l", strings = ["size=l"])
-@OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
-@OverrideVariant(name = "xl", strings = ["size=xl"])
-@OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
-@OverrideVariant(name = "xs-on", booleans = ["selected=true"], strings = ["size=xs"])
-@OverrideVariant(
-  name = "xs-square-on",
-  booleans = ["selected=true"],
-  strings = ["size=xs", "shape=square"],
-)
-@OverrideVariant(name = "s-on", booleans = ["selected=true"])
-@OverrideVariant(name = "s-square-on", booleans = ["selected=true"], strings = ["shape=square"])
-@OverrideVariant(name = "m-on", booleans = ["selected=true"], strings = ["size=m"])
-@OverrideVariant(
-  name = "m-square-on",
-  booleans = ["selected=true"],
-  strings = ["size=m", "shape=square"],
-)
-@OverrideVariant(name = "l-on", booleans = ["selected=true"], strings = ["size=l"])
-@OverrideVariant(
-  name = "l-square-on",
-  booleans = ["selected=true"],
-  strings = ["size=l", "shape=square"],
-)
-@OverrideVariant(name = "xl-on", booleans = ["selected=true"], strings = ["size=xl"])
-@OverrideVariant(
-  name = "xl-square-on",
-  booleans = ["selected=true"],
-  strings = ["size=xl", "shape=square"],
-)
-@OverrideVariant(name = "disabled", strings = ["state=disabled"])
+@UnselectedToggleButtonMatrix
 @Composable
 fun OutlinedToggleButtonSticker() = Sticker {
   val (on, set) = toggleable(catalogToggleSelected(default = false))
@@ -243,42 +139,7 @@ fun OutlinedToggleButtonSticker() = Sticker {
   caption = "Separated by shadow. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
-@OverrideVariant(name = "xs", strings = ["size=xs"])
-@OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["shape=square"])
-@OverrideVariant(name = "m", strings = ["size=m"])
-@OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
-@OverrideVariant(name = "l", strings = ["size=l"])
-@OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
-@OverrideVariant(name = "xl", strings = ["size=xl"])
-@OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
-@OverrideVariant(name = "xs-on", booleans = ["selected=true"], strings = ["size=xs"])
-@OverrideVariant(
-  name = "xs-square-on",
-  booleans = ["selected=true"],
-  strings = ["size=xs", "shape=square"],
-)
-@OverrideVariant(name = "s-on", booleans = ["selected=true"])
-@OverrideVariant(name = "s-square-on", booleans = ["selected=true"], strings = ["shape=square"])
-@OverrideVariant(name = "m-on", booleans = ["selected=true"], strings = ["size=m"])
-@OverrideVariant(
-  name = "m-square-on",
-  booleans = ["selected=true"],
-  strings = ["size=m", "shape=square"],
-)
-@OverrideVariant(name = "l-on", booleans = ["selected=true"], strings = ["size=l"])
-@OverrideVariant(
-  name = "l-square-on",
-  booleans = ["selected=true"],
-  strings = ["size=l", "shape=square"],
-)
-@OverrideVariant(name = "xl-on", booleans = ["selected=true"], strings = ["size=xl"])
-@OverrideVariant(
-  name = "xl-square-on",
-  booleans = ["selected=true"],
-  strings = ["size=xl", "shape=square"],
-)
-@OverrideVariant(name = "disabled", strings = ["state=disabled"])
+@UnselectedToggleButtonMatrix
 @Composable
 fun ElevatedToggleButtonSticker() = Sticker {
   val (on, set) = toggleable(catalogToggleSelected(default = false))
