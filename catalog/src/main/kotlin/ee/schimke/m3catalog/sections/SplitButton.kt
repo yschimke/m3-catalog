@@ -3,6 +3,7 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
@@ -15,6 +16,7 @@ import androidx.compose.material3.SplitButtonLayout
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -41,39 +43,91 @@ import org.jetbrains.compose.resources.stringResource
 @CatalogComponent(
   id = "SplitButton/Filled",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:16184",
-  caption = "Primary action plus a related-choices affordance. Five sizes fold in as variants.",
+  caption = "Primary action plus a related-choices affordance. Five sizes and four colours fold in.",
 )
 @CatalogModes
 @OverrideVariant(name = "xs", strings = ["size=xs"])
 @OverrideVariant(name = "m", strings = ["size=m"])
 @OverrideVariant(name = "l", strings = ["size=l"])
 @OverrideVariant(name = "xl", strings = ["size=xl"])
+@OverrideVariant(name = "tonal", strings = ["color=tonal"])
+@OverrideVariant(name = "outlined", strings = ["color=outlined"])
+@OverrideVariant(name = "elevated", strings = ["color=elevated"])
 @Composable
 fun SplitButton() = Sticker {
   val c = counted(stringResource(Res.string.action_edit))
   val (expanded, setExpanded) = toggleable(false)
   val size = catalogButtonSize()
+  val colour = previewOverrideString("color", "filled")
+  val label: @Composable RowScope.() -> Unit = {
+    Icon(Icons.Filled.Edit, contentDescription = null)
+    ProvideTextStyle(size.labelStyle) { Text(c.label) }
+  }
+  val chevron: @Composable RowScope.() -> Unit = {
+    Icon(
+      Icons.Filled.KeyboardArrowDown,
+      contentDescription = stringResource(Res.string.action_more_options),
+      modifier = Modifier.size(size.splitTrailingIconSize),
+    )
+  }
   SplitButtonLayout(
     leadingButton = {
-      SplitButtonDefaults.LeadingButton(
-        onClick = c.onClick,
-        contentPadding = size.splitLeadingContentPadding,
-      ) {
-        Icon(Icons.Filled.Edit, contentDescription = null)
-        ProvideTextStyle(size.labelStyle) { Text(c.label) }
+      val padding = size.splitLeadingContentPadding
+      when (colour) {
+        "tonal" ->
+          SplitButtonDefaults.TonalLeadingButton(
+            c.onClick,
+            contentPadding = padding,
+            content = label,
+          )
+        "outlined" ->
+          SplitButtonDefaults.OutlinedLeadingButton(
+            c.onClick,
+            contentPadding = padding,
+            content = label,
+          )
+        "elevated" ->
+          SplitButtonDefaults.ElevatedLeadingButton(
+            c.onClick,
+            contentPadding = padding,
+            content = label,
+          )
+        else ->
+          SplitButtonDefaults.LeadingButton(c.onClick, contentPadding = padding, content = label)
       }
     },
     trailingButton = {
-      SplitButtonDefaults.TrailingButton(
-        checked = expanded,
-        onCheckedChange = { setExpanded(it) },
-        contentPadding = size.splitTrailingContentPadding,
-      ) {
-        Icon(
-          Icons.Filled.KeyboardArrowDown,
-          contentDescription = stringResource(Res.string.action_more_options),
-          modifier = Modifier.size(size.splitTrailingIconSize),
-        )
+      val padding = size.splitTrailingContentPadding
+      val onCheck: (Boolean) -> Unit = { setExpanded(it) }
+      when (colour) {
+        "tonal" ->
+          SplitButtonDefaults.TonalTrailingButton(
+            expanded,
+            onCheck,
+            contentPadding = padding,
+            content = chevron,
+          )
+        "outlined" ->
+          SplitButtonDefaults.OutlinedTrailingButton(
+            expanded,
+            onCheck,
+            contentPadding = padding,
+            content = chevron,
+          )
+        "elevated" ->
+          SplitButtonDefaults.ElevatedTrailingButton(
+            expanded,
+            onCheck,
+            contentPadding = padding,
+            content = chevron,
+          )
+        else ->
+          SplitButtonDefaults.TrailingButton(
+            expanded,
+            onCheck,
+            contentPadding = padding,
+            content = chevron,
+          )
       }
     },
   )
