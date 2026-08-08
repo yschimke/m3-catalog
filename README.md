@@ -288,6 +288,8 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FabSmall` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FabSmall_Light.png" width="150" /> |
 | `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Dark.png" width="150" /> |
 | `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Light.png" width="150" /> |
+| `AppScaffoldTemplateAr` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AppScaffoldTemplateAr_Light.png" width="150" /> |
+| `AppScaffoldTemplateJa` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AppScaffoldTemplateJa_Light.png" width="150" /> |
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Dark.png" width="150" /> |
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Dark_VARIANT_l.png" width="150" /> |
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Dark_VARIANT_l_narrow.png" width="150" /> |
