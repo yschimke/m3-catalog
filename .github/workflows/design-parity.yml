@@ -56,7 +56,7 @@ jobs:
   parity:
     name: Design parity
     if: ${{ github.repository == 'yschimke/m3-catalog' }}
-    uses: yschimke/design-parity/.github/workflows/design-parity-reusable.yml@main
+    uses: yschimke/design-parity/.github/workflows/design-parity-reusable.yml@agent/parity-cache-key
     permissions:
       contents: write # publish the regenerated artifacts to design-parity/main
     with:
