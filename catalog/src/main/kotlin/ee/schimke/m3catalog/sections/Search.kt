@@ -44,6 +44,17 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_back
+import ee.schimke.m3catalog.generated.resources.action_clear
+import ee.schimke.m3catalog.generated.resources.action_menu
+import ee.schimke.m3catalog.generated.resources.action_more
+import ee.schimke.m3catalog.generated.resources.label_account
+import ee.schimke.m3catalog.generated.resources.search_hint
+import ee.schimke.m3catalog.generated.resources.search_suggestion_motion
+import ee.schimke.m3catalog.generated.resources.search_suggestion_sticker_sheet
+import ee.schimke.m3catalog.generated.resources.search_suggestion_symbols
+import org.jetbrains.compose.resources.stringResource
 
 // The kit's Search section is four collapsed entry points and two expanded search views, and
 // Compose
@@ -57,7 +68,12 @@ import ee.schimke.m3catalog.counted
 // `fullScreenShape` and `colors()` — so the sticker shows the real shape, colour and elevation
 // rather than a hand-drawn lookalike.
 
-private val SUGGESTIONS = listOf("Material 3 sticker sheet", "Material symbols", "Motion easing")
+private val SUGGESTIONS =
+  listOf(
+    Res.string.search_suggestion_sticker_sheet,
+    Res.string.search_suggestion_symbols,
+    Res.string.search_suggestion_motion,
+  )
 
 @Composable private fun searchContent(): String = previewOverrideString("content", "placeholder")
 
@@ -65,20 +81,22 @@ private val SUGGESTIONS = listOf("Material 3 sticker sheet", "Material symbols",
 
 @Composable
 private fun searchPlaceholder(): (@Composable () -> Unit)? =
-  if (searchContent() == "query") null else ({ Text("Search") })
+  if (searchContent() == "query") null else ({ Text(stringResource(Res.string.search_hint)) })
 
 @Composable
 private fun searchTrailing(): (@Composable () -> Unit)? =
   when (searchContent()) {
     "query" -> ({
         val c = counted("clear")
-        IconButton(onClick = c.onClick) { Icon(Icons.Filled.Close, contentDescription = "Clear") }
+        IconButton(onClick = c.onClick) {
+          Icon(Icons.Filled.Close, contentDescription = stringResource(Res.string.action_clear))
+        }
       })
     "avatar" -> ({
         Surface(color = MaterialTheme.colorScheme.primaryContainer, shape = CircleShape) {
           Icon(
             Icons.Filled.Person,
-            contentDescription = "Account",
+            contentDescription = stringResource(Res.string.label_account),
             modifier = Modifier.padding(4.dp).size(22.dp),
           )
         }
@@ -200,11 +218,13 @@ fun AppBarWithSearchSticker() = Sticker {
     },
     modifier = Modifier.width(400.dp),
     navigationIcon = {
-      IconButton(onClick = menu.onClick) { Icon(Icons.Filled.Menu, contentDescription = "Menu") }
+      IconButton(onClick = menu.onClick) {
+        Icon(Icons.Filled.Menu, contentDescription = stringResource(Res.string.action_menu))
+      }
     },
     actions = {
       IconButton(onClick = overflow.onClick) {
-        Icon(Icons.Filled.MoreVert, contentDescription = "More")
+        Icon(Icons.Filled.MoreVert, contentDescription = stringResource(Res.string.action_more))
       }
     },
   )
@@ -239,7 +259,10 @@ fun ExpandedDockedSearchBarSticker() = Sticker {
         leadingIcon = {
           val back = counted("back")
           IconButton(onClick = back.onClick) {
-            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+            Icon(
+              Icons.AutoMirrored.Filled.ArrowBack,
+              contentDescription = stringResource(Res.string.action_back),
+            )
           }
         },
       )
@@ -275,7 +298,10 @@ fun ExpandedFullScreenSearchBarSticker() = Sticker {
         leadingIcon = {
           val back = counted("back")
           IconButton(onClick = back.onClick) {
-            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+            Icon(
+              Icons.AutoMirrored.Filled.ArrowBack,
+              contentDescription = stringResource(Res.string.action_back),
+            )
           }
         },
       )
@@ -287,7 +313,7 @@ fun ExpandedFullScreenSearchBarSticker() = Sticker {
 @Composable
 private fun SuggestionRows() {
   for (suggestion in SUGGESTIONS) {
-    val row = counted(suggestion)
+    val row = counted(stringResource(suggestion))
     ListItem(
       headlineContent = { Text(row.label) },
       leadingContent = { Icon(Icons.Filled.Search, contentDescription = null) },

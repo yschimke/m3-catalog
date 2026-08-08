@@ -15,6 +15,9 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.label_mail
+import org.jetbrains.compose.resources.stringResource
 
 // A badge is a status carrier, not a control: nothing to respond to, so it ships no handler.
 //
@@ -34,7 +37,7 @@ import ee.schimke.m3catalog.Sticker
 @Composable
 fun NumberBadge() = Sticker {
   BadgedBox(badge = { Badge { Text(previewOverrideString("label", "8")) } }) {
-    Icon(Icons.Filled.MailOutline, contentDescription = "Mail")
+    Icon(Icons.Filled.MailOutline, contentDescription = stringResource(Res.string.label_mail))
   }
 }
 
@@ -46,5 +49,7 @@ fun NumberBadge() = Sticker {
 @CatalogModes
 @Composable
 fun DotBadge() = Sticker {
-  BadgedBox(badge = { Badge() }) { Icon(Icons.Filled.MailOutline, contentDescription = "Mail") }
+  BadgedBox(badge = { Badge() }) {
+    Icon(Icons.Filled.MailOutline, contentDescription = stringResource(Res.string.label_mail))
+  }
 }

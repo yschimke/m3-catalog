@@ -37,7 +37,13 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_remove
+import ee.schimke.m3catalog.generated.resources.chip_add_to_calendar
+import ee.schimke.m3catalog.generated.resources.chip_sounds_good
+import ee.schimke.m3catalog.generated.resources.chip_unread
 import ee.schimke.m3catalog.toggleable
+import org.jetbrains.compose.resources.stringResource
 
 // The kit's four chip kinds are four components. Within each, the axes the kit varies are
 // parameters or one-line composable swaps, so they fold in as knobs: elevation (outlined default /
@@ -91,7 +97,7 @@ private fun chipIcon(): (@Composable () -> Unit)? =
 @OverrideVariant(name = "disabled-icon", strings = ["leading=icon", "status=disabled"])
 @Composable
 fun AssistChipSticker() = Sticker {
-  val c = counted("Add to calendar")
+  val c = counted(stringResource(Res.string.chip_add_to_calendar))
   val enabled = chipEnabled()
   if (chipElevated()) {
     ElevatedAssistChip(
@@ -127,7 +133,7 @@ fun AssistChipSticker() = Sticker {
 fun FilterChipSticker() = Sticker {
   val (selected, set) = toggleable(previewOverrideString("state", "selected") == "selected")
   val enabled = chipEnabled()
-  val label: @Composable () -> Unit = { Text("Unread") }
+  val label: @Composable () -> Unit = { Text(stringResource(Res.string.chip_unread)) }
   val check: (@Composable () -> Unit)? =
     if (!selected) null
     else
@@ -182,7 +188,7 @@ fun InputChipSticker() = Sticker {
     trailingIcon = {
       Icon(
         Icons.Filled.Close,
-        contentDescription = "Remove",
+        contentDescription = stringResource(Res.string.action_remove),
         modifier = Modifier.size(InputChipDefaults.IconSize),
       )
     },
@@ -199,7 +205,7 @@ fun InputChipSticker() = Sticker {
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @Composable
 fun SuggestionChipSticker() = Sticker {
-  val c = counted("Sounds good")
+  val c = counted(stringResource(Res.string.chip_sounds_good))
   val enabled = chipEnabled()
   if (chipElevated()) {
     ElevatedSuggestionChip(onClick = c.onClick, label = { Text(c.label) }, enabled = enabled)

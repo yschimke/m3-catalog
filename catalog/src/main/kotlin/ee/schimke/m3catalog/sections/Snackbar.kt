@@ -18,15 +18,18 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_dismiss
+import ee.schimke.m3catalog.generated.resources.action_undo
+import ee.schimke.m3catalog.generated.resources.snackbar_long
+import ee.schimke.m3catalog.generated.resources.snackbar_short
+import org.jetbrains.compose.resources.stringResource
 
 // Snackbars are composed directly rather than through a `SnackbarHost`: the host is a dispatcher
 // with nothing of its own to draw, and a sticker must show the surface itself.
 //
 // Three axes the kit documents, all foldable onto one preview: line count (the message length
 // decides it), the action, and the close affordance.
-
-private const val LONG =
-  "Your changes were saved and will sync to your other devices the next time they connect."
 
 @CatalogComponent(
   id = "Snackbar/Message",
@@ -44,8 +47,8 @@ private const val LONG =
 )
 @Composable
 fun SnackbarMessage() = Sticker {
-  val undo = counted("Undo")
-  val dismiss = counted("Dismiss")
+  val undo = counted(stringResource(Res.string.action_undo))
+  val dismiss = counted(stringResource(Res.string.action_dismiss))
   val long = previewOverrideString("message", "short") == "long"
   Snackbar(
     action =
@@ -61,6 +64,6 @@ fun SnackbarMessage() = Sticker {
         }
       } else null,
   ) {
-    Text(if (long) LONG else "Message sent")
+    Text(stringResource(if (long) Res.string.snackbar_long else Res.string.snackbar_short))
   }
 }

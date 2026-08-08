@@ -25,18 +25,25 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.tab_overview
+import ee.schimke.m3catalog.generated.resources.tab_related
+import ee.schimke.m3catalog.generated.resources.tab_reviews
+import ee.schimke.m3catalog.generated.resources.tab_specs
 import ee.schimke.m3catalog.selectable
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource
 
 // Emphasis (primary / secondary) and scroll behaviour (fixed / scrollable) are four separate row
 // composables, so they are four components. The foldable axis within each is the tab CONTENT:
 // label, icon, or both.
 
-private val TABS: List<Pair<String, ImageVector>> =
+private val TABS: List<Pair<StringResource, ImageVector>> =
   listOf(
-    "Overview" to Icons.Filled.Home,
-    "Specs" to Icons.Filled.Search,
-    "Reviews" to Icons.Filled.Person,
-    "Related" to Icons.Filled.Favorite,
+    Res.string.tab_overview to Icons.Filled.Home,
+    Res.string.tab_specs to Icons.Filled.Search,
+    Res.string.tab_reviews to Icons.Filled.Person,
+    Res.string.tab_related to Icons.Filled.Favorite,
   )
 
 @Composable private fun tabContent(): String = previewOverrideString("content", "label")
@@ -65,7 +72,7 @@ fun PrimaryTabs() = Sticker {
       Tab(
         selected = index == selected,
         onClick = { select(index) },
-        text = tabText(title),
+        text = tabText(stringResource(title)),
         icon = tabIcon(icon),
       )
     }
@@ -88,7 +95,7 @@ fun SecondaryTabs() = Sticker {
       Tab(
         selected = index == selected,
         onClick = { select(index) },
-        text = tabText(title),
+        text = tabText(stringResource(title)),
         icon = tabIcon(icon),
       )
     }
@@ -110,7 +117,7 @@ fun PrimaryScrollableTabs() = Sticker {
       Tab(
         selected = index == selected,
         onClick = { select(index) },
-        text = tabText(title),
+        text = tabText(stringResource(title)),
         icon = tabIcon(icon),
       )
     }
@@ -132,7 +139,7 @@ fun SecondaryScrollableTabs() = Sticker {
       Tab(
         selected = index == selected,
         onClick = { select(index) },
-        text = tabText(title),
+        text = tabText(stringResource(title)),
         icon = tabIcon(icon),
       )
     }

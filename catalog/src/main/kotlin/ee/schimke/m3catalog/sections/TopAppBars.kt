@@ -30,13 +30,20 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_back
+import ee.schimke.m3catalog.generated.resources.action_more
+import ee.schimke.m3catalog.generated.resources.action_search
+import ee.schimke.m3catalog.generated.resources.appbar_subtitle
+import ee.schimke.m3catalog.generated.resources.appbar_title
+import org.jetbrains.compose.resources.stringResource
 
 // Four sizes, each its own composable, plus the expressive "flexible" pair. Within each, the kit's
 // foldable axes are the navigation icon and the action count.
 
 @Composable
 private fun NavIcon(): (@Composable () -> Unit)? {
-  val c = counted("Back")
+  val c = counted(stringResource(Res.string.action_back))
   if (!previewOverrideBoolean("nav", true)) return null
   return {
     IconButton(onClick = c.onClick) {
@@ -47,8 +54,8 @@ private fun NavIcon(): (@Composable () -> Unit)? {
 
 @Composable
 private fun Actions(): @Composable androidx.compose.foundation.layout.RowScope.() -> Unit {
-  val more = counted("More")
-  val search = counted("Search")
+  val more = counted(stringResource(Res.string.action_more))
+  val search = counted(stringResource(Res.string.action_search))
   val count = previewOverrideString("actions", "1").toIntOrNull() ?: 1
   return {
     if (count >= 2) {
@@ -79,7 +86,7 @@ private const val W = 360
 fun SmallTopAppBar() = Sticker {
   val nav = NavIcon()
   TopAppBar(
-    title = { Text("Title") },
+    title = { Text(stringResource(Res.string.appbar_title)) },
     navigationIcon = nav ?: {},
     actions = Actions(),
     modifier = Modifier.width(W.dp),
@@ -98,7 +105,7 @@ fun SmallTopAppBar() = Sticker {
 fun CenterTopAppBar() = Sticker {
   val nav = NavIcon()
   CenterAlignedTopAppBar(
-    title = { Text("Title") },
+    title = { Text(stringResource(Res.string.appbar_title)) },
     navigationIcon = nav ?: {},
     actions = Actions(),
     modifier = Modifier.width(W.dp),
@@ -116,7 +123,7 @@ fun CenterTopAppBar() = Sticker {
 fun MediumTopAppBarSticker() = Sticker {
   val nav = NavIcon()
   MediumTopAppBar(
-    title = { Text("Title") },
+    title = { Text(stringResource(Res.string.appbar_title)) },
     navigationIcon = nav ?: {},
     actions = Actions(),
     modifier = Modifier.width(W.dp),
@@ -134,7 +141,7 @@ fun MediumTopAppBarSticker() = Sticker {
 fun LargeTopAppBarSticker() = Sticker {
   val nav = NavIcon()
   LargeTopAppBar(
-    title = { Text("Title") },
+    title = { Text(stringResource(Res.string.appbar_title)) },
     navigationIcon = nav ?: {},
     actions = Actions(),
     modifier = Modifier.width(W.dp),
@@ -150,8 +157,8 @@ fun LargeTopAppBarSticker() = Sticker {
 fun MediumFlexibleTopAppBarSticker() = Sticker {
   val nav = NavIcon()
   MediumFlexibleTopAppBar(
-    title = { Text("Title") },
-    subtitle = { Text("Subtitle") },
+    title = { Text(stringResource(Res.string.appbar_title)) },
+    subtitle = { Text(stringResource(Res.string.appbar_subtitle)) },
     navigationIcon = nav ?: {},
     actions = Actions(),
     modifier = Modifier.width(W.dp),
@@ -167,8 +174,8 @@ fun MediumFlexibleTopAppBarSticker() = Sticker {
 fun LargeFlexibleTopAppBarSticker() = Sticker {
   val nav = NavIcon()
   LargeFlexibleTopAppBar(
-    title = { Text("Title") },
-    subtitle = { Text("Subtitle") },
+    title = { Text(stringResource(Res.string.appbar_title)) },
+    subtitle = { Text(stringResource(Res.string.appbar_subtitle)) },
     navigationIcon = nav ?: {},
     actions = Actions(),
     modifier = Modifier.width(W.dp),

@@ -23,8 +23,11 @@ import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.catalogIconContainerSize
 import ee.schimke.m3catalog.catalogIconShape
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.label_favourite
 import ee.schimke.m3catalog.iconButtonIconSize
 import ee.schimke.m3catalog.toggleable
+import org.jetbrains.compose.resources.stringResource
 
 // Icon buttons carry no label, so they read as a favourite TOGGLE on the interactive lane rather
 // than taking the click tally: the glyph swaps between outlined and filled.
@@ -81,7 +84,7 @@ fun StandardIconButton() = Sticker {
   ) {
     Icon(
       if (on) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-      contentDescription = "Favourite",
+      contentDescription = stringResource(Res.string.label_favourite),
       modifier = Modifier.size(size.iconButtonIconSize),
     )
   }
@@ -134,7 +137,7 @@ fun FilledIconButtonSticker() = Sticker {
   ) {
     Icon(
       if (on) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-      contentDescription = "Favourite",
+      contentDescription = stringResource(Res.string.label_favourite),
       modifier = Modifier.size(size.iconButtonIconSize),
     )
   }
@@ -186,7 +189,7 @@ fun TonalIconButton() = Sticker {
   ) {
     Icon(
       if (on) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-      contentDescription = "Favourite",
+      contentDescription = stringResource(Res.string.label_favourite),
       modifier = Modifier.size(size.iconButtonIconSize),
     )
   }
@@ -239,7 +242,7 @@ fun OutlinedIconButtonSticker() = Sticker {
   ) {
     Icon(
       if (on) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-      contentDescription = "Favourite",
+      contentDescription = stringResource(Res.string.label_favourite),
       modifier = Modifier.size(size.iconButtonIconSize),
     )
   }

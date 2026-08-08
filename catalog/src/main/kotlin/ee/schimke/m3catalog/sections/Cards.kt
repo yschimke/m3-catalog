@@ -27,6 +27,14 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogInteractive
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_action
+import ee.schimke.m3catalog.generated.resources.action_cancel
+import ee.schimke.m3catalog.generated.resources.card_elevated
+import ee.schimke.m3catalog.generated.resources.card_filled
+import ee.schimke.m3catalog.generated.resources.card_outlined
+import ee.schimke.m3catalog.generated.resources.card_supporting
+import org.jetbrains.compose.resources.stringResource
 
 // M3's cards are the one family shipping BOTH a plain and a clickable overload. The interactive
 // lane picks the clickable one; the baked lane composes the plain one, so the published capture
@@ -48,12 +56,12 @@ private fun CardBody(title: String) {
     Column(Modifier.padding(16.dp)) {
       Text(title, style = MaterialTheme.typography.titleMedium)
       Spacer(Modifier.height(4.dp))
-      Text("Supporting text for the card.", style = MaterialTheme.typography.bodyMedium)
+      Text(stringResource(Res.string.card_supporting), style = MaterialTheme.typography.bodyMedium)
     }
     if (layout == "actions" || layout == "media+actions") {
       Row(Modifier.padding(start = 8.dp, end = 8.dp, bottom = 8.dp)) {
-        TextButton(onClick = {}) { Text("Action") }
-        TextButton(onClick = {}) { Text("Cancel") }
+        TextButton(onClick = {}) { Text(stringResource(Res.string.action_action)) }
+        TextButton(onClick = {}) { Text(stringResource(Res.string.action_cancel)) }
       }
     }
   }
@@ -73,7 +81,7 @@ private fun CardBody(title: String) {
 )
 @Composable
 fun FilledCard() = Sticker {
-  val c = counted("Filled card")
+  val c = counted(stringResource(Res.string.card_filled))
   if (catalogInteractive()) {
     Card(onClick = c.onClick, modifier = Modifier.width(280.dp)) { CardBody(c.label) }
   } else {
@@ -95,7 +103,7 @@ fun FilledCard() = Sticker {
 )
 @Composable
 fun ElevatedCardSticker() = Sticker {
-  ElevatedCard(Modifier.width(280.dp)) { CardBody("Elevated card") }
+  ElevatedCard(Modifier.width(280.dp)) { CardBody(stringResource(Res.string.card_elevated)) }
 }
 
 @CatalogComponent(
@@ -112,5 +120,5 @@ fun ElevatedCardSticker() = Sticker {
 )
 @Composable
 fun OutlinedCardSticker() = Sticker {
-  OutlinedCard(Modifier.width(280.dp)) { CardBody("Outlined card") }
+  OutlinedCard(Modifier.width(280.dp)) { CardBody(stringResource(Res.string.card_outlined)) }
 }

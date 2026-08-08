@@ -25,6 +25,12 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_add
+import ee.schimke.m3catalog.generated.resources.action_check
+import ee.schimke.m3catalog.generated.resources.action_edit
+import ee.schimke.m3catalog.generated.resources.action_more
+import org.jetbrains.compose.resources.stringResource
 
 // The kit's axes: the FAB slot, and how many actions sit beside it (two to four).
 
@@ -40,10 +46,10 @@ import ee.schimke.m3catalog.counted
 @OverrideVariant(name = "four-actions-no-fab", strings = ["actions=4"], booleans = ["fab=false"])
 @Composable
 fun BottomAppBarSticker() = Sticker {
-  val check = counted("Check")
-  val edit = counted("Edit")
-  val more = counted("More")
-  val add = counted("Add")
+  val check = counted(stringResource(Res.string.action_check))
+  val edit = counted(stringResource(Res.string.action_edit))
+  val more = counted(stringResource(Res.string.action_more))
+  val add = counted(stringResource(Res.string.action_add))
   val count = previewOverrideString("actions", "3").toIntOrNull() ?: 3
   BottomAppBar(
     modifier = Modifier.width(360.dp),

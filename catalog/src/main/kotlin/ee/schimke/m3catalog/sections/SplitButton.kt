@@ -22,10 +22,14 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_edit
+import ee.schimke.m3catalog.generated.resources.action_more_options
 import ee.schimke.m3catalog.splitLeadingContentPadding
 import ee.schimke.m3catalog.splitTrailingContentPadding
 import ee.schimke.m3catalog.splitTrailingIconSize
 import ee.schimke.m3catalog.toggleable
+import org.jetbrains.compose.resources.stringResource
 
 // A split button pairs a primary action with a menu affordance: the leading half takes the click
 // tally, the trailing half owns the expanded state.
@@ -46,7 +50,7 @@ import ee.schimke.m3catalog.toggleable
 @OverrideVariant(name = "xl", strings = ["size=xl"])
 @Composable
 fun SplitButton() = Sticker {
-  val c = counted("Edit")
+  val c = counted(stringResource(Res.string.action_edit))
   val (expanded, setExpanded) = toggleable(false)
   val size = catalogButtonSize()
   SplitButtonLayout(
@@ -67,7 +71,7 @@ fun SplitButton() = Sticker {
       ) {
         Icon(
           Icons.Filled.KeyboardArrowDown,
-          contentDescription = "More options",
+          contentDescription = stringResource(Res.string.action_more_options),
           modifier = Modifier.size(size.splitTrailingIconSize),
         )
       }

@@ -23,6 +23,10 @@ import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_compose
+import ee.schimke.m3catalog.generated.resources.action_edit
+import org.jetbrains.compose.resources.stringResource
 
 // The floating action button family: one primary action, raised above the content.
 //
@@ -42,7 +46,7 @@ import ee.schimke.m3catalog.counted
 @CatalogModes
 @Composable
 fun Fab() = Sticker {
-  val c = counted("Edit")
+  val c = counted(stringResource(Res.string.action_edit))
   FloatingActionButton(onClick = c.onClick) {
     Icon(Icons.Filled.Edit, contentDescription = c.label)
   }
@@ -52,7 +56,7 @@ fun Fab() = Sticker {
 @CatalogModes
 @Composable
 fun FabSmall() = Sticker {
-  val c = counted("Edit")
+  val c = counted(stringResource(Res.string.action_edit))
   SmallFloatingActionButton(onClick = c.onClick) {
     Icon(Icons.Filled.Edit, contentDescription = c.label)
   }
@@ -62,7 +66,7 @@ fun FabSmall() = Sticker {
 @CatalogModes
 @Composable
 fun FabMedium() = Sticker {
-  val c = counted("Edit")
+  val c = counted(stringResource(Res.string.action_edit))
   MediumFloatingActionButton(onClick = c.onClick) {
     Icon(Icons.Filled.Edit, contentDescription = c.label)
   }
@@ -72,7 +76,7 @@ fun FabMedium() = Sticker {
 @CatalogModes
 @Composable
 fun FabLarge() = Sticker {
-  val c = counted("Edit")
+  val c = counted(stringResource(Res.string.action_edit))
   LargeFloatingActionButton(onClick = c.onClick) {
     Icon(Icons.Filled.Edit, contentDescription = c.label)
   }
@@ -86,7 +90,7 @@ fun FabLarge() = Sticker {
 @CatalogModes
 @Composable
 fun ExtendedFab() = Sticker {
-  val c = counted("Compose")
+  val c = counted(stringResource(Res.string.action_compose))
   ExtendedFloatingActionButton(
     onClick = c.onClick,
     icon = { Icon(Icons.Filled.Edit, contentDescription = null) },
@@ -98,7 +102,7 @@ fun ExtendedFab() = Sticker {
 @CatalogModes
 @Composable
 fun ExtendedFabSmall() = Sticker {
-  val c = counted("Compose")
+  val c = counted(stringResource(Res.string.action_compose))
   SmallExtendedFloatingActionButton(
     onClick = c.onClick,
     icon = { Icon(Icons.Filled.Edit, contentDescription = null) },
@@ -110,7 +114,7 @@ fun ExtendedFabSmall() = Sticker {
 @CatalogModes
 @Composable
 fun ExtendedFabMedium() = Sticker {
-  val c = counted("Compose")
+  val c = counted(stringResource(Res.string.action_compose))
   MediumExtendedFloatingActionButton(
     onClick = c.onClick,
     icon = { Icon(Icons.Filled.Edit, contentDescription = null) },
@@ -122,7 +126,7 @@ fun ExtendedFabMedium() = Sticker {
 @CatalogModes
 @Composable
 fun ExtendedFabLarge() = Sticker {
-  val c = counted("Compose")
+  val c = counted(stringResource(Res.string.action_compose))
   LargeExtendedFloatingActionButton(
     onClick = c.onClick,
     icon = { Icon(Icons.Filled.Edit, contentDescription = null) },

@@ -29,7 +29,16 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_cancel
+import ee.schimke.m3catalog.generated.resources.action_delete
+import ee.schimke.m3catalog.generated.resources.action_ok
+import ee.schimke.m3catalog.generated.resources.dialog_add_account
+import ee.schimke.m3catalog.generated.resources.dialog_backup_title
+import ee.schimke.m3catalog.generated.resources.dialog_delete_body
+import ee.schimke.m3catalog.generated.resources.dialog_delete_title
 import ee.schimke.m3catalog.selectable
+import org.jetbrains.compose.resources.stringResource
 
 // A dialog is hosted in its own platform window, which a single-surface capture cannot reach — so
 // these compose the dialog's CONTAINER (AlertDialogDefaults' own shape, tonal elevation and
@@ -80,16 +89,19 @@ fun BasicDialog() = Sticker {
         )
       }
       Text(
-        "Delete this item?",
+        stringResource(Res.string.dialog_delete_title),
         style = MaterialTheme.typography.headlineSmall,
         color = AlertDialogDefaults.titleContentColor,
       )
       Text(
-        "This can't be undone. The item will be removed from every device.",
+        stringResource(Res.string.dialog_delete_body),
         style = MaterialTheme.typography.bodyMedium,
         color = AlertDialogDefaults.textContentColor,
       )
-      DialogActions("Delete", "Cancel")
+      DialogActions(
+        stringResource(Res.string.action_delete),
+        stringResource(Res.string.action_cancel),
+      )
     }
   }
 }
@@ -106,18 +118,24 @@ fun ListDialog() = Sticker {
   DialogSurface {
     Column(Modifier.padding(vertical = 24.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
       Text(
-        "Choose a backup account",
+        stringResource(Res.string.dialog_backup_title),
         Modifier.padding(horizontal = 24.dp),
         style = MaterialTheme.typography.headlineSmall,
         color = AlertDialogDefaults.titleContentColor,
       )
-      listOf("alice@example.com", "bala@example.com", "Add account").forEachIndexed { i, label ->
-        ListItem(
-          headlineContent = { Text(label) },
-          leadingContent = { RadioButton(selected = i == selected, onClick = { select(i) }) },
+      listOf("alice@example.com", "bala@example.com", stringResource(Res.string.dialog_add_account))
+        .forEachIndexed { i, label ->
+          ListItem(
+            headlineContent = { Text(label) },
+            leadingContent = { RadioButton(selected = i == selected, onClick = { select(i) }) },
+          )
+        }
+      Row(Modifier.padding(horizontal = 24.dp)) {
+        DialogActions(
+          stringResource(Res.string.action_ok),
+          stringResource(Res.string.action_cancel),
         )
       }
-      Row(Modifier.padding(horizontal = 24.dp)) { DialogActions("OK", "Cancel") }
     }
   }
 }

@@ -32,17 +32,25 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_menu
+import ee.schimke.m3catalog.generated.resources.action_new
+import ee.schimke.m3catalog.generated.resources.nav_home
+import ee.schimke.m3catalog.generated.resources.nav_saved
+import ee.schimke.m3catalog.generated.resources.nav_search
+import ee.schimke.m3catalog.generated.resources.nav_you
 import ee.schimke.m3catalog.selectable
+import org.jetbrains.compose.resources.stringResource
 
 // The kit's axes: destination count, the optional menu and FAB header slots, and label visibility.
 // The expanded form is a separate composable (WideNavigationRail), so it is its own component.
 
 private val RAIL =
   listOf(
-    "Home" to Icons.Filled.Home,
-    "Search" to Icons.Filled.Search,
-    "You" to Icons.Filled.Person,
-    "Saved" to Icons.Filled.Favorite,
+    Res.string.nav_home to Icons.Filled.Home,
+    Res.string.nav_search to Icons.Filled.Search,
+    Res.string.nav_you to Icons.Filled.Person,
+    Res.string.nav_saved to Icons.Filled.Favorite,
   )
 
 @Composable
@@ -52,10 +60,14 @@ private fun railHeader(): (@Composable androidx.compose.foundation.layout.Column
   if (!menu && !fab) return null
   return {
     if (menu) {
-      IconButton(onClick = {}) { Icon(Icons.Filled.Menu, contentDescription = "Menu") }
+      IconButton(onClick = {}) {
+        Icon(Icons.Filled.Menu, contentDescription = stringResource(Res.string.action_menu))
+      }
     }
     if (fab) {
-      FloatingActionButton(onClick = {}) { Icon(Icons.Filled.Add, contentDescription = "New") }
+      FloatingActionButton(onClick = {}) {
+        Icon(Icons.Filled.Add, contentDescription = stringResource(Res.string.action_new))
+      }
     }
   }
 }
@@ -82,7 +94,7 @@ fun NavigationRailSticker() = Sticker {
         selected = index == selected,
         onClick = { select(index) },
         icon = { Icon(icon, contentDescription = null) },
-        label = if (labels == "none") null else ({ Text(label) }),
+        label = if (labels == "none") null else ({ Text(stringResource(label)) }),
       )
     }
   }
@@ -112,7 +124,7 @@ fun WideNavigationRailSticker() = Sticker {
         selected = index == selected,
         onClick = { select(index) },
         icon = { Icon(icon, contentDescription = null) },
-        label = { Text(label) },
+        label = { Text(stringResource(label)) },
       )
     }
   }

@@ -30,6 +30,13 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_cancel
+import ee.schimke.m3catalog.generated.resources.action_close
+import ee.schimke.m3catalog.generated.resources.action_save
+import ee.schimke.m3catalog.generated.resources.sheet_details
+import ee.schimke.m3catalog.generated.resources.sheet_supporting
+import org.jetbrains.compose.resources.stringResource
 
 // Compose Material 3 has NO side-sheet component: the kit ships one, the library does not. So this
 // is built from `Surface` plus the shape and colour roles the spec names, and captioned to say so —
@@ -49,7 +56,7 @@ import ee.schimke.m3catalog.counted
 @OverrideVariant(name = "header-footer", booleans = ["footer=true"])
 @Composable
 fun StandardSideSheet() = Sticker {
-  val close = counted("Close")
+  val close = counted(stringResource(Res.string.action_close))
   Surface(
     modifier = Modifier.width(256.dp).height(320.dp),
     color = MaterialTheme.colorScheme.surfaceContainerLow,
@@ -58,7 +65,10 @@ fun StandardSideSheet() = Sticker {
     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
       if (previewOverrideBoolean("header", true)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-          Text("Details", style = MaterialTheme.typography.titleMedium)
+          Text(
+            stringResource(Res.string.sheet_details),
+            style = MaterialTheme.typography.titleMedium,
+          )
           Column(Modifier.weight(1f)) {}
           IconButton(onClick = close.onClick) {
             Icon(Icons.Filled.Close, contentDescription = close.label)
@@ -66,16 +76,13 @@ fun StandardSideSheet() = Sticker {
         }
         HorizontalDivider()
       }
-      Text(
-        "Supporting content that sits beside the main pane.",
-        style = MaterialTheme.typography.bodyMedium,
-      )
+      Text(stringResource(Res.string.sheet_supporting), style = MaterialTheme.typography.bodyMedium)
       if (previewOverrideBoolean("footer", false)) {
         Column(Modifier.weight(1f)) {}
         HorizontalDivider()
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-          TextButton(onClick = {}) { Text("Cancel") }
-          Button(onClick = {}) { Text("Save") }
+          TextButton(onClick = {}) { Text(stringResource(Res.string.action_cancel)) }
+          Button(onClick = {}) { Text(stringResource(Res.string.action_save)) }
         }
       }
     }
