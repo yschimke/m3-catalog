@@ -135,6 +135,17 @@ until a `design-pages.json` exists with `"enabled": true`.
 design-parity-pages import --design-map design-map.json
 ```
 
+A committed [`design-pages.json`](../design-pages.json) is already in the repo
+with `"enabled": false` — the deliberate "landed but dark" state. Flipping that
+one boolean is the opt-in; nothing runs until you do.
+
+The [`Refresh Figma page backdrop`](../.github/workflows/figma-page-backdrop.yml)
+workflow drives it in CI: manual dispatch, artifact-only, no writes back to the
+repo, on the same reasoning as `figma-refs.yml`. It checks the opt-in first and
+stops cleanly if the feature is off, so it is safe to run today — it will simply
+report that it is dark. The run summary lists every placement with its link
+method, so you can see what resolved without downloading anything.
+
 ### The import needs the REST API — MCP is not a substitute
 
 A trial run drove the importer from `get_metadata` instead of the REST API. The
