@@ -57,6 +57,9 @@ private val DESTINATIONS: List<Pair<StringResource, ImageVector>> =
 @CatalogComponent(
   id = "NavigationBar/Standard",
   caption = "Three to five top-level destinations. Count, labels and badges fold in.",
+  noReference =
+    "Compose's NavigationBar is 80dp (NavigationBarTokens.TallContainerHeight); the kit " +
+      "publishes only the 64dp bar, which NavigationBar/Short already references",
 )
 @CatalogModes
 @OverrideVariant(name = "four", strings = ["count=4"])
