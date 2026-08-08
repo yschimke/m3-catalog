@@ -109,7 +109,28 @@ jobs:
       #     resolves from `composePreviewPlugin` below. On an older CLI the six shards each render
       #     in full and only then does the merge step die on an unknown subcommand.
       # That is why the `composePreviewPlugin` bump to 0.19.44 is in this same commit.
-      render-shards: 6
+      #
+      # BACK TO ONE, until the exclusion matching is anchored. Sharding cost the catalog three
+      # quarters of its renders — silently, on a green run. Each shard is assigned its ~183
+      # previews and then drops most of them:
+      #
+      #   shard 1/6 renders 183 of 1095 …  →  bundle pack: … 25 to capture.
+      #   shard 2/6 renders 183 of 1095 …  →  … 87 to capture.
+      #   shard 3/6 renders 183 of 1095 …  →  … 18 to capture.
+      #
+      # 267 captured of 1095 assigned, 235 merged. `--exclude-preview-id` matches by equality OR
+      # substring (PackPreviewIdExclusions, mirroring the plugin's PreviewNameFilter.matchesId), and
+      # a base id is a substring of its own variant ids — `…SwitchOn_Light` matches
+      # `…SwitchOn_Light_VARIANT_off`. So a shard that excludes some other shard's base preview also
+      # deletes every variant of it that it was supposed to render. With round-robin partitioning a
+      # base and its variants almost never share a shard, so almost every variant died: 93
+      # components published 258 images, and Switch/On — which declares seven variants — published
+      # only its light and dark default.
+      #
+      # Unsharded there are no exclusions, so nothing is dropped. It costs ~43 min inside the 90 the
+      # job carries. Restore sharding once the upstream patterns are anchored (an exact-id exclusion,
+      # or globs the sharder emits) rather than substring-matched.
+      render-shards: 1
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
     secrets:
       # Publishes the `figma:` entries in design-map.json as **design references** on the delivery
