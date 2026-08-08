@@ -29,6 +29,15 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      design_parity_ref:
+        description: >
+          Test an UNRELEASED design-parity: a git ref of yschimke/design-parity
+          to build and run instead of the published CLI. Empty runs the release,
+          which is what every push does.
+        type: string
+        required: false
+        default: ""
 
 permissions: {}
 
@@ -45,6 +54,13 @@ jobs:
       contents: write # publish the regenerated artifacts to design-parity/main
     with:
       module: ':catalog'
+
+      # Empty on a push, so the pipeline that guards main is always the released
+      # CLI. Set it on a dispatch to try a fix before it ships — the reusable
+      # workflow builds that ref's workspaces and runs them, which is the only
+      # way to exercise behaviour that needs a live Figma token and a real
+      # catalog (a rate limiter, a partial refresh) rather than a fixture.
+      design-parity-ref: ${{ inputs.design_parity_ref || '' }}
 
       # ONE job, deliberately. The render is the cost that was breaking this
       # workflow, and scoping it — not sharding — is what fixes that: the module
