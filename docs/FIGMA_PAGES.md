@@ -146,6 +146,25 @@ stops cleanly if the feature is off, so it is safe to run today — it will simp
 report that it is dark. The run summary lists every placement with its link
 method, so you can see what resolved without downloading anything.
 
+### Where the overlay images come from
+
+The viewer's "show renders on top" layer needs one PNG per code component.
+Rendering the catalog to produce them costs **~43 minutes** (1095 previews, see
+[PARALLEL_RENDER.md](./PARALLEL_RENDER.md)) — absurd for the couple of dozen a
+screen actually uses. The `compose-preview/main` branch already holds every
+render, refreshed on each merge to `main` by `compose-preview.yml`, so
+[`scripts/page-backdrop-renders.mjs`](../scripts/page-backdrop-renders.mjs)
+reads that instead. No Gradle, no Android SDK, no render.
+
+It **joins**, never reconstructs. A render's filename is not derivable from its
+preview id: `renderOutput` strips the *common* dotted package prefix across
+every preview in the module (compose-ai-tools `docs/RENDER_FILENAMES.md`), so the
+answer depends on the whole set — and the baseline branch flattens it again to a
+basename. Both are recorded facts. The branch's `baselines.json` is keyed
+`<module>/<previewId>` and carries `renderBasename`, so the script looks the
+answer up. Measured against the current branch: **77 of 77** design-map
+components resolve to a render that exists on disk.
+
 ### The import needs the REST API — MCP is not a substitute
 
 A trial run drove the importer from `get_metadata` instead of the REST API. The

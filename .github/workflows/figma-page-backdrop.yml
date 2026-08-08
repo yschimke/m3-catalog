@@ -84,17 +84,31 @@ jobs:
           npx --yes "@design-parity/page-backdrop@${PB_VERSION}" import \
             --design-map design-map.json 2>&1 | tee page-backdrop-import.txt
 
-      # The viewer is built without `--render`, so the "show renders on top" overlay has no images
-      # to show yet. Wiring the catalog's own PNGs in needs a verified previewId -> render-filename
-      # mapping, which wants a real render run to confirm rather than a guess; that is the
-      # follow-up. Hotspots, links and the unlinked gaps all work without it.
+      # The overlay needs one PNG per code component. Rendering the catalog to get them costs
+      # ~43 min (1095 previews, docs/PARALLEL_RENDER.md) — absurd for a couple of dozen images.
+      # `compose-preview/main` already holds every render, refreshed on each merge to main by
+      # compose-preview.yml, so this reads that instead: no Gradle, no Android SDK, no render.
+      - name: Check out render baseline
+        if: steps.optin.outputs.enabled == 'true'
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: compose-preview/main
+          path: .compose-preview-baseline
+
       - name: Build viewer
         if: steps.optin.outputs.enabled == 'true'
         env:
           PB_VERSION: ${{ inputs.version }}
         run: |
           set -euo pipefail
-          npx --yes "@design-parity/page-backdrop@${PB_VERSION}" view
+          # One `--render code=path` per component that has a baseline render. The script joins on
+          # baselines.json rather than reconstructing filenames — see its header for why that
+          # distinction matters. A component without a render is skipped, not fatal.
+          args=()
+          while IFS= read -r pair; do
+            [ -n "$pair" ] && args+=(--render "$pair")
+          done < <(node scripts/page-backdrop-renders.mjs --baseline-root .compose-preview-baseline)
+          npx --yes "@design-parity/page-backdrop@${PB_VERSION}" view ${args[@]+"${args[@]}"}
 
       - name: Summarise
         if: steps.optin.outputs.enabled == 'true'
