@@ -79,6 +79,18 @@ for (const [i, page] of pages.entries()) {
         name: node.name,
         id: node.id,
         type: node.type,
+        // The kit's OTHER kind of variation. A variant name carries the axes
+        // (`Type=Round, Size=Small`); a component property carries the rest —
+        // whether a button draws its leading icon, whether a card has an action
+        // row — and it is invisible in the name. `/v1/images` renders a node at
+        // its DEFAULT property values, so a reference can depict something the
+        // code render never claimed to be unless these are read (#21).
+        properties: Object.fromEntries(
+          Object.entries(node.componentPropertyDefinitions ?? {}).map(([k, v]) => [
+            k,
+            { type: v.type, default: v.defaultValue },
+          ]),
+        ),
         level,
         hidden,
         w: Math.round(node.absoluteBoundingBox?.width ?? 0),
