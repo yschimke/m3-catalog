@@ -161,6 +161,111 @@ function matchSibling({ peers }, seed) {
   return best ? { axis: "component", want: best.name, id: best.id, name: best.name } : null;
 }
 
+// --- Component properties ----------------------------------------------------
+//
+// Not every knob the kit models is an axis. A button's icon, a rail's menu, a
+// sheet's drag handle are COMPONENT PROPERTIES: a switch on the node rather
+// than a variant beside it. That distinction matters twice over.
+//
+// Reading a miss: "no counterpart in the kit" is true of a badge's digit count
+// in a way it is not true of a bottom bar's FAB. The FAB is right there — it
+// just is not addressable, because `/v1/images` renders a node at its property
+// DEFAULTS and the reference is a node id with nowhere to hang an override.
+// Calling both "absent" hides which ones are our authoring gap and which are a
+// limit of what a reference can express.
+//
+// Reading a match: those defaults are applied whether or not anyone chose them.
+// A set whose `Show icon` defaults to true draws an icon in every render made
+// from it, so a label-only sticker is compared against an icon'd reference and
+// the width divergence that follows is an artefact, not a finding (#21).
+
+/** Words that describe the property rather than name the thing it controls. */
+const PROP_FILLER = new Set(["show", "text", "the"]);
+
+const TRUTHY = new Set(["true", "on", "yes", "1"]);
+const FALSY = new Set(["false", "off", "no", "0", "none"]);
+
+/** The set a reference points into, when it points at one of its variants. */
+function setForRef(ref) {
+  const v = variantIndex.get(ref.split("/")[1]);
+  return v ? { id: v.setId, name: v.setName, properties: index.sets[v.setId].properties } : undefined;
+}
+
+/** `actions` and `action` name the same thing; our knobs pluralise, the kit does not. */
+const singular = (s) => (s.length > 3 && s.endsWith("s") ? s.slice(0, -1) : s);
+
+function matchProperty(properties, knob) {
+  const k = singular(norm(knob));
+  // The axis vocabulary serves here too: a knob the kit spells as an axis on one
+  // component it spells as a property on another — `content` is `Configuration`
+  // on a list item and `Show icon` on a button — and one translation table
+  // beats two that can disagree.
+  const aliased = new Set((AXIS_ALIASES[knob] ?? []).map((a) => singular(norm(a))));
+  let best = [];
+  for (const [name, def] of Object.entries(properties ?? {})) {
+    const meaty = name
+      .toLowerCase()
+      .split(/[^a-z0-9]+/)
+      .filter((t) => t && !PROP_FILLER.has(t))
+      .map(singular);
+    // Whole name, then a spelling the vocabulary already knows, then the name
+    // minus its filler words, then any single word of it — so `icon` reaches
+    // `Show icon` while `Icon (selected)` loses to it.
+    const score =
+      singular(norm(name)) === k ? 0
+      : aliased.has(singular(norm(name))) ? 1
+      : meaty.join("") === k ? 2
+      : meaty.includes(k) ? 3
+      : -1;
+    if (score < 0) continue;
+    const rank = [score, meaty.length];
+    const cmp = best.length ? rank[0] - best[0].rank[0] || rank[1] - best[0].rank[1] : -1;
+    if (cmp < 0) best = [{ rank, name, type: def.type, default: def.default }];
+    // A tie is not ambiguity to break: one knob genuinely spanning several
+    // properties — a count over `Show 1st/2nd/3rd trailing action` — is the
+    // finding, and naming one of the three would misreport it as a single switch.
+    else if (cmp === 0) best.push({ rank, name, type: def.type, default: def.default });
+  }
+  return best.length ? best : undefined;
+}
+
+/**
+ * The kit property a knob names, when the kit models it as a property rather
+ * than an axis — so there is no sibling node to compare against, and the miss
+ * is a limit of references rather than a gap in the kit.
+ *
+ * `coversVariant` says the property's default already equals what this variant
+ * seeds: the reference draws the VARIANT, which means it is the base pair
+ * beside it that depicts something its render never claimed.
+ */
+export function propertyForSeed(ref, seed) {
+  const set = setForRef(ref);
+  if (!set) return undefined;
+  const props = matchProperty(set.properties, seed.key);
+  if (!props) return undefined;
+  const raw = String(seed.raw).toLowerCase();
+  const seeded = TRUTHY.has(raw) ? true : FALSY.has(raw) ? false : undefined;
+  return {
+    setName: set.name,
+    properties: props.map(({ name, type, default: dflt }) => ({ name, type, default: dflt })),
+    coversVariant:
+      seeded !== undefined &&
+      props.every((p) => p.type === "BOOLEAN" && p.default === seeded),
+  };
+}
+
+/**
+ * Optional content the kit switches ON by default, which every render made from
+ * this reference therefore includes whether or not the code does.
+ */
+export function defaultedContent(ref) {
+  const set = setForRef(ref);
+  if (!set) return [];
+  return Object.entries(set.properties ?? {})
+    .filter(([, def]) => def.type === "BOOLEAN" && def.default === true)
+    .map(([name]) => ({ name, setName: set.name }));
+}
+
 /** Which design-map slot a knob fills: the schema tags refs by state/size/theme. */
 const SIZE_KNOBS = new Set(["size", "shape"]);
 
