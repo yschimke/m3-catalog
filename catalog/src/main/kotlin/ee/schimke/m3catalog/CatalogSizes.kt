@@ -112,6 +112,15 @@ fun catalogButtonShape(): Shape =
     CatalogShape.Square -> ButtonDefaults.squareShape
   }
 
+/**
+ * Whether this sticker renders enabled: the [CatalogState] axis.
+ *
+ * A knob rather than a composable per style: `enabled` is a parameter on every button-family
+ * component, so the matrix already in use for size and shape extends to it without a twelvefold
+ * copy of the body.
+ */
+@Composable fun catalogEnabled(): Boolean = CatalogState.Axis.current() == CatalogState.Enabled
+
 // --- Icon buttons ------------------------------------------------------------------------------
 //
 // Icon buttons carry a THIRD axis the plain buttons don't: width (narrow / uniform / wide), which

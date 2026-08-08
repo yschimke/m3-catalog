@@ -129,9 +129,38 @@ data class CatalogVariantCell(
  * variant's name is its identity — but keeping it stable makes the generated form diff cleanly
  * against what it replaces.
  */
-class CatalogVariantMatrix(val axes: List<CatalogVariantAxis>) {
+class CatalogVariantMatrix(
+  val axes: List<CatalogVariantAxis>,
+  /**
+   * Axes carried **beside** the cross product rather than multiplied into it — the T-shape.
+   *
+   * Each contributes one cell per non-default value, holding every other axis at its default, so
+   * `state` adds a single `disabled` cell rather than doubling the matrix. That is the rule the
+   * catalog compares by: every value of every axis gets a render, no combination of two of them
+   * does. Crossing `state` into the buttons' size x shape would turn nine cells into eighteen and
+   * say nothing the nine plus one do not — a disabled extra-large square button tells you what
+   * `disabled` and `xl-square` already told you separately.
+   *
+   * They are a separate list rather than another entry in [axes] because the difference is not
+   * cosmetic: [axes] multiply, these add.
+   */
+  val alongside: List<CatalogVariantAxis> = emptyList(),
+) {
 
-  val cells: List<CatalogVariantCell> = expand()
+  val cells: List<CatalogVariantCell> = expand() + beside()
+
+  /** One cell per non-default value of each [alongside] axis; see its KDoc for why not crossed. */
+  private fun beside(): List<CatalogVariantCell> = alongside.flatMap { axis ->
+    axis.values
+      .filter { it.seed != axis.default }
+      .map { value ->
+        val seeds = mapOf(axis.key to value.seed)
+        when (axis.kind) {
+          CatalogSeedKind.STRING -> CatalogVariantCell(value.slug, seeds, emptyMap())
+          CatalogSeedKind.BOOLEAN -> CatalogVariantCell(value.slug, emptyMap(), seeds)
+        }
+      }
+  }
 
   private fun expand(): List<CatalogVariantCell> {
     var combinations: List<List<CatalogAxisValue>> = listOf(emptyList())
@@ -183,6 +212,29 @@ enum class CatalogShape(override val knob: String) : CatalogKnob {
 }
 
 /**
+ * The **state** axis, which the kit publishes for every button-family component.
+ *
+ * Only two of its values are here. The kit's `State` also carries `Hovered`, `Focused` and
+ * `Pressed`, and a static `@Preview` cannot reach any of them — they need an input device — so
+ * declaring them would expand every matrix with cells no render can fill, which is the failure this
+ * file exists to prevent, pointed the other way. `Disabled` is the one that is reachable, and
+ * leaving it undeclared is what left twelve components comparing against a kit variant with no
+ * candidate render.
+ *
+ * Keyed `state` rather than a boolean `enabled`: the kit's axis IS `State`, so the knob spells what
+ * the design map has to resolve against. Seeding `enabled=false` first resolved nothing at all —
+ * the resolver refusing a plausible-but-wrong translation, working as intended.
+ */
+enum class CatalogState(override val knob: String) : CatalogKnob {
+  Enabled("enabled"),
+  Disabled("disabled");
+
+  companion object {
+    val Axis = CatalogKnobAxis("state", entries, Enabled)
+  }
+}
+
+/**
  * The icon button **width** axis, which the plain buttons do not carry: an icon button's container
  * can be narrower or wider than uniform at the same size.
  */
@@ -224,18 +276,24 @@ object CatalogVariantMatrices {
   /** Size names itself on every cell; see the file KDoc for why it is the one axis that does. */
   private val size = CatalogSize.Axis.declaration(namesEveryValue = true)
 
-  /** Buttons: five sizes x two shapes. Nine cells. */
-  val SizeShape = CatalogVariantMatrix(listOf(size, CatalogShape.Axis.declaration()))
+  /** Carried beside every button-family matrix, never crossed into it. */
+  private val state = listOf(CatalogState.Axis.declaration())
 
-  /** Icon buttons: five sizes x three widths x two shapes. Twenty-nine cells. */
+  /** Buttons: five sizes x two shapes, plus disabled. Ten cells. */
+  val SizeShape =
+    CatalogVariantMatrix(listOf(size, CatalogShape.Axis.declaration()), alongside = state)
+
+  /** Icon buttons: five sizes x three widths x two shapes, plus disabled. Thirty cells. */
   val IconButton =
     CatalogVariantMatrix(
-      listOf(size, CatalogIconWidth.Axis.declaration(), CatalogShape.Axis.declaration())
+      listOf(size, CatalogIconWidth.Axis.declaration(), CatalogShape.Axis.declaration()),
+      alongside = state,
     )
 
-  /** Toggle buttons: [SizeShape] plus the selected axis. Nineteen cells. */
+  /** Toggle buttons: [SizeShape] plus the selected axis, plus disabled. Twenty cells. */
   fun toggleButton(selectedByDefault: Boolean) =
     CatalogVariantMatrix(
-      listOf(size, CatalogShape.Axis.declaration(), catalogSelectedAxis(selectedByDefault))
+      listOf(size, CatalogShape.Axis.declaration(), catalogSelectedAxis(selectedByDefault)),
+      alongside = state,
     )
 }

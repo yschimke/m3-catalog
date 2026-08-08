@@ -16,6 +16,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.VerticalFloatingToolbar
 import androidx.compose.runtime.Composable
 import ee.schimke.composeai.overrides.previewOverrideBoolean
+import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -58,11 +59,15 @@ private fun ToolbarActions() {
 )
 @CatalogModes
 @OverrideVariant(name = "collapsed", booleans = ["expanded=false"])
-@OverrideVariant(name = "vibrant", booleans = ["vibrant=true"])
-@OverrideVariant(name = "collapsed-vibrant", booleans = ["expanded=false", "vibrant=true"])
+@OverrideVariant(name = "vibrant", strings = ["color=vibrant"])
+@OverrideVariant(
+  name = "collapsed-vibrant",
+  booleans = ["expanded=false"],
+  strings = ["color=vibrant"],
+)
 @Composable
 fun HorizontalFloatingToolbarSticker() = Sticker {
-  val vibrant = previewOverrideBoolean("vibrant", false)
+  val vibrant = previewOverrideString("color", "standard") == "vibrant"
   HorizontalFloatingToolbar(
     expanded = previewOverrideBoolean("expanded", true),
     colors =
@@ -80,10 +85,10 @@ fun HorizontalFloatingToolbarSticker() = Sticker {
 )
 @CatalogModes
 @OverrideVariant(name = "collapsed", booleans = ["expanded=false"])
-@OverrideVariant(name = "vibrant", booleans = ["vibrant=true"])
+@OverrideVariant(name = "vibrant", strings = ["color=vibrant"])
 @Composable
 fun VerticalFloatingToolbarSticker() = Sticker {
-  val vibrant = previewOverrideBoolean("vibrant", false)
+  val vibrant = previewOverrideString("color", "standard") == "vibrant"
   VerticalFloatingToolbar(
     expanded = previewOverrideBoolean("expanded", true),
     colors =

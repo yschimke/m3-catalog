@@ -91,6 +91,10 @@ const VALUE_ALIASES = {
   input: ["Keyboard", "Input"],
   vertical: ["Vertical"], horizontal: ["Horizontal"],
   media: ["Media & text"], slot: ["Slot"],
+  // Container roles: our knobs hyphenate what the kit spaces.
+  "primary-container": ["Primary container"],
+  "secondary-container": ["Secondary container"],
+  "tertiary-container": ["Tertiary container"],
   avatar: ["Label & avatar", "True"],
   "icon+label": ["Label & icon"],
   both: ["Label & icon"],
