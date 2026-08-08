@@ -72,6 +72,8 @@ const AXIS_ALIASES = {
   inset: ["Configuration"],
   label: ["Size"],
   action: ["Configuration"],
+  close: ["Show close affordance"],
+  configuration: ["Configuration"],
 };
 
 // Knob value -> the kit's spelling. Multiple candidates are tried in order.
@@ -91,6 +93,7 @@ const VALUE_ALIASES = {
   input: ["Keyboard", "Input"],
   vertical: ["Vertical"], horizontal: ["Horizontal"],
   media: ["Media & text"], slot: ["Slot"],
+  "text+action": ["Text & action"], two: ["Two lines"], one: ["One line"],
   // Container roles: our knobs hyphenate what the kit spaces.
   "primary-container": ["Primary container"],
   "secondary-container": ["Secondary container"],
@@ -105,16 +108,31 @@ const VALUE_ALIASES = {
 
 const norm = (s) => String(s).toLowerCase().replace(/[^a-z0-9]/g, "");
 
-function axisCandidates(knob, axes) {
+function axisCandidates(knob, axes, raw) {
   const named = AXIS_ALIASES[knob] ?? [];
   const byName = Object.keys(axes).filter((a) => {
     const n = norm(a), k = norm(knob);
     return n === k || n.startsWith(k) || k.startsWith(n);
   });
   const aliased = named.filter((a) => a in axes);
-  // Last resort: any axis at all. Still verified against the real variant list,
-  // so a nonsense pairing simply finds nothing rather than producing a bad ref.
-  return [...new Set([...byName, ...aliased, ...Object.keys(axes)])];
+  // Last resort: an axis the vocabulary does not name, but only one this knob is
+  // recognisably ABOUT — its name has to share a word with the knob's key or its
+  // value. Verifying against the real variant list is not enough on its own: a
+  // boolean axis accepts `True` from any knob, so `footer=true` cheerfully
+  // matched `Show back=True` and `supporting=on` matched `Leading icon=True`.
+  // Both are confident references to the wrong node, which is worse than none —
+  // design-parity then measures a difference nobody asked about.
+  // The affinity can be with the knob or with its value: `content=avatar` means
+  // the `Show avatar` axis, and it is the VALUE that says so.
+  // Matched WORD for word, not by substring: `Leading icon` contains the letters
+  // of `on`, so `supporting=on` looked related to it and resolved to the wrong
+  // axis with the right value.
+  const words = [norm(knob), norm(raw ?? "")].filter(Boolean);
+  const related = Object.keys(axes).filter((a) => {
+    const parts = a.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+    return words.some((w) => parts.includes(w) || norm(a) === w);
+  });
+  return [...new Set([...byName, ...aliased, ...related])];
 }
 
 function valueCandidates(raw) {
@@ -288,7 +306,7 @@ export function resolveVariantRef(ref, seed) {
   }
   const set = setIndex.get(baseVar.setId);
   const eq = (a, b) => String(a).toLowerCase() === String(b).toLowerCase();
-  for (const axis of axisCandidates(seed.key, baseVar.axes)) {
+  for (const axis of axisCandidates(seed.key, baseVar.axes, seed.raw)) {
     for (const want of valueCandidates(seed.raw)) {
       if (eq(baseVar.axes[axis], want)) continue;
       const target = { ...baseVar.axes, [axis]: want };

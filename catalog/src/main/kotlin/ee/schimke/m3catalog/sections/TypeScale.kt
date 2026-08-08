@@ -27,7 +27,12 @@ private fun Scale(rows: List<Pair<String, TextStyle>>) {
   }
 }
 
-@CatalogComponent(id = "Typography/Display", caption = "Display large, medium and small.")
+@CatalogComponent(
+  id = "Typography/Display",
+  caption = "Display large, medium and small.",
+  noReference =
+    "no component or component set in the kit publishes this; Material ships its type and elevation scales as Figma styles, which a node reference cannot address",
+)
 @CatalogModes
 @Composable
 fun DisplayScale() = Sticker {

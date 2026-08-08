@@ -110,6 +110,9 @@ fun DropdownMenuSticker() = Sticker {
 
 @CatalogComponent(
   id = "Menu/Exposed",
+  noReference =
+    "nothing in the kit matches `exposed` or `autocomplete`; it publishes a Menu and a " +
+      "Text field, but not the combination Compose exposes as ExposedDropdownMenuBox",
   caption =
     "A text field that opens a menu of choices. Shown collapsed — the open menu is a popup a " +
       "single-surface capture cannot reach.",

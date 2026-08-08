@@ -65,6 +65,10 @@ private val ROWS =
 @CatalogComponent(
   id = "Template/AppScaffold",
   caption = "Top app bar, list and FAB — the canonical full-screen M3 layout.",
+  noReference =
+    "the kit's Examples page holds finished screens (Home-Mobile, Library-Mobile), not a " +
+      "scaffold component; pairing this with one of them would compare against that screen's " +
+      "content rather than the layout",
 )
 @CatalogTemplate
 @Composable
