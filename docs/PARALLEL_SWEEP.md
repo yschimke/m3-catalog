@@ -100,6 +100,9 @@ Work inside your claimed `sections/*.kt`. Two shared files are contended:
 - `CatalogSizes.kt` — the shared size / shape / width resolvers. **Append only**, and only when your
   family genuinely needs a resolver that does not exist. Do not edit an existing one; another
   worker's stickers read it.
+- `CatalogMatrixAnnotations.kt` / `CatalogAxes.kt` — the shared matrices and the axes they expand
+  from. **Append only**, same reasoning: every button-family sticker reads these, so editing an
+  existing matrix changes another worker's published cells. Adding a new matrix is fine.
 - `catalog.spec.json`, `CatalogTheme.kt`, `CatalogThemes.kt`, `CatalogTokens.kt` — leave alone.
 
 `design-map.json` is **generated**. Never hand-edit it; regenerate (§5).
@@ -108,9 +111,10 @@ Work inside your claimed `sections/*.kt`. Two shared files are contended:
 
 ## 3. The pattern
 
-One `@Preview` per component carries the whole matrix, through knobs plus a stacked
-`@OverrideVariant` per cell. Fifty cells cost fifty annotation lines, not fifty near-identical
-composables that would say the same thing fifty times and drift in forty-nine of them.
+One `@Preview` per component carries the whole matrix, through knobs plus **one matrix
+annotation** — never a stack of `@OverrideVariant`s written out per component. Fifty cells cost one
+line, not fifty near-identical composables that would say the same thing fifty times and drift in
+forty-nine of them.
 
 ```kotlin
 @CatalogComponent(
@@ -119,9 +123,7 @@ composables that would say the same thing fifty times and drift in forty-nine of
   caption = "Highest emphasis; the primary action. Five sizes x two shapes fold in as variants.",
 )
 @CatalogModes
-@OverrideVariant(name = "xs", strings = ["size=xs"])
-@OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-// … one per cell
+@SizeShapeMatrix
 @Composable
 fun FilledButton() = Sticker {
   val c = counted("Filled")
@@ -137,10 +139,29 @@ fun FilledButton() = Sticker {
 }
 ```
 
+The matrices live in `CatalogMatrixAnnotations.kt`, one annotation each, and
+`CatalogVariantMatrixTest` holds every one of them to the axes declared in `CatalogAxes.kt`:
+
+| Annotation | Cells | For |
+| --- | --- | --- |
+| `@SizeShapeMatrix` | 10 | the button family — 5 sizes x 2 shapes, plus disabled |
+| `@IconButtonMatrix` | 30 | icon buttons — the above x 3 widths |
+| `@SelectedToggleButtonMatrix` | 20 | a toggle authored **selected** (its off cells are `-off`) |
+| `@UnselectedToggleButtonMatrix` | 20 | a toggle authored **unselected** (its on cells are `-on`) |
+
+**If your family's matrix is one of these, apply it — do not retype the cells.** If it needs a
+matrix that does not exist yet, declare a new annotation there and add its axes to
+`CatalogVariantMatrices`; the test fails until the two agree, which is the point. Hand-written
+`@OverrideVariant`s remain right for a *one-off* axis a single component has (a badge's digit
+count, a list's line count) — anything a whole family shares belongs in a matrix.
+
 Rules that are not obvious:
 
 - **The default cell has no annotation.** The unseeded render *is* that cell. Emitting an
   `@OverrideVariant` for it would bake a duplicate and move nothing.
+- **Two matrix annotations on one component union, they do not multiply.** Each is a finished
+  matrix, not an axis. A component needing a genuine extra dimension wants a new matrix declared,
+  not two stacked.
 - **An unseeded knob returns its author default**, so adding a matrix never moves the existing
   published sticker. Keep it that way — if the default render changes, you have changed a component,
   not added coverage.
