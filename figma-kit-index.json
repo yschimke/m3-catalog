@@ -1,6 +1,6 @@
 {
   "fileKey": "ocdacdEsnHipMJD3egzxKb",
-  "generated": "scripts/dump-figma-inventory.mjs",
+  "generatedBy": "scripts/build-kit-index.mjs",
   "sets": {
     "58114:20565": {
       "name": "App bar",
@@ -53,7 +53,25 @@
           "id": "58114:20642",
           "name": "Configuration=Large, Elevation=On-scroll"
         }
-      ]
+      ],
+      "properties": {
+        "Image": {
+          "type": "INSTANCE_SWAP",
+          "default": "58114:20558"
+        },
+        "Show 1st trailing action": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show 2nd trailing action": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Show 3rd trailing action": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "51159:5105": {
       "name": "Bottom app bar",
@@ -74,7 +92,13 @@
           "id": "51159:5106",
           "name": "Icons=1"
         }
-      ]
+      ],
+      "properties": {
+        "Show FAB": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
     },
     "51592:4768": {
       "name": "Badges",
@@ -87,7 +111,13 @@
           "id": "51592:4769",
           "name": "Size=Small"
         }
-      ]
+      ],
+      "properties": {
+        "Badge label": {
+          "type": "TEXT",
+          "default": "3"
+        }
+      }
     },
     "53923:36615": {
       "name": "Segmented button",
@@ -561,7 +591,29 @@
           "id": "58653:20208",
           "name": "Type=Round, Size=XSmall, State=Disabled, Selected=False"
         }
-      ]
+      ],
+      "properties": {
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Show icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25411"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Icon (selected)": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        }
+      }
     },
     "57994:2227": {
       "name": "Button",
@@ -766,7 +818,25 @@
           "id": "58651:12651",
           "name": "Type=Round, Size=XSmall, State=Disabled"
         }
-      ]
+      ],
+      "properties": {
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Show icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "58650:8094": {
       "name": "Button - text",
@@ -971,7 +1041,25 @@
           "id": "58650:8533",
           "name": "Type=Round, Size=XSmall, State=Disabled"
         }
-      ]
+      ],
+      "properties": {
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        },
+        "Show icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "58650:9294": {
       "name": "Button - elevated",
@@ -1176,7 +1264,25 @@
           "id": "58650:9733",
           "name": "Type=Round, Size=XSmall, State=Disabled"
         }
-      ]
+      ],
+      "properties": {
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Show icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "58650:10213": {
       "name": "Button - outline",
@@ -1381,7 +1487,25 @@
           "id": "58650:10720",
           "name": "Type=Round, Size=XSmall, State=Disabled"
         }
-      ]
+      ],
+      "properties": {
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Show icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "58651:11237": {
       "name": "Button - tonal",
@@ -1586,7 +1710,25 @@
           "id": "58651:11676",
           "name": "Type=Round, Size=XSmall, State=Disabled"
         }
-      ]
+      ],
+      "properties": {
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Show icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "58653:13968": {
       "name": "Toggle button - elevated",
@@ -1991,7 +2133,29 @@
           "id": "58653:14797",
           "name": "Type=Round, Size=XSmall, State=Disabled, Selected=False"
         }
-      ]
+      ],
+      "properties": {
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Show icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25411"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Icon (selected)": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        }
+      }
     },
     "58653:16237": {
       "name": "Toggle button - outline",
@@ -2396,7 +2560,29 @@
           "id": "58653:16676",
           "name": "Type=Round, Size=XSmall, State=Disabled, Selected=False"
         }
-      ]
+      ],
+      "properties": {
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Show icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25411"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Icon (selected)": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        }
+      }
     },
     "58653:17539": {
       "name": "Toggle button - tonal",
@@ -2801,7 +2987,29 @@
           "id": "58653:17978",
           "name": "Type=Round, Size=XSmall, State=Disabled, Selected=False"
         }
-      ]
+      ],
+      "properties": {
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Show icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25411"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Icon (selected)": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        }
+      }
     },
     "57994:10081": {
       "name": "Icon button",
@@ -3406,7 +3614,17 @@
           "id": "58665:35949",
           "name": "Type=Round, Size=XSmall, Width=Narrow, State=Disabled"
         }
-      ]
+      ],
+      "properties": {
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "58663:30358": {
       "name": "Icon button - standard",
@@ -4011,7 +4229,17 @@
           "id": "58663:30828",
           "name": "Type=Round, Size=XSmall, Width=Narrow, State=Disabled"
         }
-      ]
+      ],
+      "properties": {
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "58663:30359": {
       "name": "Icon button - outline",
@@ -4616,7 +4844,17 @@
           "id": "58663:32731",
           "name": "Type=Round, Size=XSmall, Width=Narrow, State=Disabled"
         }
-      ]
+      ],
+      "properties": {
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "58665:33976": {
       "name": "Icon button - tonal",
@@ -5221,7 +5459,17 @@
           "id": "58665:34345",
           "name": "Type=Round, Size=XSmall, Width=Narrow, State=Disabled"
         }
-      ]
+      ],
+      "properties": {
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "57994:15751": {
       "name": "Split button",
@@ -5946,7 +6194,25 @@
           "id": "57994:17322",
           "name": "Size=Small, Color=Elevated, Leading state=Pressed, Trailing state=Enabled"
         }
-      ]
+      ],
+      "properties": {
+        "Leading icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        },
+        "Show leading icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Leading label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "57998:43095": {
       "name": "Extended FAB",
@@ -6239,7 +6505,21 @@
           "id": "57998:43398",
           "name": "Size=Small, Color=Primary container, State=Enabled"
         }
-      ]
+      ],
+      "properties": {
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "57998:43426": {
       "name": "FAB",
@@ -6532,7 +6812,17 @@
           "id": "57998:43658",
           "name": "Size=Default, Color=Primary container, State=Enabled"
         }
-      ]
+      ],
+      "properties": {
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25409"
+        }
+      }
     },
     "52346:27573": {
       "name": "Stacked card",
@@ -6561,7 +6851,46 @@
           "id": "58710:12668",
           "name": "Style=Filled, Layout=Slot"
         }
-      ]
+      ],
+      "properties": {
+        "Slot swap": {
+          "type": "INSTANCE_SWAP",
+          "default": "57314:35492"
+        },
+        "Show secondary action": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Header text": {
+          "type": "TEXT",
+          "default": "Header"
+        },
+        "Subhead text": {
+          "type": "TEXT",
+          "default": "Subhead"
+        },
+        "Title text": {
+          "type": "TEXT",
+          "default": "Title"
+        },
+        "Subtitle text": {
+          "type": "TEXT",
+          "default": "Subtitle"
+        },
+        "Supporting text": {
+          "type": "TEXT",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+        },
+        "Content": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        }
+      }
     },
     "53912:27480": {
       "name": "Carousel",
@@ -6606,7 +6935,37 @@
           "id": "58973:3148",
           "name": "Context=Tablet, Layout=Multi-aspect ratio"
         }
-      ]
+      ],
+      "properties": {
+        "Item 1": {
+          "type": "INSTANCE_SWAP",
+          "default": "58973:3163"
+        },
+        "Item 2": {
+          "type": "INSTANCE_SWAP",
+          "default": "58973:3168"
+        },
+        "Item 3": {
+          "type": "INSTANCE_SWAP",
+          "default": "58973:3173"
+        },
+        "Item 4": {
+          "type": "INSTANCE_SWAP",
+          "default": "58973:3183"
+        },
+        "Item 5": {
+          "type": "INSTANCE_SWAP",
+          "default": "58973:3178"
+        },
+        "Show 4th item": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show 5th item": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
     },
     "51859:5628": {
       "name": "Checkboxes",
@@ -6731,7 +7090,13 @@
           "id": "51859:5629",
           "name": "Type=Selected, State=Enabled"
         }
-      ]
+      ],
+      "properties": {
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "53923:28679": {
       "name": "Suggestion chip",
@@ -6928,7 +7293,21 @@
           "id": "53923:28845",
           "name": "Style=Outlined, State=Enabled, Selected=False, Show icon=False"
         }
-      ]
+      ],
+      "properties": {
+        "Leading icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25441"
+        },
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "53923:28270": {
       "name": "Filter chip",
@@ -7317,7 +7696,25 @@
           "id": "53923:28676",
           "name": "Style=Outlined, Configuration=Label only, State=Enabled, Selected=False, Show trailing icon=False"
         }
-      ]
+      ],
+      "properties": {
+        "Trailing icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25429"
+        },
+        "Leading icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25441"
+        },
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "53923:28089": {
       "name": "Assistive chip",
@@ -7514,7 +7911,29 @@
           "id": "53923:28267",
           "name": "Style=Outlined, Configuration=Label only, State=Enabled"
         }
-      ]
+      ],
+      "properties": {
+        "Leading icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25441"
+        },
+        "Branded icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "50994:15236"
+        },
+        "Favicon": {
+          "type": "INSTANCE_SWAP",
+          "default": "52999:31408"
+        },
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "53923:27888": {
       "name": "Input chip",
@@ -7711,7 +8130,25 @@
           "id": "53923:28086",
           "name": "Configuration=Label only, State=Enabled, Selected=False, Show closing icon=false"
         }
-      ]
+      ],
+      "properties": {
+        "Leading icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "54616:25441"
+        },
+        "Avatar": {
+          "type": "INSTANCE_SWAP",
+          "default": "50731:13713"
+        },
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "51954:18136": {
       "name": "Modal date picker",
@@ -7728,7 +8165,29 @@
           "id": "51954:18137",
           "name": "Type=Day"
         }
-      ]
+      ],
+      "properties": {
+        "Headline": {
+          "type": "TEXT",
+          "default": "Mon, Aug 17"
+        },
+        "Supporting text": {
+          "type": "TEXT",
+          "default": "Select date"
+        },
+        "Supporting text (range)": {
+          "type": "TEXT",
+          "default": "Depart - Return dates"
+        },
+        "Headline (range)": {
+          "type": "TEXT",
+          "default": "Aug 17 – Aug 23"
+        },
+        "Show clear button": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
     },
     "52949:27916": {
       "name": "Dial picker",
@@ -7749,7 +8208,13 @@
           "id": "52949:27917",
           "name": "Format=12 hour, Orientation=Vertical"
         }
-      ]
+      ],
+      "properties": {
+        "Headline": {
+          "type": "TEXT",
+          "default": "Select time"
+        }
+      }
     },
     "52949:28053": {
       "name": "Keyboard picker",
@@ -7762,7 +8227,13 @@
           "id": "52949:28054",
           "name": "Format=12 hour"
         }
-      ]
+      ],
+      "properties": {
+        "Headline": {
+          "type": "TEXT",
+          "default": "Enter time"
+        }
+      }
     },
     "50723:10929": {
       "name": "Basic dialog",
@@ -7775,7 +8246,30 @@
           "id": "50723:10930",
           "name": "Icon=True"
         }
-      ]
+      ],
+      "properties": {
+        "Show divider": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Title": {
+          "type": "TEXT",
+          "default": "Basic dialog title"
+        },
+        "Supporting text": {
+          "type": "TEXT",
+          "default": "A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made."
+        },
+        "Content": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        }
+      }
     },
     "52112:28937": {
       "name": "List dialog",
@@ -7788,7 +8282,26 @@
           "id": "52112:28938",
           "name": "Icon=True"
         }
-      ]
+      ],
+      "properties": {
+        "Title": {
+          "type": "TEXT",
+          "default": "Dialog title"
+        },
+        "Supporting text": {
+          "type": "TEXT",
+          "default": "A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made. "
+        },
+        "Content": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        }
+      }
     },
     "59106:13028": {
       "name": "List",
@@ -7841,7 +8354,13 @@
           "id": "59106:13164",
           "name": "Type=Segmented (filled), Multi-line=False"
         }
-      ]
+      ],
+      "properties": {
+        "Show divider": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "58005:7997": {
       "name": "Linear-determinate progress indicator",
@@ -8133,7 +8652,44 @@
           "id": "58966:4078",
           "name": "Theme=Standard, Groups=1"
         }
-      ]
+      ],
+      "properties": {
+        "Show scrollbar": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Show section label": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "List 1 content": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        },
+        "List 2 content": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        },
+        "List 3 content": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        }
+      }
     },
     "58016:36670": {
       "name": "Navigation Rail: Expanded",
@@ -8202,7 +8758,26 @@
           "id": "58016:36854",
           "name": "Type=Floating, Alignment=Middle, Nav items=6"
         }
-      ]
+      ],
+      "properties": {
+        "Show Menu": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show FAB": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Segments": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        }
+      }
     },
     "58016:36879": {
       "name": "Navigation Rail",
@@ -8239,7 +8814,26 @@
           "id": "58016:36948",
           "name": "Alignment=Top, Nav items=3"
         }
-      ]
+      ],
+      "properties": {
+        "Show FAB": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show Menu": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Segments": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        }
+      }
     },
     "58016:37259": {
       "name": "Navigation Bar: Vertical items",
@@ -8301,7 +8895,13 @@
           "id": "51739:4609",
           "name": "Selected=True, State=Enabled"
         }
-      ]
+      ],
+      "properties": {
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "52977:33813": {
       "name": "Search bar",
@@ -8330,7 +8930,25 @@
           "id": "52977:33948",
           "name": "State=Enabled, Show avatar=False"
         }
-      ]
+      ],
+      "properties": {
+        "Show 2nd trailing icon": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Show 1st trailing icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Placeholder text": {
+          "type": "TEXT",
+          "default": "Hinted search text"
+        },
+        "Show leading icon": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
     },
     "59178:4963": {
       "name": "Search full-screen layout",
@@ -8343,7 +8961,25 @@
           "id": "59178:4979",
           "name": "Configuration=Supporting text"
         }
-      ]
+      ],
+      "properties": {
+        "Show trailing Icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show list items": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Input text": {
+          "type": "TEXT",
+          "default": "Input text"
+        },
+        "Placeholder text": {
+          "type": "TEXT",
+          "default": "Hinted search text"
+        }
+      }
     },
     "59178:4992": {
       "name": "Search docked layout",
@@ -8356,7 +8992,25 @@
           "id": "59178:5010",
           "name": "Configuration=Supporting text"
         }
-      ]
+      ],
+      "properties": {
+        "Show trailing Icon": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show list items": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Input text": {
+          "type": "TEXT",
+          "default": "Input text"
+        },
+        "Placeholder text": {
+          "type": "TEXT",
+          "default": "Hinted search text"
+        }
+      }
     },
     "53198:27851": {
       "name": "Side Sheet",
@@ -8377,7 +9031,26 @@
           "id": "53198:27884",
           "name": "Type=Standard, Show back=True"
         }
-      ]
+      ],
+      "properties": {
+        "Show actions": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Headline text": {
+          "type": "TEXT",
+          "default": "Title"
+        },
+        "Content": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        }
+      }
     },
     "51827:5859": {
       "name": "Bottom sheet",
@@ -8390,7 +9063,22 @@
           "id": "51827:5860",
           "name": "Modal=False"
         }
-      ]
+      ],
+      "properties": {
+        "Show drag handle": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Content": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        }
+      }
     },
     "58008:10356": {
       "name": "Standard slider",
@@ -8875,7 +9563,25 @@
           "id": "58008:10974",
           "name": "Orientation=Vertical, Size=XLarge, State=Disabled, Value=0"
         }
-      ]
+      ],
+      "properties": {
+        "Show value indicator": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show stops": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Icon": {
+          "type": "INSTANCE_SWAP",
+          "default": "58015:34236"
+        },
+        "Show icon": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "58008:11810": {
       "name": "Range slider",
@@ -9120,7 +9826,17 @@
           "id": "58008:12347",
           "name": "Orientation=Horizontal, Size=XLarge, State=Disabled, Value=+50"
         }
-      ]
+      ],
+      "properties": {
+        "Show value indicator": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show stops": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "54446:25289": {
       "name": "Switch",
@@ -9205,7 +9921,13 @@
           "id": "54446:25413",
           "name": "Selected=False, State=Disabled, Icon=True"
         }
-      ]
+      ],
+      "properties": {
+        "Show focus indicator": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
     },
     "54563:40023": {
       "name": "Tabs",
@@ -9250,7 +9972,18 @@
           "id": "54563:40124",
           "name": "Configuration=Scrollable, Style=Primary, Layout=Label only"
         }
-      ]
+      ],
+      "properties": {
+        "Tab group": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        }
+      }
     },
     "52798:24373": {
       "name": "Text field",
@@ -9735,7 +10468,29 @@
           "id": "52798:24374",
           "name": "Style=Filled, State=Enabled, Text configurations=Input text, Leading icon=False, Trailing icon=True"
         }
-      ]
+      ],
+      "properties": {
+        "Show supporting text": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Label text": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Placeholder text": {
+          "type": "TEXT",
+          "default": "Placeholder"
+        },
+        "Input text": {
+          "type": "TEXT",
+          "default": "Input"
+        },
+        "Supporting text": {
+          "type": "TEXT",
+          "default": "Supporting text"
+        }
+      }
     },
     "58467:8206": {
       "name": "Toolbar",
@@ -9764,7 +10519,27 @@
           "id": "58467:8350",
           "name": "Configuration=Floating, Orientation=Vertical, Color=Vibrant"
         }
-      ]
+      ],
+      "properties": {
+        "Content (standard)": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        },
+        "Content (vibrant)": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        }
+      }
     },
     "54061:33881": {
       "name": "Plain Tooltip",
@@ -9777,7 +10552,13 @@
           "id": "54061:33884",
           "name": "Type=Multi line"
         }
-      ]
+      ],
+      "properties": {
+        "Supporting text": {
+          "type": "TEXT",
+          "default": "Supporting text"
+        }
+      }
     }
   },
   "standalone": {
