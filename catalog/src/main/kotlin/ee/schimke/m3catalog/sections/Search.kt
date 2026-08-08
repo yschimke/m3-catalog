@@ -165,7 +165,11 @@ fun DockedSearchBarSticker() = Sticker {
 
 @CatalogComponent(
   id = "Search/TopBar",
-  caption = "The search bar used as the top app bar itself, with the window insets a top bar takes.",
+  caption =
+    "The search bar used as the top app bar itself, with the window insets a top bar takes.",
+  noReference =
+    "the kit's Search bar is this component without the window insets TopSearchBar carries, " +
+      "so pointing at it would report the insets as a height defect",
 )
 @CatalogModes
 @OverrideVariant(name = "query", strings = ["content=query"])

@@ -81,8 +81,9 @@ private fun DrawerItems() {
 
 @CatalogComponent(
   id = "NavigationDrawer/Modal",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/51593:5827",
   caption = "Slides over the content. Headline, dividers, badges and count fold in.",
+  noReference =
+    "the kit files its only drawer under Navigation / Deprecated and publishes no replacement; nothing else in the file matches",
 )
 @CatalogModes
 @OverrideVariant(name = "no-headline", booleans = ["headline=false"])
@@ -100,13 +101,20 @@ fun ModalDrawerSheetSticker() = Sticker { ModalDrawerSheet { DrawerItems() } }
 @CatalogComponent(
   id = "NavigationDrawer/Dismissible",
   caption = "Sits beside the content and can be pushed away.",
+  noReference =
+    "the kit files its only drawer under Navigation / Deprecated and publishes no replacement; nothing else in the file matches",
 )
 @CatalogModes
 @OverrideVariant(name = "dividers", booleans = ["dividers=true"])
 @Composable
 fun DismissibleDrawerSheetSticker() = Sticker { DismissibleDrawerSheet { DrawerItems() } }
 
-@CatalogComponent(id = "NavigationDrawer/Permanent", caption = "Always visible on expanded widths.")
+@CatalogComponent(
+  id = "NavigationDrawer/Permanent",
+  caption = "Always visible on expanded widths.",
+  noReference =
+    "the kit files its only drawer under Navigation / Deprecated and publishes no replacement; nothing else in the file matches",
+)
 @CatalogModes
 @OverrideVariant(name = "dividers", booleans = ["dividers=true"])
 @Composable

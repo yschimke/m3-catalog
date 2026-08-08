@@ -48,6 +48,13 @@ const previews = manifest.previews ?? [];
 
 const components = [];
 const unmapped = [];
+/**
+ * Components whose reference is absent for a STATED reason. Reported apart from
+ * `unmapped` because they are the opposite situation: someone looked, and what
+ * they found is that the kit has nothing live to point at. Rolling the two
+ * together is what made a retired pattern read as neglect.
+ */
+const statedAbsent = [];
 /** Variants whose axis the kit does not model — reported, never guessed at. */
 const unresolvedVariants = [];
 /**
@@ -122,7 +129,8 @@ for (const preview of previews) {
   if (!/_Light$/.test(preview.id)) continue;
 
   if (!catalog.reference) {
-    unmapped.push(catalog.componentId);
+    if (catalog.noReference) statedAbsent.push(`${catalog.componentId} — ${catalog.noReference}`);
+    else unmapped.push(catalog.componentId);
     continue;
   }
 
@@ -218,9 +226,17 @@ if (defaultedRefs.length) {
   );
   for (const r of defaultedRefs.sort()) console.log(`  - ${r}`);
 }
+if (statedAbsent.length) {
+  console.log(
+    `\n${statedAbsent.length} component(s) have no reference for a stated reason — the kit has ` +
+      `nothing live to point at, which is a fact about the kit rather than a gap in this catalog:`,
+  );
+  for (const s of statedAbsent.sort()) console.log(`  - ${s}`);
+}
 if (unmapped.length) {
   console.log(
-    `${unmapped.length} component(s) carry no @CatalogComponent(reference = …) and were skipped:`,
+    `\n${unmapped.length} component(s) carry neither @CatalogComponent(reference = …) nor a ` +
+      `noReference explaining why, and were skipped:`,
   );
   for (const id of unmapped.sort()) console.log(`  - ${id}`);
 }
