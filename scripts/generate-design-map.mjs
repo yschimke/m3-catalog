@@ -27,6 +27,8 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 
+import { resolveVariantRef, slotFor } from "./kit-variants.mjs";
+
 function arg(name, fallback) {
   const i = process.argv.indexOf(`--${name}`);
   return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : fallback;
@@ -40,6 +42,24 @@ const previews = manifest.previews ?? [];
 
 const components = [];
 const unmapped = [];
+/** Variants whose axis the kit does not model — reported, never guessed at. */
+const unresolvedVariants = [];
+
+// Every variant render, grouped by the component it folds under. A variant that
+// seeds exactly ONE knob is an axis of that component and gets compared against
+// the kit's corresponding variant; one that seeds several is a COMBINATION, and
+// comparing the cross product says little the axes do not (#16).
+const singleAxisByComponent = new Map();
+for (const preview of previews) {
+  const catalog = preview.catalog;
+  if (!catalog || catalog.role !== "COMPONENT") continue;
+  if (!/_Light_VARIANT_/.test(preview.id)) continue;
+  const seeds = preview.overrides?.seeds ?? [];
+  if (seeds.length !== 1) continue;
+  const list = singleAxisByComponent.get(catalog.componentId) ?? [];
+  list.push({ preview, seed: seeds[0], name: preview.overrides.name });
+  singleAxisByComponent.set(catalog.componentId, list);
+}
 
 for (const preview of previews) {
   const catalog = preview.catalog;
@@ -54,19 +74,53 @@ for (const preview of previews) {
     continue;
   }
 
+  // The base render is the untagged variant on both sides; each resolvable
+  // single-axis render is a tagged pair beside it. design-parity matches the
+  // two lists slot for slot (`refVariant` / `previewIdVariant`).
+  const refs = [{ ref: catalog.reference }];
+  const previewIds = [{ previewId: preview.id }];
+  const fileKey = catalog.reference.split(":")[1]?.split("/")[0];
+  for (const v of singleAxisByComponent.get(catalog.componentId) ?? []) {
+    const hit = resolveVariantRef(catalog.reference, v.seed);
+    if (!hit) {
+      unresolvedVariants.push(
+        `${catalog.componentId} / ${v.name} (${v.seed.key}=${v.seed.raw})`,
+      );
+      continue;
+    }
+    const slot = slotFor(v.seed, v.name);
+    refs.push({ ref: `figma:${fileKey}/${hit.nodeId}`, ...slot });
+    previewIds.push({ previewId: v.preview.id, ...slot });
+  }
+
   components.push({
     // design-parity addresses a code subject as `<path>#<function>`.
     code: `catalog/${preview.sourceFile}#${preview.functionName}`,
     source: catalog.reference.startsWith("figma:") ? "figma" : "claude-design",
-    ref: catalog.reference,
-    previewId: preview.id,
+    ...(refs.length === 1
+      ? { ref: catalog.reference, previewId: preview.id }
+      : { ref: refs, previewId: previewIds }),
   });
 }
 
 components.sort((a, b) => a.code.localeCompare(b.code));
 writeFileSync(outPath, `${JSON.stringify({ components }, null, 2)}\n`);
 
-console.log(`Wrote ${outPath}: ${components.length} mapped component(s).`);
+const variantRefs = components.reduce(
+  (n, c) => n + (Array.isArray(c.ref) ? c.ref.length - 1 : 0),
+  0,
+);
+console.log(
+  `Wrote ${outPath}: ${components.length} mapped component(s), ` +
+    `${variantRefs} variant reference(s) beside them.`,
+);
+if (unresolvedVariants.length) {
+  console.log(
+    `\n${unresolvedVariants.length} single-axis variant(s) have no counterpart in the kit ` +
+      `— the kit models no such axis, so they are left uncompared:`,
+  );
+  for (const v of unresolvedVariants.sort()) console.log(`  - ${v}`);
+}
 if (unmapped.length) {
   console.log(
     `${unmapped.length} component(s) carry no @CatalogComponent(reference = …) and were skipped:`,
