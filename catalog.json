@@ -18639,9 +18639,10 @@
       "section": "Styles",
       "group": "Elevation",
       "caption": "Levels 0–5 as a surface tint.",
+      "noReference": "no component or component set in the kit publishes this; Material ships its type and elevation scales as Figma styles, which a node reference cannot address",
       "wireframe": "wireframes/elevation-tonal.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Elevation.kt",
-      "bodyLine": 47
+      "bodyLine": 52
     },
     {
       "componentId": "Fab/Standard",
@@ -39581,9 +39582,10 @@
       "section": "Containment",
       "group": "Lists",
       "caption": "Several rows with dividers — the shape a real list takes.",
+      "reference": "figma:ocdacdEsnHipMJD3egzxKb/59106:13049",
       "wireframe": "wireframes/list-group.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Lists.kt",
-      "bodyLine": 113
+      "bodyLine": 114
     },
     {
       "componentId": "LoadingIndicator/Uncontained",
@@ -40875,9 +40877,10 @@
       "section": "Selection",
       "group": "Menus",
       "caption": "A text field that opens a menu of choices. Shown collapsed — the open menu is a popup a single-surface capture cannot reach.",
+      "noReference": "nothing in the kit matches `exposed` or `autocomplete`; it publishes a Menu and a Text field, but not the combination Compose exposes as ExposedDropdownMenuBox",
       "wireframe": "wireframes/menu-exposed.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Menus.kt",
-      "bodyLine": 120
+      "bodyLine": 123
     },
     {
       "componentId": "NavigationBar/Standard",
@@ -50900,32 +50903,32 @@
           "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Dark",
           "overrides": [
             {
-              "key": "message",
+              "key": "lines",
               "type": "string",
-              "label": "message",
+              "label": "lines",
               "default": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "current": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false
             },
             {
-              "key": "action",
-              "type": "bool",
-              "label": "action",
+              "key": "configuration",
+              "type": "string",
+              "label": "configuration",
               "default": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "current": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "index": null,
               "suggestions": [],
@@ -50960,32 +50963,32 @@
           "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Dark_VARIANT_action",
           "overrides": [
             {
-              "key": "message",
+              "key": "lines",
               "type": "string",
-              "label": "message",
+              "label": "lines",
               "default": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "current": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false
             },
             {
-              "key": "action",
-              "type": "bool",
-              "label": "action",
+              "key": "configuration",
+              "type": "string",
+              "label": "configuration",
               "default": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "current": {
-                "kind": "bool",
-                "value": true
+                "kind": "string",
+                "value": "text+action"
               },
               "index": null,
               "suggestions": [],
@@ -51020,32 +51023,32 @@
           "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Dark_VARIANT_action-close",
           "overrides": [
             {
-              "key": "message",
+              "key": "lines",
               "type": "string",
-              "label": "message",
+              "label": "lines",
               "default": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "current": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false
             },
             {
-              "key": "action",
-              "type": "bool",
-              "label": "action",
+              "key": "configuration",
+              "type": "string",
+              "label": "configuration",
               "default": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "current": {
-                "kind": "bool",
-                "value": true
+                "kind": "string",
+                "value": "text+action"
               },
               "index": null,
               "suggestions": [],
@@ -51080,32 +51083,32 @@
           "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Dark_VARIANT_close",
           "overrides": [
             {
-              "key": "message",
+              "key": "lines",
               "type": "string",
-              "label": "message",
+              "label": "lines",
               "default": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "current": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false
             },
             {
-              "key": "action",
-              "type": "bool",
-              "label": "action",
+              "key": "configuration",
+              "type": "string",
+              "label": "configuration",
               "default": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "current": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "index": null,
               "suggestions": [],
@@ -51140,32 +51143,32 @@
           "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Dark_VARIANT_two-line",
           "overrides": [
             {
-              "key": "message",
+              "key": "lines",
               "type": "string",
-              "label": "message",
+              "label": "lines",
               "default": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "current": {
                 "kind": "string",
-                "value": "long"
+                "value": "two"
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false
             },
             {
-              "key": "action",
-              "type": "bool",
-              "label": "action",
+              "key": "configuration",
+              "type": "string",
+              "label": "configuration",
               "default": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "current": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "index": null,
               "suggestions": [],
@@ -51200,32 +51203,32 @@
           "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Dark_VARIANT_two-line-action-close",
           "overrides": [
             {
-              "key": "message",
+              "key": "lines",
               "type": "string",
-              "label": "message",
+              "label": "lines",
               "default": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "current": {
                 "kind": "string",
-                "value": "long"
+                "value": "two"
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false
             },
             {
-              "key": "action",
-              "type": "bool",
-              "label": "action",
+              "key": "configuration",
+              "type": "string",
+              "label": "configuration",
               "default": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "current": {
-                "kind": "bool",
-                "value": true
+                "kind": "string",
+                "value": "text+action"
               },
               "index": null,
               "suggestions": [],
@@ -51260,32 +51263,32 @@
           "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Light",
           "overrides": [
             {
-              "key": "message",
+              "key": "lines",
               "type": "string",
-              "label": "message",
+              "label": "lines",
               "default": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "current": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false
             },
             {
-              "key": "action",
-              "type": "bool",
-              "label": "action",
+              "key": "configuration",
+              "type": "string",
+              "label": "configuration",
               "default": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "current": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "index": null,
               "suggestions": [],
@@ -51319,32 +51322,32 @@
           "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Light_VARIANT_action",
           "overrides": [
             {
-              "key": "message",
+              "key": "lines",
               "type": "string",
-              "label": "message",
+              "label": "lines",
               "default": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "current": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false
             },
             {
-              "key": "action",
-              "type": "bool",
-              "label": "action",
+              "key": "configuration",
+              "type": "string",
+              "label": "configuration",
               "default": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "current": {
-                "kind": "bool",
-                "value": true
+                "kind": "string",
+                "value": "text+action"
               },
               "index": null,
               "suggestions": [],
@@ -51378,32 +51381,32 @@
           "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Light_VARIANT_action-close",
           "overrides": [
             {
-              "key": "message",
+              "key": "lines",
               "type": "string",
-              "label": "message",
+              "label": "lines",
               "default": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "current": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false
             },
             {
-              "key": "action",
-              "type": "bool",
-              "label": "action",
+              "key": "configuration",
+              "type": "string",
+              "label": "configuration",
               "default": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "current": {
-                "kind": "bool",
-                "value": true
+                "kind": "string",
+                "value": "text+action"
               },
               "index": null,
               "suggestions": [],
@@ -51437,32 +51440,32 @@
           "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Light_VARIANT_close",
           "overrides": [
             {
-              "key": "message",
+              "key": "lines",
               "type": "string",
-              "label": "message",
+              "label": "lines",
               "default": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "current": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false
             },
             {
-              "key": "action",
-              "type": "bool",
-              "label": "action",
+              "key": "configuration",
+              "type": "string",
+              "label": "configuration",
               "default": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "current": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "index": null,
               "suggestions": [],
@@ -51496,32 +51499,32 @@
           "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Light_VARIANT_two-line",
           "overrides": [
             {
-              "key": "message",
+              "key": "lines",
               "type": "string",
-              "label": "message",
+              "label": "lines",
               "default": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "current": {
                 "kind": "string",
-                "value": "long"
+                "value": "two"
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false
             },
             {
-              "key": "action",
-              "type": "bool",
-              "label": "action",
+              "key": "configuration",
+              "type": "string",
+              "label": "configuration",
               "default": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "current": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "index": null,
               "suggestions": [],
@@ -51555,32 +51558,32 @@
           "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Light_VARIANT_two-line-action-close",
           "overrides": [
             {
-              "key": "message",
+              "key": "lines",
               "type": "string",
-              "label": "message",
+              "label": "lines",
               "default": {
                 "kind": "string",
-                "value": "short"
+                "value": "one"
               },
               "current": {
                 "kind": "string",
-                "value": "long"
+                "value": "two"
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false
             },
             {
-              "key": "action",
-              "type": "bool",
-              "label": "action",
+              "key": "configuration",
+              "type": "string",
+              "label": "configuration",
               "default": {
-                "kind": "bool",
-                "value": false
+                "kind": "string",
+                "value": "text"
               },
               "current": {
-                "kind": "bool",
-                "value": true
+                "kind": "string",
+                "value": "text+action"
               },
               "index": null,
               "suggestions": [],
@@ -51620,9 +51623,10 @@
       "section": "Communication",
       "group": "Snackbar",
       "caption": "Brief message about a process. Two-line, action and close affordance fold in.",
+      "reference": "figma:ocdacdEsnHipMJD3egzxKb/53977:33611",
       "wireframe": "wireframes/snackbar-message.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Snackbar.kt",
-      "bodyLine": 49
+      "bodyLine": 54
     },
     {
       "componentId": "SplitButton/Filled",
@@ -54462,9 +54466,10 @@
       "section": "Templates",
       "group": "Scaffold templates",
       "caption": "Top app bar, list and FAB — the canonical full-screen M3 layout.",
+      "noReference": "the kit's Examples page holds finished screens (Home-Mobile, Library-Mobile), not a scaffold component; pairing this with one of them would compare against that screen's content rather than the layout",
       "wireframe": "wireframes/template-appscaffold.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Templates.kt",
-      "bodyLine": 71
+      "bodyLine": 75
     },
     {
       "componentId": "TextField/Filled",
@@ -71822,9 +71827,10 @@
       "section": "Actions",
       "group": "Toolbars",
       "caption": "Horizontal toolbar paired with the screen's primary action.",
+      "noReference": "the kit's Toolbar set is Configuration x Orientation x Color with no FAB among them; it models the toolbar and the FAB as separate components, which Compose combines here",
       "wireframe": "wireframes/toolbar-withfab.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Toolbars.kt",
-      "bodyLine": 109
+      "bodyLine": 112
     },
     {
       "componentId": "Tooltip/Plain",
@@ -73914,9 +73920,10 @@
       "section": "Navigation",
       "group": "Top app bar",
       "caption": "The expressive two-row bar, with a subtitle slot.",
+      "noReference": "no node in the kit matches `flexible`; its App bar set covers Medium through its Configuration axis, which TopAppBar/Medium already references",
       "wireframe": "wireframes/topappbar-mediumflexible.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt",
-      "bodyLine": 157
+      "bodyLine": 160
     },
     {
       "componentId": "TopAppBar/LargeFlexible",
@@ -74105,9 +74112,10 @@
       "section": "Navigation",
       "group": "Top app bar",
       "caption": "The expressive tall bar, with a subtitle slot.",
+      "noReference": "no node in the kit matches `flexible`; its App bar set covers Large through its Configuration axis, which TopAppBar/Large already references",
       "wireframe": "wireframes/topappbar-largeflexible.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt",
-      "bodyLine": 174
+      "bodyLine": 180
     },
     {
       "componentId": "Typography/Display",
@@ -74216,9 +74224,10 @@
       "section": "Styles",
       "group": "Typography",
       "caption": "Display large, medium and small.",
+      "noReference": "no component or component set in the kit publishes this; Material ships its type and elevation scales as Figma styles, which a node reference cannot address",
       "wireframe": "wireframes/typography-display.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TypeScale.kt",
-      "bodyLine": 33
+      "bodyLine": 38
     }
   ],
   "library": [
@@ -74226,7 +74235,7 @@
     "org.jetbrains.compose.material:material-icons-extended"
   ],
   "renderer": "compose-preview 0.19.51",
-  "generatedAt": "2026-08-08T22:35:36.384Z",
+  "generatedAt": "2026-08-08T22:51:21.706Z",
   "display": {
     "hero": "Template/AppScaffold"
   },
