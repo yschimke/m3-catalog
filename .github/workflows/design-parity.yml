@@ -28,6 +28,13 @@ name: Design parity
 on:
   push:
     branches: [main]
+  # The unconditional sweep the cache below needs to be safe. A key can only
+  # cover what it is told about — the runner image, the fonts it ships, the
+  # renderer's own transitive deps all move without touching one — so once a
+  # week the answer is recomputed from scratch whether or not anything looks
+  # like it changed.
+  schedule:
+    - cron: '0 5 * * 1'
   workflow_dispatch:
     inputs:
       design_parity_ref:
@@ -54,6 +61,22 @@ jobs:
       contents: write # publish the regenerated artifacts to design-parity/main
     with:
       module: ':catalog'
+
+      # Skip the run outright when nothing that feeds the comparison has moved.
+      # These are the paths whose content decides the render: the module itself,
+      # the version catalog the renderer is pinned from, and the build files
+      # that assemble them. Everything else in the key — the kit's file version,
+      # design-map.json, the policy, the tool — the reusable workflow derives on
+      # its own.
+      #
+      # Naming them is the point. 14 of the last 20 pushes to main touched none
+      # of these (workflow edits, docs, a JSON dump), and one docs-only commit
+      # cost a 1,095-preview render to produce a byte-identical board.
+      cache-paths: catalog gradle build.gradle.kts settings.gradle.kts
+
+      # Mondays, and on demand. A stale skip is the failure mode worth guarding
+      # against, and this is the guard.
+      force-refresh: ${{ github.event_name == 'schedule' }}
 
       # Empty on a push, so the pipeline that guards main is always the released
       # CLI. Set it on a dispatch to try a fix before it ships — the reusable
