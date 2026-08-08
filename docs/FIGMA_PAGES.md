@@ -68,9 +68,12 @@ region.
 Not all are equally useful. Instance density varies enormously, because much of
 each screen is hand-drawn rather than assembled from the kit's components:
 
-- **`Upcoming-Mobile` is the densest** — 9 of its 12 instances are components
-  this catalog already binds: App bar, Carousel, Button-text, Icon button, and
-  List item ×5. It is also the closest analogue to `Template/AppScaffold`.
+- **`Upcoming-Mobile` is the densest** — a trial import produced **11
+  placements**, and 9 of them are components this catalog already binds: App
+  bar, Carousel, Button-text, Icon button, and List item ×5. The other two are
+  the Status bar and Gesture bar, which are OS chrome and correctly have no code
+  component behind them. It is also the closest analogue to
+  `Template/AppScaffold`.
 - **`Home-Mobile`** is the flagship and twice as tall, but mostly bespoke frames
   (avatars, card grids, labels) with a low instance count.
 - **`Messaging-Mobile`** is almost entirely hand-built chat bubbles; only the
@@ -131,6 +134,29 @@ until a `design-pages.json` exists with `"enabled": true`.
 ```sh
 design-parity-pages import --design-map design-map.json
 ```
+
+### The import needs the REST API — MCP is not a substitute
+
+A trial run drove the importer from `get_metadata` instead of the REST API. The
+geometry came through perfectly: 11 placements, every nested offset resolved
+(the text button lands at y=381 = 164 + 217, the five list items at 469…825).
+Two things did not, and both are properties of the MCP source rather than bugs:
+
+- **No `componentId`.** `get_metadata` reports id, name, type and box, but never
+  an instance's main component — so the only ref the linker can try is the
+  instance's own node id, which nothing in `design-map.json` points at. Every
+  placement came back `unlinked`. Linking needs `/v1/files/:key/nodes`, which
+  returns `componentId` per instance plus the file-level `components` map that
+  carries `componentSetId`. Code Connect would also answer this, but the kit is
+  a Community file and `get_code_connect_map` requires a Dev/Full seat.
+- **Parent-local coordinates.** MCP reports x/y relative to the parent;
+  `absoluteBoundingBox` (what the importer consumes) is canvas-absolute. Any
+  MCP-backed fetcher has to accumulate offsets down the tree.
+
+The backdrop image needs `/v1/images`. Note that an agent sandbox may not have
+egress to `figma.com` at all — in the environment this was tried in, both
+`www.figma.com` and `api.figma.com` were refused at the proxy with `403
+CONNECT`, so no token would have helped either.
 
 Because this repo is `design-led`, anything the overlay shows drifting is by
 definition a bug in the code — which is the whole reason a whole-screen view is
