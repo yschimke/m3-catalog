@@ -63,7 +63,7 @@ private fun SizedLabel(label: String) {
 @CatalogModes
 @OverrideVariant(name = "xs", strings = ["size=xs"])
 @OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["size=s", "shape=square"])
+@OverrideVariant(name = "s-square", strings = ["shape=square"])
 @OverrideVariant(name = "m", strings = ["size=m"])
 @OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
 @OverrideVariant(name = "l", strings = ["size=l"])
@@ -92,7 +92,7 @@ fun FilledButton() = Sticker {
 @CatalogModes
 @OverrideVariant(name = "xs", strings = ["size=xs"])
 @OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["size=s", "shape=square"])
+@OverrideVariant(name = "s-square", strings = ["shape=square"])
 @OverrideVariant(name = "m", strings = ["size=m"])
 @OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
 @OverrideVariant(name = "l", strings = ["size=l"])
@@ -121,7 +121,7 @@ fun TonalButton() = Sticker {
 @CatalogModes
 @OverrideVariant(name = "xs", strings = ["size=xs"])
 @OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["size=s", "shape=square"])
+@OverrideVariant(name = "s-square", strings = ["shape=square"])
 @OverrideVariant(name = "m", strings = ["size=m"])
 @OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
 @OverrideVariant(name = "l", strings = ["size=l"])
@@ -150,7 +150,7 @@ fun OutlinedButtonSticker() = Sticker {
 @CatalogModes
 @OverrideVariant(name = "xs", strings = ["size=xs"])
 @OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["size=s", "shape=square"])
+@OverrideVariant(name = "s-square", strings = ["shape=square"])
 @OverrideVariant(name = "m", strings = ["size=m"])
 @OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
 @OverrideVariant(name = "l", strings = ["size=l"])
@@ -179,7 +179,7 @@ fun ElevatedButtonSticker() = Sticker {
 @CatalogModes
 @OverrideVariant(name = "xs", strings = ["size=xs"])
 @OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
-@OverrideVariant(name = "s-square", strings = ["size=s", "shape=square"])
+@OverrideVariant(name = "s-square", strings = ["shape=square"])
 @OverrideVariant(name = "m", strings = ["size=m"])
 @OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
 @OverrideVariant(name = "l", strings = ["size=l"])
