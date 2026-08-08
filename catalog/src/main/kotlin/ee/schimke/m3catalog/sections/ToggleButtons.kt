@@ -28,6 +28,7 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonSize
+import ee.schimke.m3catalog.catalogEnabled
 import ee.schimke.m3catalog.catalogToggleButtonShapes
 import ee.schimke.m3catalog.catalogToggleSelected
 import ee.schimke.m3catalog.generated.resources.Res
@@ -92,6 +93,7 @@ import org.jetbrains.compose.resources.stringResource
   booleans = ["selected=false"],
   strings = ["size=xl", "shape=square"],
 )
+@OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @Composable
 fun ToggleButtonSticker() = Sticker {
   val (on, set) = toggleable(catalogToggleSelected(default = true))
@@ -99,6 +101,7 @@ fun ToggleButtonSticker() = Sticker {
   ToggleButton(
     checked = on,
     onCheckedChange = set,
+    enabled = catalogEnabled(),
     shapes = catalogToggleButtonShapes(size),
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
@@ -150,6 +153,7 @@ fun ToggleButtonSticker() = Sticker {
   booleans = ["selected=false"],
   strings = ["size=xl", "shape=square"],
 )
+@OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @Composable
 fun TonalToggleButtonSticker() = Sticker {
   val (on, set) = toggleable(catalogToggleSelected(default = true))
@@ -157,6 +161,7 @@ fun TonalToggleButtonSticker() = Sticker {
   TonalToggleButton(
     checked = on,
     onCheckedChange = set,
+    enabled = catalogEnabled(),
     shapes = catalogToggleButtonShapes(size),
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
@@ -213,6 +218,7 @@ fun TonalToggleButtonSticker() = Sticker {
   booleans = ["selected=true"],
   strings = ["size=xl", "shape=square"],
 )
+@OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @Composable
 fun OutlinedToggleButtonSticker() = Sticker {
   val (on, set) = toggleable(catalogToggleSelected(default = false))
@@ -220,6 +226,7 @@ fun OutlinedToggleButtonSticker() = Sticker {
   OutlinedToggleButton(
     checked = on,
     onCheckedChange = set,
+    enabled = catalogEnabled(),
     shapes = catalogToggleButtonShapes(size),
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
@@ -271,6 +278,7 @@ fun OutlinedToggleButtonSticker() = Sticker {
   booleans = ["selected=true"],
   strings = ["size=xl", "shape=square"],
 )
+@OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @Composable
 fun ElevatedToggleButtonSticker() = Sticker {
   val (on, set) = toggleable(catalogToggleSelected(default = false))
@@ -278,6 +286,7 @@ fun ElevatedToggleButtonSticker() = Sticker {
   ElevatedToggleButton(
     checked = on,
     onCheckedChange = set,
+    enabled = catalogEnabled(),
     shapes = catalogToggleButtonShapes(size),
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),

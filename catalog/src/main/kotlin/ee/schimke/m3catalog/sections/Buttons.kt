@@ -29,6 +29,7 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonShape
 import ee.schimke.m3catalog.catalogButtonSize
+import ee.schimke.m3catalog.catalogEnabled
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.label_elevated
@@ -77,12 +78,14 @@ private fun SizedLabel(label: String) {
 @OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
 @OverrideVariant(name = "xl", strings = ["size=xl"])
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
+@OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @Composable
 fun FilledButton() = Sticker {
   val c = counted(stringResource(Res.string.label_filled))
   val size = catalogButtonSize()
   Button(
     onClick = c.onClick,
+    enabled = catalogEnabled(),
     shape = catalogButtonShape(),
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
@@ -106,12 +109,14 @@ fun FilledButton() = Sticker {
 @OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
 @OverrideVariant(name = "xl", strings = ["size=xl"])
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
+@OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @Composable
 fun TonalButton() = Sticker {
   val c = counted(stringResource(Res.string.label_tonal))
   val size = catalogButtonSize()
   FilledTonalButton(
     onClick = c.onClick,
+    enabled = catalogEnabled(),
     shape = catalogButtonShape(),
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
@@ -135,12 +140,14 @@ fun TonalButton() = Sticker {
 @OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
 @OverrideVariant(name = "xl", strings = ["size=xl"])
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
+@OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @Composable
 fun OutlinedButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_outlined))
   val size = catalogButtonSize()
   OutlinedButton(
     onClick = c.onClick,
+    enabled = catalogEnabled(),
     shape = catalogButtonShape(),
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
@@ -164,12 +171,14 @@ fun OutlinedButtonSticker() = Sticker {
 @OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
 @OverrideVariant(name = "xl", strings = ["size=xl"])
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
+@OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @Composable
 fun ElevatedButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_elevated))
   val size = catalogButtonSize()
   ElevatedButton(
     onClick = c.onClick,
+    enabled = catalogEnabled(),
     shape = catalogButtonShape(),
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
@@ -193,12 +202,14 @@ fun ElevatedButtonSticker() = Sticker {
 @OverrideVariant(name = "l-square", strings = ["size=l", "shape=square"])
 @OverrideVariant(name = "xl", strings = ["size=xl"])
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
+@OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @Composable
 fun TextButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
   val size = catalogButtonSize()
   TextButton(
     onClick = c.onClick,
+    enabled = catalogEnabled(),
     shape = catalogButtonShape(),
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
@@ -207,19 +218,7 @@ fun TextButtonSticker() = Sticker {
   }
 }
 
-// --- State and content axes, folded under Button/Filled ----------------------------------------
-// Disabled stays inert by design: unresponsiveness is the state it documents.
-
-@CatalogVariant(
-  of = "Button/Filled",
-  state = "disabled",
-  caption = "enabled = false; the disabled container / content roles.",
-)
-@CatalogModes
-@Composable
-fun FilledButtonDisabled() = Sticker {
-  Button(onClick = {}, enabled = false) { Text(stringResource(Res.string.label_filled)) }
-}
+// --- Content axes, folded under Button/Filled ---------------------------------------------------
 
 @CatalogVariant(
   of = "Button/Filled",

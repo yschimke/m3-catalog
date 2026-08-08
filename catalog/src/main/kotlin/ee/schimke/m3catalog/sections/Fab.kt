@@ -11,15 +11,19 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeExtendedFloatingActionButton
 import androidx.compose.material3.LargeFloatingActionButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumExtendedFloatingActionButton
 import androidx.compose.material3.MediumFloatingActionButton
 import androidx.compose.material3.SmallExtendedFloatingActionButton
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
+import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
@@ -37,17 +41,46 @@ import org.jetbrains.compose.resources.stringResource
 //
 // No shape axis: `FloatingActionButtonDefaults` exposes a shape per size but no square counterpart,
 // so unlike a plain button there is no round/square variant property to document.
+//
+// Colour IS an axis, and a knob rather than more composables: the kit gives a FAB six container
+// roles, and `containerColor` is one parameter on every FAB function. Only the standard and
+// extended FABs carry the variants — the T-shape rule wants each axis covered once, not colour
+// crossed with size.
+
+/**
+ * The container role from the `color` knob, defaulting to the one a bare FAB already uses.
+ *
+ * Values are spelled as the kit spells them (`secondary-container` for `Secondary container`) so
+ * the design map resolves them without a per-value translation. `contentColor` is left to
+ * `contentColorFor`, which is what picks the readable pairing — hard-coding it here would be
+ * inventing a role the theme already knows.
+ */
+@Composable
+private fun catalogFabColor(): Color =
+  when (previewOverrideString("color", "primary-container")) {
+    "primary" -> MaterialTheme.colorScheme.primary
+    "secondary" -> MaterialTheme.colorScheme.secondary
+    "tertiary" -> MaterialTheme.colorScheme.tertiary
+    "secondary-container" -> MaterialTheme.colorScheme.secondaryContainer
+    "tertiary-container" -> MaterialTheme.colorScheme.tertiaryContainer
+    else -> MaterialTheme.colorScheme.primaryContainer
+  }
 
 @CatalogComponent(
   id = "Fab/Standard",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/57998:43658",
-  caption = "The screen's single primary action.",
+  caption = "The screen's single primary action. Six container roles fold in as variants.",
 )
 @CatalogModes
+@OverrideVariant(name = "primary", strings = ["color=primary"])
+@OverrideVariant(name = "secondary", strings = ["color=secondary"])
+@OverrideVariant(name = "tertiary", strings = ["color=tertiary"])
+@OverrideVariant(name = "secondary-container", strings = ["color=secondary-container"])
+@OverrideVariant(name = "tertiary-container", strings = ["color=tertiary-container"])
 @Composable
 fun Fab() = Sticker {
   val c = counted(stringResource(Res.string.action_edit))
-  FloatingActionButton(onClick = c.onClick) {
+  FloatingActionButton(onClick = c.onClick, containerColor = catalogFabColor()) {
     Icon(Icons.Filled.Edit, contentDescription = c.label)
   }
 }
@@ -85,14 +118,20 @@ fun FabLarge() = Sticker {
 @CatalogComponent(
   id = "Fab/Extended",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/57998:43398",
-  caption = "FAB with a label; the action is named.",
+  caption = "FAB with a label; the action is named. Six container roles fold in as variants.",
 )
 @CatalogModes
+@OverrideVariant(name = "primary", strings = ["color=primary"])
+@OverrideVariant(name = "secondary", strings = ["color=secondary"])
+@OverrideVariant(name = "tertiary", strings = ["color=tertiary"])
+@OverrideVariant(name = "secondary-container", strings = ["color=secondary-container"])
+@OverrideVariant(name = "tertiary-container", strings = ["color=tertiary-container"])
 @Composable
 fun ExtendedFab() = Sticker {
   val c = counted(stringResource(Res.string.action_compose))
   ExtendedFloatingActionButton(
     onClick = c.onClick,
+    containerColor = catalogFabColor(),
     icon = { Icon(Icons.Filled.Edit, contentDescription = null) },
     text = { Text(c.label) },
   )

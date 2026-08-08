@@ -21,6 +21,7 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonSize
+import ee.schimke.m3catalog.catalogEnabled
 import ee.schimke.m3catalog.catalogIconContainerSize
 import ee.schimke.m3catalog.catalogIconShape
 import ee.schimke.m3catalog.generated.resources.Res
@@ -50,10 +51,10 @@ import org.jetbrains.compose.resources.stringResource
 @OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
 @OverrideVariant(name = "xs-wide", strings = ["size=xs", "width=wide"])
 @OverrideVariant(name = "xs-wide-square", strings = ["size=xs", "width=wide", "shape=square"])
-@OverrideVariant(name = "s-narrow", strings = ["size=s", "width=narrow"])
+@OverrideVariant(name = "s-narrow", strings = ["width=narrow"])
 @OverrideVariant(name = "s-narrow-square", strings = ["size=s", "width=narrow", "shape=square"])
 @OverrideVariant(name = "s-square", strings = ["shape=square"])
-@OverrideVariant(name = "s-wide", strings = ["size=s", "width=wide"])
+@OverrideVariant(name = "s-wide", strings = ["width=wide"])
 @OverrideVariant(name = "s-wide-square", strings = ["size=s", "width=wide", "shape=square"])
 @OverrideVariant(name = "m-narrow", strings = ["size=m", "width=narrow"])
 @OverrideVariant(name = "m-narrow-square", strings = ["size=m", "width=narrow", "shape=square"])
@@ -73,12 +74,14 @@ import org.jetbrains.compose.resources.stringResource
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
 @OverrideVariant(name = "xl-wide", strings = ["size=xl", "width=wide"])
 @OverrideVariant(name = "xl-wide-square", strings = ["size=xl", "width=wide", "shape=square"])
+@OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @Composable
 fun StandardIconButton() = Sticker {
   val (on, set) = toggleable(false)
   val size = catalogButtonSize()
   IconButton(
     onClick = { set(!on) },
+    enabled = catalogEnabled(),
     shape = catalogIconShape(size),
     modifier = Modifier.size(catalogIconContainerSize(size)),
   ) {
@@ -103,10 +106,10 @@ fun StandardIconButton() = Sticker {
 @OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
 @OverrideVariant(name = "xs-wide", strings = ["size=xs", "width=wide"])
 @OverrideVariant(name = "xs-wide-square", strings = ["size=xs", "width=wide", "shape=square"])
-@OverrideVariant(name = "s-narrow", strings = ["size=s", "width=narrow"])
+@OverrideVariant(name = "s-narrow", strings = ["width=narrow"])
 @OverrideVariant(name = "s-narrow-square", strings = ["size=s", "width=narrow", "shape=square"])
 @OverrideVariant(name = "s-square", strings = ["shape=square"])
-@OverrideVariant(name = "s-wide", strings = ["size=s", "width=wide"])
+@OverrideVariant(name = "s-wide", strings = ["width=wide"])
 @OverrideVariant(name = "s-wide-square", strings = ["size=s", "width=wide", "shape=square"])
 @OverrideVariant(name = "m-narrow", strings = ["size=m", "width=narrow"])
 @OverrideVariant(name = "m-narrow-square", strings = ["size=m", "width=narrow", "shape=square"])
@@ -126,12 +129,14 @@ fun StandardIconButton() = Sticker {
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
 @OverrideVariant(name = "xl-wide", strings = ["size=xl", "width=wide"])
 @OverrideVariant(name = "xl-wide-square", strings = ["size=xl", "width=wide", "shape=square"])
+@OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @Composable
 fun FilledIconButtonSticker() = Sticker {
   val (on, set) = toggleable(true)
   val size = catalogButtonSize()
   FilledIconButton(
     onClick = { set(!on) },
+    enabled = catalogEnabled(),
     shape = catalogIconShape(size),
     modifier = Modifier.size(catalogIconContainerSize(size)),
   ) {
@@ -155,10 +160,10 @@ fun FilledIconButtonSticker() = Sticker {
 @OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
 @OverrideVariant(name = "xs-wide", strings = ["size=xs", "width=wide"])
 @OverrideVariant(name = "xs-wide-square", strings = ["size=xs", "width=wide", "shape=square"])
-@OverrideVariant(name = "s-narrow", strings = ["size=s", "width=narrow"])
+@OverrideVariant(name = "s-narrow", strings = ["width=narrow"])
 @OverrideVariant(name = "s-narrow-square", strings = ["size=s", "width=narrow", "shape=square"])
 @OverrideVariant(name = "s-square", strings = ["shape=square"])
-@OverrideVariant(name = "s-wide", strings = ["size=s", "width=wide"])
+@OverrideVariant(name = "s-wide", strings = ["width=wide"])
 @OverrideVariant(name = "s-wide-square", strings = ["size=s", "width=wide", "shape=square"])
 @OverrideVariant(name = "m-narrow", strings = ["size=m", "width=narrow"])
 @OverrideVariant(name = "m-narrow-square", strings = ["size=m", "width=narrow", "shape=square"])
@@ -178,12 +183,14 @@ fun FilledIconButtonSticker() = Sticker {
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
 @OverrideVariant(name = "xl-wide", strings = ["size=xl", "width=wide"])
 @OverrideVariant(name = "xl-wide-square", strings = ["size=xl", "width=wide", "shape=square"])
+@OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @Composable
 fun TonalIconButton() = Sticker {
   val (on, set) = toggleable(true)
   val size = catalogButtonSize()
   FilledTonalIconButton(
     onClick = { set(!on) },
+    enabled = catalogEnabled(),
     shape = catalogIconShape(size),
     modifier = Modifier.size(catalogIconContainerSize(size)),
   ) {
@@ -208,10 +215,10 @@ fun TonalIconButton() = Sticker {
 @OverrideVariant(name = "xs-square", strings = ["size=xs", "shape=square"])
 @OverrideVariant(name = "xs-wide", strings = ["size=xs", "width=wide"])
 @OverrideVariant(name = "xs-wide-square", strings = ["size=xs", "width=wide", "shape=square"])
-@OverrideVariant(name = "s-narrow", strings = ["size=s", "width=narrow"])
+@OverrideVariant(name = "s-narrow", strings = ["width=narrow"])
 @OverrideVariant(name = "s-narrow-square", strings = ["size=s", "width=narrow", "shape=square"])
 @OverrideVariant(name = "s-square", strings = ["shape=square"])
-@OverrideVariant(name = "s-wide", strings = ["size=s", "width=wide"])
+@OverrideVariant(name = "s-wide", strings = ["width=wide"])
 @OverrideVariant(name = "s-wide-square", strings = ["size=s", "width=wide", "shape=square"])
 @OverrideVariant(name = "m-narrow", strings = ["size=m", "width=narrow"])
 @OverrideVariant(name = "m-narrow-square", strings = ["size=m", "width=narrow", "shape=square"])
@@ -231,12 +238,14 @@ fun TonalIconButton() = Sticker {
 @OverrideVariant(name = "xl-square", strings = ["size=xl", "shape=square"])
 @OverrideVariant(name = "xl-wide", strings = ["size=xl", "width=wide"])
 @OverrideVariant(name = "xl-wide-square", strings = ["size=xl", "width=wide", "shape=square"])
+@OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @Composable
 fun OutlinedIconButtonSticker() = Sticker {
   val (on, set) = toggleable(false)
   val size = catalogButtonSize()
   OutlinedIconButton(
     onClick = { set(!on) },
+    enabled = catalogEnabled(),
     shape = catalogIconShape(size),
     modifier = Modifier.size(catalogIconContainerSize(size)),
   ) {
