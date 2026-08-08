@@ -33,26 +33,31 @@ import org.jetbrains.compose.resources.stringResource
 
 @CatalogComponent(
   id = "Snackbar/Message",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53977:33611",
   caption = "Brief message about a process. Two-line, action and close affordance fold in.",
 )
 @CatalogModes
-@OverrideVariant(name = "two-line", strings = ["message=long"])
-@OverrideVariant(name = "action", booleans = ["action=true"])
+@OverrideVariant(name = "two-line", strings = ["lines=two"])
+@OverrideVariant(name = "action", strings = ["configuration=text+action"])
 @OverrideVariant(name = "close", booleans = ["close=true"])
-@OverrideVariant(name = "action-close", booleans = ["action=true", "close=true"])
+@OverrideVariant(
+  name = "action-close",
+  booleans = ["close=true"],
+  strings = ["configuration=text+action"],
+)
 @OverrideVariant(
   name = "two-line-action-close",
-  strings = ["message=long"],
-  booleans = ["action=true", "close=true"],
+  strings = ["lines=two", "configuration=text+action"],
+  booleans = ["close=true"],
 )
 @Composable
 fun SnackbarMessage() = Sticker {
   val undo = counted(stringResource(Res.string.action_undo))
   val dismiss = counted(stringResource(Res.string.action_dismiss))
-  val long = previewOverrideString("message", "short") == "long"
+  val long = previewOverrideString("lines", "one") == "two"
   Snackbar(
     action =
-      if (previewOverrideBoolean("action", false)) {
+      if (previewOverrideString("configuration", "text").startsWith("text+action")) {
         { TextButton(onClick = undo.onClick) { Text(undo.label) } }
       } else null,
     dismissAction =

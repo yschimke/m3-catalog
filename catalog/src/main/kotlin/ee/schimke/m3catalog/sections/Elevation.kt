@@ -41,7 +41,12 @@ private fun Level(label: String, tonal: Dp = 0.dp, shadow: Dp = 0.dp) {
 private val LEVELS =
   listOf("0" to 0.dp, "1" to 1.dp, "2" to 3.dp, "3" to 6.dp, "4" to 8.dp, "5" to 12.dp)
 
-@CatalogComponent(id = "Elevation/Tonal", caption = "Levels 0–5 as a surface tint.")
+@CatalogComponent(
+  id = "Elevation/Tonal",
+  caption = "Levels 0–5 as a surface tint.",
+  noReference =
+    "no component or component set in the kit publishes this; Material ships its type and elevation scales as Figma styles, which a node reference cannot address",
+)
 @CatalogModes
 @Composable
 fun TonalElevation() = Sticker {

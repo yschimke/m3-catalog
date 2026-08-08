@@ -151,6 +151,9 @@ fun LargeTopAppBarSticker() = Sticker {
 @CatalogComponent(
   id = "TopAppBar/MediumFlexible",
   caption = "The expressive two-row bar, with a subtitle slot.",
+  noReference =
+    "no node in the kit matches `flexible`; its App bar set covers Medium through its " +
+      "Configuration axis, which TopAppBar/Medium already references",
 )
 @CatalogModes
 @Composable
@@ -168,6 +171,9 @@ fun MediumFlexibleTopAppBarSticker() = Sticker {
 @CatalogComponent(
   id = "TopAppBar/LargeFlexible",
   caption = "The expressive tall bar, with a subtitle slot.",
+  noReference =
+    "no node in the kit matches `flexible`; its App bar set covers Large through its " +
+      "Configuration axis, which TopAppBar/Large already references",
 )
 @CatalogModes
 @Composable
