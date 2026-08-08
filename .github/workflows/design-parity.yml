@@ -123,19 +123,26 @@ jobs:
         with:
           node-version: 24.18.1
 
+      # Runs to completion and records the verdict rather than failing here. Under `design-led` a
+      # blocking finding makes `design-parity run` exit non-zero, and this step failing would skip
+      # the publish below — so the direction switch in 7fa7658 quietly stopped the workflow doing
+      # the one thing it exists for. The verdict still fails the job, at the end, once the report
+      # a reader needs in order to act on it is on the branch.
       - name: Run design-parity
+        id: parity
         if: ${{ steps.map.outputs.count != '0' }}
         env:
           LANG: C.UTF-8
           LC_ALL: C.UTF-8
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
         run: |
-          set -euo pipefail
+          set -uo pipefail
           if [ -z "${FIGMA_TOKEN:-}" ]; then
             echo "::warning::FIGMA_TOKEN is not set — skipping the parity run."
             exit 0
           fi
-          components="$(jq -r '[.components[].code] | join(",")' design-map.json)"
+          components="$(jq -r '[.components[].code] | join(",")' design-map.json)" || exit 1
+          set +e
           npx -y design-parity@0.1.38 run \
             --repo . \
             --components "$components" \
@@ -144,6 +151,12 @@ jobs:
             --repo-slug "${GITHUB_REPOSITORY}" \
             --branch design-parity/main \
             --source-commit "${GITHUB_SHA}"
+          rc=$?
+          set -e
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          if [ "$rc" -ne 0 ]; then
+            echo "::warning::design-parity exited ${rc} — blocking findings under design-led. Publishing the report, then failing the job."
+          fi
 
       - name: Publish artifacts to design-parity/main
         if: ${{ steps.map.outputs.count != '0' && hashFiles('build/design-parity/out/**') != '' }}
@@ -166,3 +179,12 @@ jobs:
           git push -f \
             "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
             design-parity/main
+
+      # The verdict, applied after the report is readable. `design-led` means a divergence is a bug
+      # in this code, so a blocking finding is meant to be loud — but only once someone can open the
+      # triptych that explains it.
+      - name: Apply the parity verdict
+        if: ${{ steps.parity.outputs.rc != '' && steps.parity.outputs.rc != '0' }}
+        run: |
+          echo "::error::design-parity reported blocking findings (exit ${{ steps.parity.outputs.rc }}). The report is on the design-parity/main branch."
+          exit 1
