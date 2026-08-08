@@ -48,6 +48,25 @@ jobs:
           node scripts/dump-figma-inventory.mjs --file "$FIGMA_FILE" --depth 8 \
             --out figma-inventory.json | tee figma-inventory.txt
 
+      # The index is an INPUT to design-map.json, so it going stale is silent:
+      # a variant the kit gained reads as "no counterpart in the kit" rather
+      # than "nobody looked since". Rebuild it here and fail on a difference —
+      # this workflow already holds the token and has just walked the file.
+      - name: Is figma-kit-index.json current?
+        env:
+          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
+          FIGMA_FILE: ${{ inputs.file }}
+        run: |
+          set -euo pipefail
+          node scripts/build-kit-index.mjs --file "$FIGMA_FILE" \
+            --inventory figma-inventory.json --out figma-kit-index.json
+          if ! git diff --quiet -- figma-kit-index.json; then
+            echo "::error title=Kit index is stale::The kit has changed since figma-kit-index.json was built. Run: node scripts/build-kit-index.mjs --inventory figma-inventory.json"
+            git --no-pager diff --stat -- figma-kit-index.json
+            exit 1
+          fi
+          echo "✓ figma-kit-index.json matches the kit."
+
       - uses: actions/upload-artifact@v7.0.1
         if: always()
         with:
