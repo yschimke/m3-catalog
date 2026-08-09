@@ -8,23 +8,22 @@ Parallelising the *authoring* does not help. It makes this worse: every componen
 adds lengthens the same serial render. That is a different document
 ([`PARALLEL_SWEEP.md`](PARALLEL_SWEEP.md)) solving a different problem.
 
-> **Status: built.** `render-shards` is an input on the upstream reusable workflow and this repo
-> passes `render-shards: 6`. §1–§3 are the measurements the design was chosen from; §4–§6 are what
-> was built and how the three open questions resolved — the first of them, *does `repack` merge
-> semantics sidecars*, resolved to **no**, which is why there is now a `bundle merge`. §7 records a
-> claim the earlier draft made about `modePriority` that does not hold for this catalog.
+> **Status: built, and currently switched off — read §9 first.** `render-shards` is an input on the
+> upstream reusable workflow and the machinery here works, but this repo passes **`render-shards: 1`**
+> because the cost model §1–§3 were derived from has since been invalidated. §9 has the
+> re-measurement and is the section that governs; §1–§3 are kept as the *original* fit and should be
+> read as history, not as guidance. §4–§6 are what was built and how the three open questions
+> resolved — the first of them, *does `repack` merge semantics sidecars*, resolved to **no**, which
+> is why there is now a `bundle merge`. §7 records a claim the earlier draft made about
+> `modePriority` that does not hold for this catalog.
 >
-> **Upstream landed** as compose-ai-tools#3439, so the `@main` pin now resolves to a workflow that
-> declares `render-shards`. Two gates remain, and both are cleared by the same version:
->
-> - **`compose-preview` 0.19.44 must be released.** `bundle merge` is new in that release, and
->   `cli-version: catalog` resolves the CLI from `composePreviewPlugin` — so on an older pin the six
->   shards each render in full and *only then* does the merge step die on an unknown subcommand
->   (§6). The pin is bumped to `0.19.44` in the same commit as `render-shards: 6` so the two cannot
->   land out of order.
-> - **A dispatch to confirm shard balance on a real sheet.** The projections below are modelled from
->   a serial fit, not measured sharded. The thing to watch is a straggler shard — see §6 on
->   `@PreviewParameter` rows travelling whole with their parent id.
+> **Upstream landed** as compose-ai-tools#3439, and the two gates it named are both cleared:
+> `compose-preview` 0.19.44 shipped `bundle merge`, and the sharded render's silent data loss —
+> unanchored `--exclude-preview-id` deleting each shard's own variants — was fixed by
+> compose-ai-tools#3561 (anchored `=<id>` matching) and #3570 (the pipeline emits it), with the
+> reusable workflow now hard-erroring up front on a CLI that predates it. What remains unresolved is
+> only the third question the draft raised — **shard balance on a real sheet has still never been
+> measured**, because the one sharded run this catalog took was the buggy one.
 
 ---
 
@@ -256,3 +255,61 @@ starting any group:
 
 And the rule that would have prevented it outright: **whoever writes the handover does not also work
 the queue.**
+
+---
+
+## 9. Re-measured after the warm renderer — and why the answer is now `render-shards: 1`
+
+§1's fit, `render_minutes ≈ 3.7 + 2.15s × previews`, was measured when every capture forked a JVM.
+[compose-ai-tools#3548](https://github.com/yschimke/compose-ai-tools/pull/3548) moved captures onto a
+long-lived warm renderer, which invalidated it. Re-measured on CI (compose-ai-tools#3559), both rows
+below being the same `Render catalog bundle` step on `ubuntu-latest`, decomposed from the task
+timings the step itself prints:
+
+| | fixed (configure + compile + discover + pack) | `composePreviewRender` | semantics capture | full sheet |
+| --- | --- | --- | --- | --- |
+| before #3548 — 1095 previews, [run 31192651935](https://github.com/yschimke/m3-catalog/actions/runs/31192651935) | 104 s | 2603 s → **2.38 s/preview** | 186 s → 0.17 s/preview | **2893 s** |
+| after #3548 — 1147 previews, [run 31282283505](https://github.com/yschimke/m3-catalog/actions/runs/31282283505) | 100 s | 232 s → **0.202 s/preview** | 211 s → 0.185 s/preview | **543 s** |
+
+```
+render_seconds ≈ 100 + 0.39s × previews        (was ≈ 104 + 2.55s × previews)
+```
+
+Two sibling runs agree with the second row: 568 s and 548 s for the same step.
+
+**Both terms of §1 were wrong.** The marginal cost fell 6.5x. The fixed cost never moved — and was
+never 3.7 min: §1 read the whole render step as if it were prologue. The ~100 s is real and it is
+what every shard would pay, but it is a third of what the sharding case was argued on.
+
+**Per-shard fixed cost, measured** on the (buggy) six-shard run
+[31245536104](https://github.com/yschimke/m3-catalog/actions/runs/31245536104) — its *render*
+durations are meaningless because the shards dropped most of their work, but its fixed steps are
+real: job prefix ~25 s + a separate `Discover previews` step **87 s** + the render step's own Gradle
+prologue ~20 s + upload/font-cache ~15 s ≈ **150 s**, plus a ~85 s merge/generate/publish job.
+
+```
+T ≈ 150s + 0.39s × previews/N + 85s          (N > 1)
+```
+
+| Previews | N=1 | N=2 | N=4 | N=6 | N=8 |
+| --- | --- | --- | --- | --- | --- |
+| 1147 (today) | **9.1 min** | 7.6 | 5.8 | 5.2 | 4.9 |
+| 2500 | 17.9 | 12.1 | 8.0 | 6.6 | 6.0 |
+| 5000 | 34.2 | 20.2 | 12.0 | 9.3 | 8.0 |
+
+**So the optimum moved down, and at this size it moved below 2.** That is not a surprise once
+stated: cheaper marginal work against an unchanged fixed cost always moves it down. Sharding today's
+sheet four ways buys ~3 min of wall clock for three extra runners and ~8 extra runner-minutes, while
+the serial render sits at under a quarter of its 2400 s `render-timeout` — and the 48-minute render
+that motivated this whole document no longer exists. `render-shards: 1`.
+
+**When to raise it.** Around **3000 previews** the split starts to be worth its runners; near
+**6000** it stops being optional, because that is where a serial render meets `render-timeout`. The
+machinery stays wired and tested for exactly that, and turning it up is now a one-line change to a
+correct fan-out rather than a data-loss risk.
+
+Two honest caveats. The ~85 s merge tail was measured with near-empty shard artifacts, so a real
+merge of N full bundles costs more — which makes sharding look slightly *better* here than it is.
+And the projections above remain modelled, not measured sharded: the straggler question from §6
+(`@PreviewParameter` rows travelling whole with their parent id) is still open, and the first honest
+sharded run should check shard balance before anyone trusts the N>1 columns.

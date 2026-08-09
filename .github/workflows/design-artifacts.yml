@@ -79,57 +79,43 @@ jobs:
       # default and died as a bare "Build timed out after 600s", several steps before the publish it
       # never reached, while the job itself sat at ~12% of its 90 minutes.
       #
-      # The exhaustive sweep is now complete at 1095 previews. Measured on four runs the render
-      # costs ~3.7 min fixed plus ~2.15s per preview (see docs/PARALLEL_RENDER.md), so a SERIAL
-      # render of today's sheet lands near 43 min. Sharded six ways each shard renders ~183
-      # previews, or ~3.7 + 6.5 = ~10 min, so this is now a per-shard budget with ~4x headroom
-      # rather than the whole sheet's. It stays generous on purpose: it exists to catch a hung
-      # render, not to pace a healthy one.
+      # The exhaustive sweep is now complete at ~1150 previews, and since compose-ai-tools#3548 the
+      # captures draw on a warm renderer: re-measured on CI, the render costs ~100s fixed plus
+      # ~0.39s per preview (see docs/PARALLEL_RENDER.md §9), so today's serial render is ~9 min —
+      # it was ~48 min under the old per-capture JVM fork. This budget is therefore ~4x more
+      # generous than it looks, and deliberately so: it exists to catch a hung render, not to pace
+      # a healthy one, and the sheet is expected to keep growing.
       render-timeout: 2400
-      # Split the render across six parallel jobs. The bottleneck was one serial `bundle pack`
-      # growing linearly with the sheet — `render_minutes ~= 3.7 + 2.15s x previews`, measured over
-      # four runs on main. At 1095 previews that is ~43 min; the next doubling would pass the job
-      # timeout, not just the render one, and no value of `render-timeout` fixes that. Only
-      # dividing the marginal 2.15s does: ~43 min -> ~10 min here.
+      # ONE, and now for a cost reason rather than a correctness one.
       #
-      # Six, not sixteen: every shard pays the ~3.7 min of Gradle configure + compile in full, so
-      # past about six the fixed cost dominates and extra runners buy compile time, not throughput.
+      # The correctness blocker is gone. Sharding used to cost this catalog three quarters of its
+      # renders — 267 captured of 1095 assigned, 235 merged, silently, on a green run — because
+      # `--exclude-preview-id` matched by equality OR substring and a base id is a substring of its
+      # own variant ids (`…SwitchOn_Light` matches `…SwitchOn_Light_VARIANT_off`), so a shard
+      # excluding another shard's base preview deleted the variants it was itself assigned. The
+      # matchers learned an anchored `=<id>` form in compose-ai-tools#3561 and the pipeline emits it
+      # in #3570, and the reusable workflow now hard-errors up front if the resolved CLI predates
+      # that. Turning this back up is safe.
       #
-      # Each shard renders its own partition of the discovered preview ids (sorted, round-robined)
-      # by excluding the rest, then `compose-preview bundle merge` unions the shard bundles back
-      # into the one a serial render would have produced. See compose-ai-tools
+      # It is just not worth it. Re-measured on CI after compose-ai-tools#3548 moved captures onto a
+      # warm renderer (issue #3559), a single-job render is ~100s fixed + ~0.39s per preview — the
+      # marginal term fell 6.5x while the fixed term did not move, which pushes the optimal shard
+      # count DOWN, not up. A shard carries ~150s of its own fixed cost (job prefix, its own
+      # discovery, Gradle prologue, upload) plus a ~85s merge job, so at ~1150 previews:
+      #
+      #   N=1  ~9.1 min      N=2  ~7.6 min      N=4  ~5.8 min      N=6  ~5.2 min
+      #
+      # Four shards buy ~3 min of wall clock for three extra runners and ~8 extra runner-minutes,
+      # while the serial render sits at under a quarter of the 2400s render-timeout above. The old
+      # "six, not sixteen" answer came from the pre-#3548 model and does not survive it.
+      #
+      # Raise this when the sheet does: sharding starts paying around 3000 previews and is necessary
+      # near 6000, where a serial render meets render-timeout. The machinery stays wired and tested
+      # for that. Each shard renders its own partition of the discovered ids (sorted, round-robined)
+      # by excluding the rest, then `compose-preview bundle merge` unions the shard bundles back into
+      # the one a serial render would have produced. See compose-ai-tools
       # docs/design/DESIGN_CATALOGS.md, "Sharding the render across parallel jobs", and
-      # docs/PARALLEL_RENDER.md here for how the shape was chosen.
-      #
-      # TWO UPSTREAM REQUIREMENTS, both satisfied only from compose-preview 0.19.44:
-      #   - the `render-shards` input must exist on the reusable workflow pinned `@main` above.
-      #     GitHub rejects an input the called workflow does not declare, and the run fails to
-      #     parse before any job starts.
-      #   - `compose-preview bundle merge` must exist in the CLI that `cli-version: catalog`
-      #     resolves from `composePreviewPlugin` below. On an older CLI the six shards each render
-      #     in full and only then does the merge step die on an unknown subcommand.
-      # That is why the `composePreviewPlugin` bump to 0.19.44 is in this same commit.
-      #
-      # BACK TO ONE, until the exclusion matching is anchored. Sharding cost the catalog three
-      # quarters of its renders — silently, on a green run. Each shard is assigned its ~183
-      # previews and then drops most of them:
-      #
-      #   shard 1/6 renders 183 of 1095 …  →  bundle pack: … 25 to capture.
-      #   shard 2/6 renders 183 of 1095 …  →  … 87 to capture.
-      #   shard 3/6 renders 183 of 1095 …  →  … 18 to capture.
-      #
-      # 267 captured of 1095 assigned, 235 merged. `--exclude-preview-id` matches by equality OR
-      # substring (PackPreviewIdExclusions, mirroring the plugin's PreviewNameFilter.matchesId), and
-      # a base id is a substring of its own variant ids — `…SwitchOn_Light` matches
-      # `…SwitchOn_Light_VARIANT_off`. So a shard that excludes some other shard's base preview also
-      # deletes every variant of it that it was supposed to render. With round-robin partitioning a
-      # base and its variants almost never share a shard, so almost every variant died: 93
-      # components published 258 images, and Switch/On — which declares seven variants — published
-      # only its light and dark default.
-      #
-      # Unsharded there are no exclusions, so nothing is dropped. It costs ~43 min inside the 90 the
-      # job carries. Restore sharding once the upstream patterns are anchored (an exact-id exclusion,
-      # or globs the sharder emits) rather than substring-matched.
+      # docs/PARALLEL_RENDER.md here.
       render-shards: 1
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
     secrets:
