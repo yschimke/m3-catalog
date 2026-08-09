@@ -30,8 +30,8 @@ import ee.schimke.m3catalog.generated.resources.segment_day
 import ee.schimke.m3catalog.generated.resources.segment_month
 import ee.schimke.m3catalog.generated.resources.segment_week
 import ee.schimke.m3catalog.generated.resources.segment_year
+import ee.schimke.m3catalog.multiSelectable
 import ee.schimke.m3catalog.selectable
-import ee.schimke.m3catalog.toggleable
 import org.jetbrains.compose.resources.stringResource
 
 // Two axes the kit documents: segment COUNT (2-5) and segment CONTENT (label, icon, or both). The
@@ -108,14 +108,16 @@ fun SegmentedButtons() = Sticker {
 @Composable
 fun MultiChoiceSegmentedButtons() = Sticker {
   val count = segmentCount()
-  val (first, setFirst) = toggleable(true)
-  val (second, setSecond) = toggleable(false)
+  // Every segment carries its own checked state — a fixed pair of booleans pinned the third and
+  // later segments to `false` behind a handler that dropped the click, so the `count-4` / `count-5`
+  // variants published segments the live lane could not move.
+  val (checkedSegments, setChecked) = multiSelectable(setOf(0))
   MultiChoiceSegmentedButtonRow {
     LABELS.take(count).forEachIndexed { index, label ->
-      val checked = if (index == 0) first else if (index == 1) second else false
+      val checked = index in checkedSegments
       SegmentedButton(
         checked = checked,
-        onCheckedChange = { if (index == 0) setFirst(it) else if (index == 1) setSecond(it) },
+        onCheckedChange = { setChecked(index, it) },
         shape = SegmentedButtonDefaults.itemShape(index = index, count = count),
       ) {
         SegmentContent(stringResource(label), checked)

@@ -44,6 +44,7 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.editable
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_back
 import ee.schimke.m3catalog.generated.resources.action_clear
@@ -54,6 +55,7 @@ import ee.schimke.m3catalog.generated.resources.search_hint
 import ee.schimke.m3catalog.generated.resources.search_suggestion_motion
 import ee.schimke.m3catalog.generated.resources.search_suggestion_sticker_sheet
 import ee.schimke.m3catalog.generated.resources.search_suggestion_symbols
+import ee.schimke.m3catalog.toggleable
 import org.jetbrains.compose.resources.stringResource
 
 // The kit's Search section is four collapsed entry points and two expanded search views, and
@@ -143,23 +145,29 @@ fun SearchBarSticker() = Sticker {
 @OverrideVariant(name = "avatar", strings = ["content=avatar"])
 @Composable
 fun DockedSearchBarSticker() = Sticker {
+  // The sibling bars own their query through `rememberTextFieldState`; this one takes the older
+  // `query` / `onQueryChange` pair, so it owns the same state through `editable` rather than
+  // dropping every keystroke. The dropdown is the bar's own expansion rather than a popup window,
+  // so the live lane can open it — the baked capture stays collapsed on the seeded state.
+  val (query, setQuery) = editable(searchQuery())
+  val (expanded, setExpanded) = toggleable(false)
   DockedSearchBar(
     inputField = {
       SearchBarDefaults.InputField(
-        query = searchQuery(),
-        onQueryChange = {},
+        query = query,
+        onQueryChange = setQuery,
         onSearch = {},
-        expanded = false,
-        onExpandedChange = {},
+        expanded = expanded,
+        onExpandedChange = setExpanded,
         placeholder = searchPlaceholder(),
         leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
         trailingIcon = searchTrailing(),
       )
     },
-    expanded = false,
-    onExpandedChange = {},
+    expanded = expanded,
+    onExpandedChange = setExpanded,
     modifier = Modifier.width(360.dp),
-    content = {},
+    content = { SuggestionRows() },
   )
 }
 
@@ -253,23 +261,7 @@ fun ExpandedDockedSearchBarSticker() = Sticker {
     modifier = Modifier.width(360.dp),
   ) {
     Column {
-      SearchBarDefaults.InputField(
-        query = "material",
-        onQueryChange = {},
-        onSearch = {},
-        expanded = true,
-        onExpandedChange = {},
-        modifier = Modifier.fillMaxWidth(),
-        leadingIcon = {
-          val back = counted("back")
-          IconButton(onClick = back.onClick) {
-            Icon(
-              Icons.AutoMirrored.Filled.ArrowBack,
-              contentDescription = stringResource(Res.string.action_back),
-            )
-          }
-        },
-      )
+      ExpandedInputField()
       SuggestionRows()
     }
   }
@@ -292,26 +284,37 @@ fun ExpandedFullScreenSearchBarSticker() = Sticker {
     modifier = Modifier.width(360.dp).height(320.dp),
   ) {
     Column {
-      SearchBarDefaults.InputField(
-        query = "material",
-        onQueryChange = {},
-        onSearch = {},
-        expanded = true,
-        onExpandedChange = {},
-        modifier = Modifier.fillMaxWidth(),
-        leadingIcon = {
-          val back = counted("back")
-          IconButton(onClick = back.onClick) {
-            Icon(
-              Icons.AutoMirrored.Filled.ArrowBack,
-              contentDescription = stringResource(Res.string.action_back),
-            )
-          }
-        },
-      )
+      ExpandedInputField()
       SuggestionRows()
     }
   }
+}
+
+/**
+ * The field both expanded views carry, seeded with a typed query. The query is [editable] rather
+ * than a constant with a dropped `onQueryChange`, so the live lane types into the view the way the
+ * real expanded search bar does; the baked capture is frozen on the seed.
+ */
+@Composable
+private fun ExpandedInputField() {
+  val (query, setQuery) = editable("material")
+  val back = counted("back")
+  SearchBarDefaults.InputField(
+    query = query,
+    onQueryChange = setQuery,
+    onSearch = {},
+    expanded = true,
+    onExpandedChange = {},
+    modifier = Modifier.fillMaxWidth(),
+    leadingIcon = {
+      IconButton(onClick = back.onClick) {
+        Icon(
+          Icons.AutoMirrored.Filled.ArrowBack,
+          contentDescription = stringResource(Res.string.action_back),
+        )
+      }
+    },
+  )
 }
 
 @Composable

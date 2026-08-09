@@ -57,6 +57,8 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun StandardSideSheet() = Sticker {
   val close = counted(stringResource(Res.string.action_close))
+  val cancel = counted(stringResource(Res.string.action_cancel))
+  val save = counted(stringResource(Res.string.action_save))
   Surface(
     modifier = Modifier.width(256.dp).height(320.dp),
     color = MaterialTheme.colorScheme.surfaceContainerLow,
@@ -81,8 +83,8 @@ fun StandardSideSheet() = Sticker {
         Column(Modifier.weight(1f)) {}
         HorizontalDivider()
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-          TextButton(onClick = {}) { Text(stringResource(Res.string.action_cancel)) }
-          Button(onClick = {}) { Text(stringResource(Res.string.action_save)) }
+          TextButton(onClick = cancel.onClick) { Text(cancel.label) }
+          Button(onClick = save.onClick) { Text(save.label) }
         }
       }
     }

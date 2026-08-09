@@ -32,6 +32,7 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_menu
 import ee.schimke.m3catalog.generated.resources.action_new
@@ -57,15 +58,19 @@ private val RAIL =
 private fun railHeader(): (@Composable androidx.compose.foundation.layout.ColumnScope.() -> Unit)? {
   val menu = previewOverrideBoolean("menu", false)
   val fab = previewOverrideBoolean("fab", false)
+  // Both tallies are read before the early return so the call sequence does not depend on the
+  // knobs — the same reason `TopAppBars.NavIcon` resolves its tally ahead of the `nav` check.
+  val menuClick = counted("menu")
+  val fabClick = counted("new")
   if (!menu && !fab) return null
   return {
     if (menu) {
-      IconButton(onClick = {}) {
+      IconButton(onClick = menuClick.onClick) {
         Icon(Icons.Filled.Menu, contentDescription = stringResource(Res.string.action_menu))
       }
     }
     if (fab) {
-      FloatingActionButton(onClick = {}) {
+      FloatingActionButton(onClick = fabClick.onClick) {
         Icon(Icons.Filled.Add, contentDescription = stringResource(Res.string.action_new))
       }
     }

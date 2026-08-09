@@ -39,7 +39,11 @@ import ee.schimke.m3catalog.generated.resources.action_duplicate
 import ee.schimke.m3catalog.generated.resources.action_edit
 import ee.schimke.m3catalog.generated.resources.action_share
 import ee.schimke.m3catalog.generated.resources.menu_size_label
+import ee.schimke.m3catalog.generated.resources.menu_size_large
+import ee.schimke.m3catalog.generated.resources.menu_size_small
 import ee.schimke.m3catalog.generated.resources.menu_size_value
+import ee.schimke.m3catalog.selectable
+import ee.schimke.m3catalog.toggleable
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -50,7 +54,8 @@ import org.jetbrains.compose.resources.stringResource
 // The kit varies three things inside that container, and all three are item parameters rather than
 // different components: the leading icon, a trailing shortcut label, and dividers grouping the
 // items. The exposed dropdown menu is a different component (a text field that opens a menu) and
-// gets its own sticker, collapsed, since the open state is again a popup.
+// gets its own sticker. It is BAKED collapsed — the open menu is a popup the capture cannot reach —
+// but the field owns its expansion and its choice, so the live lane opens it and picks from it.
 
 private data class MenuRow(val label: StringResource, val icon: ImageVector, val shortcut: String)
 
@@ -108,32 +113,53 @@ fun DropdownMenuSticker() = Sticker {
   }
 }
 
+/** The exposed menu's choices; the seeded selection is the middle one. */
+private val SIZE_CHOICES =
+  listOf(Res.string.menu_size_small, Res.string.menu_size_value, Res.string.menu_size_large)
+
 @CatalogComponent(
   id = "Menu/Exposed",
   noReference =
     "nothing in the kit matches `exposed` or `autocomplete`; it publishes a Menu and a " +
       "Text field, but not the combination Compose exposes as ExposedDropdownMenuBox",
   caption =
-    "A text field that opens a menu of choices. Shown collapsed — the open menu is a popup a " +
+    "A text field that opens a menu of choices. Captured collapsed — the open menu is a popup a " +
       "single-surface capture cannot reach.",
 )
 @CatalogModes
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @Composable
 fun ExposedDropdownMenuSticker() = Sticker {
+  // The choices and the expansion are the component's own state: the baked capture is the seeded
+  // collapsed frame, and the live lane opens the menu and picks from it. Pinning the expansion
+  // behind a dropped `onExpandedChange` published a chevron that never did anything.
+  val (expanded, setExpanded) = toggleable(false)
+  val (choice, choose) = selectable(1)
+  val enabled = previewOverrideString("status", "enabled") != "disabled"
   ExposedDropdownMenuBox(
-    expanded = false,
-    onExpandedChange = {},
+    expanded = expanded,
+    onExpandedChange = setExpanded,
     modifier = Modifier.width(220.dp),
   ) {
     TextField(
-      value = stringResource(Res.string.menu_size_value),
+      value = stringResource(SIZE_CHOICES[choice]),
       onValueChange = {},
       readOnly = true,
-      enabled = previewOverrideString("status", "enabled") != "disabled",
+      enabled = enabled,
       label = { Text(stringResource(Res.string.menu_size_label)) },
-      trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = false) },
+      trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
       modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
     )
+    ExposedDropdownMenu(expanded = expanded, onDismissRequest = { setExpanded(false) }) {
+      SIZE_CHOICES.forEachIndexed { index, size ->
+        DropdownMenuItem(
+          text = { Text(stringResource(size)) },
+          onClick = {
+            choose(index)
+            setExpanded(false)
+          },
+        )
+      }
+    }
   }
 }
