@@ -47,6 +47,8 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 private fun CardBody(title: String) {
   val layout = previewOverrideString("layout", "text")
+  val action = counted(stringResource(Res.string.action_action))
+  val cancel = counted(stringResource(Res.string.action_cancel))
   Column {
     if (layout == "media" || layout == "media+actions") {
       Box(
@@ -60,8 +62,8 @@ private fun CardBody(title: String) {
     }
     if (layout == "actions" || layout == "media+actions") {
       Row(Modifier.padding(start = 8.dp, end = 8.dp, bottom = 8.dp)) {
-        TextButton(onClick = {}) { Text(stringResource(Res.string.action_action)) }
-        TextButton(onClick = {}) { Text(stringResource(Res.string.action_cancel)) }
+        TextButton(onClick = action.onClick) { Text(action.label) }
+        TextButton(onClick = cancel.onClick) { Text(cancel.label) }
       }
     }
   }
@@ -103,7 +105,12 @@ fun FilledCard() = Sticker {
 )
 @Composable
 fun ElevatedCardSticker() = Sticker {
-  ElevatedCard(Modifier.width(280.dp)) { CardBody(stringResource(Res.string.card_elevated)) }
+  val c = counted(stringResource(Res.string.card_elevated))
+  if (catalogInteractive()) {
+    ElevatedCard(onClick = c.onClick, modifier = Modifier.width(280.dp)) { CardBody(c.label) }
+  } else {
+    ElevatedCard(Modifier.width(280.dp)) { CardBody(c.label) }
+  }
 }
 
 @CatalogComponent(
@@ -120,5 +127,10 @@ fun ElevatedCardSticker() = Sticker {
 )
 @Composable
 fun OutlinedCardSticker() = Sticker {
-  OutlinedCard(Modifier.width(280.dp)) { CardBody(stringResource(Res.string.card_outlined)) }
+  val c = counted(stringResource(Res.string.card_outlined))
+  if (catalogInteractive()) {
+    OutlinedCard(onClick = c.onClick, modifier = Modifier.width(280.dp)) { CardBody(c.label) }
+  } else {
+    OutlinedCard(Modifier.width(280.dp)) { CardBody(c.label) }
+  }
 }
