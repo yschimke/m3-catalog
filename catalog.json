@@ -12894,9 +12894,10 @@
       "section": "Styles",
       "group": "Color",
       "caption": "Primary, secondary and tertiary — each accent role with its `on` pair.",
+      "noReference": "the kit publishes tonal-palette specimen sheets and color variables, not an accent-role component; a node reference would compare two different specimen layouts",
       "wireframe": "wireframes/color-accentroles.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/ColorRoles.kt",
-      "bodyLine": 64
+      "bodyLine": 67
     },
     {
       "componentId": "DatePicker/Docked",
@@ -14340,9 +14341,10 @@
       "section": "Selection",
       "group": "Date pickers",
       "caption": "Calendar grid for picking a single date. Keyboard entry and the mode toggle fold in.",
+      "noReference": "the kit's Docked input date picker [desktop] combines an anchored text field with calendar, month and year popovers; this sticker is the bare Compose DatePicker body, so pairing them would report the missing anchor and alternate popovers as parity defects",
       "wireframe": "wireframes/datepicker-docked.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/DatePickers.kt",
-      "bodyLine": 65
+      "bodyLine": 69
     },
     {
       "componentId": "DatePicker/Range",
@@ -16399,7 +16401,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/51954:18254",
       "wireframe": "wireframes/datepicker-range.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/DatePickers.kt",
-      "bodyLine": 86
+      "bodyLine": 90
     },
     {
       "componentId": "DatePicker/Modal",
@@ -17707,7 +17709,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/51954:18137",
       "wireframe": "wireframes/datepicker-modal.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/DatePickers.kt",
-      "bodyLine": 107
+      "bodyLine": 111
     },
     {
       "componentId": "Dialog/Basic",
@@ -49103,9 +49105,10 @@
       "section": "Styles",
       "group": "Shape",
       "caption": "extraSmall 4dp through extraLarge 28dp.",
+      "noReference": "the kit publishes Corner variables and a Shape Set specimen sheet, not a shape-scale component; a node reference would compare two different specimen layouts",
       "wireframe": "wireframes/shape-scale.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/ShapeScale.kt",
-      "bodyLine": 43
+      "bodyLine": 49
     },
     {
       "componentId": "SideSheet/Standard",
@@ -74235,7 +74238,7 @@
     "org.jetbrains.compose.material:material-icons-extended"
   ],
   "renderer": "compose-preview 0.19.51",
-  "generatedAt": "2026-08-10T07:35:30.457Z",
+  "generatedAt": "2026-08-10T21:00:54.768Z",
   "display": {
     "hero": "Template/AppScaffold"
   },
