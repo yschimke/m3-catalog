@@ -85,15 +85,19 @@ jobs:
       # catalog (a rate limiter, a partial refresh) rather than a fixture.
       design-parity-ref: ${{ inputs.design_parity_ref || '' }}
 
+      # The daily import workflow owns all Figma traffic and commits a versioned, carry-forward
+      # cache here. Ordinary parity runs are cache-only: no per-push API burst, no changing subset
+      # of components when the token is rate-limited.
+      reference-cache-branch: design-parity/reference
+
       # ONE job, deliberately. The render is the cost that was breaking this
       # workflow, and scoping it — not sharding — is what fixes that: the module
       # draws 1,095 previews and 77 carry a `reference`, so the reusable workflow
       # excludes the other 1,018 from the render and this drops from ~43 min to
       # ~4. Sharding divides only what is left, which is ~77 comparisons, and it
-      # would divide the Figma token N ways at the same time: the adapter has no
-      # 429 retry and a rate-limited component produces no verdict on a green run
-      # (#12). Raise this only once #12 is fixed, and only if the scoped single
-      # job stops fitting.
+      # would add fixed runner and render overhead for only ~78 comparisons. The reference side is
+      # read from the cache above, so this job makes zero Figma calls. Raise the shard count only if
+      # the scoped single job stops fitting.
       shards: 1
 
       # Writes `catalog/build/compose-previews/previews.json` (the manifest the
