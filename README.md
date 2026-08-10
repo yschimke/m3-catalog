@@ -24,6 +24,12 @@ node ids and reference images, and the MCP server for variables and metadata. No
   code on every change, and appended as a commit rather than force-pushed, so the branch is
   diffable over time.
 
+The delivery branch's history is intentional: do not rewrite it into a fresh root commit as a
+repository-size workaround. A normal `git clone` fetches that generated branch as well as `main`,
+including its large live-render bundles. Contributors who only need the source should use
+`git clone --single-branch https://github.com/yschimke/m3-catalog.git`; consumers that need the
+published catalog should fetch `design-artifacts/m3-catalog` deliberately.
+
 [kit]: https://www.figma.com/design/ocdacdEsnHipMJD3egzxKb/Material-3-Design-Kit--Community-
 
 ## Annotation-first, by design
