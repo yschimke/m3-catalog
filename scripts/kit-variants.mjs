@@ -1,22 +1,13 @@
-// Resolve every single-axis catalog variant to the kit variant node it documents.
-//
-// The base ref is a variant node whose name is an axis vector — `Type=Round,
-// Size=Small, State=Enabled`. A variant seeding ONE knob should land on the
-// sibling with ONE axis changed. That is checkable: the resolved name must
-// exist in the same set, so a wrong guess cannot survive.
-// Resolve a catalog variant onto the kit variant node it documents.
+// Resolve every catalog variant to the kit variant node it documents.
 //
 // A component's reference is a variant node whose NAME is an axis vector —
-// `Type=Round, Size=Small, State=Enabled`. A variant that seeds exactly one
-// knob should land on the sibling with exactly one axis changed. That is
-// checkable rather than plausible: the resolved combination has to exist in the
-// kit's own variant list, so a wrong translation finds nothing instead of
-// producing a confident bad reference — which under `design-led` would drive
-// this code away from the kit it is copying.
-//
-// Combinations are deliberately out. Comparing every axis is the goal; every
-// cross product of them is a different, much larger thing that says little the
-// single axes do not (see #16).
+// `Type=Round, Size=Small, State=Enabled`. Every seed is projected onto that
+// vector, and the exact final combination must name a real sibling in the same
+// component set. This handles both an axis (`size=l`) and a rendered
+// cross-product cell (`size=l, shape=square`) without ever inventing a Figma
+// combination. A wrong translation finds nothing instead of producing a
+// confident bad reference — which under `design-led` would drive this code away
+// from the kit it is copying.
 import { readFileSync } from "node:fs";
 
 const index = JSON.parse(readFileSync("figma-kit-index.json", "utf8"));
@@ -82,7 +73,7 @@ const VALUE_ALIASES = {
   on: ["True", "Enabled"], off: ["False", "Unselected"],
   true: ["True"], false: ["False"],
   none: ["False", "Label only", "None"],
-  icon: ["True", "Label & icon", "Icon only", "Label & leading icon"],
+  icon: ["Icon only", "True"],
   disabled: ["Disabled"], enabled: ["Enabled"],
   selected: ["True", "Selected"], unselected: ["False", "Unselected"],
   checked: ["Selected", "True"], unchecked: ["Unselected", "False"],
@@ -296,33 +287,69 @@ const SIZE_KNOBS = new Set(["size", "shape"]);
  * undefined when the kit models no such axis — a badge's digit count, a top app
  * bar's action count. Those are real gaps, reported rather than guessed at.
  */
-export function resolveVariantRef(ref, seed) {
-  const nodeId = ref.split("/")[1];
-  const baseVar = variantIndex.get(nodeId);
-  if (!baseVar) {
-    const sib = componentSiblings(nodeId);
-    const hit = sib && matchSibling(sib, seed);
-    return hit ? { nodeId: hit.id, name: hit.name } : undefined;
-  }
+function resolveSetVariantRef(baseVar, seeds) {
   const set = setIndex.get(baseVar.setId);
   const eq = (a, b) => String(a).toLowerCase() === String(b).toLowerCase();
-  for (const axis of axisCandidates(seed.key, baseVar.axes, seed.raw)) {
-    for (const want of valueCandidates(seed.raw)) {
-      if (eq(baseVar.axes[axis], want)) continue;
-      const target = { ...baseVar.axes, [axis]: want };
-      const match = set.children.find((v) => {
+  const search = (index, target, usedAxes) => {
+    if (index === seeds.length) {
+      return set.children.find((v) => {
         const vv = variantIndex.get(v.id);
         return Object.keys(target).every((a) => eq(vv.axes[a], target[a]));
       });
-      if (match) return { nodeId: match.id, name: variantIndex.get(match.id).name };
     }
+    const seed = seeds[index];
+    for (const axis of axisCandidates(seed.key, baseVar.axes, seed.raw)) {
+      if (usedAxes.has(axis)) continue;
+      for (const want of valueCandidates(seed.raw)) {
+        const noOp = eq(baseVar.axes[axis], want);
+        // Some shared matrices spell their default size explicitly in a
+        // combination (`size=s, width=narrow, shape=square`). That seed is a
+        // valid no-op there, but a one-axis no-op is only a duplicate of base.
+        if (noOp && !(seeds.length > 1 && seed.key === "size")) continue;
+        const match = search(
+          index + 1,
+          noOp ? target : { ...target, [axis]: want },
+          new Set([...usedAxes, axis]),
+        );
+        if (match) return match;
+      }
+    }
+    return undefined;
+  };
+  const match = search(0, baseVar.axes, new Set());
+  return match ? { nodeId: match.id, name: variantIndex.get(match.id).name } : undefined;
+}
+
+/**
+ * The kit node reached by applying every seed in order to `ref`.
+ *
+ * Discovery preserves the matrix annotation's axis order. Every seed must map
+ * to a distinct Figma axis and the exact resulting vector must exist in the
+ * kit's component set.
+ */
+export function resolveVariantRef(ref, seedOrSeeds) {
+  const seeds = Array.isArray(seedOrSeeds) ? seedOrSeeds : [seedOrSeeds];
+  // Standalone-folder siblings are complete configurations, not independently
+  // composable axes. Applying `subhead` and then `inset` would merely walk from
+  // one sibling to another and falsely call the last one their combination.
+  // Without an exact compound component to target, leave a multi-seed
+  // standalone render unmapped.
+  const nodeId = ref.split("/")[1];
+  const baseVar = variantIndex.get(nodeId);
+  if (baseVar) return resolveSetVariantRef(baseVar, seeds);
+  if (seeds.length > 1) return undefined;
+  const siblings = componentSiblings(nodeId);
+  const hit = siblings && matchSibling(siblings, seeds[0]);
+  if (hit) {
+    return { nodeId: hit.id, name: hit.name };
   }
   return undefined;
 }
 
 /** `size` for a size/shape knob, `state` for everything else. */
-export function slotFor(seed, variantName) {
-  return SIZE_KNOBS.has(seed.key)
-    ? { size: String(seed.raw) }
+export function slotFor(seedOrSeeds, variantName) {
+  const seeds = Array.isArray(seedOrSeeds) ? seedOrSeeds : [seedOrSeeds];
+  return seeds.length === 1 && SIZE_KNOBS.has(seeds[0].key)
+    ? { size: String(seeds[0].raw) }
     : { state: variantName };
 }

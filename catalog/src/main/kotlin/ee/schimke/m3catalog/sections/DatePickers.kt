@@ -55,6 +55,10 @@ private fun dateDisplayMode(): DisplayMode =
 
 @CatalogComponent(
   id = "DatePicker/Docked",
+  noReference =
+    "the kit's Docked input date picker [desktop] combines an anchored text field with calendar, " +
+      "month and year popovers; this sticker is the bare Compose DatePicker body, so pairing them " +
+      "would report the missing anchor and alternate popovers as parity defects",
   caption = "Calendar grid for picking a single date. Keyboard entry and the mode toggle fold in.",
 )
 @CatalogModes

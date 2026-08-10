@@ -66,10 +66,11 @@ const propertyVariants = [];
 /** References that draw optional content by default, whatever the code drew. */
 const defaultedRefs = [];
 
-// Every variant render, grouped by the component it folds under. A variant that
-// moves exactly ONE knob is an axis of that component and gets compared against
-// the kit's corresponding variant; one that moves several is a COMBINATION, and
-// comparing the cross product says little the axes do not (#16).
+// Every variant render, grouped by the component it folds under. Every exact
+// combination the catalog renders is compared when the kit publishes the same
+// axis vector. The catalog exists to reproduce the kit, so dropping a rendered
+// cross-product cell merely because it moves several knobs hides real parity
+// defects and leaves known Figma nodes unused.
 //
 // A variant reaches us two ways, and both name their axis:
 //
@@ -85,11 +86,11 @@ const defaultedRefs = [];
 // read as unauthored when `FabSmall`/`FabMedium`/`FabLarge` were sitting in the
 // catalog all along (#16). The annotation states the axis either way; nothing
 // has to be inferred from a function name.
-const singleAxisByComponent = new Map();
+const variantsByComponent = new Map();
 const add = (componentId, entry) => {
-  const list = singleAxisByComponent.get(componentId) ?? [];
+  const list = variantsByComponent.get(componentId) ?? [];
   list.push(entry);
-  singleAxisByComponent.set(componentId, list);
+  variantsByComponent.set(componentId, list);
 };
 for (const preview of previews) {
   const catalog = preview.catalog;
@@ -97,24 +98,23 @@ for (const preview of previews) {
 
   if (catalog.role === "COMPONENT" && /_Light_VARIANT_/.test(preview.id)) {
     const seeds = preview.overrides?.seeds ?? [];
-    if (seeds.length === 1) {
-      add(catalog.componentId, { preview, seed: seeds[0], name: preview.overrides.name });
+    if (seeds.length) {
+      add(catalog.componentId, { preview, seeds, name: preview.overrides.name });
     }
   } else if (catalog.role === "VARIANT") {
     // `props` names the axis; `state` is the annotation's shorthand for the one
     // axis common enough to have its own parameter. Either is a declaration, so
     // neither is inferred — `@CatalogVariant(state = "disabled")` says the state
     // axis as plainly as `props = ["state=disabled"]` would.
-    const props = catalog.props?.length
-      ? catalog.props
-      : catalog.state
-        ? [{ key: "state", value: catalog.state }]
-        : [];
-    if (props.length === 1) {
+    const props = [...(catalog.props ?? [])];
+    if (catalog.state && !props.some((p) => p.key === "state")) {
+      props.push({ key: "state", value: catalog.state });
+    }
+    if (props.length) {
       add(catalog.componentId, {
         preview,
-        seed: { key: props[0].key, raw: props[0].value },
-        name: props[0].value,
+        seeds: props.map((p) => ({ key: p.key, raw: p.value })),
+        name: catalog.state ?? props.map((p) => p.value).join("-"),
       });
     }
   }
@@ -135,17 +135,20 @@ for (const preview of previews) {
   }
 
   // The base render is the untagged variant on both sides; each resolvable
-  // single-axis render is a tagged pair beside it. design-parity matches the
+  // variant render is a tagged pair beside it. design-parity matches the
   // two lists slot for slot (`refVariant` / `previewIdVariant`).
   const refs = [{ ref: catalog.reference }];
   const previewIds = [{ previewId: preview.id }];
+  const refOwners = new Map([[catalog.reference, "default"]]);
   const fileKey = catalog.reference.split(":")[1]?.split("/")[0];
-  for (const v of singleAxisByComponent.get(catalog.componentId) ?? []) {
-    const hit = resolveVariantRef(catalog.reference, v.seed);
+  for (const v of variantsByComponent.get(catalog.componentId) ?? []) {
+    const hit = resolveVariantRef(catalog.reference, v.seeds);
     if (!hit) {
-      const where = `${catalog.componentId} / ${v.name} (${v.seed.key}=${v.seed.raw})`;
-      const prop = propertyForSeed(catalog.reference, v.seed);
-      if (prop) {
+      const vector = v.seeds.map((seed) => `${seed.key}=${seed.raw}`).join(", ");
+      const where = `${catalog.componentId} / ${v.name} (${vector})`;
+      const props = v.seeds.map((seed) => propertyForSeed(catalog.reference, seed)).filter(Boolean);
+      if (props.length) {
+        const prop = props[0];
         const named = prop.properties
           .map((p) => `\`${p.name}\` (${p.type}, default ${JSON.stringify(p.default)})`)
           .join(", ");
@@ -158,8 +161,17 @@ for (const preview of previews) {
       }
       continue;
     }
-    const slot = slotFor(v.seed, v.name);
-    refs.push({ ref: `figma:${fileKey}/${hit.nodeId}`, ...slot });
+    const slot = slotFor(v.seeds, v.name);
+    const resolvedRef = `figma:${fileKey}/${hit.nodeId}`;
+    const previous = refOwners.get(resolvedRef);
+    if (previous) {
+      throw new Error(
+        `${catalog.componentId} maps both ${previous} and ${v.name} to ${resolvedRef}; ` +
+          `two distinct previews cannot be the same exact Figma variant`,
+      );
+    }
+    refOwners.set(resolvedRef, v.name);
+    refs.push({ ref: resolvedRef, ...slot });
     previewIds.push({ previewId: v.preview.id, ...slot });
   }
 
@@ -205,7 +217,7 @@ console.log(
 );
 if (propertyVariants.length) {
   console.log(
-    `\n${propertyVariants.length} single-axis variant(s) are a component PROPERTY in the kit, ` +
+    `\n${propertyVariants.length} variant(s) are a component PROPERTY in the kit, ` +
       `not a variant beside it. The kit models them; a node reference cannot ask for ` +
       `them, because a reference renders at the property defaults:`,
   );
@@ -213,7 +225,7 @@ if (propertyVariants.length) {
 }
 if (unresolvedVariants.length) {
   console.log(
-    `\n${unresolvedVariants.length} single-axis variant(s) have no counterpart in the kit ` +
+    `\n${unresolvedVariants.length} variant(s) have no counterpart in the kit ` +
       `— neither an axis nor a property, so they are left uncompared:`,
   );
   for (const v of unresolvedVariants.sort()) console.log(`  - ${v}`);

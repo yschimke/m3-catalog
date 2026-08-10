@@ -108,6 +108,9 @@ jobs:
         with:
           node-version: 24.18.1
 
+      - name: Test Figma variant resolution
+        run: node --test scripts/kit-variants.test.mjs
+
       # design-map.json is GENERATED from the @CatalogComponent(reference = …) annotations, but it
       # is also COMMITTED, because design-artifacts.yml reads the committed copy to publish design
       # references onto the delivery branch. That combination can drift: add a reference in Kotlin,

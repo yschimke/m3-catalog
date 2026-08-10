@@ -57,6 +57,9 @@ private fun RoleColumn(title: String, rows: List<Triple<String, Color, Color>>) 
 
 @CatalogComponent(
   id = "Color/AccentRoles",
+  noReference =
+    "the kit publishes tonal-palette specimen sheets and color variables, not an accent-role " +
+      "component; a node reference would compare two different specimen layouts",
   caption = "Primary, secondary and tertiary — each accent role with its `on` pair.",
 )
 @CatalogModes

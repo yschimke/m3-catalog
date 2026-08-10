@@ -85,13 +85,18 @@ const components = [];
 for (const page of inventory.pages ?? []) for (const c of page.components ?? []) components.push(c);
 
 // A referenced node is either one variant of a set — in which case the whole set
-// is the vocabulary for that component — or a standalone component, whose
-// siblings in its `Horizontal/…` folder play the same role.
+// is the vocabulary for that component — or a standalone component. Keep the
+// standalone itself unconditionally; when its name has a `Horizontal/…`-style
+// folder, its siblings form the variant vocabulary and are kept beside it.
 const keepSets = new Set();
 const keepFolders = new Set();
+const keepStandalone = new Set();
 for (const c of components) {
-  if (referenced.has(c.id) && c.name.includes("/")) {
-    keepFolders.add(c.name.slice(0, c.name.lastIndexOf("/")));
+  if (referenced.has(c.id)) {
+    keepStandalone.add(c.id);
+    if (c.name.includes("/")) {
+      keepFolders.add(c.name.slice(0, c.name.lastIndexOf("/")));
+    }
   }
   for (const v of c.children ?? []) if (referenced.has(v.id)) keepSets.add(c.id);
 }
@@ -102,7 +107,10 @@ for (const c of components) {
   if (keepSets.has(c.id)) {
     sets[c.id] = { name: c.name, variants: (c.children ?? []).map((v) => ({ id: v.id, name: v.name })) };
   }
-  if (c.name.includes("/") && keepFolders.has(c.name.slice(0, c.name.lastIndexOf("/")))) {
+  if (
+    keepStandalone.has(c.id) ||
+    (c.name.includes("/") && keepFolders.has(c.name.slice(0, c.name.lastIndexOf("/"))))
+  ) {
     standalone[c.id] = { name: c.name };
   }
 }

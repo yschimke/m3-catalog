@@ -37,7 +37,13 @@ private fun ShapeSpecimen(name: String, shape: Shape) {
   }
 }
 
-@CatalogComponent(id = "Shape/Scale", caption = "extraSmall 4dp through extraLarge 28dp.")
+@CatalogComponent(
+  id = "Shape/Scale",
+  noReference =
+    "the kit publishes Corner variables and a Shape Set specimen sheet, not a shape-scale " +
+      "component; a node reference would compare two different specimen layouts",
+  caption = "extraSmall 4dp through extraLarge 28dp.",
+)
 @CatalogModes
 @Composable
 fun ShapeScale() = Sticker {
