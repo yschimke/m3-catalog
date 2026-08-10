@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.filled.Stars
+import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.ElevatedToggleButton
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -17,7 +17,6 @@ import androidx.compose.material3.OutlinedToggleButton
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleButton
-import androidx.compose.material3.ToggleButtonDefaults
 import androidx.compose.material3.TonalToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -53,6 +52,18 @@ import org.jetbrains.compose.resources.stringResource
 // its sticker was authored in, so no unseeded render moves; the unsuffixed variant names are that
 // authored state, and the `-on` / `-off` ones name the state absolutely.
 
+@Composable
+private fun FigmaToggleButtonContent(selected: Boolean, label: String) {
+  val size = catalogButtonSize()
+  Icon(
+    if (selected) Icons.Filled.Stars else Icons.Outlined.Stars,
+    contentDescription = null,
+    modifier = Modifier.size(size.iconSize),
+  )
+  Spacer(Modifier.width(size.iconSpacing))
+  ProvideTextStyle(size.labelStyle) { Text(label) }
+}
+
 @CatalogComponent(
   id = "ToggleButton/Filled",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2475",
@@ -72,9 +83,10 @@ fun ToggleButtonSticker() = Sticker {
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
-    ProvideTextStyle(size.labelStyle) {
-      Text(stringResource(if (on) Res.string.label_on else Res.string.label_filled))
-    }
+    FigmaToggleButtonContent(
+      selected = on,
+      label = stringResource(if (on) Res.string.label_on else Res.string.label_filled),
+    )
   }
 }
 
@@ -97,9 +109,10 @@ fun TonalToggleButtonSticker() = Sticker {
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
-    ProvideTextStyle(size.labelStyle) {
-      Text(stringResource(if (on) Res.string.label_on else Res.string.label_tonal))
-    }
+    FigmaToggleButtonContent(
+      selected = on,
+      label = stringResource(if (on) Res.string.label_on else Res.string.label_tonal),
+    )
   }
 }
 
@@ -127,9 +140,10 @@ fun OutlinedToggleButtonSticker() = Sticker {
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
-    ProvideTextStyle(size.labelStyle) {
-      Text(stringResource(if (on) Res.string.label_on else Res.string.label_outlined))
-    }
+    FigmaToggleButtonContent(
+      selected = on,
+      label = stringResource(if (on) Res.string.label_on else Res.string.label_outlined),
+    )
   }
 }
 
@@ -152,9 +166,10 @@ fun ElevatedToggleButtonSticker() = Sticker {
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
-    ProvideTextStyle(size.labelStyle) {
-      Text(stringResource(if (on) Res.string.label_on else Res.string.label_elevated))
-    }
+    FigmaToggleButtonContent(
+      selected = on,
+      label = stringResource(if (on) Res.string.label_on else Res.string.label_elevated),
+    )
   }
 }
 
@@ -165,20 +180,14 @@ fun ElevatedToggleButtonSticker() = Sticker {
 
 @CatalogVariant(
   of = "ToggleButton/Filled",
-  props = ["content=icon+label"],
-  caption = "Leading icon + label; the glyph fills as the button is selected.",
+  props = ["content=label"],
+  caption = "Label only, vs the kit's icon + label default.",
 )
 @CatalogModes
 @Composable
-fun ToggleButtonIconLabel() = Sticker {
+fun ToggleButtonLabelOnly() = Sticker {
   val (on, set) = toggleable(true)
   ToggleButton(checked = on, onCheckedChange = set) {
-    Icon(
-      if (on) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-      contentDescription = null,
-      modifier = Modifier.size(ToggleButtonDefaults.IconSize),
-    )
-    Spacer(Modifier.width(ToggleButtonDefaults.IconSpacing))
     Text(stringResource(Res.string.label_favourite))
   }
 }

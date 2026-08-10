@@ -38,36 +38,42 @@ enum class CatalogSize(
   val containerHeight: Dp,
   val contentPadding: PaddingValues,
   val iconSize: Dp,
+  val iconSpacing: Dp,
 ) : CatalogKnob {
   ExtraSmall(
     "xs",
     ButtonDefaults.ExtraSmallContainerHeight,
     ButtonDefaults.ExtraSmallContentPadding,
     ButtonDefaults.ExtraSmallIconSize,
+    ButtonDefaults.ExtraSmallIconSpacing,
   ),
   Small(
     "s",
     ButtonDefaults.MinHeight,
     ButtonDefaults.SmallContentPadding,
     ButtonDefaults.SmallIconSize,
+    ButtonDefaults.IconSpacing,
   ),
   Medium(
     "m",
     ButtonDefaults.MediumContainerHeight,
     ButtonDefaults.MediumContentPadding,
     ButtonDefaults.MediumIconSize,
+    ButtonDefaults.MediumIconSpacing,
   ),
   Large(
     "l",
     ButtonDefaults.LargeContainerHeight,
     ButtonDefaults.LargeContentPadding,
     ButtonDefaults.LargeIconSize,
+    ButtonDefaults.LargeIconSpacing,
   ),
   ExtraLarge(
     "xl",
     ButtonDefaults.ExtraLargeContainerHeight,
     ButtonDefaults.ExtraLargeContentPadding,
     ButtonDefaults.ExtraLargeIconSize,
+    ButtonDefaults.ExtraLargeIconSpacing,
   );
 
   /**

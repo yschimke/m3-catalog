@@ -8,9 +8,8 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Stars
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledTonalButton
@@ -63,6 +62,14 @@ private fun SizedLabel(label: String) {
   ProvideTextStyle(catalogButtonSize().labelStyle) { Text(label) }
 }
 
+@Composable
+private fun FigmaButtonContent(label: String) {
+  val size = catalogButtonSize()
+  Icon(Icons.Filled.Stars, contentDescription = null, modifier = Modifier.size(size.iconSize))
+  Spacer(Modifier.width(size.iconSpacing))
+  SizedLabel(label)
+}
+
 @CatalogComponent(
   id = "Button/Filled",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2324",
@@ -81,7 +88,7 @@ fun FilledButton() = Sticker {
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
-    SizedLabel(c.label)
+    FigmaButtonContent(c.label)
   }
 }
 
@@ -103,7 +110,7 @@ fun TonalButton() = Sticker {
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
-    SizedLabel(c.label)
+    FigmaButtonContent(c.label)
   }
 }
 
@@ -125,7 +132,7 @@ fun OutlinedButtonSticker() = Sticker {
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
-    SizedLabel(c.label)
+    FigmaButtonContent(c.label)
   }
 }
 
@@ -147,7 +154,7 @@ fun ElevatedButtonSticker() = Sticker {
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
-    SizedLabel(c.label)
+    FigmaButtonContent(c.label)
   }
 }
 
@@ -169,7 +176,7 @@ fun TextButtonSticker() = Sticker {
     contentPadding = size.contentPadding,
     modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
   ) {
-    SizedLabel(c.label)
+    FigmaButtonContent(c.label)
   }
 }
 
@@ -177,20 +184,12 @@ fun TextButtonSticker() = Sticker {
 
 @CatalogVariant(
   of = "Button/Filled",
-  props = ["content=icon+label"],
-  caption = "Leading icon + label, vs the label-only default.",
+  props = ["content=label"],
+  caption = "Label only, vs the kit's icon + label default.",
 )
 @CatalogModes
 @Composable
-fun FilledButtonIconLabel() = Sticker {
+fun FilledButtonLabelOnly() = Sticker {
   val c = counted(stringResource(Res.string.label_filled))
-  Button(onClick = c.onClick, contentPadding = ButtonDefaults.ButtonWithIconContentPadding) {
-    Icon(
-      Icons.Filled.Add,
-      contentDescription = null,
-      modifier = Modifier.size(ButtonDefaults.IconSize),
-    )
-    Spacer(Modifier.width(ButtonDefaults.IconSpacing))
-    Text(c.label)
-  }
+  Button(onClick = c.onClick) { Text(c.label) }
 }

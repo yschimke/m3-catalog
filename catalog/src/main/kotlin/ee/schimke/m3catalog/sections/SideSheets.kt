@@ -16,12 +16,13 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CatalogComponent
@@ -52,39 +53,48 @@ import org.jetbrains.compose.resources.stringResource
 )
 @CatalogModes
 @OverrideVariant(name = "no-header", booleans = ["header=false"])
-@OverrideVariant(name = "footer", booleans = ["footer=true"])
-@OverrideVariant(name = "header-footer", booleans = ["footer=true"])
+@OverrideVariant(name = "no-footer", booleans = ["footer=false"])
+@OverrideVariant(name = "no-header-no-footer", booleans = ["header=false", "footer=false"])
 @Composable
 fun StandardSideSheet() = Sticker {
   val close = counted(stringResource(Res.string.action_close))
   val cancel = counted(stringResource(Res.string.action_cancel))
   val save = counted(stringResource(Res.string.action_save))
   Surface(
-    modifier = Modifier.width(256.dp).height(320.dp),
-    color = MaterialTheme.colorScheme.surfaceContainerLow,
-    shape = MaterialTheme.shapes.large,
+    modifier = Modifier.width(320.dp).height(700.dp),
+    color = MaterialTheme.colorScheme.surface,
+    shape = RectangleShape,
   ) {
-    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column {
       if (previewOverrideBoolean("header", true)) {
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Row(
+          Modifier.fillMaxWidth().padding(start = 24.dp, top = 12.dp, end = 12.dp, bottom = 16.dp),
+          verticalAlignment = Alignment.CenterVertically,
+        ) {
           Text(
             stringResource(Res.string.sheet_details),
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
           )
           Column(Modifier.weight(1f)) {}
           IconButton(onClick = close.onClick) {
             Icon(Icons.Filled.Close, contentDescription = close.label)
           }
         }
-        HorizontalDivider()
       }
-      Text(stringResource(Res.string.sheet_supporting), style = MaterialTheme.typography.bodyMedium)
-      if (previewOverrideBoolean("footer", false)) {
-        Column(Modifier.weight(1f)) {}
+      Text(
+        stringResource(Res.string.sheet_supporting),
+        modifier = Modifier.weight(1f).padding(horizontal = 24.dp),
+        style = MaterialTheme.typography.bodyMedium,
+      )
+      if (previewOverrideBoolean("footer", true)) {
         HorizontalDivider()
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-          TextButton(onClick = cancel.onClick) { Text(cancel.label) }
+        Row(
+          Modifier.fillMaxWidth().padding(start = 24.dp, top = 12.dp, end = 24.dp, bottom = 20.dp),
+          horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
           Button(onClick = save.onClick) { Text(save.label) }
+          OutlinedButton(onClick = cancel.onClick) { Text(cancel.label) }
         }
       }
     }
