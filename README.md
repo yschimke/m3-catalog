@@ -150,12 +150,12 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Light_VARIANT_xs_square.png" width="150" /> |
 | `ElevatedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedCardSticker_Dark.png" width="150" /> |
 | `ElevatedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedCardSticker_Dark_VARIANT_actions.png" width="150" /> |
-| `ElevatedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedCardSticker_Dark_VARIANT_media.png" width="150" /> |
 | `ElevatedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedCardSticker_Dark_VARIANT_media_actions.png" width="150" /> |
+| `ElevatedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedCardSticker_Dark_VARIANT_slot.png" width="150" /> |
 | `ElevatedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedCardSticker_Light.png" width="150" /> |
 | `ElevatedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedCardSticker_Light_VARIANT_actions.png" width="150" /> |
-| `ElevatedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedCardSticker_Light_VARIANT_media.png" width="150" /> |
 | `ElevatedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedCardSticker_Light_VARIANT_media_actions.png" width="150" /> |
+| `ElevatedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedCardSticker_Light_VARIANT_slot.png" width="150" /> |
 | `FilledCard` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledCard_Dark.png" width="150" /> |
 | `FilledCard` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledCard_Dark_VARIANT_actions.png" width="150" /> |
 | `FilledCard` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledCard_Dark_VARIANT_media.png" width="150" /> |
