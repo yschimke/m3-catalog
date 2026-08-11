@@ -3,17 +3,22 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -36,7 +41,7 @@ import ee.schimke.m3catalog.generated.resources.dialog_add_account
 import ee.schimke.m3catalog.generated.resources.dialog_backup_title
 import ee.schimke.m3catalog.generated.resources.dialog_delete_body
 import ee.schimke.m3catalog.generated.resources.dialog_delete_title
-import ee.schimke.m3catalog.selectable
+import ee.schimke.m3catalog.toggleable
 import org.jetbrains.compose.resources.stringResource
 
 // A dialog is hosted in its own platform window, which a single-surface capture cannot reach — so
@@ -113,34 +118,53 @@ fun BasicDialog() = Sticker {
 @CatalogModes
 @Composable
 fun ListDialog() = Sticker {
-  val (selected, select) = selectable(0)
-  DialogSurface {
-    Column(Modifier.padding(vertical = 24.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+  Surface(
+    modifier = Modifier.width(312.dp).height(434.dp),
+    shape = AlertDialogDefaults.shape,
+    color = AlertDialogDefaults.containerColor,
+    tonalElevation = AlertDialogDefaults.TonalElevation,
+  ) {
+    Column {
       Text(
         stringResource(Res.string.dialog_backup_title),
-        Modifier.padding(horizontal = 24.dp),
+        Modifier.padding(start = 24.dp, top = 24.dp, end = 24.dp),
         style = MaterialTheme.typography.headlineSmall,
         color = AlertDialogDefaults.titleContentColor,
       )
+      Spacer(Modifier.height(16.dp))
       Text(
         stringResource(Res.string.dialog_delete_body),
         Modifier.padding(horizontal = 24.dp),
         style = MaterialTheme.typography.bodyMedium,
         color = AlertDialogDefaults.textContentColor,
       )
+      Spacer(Modifier.height(27.dp))
       repeat(3) { i ->
-        ListItem(
-          headlineContent = { Text(stringResource(Res.string.dialog_add_account)) },
-          leadingContent = { Text("A") },
-          trailingContent = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-              Text("100+")
-              Checkbox(checked = i == selected, onCheckedChange = { if (it) select(i) })
-            }
-          },
-        )
+        val (checked, setChecked) = toggleable(true)
+        Row(
+          modifier = Modifier.fillMaxWidth().height(57.dp).padding(horizontal = 16.dp),
+          verticalAlignment = Alignment.CenterVertically,
+        ) {
+          Surface(
+            modifier = Modifier.size(40.dp),
+            shape = CircleShape,
+            color = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+          ) {
+            Box(contentAlignment = Alignment.Center) { Text("A") }
+          }
+          Spacer(Modifier.width(16.dp))
+          Text(stringResource(Res.string.dialog_add_account))
+          Spacer(Modifier.weight(1f))
+          Text("100+", style = MaterialTheme.typography.labelSmall)
+          Checkbox(checked = checked, onCheckedChange = setChecked)
+        }
+        if (i < 2) {
+          HorizontalDivider(Modifier.padding(horizontal = 16.dp))
+        }
       }
-      Row(Modifier.padding(horizontal = 24.dp)) {
+      Spacer(Modifier.height(15.dp))
+      Row(Modifier.padding(horizontal = 24.dp).height(48.dp)) {
         DialogActions(
           stringResource(Res.string.dialog_action_1),
           stringResource(Res.string.dialog_action_2),

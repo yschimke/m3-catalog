@@ -2,10 +2,15 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.ArrowRight
 import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
@@ -61,29 +66,40 @@ fun DropdownMenuSticker() = Sticker {
   val shortcuts = previewOverrideString("trailing", "chevron") == "shortcut"
   val dividers = previewOverrideString("dividers", "off") == "on"
   val disabledLast = previewOverrideString("status", "enabled") == "disabled"
-  Surface(
-    modifier = Modifier.width(220.dp),
-    shape = MaterialTheme.shapes.extraSmall,
-    color = MaterialTheme.colorScheme.surfaceContainer,
-    tonalElevation = 3.dp,
-    shadowElevation = 3.dp,
-  ) {
-    Column {
-      MENU_ROWS.forEachIndexed { index, row ->
-        // The kit groups destructive actions behind a divider, so the divider lands before the
-        // last row rather than between every pair.
-        if (dividers && index == MENU_ROWS.lastIndex) HorizontalDivider()
-        val c = counted(stringResource(row.label))
-        val enabled = !(disabledLast && index == MENU_ROWS.lastIndex)
-        DropdownMenuItem(
-          text = { Text(c.label) },
-          onClick = c.onClick,
-          enabled = enabled,
-          leadingIcon = if (!icons) null else ({ Icon(row.icon, contentDescription = null) }),
-          trailingIcon =
-            if (shortcuts) ({ Text(row.shortcut) })
-            else ({ Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null) }),
-        )
+  Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp)) {
+    Surface(
+      modifier = Modifier.width(208.dp).height(292.dp),
+      shape = RoundedCornerShape(16.dp),
+      color = MaterialTheme.colorScheme.surfaceContainer,
+      tonalElevation = 3.dp,
+      shadowElevation = 3.dp,
+    ) {
+      Column(Modifier.padding(vertical = 2.dp)) {
+        MENU_ROWS.forEachIndexed { index, row ->
+          // The kit groups destructive actions behind a divider, so the divider lands before the
+          // last row rather than between every pair.
+          if (dividers && index == MENU_ROWS.lastIndex) HorizontalDivider()
+          val c = counted(stringResource(row.label))
+          val enabled = !(disabledLast && index == MENU_ROWS.lastIndex)
+          DropdownMenuItem(
+            text = { Text(c.label) },
+            onClick = c.onClick,
+            enabled = enabled,
+            leadingIcon =
+              if (!icons) null
+              else ({ Icon(row.icon, contentDescription = null, modifier = Modifier.size(20.dp)) }),
+            trailingIcon =
+              if (shortcuts) ({ Text(row.shortcut) })
+              else
+                ({
+                  Icon(
+                    Icons.Filled.ArrowRight,
+                    contentDescription = null,
+                    modifier = Modifier.size(10.dp),
+                  )
+                }),
+          )
+        }
       }
     }
   }

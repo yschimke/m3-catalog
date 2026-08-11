@@ -98,7 +98,6 @@ class CatalogTranslationsTest {
       "field_email",
       "field_name",
       "label_account",
-      "label_mail",
       "label_on",
       "label_text",
       "label_tonal",

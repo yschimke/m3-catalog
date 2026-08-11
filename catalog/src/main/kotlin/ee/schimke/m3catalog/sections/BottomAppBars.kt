@@ -22,7 +22,7 @@ import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.CatalogModes412
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
@@ -39,7 +39,7 @@ import org.jetbrains.compose.resources.stringResource
   reference = "figma:ocdacdEsnHipMJD3egzxKb/51159:5115",
   caption = "Screen-level actions along the bottom. FAB and action count fold in.",
 )
-@CatalogModes
+@CatalogModes412
 @OverrideVariant(name = "no-fab", booleans = ["fab=false"])
 @OverrideVariant(name = "two-actions", strings = ["actions=2"])
 @OverrideVariant(name = "four-actions", strings = ["actions=4"])
@@ -52,7 +52,7 @@ fun BottomAppBarSticker() = Sticker {
   val add = counted(stringResource(Res.string.action_add))
   val count = previewOverrideString("actions", "3").toIntOrNull() ?: 3
   BottomAppBar(
-    modifier = Modifier.width(360.dp),
+    modifier = Modifier.width(412.dp),
     actions = {
       IconButton(onClick = check.onClick) {
         Icon(Icons.Filled.Search, contentDescription = check.label)

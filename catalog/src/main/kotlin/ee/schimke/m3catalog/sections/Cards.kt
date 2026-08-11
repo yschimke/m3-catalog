@@ -23,7 +23,8 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
-import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.CatalogModes360
+import ee.schimke.m3catalog.CatalogModes368
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogInteractive
 import ee.schimke.m3catalog.counted
@@ -47,6 +48,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 private fun CardBody(title: String) {
   val layout = previewOverrideString("layout", "slot")
+  if (layout == "slot") return
   val action = counted(stringResource(Res.string.action_action))
   val cancel = counted(stringResource(Res.string.action_cancel))
   Column {
@@ -74,7 +76,7 @@ private fun CardBody(title: String) {
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58710:12668",
   caption = "Default container for related content. Media and action layouts fold in.",
 )
-@CatalogModes
+@CatalogModes360
 @ee.schimke.composeai.preview.OverrideVariant(name = "media", strings = ["layout=media"])
 @ee.schimke.composeai.preview.OverrideVariant(name = "actions", strings = ["layout=actions"])
 @ee.schimke.composeai.preview.OverrideVariant(
@@ -85,9 +87,11 @@ private fun CardBody(title: String) {
 fun FilledCard() = Sticker {
   val c = counted(stringResource(Res.string.card_filled))
   if (catalogInteractive()) {
-    Card(onClick = c.onClick, modifier = Modifier.width(280.dp)) { CardBody(c.label) }
+    Card(onClick = c.onClick, modifier = Modifier.width(360.dp).height(480.dp)) {
+      CardBody(c.label)
+    }
   } else {
-    Card(Modifier.width(280.dp)) { CardBody(c.label) }
+    Card(Modifier.width(360.dp).height(480.dp)) { CardBody(c.label) }
   }
 }
 
@@ -96,7 +100,7 @@ fun FilledCard() = Sticker {
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58710:12665",
   caption = "Separated by shadow. Media and action layouts fold in.",
 )
-@CatalogModes
+@CatalogModes368
 @ee.schimke.composeai.preview.OverrideVariant(name = "media", strings = ["layout=media"])
 @ee.schimke.composeai.preview.OverrideVariant(name = "actions", strings = ["layout=actions"])
 @ee.schimke.composeai.preview.OverrideVariant(
@@ -106,10 +110,14 @@ fun FilledCard() = Sticker {
 @Composable
 fun ElevatedCardSticker() = Sticker {
   val c = counted(stringResource(Res.string.card_elevated))
-  if (catalogInteractive()) {
-    ElevatedCard(onClick = c.onClick, modifier = Modifier.width(280.dp)) { CardBody(c.label) }
-  } else {
-    ElevatedCard(Modifier.width(280.dp)) { CardBody(c.label) }
+  Box(Modifier.padding(4.dp)) {
+    if (catalogInteractive()) {
+      ElevatedCard(onClick = c.onClick, modifier = Modifier.width(360.dp).height(480.dp)) {
+        CardBody(c.label)
+      }
+    } else {
+      ElevatedCard(Modifier.width(360.dp).height(480.dp)) { CardBody(c.label) }
+    }
   }
 }
 
@@ -118,7 +126,7 @@ fun ElevatedCardSticker() = Sticker {
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58710:12662",
   caption = "Separated by outline. Media and action layouts fold in.",
 )
-@CatalogModes
+@CatalogModes360
 @ee.schimke.composeai.preview.OverrideVariant(name = "media", strings = ["layout=media"])
 @ee.schimke.composeai.preview.OverrideVariant(name = "actions", strings = ["layout=actions"])
 @ee.schimke.composeai.preview.OverrideVariant(
@@ -129,8 +137,10 @@ fun ElevatedCardSticker() = Sticker {
 fun OutlinedCardSticker() = Sticker {
   val c = counted(stringResource(Res.string.card_outlined))
   if (catalogInteractive()) {
-    OutlinedCard(onClick = c.onClick, modifier = Modifier.width(280.dp)) { CardBody(c.label) }
+    OutlinedCard(onClick = c.onClick, modifier = Modifier.width(360.dp).height(480.dp)) {
+      CardBody(c.label)
+    }
   } else {
-    OutlinedCard(Modifier.width(280.dp)) { CardBody(c.label) }
+    OutlinedCard(Modifier.width(360.dp).height(480.dp)) { CardBody(c.label) }
   }
 }

@@ -1,8 +1,6 @@
 package ee.schimke.m3catalog
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
@@ -10,7 +8,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.font.FontFamily
@@ -18,18 +15,18 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.platform.Font
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 
 /**
  * The sticker frame every component preview is wrapped in.
  *
  * Stock [MaterialTheme] over the kit's baseline scheme, so the `compose/theme` token set the
- * renderer extracts is the **real** Material 3 system rather than a bespoke palette. A uniform 16dp
- * [padding] frames each sticker so the sheet reads cleanly and the `compose/semantics-wireframe`
- * layout variant has breathing room around the component.
+ * renderer extracts is the **real** Material 3 system rather than a bespoke palette.
  *
  * The surface is deliberately [Color.Transparent]: a component sticker reads as a silhouette on the
  * viewer's backing, and `contentColor = onSurface` keeps text and icons themed against it. The
+ * render itself carries no decorative padding: its bounds must be the component's bounds so a
+ * resolution-free Figma reference is rasterised at the same density as the Compose candidate.
+ * Catalog presentation spacing belongs to the viewer, outside the parity image.
  */
 @Composable
 fun Sticker(content: @Composable () -> Unit) {
@@ -69,7 +66,7 @@ fun StickerFrame(
   CompositionLocalProvider(LocalGenericFonts provides CatalogGenericFonts) {
     MaterialTheme(colorScheme = colorScheme, typography = typography, shapes = shapes) {
       Surface(color = Color.Transparent, contentColor = MaterialTheme.colorScheme.onSurface) {
-        Box(Modifier.padding(16.dp)) { content() }
+        content()
       }
     }
   }
@@ -91,6 +88,51 @@ fun StickerFrame(
 @Preview(name = "Light", group = "modes")
 @Preview(name = "Dark", uiMode = 32, group = "modes")
 annotation class CatalogModes
+
+/** Light/dark modes with a 360dp viewport for kit components wider than the default harness. */
+@Preview(name = "Light", group = "modes", widthDp = 360)
+@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 360)
+annotation class CatalogModes360
+
+/** US-calendar light/dark modes for the Material kit's Sunday-first date-picker examples. */
+@Preview(name = "Light", group = "modes", widthDp = 360, locale = "en-US")
+@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 360, locale = "en-US")
+annotation class CatalogModes360Us
+
+/** Light/dark modes for the kit's 354dp slider track frame. */
+@Preview(name = "Light", group = "modes", widthDp = 354)
+@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 354)
+annotation class CatalogModes354
+
+/** Light/dark modes for a 344dp snackbar plus its 11dp shadow gutter. */
+@Preview(name = "Light", group = "modes", widthDp = 366)
+@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 366)
+annotation class CatalogModes366
+
+/** Light/dark modes for a 360dp container with the kit's 4dp shadow gutter. */
+@Preview(name = "Light", group = "modes", widthDp = 368)
+@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 368)
+annotation class CatalogModes368
+
+/** Light/dark modes for the 404dp expressive linear-progress frame. */
+@Preview(name = "Light", group = "modes", widthDp = 404)
+@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 404)
+annotation class CatalogModes404
+
+/** Light/dark modes for the 405dp standard linear-progress frame. */
+@Preview(name = "Light", group = "modes", widthDp = 405)
+@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 405)
+annotation class CatalogModes405
+
+/** Light/dark modes with the kit's standard 412dp compact-screen width. */
+@Preview(name = "Light", group = "modes", widthDp = 412)
+@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 412)
+annotation class CatalogModes412
+
+/** Light/dark modes for the modal-sheet kit frame, including its 40dp side gutters. */
+@Preview(name = "Light", group = "modes", widthDp = 492)
+@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 492)
+annotation class CatalogModes492
 
 /**
  * Window-size-class multipreview for the adaptive layouts the kit documents at three widths. The

@@ -16,6 +16,7 @@ import androidx.compose.material3.SplitButtonLayout
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
@@ -60,7 +61,7 @@ fun SplitButton() = Sticker {
   val size = catalogButtonSize()
   val colour = previewOverrideString("color", "filled")
   val label: @Composable RowScope.() -> Unit = {
-    Icon(Icons.Filled.Stars, contentDescription = null)
+    Icon(Icons.Filled.Stars, contentDescription = null, modifier = Modifier.size(20.dp))
     ProvideTextStyle(size.labelStyle) { Text(c.label) }
   }
   val chevron: @Composable RowScope.() -> Unit = {

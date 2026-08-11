@@ -6,6 +6,8 @@ package ee.schimke.m3catalog.sections
 import androidx.compose.material3.ContainedLoadingIndicator
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LoadingIndicator
+import androidx.compose.material3.MaterialShapes
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
@@ -23,7 +25,14 @@ import ee.schimke.m3catalog.Sticker
 )
 @CatalogModes
 @Composable
-fun LoadingIndicatorSticker() = Sticker { LoadingIndicator() }
+fun LoadingIndicatorSticker() = Sticker {
+  val kitShape = MaterialShapes.Burst
+  LoadingIndicator(
+    progress = { 1f },
+    color = MaterialTheme.colorScheme.primary,
+    polygons = listOf(kitShape, kitShape),
+  )
+}
 
 @CatalogComponent(
   id = "LoadingIndicator/Contained",
@@ -32,4 +41,11 @@ fun LoadingIndicatorSticker() = Sticker { LoadingIndicator() }
 )
 @CatalogModes
 @Composable
-fun ContainedLoadingIndicatorSticker() = Sticker { ContainedLoadingIndicator() }
+fun ContainedLoadingIndicatorSticker() = Sticker {
+  val kitShape = MaterialShapes.Burst
+  ContainedLoadingIndicator(
+    progress = { 1f },
+    indicatorColor = MaterialTheme.colorScheme.onPrimaryFixedVariant,
+    polygons = listOf(kitShape, kitShape),
+  )
+}

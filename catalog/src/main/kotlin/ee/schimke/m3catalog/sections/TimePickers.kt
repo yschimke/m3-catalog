@@ -46,7 +46,7 @@ import ee.schimke.m3catalog.generated.resources.time_enter
 import ee.schimke.m3catalog.generated.resources.time_select
 import org.jetbrains.compose.resources.stringResource
 
-// Pinned to 10:10 — the traditional watch-face time, and deterministic across renders.
+// Pinned to the kit's 20:00 example so the baked capture is deterministic across renders.
 //
 // The clock face and the keyboard entry form are two composables, so two components. Inside each,
 // the 12-hour / 24-hour axis is a state parameter; the dial additionally has the vertical and
@@ -114,7 +114,7 @@ fun TimePickerSticker() = Sticker {
       else Modifier.width(328.dp).height(520.dp),
   ) {
     TimePicker(
-      state = rememberTimePickerState(initialHour = 10, initialMinute = 10, is24Hour = is24Hour),
+      state = rememberTimePickerState(initialHour = 20, initialMinute = 0, is24Hour = is24Hour),
       layoutType =
         if (horizontal) TimePickerLayoutType.Horizontal else TimePickerLayoutType.Vertical,
     )
@@ -138,7 +138,7 @@ fun TimeInputSticker() = Sticker {
     modifier = Modifier.width(if (is24Hour) 264.dp else 328.dp).height(243.dp),
   ) {
     TimeInput(
-      state = rememberTimePickerState(initialHour = 10, initialMinute = 10, is24Hour = is24Hour)
+      state = rememberTimePickerState(initialHour = 20, initialMinute = 0, is24Hour = is24Hour)
     )
   }
 }

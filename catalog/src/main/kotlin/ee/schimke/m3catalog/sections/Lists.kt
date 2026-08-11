@@ -2,22 +2,30 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.ArrowRight
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
@@ -124,26 +132,41 @@ fun ListItemGroup() = Sticker { FigmaList() }
 
 @Composable
 private fun FigmaList() {
-  Column(Modifier.width(340.dp)) {
+  Column(Modifier.width(280.dp)) {
     repeat(6) { index ->
-      if (index > 0) HorizontalDivider()
-      ListItem(
-        headlineContent = { Text(stringResource(Res.string.list_item)) },
-        supportingContent = {
-          Text(
-            stringResource(
-              if (index == 1) Res.string.list_supporting_long else Res.string.list_supporting
+      Box(Modifier.fillMaxWidth().height(64.dp)) {
+        ListItem(
+          headlineContent = {
+            Text(stringResource(Res.string.list_item), modifier = Modifier.offset(x = (-6).dp))
+          },
+          supportingContent = {
+            Text(
+              stringResource(
+                if (index == 3) Res.string.list_supporting_long else Res.string.list_supporting
+              ),
+              modifier = Modifier.offset(x = (-6).dp),
+              maxLines = 1,
+              overflow = TextOverflow.Ellipsis,
             )
-          )
-        },
-        leadingContent = { Icon(Icons.Outlined.Stars, contentDescription = null) },
-        trailingContent = {
-          Row {
-            Text("⌘C")
-            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
-          }
-        },
-      )
+          },
+          leadingContent = {
+            Icon(Icons.Outlined.Stars, contentDescription = null, modifier = Modifier.size(20.dp))
+          },
+          trailingContent = {
+            Row(Modifier.offset(x = (-4).dp)) {
+              Text("⌘C")
+              Spacer(Modifier.width(12.dp))
+              Icon(
+                Icons.Filled.ArrowRight,
+                contentDescription = null,
+                modifier = Modifier.size(10.dp),
+              )
+            }
+          },
+          modifier = Modifier.height(64.dp),
+          colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+        )
+      }
     }
   }
 }

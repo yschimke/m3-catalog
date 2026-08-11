@@ -22,6 +22,7 @@ import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.CatalogModes354
 import ee.schimke.m3catalog.Sticker
 
 // `SliderState` / `RangeSliderState` are the state the component owns, so these stickers need no
@@ -45,7 +46,7 @@ private fun sliderEnabled(): Boolean = previewOverrideString("status", "enabled"
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58008:10357",
   caption = "Select a value from a range. Discrete stops, a centered track and disabled fold in.",
 )
-@CatalogModes
+@CatalogModes354
 @OverrideVariant(name = "discrete", strings = ["steps=discrete"])
 @OverrideVariant(name = "centered", strings = ["track=centered"])
 @OverrideVariant(name = "centered-discrete", strings = ["track=centered", "steps=discrete"])
@@ -61,7 +62,7 @@ fun ContinuousSlider() = Sticker {
   Slider(
     state = state,
     enabled = enabled,
-    modifier = Modifier.width(280.dp),
+    modifier = Modifier.width(354.dp).height(44.dp),
     track = { s ->
       if (centered) SliderDefaults.CenteredTrack(sliderState = s, enabled = enabled)
       else SliderDefaults.Track(sliderState = s, enabled = enabled)
@@ -74,7 +75,7 @@ fun ContinuousSlider() = Sticker {
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58008:11811",
   caption = "Two thumbs bounding a sub-range. Discrete stops and disabled fold in.",
 )
-@CatalogModes
+@CatalogModes354
 @OverrideVariant(name = "discrete", strings = ["steps=discrete"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @Composable
@@ -84,7 +85,11 @@ fun RangeSliderSticker() = Sticker {
     remember(steps) {
       RangeSliderState(activeRangeStart = 0.49f, activeRangeEnd = 0.51f, steps = steps)
     }
-  RangeSlider(state = state, enabled = sliderEnabled(), modifier = Modifier.width(280.dp))
+  RangeSlider(
+    state = state,
+    enabled = sliderEnabled(),
+    modifier = Modifier.width(354.dp).height(44.dp),
+  )
 }
 
 @CatalogComponent(
@@ -99,5 +104,10 @@ fun RangeSliderSticker() = Sticker {
 fun VerticalSliderSticker() = Sticker {
   val steps = sliderSteps()
   val state = remember(steps) { SliderState(value = 0.5f, steps = steps) }
-  VerticalSlider(state = state, enabled = sliderEnabled(), modifier = Modifier.height(220.dp))
+  VerticalSlider(
+    state = state,
+    enabled = sliderEnabled(),
+    reverseDirection = true,
+    modifier = Modifier.width(44.dp).height(354.dp),
+  )
 }

@@ -3,9 +3,13 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
@@ -24,7 +28,7 @@ import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.CatalogModes492
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_compose
@@ -37,20 +41,22 @@ import ee.schimke.m3catalog.generated.resources.sheet_share_to
 import org.jetbrains.compose.resources.stringResource
 
 // Like a dialog, a modal bottom sheet is hosted in its own window, so the sticker composes the
-// sheet CONTAINER itself — BottomSheetDefaults' expanded shape, container colour and real drag
-// handle. The published pixels are the component, minus the scrim and the window.
+// complete modal scene from BottomSheetDefaults: scrim, expanded container, elevation and drag
+// handle. The fixed scene matches the kit component's own published frame.
 //
 // The kit's axes: the drag handle, and an optional header line above the content.
 
 @Composable
 private fun SheetSurface(content: @Composable () -> Unit) {
-  Surface(
-    modifier = Modifier.width(360.dp),
-    shape = BottomSheetDefaults.ExpandedShape,
-    color = BottomSheetDefaults.ContainerColor,
-    tonalElevation = BottomSheetDefaults.Elevation,
-  ) {
-    content()
+  Box(Modifier.size(width = 492.dp, height = 794.dp).background(BottomSheetDefaults.ScrimColor)) {
+    Surface(
+      modifier = Modifier.align(Alignment.BottomCenter).width(412.dp).height(480.dp),
+      shape = BottomSheetDefaults.ExpandedShape,
+      color = BottomSheetDefaults.ContainerColor,
+      tonalElevation = BottomSheetDefaults.Elevation,
+    ) {
+      content()
+    }
   }
 }
 
@@ -93,7 +99,7 @@ private fun SheetBody() {
   reference = "figma:ocdacdEsnHipMJD3egzxKb/51827:5863",
   caption = "Secondary content anchored to the bottom. Handle and header fold in.",
 )
-@CatalogModes
+@CatalogModes492
 @OverrideVariant(name = "no-handle", booleans = ["handle=false"])
 @OverrideVariant(name = "content", booleans = ["content=true"])
 @OverrideVariant(name = "header", booleans = ["header=true", "content=true"])

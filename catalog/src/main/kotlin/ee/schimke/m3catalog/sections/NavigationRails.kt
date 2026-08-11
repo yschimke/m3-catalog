@@ -3,25 +3,35 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.MenuOpen
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Stars
 import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.WideNavigationRail
+import androidx.compose.material3.WideNavigationRailDefaults
 import androidx.compose.material3.WideNavigationRailItem
 import androidx.compose.material3.WideNavigationRailValue
 import androidx.compose.material3.rememberWideNavigationRailState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.overrides.previewOverrideString
@@ -34,6 +44,7 @@ import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_menu
 import ee.schimke.m3catalog.generated.resources.action_new
+import ee.schimke.m3catalog.generated.resources.label_text
 import ee.schimke.m3catalog.generated.resources.nav_home
 import ee.schimke.m3catalog.generated.resources.nav_saved
 import ee.schimke.m3catalog.generated.resources.nav_search
@@ -48,21 +59,51 @@ private val RAIL =
   listOf(Res.string.nav_home, Res.string.nav_search, Res.string.nav_you, Res.string.nav_saved)
 
 @Composable
-private fun RailHeaderContent() {
+private fun RailHeaderContent(wide: Boolean) {
   val menu = previewOverrideBoolean("menu", true)
   val fab = previewOverrideBoolean("fab", true)
   // Both tallies are read before the early return so the call sequence does not depend on the
   // knobs — the same reason `TopAppBars.NavIcon` resolves its tally ahead of the `nav` check.
   val menuClick = counted("menu")
   val fabClick = counted("new")
-  if (menu) {
-    IconButton(onClick = menuClick.onClick) {
-      Icon(Icons.Filled.Menu, contentDescription = stringResource(Res.string.action_menu))
+  Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    // WideNavigationRail already reserves the kit's 48 dp top inset for its header; the standard
+    // rail does not.
+    if (!wide) Spacer(Modifier.height(48.dp))
+    if (menu) {
+      IconButton(onClick = menuClick.onClick) {
+        Icon(
+          if (wide) Icons.AutoMirrored.Filled.MenuOpen else Icons.Filled.Menu,
+          contentDescription = stringResource(Res.string.action_menu),
+        )
+      }
     }
-  }
-  if (fab) {
-    FloatingActionButton(onClick = fabClick.onClick) {
-      Icon(Icons.Filled.Edit, contentDescription = stringResource(Res.string.action_new))
+    if (fab) {
+      if (menu) Spacer(Modifier.height(8.dp))
+      val elevation =
+        FloatingActionButtonDefaults.elevation(
+          defaultElevation = 0.dp,
+          pressedElevation = 0.dp,
+          focusedElevation = 0.dp,
+          hoveredElevation = 0.dp,
+        )
+      if (wide) {
+        ExtendedFloatingActionButton(
+          onClick = fabClick.onClick,
+          elevation = elevation,
+          icon = {
+            Icon(Icons.Filled.Edit, contentDescription = stringResource(Res.string.action_new))
+          },
+          text = { Text(stringResource(Res.string.label_text)) },
+        )
+      } else {
+        FloatingActionButton(onClick = fabClick.onClick, elevation = elevation) {
+          Icon(Icons.Filled.Edit, contentDescription = stringResource(Res.string.action_new))
+        }
+      }
+      // NavigationRail starts destinations immediately after its header, while WideNavigationRail
+      // supplies the 40 dp header-to-destination gap itself.
+      if (!wide) Spacer(Modifier.height(92.dp))
     }
   }
 }
@@ -83,19 +124,25 @@ fun NavigationRailSticker() = Sticker {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
   val labels = previewOverrideString("labels", "always")
   val (selected, select) = selectable(0)
-  NavigationRail(modifier = Modifier.height(320.dp), header = { RailHeaderContent() }) {
-    RAIL.take(count).forEachIndexed { index, label ->
-      NavigationRailItem(
-        selected = index == selected,
-        onClick = { select(index) },
-        icon = {
-          Icon(
-            if (index == selected) Icons.Filled.Stars else Icons.Outlined.Stars,
-            contentDescription = null,
-          )
-        },
-        label = if (labels == "none") null else ({ Text(stringResource(label)) }),
-      )
+  Box(Modifier.padding(horizontal = 8.dp)) {
+    NavigationRail(
+      modifier = Modifier.height(800.dp),
+      containerColor = Color.Transparent,
+      header = { RailHeaderContent(wide = false) },
+    ) {
+      RAIL.take(count).forEachIndexed { index, label ->
+        NavigationRailItem(
+          selected = index == selected,
+          onClick = { select(index) },
+          icon = {
+            Icon(
+              if (index == selected) Icons.Filled.Stars else Icons.Outlined.Stars,
+              contentDescription = null,
+            )
+          },
+          label = if (labels == "none") null else ({ Text(stringResource(label)) }),
+        )
+      }
     }
   }
 }
@@ -115,9 +162,10 @@ fun WideNavigationRailSticker() = Sticker {
   // and the rail owns it. Seeded Expanded so the baked capture shows the form this component is
   // for; the collapsed rail is `NavigationRail/Standard` above.
   WideNavigationRail(
-    modifier = Modifier.height(320.dp),
+    modifier = Modifier.height(800.dp),
     state = rememberWideNavigationRailState(WideNavigationRailValue.Expanded),
-    header = { RailHeaderContent() },
+    colors = WideNavigationRailDefaults.colors(containerColor = Color.Transparent),
+    header = { RailHeaderContent(wide = true) },
   ) {
     RAIL.take(count).forEachIndexed { index, label ->
       WideNavigationRailItem(

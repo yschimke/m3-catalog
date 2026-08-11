@@ -2,6 +2,10 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
@@ -10,12 +14,14 @@ import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.CatalogModes366
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
@@ -36,7 +42,7 @@ import org.jetbrains.compose.resources.stringResource
   reference = "figma:ocdacdEsnHipMJD3egzxKb/53977:33611",
   caption = "Brief message about a process. Two-line, action and close affordance fold in.",
 )
-@CatalogModes
+@CatalogModes366
 @OverrideVariant(name = "two-line", strings = ["lines=two"])
 @OverrideVariant(name = "action", strings = ["configuration=text+action"])
 @OverrideVariant(name = "close", booleans = ["close=true"])
@@ -55,20 +61,23 @@ fun SnackbarMessage() = Sticker {
   val undo = counted(stringResource(Res.string.action_undo))
   val dismiss = counted(stringResource(Res.string.action_dismiss))
   val long = previewOverrideString("lines", "one") == "two"
-  Snackbar(
-    action =
-      if (previewOverrideString("configuration", "text").startsWith("text+action")) {
-        { TextButton(onClick = undo.onClick) { Text(undo.label) } }
-      } else null,
-    dismissAction =
-      if (previewOverrideBoolean("close", false)) {
-        {
-          IconButton(onClick = dismiss.onClick) {
-            Icon(Icons.Filled.Close, contentDescription = dismiss.label)
+  Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp)) {
+    Snackbar(
+      modifier = Modifier.width(344.dp).height(if (long) 68.dp else 48.dp),
+      action =
+        if (previewOverrideString("configuration", "text").startsWith("text+action")) {
+          { TextButton(onClick = undo.onClick) { Text(undo.label) } }
+        } else null,
+      dismissAction =
+        if (previewOverrideBoolean("close", false)) {
+          {
+            IconButton(onClick = dismiss.onClick) {
+              Icon(Icons.Filled.Close, contentDescription = dismiss.label)
+            }
           }
-        }
-      } else null,
-  ) {
-    Text(stringResource(if (long) Res.string.snackbar_long else Res.string.snackbar_short))
+        } else null,
+    ) {
+      Text(stringResource(if (long) Res.string.snackbar_long else Res.string.snackbar_short))
+    }
   }
 }

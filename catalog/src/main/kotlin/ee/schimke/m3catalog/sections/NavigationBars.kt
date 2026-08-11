@@ -3,6 +3,7 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Stars
@@ -19,7 +20,7 @@ import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.CatalogModes412
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.nav_home
@@ -49,7 +50,7 @@ private val DESTINATIONS =
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:37260",
   caption = "The expressive compact bar. Count and labels fold in.",
 )
-@CatalogModes
+@CatalogModes412
 @OverrideVariant(name = "four", strings = ["count=4"])
 @OverrideVariant(name = "five", strings = ["count=5"])
 @OverrideVariant(name = "labels-none", strings = ["labels=none"])
@@ -58,7 +59,7 @@ fun ShortNavigationBarSticker() = Sticker {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
   val labels = previewOverrideString("labels", "always")
   val (selected, select) = selectable(0)
-  ShortNavigationBar(Modifier.width(360.dp)) {
+  ShortNavigationBar(Modifier.width(412.dp).height(64.dp)) {
     DESTINATIONS.take(count).forEachIndexed { index, label ->
       ShortNavigationBarItem(
         selected = index == selected,

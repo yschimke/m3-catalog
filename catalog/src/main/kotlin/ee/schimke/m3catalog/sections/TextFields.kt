@@ -3,6 +3,8 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
@@ -115,7 +117,7 @@ fun FilledTextField() = Sticker {
     leadingIcon = spec.leading,
     trailingIcon = spec.trailing,
     supportingText = spec.supporting,
-    modifier = Modifier.width(280.dp),
+    modifier = Modifier.width(210.dp),
   )
 }
 
@@ -137,16 +139,18 @@ fun FilledTextField() = Sticker {
 fun OutlinedTextFieldSticker() = Sticker {
   val spec = fieldSpec()
   val (text, set) = editable(spec.value)
-  OutlinedTextField(
-    value = text,
-    onValueChange = set,
-    enabled = spec.enabled,
-    isError = spec.isError,
-    label = spec.label,
-    placeholder = spec.placeholder,
-    leadingIcon = spec.leading,
-    trailingIcon = spec.trailing,
-    supportingText = spec.supporting,
-    modifier = Modifier.width(280.dp),
-  )
+  Box(Modifier.padding(top = 8.dp)) {
+    OutlinedTextField(
+      value = text,
+      onValueChange = set,
+      enabled = spec.enabled,
+      isError = spec.isError,
+      label = spec.label,
+      placeholder = spec.placeholder,
+      leadingIcon = spec.leading,
+      trailingIcon = spec.trailing,
+      supportingText = spec.supporting,
+      modifier = Modifier.width(210.dp),
+    )
+  }
 }

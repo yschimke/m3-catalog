@@ -74,7 +74,7 @@ fun HorizontalDividerSticker() = Sticker {
 @OverrideVariant(name = "context", booleans = ["context=true"])
 @Composable
 fun VerticalDividerSticker() = Sticker {
-  Row(Modifier.height(48.dp)) {
+  Row(Modifier.height(120.dp)) {
     if (previewOverrideBoolean("context", false)) {
       Text(stringResource(Res.string.divider_left), Modifier.padding(horizontal = 8.dp))
     }

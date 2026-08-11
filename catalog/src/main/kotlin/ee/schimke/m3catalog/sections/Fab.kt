@@ -3,6 +3,10 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Stars
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -18,7 +22,9 @@ import androidx.compose.material3.SmallExtendedFloatingActionButton
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
@@ -79,8 +85,14 @@ private fun catalogFabColor(): Color =
 @Composable
 fun Fab() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
-  FloatingActionButton(onClick = c.onClick, containerColor = catalogFabColor()) {
-    Icon(Icons.Filled.Stars, contentDescription = c.label)
+  Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp)) {
+    FloatingActionButton(onClick = c.onClick, containerColor = catalogFabColor()) {
+      Icon(
+        Icons.Filled.Stars,
+        contentDescription = c.label,
+        modifier = Modifier.width(20.dp).height(20.dp),
+      )
+    }
   }
 }
 
@@ -128,12 +140,21 @@ fun FabLarge() = Sticker {
 @Composable
 fun ExtendedFab() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
-  ExtendedFloatingActionButton(
-    onClick = c.onClick,
-    containerColor = catalogFabColor(),
-    icon = { Icon(Icons.Filled.Stars, contentDescription = null) },
-    text = { Text(c.label) },
-  )
+  Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp)) {
+    ExtendedFloatingActionButton(
+      onClick = c.onClick,
+      modifier = Modifier.width(104.dp).height(56.dp),
+      containerColor = catalogFabColor(),
+      icon = {
+        Icon(
+          Icons.Filled.Stars,
+          contentDescription = null,
+          modifier = Modifier.width(20.dp).height(20.dp),
+        )
+      },
+      text = { Text(c.label) },
+    )
+  }
 }
 
 @CatalogVariant(of = "Fab/Extended", props = ["size=small"])

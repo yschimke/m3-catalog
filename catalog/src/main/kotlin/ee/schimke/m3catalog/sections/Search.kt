@@ -3,11 +3,14 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -16,18 +19,17 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Interests
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.AppBarWithSearch
 import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
@@ -36,13 +38,15 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberSearchBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.CatalogModes360
+import ee.schimke.m3catalog.CatalogModes412
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.editable
@@ -119,7 +123,7 @@ private fun searchTrailing(): (@Composable () -> Unit)? =
   reference = "figma:ocdacdEsnHipMJD3egzxKb/52977:33948",
   caption = "The collapsed entry point, floating over content. Query and avatar states fold in.",
 )
-@CatalogModes
+@CatalogModes360
 @OverrideVariant(name = "query", strings = ["content=query"])
 @OverrideVariant(name = "avatar", strings = ["content=avatar"])
 @Composable
@@ -148,7 +152,7 @@ fun SearchBarSticker() = Sticker {
   caption =
     "The collapsed bar anchored in the layout rather than floating; expands into a dropdown.",
 )
-@CatalogModes
+@CatalogModes360
 @OverrideVariant(name = "query", strings = ["content=query"])
 @OverrideVariant(name = "avatar", strings = ["content=avatar"])
 @Composable
@@ -184,7 +188,7 @@ fun DockedSearchBarSticker() = Sticker {
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20571",
   caption = "A top app bar that carries a search field between its navigation icon and its actions.",
 )
-@CatalogModes
+@CatalogModes412
 @OverrideVariant(name = "query", strings = ["content=query"])
 @OverrideVariant(name = "avatar", strings = ["content=avatar"])
 @Composable
@@ -201,10 +205,10 @@ fun AppBarWithSearchSticker() = Sticker {
         onSearch = {},
         placeholder = { Text(stringResource(Res.string.search_app_hint)) },
         leadingIcon = null,
-        trailingIcon = searchTrailing(),
+        trailingIcon = null,
       )
     },
-    modifier = Modifier.width(400.dp),
+    modifier = Modifier.width(412.dp).height(64.dp),
     navigationIcon = {
       IconButton(onClick = menu.onClick) {
         Icon(Icons.Filled.Menu, contentDescription = stringResource(Res.string.action_menu))
@@ -213,7 +217,7 @@ fun AppBarWithSearchSticker() = Sticker {
     actions = {
       Surface(color = MaterialTheme.colorScheme.primaryContainer, shape = CircleShape) {
         Icon(
-          Icons.Filled.Person,
+          Icons.Filled.Interests,
           contentDescription = stringResource(Res.string.label_account),
           modifier = Modifier.padding(4.dp).size(22.dp),
         )
@@ -227,7 +231,7 @@ fun AppBarWithSearchSticker() = Sticker {
   reference = "figma:ocdacdEsnHipMJD3egzxKb/59178:4993",
   caption = "The docked search view: field plus suggestion list, in the dropdown's own shape.",
 )
-@CatalogModes
+@CatalogModes360
 @Composable
 fun ExpandedDockedSearchBarSticker() = Sticker {
   // `ExpandedDockedSearchBar` renders into a Popup, so the container is composed here from the same
@@ -238,11 +242,11 @@ fun ExpandedDockedSearchBarSticker() = Sticker {
     color = colors.containerColor,
     tonalElevation = SearchBarDefaults.TonalElevation,
     shadowElevation = SearchBarDefaults.ShadowElevation,
-    modifier = Modifier.width(360.dp),
+    modifier = Modifier.width(360.dp).height(250.dp),
   ) {
     Column {
-      ExpandedInputField()
-      SuggestionRows()
+      ExpandedInputField(fullScreen = false)
+      SuggestionRows(avatars = false)
     }
   }
 }
@@ -252,20 +256,19 @@ fun ExpandedDockedSearchBarSticker() = Sticker {
   reference = "figma:ocdacdEsnHipMJD3egzxKb/59178:4964",
   caption = "The full-screen search view, where results take the whole surface.",
 )
-@CatalogModes
+@CatalogModes412
 @Composable
 fun ExpandedFullScreenSearchBarSticker() = Sticker {
   // `ExpandedFullScreenSearchBar` renders into a Dialog; the container is composed from
   // `SearchBarDefaults.fullScreenShape` so the sticker shows the real surface, not a lookalike.
-  val colors = SearchBarDefaults.colors()
   Surface(
     shape = SearchBarDefaults.fullScreenShape,
-    color = colors.containerColor,
-    modifier = Modifier.width(360.dp).height(320.dp),
+    color = MaterialTheme.colorScheme.surface,
+    modifier = Modifier.width(412.dp).height(250.dp),
   ) {
     Column {
-      ExpandedInputField()
-      SuggestionRows()
+      ExpandedInputField(fullScreen = true)
+      Column(Modifier.offset(y = (-6).dp)) { SuggestionRows(avatars = true) }
     }
   }
 }
@@ -276,16 +279,24 @@ fun ExpandedFullScreenSearchBarSticker() = Sticker {
  * real expanded search bar does; the baked capture is frozen on the seed.
  */
 @Composable
-private fun ExpandedInputField() {
+private fun ExpandedInputField(fullScreen: Boolean) {
   val (query, setQuery) = editable(stringResource(Res.string.search_input_text))
   val back = counted("back")
+  val clear = counted("clear")
+  val microphone = counted("microphone")
   SearchBarDefaults.InputField(
     query = query,
     onQueryChange = setQuery,
     onSearch = {},
     expanded = true,
     onExpandedChange = {},
-    modifier = Modifier.fillMaxWidth(),
+    modifier =
+      if (fullScreen)
+        Modifier.fillMaxWidth()
+          .padding(horizontal = 12.dp, vertical = 4.dp)
+          .height(56.dp)
+          .background(MaterialTheme.colorScheme.surfaceContainerHigh, CircleShape)
+      else Modifier.fillMaxWidth(),
     leadingIcon = {
       IconButton(onClick = back.onClick) {
         Icon(
@@ -296,22 +307,60 @@ private fun ExpandedInputField() {
     },
     trailingIcon = {
       Row {
-        Icon(Icons.Filled.Close, contentDescription = stringResource(Res.string.action_clear))
-        Icon(Icons.Filled.Mic, contentDescription = null)
+        IconButton(onClick = clear.onClick) {
+          Icon(Icons.Filled.Close, contentDescription = stringResource(Res.string.action_clear))
+        }
+        if (!fullScreen) {
+          IconButton(onClick = microphone.onClick) {
+            Icon(Icons.Filled.Mic, contentDescription = null)
+          }
+        }
       }
     },
   )
 }
 
 @Composable
-private fun SuggestionRows() {
+private fun SuggestionRows(avatars: Boolean = false) {
   for (suggestion in SUGGESTIONS) {
     val row = counted(stringResource(suggestion))
-    ListItem(
-      headlineContent = { Text(row.label) },
-      supportingContent = { Text(stringResource(Res.string.list_supporting)) },
-      leadingContent = { Icon(Icons.Outlined.Stars, contentDescription = null) },
-      modifier = Modifier.fillMaxWidth().clickable(onClick = row.onClick),
-    )
+    Row(
+      modifier =
+        Modifier.fillMaxWidth()
+          .height(64.dp)
+          .clickable(onClick = row.onClick)
+          .padding(horizontal = if (avatars) 16.dp else 24.dp),
+      verticalAlignment = Alignment.CenterVertically,
+    ) {
+      if (avatars) {
+        Surface(
+          modifier = Modifier.size(40.dp),
+          shape = CircleShape,
+          color = MaterialTheme.colorScheme.primaryContainer,
+        ) {
+          Icon(
+            Icons.Filled.Interests,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.outlineVariant,
+            modifier = Modifier.padding(8.dp),
+          )
+        }
+        Spacer(Modifier.width(12.dp))
+      } else {
+        Icon(
+          Icons.Filled.Interests,
+          contentDescription = null,
+          tint = MaterialTheme.colorScheme.outlineVariant,
+        )
+        Spacer(Modifier.width(20.dp))
+      }
+      Column {
+        Text(row.label, style = MaterialTheme.typography.bodyLarge)
+        Text(
+          stringResource(Res.string.list_supporting),
+          style = MaterialTheme.typography.bodyMedium,
+        )
+      }
+    }
   }
 }

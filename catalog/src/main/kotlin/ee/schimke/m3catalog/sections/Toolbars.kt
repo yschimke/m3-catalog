@@ -3,6 +3,10 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Comment
 import androidx.compose.material.icons.filled.Download
@@ -12,8 +16,11 @@ import androidx.compose.material3.FloatingToolbarDefaults
 import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.VerticalFloatingToolbar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
@@ -40,13 +47,25 @@ private fun ToolbarActions() {
   val edit = counted(stringResource(Res.string.action_edit))
   val more = counted(stringResource(Res.string.action_more))
   IconButton(onClick = add.onClick) {
-    Icon(Icons.Filled.Share, contentDescription = stringResource(Res.string.action_add))
+    Icon(
+      Icons.Filled.Share,
+      contentDescription = stringResource(Res.string.action_add),
+      tint = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
   }
   IconButton(onClick = edit.onClick) {
-    Icon(Icons.Filled.Comment, contentDescription = stringResource(Res.string.action_edit))
+    Icon(
+      Icons.Filled.Comment,
+      contentDescription = stringResource(Res.string.action_edit),
+      tint = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
   }
   IconButton(onClick = more.onClick) {
-    Icon(Icons.Filled.Download, contentDescription = stringResource(Res.string.action_more))
+    Icon(
+      Icons.Filled.Download,
+      contentDescription = stringResource(Res.string.action_more),
+      tint = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
   }
 }
 
@@ -66,13 +85,16 @@ private fun ToolbarActions() {
 @Composable
 fun HorizontalFloatingToolbarSticker() = Sticker {
   val vibrant = previewOverrideString("color", "standard") == "vibrant"
-  HorizontalFloatingToolbar(
-    expanded = previewOverrideBoolean("expanded", true),
-    colors =
-      if (vibrant) FloatingToolbarDefaults.vibrantFloatingToolbarColors()
-      else FloatingToolbarDefaults.standardFloatingToolbarColors(),
-  ) {
-    ToolbarActions()
+  Box(Modifier.padding(11.dp)) {
+    HorizontalFloatingToolbar(
+      modifier = Modifier.width(168.dp),
+      expanded = previewOverrideBoolean("expanded", true),
+      colors =
+        if (vibrant) FloatingToolbarDefaults.vibrantFloatingToolbarColors()
+        else FloatingToolbarDefaults.standardFloatingToolbarColors(),
+    ) {
+      ToolbarActions()
+    }
   }
 }
 
@@ -87,12 +109,15 @@ fun HorizontalFloatingToolbarSticker() = Sticker {
 @Composable
 fun VerticalFloatingToolbarSticker() = Sticker {
   val vibrant = previewOverrideString("color", "standard") == "vibrant"
-  VerticalFloatingToolbar(
-    expanded = previewOverrideBoolean("expanded", true),
-    colors =
-      if (vibrant) FloatingToolbarDefaults.vibrantFloatingToolbarColors()
-      else FloatingToolbarDefaults.standardFloatingToolbarColors(),
-  ) {
-    ToolbarActions()
+  Box(Modifier.padding(11.dp)) {
+    VerticalFloatingToolbar(
+      modifier = Modifier.height(168.dp),
+      expanded = previewOverrideBoolean("expanded", true),
+      colors =
+        if (vibrant) FloatingToolbarDefaults.vibrantFloatingToolbarColors()
+        else FloatingToolbarDefaults.standardFloatingToolbarColors(),
+    ) {
+      ToolbarActions()
+    }
   }
 }

@@ -3,8 +3,10 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -19,11 +21,14 @@ import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.CatalogSize
 import ee.schimke.m3catalog.SizeShapeMatrix
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonShape
@@ -70,6 +75,16 @@ private fun FigmaButtonContent(label: String) {
   SizedLabel(label)
 }
 
+@Composable
+private fun ButtonFrame(size: CatalogSize, content: @Composable () -> Unit) {
+  Box(
+    modifier = Modifier.height(if (size == CatalogSize.Small) 48.dp else size.containerHeight),
+    contentAlignment = Alignment.Center,
+  ) {
+    content()
+  }
+}
+
 @CatalogComponent(
   id = "Button/Filled",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2324",
@@ -81,14 +96,16 @@ private fun FigmaButtonContent(label: String) {
 fun FilledButton() = Sticker {
   val c = counted(stringResource(Res.string.label_filled))
   val size = catalogButtonSize()
-  Button(
-    onClick = c.onClick,
-    enabled = catalogEnabled(),
-    shape = catalogButtonShape(),
-    contentPadding = size.contentPadding,
-    modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
-  ) {
-    FigmaButtonContent(c.label)
+  ButtonFrame(size) {
+    Button(
+      onClick = c.onClick,
+      enabled = catalogEnabled(),
+      shape = catalogButtonShape(),
+      contentPadding = size.contentPadding,
+      modifier = Modifier.height(size.containerHeight),
+    ) {
+      FigmaButtonContent(c.label)
+    }
   }
 }
 
@@ -103,14 +120,16 @@ fun FilledButton() = Sticker {
 fun TonalButton() = Sticker {
   val c = counted(stringResource(Res.string.label_tonal))
   val size = catalogButtonSize()
-  FilledTonalButton(
-    onClick = c.onClick,
-    enabled = catalogEnabled(),
-    shape = catalogButtonShape(),
-    contentPadding = size.contentPadding,
-    modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
-  ) {
-    FigmaButtonContent(c.label)
+  ButtonFrame(size) {
+    FilledTonalButton(
+      onClick = c.onClick,
+      enabled = catalogEnabled(),
+      shape = catalogButtonShape(),
+      contentPadding = size.contentPadding,
+      modifier = Modifier.height(size.containerHeight),
+    ) {
+      FigmaButtonContent(c.label)
+    }
   }
 }
 
@@ -125,14 +144,16 @@ fun TonalButton() = Sticker {
 fun OutlinedButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_outlined))
   val size = catalogButtonSize()
-  OutlinedButton(
-    onClick = c.onClick,
-    enabled = catalogEnabled(),
-    shape = catalogButtonShape(),
-    contentPadding = size.contentPadding,
-    modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
-  ) {
-    FigmaButtonContent(c.label)
+  ButtonFrame(size) {
+    OutlinedButton(
+      onClick = c.onClick,
+      enabled = catalogEnabled(),
+      shape = catalogButtonShape(),
+      contentPadding = size.contentPadding,
+      modifier = Modifier.height(size.containerHeight),
+    ) {
+      FigmaButtonContent(c.label)
+    }
   }
 }
 
@@ -147,14 +168,16 @@ fun OutlinedButtonSticker() = Sticker {
 fun ElevatedButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_elevated))
   val size = catalogButtonSize()
-  ElevatedButton(
-    onClick = c.onClick,
-    enabled = catalogEnabled(),
-    shape = catalogButtonShape(),
-    contentPadding = size.contentPadding,
-    modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
-  ) {
-    FigmaButtonContent(c.label)
+  Box(Modifier.padding(start = 4.dp, top = 4.dp, end = 4.dp, bottom = 5.dp)) {
+    ElevatedButton(
+      onClick = c.onClick,
+      enabled = catalogEnabled(),
+      shape = catalogButtonShape(),
+      contentPadding = size.contentPadding,
+      modifier = Modifier.height(size.containerHeight),
+    ) {
+      FigmaButtonContent(c.label)
+    }
   }
 }
 
@@ -169,14 +192,16 @@ fun ElevatedButtonSticker() = Sticker {
 fun TextButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
   val size = catalogButtonSize()
-  TextButton(
-    onClick = c.onClick,
-    enabled = catalogEnabled(),
-    shape = catalogButtonShape(),
-    contentPadding = size.contentPadding,
-    modifier = Modifier.defaultMinSize(minHeight = size.containerHeight),
-  ) {
-    FigmaButtonContent(c.label)
+  ButtonFrame(size) {
+    TextButton(
+      onClick = c.onClick,
+      enabled = catalogEnabled(),
+      shape = catalogButtonShape(),
+      contentPadding = size.contentPadding,
+      modifier = Modifier.height(size.containerHeight),
+    ) {
+      FigmaButtonContent(c.label)
+    }
   }
 }
 

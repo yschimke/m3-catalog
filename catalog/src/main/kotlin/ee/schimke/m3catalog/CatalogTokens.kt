@@ -36,15 +36,14 @@ val BaselineLight: ColorScheme = lightColorScheme()
 val BaselineDark: ColorScheme = darkColorScheme()
 
 /**
- * The M3 type scale on **Roboto Flex** — the catalog default, and the variable evolution of the
- * `Roboto` the kit's `Static.<style>.Font` variables name.
+ * The M3 type scale on **static Roboto** — the face the Figma kit's text styles are authored in.
  */
-@TypographyCatalog(name = "Roboto Flex", group = "Typeface")
-val CatalogTypography: Typography = typographyOn(RobotoFlex)
-
-/** The same scale on **static Roboto**, the face the Figma kit's text styles are authored in. */
 @TypographyCatalog(name = "Roboto", group = "Typeface")
-val RobotoTypography: Typography = typographyOn(Roboto)
+val CatalogTypography: Typography = typographyOn(Roboto)
+
+/** The same scale on **Roboto Flex**, offered as an alternate variable typeface. */
+@TypographyCatalog(name = "Roboto Flex", group = "Typeface")
+val RobotoFlexTypography: Typography = typographyOn(RobotoFlex)
 
 /**
  * The stock Material 3 shape scale (`extraSmall` 4dp … `extraLarge` 28dp) — matching the kit's

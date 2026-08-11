@@ -4,6 +4,7 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -81,12 +82,13 @@ private fun SegmentContent(label: String, checked: Boolean) {
 fun SegmentedButtons() = Sticker {
   val count = segmentCount()
   val (selected, select) = selectable(0)
-  SingleChoiceSegmentedButtonRow {
+  SingleChoiceSegmentedButtonRow(Modifier.width(310.dp).height(40.dp)) {
     LABELS.take(count).forEachIndexed { index, label ->
       SegmentedButton(
         selected = index == selected,
         onClick = { select(index) },
         shape = SegmentedButtonDefaults.itemShape(index = index, count = count),
+        modifier = Modifier.weight(1f),
       ) {
         SegmentContent(stringResource(label), index == selected)
       }
@@ -112,13 +114,14 @@ fun MultiChoiceSegmentedButtons() = Sticker {
   // later segments to `false` behind a handler that dropped the click, so the `count-4` / `count-5`
   // variants published segments the live lane could not move.
   val (checkedSegments, setChecked) = multiSelectable(setOf(0))
-  MultiChoiceSegmentedButtonRow {
+  MultiChoiceSegmentedButtonRow(Modifier.width(310.dp).height(40.dp)) {
     LABELS.take(count).forEachIndexed { index, label ->
       val checked = index in checkedSegments
       SegmentedButton(
         checked = checked,
         onCheckedChange = { setChecked(index, it) },
         shape = SegmentedButtonDefaults.itemShape(index = index, count = count),
+        modifier = Modifier.weight(1f),
       ) {
         SegmentContent(stringResource(label), checked)
       }

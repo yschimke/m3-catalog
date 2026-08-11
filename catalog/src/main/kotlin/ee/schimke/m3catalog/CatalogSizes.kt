@@ -3,6 +3,7 @@
 package ee.schimke.m3catalog
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.IconButtonDefaults
@@ -15,6 +16,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
 
 /**
@@ -49,7 +51,7 @@ enum class CatalogSize(
   ),
   Small(
     "s",
-    ButtonDefaults.MinHeight,
+    40.dp,
     ButtonDefaults.SmallContentPadding,
     ButtonDefaults.SmallIconSize,
     ButtonDefaults.IconSpacing,
@@ -107,14 +109,13 @@ enum class CatalogSize(
 /**
  * The shape this sticker should render in: the `shape` knob, `round` (the default) or `square`.
  *
- * Both come from `ButtonDefaults` rather than from hand-written corner radii. The library is the
- * authority for the code side of a code-led catalog, and design-parity is what reports a divergence
- * from the kit — inventing radii here would launder a guess into something that looks measured.
+ * The round default is a full pill at every size, as the kit's measured button frames specify.
+ * Square variants continue to use the library's expressive shape token.
  */
 @Composable
 fun catalogButtonShape(): Shape =
   when (CatalogShape.Axis.current()) {
-    CatalogShape.Round -> ButtonDefaults.shape
+    CatalogShape.Round -> RoundedCornerShape(percent = 50)
     CatalogShape.Square -> ButtonDefaults.squareShape
   }
 
