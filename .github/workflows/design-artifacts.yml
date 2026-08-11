@@ -62,10 +62,6 @@ jobs:
       # breaks preview discovery outright.
       cli-version: catalog
       catalog-key: composePreviewPlugin
-      # The kit's component-definition sheets place their components over a shared backdrop.
-      # Include overlapping layers in the Figma export so the published Spec lane carries that
-      # authored context instead of a transparent component silhouette.
-      figma-contents-only: false
       # A CMP desktop (Skiko) module, so the render runs on the desktop backend.
       desktop-render: true
       # Carry the executable bundle and split it per preview, so preview.coo.ee

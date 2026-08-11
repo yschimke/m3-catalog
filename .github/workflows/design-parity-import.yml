@@ -32,9 +32,6 @@ jobs:
       design-map-command: >
         ./gradlew :catalog:composePreviewDiscover --stacktrace &&
         node scripts/generate-design-map.mjs
-      # Component nodes are transparent on the definition sheet; import the overlapping kit
-      # backdrop so cached parity references retain the authored visual context.
-      figma-contents-only: false
       timeout-minutes: 90
     secrets:
       figma-token: ${{ secrets.FIGMA_TOKEN }}
