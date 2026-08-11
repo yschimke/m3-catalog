@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.platform.Font
 import androidx.compose.ui.tooling.preview.Preview
 
@@ -59,7 +60,7 @@ val LocalCatalogScheme = androidx.compose.runtime.staticCompositionLocalOf<Color
 @Composable
 fun StickerFrame(
   colorScheme: ColorScheme,
-  typography: Typography = CatalogTypography,
+  typography: Typography = catalogTypographyFor(Locale.current),
   shapes: Shapes = CatalogShapes,
   content: @Composable () -> Unit,
 ) {
@@ -177,6 +178,66 @@ val Roboto: FontFamily =
     Font("Roboto-Regular", fontBytes("Roboto-Regular.ttf"), FontWeight.Normal, FontStyle.Normal),
     Font("Roboto-Medium", fontBytes("Roboto-Medium.ttf"), FontWeight.Medium, FontStyle.Normal),
   )
+
+// Roboto and Roboto Flex deliberately cover the Latin/Greek/Cyrillic scripts they were designed
+// for; neither is a pan-Unicode font. These OFL-licensed Noto faces travel inside the executable
+// bundle so translated live renders do not depend on the preview host's fontconfig installation.
+// CJK uses region-specific regular OTFs: unified code points can have different preferred glyph
+// forms in Japanese, Korean, Simplified Chinese and Traditional Chinese.
+private val NotoSansArabic: FontFamily by lazy { bundledFamily("NotoSansArabic.ttf") }
+private val NotoSansDevanagari: FontFamily by lazy { bundledFamily("NotoSansDevanagari.ttf") }
+private val NotoSansThai: FontFamily by lazy { bundledFamily("NotoSansThai.ttf") }
+private val NotoSansJapanese: FontFamily by lazy { bundledFamily("NotoSansJP-Regular.otf") }
+private val NotoSansKorean: FontFamily by lazy { bundledFamily("NotoSansKR-Regular.otf") }
+private val NotoSansSimplifiedChinese: FontFamily by lazy {
+  bundledFamily("NotoSansSC-Regular.otf")
+}
+private val NotoSansTraditionalChinese: FontFamily by lazy {
+  bundledFamily("NotoSansTC-Regular.otf")
+}
+
+private fun bundledFamily(name: String): FontFamily =
+  FontFamily(
+    Font(name.substringBeforeLast('.'), fontBytes(name), FontWeight.Normal, FontStyle.Normal)
+  )
+
+/**
+ * The baseline M3 type scale with a deterministic Noto face for locales Roboto cannot render.
+ *
+ * `zh-Hant` chooses the Traditional Chinese face even without a region. Hong Kong and Macau also
+ * use it as the nearest bundled traditional-glyph form; the catalog's published Chinese locales
+ * remain the exact `zh-CN` and `zh-TW` pair.
+ */
+internal fun catalogTypographyFor(locale: Locale): Typography =
+  when (catalogFontResourceFor(locale)) {
+    "NotoSansArabic.ttf" -> typographyOn(NotoSansArabic)
+    "NotoSansDevanagari.ttf" -> typographyOn(NotoSansDevanagari)
+    "NotoSansThai.ttf" -> typographyOn(NotoSansThai)
+    "NotoSansJP-Regular.otf" -> typographyOn(NotoSansJapanese)
+    "NotoSansKR-Regular.otf" -> typographyOn(NotoSansKorean)
+    "NotoSansSC-Regular.otf" -> typographyOn(NotoSansSimplifiedChinese)
+    "NotoSansTC-Regular.otf" -> typographyOn(NotoSansTraditionalChinese)
+    else -> CatalogTypography
+  }
+
+/** The bundled face selected for [locale], exposed separately so coverage tests need no render. */
+internal fun catalogFontResourceFor(locale: Locale): String? =
+  when (locale.language) {
+    "ar" -> "NotoSansArabic.ttf"
+    "hi" -> "NotoSansDevanagari.ttf"
+    "th" -> "NotoSansThai.ttf"
+    "ja" -> "NotoSansJP-Regular.otf"
+    "ko" -> "NotoSansKR-Regular.otf"
+    "zh" ->
+      if (
+        locale.script.equals("Hant", ignoreCase = true) || locale.region in setOf("TW", "HK", "MO")
+      ) {
+        "NotoSansTC-Regular.otf"
+      } else {
+        "NotoSansSC-Regular.otf"
+      }
+    else -> null
+  }
 
 /**
  * Generic-family substitutes keyed by the name a component looks up, so a sticker that asks for

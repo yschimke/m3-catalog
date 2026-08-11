@@ -160,6 +160,11 @@ The desktop renderer applies the tag twice, and both halves matter: the composit
 `stringResource(...)` actually reads on Skiko). One override therefore moves the copy *and* the
 layout together.
 
+The typeface moves with the locale too. Roboto covers the Latin, Greek and Cyrillic translations;
+Arabic, Devanagari, Thai, Japanese, Korean and the two Chinese regions select OFL-licensed Noto Sans
+faces vendored in the executable bundle. Local, CI and live-server renders therefore use the same
+script coverage without downloading Google Fonts or depending on the host's fontconfig fallbacks.
+
 What stays a Kotlin literal, deliberately: design-system token names (`primary`, `Display Large`,
 `XS`) — they are API identifiers, not copy — and sample data that isn't language (`10:30`,
 `alice@example.com`, `⌘E`). `CatalogTranslationsTest` pins the translations: every locale carries
