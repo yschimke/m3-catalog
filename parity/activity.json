@@ -1,11 +1,31 @@
 {
   "schema": "compose-preview-activity/v1",
-  "generatedAt": "2026-08-11T17:26:37.854Z",
+  "generatedAt": "2026-08-11T19:38:25.979Z",
   "windowDays": 30,
   "code": {
     "repo": "yschimke/m3-catalog",
     "ref": "main",
     "events": [
+      {
+        "sha": "f2651fa9b3e22aaf6e18fe6f8c470146fb23c24b",
+        "subject": "fix: make picker defaults overridable",
+        "at": "2026-08-11T20:13:55+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [
+          "datepicker-modal__ideal__default__light__compact",
+          "datepicker-range__ideal__default__light__compact",
+          "timepicker-input__ideal__default__light",
+          "timepicker-input__ideal__12-hour",
+          "timepicker-dial__ideal__default__light",
+          "timepicker-dial__ideal__12-hour"
+        ],
+        "components": [
+          "DatePicker/Modal",
+          "DatePicker/Range",
+          "TimePicker/Input",
+          "TimePicker/Dial"
+        ]
+      },
       {
         "sha": "88c725101a4a1767033ede573ae4d4e978e14da1",
         "subject": "fix: align catalog previews with design kit",
@@ -3916,76 +3936,6 @@
           "IconButton/Outlined",
           "IconButton/Standard",
           "IconButton/Tonal"
-        ]
-      },
-      {
-        "sha": "870bf246f5fd5359e436da7e8804ac45ca848c91",
-        "subject": "feat: fan the buttons out over the full expressive size and shape matrix",
-        "at": "2026-08-07T09:37:31Z",
-        "author": "Yuri Schimke",
-        "previewIds": [
-          "button-elevated__ideal__default__light",
-          "button-elevated__ideal__disabled",
-          "button-elevated__ideal__l",
-          "button-elevated__ideal__l-square",
-          "button-elevated__ideal__m",
-          "button-elevated__ideal__m-square",
-          "button-elevated__ideal__s-square",
-          "button-elevated__ideal__xl",
-          "button-elevated__ideal__xl-square",
-          "button-elevated__ideal__xs",
-          "button-elevated__ideal__xs-square",
-          "button-filled__ideal__default__light",
-          "button-filled__ideal__disabled",
-          "button-filled__ideal__l",
-          "button-filled__ideal__l-square",
-          "button-filled__ideal__m",
-          "button-filled__ideal__m-square",
-          "button-filled__ideal__s-square",
-          "button-filled__ideal__xl",
-          "button-filled__ideal__xl-square",
-          "button-filled__ideal__xs",
-          "button-filled__ideal__xs-square",
-          "button-outlined__ideal__default__light",
-          "button-outlined__ideal__disabled",
-          "button-outlined__ideal__l",
-          "button-outlined__ideal__l-square",
-          "button-outlined__ideal__m",
-          "button-outlined__ideal__m-square",
-          "button-outlined__ideal__s-square",
-          "button-outlined__ideal__xl",
-          "button-outlined__ideal__xl-square",
-          "button-outlined__ideal__xs",
-          "button-outlined__ideal__xs-square",
-          "button-text__ideal__default__light",
-          "button-text__ideal__disabled",
-          "button-text__ideal__l",
-          "button-text__ideal__l-square",
-          "button-text__ideal__m",
-          "button-text__ideal__m-square",
-          "button-text__ideal__s-square",
-          "button-text__ideal__xl",
-          "button-text__ideal__xl-square",
-          "button-text__ideal__xs",
-          "button-text__ideal__xs-square",
-          "button-tonal__ideal__default__light",
-          "button-tonal__ideal__disabled",
-          "button-tonal__ideal__l",
-          "button-tonal__ideal__l-square",
-          "button-tonal__ideal__m",
-          "button-tonal__ideal__m-square",
-          "button-tonal__ideal__s-square",
-          "button-tonal__ideal__xl",
-          "button-tonal__ideal__xl-square",
-          "button-tonal__ideal__xs",
-          "button-tonal__ideal__xs-square"
-        ],
-        "components": [
-          "Button/Elevated",
-          "Button/Filled",
-          "Button/Outlined",
-          "Button/Text",
-          "Button/Tonal"
         ]
       }
     ]
