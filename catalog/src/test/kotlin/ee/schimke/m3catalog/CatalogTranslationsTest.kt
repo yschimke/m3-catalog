@@ -103,7 +103,6 @@ class CatalogTranslationsTest {
       "label_text",
       "label_tonal",
       "list_overline",
-      "menu_size_label",
       "nav_home",
       "nav_search",
       "search_suggestion_symbols",

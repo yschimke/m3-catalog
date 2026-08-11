@@ -1,4 +1,4 @@
-// `:catalog` — the Material 3 Design Kit rebuilt as code-led `@Preview`s.
+// `:catalog` — the Material 3 Design Kit rebuilt as design-led `@Preview`s.
 //
 // A Compose **Multiplatform (desktop)** module, deliberately not Android: it
 // applies `org.jetbrains.compose` with no AGP plugin, so the compose-preview

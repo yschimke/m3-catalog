@@ -10,12 +10,8 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.ShortNavigationBar
 import androidx.compose.material3.ShortNavigationBarItem
 import androidx.compose.material3.Text
@@ -23,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
@@ -53,45 +48,6 @@ private val DESTINATIONS: List<Pair<StringResource, ImageVector>> =
     Res.string.nav_saved to Icons.Filled.Favorite,
     Res.string.nav_settings to Icons.Filled.Settings,
   )
-
-@CatalogComponent(
-  id = "NavigationBar/Standard",
-  caption = "Three to five top-level destinations. Count, labels and badges fold in.",
-  noReference =
-    "Compose's NavigationBar is 80dp (NavigationBarTokens.TallContainerHeight); the kit " +
-      "publishes only the 64dp bar, which NavigationBar/Short already references",
-)
-@CatalogModes
-@OverrideVariant(name = "four", strings = ["count=4"])
-@OverrideVariant(name = "five", strings = ["count=5"])
-@OverrideVariant(name = "labels-selected", strings = ["labels=selected"])
-@OverrideVariant(name = "labels-none", strings = ["labels=none"])
-@OverrideVariant(name = "badge", booleans = ["badge=true"])
-@OverrideVariant(name = "five-labels-none", strings = ["count=5", "labels=none"])
-@Composable
-fun NavigationBarSticker() = Sticker {
-  val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
-  val labels = previewOverrideString("labels", "always")
-  val badge = previewOverrideBoolean("badge", false)
-  val (selected, select) = selectable(0)
-  NavigationBar(Modifier.width(360.dp)) {
-    DESTINATIONS.take(count).forEachIndexed { index, (label, icon) ->
-      NavigationBarItem(
-        selected = index == selected,
-        onClick = { select(index) },
-        icon = {
-          if (badge && index == 1) {
-            BadgedBox(badge = { Badge { Text("3") } }) { Icon(icon, contentDescription = null) }
-          } else {
-            Icon(icon, contentDescription = null)
-          }
-        },
-        label = if (labels == "none") null else ({ Text(stringResource(label)) }),
-        alwaysShowLabel = labels == "always",
-      )
-    }
-  }
-}
 
 @CatalogComponent(
   id = "NavigationBar/Short",

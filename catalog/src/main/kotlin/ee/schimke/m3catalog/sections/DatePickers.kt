@@ -54,32 +54,6 @@ private fun dateDisplayMode(): DisplayMode =
   else DisplayMode.Picker
 
 @CatalogComponent(
-  id = "DatePicker/Docked",
-  noReference =
-    "the kit's Docked input date picker [desktop] combines an anchored text field with calendar, " +
-      "month and year popovers; this sticker is the bare Compose DatePicker body, so pairing them " +
-      "would report the missing anchor and alternate popovers as parity defects",
-  caption = "Calendar grid for picking a single date. Keyboard entry and the mode toggle fold in.",
-)
-@CatalogModes
-@OverrideVariant(name = "input", strings = ["mode=input"])
-@OverrideVariant(name = "toggle", strings = ["toggle=on"])
-@OverrideVariant(name = "input-toggle", strings = ["mode=input", "toggle=on"])
-@Composable
-fun DatePickerSticker() = Sticker {
-  val mode = dateDisplayMode()
-  DatePicker(
-    state =
-      rememberDatePickerState(
-        initialSelectedDateMillis = PINNED_DATE_MILLIS,
-        initialDisplayedMonthMillis = PINNED_DATE_MILLIS,
-        initialDisplayMode = mode,
-      ),
-    showModeToggle = previewOverrideString("toggle", "off") == "on",
-  )
-}
-
-@CatalogComponent(
   id = "DatePicker/Range",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/51954:18254",
   caption = "Start and end dates in one grid. Keyboard entry folds in.",

@@ -224,7 +224,7 @@ fan-out. Nothing renders each component six times.
 The per-preview mode axis is
 [`@CatalogModes`](../catalog/src/main/kotlin/ee/schimke/m3catalog/CatalogTheme.kt) — **light and
 dark**, and that is what `catalog.spec.json` declares in `modes`. Every component in the sweep
-carries it (99 of them today, plus `@CatalogTemplate`'s light/dark pair). `modePriority` resolves a
+carries it (78 of them today). `modePriority` resolves a
 mode by reading the trailing segment of a discovered preview id against `modes`, so the only thing
 this catalog *can* defer is:
 

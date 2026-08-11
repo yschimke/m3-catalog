@@ -3,6 +3,10 @@
 The [Material 3 Design Kit][kit] rebuilt as **Jetpack Compose `@Preview`s**, published as an
 importable design catalog.
 
+Every published component has an exact, renderable node in that kit. Compose-only APIs, generic
+screen templates and hand-authored token specimens do not enter the component inventory; colors,
+typography and shapes are published separately through their dedicated token-catalog annotations.
+
 **The Figma kit is the source of truth.** A divergence between the two is a bug in this code, and
 the code is what changes — that is what `direction: "design-led"` in
 [`.design-parity.json`](.design-parity.json) says.
@@ -90,11 +94,10 @@ mirroring the kit's own information architecture.
 | Actions | Buttons, FAB, Icon buttons, Segmented buttons, Split button, Toggle buttons, Toolbars |
 | Communication | Badges, Loading indicator, Progress indicators, Snackbar, Tooltips |
 | Containment | Bottom sheets, Cards, Carousel, Dialogs, Divider, Lists, Side sheets |
-| Navigation | Top app bar, Bottom app bar, Navigation bar, Navigation rail, Navigation drawer, Search, Tabs |
+| Navigation | Top app bar, Bottom app bar, Navigation bar, Navigation rail, Search, Tabs |
 | Selection | Checkbox, Chips, Date pickers, Menus, Radio button, Sliders, Switch, Time pickers |
 | Text inputs | Text fields |
 | Styles | Color, Typography, Shape, Elevation |
-| Templates | Scaffold templates |
 
 ## Two lanes: what a click does
 
@@ -159,13 +162,9 @@ layout together.
 
 What stays a Kotlin literal, deliberately: design-system token names (`primary`, `Display Large`,
 `XS`) — they are API identifiers, not copy — and sample data that isn't language (`10:30`,
-`alice@example.com`, `⌘E`, the sender names in the inbox template).
-
-`Template/AppScaffold` carries two baked i18n variants (`ja`, `ar`) so the published sheet shows
-the translations without anyone touching the locale control, and a translation that regresses turns
-up as a render diff. `CatalogTranslationsTest` pins the rest: every locale carries exactly the keys
-`values/strings.xml` declares, no locale silently repeats the English copy, and no key is declared
-that no sticker renders.
+`alice@example.com`, `⌘E`). `CatalogTranslationsTest` pins the translations: every locale carries
+exactly the keys `values/strings.xml` declares, no locale silently repeats the English copy, and no
+key is declared that no sticker renders.
 
 ## Building
 

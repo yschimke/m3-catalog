@@ -32,7 +32,6 @@ import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.SearchBarValue
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopSearchBar
 import androidx.compose.material3.rememberSearchBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -168,37 +167,6 @@ fun DockedSearchBarSticker() = Sticker {
     onExpandedChange = setExpanded,
     modifier = Modifier.width(360.dp),
     content = { SuggestionRows() },
-  )
-}
-
-@CatalogComponent(
-  id = "Search/TopBar",
-  caption =
-    "The search bar used as the top app bar itself, with the window insets a top bar takes.",
-  noReference =
-    "the kit's Search bar is this component without the window insets TopSearchBar carries, " +
-      "so pointing at it would report the insets as a height defect",
-)
-@CatalogModes
-@OverrideVariant(name = "query", strings = ["content=query"])
-@OverrideVariant(name = "avatar", strings = ["content=avatar"])
-@Composable
-fun TopSearchBarSticker() = Sticker {
-  val state = rememberSearchBarState(SearchBarValue.Collapsed)
-  val text = rememberTextFieldState(searchQuery())
-  TopSearchBar(
-    state = state,
-    inputField = {
-      SearchBarDefaults.InputField(
-        textFieldState = text,
-        searchBarState = state,
-        onSearch = {},
-        placeholder = searchPlaceholder(),
-        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
-        trailingIcon = searchTrailing(),
-      )
-    },
-    modifier = Modifier.width(400.dp),
   )
 }
 

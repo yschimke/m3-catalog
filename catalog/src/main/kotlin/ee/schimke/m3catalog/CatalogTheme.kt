@@ -2,7 +2,6 @@ package ee.schimke.m3catalog
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
@@ -31,7 +30,6 @@ import androidx.compose.ui.unit.dp
  *
  * The surface is deliberately [Color.Transparent]: a component sticker reads as a silhouette on the
  * viewer's backing, and `contentColor = onSurface` keeps text and icons themed against it. The
- * full-screen [FullScreenM3] frame keeps its opaque device background instead.
  */
 @Composable
 fun Sticker(content: @Composable () -> Unit) {
@@ -78,30 +76,6 @@ fun StickerFrame(
 }
 
 /**
- * Frame for **full-screen scaffold templates** — as opposed to the centred component [Sticker].
- * Just the theme filling the device with the opaque `background` surface; the template supplies its
- * own `Scaffold` and drives system-bar spacing through window insets (see [SYSTEM_BAR_INSET]).
- */
-@Composable
-fun FullScreenM3(content: @Composable () -> Unit) {
-  MaterialTheme(
-    colorScheme = catalogColorScheme(),
-    typography = CatalogTypography,
-    shapes = CatalogShapes,
-  ) {
-    Surface(Modifier.fillMaxSize()) { content() }
-  }
-}
-
-/**
- * Height of the renderer's synthetic status / navigation bars (`SystemBarsFrame` draws both at
- * 24dp). The render environment has no real window insets behind that overlay, so a template feeds
- * this height to its `Scaffold` / `TopAppBar` `windowInsets` — reproducing a real edge-to-edge M3
- * scaffold rather than an outer padding that pushes the scaffold into a band.
- */
-val SYSTEM_BAR_INSET = 24.dp
-
-/**
  * The catalog's primary-mode multipreview: every component renders in both light and dark, the two
  * modes M3 ships. Stacking it on a composable yields the `· Light` / `· Dark` captures the sticker
  * sheet pairs. Further axes (states, content, breakpoints) are folded on per component with
@@ -112,19 +86,11 @@ val SYSTEM_BAR_INSET = 24.dp
  * renderer treats `uiMode` as an int and flips `isSystemInDarkTheme()`.
  *
  * No `showBackground`: the harness background stays transparent so a component sticker is a
- * silhouette on the viewer's checkerboard. [CatalogTemplate] keeps its device background.
+ * silhouette on the viewer's checkerboard.
  */
 @Preview(name = "Light", group = "modes")
 @Preview(name = "Dark", uiMode = 32, group = "modes")
 annotation class CatalogModes
-
-/**
- * Full-screen template multipreview: a phone (`id:pixel_8`) with `showSystemUi = true` so the
- * capture carries the synthetic OS status + nav chrome, in both light and dark.
- */
-@Preview(name = "Light", device = "id:pixel_8", showSystemUi = true, group = "template")
-@Preview(name = "Dark", device = "id:pixel_8", showSystemUi = true, uiMode = 32, group = "template")
-annotation class CatalogTemplate
 
 /**
  * Window-size-class multipreview for the adaptive layouts the kit documents at three widths. The

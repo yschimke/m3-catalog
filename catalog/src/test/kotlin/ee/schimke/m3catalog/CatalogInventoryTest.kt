@@ -102,22 +102,21 @@ class CatalogInventoryTest {
   }
 
   @Test
-  fun `every component maps to Figma or states why it cannot`() {
+  fun `every component maps to Figma`() {
     val silent = sources.flatMap { (file, text) ->
       Regex("""@CatalogComponent\((.*?)\)\s*\n""", RegexOption.DOT_MATCHES_ALL)
         .findAll(text)
         .filterNot { annotation ->
           val args = annotation.groupValues[1]
-          Regex("""reference\s*=""").containsMatchIn(args) ||
-            Regex("""noReference\s*=""").containsMatchIn(args)
+          Regex("""reference\s*=""").containsMatchIn(args)
         }
         .map { "${file.name}: ${it.groupValues[1].trim()}" }
     }
     assertEquals(
       emptyList(),
       silent,
-      "every catalog component must either carry its exact Figma reference or state why the kit " +
-        "has no comparable component; an undecided component silently disappears from parity",
+      "this catalog reproduces the Figma kit: a component without an exact Figma reference does " +
+        "not belong in its published component inventory",
     )
   }
 

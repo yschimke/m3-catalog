@@ -1,5 +1,5 @@
 @file:CatalogGroup(name = "Top app bar", section = "Navigation")
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 package ee.schimke.m3catalog.sections
 
@@ -10,12 +10,9 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LargeFlexibleTopAppBar
 import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.MediumFlexibleTopAppBar
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -34,12 +31,11 @@ import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_back
 import ee.schimke.m3catalog.generated.resources.action_more
 import ee.schimke.m3catalog.generated.resources.action_search
-import ee.schimke.m3catalog.generated.resources.appbar_subtitle
 import ee.schimke.m3catalog.generated.resources.appbar_title
 import org.jetbrains.compose.resources.stringResource
 
-// Four sizes, each its own composable, plus the expressive "flexible" pair. Within each, the kit's
-// foldable axes are the navigation icon and the action count.
+// Four sizes, each its own composable. Within each, the kit's foldable axes are the navigation icon
+// and the action count.
 
 @Composable
 private fun NavIcon(): (@Composable () -> Unit)? {
@@ -142,46 +138,6 @@ fun LargeTopAppBarSticker() = Sticker {
   val nav = NavIcon()
   LargeTopAppBar(
     title = { Text(stringResource(Res.string.appbar_title)) },
-    navigationIcon = nav ?: {},
-    actions = Actions(),
-    modifier = Modifier.width(W.dp),
-  )
-}
-
-@CatalogComponent(
-  id = "TopAppBar/MediumFlexible",
-  caption = "The expressive two-row bar, with a subtitle slot.",
-  noReference =
-    "no node in the kit matches `flexible`; its App bar set covers Medium through its " +
-      "Configuration axis, which TopAppBar/Medium already references",
-)
-@CatalogModes
-@Composable
-fun MediumFlexibleTopAppBarSticker() = Sticker {
-  val nav = NavIcon()
-  MediumFlexibleTopAppBar(
-    title = { Text(stringResource(Res.string.appbar_title)) },
-    subtitle = { Text(stringResource(Res.string.appbar_subtitle)) },
-    navigationIcon = nav ?: {},
-    actions = Actions(),
-    modifier = Modifier.width(W.dp),
-  )
-}
-
-@CatalogComponent(
-  id = "TopAppBar/LargeFlexible",
-  caption = "The expressive tall bar, with a subtitle slot.",
-  noReference =
-    "no node in the kit matches `flexible`; its App bar set covers Large through its " +
-      "Configuration axis, which TopAppBar/Large already references",
-)
-@CatalogModes
-@Composable
-fun LargeFlexibleTopAppBarSticker() = Sticker {
-  val nav = NavIcon()
-  LargeFlexibleTopAppBar(
-    title = { Text(stringResource(Res.string.appbar_title)) },
-    subtitle = { Text(stringResource(Res.string.appbar_subtitle)) },
     navigationIcon = nav ?: {},
     actions = Actions(),
     modifier = Modifier.width(W.dp),

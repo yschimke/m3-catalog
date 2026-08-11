@@ -45,7 +45,7 @@ That decides what each page is good for:
 | Shape | `58548:7093` | The corner-radius scale (0–48dp, full) plus the 36-shape Expressive library. Pairs with `ShapeScale.kt`. |
 | Icons | `55594:2483` | ~150 icon components. |
 | Avatars | `55595:3788` | Generic avatar styles (avatar / monogram / check) and 30 3D avatars. |
-| Utilities | `55594:2484` | Status bar, gesture/navigation bar, device frame, keyboard configurations, scrim, focus indicator. These are what `FullScreenM3` and `SYSTEM_BAR_INSET` reproduce. |
+| Utilities | `55594:2484` | Status bar, gesture/navigation bar, device frame, keyboard configurations, scrim, focus indicator. These are kit utilities rather than catalog components. |
 
 ## `Examples` — the composed screens
 
@@ -72,8 +72,7 @@ each screen is hand-drawn rather than assembled from the kit's components:
   placements**, and 9 of them are components this catalog already binds: App
   bar, Carousel, Button-text, Icon button, and List item ×5. The other two are
   the Status bar and Gesture bar, which are OS chrome and correctly have no code
-  component behind them. It is also the closest analogue to
-  `Template/AppScaffold`.
+  component behind them.
 - **`Home-Mobile`** is the flagship and twice as tall, but mostly bespoke frames
   (avatars, card grids, labels) with a low instance count.
 - **`Messaging-Mobile`** is almost entirely hand-built chat bubbles; only the
