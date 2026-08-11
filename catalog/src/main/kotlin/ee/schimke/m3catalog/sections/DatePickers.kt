@@ -66,6 +66,10 @@ private const val PINNED_DATE_MILLIS = 1692230400000L
 private const val PINNED_DATE_END_MILLIS = 1692748800000L
 private const val TWO_YEARS_MILLIS = 63158400000L
 
+@Composable
+private fun dateMillisOverride(key: String, default: Long): Long =
+  previewOverrideString(key, default.toString()).toLongOrNull() ?: default
+
 private fun kitDateFormatter(): DatePickerFormatter {
   val delegate = DatePickerDefaults.dateFormatter()
   return object : DatePickerFormatter by delegate {
@@ -93,6 +97,8 @@ private fun dateDisplayMode(): DisplayMode =
 @OverrideVariant(name = "input", strings = ["mode=input"])
 @Composable
 fun DateRangePickerSticker() = Sticker {
+  val initialStartDateMillis = dateMillisOverride("dateMillis", PINNED_DATE_MILLIS)
+  val initialEndDateMillis = dateMillisOverride("endDateMillis", PINNED_DATE_END_MILLIS)
   val close = counted(stringResource(Res.string.action_close))
   val save = counted(stringResource(Res.string.action_save))
   val clear = counted(stringResource(Res.string.action_clear))
@@ -119,9 +125,9 @@ fun DateRangePickerSticker() = Sticker {
         modifier = Modifier.fillMaxWidth().height(592.dp).offset(y = (-12).dp),
         state =
           rememberDateRangePickerState(
-            initialSelectedStartDateMillis = PINNED_DATE_MILLIS,
-            initialSelectedEndDateMillis = PINNED_DATE_END_MILLIS,
-            initialDisplayedMonthMillis = PINNED_DATE_MILLIS,
+            initialSelectedStartDateMillis = initialStartDateMillis,
+            initialSelectedEndDateMillis = initialEndDateMillis,
+            initialDisplayedMonthMillis = initialStartDateMillis,
             initialDisplayMode = dateDisplayMode(),
           ),
         title = {
@@ -164,6 +170,7 @@ fun DateRangePickerSticker() = Sticker {
 fun DatePickerModalSticker() = Sticker {
   // `DatePickerDialog` hosts itself in a platform window; the container is composed here from
   // `DatePickerDefaults` so the sticker carries the real shape, colour and elevation.
+  val initialDateMillis = dateMillisOverride("dateMillis", PINNED_DATE_MILLIS)
   val confirm = counted(stringResource(Res.string.action_ok))
   val dismiss = counted(stringResource(Res.string.action_cancel))
   val clear = counted(stringResource(Res.string.action_clear))
@@ -181,8 +188,8 @@ fun DatePickerModalSticker() = Sticker {
         modifier = Modifier.height(476.dp),
         state =
           rememberDatePickerState(
-            initialSelectedDateMillis = PINNED_DATE_MILLIS,
-            initialDisplayedMonthMillis = PINNED_DATE_MILLIS,
+            initialSelectedDateMillis = initialDateMillis,
+            initialDisplayedMonthMillis = initialDateMillis,
             initialDisplayMode = dateDisplayMode(),
           ),
         headline = {

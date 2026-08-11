@@ -55,6 +55,13 @@ import org.jetbrains.compose.resources.stringResource
 @Composable private fun timeIs24Hour(): Boolean = previewOverrideString("hours", "24") == "24"
 
 @Composable
+private fun initialTime(): Pair<Int, Int> {
+  val hour = previewOverrideString("hour", "20").toIntOrNull()?.takeIf { it in 0..23 } ?: 20
+  val minute = previewOverrideString("minute", "0").toIntOrNull()?.takeIf { it in 0..59 } ?: 0
+  return hour to minute
+}
+
+@Composable
 private fun TimePickerFrame(
   headline: String,
   switchIcon: ImageVector,
@@ -105,6 +112,7 @@ private fun TimePickerFrame(
 fun TimePickerSticker() = Sticker {
   val is24Hour = timeIs24Hour()
   val horizontal = previewOverrideString("layout", "vertical") == "horizontal"
+  val (initialHour, initialMinute) = initialTime()
   TimePickerFrame(
     headline = stringResource(Res.string.time_select),
     switchIcon = Icons.Filled.Keyboard,
@@ -114,7 +122,12 @@ fun TimePickerSticker() = Sticker {
       else Modifier.width(328.dp).height(520.dp),
   ) {
     TimePicker(
-      state = rememberTimePickerState(initialHour = 20, initialMinute = 0, is24Hour = is24Hour),
+      state =
+        rememberTimePickerState(
+          initialHour = initialHour,
+          initialMinute = initialMinute,
+          is24Hour = is24Hour,
+        ),
       layoutType =
         if (horizontal) TimePickerLayoutType.Horizontal else TimePickerLayoutType.Vertical,
     )
@@ -131,6 +144,7 @@ fun TimePickerSticker() = Sticker {
 @Composable
 fun TimeInputSticker() = Sticker {
   val is24Hour = timeIs24Hour()
+  val (initialHour, initialMinute) = initialTime()
   TimePickerFrame(
     headline = stringResource(Res.string.time_enter),
     switchIcon = Icons.Filled.AccessTime,
@@ -138,7 +152,12 @@ fun TimeInputSticker() = Sticker {
     modifier = Modifier.width(if (is24Hour) 264.dp else 328.dp).height(243.dp),
   ) {
     TimeInput(
-      state = rememberTimePickerState(initialHour = 20, initialMinute = 0, is24Hour = is24Hour)
+      state =
+        rememberTimePickerState(
+          initialHour = initialHour,
+          initialMinute = initialMinute,
+          is24Hour = is24Hour,
+        )
     )
   }
 }
