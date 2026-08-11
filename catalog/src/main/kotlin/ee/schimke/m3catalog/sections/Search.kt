@@ -254,6 +254,7 @@ fun ExpandedDockedSearchBarSticker() = Sticker {
 @CatalogComponent(
   id = "Search/ExpandedFullScreen",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/59178:4964",
+  referenceContentsOnly = false,
   caption = "The full-screen search view, where results take the whole surface.",
 )
 @CatalogModes412

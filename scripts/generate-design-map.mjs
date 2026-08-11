@@ -205,6 +205,9 @@ for (const preview of previews) {
     // matches an instance through, since a screen rarely uses the exact variant
     // this sticker pictures. Absent unless the annotation says so.
     ...(catalog.referenceSet ? { refSet: catalog.referenceSet } : {}),
+    // Figma normally exports only the referenced node. Preserve an explicit per-component opt-out
+    // when the annotation says this reference intentionally relies on overlapping sheet content.
+    ...(catalog.referenceContentsOnly === false ? { referenceContentsOnly: false } : {}),
     previewId: binding.previewId,
   });
 }
