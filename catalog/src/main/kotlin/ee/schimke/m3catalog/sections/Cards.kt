@@ -46,8 +46,8 @@ import org.jetbrains.compose.resources.stringResource
 // only, with media, and with actions.
 
 @Composable
-private fun CardBody(title: String) {
-  val layout = previewOverrideString("layout", "slot")
+private fun CardBody(title: String, defaultLayout: String = "slot") {
+  val layout = previewOverrideString("layout", defaultLayout)
   if (layout == "slot") return
   val action = counted(stringResource(Res.string.action_action))
   val cancel = counted(stringResource(Res.string.action_cancel))
@@ -97,11 +97,11 @@ fun FilledCard() = Sticker {
 
 @CatalogComponent(
   id = "Card/Elevated",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58710:12665",
-  caption = "Separated by shadow. Media and action layouts fold in.",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/52350:27693",
+  caption = "Separated by shadow, with media and text by default. Other layouts fold in.",
 )
 @CatalogModes368
-@ee.schimke.composeai.preview.OverrideVariant(name = "media", strings = ["layout=media"])
+@ee.schimke.composeai.preview.OverrideVariant(name = "slot", strings = ["layout=slot"])
 @ee.schimke.composeai.preview.OverrideVariant(name = "actions", strings = ["layout=actions"])
 @ee.schimke.composeai.preview.OverrideVariant(
   name = "media-actions",
@@ -113,10 +113,12 @@ fun ElevatedCardSticker() = Sticker {
   Box(Modifier.padding(4.dp)) {
     if (catalogInteractive()) {
       ElevatedCard(onClick = c.onClick, modifier = Modifier.width(360.dp).height(480.dp)) {
-        CardBody(c.label)
+        CardBody(c.label, defaultLayout = "media")
       }
     } else {
-      ElevatedCard(Modifier.width(360.dp).height(480.dp)) { CardBody(c.label) }
+      ElevatedCard(Modifier.width(360.dp).height(480.dp)) {
+        CardBody(c.label, defaultLayout = "media")
+      }
     }
   }
 }
