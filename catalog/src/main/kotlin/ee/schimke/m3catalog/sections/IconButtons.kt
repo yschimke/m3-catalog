@@ -6,9 +6,6 @@ package ee.schimke.m3catalog.sections
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Stars
-import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FilledTonalIconButton
@@ -23,7 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.IconButtonMatrix
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonSize
@@ -79,7 +78,7 @@ fun StandardIconButton() = Sticker {
       modifier = Modifier.size(catalogIconContainerSize(size)),
     ) {
       Icon(
-        if (on) Icons.Filled.Stars else Icons.Outlined.Stars,
+        if (on) CatalogFilledStars else CatalogOutlinedStars,
         contentDescription = stringResource(Res.string.label_favourite),
         modifier = Modifier.size(size.iconButtonIconSize),
       )
@@ -107,7 +106,7 @@ fun FilledIconButtonSticker() = Sticker {
       modifier = Modifier.size(catalogIconContainerSize(size)),
     ) {
       Icon(
-        if (on) Icons.Filled.Stars else Icons.Outlined.Stars,
+        if (on) CatalogFilledStars else CatalogOutlinedStars,
         contentDescription = stringResource(Res.string.label_favourite),
         modifier = Modifier.size(size.iconButtonIconSize),
       )
@@ -134,7 +133,7 @@ fun TonalIconButton() = Sticker {
       modifier = Modifier.size(catalogIconContainerSize(size)),
     ) {
       Icon(
-        if (on) Icons.Filled.Stars else Icons.Outlined.Stars,
+        if (on) CatalogFilledStars else CatalogOutlinedStars,
         contentDescription = stringResource(Res.string.label_favourite),
         modifier = Modifier.size(size.iconButtonIconSize),
       )
@@ -167,7 +166,7 @@ fun OutlinedIconButtonSticker() = Sticker {
       modifier = Modifier.size(catalogIconContainerSize(size)),
     ) {
       Icon(
-        if (on) Icons.Filled.Stars else Icons.Outlined.Stars,
+        if (on) CatalogFilledStars else CatalogOutlinedStars,
         contentDescription = stringResource(Res.string.label_favourite),
         modifier = Modifier.size(size.iconButtonIconSize),
       )

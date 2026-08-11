@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Stars
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
@@ -30,6 +28,7 @@ import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
+import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
@@ -88,7 +87,7 @@ fun Fab() = Sticker {
   Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp)) {
     FloatingActionButton(onClick = c.onClick, containerColor = catalogFabColor()) {
       Icon(
-        Icons.Filled.Stars,
+        CatalogFilledStars,
         contentDescription = c.label,
         modifier = Modifier.width(20.dp).height(20.dp),
       )
@@ -102,7 +101,7 @@ fun Fab() = Sticker {
 fun FabSmall() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
   SmallFloatingActionButton(onClick = c.onClick) {
-    Icon(Icons.Filled.Stars, contentDescription = c.label)
+    Icon(CatalogFilledStars, contentDescription = c.label)
   }
 }
 
@@ -112,7 +111,7 @@ fun FabSmall() = Sticker {
 fun FabMedium() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
   MediumFloatingActionButton(onClick = c.onClick) {
-    Icon(Icons.Filled.Stars, contentDescription = c.label)
+    Icon(CatalogFilledStars, contentDescription = c.label)
   }
 }
 
@@ -122,7 +121,7 @@ fun FabMedium() = Sticker {
 fun FabLarge() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
   LargeFloatingActionButton(onClick = c.onClick) {
-    Icon(Icons.Filled.Stars, contentDescription = c.label)
+    Icon(CatalogFilledStars, contentDescription = c.label)
   }
 }
 
@@ -147,7 +146,7 @@ fun ExtendedFab() = Sticker {
       containerColor = catalogFabColor(),
       icon = {
         Icon(
-          Icons.Filled.Stars,
+          CatalogFilledStars,
           contentDescription = null,
           modifier = Modifier.width(20.dp).height(20.dp),
         )
@@ -164,7 +163,7 @@ fun ExtendedFabSmall() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
   SmallExtendedFloatingActionButton(
     onClick = c.onClick,
-    icon = { Icon(Icons.Filled.Stars, contentDescription = null) },
+    icon = { Icon(CatalogFilledStars, contentDescription = null) },
     text = { Text(c.label) },
   )
 }
@@ -176,7 +175,7 @@ fun ExtendedFabMedium() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
   MediumExtendedFloatingActionButton(
     onClick = c.onClick,
-    icon = { Icon(Icons.Filled.Stars, contentDescription = null) },
+    icon = { Icon(CatalogFilledStars, contentDescription = null) },
     text = { Text(c.label) },
   )
 }
@@ -188,7 +187,7 @@ fun ExtendedFabLarge() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
   LargeExtendedFloatingActionButton(
     onClick = c.onClick,
-    icon = { Icon(Icons.Filled.Stars, contentDescription = null) },
+    icon = { Icon(CatalogFilledStars, contentDescription = null) },
     text = { Text(c.label) },
   )
 }

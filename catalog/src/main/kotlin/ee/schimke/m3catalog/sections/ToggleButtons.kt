@@ -9,9 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Stars
-import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.ElevatedToggleButton
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -27,7 +24,9 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
+import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.CatalogSize
 import ee.schimke.m3catalog.SelectedToggleButtonMatrix
 import ee.schimke.m3catalog.Sticker
@@ -61,7 +60,7 @@ import org.jetbrains.compose.resources.stringResource
 private fun FigmaToggleButtonContent(selected: Boolean, label: String) {
   val size = catalogButtonSize()
   Icon(
-    if (selected) Icons.Filled.Stars else Icons.Outlined.Stars,
+    if (selected) CatalogFilledStars else CatalogOutlinedStars,
     contentDescription = null,
     modifier = Modifier.size(size.iconSize),
   )
@@ -198,8 +197,8 @@ fun ElevatedToggleButtonSticker() = Sticker {
 
 // --- Content axis, folded under the filled toggle ------------------------------------------------
 // The kit's remaining documented axis: "Can contain an optional leading icon". It also specifies
-// the glyph swap — outlined when unselected, filled when selected — so this variant reads its own
-// state rather than pinning one icon.
+// the glyph swap — outlined circle when unselected, filled circle when selected — so this variant
+// reads its own state rather than pinning one icon.
 
 @CatalogVariant(
   of = "ToggleButton/Filled",
