@@ -3,6 +3,8 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -59,18 +61,23 @@ fun ShortNavigationBarSticker() = Sticker {
   val labels = previewOverrideString("labels", "always")
   val (selected, select) = selectable(0)
   ShortNavigationBar(Modifier.width(412.dp).height(64.dp)) {
-    DESTINATIONS.take(count).forEachIndexed { index, label ->
-      ShortNavigationBarItem(
-        selected = index == selected,
-        onClick = { select(index) },
-        icon = {
-          Icon(
-            if (index == selected) CatalogFilledStars else CatalogOutlinedStars,
-            contentDescription = null,
-          )
-        },
-        label = if (labels == "none") null else ({ Text(stringResource(label)) }),
-      )
+    // Give the broken equal-weight policy one full-width child, then divide that width correctly.
+    // Remove after https://github.com/yschimke/m3-catalog/issues/41 is fixed upstream.
+    Row(Modifier.fillMaxWidth()) {
+      DESTINATIONS.take(count).forEachIndexed { index, label ->
+        ShortNavigationBarItem(
+          selected = index == selected,
+          onClick = { select(index) },
+          icon = {
+            Icon(
+              if (index == selected) CatalogFilledStars else CatalogOutlinedStars,
+              contentDescription = null,
+            )
+          },
+          label = if (labels == "none") null else ({ Text(stringResource(label)) }),
+          modifier = Modifier.weight(1f),
+        )
+      }
     }
   }
 }
