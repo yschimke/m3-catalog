@@ -36,60 +36,54 @@ customising the live render are two ends of one workflow.
 
 | | |
 | --- | --- |
-| Components | **93** |
-| Rendered images (PNG) | **1138** |
-| Editable wireframes (SVG) | **93** |
-| Editable design vectors (figma-svg) | **93** |
-| Components with a11y greenlines | **57** |
+| Components | **78** |
+| Rendered images (PNG) | **1056** |
+| Editable wireframes (SVG) | **78** |
+| Editable design vectors (figma-svg) | **78** |
+| Components with a11y greenlines | **48** |
 | Library | `org.jetbrains.compose.material3:material3`<br>`org.jetbrains.compose.material:material-icons-extended` |
 | Renderer | compose-preview 0.19.55 |
 | Schema | `design-parity-catalog/v1` |
-| Generated | 2026-08-10 |
+| Generated | 2026-08-11 |
 
 ## Components by group
 
 | Group | Count |
 | --- | ---: |
-| Search | 6 |
-| Top app bar | 6 |
 | Buttons | 5 |
+| Search | 5 |
 | Chips | 4 |
 | Icon buttons | 4 |
 | Progress indicators | 4 |
 | Tabs | 4 |
 | Toggle buttons | 4 |
+| Top app bar | 4 |
 | Cards | 3 |
-| Date pickers | 3 |
-| Navigation drawer | 3 |
 | Sliders | 3 |
-| Toolbars | 3 |
 | Badges | 2 |
 | Carousel | 2 |
+| Date pickers | 2 |
 | Dialogs | 2 |
 | Divider | 2 |
 | FAB | 2 |
 | Lists | 2 |
 | Loading indicator | 2 |
-| Menus | 2 |
-| Navigation bar | 2 |
 | Navigation rail | 2 |
 | Segmented buttons | 2 |
 | Text fields | 2 |
 | Time pickers | 2 |
+| Toolbars | 2 |
 | Tooltips | 2 |
 | Bottom app bar | 1 |
 | Bottom sheets | 1 |
 | Checkbox | 1 |
-| Color | 1 |
-| Elevation | 1 |
+| Menus | 1 |
+| Navigation bar | 1 |
 | Radio button | 1 |
-| Shape | 1 |
 | Side sheets | 1 |
 | Snackbar | 1 |
 | Split button | 1 |
 | Switch | 1 |
-| Scaffold templates | 1 |
-| Typography | 1 |
 
 ## What's in this branch
 
