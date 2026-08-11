@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.DatePicker
@@ -26,6 +25,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
@@ -174,15 +174,12 @@ fun DatePickerModalSticker() = Sticker {
   val confirm = counted(stringResource(Res.string.action_ok))
   val dismiss = counted(stringResource(Res.string.action_cancel))
   val clear = counted(stringResource(Res.string.action_clear))
-  Box(Modifier.fillMaxWidth().height(524.dp)) {
-    Box(
-      Modifier.matchParentSize()
-        .padding(top = 124.dp)
-        .background(
-          MaterialTheme.colorScheme.surfaceContainerHigh,
-          RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp),
-        )
-    )
+  Surface(
+    modifier = Modifier.fillMaxWidth().height(524.dp),
+    shape = DatePickerDefaults.shape,
+    color = MaterialTheme.colorScheme.surfaceContainerHigh,
+    tonalElevation = DatePickerDefaults.TonalElevation,
+  ) {
     Column {
       DatePicker(
         modifier = Modifier.height(476.dp),
