@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Stars
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -27,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
+import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogSize
 import ee.schimke.m3catalog.SizeShapeMatrix
@@ -70,7 +69,7 @@ private fun SizedLabel(label: String) {
 @Composable
 private fun FigmaButtonContent(label: String) {
   val size = catalogButtonSize()
-  Icon(Icons.Filled.Stars, contentDescription = null, modifier = Modifier.size(size.iconSize))
+  Icon(CatalogFilledStars, contentDescription = null, modifier = Modifier.size(size.iconSize))
   Spacer(Modifier.width(size.iconSpacing))
   SizedLabel(label)
 }

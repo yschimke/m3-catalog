@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowRight
-import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -27,6 +26,7 @@ import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
@@ -44,7 +44,7 @@ import org.jetbrains.compose.resources.stringResource
 
 private data class MenuRow(val label: StringResource, val icon: ImageVector, val shortcut: String)
 
-private val MENU_ROWS = List(6) { MenuRow(Res.string.label_text, Icons.Outlined.Stars, "⌘C") }
+private val MENU_ROWS = List(6) { MenuRow(Res.string.label_text, CatalogOutlinedStars, "⌘C") }
 
 @CatalogComponent(
   id = "Menu/Dropdown",

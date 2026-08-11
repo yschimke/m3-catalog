@@ -5,9 +5,6 @@ package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Stars
-import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ShortNavigationBar
@@ -20,7 +17,9 @@ import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
+import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes412
+import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.nav_home
@@ -66,7 +65,7 @@ fun ShortNavigationBarSticker() = Sticker {
         onClick = { select(index) },
         icon = {
           Icon(
-            if (index == selected) Icons.Filled.Stars else Icons.Outlined.Stars,
+            if (index == selected) CatalogFilledStars else CatalogOutlinedStars,
             contentDescription = null,
           )
         },

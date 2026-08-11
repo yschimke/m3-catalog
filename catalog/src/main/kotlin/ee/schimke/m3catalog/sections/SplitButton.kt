@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.Stars
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ProvideTextStyle
@@ -21,6 +20,7 @@ import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
+import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonSize
@@ -61,7 +61,7 @@ fun SplitButton() = Sticker {
   val size = catalogButtonSize()
   val colour = previewOverrideString("color", "filled")
   val label: @Composable RowScope.() -> Unit = {
-    Icon(Icons.Filled.Stars, contentDescription = null, modifier = Modifier.size(20.dp))
+    Icon(CatalogFilledStars, contentDescription = null, modifier = Modifier.size(20.dp))
     ProvideTextStyle(size.labelStyle) { Text(c.label) }
   }
   val chevron: @Composable RowScope.() -> Unit = {
