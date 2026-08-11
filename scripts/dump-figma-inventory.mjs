@@ -70,6 +70,7 @@ for (const [i, page] of pages.entries()) {
   }
   const root = nodes.nodes?.[page.id]?.document;
   const components = [];
+  const instances = [];
   let deepest = 0;
   const walk = (node, trail, level, hiddenAbove) => {
     deepest = Math.max(deepest, level);
@@ -110,11 +111,31 @@ for (const [i, page] of pages.entries()) {
       });
       return; // a set's variants are not separate components for this purpose
     }
+    if (node.type === "INSTANCE" && !hidden && node.componentId) {
+      instances.push({
+        id: node.id,
+        componentId: node.componentId,
+        name: node.name,
+        trail: trail.join(" / "),
+        example: trail.some((part) => /\bexamples?\b/i.test(part)),
+        w: Math.round(node.absoluteBoundingBox?.width ?? 0),
+        h: Math.round(node.absoluteBoundingBox?.height ?? 0),
+      });
+    }
     for (const child of node.children ?? []) walk(child, [...trail, node.name], level + 1, hidden);
   };
   if (root) walk(root, [], 0, false);
-  console.log(`  [${i + 1}/${pages.length}] ${page.name} (${page.id}): ${components.length} component(s), deepest ${deepest}`);
-  inventory.push({ page: page.name, pageId: page.id, deepest, components });
+  const hiddenVariants = new Set(
+    components
+      .filter((component) => component.type === "COMPONENT_SET" && component.hidden)
+      .flatMap((component) => component.children.map((variant) => variant.id)),
+  );
+  const renderInstances = instances.filter((instance) => hiddenVariants.has(instance.componentId));
+  console.log(
+    `  [${i + 1}/${pages.length}] ${page.name} (${page.id}): ${components.length} component(s), ` +
+      `${renderInstances.length} hidden-variant example(s), deepest ${deepest}`,
+  );
+  inventory.push({ page: page.name, pageId: page.id, deepest, components, renderInstances });
 }
 
 // --- Resolve the refs already in use ------------------------------------------------------------

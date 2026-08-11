@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
-import { resolveVariantRef } from "./kit-variants.mjs";
+import { renderableRef, resolveVariantRef } from "./kit-variants.mjs";
 
 const FILE = "ocdacdEsnHipMJD3egzxKb";
 const ref = (nodeId) => `figma:${FILE}/${nodeId}`;
@@ -61,9 +61,22 @@ test("does not duplicate a base reference for a redundant single-axis seed", () 
   );
 });
 
+test("uses visible examples for hidden component-set definitions", () => {
+  assert.equal(renderableRef(ref("53977:33611")), ref("53977:34289"));
+  assert.deepEqual(
+    resolveVariantRef(ref("53977:33611"), { key: "configuration", raw: "text+action" }),
+    {
+      nodeId: "53977:34287",
+      name: "Configuration=Text & action, # of lines=One line, Show close affordance=False",
+    },
+  );
+});
+
 test("every mapped node exists in the checked-in kit index", () => {
   const indexed = new Set([
-    ...Object.values(kitIndex.sets).flatMap((set) => set.variants.map((variant) => variant.id)),
+    ...Object.values(kitIndex.sets).flatMap((set) =>
+      set.variants.flatMap((variant) => [variant.id, variant.renderId].filter(Boolean)),
+    ),
     ...Object.keys(kitIndex.standalone),
   ]);
   for (const component of designMap.components) {

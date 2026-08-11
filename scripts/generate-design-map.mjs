@@ -33,7 +33,13 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 
-import { defaultedContent, propertyForSeed, resolveVariantRef, slotFor } from "./kit-variants.mjs";
+import {
+  defaultedContent,
+  propertyForSeed,
+  renderableRef,
+  resolveVariantRef,
+  slotFor,
+} from "./kit-variants.mjs";
 
 function arg(name, fallback) {
   const i = process.argv.indexOf(`--${name}`);
@@ -137,9 +143,10 @@ for (const preview of previews) {
   // The base render is the untagged variant on both sides; each resolvable
   // variant render is a tagged pair beside it. design-parity matches the
   // two lists slot for slot (`refVariant` / `previewIdVariant`).
-  const refs = [{ ref: catalog.reference }];
+  const baseRef = renderableRef(catalog.reference);
+  const refs = [{ ref: baseRef }];
   const previewIds = [{ previewId: preview.id }];
-  const refOwners = new Map([[catalog.reference, "default"]]);
+  const refOwners = new Map([[baseRef, "default"]]);
   const fileKey = catalog.reference.split(":")[1]?.split("/")[0];
   for (const v of variantsByComponent.get(catalog.componentId) ?? []) {
     const hit = resolveVariantRef(catalog.reference, v.seeds);

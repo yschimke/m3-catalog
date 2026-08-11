@@ -82,7 +82,9 @@ for (const c of map.components ?? []) {
 }
 
 const components = [];
-for (const page of inventory.pages ?? []) for (const c of page.components ?? []) components.push(c);
+for (const page of inventory.pages ?? []) {
+  for (const c of page.components ?? []) components.push({ ...c, inventoryPage: page });
+}
 
 // A referenced node is either one variant of a set — in which case the whole set
 // is the vocabulary for that component — or a standalone component. Keep the
@@ -105,7 +107,24 @@ const sets = {};
 const standalone = {};
 for (const c of components) {
   if (keepSets.has(c.id)) {
-    sets[c.id] = { name: c.name, variants: (c.children ?? []).map((v) => ({ id: v.id, name: v.name })) };
+    sets[c.id] = {
+      name: c.name,
+      variants: (c.children ?? []).map((v) => {
+        // A few kit component sets are deliberately hidden. Figma returns their
+        // definition ids from `/nodes`, but `/images` exports them as a 1px
+        // placeholder or "node not found". Component pages place one visible
+        // instance of every variant under an Examples frame; use that instance
+        // as the render handle while retaining the definition id as vocabulary.
+        const examples = (c.inventoryPage.renderInstances ?? []).filter(
+          (instance) => instance.componentId === v.id && instance.example,
+        );
+        return {
+          id: v.id,
+          name: v.name,
+          ...(c.hidden && examples.length === 1 ? { renderId: examples[0].id } : {}),
+        };
+      }),
+    };
   }
   if (
     keepStandalone.has(c.id) ||
@@ -144,12 +163,17 @@ if (token && ids.length) {
 }
 
 const variants = Object.values(sets).reduce((n, s) => n + s.variants.length, 0);
+const renderAliases = Object.values(sets).reduce(
+  (n, s) => n + s.variants.filter((variant) => variant.renderId).length,
+  0,
+);
 writeFileSync(
   outPath,
   `${JSON.stringify({ fileKey, generatedBy: "scripts/build-kit-index.mjs", sets, standalone }, null, 2)}\n`,
 );
 console.log(
   `Wrote ${outPath}: ${Object.keys(sets).length} set(s), ${variants} variant(s), ` +
+    `${renderAliases} hidden variant render alias(es), ` +
     `${Object.keys(standalone).length} standalone component(s), ` +
     `${propertied} set(s) carrying component properties.`,
 );

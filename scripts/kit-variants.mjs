@@ -22,7 +22,13 @@ for (const [setId, set] of Object.entries(index.sets)) {
       const i = part.indexOf("=");
       if (i > 0) axes[part.slice(0, i)] = part.slice(i + 1);
     }
-    variantIndex.set(v.id, { setId, setName: set.name, name: v.name, axes });
+    variantIndex.set(v.id, {
+      setId,
+      setName: set.name,
+      name: v.name,
+      axes,
+      renderId: v.renderId,
+    });
   }
 }
 
@@ -317,7 +323,26 @@ function resolveSetVariantRef(baseVar, seeds) {
     return undefined;
   };
   const match = search(0, baseVar.axes, new Set());
-  return match ? { nodeId: match.id, name: variantIndex.get(match.id).name } : undefined;
+  return match
+    ? {
+        nodeId: variantIndex.get(match.id).renderId ?? match.id,
+        name: variantIndex.get(match.id).name,
+      }
+    : undefined;
+}
+
+/**
+ * The node that Figma can actually export for a definition reference.
+ *
+ * Most definitions render directly. Hidden component sets are the exception:
+ * the kit keeps their definitions as vocabulary and places visible instances
+ * on the component page as the renderable examples.
+ */
+export function renderableRef(ref) {
+  const slash = ref.lastIndexOf("/");
+  if (slash < 0) return ref;
+  const variant = variantIndex.get(ref.slice(slash + 1));
+  return variant?.renderId ? `${ref.slice(0, slash + 1)}${variant.renderId}` : ref;
 }
 
 /**
