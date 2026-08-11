@@ -5,12 +5,10 @@ package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Stars
+import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -47,32 +45,24 @@ import org.jetbrains.compose.resources.stringResource
 // The expanded form is a separate composable (WideNavigationRail), so it is its own component.
 
 private val RAIL =
-  listOf(
-    Res.string.nav_home to Icons.Filled.Home,
-    Res.string.nav_search to Icons.Filled.Search,
-    Res.string.nav_you to Icons.Filled.Person,
-    Res.string.nav_saved to Icons.Filled.Favorite,
-  )
+  listOf(Res.string.nav_home, Res.string.nav_search, Res.string.nav_you, Res.string.nav_saved)
 
 @Composable
-private fun railHeader(): (@Composable androidx.compose.foundation.layout.ColumnScope.() -> Unit)? {
-  val menu = previewOverrideBoolean("menu", false)
-  val fab = previewOverrideBoolean("fab", false)
+private fun RailHeaderContent() {
+  val menu = previewOverrideBoolean("menu", true)
+  val fab = previewOverrideBoolean("fab", true)
   // Both tallies are read before the early return so the call sequence does not depend on the
   // knobs — the same reason `TopAppBars.NavIcon` resolves its tally ahead of the `nav` check.
   val menuClick = counted("menu")
   val fabClick = counted("new")
-  if (!menu && !fab) return null
-  return {
-    if (menu) {
-      IconButton(onClick = menuClick.onClick) {
-        Icon(Icons.Filled.Menu, contentDescription = stringResource(Res.string.action_menu))
-      }
+  if (menu) {
+    IconButton(onClick = menuClick.onClick) {
+      Icon(Icons.Filled.Menu, contentDescription = stringResource(Res.string.action_menu))
     }
-    if (fab) {
-      FloatingActionButton(onClick = fabClick.onClick) {
-        Icon(Icons.Filled.Add, contentDescription = stringResource(Res.string.action_new))
-      }
+  }
+  if (fab) {
+    FloatingActionButton(onClick = fabClick.onClick) {
+      Icon(Icons.Filled.Edit, contentDescription = stringResource(Res.string.action_new))
     }
   }
 }
@@ -84,21 +74,26 @@ private fun railHeader(): (@Composable androidx.compose.foundation.layout.Column
 )
 @CatalogModes
 @OverrideVariant(name = "four", strings = ["count=4"])
-@OverrideVariant(name = "menu", booleans = ["menu=true"])
-@OverrideVariant(name = "fab", booleans = ["fab=true"])
-@OverrideVariant(name = "menu-fab", booleans = ["menu=true", "fab=true"])
+@OverrideVariant(name = "no-menu", booleans = ["menu=false"])
+@OverrideVariant(name = "no-fab", booleans = ["fab=false"])
+@OverrideVariant(name = "no-menu-fab", booleans = ["menu=false", "fab=false"])
 @OverrideVariant(name = "labels-none", strings = ["labels=none"])
 @Composable
 fun NavigationRailSticker() = Sticker {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
   val labels = previewOverrideString("labels", "always")
   val (selected, select) = selectable(0)
-  NavigationRail(modifier = Modifier.height(320.dp), header = railHeader()) {
-    RAIL.take(count).forEachIndexed { index, (label, icon) ->
+  NavigationRail(modifier = Modifier.height(320.dp), header = { RailHeaderContent() }) {
+    RAIL.take(count).forEachIndexed { index, label ->
       NavigationRailItem(
         selected = index == selected,
         onClick = { select(index) },
-        icon = { Icon(icon, contentDescription = null) },
+        icon = {
+          Icon(
+            if (index == selected) Icons.Filled.Stars else Icons.Outlined.Stars,
+            contentDescription = null,
+          )
+        },
         label = if (labels == "none") null else ({ Text(stringResource(label)) }),
       )
     }
@@ -122,13 +117,19 @@ fun WideNavigationRailSticker() = Sticker {
   WideNavigationRail(
     modifier = Modifier.height(320.dp),
     state = rememberWideNavigationRailState(WideNavigationRailValue.Expanded),
+    header = { RailHeaderContent() },
   ) {
-    RAIL.take(count).forEachIndexed { index, (label, icon) ->
+    RAIL.take(count).forEachIndexed { index, label ->
       WideNavigationRailItem(
         railExpanded = true,
         selected = index == selected,
         onClick = { select(index) },
-        icon = { Icon(icon, contentDescription = null) },
+        icon = {
+          Icon(
+            if (index == selected) Icons.Filled.Stars else Icons.Outlined.Stars,
+            contentDescription = null,
+          )
+        },
         label = { Text(stringResource(label)) },
       )
     }

@@ -5,10 +5,8 @@ package ee.schimke.m3catalog.sections
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -27,10 +25,7 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
-import ee.schimke.m3catalog.generated.resources.action_delete
-import ee.schimke.m3catalog.generated.resources.action_duplicate
-import ee.schimke.m3catalog.generated.resources.action_edit
-import ee.schimke.m3catalog.generated.resources.action_share
+import ee.schimke.m3catalog.generated.resources.label_text
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -44,13 +39,7 @@ import org.jetbrains.compose.resources.stringResource
 
 private data class MenuRow(val label: StringResource, val icon: ImageVector, val shortcut: String)
 
-private val MENU_ROWS =
-  listOf(
-    MenuRow(Res.string.action_edit, Icons.Filled.Edit, "⌘E"),
-    MenuRow(Res.string.action_duplicate, Icons.Filled.ContentCopy, "⌘D"),
-    MenuRow(Res.string.action_share, Icons.Filled.Share, "⌘S"),
-    MenuRow(Res.string.action_delete, Icons.Filled.Delete, "⌫"),
-  )
+private val MENU_ROWS = List(6) { MenuRow(Res.string.label_text, Icons.Outlined.Stars, "⌘C") }
 
 @CatalogComponent(
   id = "Menu/Dropdown",
@@ -69,7 +58,7 @@ private val MENU_ROWS =
 @Composable
 fun DropdownMenuSticker() = Sticker {
   val icons = previewOverrideString("leading", "icon") == "icon"
-  val shortcuts = previewOverrideString("trailing", "none") == "shortcut"
+  val shortcuts = previewOverrideString("trailing", "chevron") == "shortcut"
   val dividers = previewOverrideString("dividers", "off") == "on"
   val disabledLast = previewOverrideString("status", "enabled") == "disabled"
   Surface(
@@ -91,7 +80,9 @@ fun DropdownMenuSticker() = Sticker {
           onClick = c.onClick,
           enabled = enabled,
           leadingIcon = if (!icons) null else ({ Icon(row.icon, contentDescription = null) }),
-          trailingIcon = if (!shortcuts) null else ({ Text(row.shortcut) }),
+          trailingIcon =
+            if (shortcuts) ({ Text(row.shortcut) })
+            else ({ Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null) }),
         )
       }
     }

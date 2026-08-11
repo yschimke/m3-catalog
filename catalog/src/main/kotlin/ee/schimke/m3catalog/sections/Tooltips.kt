@@ -3,6 +3,7 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,6 +26,7 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_action
 import ee.schimke.m3catalog.generated.resources.action_learn_more
 import ee.schimke.m3catalog.generated.resources.label_add_to_favourites
 import ee.schimke.m3catalog.generated.resources.label_favourite
@@ -72,17 +74,18 @@ fun PlainTooltipSticker() = Sticker {
 @CatalogComponent(
   id = "Tooltip/Rich",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/54061:33872",
-  caption =
-    "Longer guidance on its own surface. The title and the single action each fold in as knobs.",
+  caption = "Longer guidance on its own surface. The title and action row each fold in as knobs.",
 )
 @CatalogModes
 @OverrideVariant(name = "no-title", strings = ["title=off"])
 @OverrideVariant(name = "no-action", strings = ["action=off"])
 @OverrideVariant(name = "body-only", strings = ["title=off", "action=off"])
+@OverrideVariant(name = "legacy-action", strings = ["action=legacy"])
 @Composable
 fun RichTooltipSticker() = Sticker {
   val anchor = counted(stringResource(Res.string.label_favourite))
-  val learn = counted(stringResource(Res.string.action_learn_more))
+  val primary = counted(stringResource(Res.string.action_action))
+  val secondary = counted(stringResource(Res.string.action_action))
   TooltipBox(
     positionProvider = TooltipDefaults.rememberRichTooltipPositionProvider(),
     tooltip = {
@@ -92,7 +95,18 @@ fun RichTooltipSticker() = Sticker {
           else ({ Text(stringResource(Res.string.tooltip_title)) }),
         action =
           if (previewOverrideString("action", "on") == "off") null
-          else ({ TextButton(onClick = learn.onClick) { Text(learn.label) } }),
+          else if (previewOverrideString("action", "on") == "legacy")
+            ({
+              val learn = counted(stringResource(Res.string.action_learn_more))
+              TextButton(onClick = learn.onClick) { Text(learn.label) }
+            })
+          else
+            ({
+              Row {
+                TextButton(onClick = primary.onClick) { Text(primary.label) }
+                TextButton(onClick = secondary.onClick) { Text(secondary.label) }
+              }
+            }),
       ) {
         Text(stringResource(Res.string.tooltip_body))
       }

@@ -46,7 +46,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 private fun CardBody(title: String) {
-  val layout = previewOverrideString("layout", "text")
+  val layout = previewOverrideString("layout", "slot")
   val action = counted(stringResource(Res.string.action_action))
   val cancel = counted(stringResource(Res.string.action_cancel))
   Column {

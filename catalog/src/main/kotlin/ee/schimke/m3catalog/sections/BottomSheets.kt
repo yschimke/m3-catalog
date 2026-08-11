@@ -27,6 +27,9 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_compose
+import ee.schimke.m3catalog.generated.resources.action_delete
+import ee.schimke.m3catalog.generated.resources.action_duplicate
 import ee.schimke.m3catalog.generated.resources.action_share
 import ee.schimke.m3catalog.generated.resources.label_add_to_favourites
 import ee.schimke.m3catalog.generated.resources.label_report
@@ -66,13 +69,22 @@ private fun SheetBody() {
         style = MaterialTheme.typography.titleLarge,
       )
     }
-    listOf(Res.string.action_share, Res.string.label_add_to_favourites, Res.string.label_report)
-      .forEach { label ->
-        ListItem(
-          headlineContent = { Text(stringResource(label)) },
-          leadingContent = { Icon(Icons.Filled.Share, contentDescription = null) },
+    if (previewOverrideBoolean("content", false)) {
+      listOf(
+          Res.string.action_share,
+          Res.string.action_compose,
+          Res.string.action_duplicate,
+          Res.string.action_delete,
+          Res.string.label_add_to_favourites,
+          Res.string.label_report,
         )
-      }
+        .forEach { label ->
+          ListItem(
+            headlineContent = { Text(stringResource(label)) },
+            leadingContent = { Icon(Icons.Filled.Share, contentDescription = null) },
+          )
+        }
+    }
   }
 }
 
@@ -83,7 +95,11 @@ private fun SheetBody() {
 )
 @CatalogModes
 @OverrideVariant(name = "no-handle", booleans = ["handle=false"])
-@OverrideVariant(name = "header", booleans = ["header=true"])
-@OverrideVariant(name = "header-no-handle", booleans = ["header=true", "handle=false"])
+@OverrideVariant(name = "content", booleans = ["content=true"])
+@OverrideVariant(name = "header", booleans = ["header=true", "content=true"])
+@OverrideVariant(
+  name = "header-no-handle",
+  booleans = ["header=true", "handle=false", "content=true"],
+)
 @Composable
 fun ModalBottomSheetSticker() = Sticker { SheetSurface { SheetBody() } }

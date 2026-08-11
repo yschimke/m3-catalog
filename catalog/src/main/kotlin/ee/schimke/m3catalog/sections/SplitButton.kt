@@ -6,8 +6,8 @@ package ee.schimke.m3catalog.sections
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.Stars
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ProvideTextStyle
@@ -25,8 +25,8 @@ import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
-import ee.schimke.m3catalog.generated.resources.action_edit
 import ee.schimke.m3catalog.generated.resources.action_more_options
+import ee.schimke.m3catalog.generated.resources.label_text
 import ee.schimke.m3catalog.splitLeadingContentPadding
 import ee.schimke.m3catalog.splitTrailingContentPadding
 import ee.schimke.m3catalog.splitTrailingIconSize
@@ -55,12 +55,12 @@ import org.jetbrains.compose.resources.stringResource
 @OverrideVariant(name = "elevated", strings = ["color=elevated"])
 @Composable
 fun SplitButton() = Sticker {
-  val c = counted(stringResource(Res.string.action_edit))
+  val c = counted(stringResource(Res.string.label_text))
   val (expanded, setExpanded) = toggleable(false)
   val size = catalogButtonSize()
   val colour = previewOverrideString("color", "filled")
   val label: @Composable RowScope.() -> Unit = {
-    Icon(Icons.Filled.Edit, contentDescription = null)
+    Icon(Icons.Filled.Stars, contentDescription = null)
     ProvideTextStyle(size.labelStyle) { Text(c.label) }
   }
   val chevron: @Composable RowScope.() -> Unit = {

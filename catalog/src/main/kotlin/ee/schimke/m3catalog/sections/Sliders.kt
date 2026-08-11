@@ -82,7 +82,7 @@ fun RangeSliderSticker() = Sticker {
   val steps = sliderSteps()
   val state =
     remember(steps) {
-      RangeSliderState(activeRangeStart = 0.2f, activeRangeEnd = 0.8f, steps = steps)
+      RangeSliderState(activeRangeStart = 0.49f, activeRangeEnd = 0.51f, steps = steps)
     }
   RangeSlider(state = state, enabled = sliderEnabled(), modifier = Modifier.width(280.dp))
 }

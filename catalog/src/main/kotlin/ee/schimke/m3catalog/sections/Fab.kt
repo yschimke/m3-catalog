@@ -4,7 +4,7 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Stars
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
@@ -28,8 +28,7 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
-import ee.schimke.m3catalog.generated.resources.action_compose
-import ee.schimke.m3catalog.generated.resources.action_edit
+import ee.schimke.m3catalog.generated.resources.label_text
 import org.jetbrains.compose.resources.stringResource
 
 // The floating action button family: one primary action, raised above the content.
@@ -79,9 +78,9 @@ private fun catalogFabColor(): Color =
 @OverrideVariant(name = "tertiary-container", strings = ["color=tertiary-container"])
 @Composable
 fun Fab() = Sticker {
-  val c = counted(stringResource(Res.string.action_edit))
+  val c = counted(stringResource(Res.string.label_text))
   FloatingActionButton(onClick = c.onClick, containerColor = catalogFabColor()) {
-    Icon(Icons.Filled.Edit, contentDescription = c.label)
+    Icon(Icons.Filled.Stars, contentDescription = c.label)
   }
 }
 
@@ -89,9 +88,9 @@ fun Fab() = Sticker {
 @CatalogModes
 @Composable
 fun FabSmall() = Sticker {
-  val c = counted(stringResource(Res.string.action_edit))
+  val c = counted(stringResource(Res.string.label_text))
   SmallFloatingActionButton(onClick = c.onClick) {
-    Icon(Icons.Filled.Edit, contentDescription = c.label)
+    Icon(Icons.Filled.Stars, contentDescription = c.label)
   }
 }
 
@@ -99,9 +98,9 @@ fun FabSmall() = Sticker {
 @CatalogModes
 @Composable
 fun FabMedium() = Sticker {
-  val c = counted(stringResource(Res.string.action_edit))
+  val c = counted(stringResource(Res.string.label_text))
   MediumFloatingActionButton(onClick = c.onClick) {
-    Icon(Icons.Filled.Edit, contentDescription = c.label)
+    Icon(Icons.Filled.Stars, contentDescription = c.label)
   }
 }
 
@@ -109,9 +108,9 @@ fun FabMedium() = Sticker {
 @CatalogModes
 @Composable
 fun FabLarge() = Sticker {
-  val c = counted(stringResource(Res.string.action_edit))
+  val c = counted(stringResource(Res.string.label_text))
   LargeFloatingActionButton(onClick = c.onClick) {
-    Icon(Icons.Filled.Edit, contentDescription = c.label)
+    Icon(Icons.Filled.Stars, contentDescription = c.label)
   }
 }
 
@@ -128,11 +127,11 @@ fun FabLarge() = Sticker {
 @OverrideVariant(name = "tertiary-container", strings = ["color=tertiary-container"])
 @Composable
 fun ExtendedFab() = Sticker {
-  val c = counted(stringResource(Res.string.action_compose))
+  val c = counted(stringResource(Res.string.label_text))
   ExtendedFloatingActionButton(
     onClick = c.onClick,
     containerColor = catalogFabColor(),
-    icon = { Icon(Icons.Filled.Edit, contentDescription = null) },
+    icon = { Icon(Icons.Filled.Stars, contentDescription = null) },
     text = { Text(c.label) },
   )
 }
@@ -141,10 +140,10 @@ fun ExtendedFab() = Sticker {
 @CatalogModes
 @Composable
 fun ExtendedFabSmall() = Sticker {
-  val c = counted(stringResource(Res.string.action_compose))
+  val c = counted(stringResource(Res.string.label_text))
   SmallExtendedFloatingActionButton(
     onClick = c.onClick,
-    icon = { Icon(Icons.Filled.Edit, contentDescription = null) },
+    icon = { Icon(Icons.Filled.Stars, contentDescription = null) },
     text = { Text(c.label) },
   )
 }
@@ -153,10 +152,10 @@ fun ExtendedFabSmall() = Sticker {
 @CatalogModes
 @Composable
 fun ExtendedFabMedium() = Sticker {
-  val c = counted(stringResource(Res.string.action_compose))
+  val c = counted(stringResource(Res.string.label_text))
   MediumExtendedFloatingActionButton(
     onClick = c.onClick,
-    icon = { Icon(Icons.Filled.Edit, contentDescription = null) },
+    icon = { Icon(Icons.Filled.Stars, contentDescription = null) },
     text = { Text(c.label) },
   )
 }
@@ -165,10 +164,10 @@ fun ExtendedFabMedium() = Sticker {
 @CatalogModes
 @Composable
 fun ExtendedFabLarge() = Sticker {
-  val c = counted(stringResource(Res.string.action_compose))
+  val c = counted(stringResource(Res.string.label_text))
   LargeExtendedFloatingActionButton(
     onClick = c.onClick,
-    icon = { Icon(Icons.Filled.Edit, contentDescription = null) },
+    icon = { Icon(Icons.Filled.Stars, contentDescription = null) },
     text = { Text(c.label) },
   )
 }

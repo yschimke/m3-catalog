@@ -55,6 +55,7 @@ import org.jetbrains.compose.resources.stringResource
 @OverrideVariant(name = "no-header", booleans = ["header=false"])
 @OverrideVariant(name = "no-footer", booleans = ["footer=false"])
 @OverrideVariant(name = "no-header-no-footer", booleans = ["header=false", "footer=false"])
+@OverrideVariant(name = "content", booleans = ["content=true"])
 @Composable
 fun StandardSideSheet() = Sticker {
   val close = counted(stringResource(Res.string.action_close))
@@ -82,11 +83,15 @@ fun StandardSideSheet() = Sticker {
           }
         }
       }
-      Text(
-        stringResource(Res.string.sheet_supporting),
-        modifier = Modifier.weight(1f).padding(horizontal = 24.dp),
-        style = MaterialTheme.typography.bodyMedium,
-      )
+      if (previewOverrideBoolean("content", false)) {
+        Text(
+          stringResource(Res.string.sheet_supporting),
+          modifier = Modifier.weight(1f).padding(horizontal = 24.dp),
+          style = MaterialTheme.typography.bodyMedium,
+        )
+      } else {
+        Column(Modifier.weight(1f)) {}
+      }
       if (previewOverrideBoolean("footer", true)) {
         HorizontalDivider()
         Row(

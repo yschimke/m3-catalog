@@ -5,11 +5,8 @@ package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Stars
+import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ShortNavigationBar
@@ -17,7 +14,6 @@ import androidx.compose.material3.ShortNavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
@@ -32,7 +28,6 @@ import ee.schimke.m3catalog.generated.resources.nav_search
 import ee.schimke.m3catalog.generated.resources.nav_settings
 import ee.schimke.m3catalog.generated.resources.nav_you
 import ee.schimke.m3catalog.selectable
-import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
 // The bar owns its selected destination, so a click on the live lane really moves the indicator.
@@ -40,13 +35,13 @@ import org.jetbrains.compose.resources.stringResource
 // The kit's axes: DESTINATION COUNT (three to five), LABEL VISIBILITY (always / selected only /
 // never), and an optional badge.
 
-private val DESTINATIONS: List<Pair<StringResource, ImageVector>> =
+private val DESTINATIONS =
   listOf(
-    Res.string.nav_home to Icons.Filled.Home,
-    Res.string.nav_search to Icons.Filled.Search,
-    Res.string.nav_you to Icons.Filled.Person,
-    Res.string.nav_saved to Icons.Filled.Favorite,
-    Res.string.nav_settings to Icons.Filled.Settings,
+    Res.string.nav_home,
+    Res.string.nav_search,
+    Res.string.nav_you,
+    Res.string.nav_saved,
+    Res.string.nav_settings,
   )
 
 @CatalogComponent(
@@ -64,11 +59,16 @@ fun ShortNavigationBarSticker() = Sticker {
   val labels = previewOverrideString("labels", "always")
   val (selected, select) = selectable(0)
   ShortNavigationBar(Modifier.width(360.dp)) {
-    DESTINATIONS.take(count).forEachIndexed { index, (label, icon) ->
+    DESTINATIONS.take(count).forEachIndexed { index, label ->
       ShortNavigationBarItem(
         selected = index == selected,
         onClick = { select(index) },
-        icon = { Icon(icon, contentDescription = null) },
+        icon = {
+          Icon(
+            if (index == selected) Icons.Filled.Stars else Icons.Outlined.Stars,
+            contentDescription = null,
+          )
+        },
         label = if (labels == "none") null else ({ Text(stringResource(label)) }),
       )
     }

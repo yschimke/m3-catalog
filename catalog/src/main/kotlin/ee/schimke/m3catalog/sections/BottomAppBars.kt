@@ -6,9 +6,9 @@ package ee.schimke.m3catalog.sections
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Download
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButton
@@ -55,16 +55,16 @@ fun BottomAppBarSticker() = Sticker {
     modifier = Modifier.width(360.dp),
     actions = {
       IconButton(onClick = check.onClick) {
-        Icon(Icons.Filled.Check, contentDescription = check.label)
+        Icon(Icons.Filled.Search, contentDescription = check.label)
       }
       if (count >= 2) {
         IconButton(onClick = edit.onClick) {
-          Icon(Icons.Filled.Edit, contentDescription = edit.label)
+          Icon(Icons.Filled.Delete, contentDescription = edit.label)
         }
       }
       if (count >= 3) {
         IconButton(onClick = more.onClick) {
-          Icon(Icons.Filled.MoreVert, contentDescription = more.label)
+          Icon(Icons.Filled.Download, contentDescription = more.label)
         }
       }
       if (count >= 4) {

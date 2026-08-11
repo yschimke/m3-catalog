@@ -5,19 +5,25 @@ package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ChangeHistory
+import androidx.compose.material.icons.filled.Stars
+import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
 import androidx.compose.material3.carousel.HorizontalUncontainedCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
@@ -33,14 +39,20 @@ import ee.schimke.m3catalog.Sticker
 // is what the `width` knob expresses.
 
 @Composable
-private fun swatches(): List<Color> =
-  listOf(
-    MaterialTheme.colorScheme.primaryContainer,
-    MaterialTheme.colorScheme.secondaryContainer,
-    MaterialTheme.colorScheme.tertiaryContainer,
-    MaterialTheme.colorScheme.surfaceVariant,
-    MaterialTheme.colorScheme.errorContainer,
-  )
+private fun CarouselItem() {
+  Box(
+    Modifier.fillMaxSize()
+      .clip(RoundedCornerShape(16.dp))
+      .background(MaterialTheme.colorScheme.surfaceContainerHighest),
+    contentAlignment = Alignment.Center,
+  ) {
+    Row {
+      Icon(Icons.Filled.ChangeHistory, contentDescription = null)
+      Icon(Icons.Filled.Stars, contentDescription = null)
+      Icon(Icons.Filled.Stop, contentDescription = null)
+    }
+  }
+}
 
 @CatalogComponent(
   id = "Carousel/MultiBrowse",
@@ -53,15 +65,14 @@ private fun swatches(): List<Color> =
 @OverrideVariant(name = "full-screen", strings = ["width=320"])
 @Composable
 fun MultiBrowseCarousel() = Sticker {
-  val colors = swatches()
   val width = previewOverrideString("width", "160").toIntOrNull() ?: 160
   HorizontalMultiBrowseCarousel(
-    state = rememberCarouselState { colors.size },
+    state = rememberCarouselState { 5 },
     preferredItemWidth = width.dp,
     modifier = Modifier.width(320.dp).height(180.dp),
     itemSpacing = 8.dp,
-  ) { index ->
-    Box(Modifier.fillMaxSize().clip(RoundedCornerShape(16.dp)).background(colors[index]))
+  ) {
+    CarouselItem()
   }
 }
 
@@ -73,13 +84,12 @@ fun MultiBrowseCarousel() = Sticker {
 @CatalogModes
 @Composable
 fun UncontainedCarousel() = Sticker {
-  val colors = swatches()
   HorizontalUncontainedCarousel(
-    state = rememberCarouselState { colors.size },
+    state = rememberCarouselState { 5 },
     itemWidth = 140.dp,
     modifier = Modifier.width(320.dp).height(180.dp),
     itemSpacing = 8.dp,
-  ) { index ->
-    Box(Modifier.fillMaxSize().clip(RoundedCornerShape(16.dp)).background(colors[index]))
+  ) {
+    CarouselItem()
   }
 }

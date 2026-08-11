@@ -3,10 +3,13 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -82,7 +85,12 @@ private fun trailing(): (@Composable () -> Unit)? {
 @OverrideVariant(name = "three-line-switch", strings = ["lines=3", "trailing=switch"])
 @Composable
 fun ListItemSticker() = Sticker {
-  val lines = previewOverrideString("lines", "2").toIntOrNull() ?: 2
+  val lineSetting = previewOverrideString("lines", "figma")
+  if (lineSetting == "figma") {
+    FigmaList()
+    return@Sticker
+  }
+  val lines = lineSetting.toIntOrNull() ?: 2
   Column(Modifier.width(340.dp)) {
     ListItem(
       headlineContent = { Text(stringResource(Res.string.list_item)) },
@@ -94,6 +102,7 @@ fun ListItemSticker() = Sticker {
                 if (lines >= 3) Res.string.list_supporting_long else Res.string.list_supporting
               )
             )
+            if (lines >= 3) Text(stringResource(Res.string.list_last_seen))
           }
         } else null,
       overlineContent =
@@ -111,14 +120,29 @@ fun ListItemSticker() = Sticker {
 )
 @CatalogModes
 @Composable
-fun ListItemGroup() = Sticker {
+fun ListItemGroup() = Sticker { FigmaList() }
+
+@Composable
+private fun FigmaList() {
   Column(Modifier.width(340.dp)) {
-    listOf("Alice", "Bala", "Chen").forEachIndexed { index, name ->
+    repeat(6) { index ->
       if (index > 0) HorizontalDivider()
       ListItem(
-        headlineContent = { Text(name) },
-        supportingContent = { Text(stringResource(Res.string.list_last_seen)) },
-        leadingContent = { Icon(Icons.Filled.Person, contentDescription = null) },
+        headlineContent = { Text(stringResource(Res.string.list_item)) },
+        supportingContent = {
+          Text(
+            stringResource(
+              if (index == 1) Res.string.list_supporting_long else Res.string.list_supporting
+            )
+          )
+        },
+        leadingContent = { Icon(Icons.Outlined.Stars, contentDescription = null) },
+        trailingContent = {
+          Row {
+            Text("⌘C")
+            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+          }
+        },
       )
     }
   }

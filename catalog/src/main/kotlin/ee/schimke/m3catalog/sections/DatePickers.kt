@@ -38,10 +38,10 @@ import org.jetbrains.compose.resources.stringResource
 // The date is pinned to a fixed instant so the baked capture is deterministic: an unpinned picker
 // would open on "today" and every nightly render would differ from the last.
 //
-// 2024-01-15T00:00:00Z, chosen because it sits mid-month and mid-week, so the sticker shows a full
-// grid rather than a nearly empty first or last row.
-private const val PINNED_DATE_MILLIS = 1705276800000L
-private const val PINNED_DATE_END_MILLIS = 1705968000000L
+// The kit's default is August 17–23, 2025. Pinning those exact instants keeps the render
+// deterministic while reproducing the reference month and selection.
+private const val PINNED_DATE_MILLIS = 1755388800000L
+private const val PINNED_DATE_END_MILLIS = 1755907200000L
 
 // Calendar vs keyboard entry is `DisplayMode`, a parameter, so it folds in. Single vs range is
 // `DatePicker` vs `DateRangePicker`, two composables, so it stays two components. The modal form is

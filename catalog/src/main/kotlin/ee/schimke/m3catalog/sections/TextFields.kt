@@ -57,7 +57,9 @@ private fun fieldSpec(): FieldSpec {
   val content = previewOverrideString("content", "none")
   val error = state == "error"
   return FieldSpec(
-    value = if (state == "empty") "" else if (error) "not-an-email" else "Alice",
+    value =
+      if (state == "empty") ""
+      else if (error) "not-an-email" else stringResource(Res.string.field_placeholder),
     label =
       if (previewOverrideString("label", "on") == "off") null
       else ({ Text(stringResource(if (error) Res.string.field_email else Res.string.field_name)) }),
@@ -74,7 +76,7 @@ private fun fieldSpec(): FieldSpec {
         }),
     supporting =
       if (error) ({ Text(stringResource(Res.string.field_error)) })
-      else if (previewOverrideString("supporting", "off") == "on")
+      else if (previewOverrideString("supporting", "on") == "on")
         ({ Text(stringResource(Res.string.field_supporting)) })
       else null,
     isError = error,
@@ -96,7 +98,7 @@ private fun fieldSpec(): FieldSpec {
 @OverrideVariant(name = "leading-icon", strings = ["content=leading"])
 @OverrideVariant(name = "trailing-icon", strings = ["content=trailing"])
 @OverrideVariant(name = "both-icons", strings = ["content=both"])
-@OverrideVariant(name = "supporting", strings = ["supporting=on"])
+@OverrideVariant(name = "no-supporting", strings = ["supporting=off"])
 @OverrideVariant(name = "no-label", strings = ["label=off"])
 @OverrideVariant(name = "no-label-empty", strings = ["label=off", "state=empty"])
 @Composable
@@ -129,7 +131,7 @@ fun FilledTextField() = Sticker {
 @OverrideVariant(name = "leading-icon", strings = ["content=leading"])
 @OverrideVariant(name = "trailing-icon", strings = ["content=trailing"])
 @OverrideVariant(name = "both-icons", strings = ["content=both"])
-@OverrideVariant(name = "supporting", strings = ["supporting=on"])
+@OverrideVariant(name = "no-supporting", strings = ["supporting=off"])
 @OverrideVariant(name = "no-label", strings = ["label=off"])
 @Composable
 fun OutlinedTextFieldSticker() = Sticker {

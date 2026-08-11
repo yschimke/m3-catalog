@@ -182,7 +182,7 @@ fun InputChipSticker() = Sticker {
   InputChip(
     selected = selected,
     onClick = { set(!selected) },
-    label = { Text("Alice") },
+    label = { Text(stringResource(Res.string.chip_unread)) },
     enabled = chipEnabled(),
     avatar = chipIcon(),
     trailingIcon = {

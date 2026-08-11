@@ -27,7 +27,7 @@ import ee.schimke.m3catalog.Sticker
 // composable rather than a parameter, so it is its own component.
 
 @Composable
-private fun progress(): Float = previewOverrideString("progress", "0.7").toFloatOrNull() ?: 0.7f
+private fun progress(): Float = previewOverrideString("progress", "0.5").toFloatOrNull() ?: 0.5f
 
 @CatalogComponent(
   id = "Progress/Linear",

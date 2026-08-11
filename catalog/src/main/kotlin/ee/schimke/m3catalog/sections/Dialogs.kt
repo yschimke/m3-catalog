@@ -11,10 +11,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialogDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -30,9 +30,8 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
-import ee.schimke.m3catalog.generated.resources.action_cancel
-import ee.schimke.m3catalog.generated.resources.action_delete
-import ee.schimke.m3catalog.generated.resources.action_ok
+import ee.schimke.m3catalog.generated.resources.dialog_action_1
+import ee.schimke.m3catalog.generated.resources.dialog_action_2
 import ee.schimke.m3catalog.generated.resources.dialog_add_account
 import ee.schimke.m3catalog.generated.resources.dialog_backup_title
 import ee.schimke.m3catalog.generated.resources.dialog_delete_body
@@ -99,8 +98,8 @@ fun BasicDialog() = Sticker {
         color = AlertDialogDefaults.textContentColor,
       )
       DialogActions(
-        stringResource(Res.string.action_delete),
-        stringResource(Res.string.action_cancel),
+        stringResource(Res.string.dialog_action_1),
+        stringResource(Res.string.dialog_action_2),
       )
     }
   }
@@ -123,17 +122,28 @@ fun ListDialog() = Sticker {
         style = MaterialTheme.typography.headlineSmall,
         color = AlertDialogDefaults.titleContentColor,
       )
-      listOf("alice@example.com", "bala@example.com", stringResource(Res.string.dialog_add_account))
-        .forEachIndexed { i, label ->
-          ListItem(
-            headlineContent = { Text(label) },
-            leadingContent = { RadioButton(selected = i == selected, onClick = { select(i) }) },
-          )
-        }
+      Text(
+        stringResource(Res.string.dialog_delete_body),
+        Modifier.padding(horizontal = 24.dp),
+        style = MaterialTheme.typography.bodyMedium,
+        color = AlertDialogDefaults.textContentColor,
+      )
+      repeat(3) { i ->
+        ListItem(
+          headlineContent = { Text(stringResource(Res.string.dialog_add_account)) },
+          leadingContent = { Text("A") },
+          trailingContent = {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+              Text("100+")
+              Checkbox(checked = i == selected, onCheckedChange = { if (it) select(i) })
+            }
+          },
+        )
+      }
       Row(Modifier.padding(horizontal = 24.dp)) {
         DialogActions(
-          stringResource(Res.string.action_ok),
-          stringResource(Res.string.action_cancel),
+          stringResource(Res.string.dialog_action_1),
+          stringResource(Res.string.dialog_action_2),
         )
       }
     }

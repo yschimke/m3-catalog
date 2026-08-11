@@ -36,7 +36,7 @@ import org.jetbrains.compose.resources.stringResource
 @OverrideVariant(name = "overflow", strings = ["label=999+"])
 @Composable
 fun NumberBadge() = Sticker {
-  BadgedBox(badge = { Badge { Text(previewOverrideString("label", "8")) } }) {
+  BadgedBox(badge = { Badge { Text(previewOverrideString("label", "3")) } }) {
     Icon(Icons.Filled.MailOutline, contentDescription = stringResource(Res.string.label_mail))
   }
 }

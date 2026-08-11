@@ -5,6 +5,7 @@ package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,9 +17,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.AppBarWithSearch
 import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -48,9 +50,11 @@ import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_back
 import ee.schimke.m3catalog.generated.resources.action_clear
 import ee.schimke.m3catalog.generated.resources.action_menu
-import ee.schimke.m3catalog.generated.resources.action_more
 import ee.schimke.m3catalog.generated.resources.label_account
+import ee.schimke.m3catalog.generated.resources.list_supporting
+import ee.schimke.m3catalog.generated.resources.search_app_hint
 import ee.schimke.m3catalog.generated.resources.search_hint
+import ee.schimke.m3catalog.generated.resources.search_input_text
 import ee.schimke.m3catalog.generated.resources.search_suggestion_motion
 import ee.schimke.m3catalog.generated.resources.search_suggestion_sticker_sheet
 import ee.schimke.m3catalog.generated.resources.search_suggestion_symbols
@@ -85,6 +89,11 @@ private fun searchPlaceholder(): (@Composable () -> Unit)? =
   if (searchContent() == "query") null else ({ Text(stringResource(Res.string.search_hint)) })
 
 @Composable
+private fun searchLeading(): @Composable () -> Unit = {
+  Icon(Icons.Filled.Menu, contentDescription = stringResource(Res.string.action_menu))
+}
+
+@Composable
 private fun searchTrailing(): (@Composable () -> Unit)? =
   when (searchContent()) {
     "query" -> ({
@@ -102,7 +111,7 @@ private fun searchTrailing(): (@Composable () -> Unit)? =
           )
         }
       })
-    else -> null
+    else -> ({ Icon(Icons.Filled.Search, contentDescription = null) })
   }
 
 @CatalogComponent(
@@ -125,7 +134,7 @@ fun SearchBarSticker() = Sticker {
         searchBarState = state,
         onSearch = {},
         placeholder = searchPlaceholder(),
-        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+        leadingIcon = searchLeading(),
         trailingIcon = searchTrailing(),
       )
     },
@@ -159,7 +168,7 @@ fun DockedSearchBarSticker() = Sticker {
         expanded = expanded,
         onExpandedChange = setExpanded,
         placeholder = searchPlaceholder(),
-        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+        leadingIcon = searchLeading(),
         trailingIcon = searchTrailing(),
       )
     },
@@ -183,7 +192,6 @@ fun AppBarWithSearchSticker() = Sticker {
   val state = rememberSearchBarState(SearchBarValue.Collapsed)
   val text = rememberTextFieldState(searchQuery())
   val menu = counted("menu")
-  val overflow = counted("overflow")
   AppBarWithSearch(
     state = state,
     inputField = {
@@ -191,8 +199,8 @@ fun AppBarWithSearchSticker() = Sticker {
         textFieldState = text,
         searchBarState = state,
         onSearch = {},
-        placeholder = searchPlaceholder(),
-        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+        placeholder = { Text(stringResource(Res.string.search_app_hint)) },
+        leadingIcon = null,
         trailingIcon = searchTrailing(),
       )
     },
@@ -203,8 +211,12 @@ fun AppBarWithSearchSticker() = Sticker {
       }
     },
     actions = {
-      IconButton(onClick = overflow.onClick) {
-        Icon(Icons.Filled.MoreVert, contentDescription = stringResource(Res.string.action_more))
+      Surface(color = MaterialTheme.colorScheme.primaryContainer, shape = CircleShape) {
+        Icon(
+          Icons.Filled.Person,
+          contentDescription = stringResource(Res.string.label_account),
+          modifier = Modifier.padding(4.dp).size(22.dp),
+        )
       }
     },
   )
@@ -265,7 +277,7 @@ fun ExpandedFullScreenSearchBarSticker() = Sticker {
  */
 @Composable
 private fun ExpandedInputField() {
-  val (query, setQuery) = editable("material")
+  val (query, setQuery) = editable(stringResource(Res.string.search_input_text))
   val back = counted("back")
   SearchBarDefaults.InputField(
     query = query,
@@ -282,6 +294,12 @@ private fun ExpandedInputField() {
         )
       }
     },
+    trailingIcon = {
+      Row {
+        Icon(Icons.Filled.Close, contentDescription = stringResource(Res.string.action_clear))
+        Icon(Icons.Filled.Mic, contentDescription = null)
+      }
+    },
   )
 }
 
@@ -291,7 +309,8 @@ private fun SuggestionRows() {
     val row = counted(stringResource(suggestion))
     ListItem(
       headlineContent = { Text(row.label) },
-      leadingContent = { Icon(Icons.Filled.Search, contentDescription = null) },
+      supportingContent = { Text(stringResource(Res.string.list_supporting)) },
+      leadingContent = { Icon(Icons.Outlined.Stars, contentDescription = null) },
       modifier = Modifier.fillMaxWidth().clickable(onClick = row.onClick),
     )
   }

@@ -31,8 +31,8 @@ import org.jetbrains.compose.resources.stringResource
 
 // A divider is a static separator: no state, nothing to click, so it ships no handler.
 //
-// The kit's axes are the INSET (full-bleed or indented to align with list content) and an optional
-// SUBHEAD label above it. Both fold onto the horizontal form; the vertical form takes neither.
+// The kit's default instances are the divider itself with no surrounding sample copy. Inset folds
+// onto the horizontal form.
 
 @CatalogComponent(
   id = "Divider/Horizontal",
@@ -41,13 +41,15 @@ import org.jetbrains.compose.resources.stringResource
 )
 @CatalogModes
 @OverrideVariant(name = "inset", strings = ["inset=16"])
+@OverrideVariant(name = "context", booleans = ["context=true"])
 @OverrideVariant(name = "subhead", booleans = ["subhead=true"])
-@OverrideVariant(name = "inset-subhead", strings = ["inset=16"], booleans = ["subhead=true"])
 @Composable
 fun HorizontalDividerSticker() = Sticker {
   val inset = previewOverrideString("inset", "0").toIntOrNull() ?: 0
   Column(Modifier.width(280.dp)) {
-    Text(stringResource(Res.string.divider_above), Modifier.padding(vertical = 8.dp))
+    if (previewOverrideBoolean("context", false)) {
+      Text(stringResource(Res.string.divider_above), Modifier.padding(vertical = 8.dp))
+    }
     if (previewOverrideBoolean("subhead", false)) {
       Text(
         stringResource(Res.string.divider_section),
@@ -57,7 +59,9 @@ fun HorizontalDividerSticker() = Sticker {
       )
     }
     HorizontalDivider(Modifier.padding(start = inset.dp))
-    Text(stringResource(Res.string.divider_below), Modifier.padding(vertical = 8.dp))
+    if (previewOverrideBoolean("context", false)) {
+      Text(stringResource(Res.string.divider_below), Modifier.padding(vertical = 8.dp))
+    }
   }
 }
 
@@ -67,11 +71,16 @@ fun HorizontalDividerSticker() = Sticker {
   caption = "Separates content in a horizontal row.",
 )
 @CatalogModes
+@OverrideVariant(name = "context", booleans = ["context=true"])
 @Composable
 fun VerticalDividerSticker() = Sticker {
   Row(Modifier.height(48.dp)) {
-    Text(stringResource(Res.string.divider_left), Modifier.padding(horizontal = 8.dp))
+    if (previewOverrideBoolean("context", false)) {
+      Text(stringResource(Res.string.divider_left), Modifier.padding(horizontal = 8.dp))
+    }
     VerticalDivider()
-    Text(stringResource(Res.string.divider_right), Modifier.padding(horizontal = 8.dp))
+    if (previewOverrideBoolean("context", false)) {
+      Text(stringResource(Res.string.divider_right), Modifier.padding(horizontal = 8.dp))
+    }
   }
 }

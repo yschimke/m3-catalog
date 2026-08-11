@@ -4,9 +4,9 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Comment
+import androidx.compose.material.icons.filled.Download
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingToolbarDefaults
 import androidx.compose.material3.HorizontalFloatingToolbar
@@ -40,13 +40,13 @@ private fun ToolbarActions() {
   val edit = counted(stringResource(Res.string.action_edit))
   val more = counted(stringResource(Res.string.action_more))
   IconButton(onClick = add.onClick) {
-    Icon(Icons.Filled.Add, contentDescription = stringResource(Res.string.action_add))
+    Icon(Icons.Filled.Share, contentDescription = stringResource(Res.string.action_add))
   }
   IconButton(onClick = edit.onClick) {
-    Icon(Icons.Filled.Edit, contentDescription = stringResource(Res.string.action_edit))
+    Icon(Icons.Filled.Comment, contentDescription = stringResource(Res.string.action_edit))
   }
   IconButton(onClick = more.onClick) {
-    Icon(Icons.Filled.MoreVert, contentDescription = stringResource(Res.string.action_more))
+    Icon(Icons.Filled.Download, contentDescription = stringResource(Res.string.action_more))
   }
 }
 

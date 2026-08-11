@@ -5,8 +5,8 @@ package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.filled.Stars
+import androidx.compose.material.icons.outlined.Stars
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FilledTonalIconButton
@@ -48,7 +48,7 @@ import org.jetbrains.compose.resources.stringResource
 @IconButtonMatrix
 @Composable
 fun StandardIconButton() = Sticker {
-  val (on, set) = toggleable(false)
+  val (on, set) = toggleable(true)
   val size = catalogButtonSize()
   IconButton(
     onClick = { set(!on) },
@@ -57,7 +57,7 @@ fun StandardIconButton() = Sticker {
     modifier = Modifier.size(catalogIconContainerSize(size)),
   ) {
     Icon(
-      if (on) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+      if (on) Icons.Filled.Stars else Icons.Outlined.Stars,
       contentDescription = stringResource(Res.string.label_favourite),
       modifier = Modifier.size(size.iconButtonIconSize),
     )
@@ -83,7 +83,7 @@ fun FilledIconButtonSticker() = Sticker {
     modifier = Modifier.size(catalogIconContainerSize(size)),
   ) {
     Icon(
-      if (on) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+      if (on) Icons.Filled.Stars else Icons.Outlined.Stars,
       contentDescription = stringResource(Res.string.label_favourite),
       modifier = Modifier.size(size.iconButtonIconSize),
     )
@@ -108,7 +108,7 @@ fun TonalIconButton() = Sticker {
     modifier = Modifier.size(catalogIconContainerSize(size)),
   ) {
     Icon(
-      if (on) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+      if (on) Icons.Filled.Stars else Icons.Outlined.Stars,
       contentDescription = stringResource(Res.string.label_favourite),
       modifier = Modifier.size(size.iconButtonIconSize),
     )
@@ -125,7 +125,7 @@ fun TonalIconButton() = Sticker {
 @IconButtonMatrix
 @Composable
 fun OutlinedIconButtonSticker() = Sticker {
-  val (on, set) = toggleable(false)
+  val (on, set) = toggleable(true)
   val size = catalogButtonSize()
   OutlinedIconButton(
     onClick = { set(!on) },
@@ -134,7 +134,7 @@ fun OutlinedIconButtonSticker() = Sticker {
     modifier = Modifier.size(catalogIconContainerSize(size)),
   ) {
     Icon(
-      if (on) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+      if (on) Icons.Filled.Stars else Icons.Outlined.Stars,
       contentDescription = stringResource(Res.string.label_favourite),
       modifier = Modifier.size(size.iconButtonIconSize),
     )

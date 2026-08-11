@@ -54,12 +54,12 @@ private fun Actions(): @Composable androidx.compose.foundation.layout.RowScope.(
   val search = counted(stringResource(Res.string.action_search))
   val count = previewOverrideString("actions", "1").toIntOrNull() ?: 1
   return {
-    if (count >= 2) {
+    if (count >= 1) {
       IconButton(onClick = search.onClick) {
         Icon(Icons.Filled.Search, contentDescription = search.label)
       }
     }
-    if (count >= 1) {
+    if (count >= 2) {
       IconButton(onClick = more.onClick) {
         Icon(Icons.Filled.MoreVert, contentDescription = more.label)
       }
