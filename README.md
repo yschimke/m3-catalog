@@ -231,6 +231,11 @@ example screens (the only one that can back a design-parity page backdrop).
 [`scripts/list-figma-pages.mjs`](scripts/list-figma-pages.mjs) regenerates the
 list in one REST call.
 
+The Upcoming-Mobile screen is published with the catalog and browsable at
+[`preview.coo.ee/m3-catalog/pages`](https://preview.coo.ee/m3-catalog/pages):
+every component instance on it is linked back to the sticker that implements it,
+and the catalog's own renders can be laid over the design live.
+
 ```sh
 FIGMA_TOKEN=figd_... node scripts/list-figma-pages.mjs
 ```

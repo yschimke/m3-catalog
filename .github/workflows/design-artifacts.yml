@@ -26,6 +26,10 @@ on:
     paths:
       - 'catalog/**'
       - 'catalog.spec.json'
+      # The page-backdrop opt-in and its page list. Changing which screens are
+      # published — or turning the surface on or off — changes what the delivery
+      # branch carries, so it belongs in the same set as the spec.
+      - 'design-pages.json'
       - 'gradle/libs.versions.toml'
       - 'gradle/wrapper/gradle-wrapper.properties'
       - 'settings.gradle.kts'
