@@ -17,7 +17,6 @@ import androidx.compose.material3.SplitButtonLayout
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
@@ -63,7 +62,7 @@ fun SplitButton() = Sticker {
   val size = catalogButtonSize()
   val colour = previewOverrideString("color", "filled")
   val label: @Composable RowScope.() -> Unit = {
-    Icon(CatalogFilledStars, contentDescription = null, modifier = Modifier.size(20.dp))
+    Icon(CatalogFilledStars, contentDescription = null, modifier = Modifier.size(size.iconSize))
     // `LeadingButton` lays its content out as a bare centred `Row` and adds no spacing of its own,
     // so the icon-to-label gap is the caller's to supply — exactly as the upstream
     // `FilledSplitButtonSample` does. Without it the leading half renders 8dp narrow with the glyph
