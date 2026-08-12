@@ -134,16 +134,41 @@ until a `design-pages.json` exists with `"enabled": true`.
 design-parity-pages import --design-map design-map.json
 ```
 
-A committed [`design-pages.json`](../design-pages.json) is already in the repo
-with `"enabled": false` — the deliberate "landed but dark" state. Flipping that
-one boolean is the opt-in; nothing runs until you do.
+[`design-pages.json`](../design-pages.json) is committed with `"enabled": true`
+for the Upcoming-Mobile screen. That boolean is the opt-in; a repo that leaves it
+false runs nothing.
+
+### Where it is shown
+
+**On the preview server, at
+[`preview.coo.ee/m3-catalog/pages`](https://preview.coo.ee/m3-catalog/pages).**
+The catalog's `design-artifacts/m3-catalog` branch carries the backdrop
+(`pages/index.json` plus the screen's PNG), the server stages it like any other
+catalog asset, and the catalog landing links `1 screen` beside "design parity".
+
+The server draws what the offline viewer draws — the screen, a rectangle per
+instance coloured by link method, the dashed-red rectangles for the parts no code
+implements — and adds the one thing a static file can't have: the **overlay is
+live**. It lays `/<system>/render/<previewId>.png` over each placement, so the
+design half is fixed at import time while the code half is this catalog's current
+render, in the theme the visitor picked. Nothing is pre-baked for it.
+
+Publishing happens inside the ordinary
+[`Design Artifacts`](../.github/workflows/design-artifacts.yml) run: the shared
+reusable workflow imports the page (it already holds `FIGMA_TOKEN` for the
+reference rasters) and emits it into the bundle. So the screens track the design
+on the same cadence as the stickers — every merge to `main` that changes the
+catalog, plus the Monday cron — with nothing to dispatch by hand.
+
+### The manual workflow is still there, for a look without publishing
 
 The [`Refresh Figma page backdrop`](../.github/workflows/figma-page-backdrop.yml)
-workflow drives it in CI: manual dispatch, artifact-only, no writes back to the
-repo, on the same reasoning as `figma-refs.yml`. It checks the opt-in first and
-stops cleanly if the feature is off, so it is safe to run today — it will simply
-report that it is dark. The run summary lists every placement with its link
-method, so you can see what resolved without downloading anything.
+workflow drives one import on demand: manual dispatch, artifact-only, no writes
+back to the repo. Its run summary lists every placement with its link method, so
+you can see what resolved without downloading anything — useful for checking a
+re-mapped component before a publish picks it up. Note the artifact itself lives
+on a blob host some networks block, which is part of why the published surface
+exists.
 
 ### Where the overlay images come from
 
