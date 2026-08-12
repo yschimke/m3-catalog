@@ -1,11 +1,31 @@
 {
   "schema": "compose-preview-activity/v1",
-  "generatedAt": "2026-08-12T05:33:58.119Z",
+  "generatedAt": "2026-08-12T07:55:48.463Z",
   "windowDays": 30,
   "code": {
     "repo": "yschimke/m3-catalog",
     "ref": "main",
     "events": [
+      {
+        "sha": "0782da0478f3de7a61edf36e134ebfe37dcab81f",
+        "subject": "fix(pickers): make the date and time pickers answer a click on the live lane",
+        "at": "2026-08-12T07:36:36Z",
+        "author": "Yuri Schimke",
+        "previewIds": [
+          "datepicker-modal__ideal__default__light__compact",
+          "datepicker-range__ideal__default__light__compact",
+          "timepicker-input__ideal__default__light",
+          "timepicker-input__ideal__12-hour",
+          "timepicker-dial__ideal__default__light",
+          "timepicker-dial__ideal__12-hour"
+        ],
+        "components": [
+          "DatePicker/Modal",
+          "DatePicker/Range",
+          "TimePicker/Input",
+          "TimePicker/Dial"
+        ]
+      },
       {
         "sha": "7638553a7cf95d873e3ae8715b16112ed1ccbe35",
         "subject": "fix(split-button): scale the leading icon with the size axis",
