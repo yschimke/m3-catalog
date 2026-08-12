@@ -4,7 +4,9 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -62,6 +64,11 @@ fun SplitButton() = Sticker {
   val colour = previewOverrideString("color", "filled")
   val label: @Composable RowScope.() -> Unit = {
     Icon(CatalogFilledStars, contentDescription = null, modifier = Modifier.size(20.dp))
+    // `LeadingButton` lays its content out as a bare centred `Row` and adds no spacing of its own,
+    // so the icon-to-label gap is the caller's to supply — exactly as the upstream
+    // `FilledSplitButtonSample` does. Without it the leading half renders 8dp narrow with the glyph
+    // welded to the label, which is what the kit comparison was flagging.
+    Spacer(Modifier.width(size.iconSpacing))
     ProvideTextStyle(size.labelStyle) { Text(c.label) }
   }
   val chevron: @Composable RowScope.() -> Unit = {
