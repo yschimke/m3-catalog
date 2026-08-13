@@ -76,9 +76,16 @@ jobs:
             const cfg = JSON.parse(fs.readFileSync("design-pages.json", "utf8"));
             const m = JSON.parse(fs.readFileSync((cfg.outDir ?? "design/pages") + "/pages.json", "utf8"));
             for (const page of m.pages) {
+              // `nodes` is the contract's field name. Reading the wrong one here is how the first
+              // real import shipped a manifest the publisher could not see anything in.
+              if (!Array.isArray(page.nodes)) {
+                console.log(`**${page.id} declares no nodes array — the import is malformed.**`);
+                process.exitCode = 1;
+                continue;
+              }
               console.log(`| Node | Name | Code |`);
               console.log(`| --- | --- | --- |`);
-              for (const p of page.placements) {
+              for (const p of page.nodes) {
                 console.log(`| ${p.nodeId} | ${p.name} | ${p.code ?? "—"} |`);
               }
             }
