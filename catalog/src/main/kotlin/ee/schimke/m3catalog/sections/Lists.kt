@@ -26,13 +26,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_more
 import ee.schimke.m3catalog.generated.resources.list_item
@@ -49,7 +49,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 private fun leading(): (@Composable () -> Unit)? =
-  when (previewOverrideString("leading", "icon")) {
+  when (catalogChoice("leading", "icon", "icon", "none")) {
     "none" -> null
     else -> {
       { Icon(Icons.Filled.Person, contentDescription = null) }
@@ -59,7 +59,7 @@ private fun leading(): (@Composable () -> Unit)? =
 @Composable
 private fun trailing(): (@Composable () -> Unit)? {
   val (checked, set) = toggleable(true)
-  return when (previewOverrideString("trailing", "none")) {
+  return when (catalogChoice("trailing", "none", "none", "text", "icon", "checkbox", "switch")) {
     "text" -> {
       { Text("10:30") }
     }
@@ -93,7 +93,14 @@ private fun trailing(): (@Composable () -> Unit)? {
 @OverrideVariant(name = "three-line-switch", strings = ["lines=3", "trailing=switch"])
 @Composable
 fun ListItemSticker() = Sticker {
-  val lineSetting = previewOverrideString("lines", "figma")
+  val lineSetting =
+    catalogChoice(
+      "lines",
+      "figma",
+      "figma" to "Figma default",
+      "1" to "One line",
+      "3" to "Three lines",
+    )
   if (lineSetting == "figma") {
     FigmaList()
     return@Sticker

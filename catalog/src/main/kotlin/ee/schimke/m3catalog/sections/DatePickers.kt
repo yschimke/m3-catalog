@@ -42,6 +42,7 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes360Us
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_cancel
@@ -146,7 +147,7 @@ private fun DateRangeHeadline(
 
 @Composable
 private fun dateDisplayMode(): DisplayMode =
-  if (previewOverrideString("mode", "calendar") == "input") DisplayMode.Input
+  if (catalogChoice("mode", "calendar", "calendar", "input") == "input") DisplayMode.Input
   else DisplayMode.Picker
 
 @CatalogComponent(

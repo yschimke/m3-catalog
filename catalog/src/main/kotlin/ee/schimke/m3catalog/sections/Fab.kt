@@ -23,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -31,6 +30,7 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.label_text
@@ -61,7 +61,18 @@ import org.jetbrains.compose.resources.stringResource
  */
 @Composable
 private fun catalogFabColor(): Color =
-  when (previewOverrideString("color", "primary-container")) {
+  when (
+    catalogChoice(
+      "color",
+      "primary-container",
+      "primary-container",
+      "secondary-container",
+      "tertiary-container",
+      "primary",
+      "secondary",
+      "tertiary",
+    )
+  ) {
     "primary" -> MaterialTheme.colorScheme.primary
     "secondary" -> MaterialTheme.colorScheme.secondary
     "tertiary" -> MaterialTheme.colorScheme.tertiary

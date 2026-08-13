@@ -38,6 +38,7 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_cancel
@@ -53,7 +54,9 @@ import org.jetbrains.compose.resources.stringResource
 // the 12-hour / 24-hour axis is a state parameter; the dial additionally has the vertical and
 // horizontal layouts the kit shows for portrait and landscape.
 
-@Composable private fun timeIs24Hour(): Boolean = previewOverrideString("hours", "24") == "24"
+@Composable
+private fun timeIs24Hour(): Boolean =
+  catalogChoice("hours", "24", "24" to "24 hour", "12" to "12 hour") == "24"
 
 @Composable
 private fun initialTime(): Pair<Int, Int> {
@@ -124,7 +127,7 @@ fun TimePickerSticker() = Sticker { TimePickerDialogFrame(seedInput = false) }
 @Composable
 private fun TimePickerDialogFrame(seedInput: Boolean) {
   val is24Hour = timeIs24Hour()
-  val horizontal = previewOverrideString("layout", "vertical") == "horizontal"
+  val horizontal = catalogChoice("layout", "vertical", "vertical", "horizontal") == "horizontal"
   val (initialHour, initialMinute) = initialTime()
   val (input, setInput) = toggleable(seedInput)
   val state =

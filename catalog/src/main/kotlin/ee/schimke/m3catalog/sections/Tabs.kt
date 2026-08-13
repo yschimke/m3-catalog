@@ -19,12 +19,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.tab_overview
 import ee.schimke.m3catalog.generated.resources.tab_related
@@ -46,7 +46,8 @@ private val TABS: List<Pair<StringResource, ImageVector>> =
     Res.string.tab_related to Icons.Filled.Favorite,
   )
 
-@Composable private fun tabContent(): String = previewOverrideString("content", "label")
+@Composable
+private fun tabContent(): String = catalogChoice("content", "label", "label", "icon", "icon+label")
 
 @Composable
 private fun tabText(label: String): (@Composable () -> Unit)? =

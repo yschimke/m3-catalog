@@ -23,6 +23,7 @@ import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes412
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.nav_home
 import ee.schimke.m3catalog.generated.resources.nav_saved
@@ -58,7 +59,7 @@ private val DESTINATIONS =
 @Composable
 fun ShortNavigationBarSticker() = Sticker {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
-  val labels = previewOverrideString("labels", "always")
+  val labels = catalogChoice("labels", "always", "always", "none")
   val (selected, select) = selectable(0)
   ShortNavigationBar(Modifier.width(412.dp).height(64.dp)) {
     // Give the broken equal-weight policy one full-width child, then divide that width correctly.

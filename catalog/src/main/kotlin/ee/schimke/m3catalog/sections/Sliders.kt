@@ -17,13 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogModes354
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 
 // `SliderState` / `RangeSliderState` are the state the component owns, so these stickers need no
 // `draggable` gate: nothing drags them on the baked lane, and dragging works for real on the live
@@ -36,10 +36,13 @@ import ee.schimke.m3catalog.Sticker
 // stay separate components.
 
 @Composable
-private fun sliderSteps(): Int = if (previewOverrideString("steps", "") == "discrete") 4 else 0
+private fun sliderSteps(): Int =
+  if (catalogChoice("steps", "", "" to "Continuous", "discrete" to "Discrete") == "discrete") 4
+  else 0
 
 @Composable
-private fun sliderEnabled(): Boolean = previewOverrideString("status", "enabled") != "disabled"
+private fun sliderEnabled(): Boolean =
+  catalogChoice("status", "enabled", "enabled", "disabled") != "disabled"
 
 @CatalogComponent(
   id = "Slider/Continuous",
@@ -56,7 +59,7 @@ private fun sliderEnabled(): Boolean = previewOverrideString("status", "enabled"
 fun ContinuousSlider() = Sticker {
   val steps = sliderSteps()
   val enabled = sliderEnabled()
-  val centered = previewOverrideString("track", "standard") == "centered"
+  val centered = catalogChoice("track", "standard", "standard", "centered") == "centered"
   val state =
     remember(steps, centered) { SliderState(value = if (centered) 0.7f else 0.5f, steps = steps) }
   Slider(

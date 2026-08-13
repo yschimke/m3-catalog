@@ -14,23 +14,25 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.toggleable
 
 // Three axes, all parameters of one composable: selection (on / off), thumb icon (none / icon), and
 // status (enabled / disabled). The kit's icon switch carries a check when on and a cross when off,
 // so the thumb content follows the selection rather than being pinned to one glyph.
 
-@Composable private fun switchSelection(): String = previewOverrideString("state", "on")
+@Composable private fun switchSelection(): String = catalogChoice("state", "on", "on", "off")
 
-@Composable private fun switchStatus(): String = previewOverrideString("status", "enabled")
+@Composable
+private fun switchStatus(): String = catalogChoice("status", "enabled", "enabled", "disabled")
 
-@Composable private fun switchIcon(): Boolean = previewOverrideString("content", "none") == "icon"
+@Composable
+private fun switchIcon(): Boolean = catalogChoice("content", "none", "none", "icon") == "icon"
 
 @CatalogComponent(
   id = "Switch/On",
