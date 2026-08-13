@@ -21,7 +21,7 @@
 // Two REST calls per page:
 //
 //   1. `/v1/files/:key/nodes?ids=<page>` — the node tree. Every COMPONENT / COMPONENT_SET /
-//      INSTANCE under the page becomes a placement, carrying its node id and layer name.
+//      INSTANCE under the page becomes a `nodes` entry, carrying its node id and layer name.
 //   2. `/v1/images/:key?ids=<page>&format=svg&svg_include_node_id=true` — the page as one SVG,
 //      with `data-node-id` on every element.
 //
@@ -32,7 +32,7 @@
 //
 // NO GEOMETRY IS RECORDED, DELIBERATELY
 //
-// A placement carries no bounding box. The old PNG manifest had to carry one — a flat raster has no
+// A node carries no bounding box. The old PNG manifest had to carry one — a flat raster has no
 // structure to ask. An SVG does: the element is right there, and its box is whatever the browser
 // measures. Recording Figma's `absoluteBoundingBox` alongside would introduce a second, weaker
 // answer to the same question — weaker because the export box is the *render* bounds (it includes
@@ -58,14 +58,14 @@ import path from "node:path";
 /** The manifest version this importer writes. Mirrored by `DesignPagesManifest` in the server. */
 const PAGES_VERSION = 2;
 
-/** Node types that become placements: the things a definition sheet is *made of*. */
+/** Node types that become nodes on the page: the things a definition sheet is *made of*. */
 const PLACEABLE_TYPES = new Set(["COMPONENT", "COMPONENT_SET", "INSTANCE"]);
 
 /**
- * How many placements one page may carry. The server caps at 500 and drops the rest; refusing here
- * as well means the cache never carries a node the consumer will silently discard.
+ * How many nodes one page may carry. The server caps at 500 and drops the rest; refusing here as
+ * well means the cache never carries a node the consumer will silently discard.
  */
-const MAX_PLACEMENTS = 500;
+const MAX_NODES = 500;
 
 function arg(name, fallback) {
   const i = process.argv.indexOf(`--${name}`);
@@ -169,17 +169,17 @@ function asArray(value) {
 }
 
 /** Every COMPONENT / COMPONENT_SET / INSTANCE under `node`, depth-first, with its nesting depth. */
-function collectPlacements(node, depth = 0, out = []) {
-  if (out.length >= MAX_PLACEMENTS) return out;
+function collectNodes(node, depth = 0, out = []) {
+  if (out.length >= MAX_NODES) return out;
   if (depth > 0 && PLACEABLE_TYPES.has(node.type)) {
     out.push({ nodeId: canonicalNodeId(node.id), name: String(node.name ?? ""), depth });
-    // A component set's variants are its children and are placements in their own right, so the
-    // walk continues through it. An INSTANCE's subtree is not: its children are copies of another
+    // A component set's variants are its children and are nodes in their own right, so the walk
+    // continues through it. An INSTANCE's subtree is not: its children are copies of another
     // component's internals, they carry ids nothing in `design-map.json` can name, and on a
     // definition sheet they are the *inside* of a specimen rather than a specimen.
     if (node.type === "INSTANCE") return out;
   }
-  for (const child of node.children ?? []) collectPlacements(child, depth + 1, out);
+  for (const child of node.children ?? []) collectNodes(child, depth + 1, out);
   return out;
 }
 
@@ -215,8 +215,8 @@ async function importPage(page, { fileKey, byRef, outDir }) {
   const nodeId = canonicalNodeId(page.nodeId);
   const encoded = encodeURIComponent(nodeId);
 
-  const nodes = await figma(`/v1/files/${fileKey}/nodes?ids=${encoded}`);
-  const document = nodes?.nodes?.[nodeId]?.document;
+  const tree = await figma(`/v1/files/${fileKey}/nodes?ids=${encoded}`);
+  const document = tree?.nodes?.[nodeId]?.document;
   if (!document) throw new Error(`node ${nodeId} is not in file ${fileKey}`);
 
   // `svg_include_node_id` is the reason this surface exists at all — without it the export is a
@@ -233,11 +233,11 @@ async function importPage(page, { fileKey, byRef, outDir }) {
   const svg = await (await get(url)).text();
   if (!/^\s*<svg\b/i.test(svg)) throw new Error("the export did not start with an <svg> element");
 
-  const placements = collectPlacements(document).map((placement) => {
-    const ref = `figma:${fileKey}/${placement.nodeId}`;
+  const nodes = collectNodes(document).map((node) => {
+    const ref = `figma:${fileKey}/${node.nodeId}`;
     const mapped = byRef.get(ref);
     return {
-      ...placement,
+      ...node,
       ref,
       link: mapped ? "manifest" : "unlinked",
       ...(mapped?.code ? { code: mapped.code } : {}),
@@ -248,10 +248,10 @@ async function importPage(page, { fileKey, byRef, outDir }) {
 
   const id = page.id;
   writeFileSync(path.join(outDir, `${id}.svg`), svg);
-  const linked = placements.filter((p) => p.link !== "unlinked").length;
+  const linked = nodes.filter((n) => n.link !== "unlinked").length;
   console.log(
     `${id}: ${(svg.length / 1024).toFixed(0)} KB SVG, ${countNodeIds(svg)} addressable nodes, ` +
-      `${linked}/${placements.length} placements linked`,
+      `${linked}/${nodes.length} nodes linked`,
   );
 
   return {
@@ -260,7 +260,13 @@ async function importPage(page, { fileKey, byRef, outDir }) {
     nodeId,
     frame: frameOf(svg),
     image: { uri: `${id}.svg`, format: "svg" },
-    placements,
+    // `nodes`, NOT `placements`. This is the contract's field name
+    // (`DesignPage.nodes` in compose-ai-tools' `DesignPages.kt`, read by
+    // `emit-design-pages.mjs`), and getting it wrong is silent: the page still
+    // publishes, still renders its sheet, and simply has nothing addressable on
+    // it — no outlines, no swap, no click-through. The first real import wrote
+    // `placements` and produced exactly that.
+    nodes,
   };
 }
 

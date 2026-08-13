@@ -61,6 +61,10 @@ jobs:
 
       # The number this workflow exists to report, in the run log as well as the summary: the
       # summary is not readable from the API, only by opening the run.
+      #
+      # The `node -e` body below is inside a SINGLE-QUOTED shell string, so it must contain no
+      # apostrophes — one in a comment ends the string and truncates the script, which is exactly
+      # how run 31700652776 died with `SyntaxError: Unexpected end of input`.
       - name: Summarise
         run: |
           set -euo pipefail
@@ -76,9 +80,16 @@ jobs:
             const cfg = JSON.parse(fs.readFileSync("design-pages.json", "utf8"));
             const m = JSON.parse(fs.readFileSync((cfg.outDir ?? "design/pages") + "/pages.json", "utf8"));
             for (const page of m.pages) {
+              // `nodes` is the field name the contract uses. Reading the wrong one here is how
+              // the first real import shipped a manifest the publisher could not see into.
+              if (!Array.isArray(page.nodes)) {
+                console.log(`**${page.id} declares no nodes array — the import is malformed.**`);
+                process.exitCode = 1;
+                continue;
+              }
               console.log(`| Node | Name | Code |`);
               console.log(`| --- | --- | --- |`);
-              for (const p of page.placements) {
+              for (const p of page.nodes) {
                 console.log(`| ${p.nodeId} | ${p.name} | ${p.code ?? "—"} |`);
               }
             }
