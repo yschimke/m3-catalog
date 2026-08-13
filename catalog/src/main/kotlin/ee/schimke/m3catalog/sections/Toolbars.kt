@@ -22,12 +22,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_add
@@ -84,7 +84,7 @@ private fun ToolbarActions() {
 )
 @Composable
 fun HorizontalFloatingToolbarSticker() = Sticker {
-  val vibrant = previewOverrideString("color", "standard") == "vibrant"
+  val vibrant = catalogChoice("color", "standard", "standard", "vibrant") == "vibrant"
   Box(Modifier.padding(11.dp)) {
     HorizontalFloatingToolbar(
       modifier = Modifier.width(168.dp),
@@ -108,7 +108,7 @@ fun HorizontalFloatingToolbarSticker() = Sticker {
 @OverrideVariant(name = "vibrant", strings = ["color=vibrant"])
 @Composable
 fun VerticalFloatingToolbarSticker() = Sticker {
-  val vibrant = previewOverrideString("color", "standard") == "vibrant"
+  val vibrant = catalogChoice("color", "standard", "standard", "vibrant") == "vibrant"
   Box(Modifier.padding(11.dp)) {
     VerticalFloatingToolbar(
       modifier = Modifier.height(168.dp),

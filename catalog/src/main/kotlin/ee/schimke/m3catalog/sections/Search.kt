@@ -41,13 +41,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes360
 import ee.schimke.m3catalog.CatalogModes412
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.editable
 import ee.schimke.m3catalog.generated.resources.Res
@@ -84,7 +84,9 @@ private val SUGGESTIONS =
     Res.string.search_suggestion_motion,
   )
 
-@Composable private fun searchContent(): String = previewOverrideString("content", "placeholder")
+@Composable
+private fun searchContent(): String =
+  catalogChoice("content", "placeholder", "placeholder", "query", "avatar")
 
 @Composable private fun searchQuery(): String = if (searchContent() == "query") "material" else ""
 

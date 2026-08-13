@@ -17,7 +17,6 @@ import androidx.compose.material3.SplitButtonLayout
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -25,6 +24,7 @@ import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonSize
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_more_options
@@ -60,7 +60,7 @@ fun SplitButton() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
   val (expanded, setExpanded) = toggleable(false)
   val size = catalogButtonSize()
-  val colour = previewOverrideString("color", "filled")
+  val colour = catalogChoice("color", "filled", "filled", "tonal", "outlined", "elevated")
   val label: @Composable RowScope.() -> Unit = {
     Icon(CatalogFilledStars, contentDescription = null, modifier = Modifier.size(size.iconSize))
     // `LeadingButton` lays its content out as a bare centred `Row` and adds no spacing of its own,

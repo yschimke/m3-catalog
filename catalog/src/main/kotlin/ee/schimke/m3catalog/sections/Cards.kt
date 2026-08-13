@@ -20,12 +20,12 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.m3catalog.CatalogModes360
 import ee.schimke.m3catalog.CatalogModes368
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.catalogInteractive
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
@@ -47,7 +47,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 private fun CardBody(title: String, defaultLayout: String = "slot") {
-  val layout = previewOverrideString("layout", defaultLayout)
+  val layout = catalogChoice("layout", defaultLayout, "slot", "media", "actions", "media+actions")
   if (layout == "slot") return
   val action = counted(stringResource(Res.string.action_action))
   val cancel = counted(stringResource(Res.string.action_cancel))

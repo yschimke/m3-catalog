@@ -21,13 +21,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.label_text
@@ -62,10 +62,10 @@ private val MENU_ROWS = List(6) { MenuRow(Res.string.label_text, CatalogOutlined
 @OverrideVariant(name = "disabled-item", strings = ["status=disabled"])
 @Composable
 fun DropdownMenuSticker() = Sticker {
-  val icons = previewOverrideString("leading", "icon") == "icon"
-  val shortcuts = previewOverrideString("trailing", "chevron") == "shortcut"
-  val dividers = previewOverrideString("dividers", "off") == "on"
-  val disabledLast = previewOverrideString("status", "enabled") == "disabled"
+  val icons = catalogChoice("leading", "icon", "icon", "none") == "icon"
+  val shortcuts = catalogChoice("trailing", "chevron", "chevron", "shortcut") == "shortcut"
+  val dividers = catalogChoice("dividers", "off", "off", "on") == "on"
+  val disabledLast = catalogChoice("status", "enabled", "enabled", "disabled") == "disabled"
   Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp)) {
     Surface(
       modifier = Modifier.width(208.dp).height(292.dp),

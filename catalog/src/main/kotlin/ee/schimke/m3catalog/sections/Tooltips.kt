@@ -19,12 +19,12 @@ import androidx.compose.material3.TooltipDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_action
@@ -89,7 +89,7 @@ fun RichTooltipSticker() = Sticker {
       shadowElevation = 6.dp,
     ) {
       Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
-        if (previewOverrideString("title", "on") != "off") {
+        if (catalogChoice("title", "on", "on", "off") != "off") {
           Text(
             stringResource(Res.string.tooltip_title),
             color = colors.titleContentColor,
@@ -101,9 +101,9 @@ fun RichTooltipSticker() = Sticker {
           modifier = Modifier.padding(top = 4.dp),
           style = MaterialTheme.typography.bodyMedium,
         )
-        if (previewOverrideString("action", "on") != "off") {
+        if (catalogChoice("action", "on", "on", "off", "legacy") != "off") {
           Row(Modifier.padding(top = 4.dp)) {
-            if (previewOverrideString("action", "on") == "legacy") {
+            if (catalogChoice("action", "on", "on", "off", "legacy") == "legacy") {
               val learn = counted(stringResource(Res.string.action_learn_more))
               TextButton(onClick = learn.onClick) { Text(learn.label) }
             } else {

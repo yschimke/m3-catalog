@@ -10,12 +10,12 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonColors
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.runtime.Composable
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.toggleable
 
 // Selection × status, the same two axes the kit gives the checkbox. A lone radio button cannot be
@@ -26,9 +26,12 @@ import ee.schimke.m3catalog.toggleable
 // driving
 // both the selected and unselected outline.
 
-@Composable private fun radioSelection(): String = previewOverrideString("state", "selected")
+@Composable
+private fun radioSelection(): String = catalogChoice("state", "selected", "selected", "unselected")
 
-@Composable private fun radioStatus(): String = previewOverrideString("status", "enabled")
+@Composable
+private fun radioStatus(): String =
+  catalogChoice("status", "enabled", "enabled", "disabled", "error")
 
 @Composable
 private fun radioColors(): RadioButtonColors =

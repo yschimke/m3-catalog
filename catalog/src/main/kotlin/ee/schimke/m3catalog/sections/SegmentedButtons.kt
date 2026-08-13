@@ -25,6 +25,7 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.segment_all
 import ee.schimke.m3catalog.generated.resources.segment_day
@@ -50,7 +51,9 @@ private val LABELS =
 
 @Composable private fun segmentCount(): Int = previewOverrideString("count", "3").toIntOrNull() ?: 3
 
-@Composable private fun segmentContent(): String = previewOverrideString("content", "label")
+@Composable
+private fun segmentContent(): String =
+  catalogChoice("content", "label", "label", "icon", "icon+label")
 
 @Composable
 private fun SegmentContent(label: String, checked: Boolean) {
