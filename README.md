@@ -36,10 +36,10 @@ customising the live render are two ends of one workflow.
 
 | | |
 | --- | --- |
-| Components | **78** |
-| Rendered images (PNG) | **1064** |
-| Editable wireframes (SVG) | **78** |
-| Editable design vectors (figma-svg) | **78** |
+| Components | **113** |
+| Rendered images (PNG) | **1134** |
+| Editable wireframes (SVG) | **113** |
+| Editable design vectors (figma-svg) | **113** |
 | Components with a11y greenlines | **47** |
 | Library | `org.jetbrains.compose.material3:material3`<br>`org.jetbrains.compose.material:material-icons-extended` |
 | Renderer | compose-preview 1.0.0 |
@@ -50,6 +50,7 @@ customising the live render are two ends of one workflow.
 
 | Group | Count |
 | --- | ---: |
+| Shapes | 35 |
 | Buttons | 5 |
 | Search | 5 |
 | Chips | 4 |
