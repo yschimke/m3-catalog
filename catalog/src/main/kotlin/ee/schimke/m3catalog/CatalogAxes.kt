@@ -105,6 +105,45 @@ private fun <E> labelFor(value: E): String where E : Enum<E>, E : CatalogKnob {
   return spaced.take(1) + spaced.drop(1).lowercase()
 }
 
+/**
+ * A **section-local** closed set: a knob whose values are an axis of one component rather than of
+ * the whole catalog.
+ *
+ * [CatalogKnobAxis] carries the four axes every button-family sticker shares. Most of the catalog's
+ * other knobs are just as closed — a list's trailing slot is one of five things, a text field's
+ * state one of four — but they belong to a single file, and giving each an enum and an axis object
+ * would be ceremony around a `when` that already reads fine. This is the same declaration in one
+ * line: the values, in the order the picker should show them.
+ *
+ * Values that are *not* a closed set stay [previewOverrideString] on purpose — a count fed into
+ * `repeat(n)`, a badge's label, a carousel item's width in dp. Declaring a set for those would put
+ * three sizes in a picker and imply the other numbers are unavailable, which is worse than the text
+ * field that lets you type 7.
+ */
+@Composable
+fun catalogChoice(key: String, default: String, vararg values: String): String =
+  previewOverrideChoice(key, default, values.map { PreviewOverrideOption(it, choiceLabel(it)) })
+
+/**
+ * As [catalogChoice], for the few knobs whose label cannot be derived from the value — a slug that
+ * is empty, or one whose plain reading says less than the thing it selects.
+ */
+@Composable
+fun catalogChoice(key: String, default: String, vararg options: Pair<String, String>): String =
+  previewOverrideChoice(key, default, options.map { PreviewOverrideOption(it.first, it.second) })
+
+/**
+ * A picker label for a slug: `media+actions` reads `Media + actions`, `primary-container` reads
+ * `Primary container`.
+ *
+ * Only the label moves — the value a sticker resolves stays the slug the seeds and variant names
+ * already spell.
+ */
+private fun choiceLabel(value: String): String {
+  val spaced = value.replace("+", " + ").replace('-', ' ').replace(Regex(" +"), " ").trim()
+  return spaced.take(1).uppercase() + spaced.drop(1)
+}
+
 /** How an axis's value travels in an `@OverrideVariant` — which array the seed lives in. */
 enum class CatalogSeedKind {
   /** `strings = ["key=value"]`. */

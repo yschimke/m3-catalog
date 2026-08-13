@@ -18,12 +18,12 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.editable
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_clear
@@ -55,15 +55,15 @@ private class FieldSpec(
 
 @Composable
 private fun fieldSpec(): FieldSpec {
-  val state = previewOverrideString("state", "value")
-  val content = previewOverrideString("content", "none")
+  val state = catalogChoice("state", "value", "value", "empty", "error", "disabled")
+  val content = catalogChoice("content", "none", "none", "leading", "trailing", "both")
   val error = state == "error"
   return FieldSpec(
     value =
       if (state == "empty") ""
       else if (error) "not-an-email" else stringResource(Res.string.field_placeholder),
     label =
-      if (previewOverrideString("label", "on") == "off") null
+      if (catalogChoice("label", "on", "on", "off") == "off") null
       else ({ Text(stringResource(if (error) Res.string.field_email else Res.string.field_name)) }),
     placeholder =
       if (state == "empty") ({ Text(stringResource(Res.string.field_placeholder)) }) else null,
@@ -78,7 +78,7 @@ private fun fieldSpec(): FieldSpec {
         }),
     supporting =
       if (error) ({ Text(stringResource(Res.string.field_error)) })
-      else if (previewOverrideString("supporting", "on") == "on")
+      else if (catalogChoice("supporting", "on", "on", "off") == "on")
         ({ Text(stringResource(Res.string.field_supporting)) })
       else null,
     isError = error,

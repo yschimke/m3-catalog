@@ -30,12 +30,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_remove
@@ -55,12 +55,15 @@ import org.jetbrains.compose.resources.stringResource
 // than doubling the card count.
 
 @Composable
-private fun chipElevated(): Boolean = previewOverrideString("style", "outlined") == "elevated"
-
-@Composable private fun chipLeading(): String = previewOverrideString("leading", "none")
+private fun chipElevated(): Boolean =
+  catalogChoice("style", "outlined", "outlined", "elevated") == "elevated"
 
 @Composable
-private fun chipEnabled(): Boolean = previewOverrideString("status", "enabled") != "disabled"
+private fun chipLeading(): String = catalogChoice("leading", "none", "none", "icon", "avatar")
+
+@Composable
+private fun chipEnabled(): Boolean =
+  catalogChoice("status", "enabled", "enabled", "disabled") != "disabled"
 
 @Composable
 private fun chipIcon(): (@Composable () -> Unit)? =
@@ -131,7 +134,8 @@ fun AssistChipSticker() = Sticker {
 @OverrideVariant(name = "disabled-unselected", strings = ["state=unselected", "status=disabled"])
 @Composable
 fun FilterChipSticker() = Sticker {
-  val (selected, set) = toggleable(previewOverrideString("state", "selected") == "selected")
+  val (selected, set) =
+    toggleable(catalogChoice("state", "selected", "selected", "unselected") == "selected")
   val enabled = chipEnabled()
   val label: @Composable () -> Unit = { Text(stringResource(Res.string.chip_unread)) }
   val check: (@Composable () -> Unit)? =
@@ -178,7 +182,8 @@ fun FilterChipSticker() = Sticker {
 @OverrideVariant(name = "disabled-avatar", strings = ["leading=avatar", "status=disabled"])
 @Composable
 fun InputChipSticker() = Sticker {
-  val (selected, set) = toggleable(previewOverrideString("state", "unselected") == "selected")
+  val (selected, set) =
+    toggleable(catalogChoice("state", "unselected", "selected", "unselected") == "selected")
   InputChip(
     selected = selected,
     onClick = { set(!selected) },

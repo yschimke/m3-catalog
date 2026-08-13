@@ -12,12 +12,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.state.ToggleableState
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.toggleable
 
 // The kit's checkbox matrix is selection × status: three selection values (checked, unchecked,
@@ -29,9 +29,13 @@ import ee.schimke.m3catalog.toggleable
 // Compose has no `error` flag on `Checkbox`; the kit's error checkbox is expressed by driving the
 // container and outline from the error role, which is what `errorCheckboxColors` does.
 
-@Composable private fun checkboxSelection(): String = previewOverrideString("state", "checked")
+@Composable
+private fun checkboxSelection(): String =
+  catalogChoice("state", "checked", "checked", "unchecked", "indeterminate")
 
-@Composable private fun checkboxStatus(): String = previewOverrideString("status", "enabled")
+@Composable
+private fun checkboxStatus(): String =
+  catalogChoice("status", "enabled", "enabled", "disabled", "error")
 
 @Composable
 private fun checkboxColors(): CheckboxColors =
