@@ -4,10 +4,10 @@
     "plain Compose a developer would write — the code behind the 'playground' link on a catalog",
     "card. Read by compose-ai-tools' PlaygroundSourceCleaner; see that file for the rule kinds.",
     "",
-    "This file is the whole maintenance cost of the feature. Twenty entries, for ~400 catalogued",
-    "components: the ratio is the point. A per-component snippet mapping would drift the moment a",
-    "sticker was edited and fail silently when it did, which is exactly what this repo's README",
-    "rejects for name-keyed mapping files. Scaffolding, by contrast, is added a few times a year.",
+    "This file is the whole maintenance cost of the feature. Twenty-five entries, for ~400",
+    "catalogued components: the ratio is the point. A per-component snippet mapping would drift the",
+    "moment a sticker was edited and fail silently when it did, which is exactly what this repo's",
+    "README rejects for name-keyed mapping files. Scaffolding is added a few times a year.",
     "",
     "A helper with no entry is not silently ignored: the cleaner reports it as residue and the",
     "playground says so in the seed note, so the gap surfaces on the card rather than in a review."
@@ -58,17 +58,70 @@
     "splitTrailingContentPadding": { "kind": "DROP" },
     "splitTrailingIconSize": { "kind": "DROP" },
 
+    "toggleable": {
+      "$comment": "Owned boolean state, destructured into a value and its setter. The plain reading is the state a developer writes themselves.",
+      "kind": "DESTRUCTURE",
+      "plain": "var $value by remember { mutableStateOf($0) }",
+      "setter": "{ $value = it }",
+      "addImports": [
+        "androidx.compose.runtime.getValue",
+        "androidx.compose.runtime.mutableStateOf",
+        "androidx.compose.runtime.remember",
+        "androidx.compose.runtime.setValue"
+      ]
+    },
+    "editable": {
+      "$comment": "Owned text state, for text fields.",
+      "kind": "DESTRUCTURE",
+      "plain": "var $value by remember { mutableStateOf($0) }",
+      "setter": "{ $value = it }",
+      "addImports": [
+        "androidx.compose.runtime.getValue",
+        "androidx.compose.runtime.mutableStateOf",
+        "androidx.compose.runtime.remember",
+        "androidx.compose.runtime.setValue"
+      ]
+    },
+    "selectable": {
+      "$comment": "Owned index state, for single-select families (segmented buttons, tabs, navigation bars).",
+      "kind": "DESTRUCTURE",
+      "plain": "var $value by remember { mutableIntStateOf($0) }",
+      "setter": "{ $value = it }",
+      "addImports": [
+        "androidx.compose.runtime.getValue",
+        "androidx.compose.runtime.mutableIntStateOf",
+        "androidx.compose.runtime.remember",
+        "androidx.compose.runtime.setValue"
+      ]
+    },
+    "draggable": {
+      "$comment": "Owned float state, for continuous controls (sliders).",
+      "kind": "DESTRUCTURE",
+      "plain": "var $value by remember { mutableFloatStateOf($0) }",
+      "setter": "{ $value = it }",
+      "addImports": [
+        "androidx.compose.runtime.getValue",
+        "androidx.compose.runtime.mutableFloatStateOf",
+        "androidx.compose.runtime.remember",
+        "androidx.compose.runtime.setValue"
+      ]
+    },
+    "multiSelectable": {
+      "$comment": "Owned multi-select state. The setter takes the cell index and its new state, so a row of any length wires up from one call.",
+      "kind": "DESTRUCTURE",
+      "plain": "var $value by remember { mutableStateOf($0) }",
+      "setter": "{ index, on -> $value = if (on) $value + index else $value - index }",
+      "addImports": [
+        "androidx.compose.runtime.getValue",
+        "androidx.compose.runtime.mutableStateOf",
+        "androidx.compose.runtime.remember",
+        "androidx.compose.runtime.setValue"
+      ]
+    },
+
     "ButtonFrame": {
       "$comment": "A per-section private frame that exists to keep the RENDER consistent across matrix cells, not to say anything about the component.",
       "kind": "UNWRAP"
     }
-  },
-
-  "$known-gaps": [
-    "toggleable / selectable / multiSelectable / editable return a destructured Pair, which none of",
-    "the five rule kinds expresses. The plain form is real state — `var checked by remember {",
-    "mutableStateOf(true) }` — so they need a DESTRUCTURE kind. Until then the cleaner reports them",
-    "as residue and the seed note tells the visitor those lines will not resolve. Roughly 18",
-    "stickers are affected; the other ~380 are covered by the rules above."
-  ]
+  }
 }
