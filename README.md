@@ -99,6 +99,27 @@ mirroring the kit's own information architecture.
 | Text inputs | Text fields |
 | Styles | Color, Typography, Shape, Elevation |
 
+## Shapes: Material's own by default, adjustable when you ask
+
+The 35 shape specimens draw `MaterialShapes.Circle`, `MaterialShapes.Heart` and the rest —
+the library's finished `RoundedPolygon`s, so the published render is what any consumer of Material
+gets and not this repo's arithmetic. A finished polygon has no seam to push on, though: the sheet
+tells you what a `Heart` looks like and nothing about what makes it one.
+
+So each shape is also written out. `MaterialShapeRecipes` transcribes Material's own private builder
+for every entry — the vertex tables, the corner radii, the star's inner radius, the `customPolygon`
+repeat helpers — and exposes four knobs over them: `rounding`, `smoothing`, `innerRadius` and
+`count`, each a **multiplier over what Material authored** rather than a raw value. A sticker draws
+the stock entry while the knobs sit at their defaults and switches to the inlined construction the
+moment one moves, so nothing is inlined into the published sheet by accident. `Shape/Sunny` bakes
+two cells (`rounding=0`, `count=12`) to hold that path in the sheet; every other shape offers the
+same knobs live on the preview server.
+
+Transcribed code drifts, which is the real cost of this. `MaterialShapeRecipeTest` closes it by
+rebuilding all 35 shapes at the default knobs and comparing them to `MaterialShapes` **cubic for
+cubic** — so a Material release that re-authors a shape fails the build instead of leaving a knob
+that reshapes something the library no longer draws.
+
 ## Two lanes: what a click does
 
 Every sticker is rendered on two surfaces that want opposite things from a pointer.
