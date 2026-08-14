@@ -97,30 +97,30 @@ of the last import, so they are a snapshot, not a target.
 
 | Page | Node id | Page id | Nodes | Linked |
 | --- | --- | --- | --- | --- |
-| App bars | `55141:14169` | `app-bars` | 141 | 8 |
+| App bars | `55141:14169` | `app-bars` | 51 | 8 |
 | Badges | `55141:14167` | `badges` | 4 | 2 |
-| Buttons | `55141:14168` | `buttons` | 500 | 29 |
-| Cards | `55141:14171` | `cards` | 69 | 6 |
-| Carousel | `55141:14172` | `carousel` | 58 | 2 |
-| Checkboxes | `55141:14173` | `checkboxes` | 58 | 6 |
-| Chips | `55141:14174` | `chips` | 500 | 14 |
-| Date & time pickers | `55141:14175` | `date-time-pickers` | 500 | 2 |
-| Dialogs | `55141:14176` | `dialogs` | 51 | 3 |
+| Buttons | `55141:14168` | `buttons` | 500 | 88 |
+| Cards | `55141:14171` | `cards` | 33 | 6 |
+| Carousel | `55141:14172` | `carousel` | 20 | 2 |
+| Checkboxes | `55141:14173` | `checkboxes` | 32 | 6 |
+| Chips | `55141:14174` | `chips` | 256 | 16 |
+| Date & time pickers | `55141:14175` | `date-time-pickers` | 114 | 6 |
+| Dialogs | `55141:14176` | `dialogs` | 16 | 3 |
 | Dividers | `55141:14177` | `dividers` | 8 | 4 |
 | Lists | `55141:14249` | `lists` | 500 | 0 |
-| Loading & progress | `55141:14252` | `loading-progress` | 439 | 12 |
-| Menu | `55141:14250` | `menu` | 381 | 1 |
-| Navigation | `55141:14251` | `navigation` | 500 | 0 |
-| Radio button | `55141:14253` | `radio-button` | 24 | 4 |
-| Search | `55141:14254` | `search` | 98 | 4 |
-| Sheets | `55141:14170` | `sheets` | 50 | 2 |
-| Sliders | `55141:14255` | `sliders` | 500 | 4 |
-| Snackbar | `55141:14256` | `snackbar` | 49 | 6 |
-| Switch | `55141:14257` | `switch` | 36 | 8 |
-| Tabs | `55141:14258` | `tabs` | 226 | 9 |
-| Text fields | `55141:14259` | `text-fields` | 254 | 6 |
-| Toolbars | `58295:22726` | `toolbars` | 500 | 4 |
-| Tooltips | `55141:14261` | `tooltips` | 9 | 2 |
+| Loading & progress | `55141:14252` | `loading-progress` | 101 | 12 |
+| Menu | `55141:14250` | `menu` | 92 | 1 |
+| Navigation | `55141:14251` | `navigation` | 265 | 7 |
+| Radio button | `55141:14253` | `radio-button` | 12 | 4 |
+| Search | `55141:14254` | `search` | 21 | 4 |
+| Sheets | `55141:14170` | `sheets` | 21 | 2 |
+| Sliders | `55141:14255` | `sliders` | 311 | 6 |
+| Snackbar | `55141:14256` | `snackbar` | 32 | 6 |
+| Switch | `55141:14257` | `switch` | 22 | 8 |
+| Tabs | `55141:14258` | `tabs` | 57 | 9 |
+| Text fields | `55141:14259` | `text-fields` | 122 | 6 |
+| Toolbars | `58295:22726` | `toolbars` | 173 | 4 |
+| Tooltips | `55141:14261` | `tooltips` | 7 | 2 |
 
 The fourteen ids this file used to list as unidentified are in that table:
 `14176` is Dialogs, `14177` Dividers, `14249` Lists, `14250` Menu, `14251`
@@ -198,10 +198,18 @@ is: the kit's `Switch` sheet gave each `Icon=True` variant an `Icon` instance an
 four of them *inside* the enabled and disabled switches this catalog does implement. Across the
 whole kit, 736 of 5,991 imported nodes were parts of a node already listed above them.
 
+Pruning them also **recovered coverage**, because the 500-node cap was being spent on internals: on
+`Buttons` the linked count went from 29 to 88, `Chips` from 14 to 16 and `Navigation` from 0 to 7 —
+those variants were always mapped, they were just past the cut. The whole import went from 5,991
+nodes to 3,014.
+
 The component set itself stays in the list, because the reader wants to see the grid boundary, but it
-is a **grouping** rather than a component: the preview server derives that from the nesting
-(`DesignPage.containers`) and leaves it out of the coverage count, since nothing implements a
-component set.
+is a **grouping** rather than a component and says so on the wire (`container: true`, read as
+`PageNode.container`): the preview server draws it as structure and leaves it out of the coverage
+count, since nothing implements a component set. The flag is stated by the import rather than inferred
+downstream, because a manifest lists components only — an unlisted frame between two of them lets a
+shallower node be followed by a deeper one that is not inside it, so nesting depth alone would call
+the shallower one a grouping.
 
 ### A page the file cannot export is skipped; a pinned one still fails the run
 
