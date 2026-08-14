@@ -42,12 +42,18 @@ test("a pin fixes the id of its node, wherever discovery finds it", () => {
   });
   // The published URL stays `shape` even though the designer renamed the tab; the *name* follows
   // the file, because that is what the index reads.
-  assert.deepEqual(resolved[1], { id: "shape", nodeId: "58548:7093", name: "Shape" });
+  assert.deepEqual(resolved[1], {
+    id: "shape",
+    nodeId: "58548:7093",
+    name: "Shape",
+    // Pinned: a human named this page, so its failure is fatal where a discovered page's is a skip.
+    pinned: true,
+  });
 });
 
 test("a pin whose node the file does not carry is still imported", () => {
   assert.deepEqual(resolvePages({ pins: [{ id: "shape", nodeId: "58548-7093" }] }), [
-    { id: "shape", nodeId: "58548:7093", name: "shape" },
+    { id: "shape", nodeId: "58548:7093", name: "shape", pinned: true },
   ]);
 });
 

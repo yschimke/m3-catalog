@@ -164,6 +164,16 @@ it, and `shape` is pinned for exactly that reason — its URL is already publish
 only stable while the designer leaves the page name alone. The name still follows the file, so a
 renamed tab reads correctly in the index without moving.
 
+### A page the file cannot export is skipped; a pinned one still fails the run
+
+At least one page of the kit is a sheet `/v1/images` answers for with no url at all. Under a
+hand-kept list that would be a config mistake worth failing on; under discovery it is just
+something the file contains, and letting it abort the run would mean one unrenderable sheet costs
+the other thirty their import. So a **discovered** page that fails is skipped with a line in the
+log, and a **pinned** one still fails the run — a human put that id there. A run that imports
+*nothing* fails regardless: that is an expired token or a moved file, not a partial result, and it
+must not commit an emptied cache over a good one.
+
 ### An oversized sheet is skipped, not cached
 
 The cache is committed here *and* appended to the `design-artifacts/m3-catalog` delivery branch on

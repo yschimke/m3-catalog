@@ -200,7 +200,7 @@ export function resolvePages({ pins = [], discovered = [], exclude = [] } = {}) 
       usedPins.add(nodeId);
       // The pin fixes the id; the *name* still comes from the file unless the pin overrode it, so a
       // renamed page reads correctly in the index while keeping its published URL.
-      resolved.push({ id: pin.id, nodeId, name: pin.name ?? name });
+      resolved.push({ id: pin.id, nodeId, name: pin.name ?? name, pinned: true });
       continue;
     }
     let id = slugForPage(name, nodeId);
@@ -217,7 +217,7 @@ export function resolvePages({ pins = [], discovered = [], exclude = [] } = {}) 
 
   for (const [nodeId, pin] of pinsByNode) {
     if (usedPins.has(nodeId) || isExcluded(nodeId, pin.name)) continue;
-    resolved.push({ id: pin.id, nodeId, name: pin.name ?? pin.id });
+    resolved.push({ id: pin.id, nodeId, name: pin.name ?? pin.id, pinned: true });
   }
   return resolved;
 }
@@ -476,12 +476,29 @@ async function main() {
   const pages = [];
   const skipped = [];
   for (const page of wanted) {
-    // One page's failure does not cost the others their refresh — but it does fail the run, so a
-    // broken node id in the config can't quietly shrink the cache to nothing. A page skipped for
-    // its size is not a failure and is recorded separately.
-    const imported = await importPage(page, { fileKey, byRef, outDir, maxSvgBytes });
-    if (imported) pages.push(imported);
-    else skipped.push(page.id);
+    // A PINNED page's failure still fails the run: it is in the config because a human put it
+    // there, and a broken node id must not quietly shrink the cache to nothing.
+    //
+    // A DISCOVERED page's failure is a skip. Discovery imports whatever the file happens to hold,
+    // and the kit holds pages Figma itself declines to export — `/v1/images` answers with no url
+    // for at least one of them. Aborting there would mean one unrenderable sheet costs the other
+    // thirty their import, which is precisely the fragility discovery exists to remove.
+    try {
+      const imported = await importPage(page, { fileKey, byRef, outDir, maxSvgBytes });
+      if (imported) pages.push(imported);
+      else skipped.push(page.id);
+    } catch (error) {
+      if (page.pinned) throw error;
+      console.log(`${page.id}: SKIPPED — ${error.message}`);
+      skipped.push(page.id);
+    }
+  }
+  // Every page failing is not a partial result, it is an outage — an expired token, a file that
+  // moved, Figma down. Reporting "refreshed 0 page(s)" and exiting 0 would let the workflow commit
+  // an emptied cache over a good one.
+  if (pages.length === 0) {
+    console.error(`import-figma-pages: no page imported (${skipped.length} skipped)`);
+    process.exit(1);
   }
 
   // `--page` refreshes ONE page without discarding the rest of the cache. Rewriting the manifest
