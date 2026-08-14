@@ -188,7 +188,8 @@ fun DockedSearchBarSticker() = Sticker {
 @CatalogComponent(
   id = "Search/AppBar",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20571",
-  caption = "A top app bar that carries a search field between its navigation icon and its actions.",
+  caption =
+    "A top app bar that carries a search field between its navigation icon and its actions.",
 )
 @CatalogModes412
 @OverrideVariant(name = "query", strings = ["content=query"])

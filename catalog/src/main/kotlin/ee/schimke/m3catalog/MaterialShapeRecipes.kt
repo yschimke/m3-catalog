@@ -143,7 +143,12 @@ object MaterialShapeRecipes {
         perVertexRounding =
           t.perVertex(
             t.count(4),
-            listOf(CornerRounding(1f), CornerRounding(1f), CornerRounding(.2f), CornerRounding(.2f)),
+            listOf(
+              CornerRounding(1f),
+              CornerRounding(1f),
+              CornerRounding(.2f),
+              CornerRounding(.2f),
+            ),
           ),
       )
       .rotated(-135f)
