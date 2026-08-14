@@ -5,17 +5,21 @@ package ee.schimke.m3catalog.sections
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import androidx.graphics.shapes.RoundedPolygon
+import ee.schimke.composeai.overrides.previewOverrideFloat
+import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.MaterialShapeRecipe
+import ee.schimke.m3catalog.MaterialShapeRecipes
+import ee.schimke.m3catalog.ShapeTweaks
 import ee.schimke.m3catalog.Sticker
 
 // The kit's `Shape` page is a specimen sheet, not a component sheet: 35 named shapes drawn as
@@ -40,11 +44,40 @@ import ee.schimke.m3catalog.Sticker
 //
 // `Shape=Hexagon` is the kit's layer name for the shape its own caption calls **Clamshell**, and
 // Compose calls `MaterialShapes.ClamShell`. The reference follows the node id, not the name.
+//
+// STOCK BY DEFAULT, INLINED WHEN A KNOB MOVES
+//
+// A sticker draws `MaterialShapes.<Name>` — the library's own polygon, so the published render is
+// exactly what a consumer of Material gets, and the specimen sheet stays a statement about Material
+// rather than about this repo's arithmetic. But a finished `RoundedPolygon` has no seam: there is
+// nothing to adjust and nothing to learn from it beyond its silhouette.
+//
+// So each sticker takes a `MaterialShapeRecipe` instead of a polygon, and reads the four shape
+// knobs below. While they sit at their defaults the stock entry renders, untouched. Move one and
+// the sticker switches to the construction inlined in `MaterialShapeRecipes` — Material's own
+// builder for that shape, transcribed with the corner radii, smoothing, repeat count and star inner
+// radius left adjustable. `MaterialShapeRecipeTest` asserts the two agree cubic-for-cubic at the
+// defaults, so the switch changes what you can change, never what you see by default.
 
 @Composable
-private fun ShapeSticker(shape: RoundedPolygon) = Sticker {
+private fun ShapeSticker(recipe: MaterialShapeRecipe) = Sticker {
+  val shape = recipe.resolve(shapeTweaks())
   Box(Modifier.size(96.dp).clip(shape.toShape()).background(MaterialTheme.colorScheme.primary))
 }
+
+/**
+ * The shape knobs, read once per sticker so every shape offers the same four. Each is a multiplier
+ * over what Material authored (`count` a replacement), so the default row is the identity and the
+ * stock polygon stays in play — see [ShapeTweaks].
+ */
+@Composable
+private fun shapeTweaks(): ShapeTweaks =
+  ShapeTweaks(
+    rounding = previewOverrideFloat("rounding", 1f),
+    smoothing = previewOverrideFloat("smoothing", 1f),
+    innerRadius = previewOverrideFloat("innerRadius", 1f),
+    count = previewOverrideInt("count", 0),
+  )
 
 @CatalogComponent(
   id = "Shape/Circle",
@@ -53,7 +86,7 @@ private fun ShapeSticker(shape: RoundedPolygon) = Sticker {
 )
 @CatalogModes
 @Composable
-fun CircleShape() = ShapeSticker(MaterialShapes.Circle)
+fun CircleShape() = ShapeSticker(MaterialShapeRecipes.Circle)
 
 @CatalogComponent(
   id = "Shape/Square",
@@ -62,7 +95,7 @@ fun CircleShape() = ShapeSticker(MaterialShapes.Circle)
 )
 @CatalogModes
 @Composable
-fun SquareShape() = ShapeSticker(MaterialShapes.Square)
+fun SquareShape() = ShapeSticker(MaterialShapeRecipes.Square)
 
 @CatalogComponent(
   id = "Shape/Slanted",
@@ -71,7 +104,7 @@ fun SquareShape() = ShapeSticker(MaterialShapes.Square)
 )
 @CatalogModes
 @Composable
-fun SlantedShape() = ShapeSticker(MaterialShapes.Slanted)
+fun SlantedShape() = ShapeSticker(MaterialShapeRecipes.Slanted)
 
 @CatalogComponent(
   id = "Shape/Arch",
@@ -80,7 +113,7 @@ fun SlantedShape() = ShapeSticker(MaterialShapes.Slanted)
 )
 @CatalogModes
 @Composable
-fun ArchShape() = ShapeSticker(MaterialShapes.Arch)
+fun ArchShape() = ShapeSticker(MaterialShapeRecipes.Arch)
 
 @CatalogComponent(
   id = "Shape/Fan",
@@ -89,7 +122,7 @@ fun ArchShape() = ShapeSticker(MaterialShapes.Arch)
 )
 @CatalogModes
 @Composable
-fun FanShape() = ShapeSticker(MaterialShapes.Fan)
+fun FanShape() = ShapeSticker(MaterialShapeRecipes.Fan)
 
 @CatalogComponent(
   id = "Shape/Arrow",
@@ -98,7 +131,7 @@ fun FanShape() = ShapeSticker(MaterialShapes.Fan)
 )
 @CatalogModes
 @Composable
-fun ArrowShape() = ShapeSticker(MaterialShapes.Arrow)
+fun ArrowShape() = ShapeSticker(MaterialShapeRecipes.Arrow)
 
 @CatalogComponent(
   id = "Shape/SemiCircle",
@@ -107,7 +140,7 @@ fun ArrowShape() = ShapeSticker(MaterialShapes.Arrow)
 )
 @CatalogModes
 @Composable
-fun SemiCircleShape() = ShapeSticker(MaterialShapes.SemiCircle)
+fun SemiCircleShape() = ShapeSticker(MaterialShapeRecipes.SemiCircle)
 
 @CatalogComponent(
   id = "Shape/Oval",
@@ -116,7 +149,7 @@ fun SemiCircleShape() = ShapeSticker(MaterialShapes.SemiCircle)
 )
 @CatalogModes
 @Composable
-fun OvalShape() = ShapeSticker(MaterialShapes.Oval)
+fun OvalShape() = ShapeSticker(MaterialShapeRecipes.Oval)
 
 @CatalogComponent(
   id = "Shape/Pill",
@@ -125,7 +158,7 @@ fun OvalShape() = ShapeSticker(MaterialShapes.Oval)
 )
 @CatalogModes
 @Composable
-fun PillShape() = ShapeSticker(MaterialShapes.Pill)
+fun PillShape() = ShapeSticker(MaterialShapeRecipes.Pill)
 
 @CatalogComponent(
   id = "Shape/Triangle",
@@ -134,7 +167,7 @@ fun PillShape() = ShapeSticker(MaterialShapes.Pill)
 )
 @CatalogModes
 @Composable
-fun TriangleShape() = ShapeSticker(MaterialShapes.Triangle)
+fun TriangleShape() = ShapeSticker(MaterialShapeRecipes.Triangle)
 
 @CatalogComponent(
   id = "Shape/Diamond",
@@ -143,7 +176,7 @@ fun TriangleShape() = ShapeSticker(MaterialShapes.Triangle)
 )
 @CatalogModes
 @Composable
-fun DiamondShape() = ShapeSticker(MaterialShapes.Diamond)
+fun DiamondShape() = ShapeSticker(MaterialShapeRecipes.Diamond)
 
 @CatalogComponent(
   id = "Shape/ClamShell",
@@ -152,7 +185,7 @@ fun DiamondShape() = ShapeSticker(MaterialShapes.Diamond)
 )
 @CatalogModes
 @Composable
-fun ClamShellShape() = ShapeSticker(MaterialShapes.ClamShell)
+fun ClamShellShape() = ShapeSticker(MaterialShapeRecipes.ClamShell)
 
 @CatalogComponent(
   id = "Shape/Pentagon",
@@ -161,7 +194,7 @@ fun ClamShellShape() = ShapeSticker(MaterialShapes.ClamShell)
 )
 @CatalogModes
 @Composable
-fun PentagonShape() = ShapeSticker(MaterialShapes.Pentagon)
+fun PentagonShape() = ShapeSticker(MaterialShapeRecipes.Pentagon)
 
 @CatalogComponent(
   id = "Shape/Gem",
@@ -170,7 +203,7 @@ fun PentagonShape() = ShapeSticker(MaterialShapes.Pentagon)
 )
 @CatalogModes
 @Composable
-fun GemShape() = ShapeSticker(MaterialShapes.Gem)
+fun GemShape() = ShapeSticker(MaterialShapeRecipes.Gem)
 
 @CatalogComponent(
   id = "Shape/VerySunny",
@@ -179,16 +212,26 @@ fun GemShape() = ShapeSticker(MaterialShapes.Gem)
 )
 @CatalogModes
 @Composable
-fun VerySunnyShape() = ShapeSticker(MaterialShapes.VerySunny)
+fun VerySunnyShape() = ShapeSticker(MaterialShapeRecipes.VerySunny)
 
+// Sunny carries the two demonstration cells for the knob seam — every shape reads the same four
+// knobs, and one shape baking two of them is enough to hold the inlined path in the published sheet
+// rather than only in a unit test. It is also the clearest shape to show them on: it is a star, so
+// it answers both knobs visibly (`rounding=0` gives the raw 8-pointed skeleton, `count=12` the same
+// star with twelve points). Baking these on all 35 would double the shape renders to say the same
+// thing 35 times.
 @CatalogComponent(
   id = "Shape/Sunny",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7279",
-  caption = "The kit's Sunny shape, drawn from `MaterialShapes.Sunny`.",
+  caption =
+    "The kit's Sunny shape, drawn from `MaterialShapes.Sunny`. Its `rounding` / `count` knobs " +
+      "rebuild it from the inlined star.",
 )
 @CatalogModes
+@OverrideVariant(name = "unrounded", floats = ["rounding=0.0"])
+@OverrideVariant(name = "count-12", ints = ["count=12"])
 @Composable
-fun SunnyShape() = ShapeSticker(MaterialShapes.Sunny)
+fun SunnyShape() = ShapeSticker(MaterialShapeRecipes.Sunny)
 
 @CatalogComponent(
   id = "Shape/Cookie4Sided",
@@ -197,7 +240,7 @@ fun SunnyShape() = ShapeSticker(MaterialShapes.Sunny)
 )
 @CatalogModes
 @Composable
-fun Cookie4SidedShape() = ShapeSticker(MaterialShapes.Cookie4Sided)
+fun Cookie4SidedShape() = ShapeSticker(MaterialShapeRecipes.Cookie4Sided)
 
 @CatalogComponent(
   id = "Shape/Cookie6Sided",
@@ -206,7 +249,7 @@ fun Cookie4SidedShape() = ShapeSticker(MaterialShapes.Cookie4Sided)
 )
 @CatalogModes
 @Composable
-fun Cookie6SidedShape() = ShapeSticker(MaterialShapes.Cookie6Sided)
+fun Cookie6SidedShape() = ShapeSticker(MaterialShapeRecipes.Cookie6Sided)
 
 @CatalogComponent(
   id = "Shape/Cookie7Sided",
@@ -215,7 +258,7 @@ fun Cookie6SidedShape() = ShapeSticker(MaterialShapes.Cookie6Sided)
 )
 @CatalogModes
 @Composable
-fun Cookie7SidedShape() = ShapeSticker(MaterialShapes.Cookie7Sided)
+fun Cookie7SidedShape() = ShapeSticker(MaterialShapeRecipes.Cookie7Sided)
 
 @CatalogComponent(
   id = "Shape/Cookie9Sided",
@@ -224,7 +267,7 @@ fun Cookie7SidedShape() = ShapeSticker(MaterialShapes.Cookie7Sided)
 )
 @CatalogModes
 @Composable
-fun Cookie9SidedShape() = ShapeSticker(MaterialShapes.Cookie9Sided)
+fun Cookie9SidedShape() = ShapeSticker(MaterialShapeRecipes.Cookie9Sided)
 
 @CatalogComponent(
   id = "Shape/Cookie12Sided",
@@ -233,7 +276,7 @@ fun Cookie9SidedShape() = ShapeSticker(MaterialShapes.Cookie9Sided)
 )
 @CatalogModes
 @Composable
-fun Cookie12SidedShape() = ShapeSticker(MaterialShapes.Cookie12Sided)
+fun Cookie12SidedShape() = ShapeSticker(MaterialShapeRecipes.Cookie12Sided)
 
 @CatalogComponent(
   id = "Shape/Ghostish",
@@ -242,7 +285,7 @@ fun Cookie12SidedShape() = ShapeSticker(MaterialShapes.Cookie12Sided)
 )
 @CatalogModes
 @Composable
-fun GhostishShape() = ShapeSticker(MaterialShapes.Ghostish)
+fun GhostishShape() = ShapeSticker(MaterialShapeRecipes.Ghostish)
 
 @CatalogComponent(
   id = "Shape/Clover4Leaf",
@@ -251,7 +294,7 @@ fun GhostishShape() = ShapeSticker(MaterialShapes.Ghostish)
 )
 @CatalogModes
 @Composable
-fun Clover4LeafShape() = ShapeSticker(MaterialShapes.Clover4Leaf)
+fun Clover4LeafShape() = ShapeSticker(MaterialShapeRecipes.Clover4Leaf)
 
 @CatalogComponent(
   id = "Shape/Clover8Leaf",
@@ -260,7 +303,7 @@ fun Clover4LeafShape() = ShapeSticker(MaterialShapes.Clover4Leaf)
 )
 @CatalogModes
 @Composable
-fun Clover8LeafShape() = ShapeSticker(MaterialShapes.Clover8Leaf)
+fun Clover8LeafShape() = ShapeSticker(MaterialShapeRecipes.Clover8Leaf)
 
 @CatalogComponent(
   id = "Shape/Burst",
@@ -269,7 +312,7 @@ fun Clover8LeafShape() = ShapeSticker(MaterialShapes.Clover8Leaf)
 )
 @CatalogModes
 @Composable
-fun BurstShape() = ShapeSticker(MaterialShapes.Burst)
+fun BurstShape() = ShapeSticker(MaterialShapeRecipes.Burst)
 
 @CatalogComponent(
   id = "Shape/SoftBurst",
@@ -278,7 +321,7 @@ fun BurstShape() = ShapeSticker(MaterialShapes.Burst)
 )
 @CatalogModes
 @Composable
-fun SoftBurstShape() = ShapeSticker(MaterialShapes.SoftBurst)
+fun SoftBurstShape() = ShapeSticker(MaterialShapeRecipes.SoftBurst)
 
 @CatalogComponent(
   id = "Shape/Boom",
@@ -287,7 +330,7 @@ fun SoftBurstShape() = ShapeSticker(MaterialShapes.SoftBurst)
 )
 @CatalogModes
 @Composable
-fun BoomShape() = ShapeSticker(MaterialShapes.Boom)
+fun BoomShape() = ShapeSticker(MaterialShapeRecipes.Boom)
 
 @CatalogComponent(
   id = "Shape/SoftBoom",
@@ -296,7 +339,7 @@ fun BoomShape() = ShapeSticker(MaterialShapes.Boom)
 )
 @CatalogModes
 @Composable
-fun SoftBoomShape() = ShapeSticker(MaterialShapes.SoftBoom)
+fun SoftBoomShape() = ShapeSticker(MaterialShapeRecipes.SoftBoom)
 
 @CatalogComponent(
   id = "Shape/Flower",
@@ -305,7 +348,7 @@ fun SoftBoomShape() = ShapeSticker(MaterialShapes.SoftBoom)
 )
 @CatalogModes
 @Composable
-fun FlowerShape() = ShapeSticker(MaterialShapes.Flower)
+fun FlowerShape() = ShapeSticker(MaterialShapeRecipes.Flower)
 
 @CatalogComponent(
   id = "Shape/Puffy",
@@ -314,7 +357,7 @@ fun FlowerShape() = ShapeSticker(MaterialShapes.Flower)
 )
 @CatalogModes
 @Composable
-fun PuffyShape() = ShapeSticker(MaterialShapes.Puffy)
+fun PuffyShape() = ShapeSticker(MaterialShapeRecipes.Puffy)
 
 @CatalogComponent(
   id = "Shape/PuffyDiamond",
@@ -323,7 +366,7 @@ fun PuffyShape() = ShapeSticker(MaterialShapes.Puffy)
 )
 @CatalogModes
 @Composable
-fun PuffyDiamondShape() = ShapeSticker(MaterialShapes.PuffyDiamond)
+fun PuffyDiamondShape() = ShapeSticker(MaterialShapeRecipes.PuffyDiamond)
 
 @CatalogComponent(
   id = "Shape/PixelCircle",
@@ -332,7 +375,7 @@ fun PuffyDiamondShape() = ShapeSticker(MaterialShapes.PuffyDiamond)
 )
 @CatalogModes
 @Composable
-fun PixelCircleShape() = ShapeSticker(MaterialShapes.PixelCircle)
+fun PixelCircleShape() = ShapeSticker(MaterialShapeRecipes.PixelCircle)
 
 @CatalogComponent(
   id = "Shape/PixelTriangle",
@@ -341,7 +384,7 @@ fun PixelCircleShape() = ShapeSticker(MaterialShapes.PixelCircle)
 )
 @CatalogModes
 @Composable
-fun PixelTriangleShape() = ShapeSticker(MaterialShapes.PixelTriangle)
+fun PixelTriangleShape() = ShapeSticker(MaterialShapeRecipes.PixelTriangle)
 
 @CatalogComponent(
   id = "Shape/Bun",
@@ -350,7 +393,7 @@ fun PixelTriangleShape() = ShapeSticker(MaterialShapes.PixelTriangle)
 )
 @CatalogModes
 @Composable
-fun BunShape() = ShapeSticker(MaterialShapes.Bun)
+fun BunShape() = ShapeSticker(MaterialShapeRecipes.Bun)
 
 @CatalogComponent(
   id = "Shape/Heart",
@@ -359,4 +402,4 @@ fun BunShape() = ShapeSticker(MaterialShapes.Bun)
 )
 @CatalogModes
 @Composable
-fun HeartShape() = ShapeSticker(MaterialShapes.Heart)
+fun HeartShape() = ShapeSticker(MaterialShapeRecipes.Heart)
