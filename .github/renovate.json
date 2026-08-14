@@ -44,12 +44,6 @@
       "enabled": false
     },
     {
-      "description": "Never take a prerelease. Compose Multiplatform, Kotlin and material3 all publish alpha/beta/rc lines ahead of the stable release, and Renovate ranks those above the current pin. The one exception is `compose-multiplatform-material3`, whose only published artifacts on the tracked line ARE alphas — the rule above keeps it moving with the Compose group.",
-      "matchManagers": ["gradle"],
-      "matchPackageNames": ["*", "!org.jetbrains.compose.material3:material3"],
-      "ignoreUnstable": true
-    },
-    {
       "description": "Toolchain and CI plumbing — the Gradle wrapper, the GitHub Actions pins and the pinned Node version. These are judged entirely by whether CI passes, which is the one thing automerge already waits for, so batch them into a single weekly PR rather than one PR per action.",
       "matchManagers": ["gradle-wrapper", "github-actions"],
       "groupName": "CI toolchain",
