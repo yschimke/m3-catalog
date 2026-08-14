@@ -124,12 +124,25 @@ test("walks a component set's variants but never a variant's insides", () => {
       ["1:7", "Header", 1],
     ],
   );
+  // The set is a grouping, and nothing else is — the consumer counts coverage over the rest.
+  assert.deepEqual(
+    collectNodes(page)
+      .filter((n) => n.container)
+      .map((n) => n.nodeId),
+    ["1:1"],
+  );
+});
+
+test("an empty component set is not a grouping", () => {
+  // Nothing to group. A set whose variants the 500-node cap cut off lands here too, and counting it
+  // as structure would drop the one node the page did record for it.
+  const page = frame([set("3:1", "Switch", [])]);
+  assert.deepEqual(collectNodes(page).map((n) => n.container), [undefined]);
 });
 
 test("finds a set however deeply the sheet nests it, and dashes its ids", () => {
-  const page = frame([
-    { id: "2:0", name: "row", type: "FRAME", children: [set("2-1", "Switch", [variant("2-2", "A")])] },
-  ]);
+  const row = { id: "2:0", name: "row", type: "FRAME" };
+  const page = frame([{ ...row, children: [set("2-1", "Switch", [variant("2-2", "A")])] }]);
   assert.deepEqual(
     collectNodes(page).map((n) => n.nodeId),
     ["2:1", "2:2"],
