@@ -29,11 +29,13 @@ RULESET_NAME="Protect Main"
 # (the job's `name:`, not its key). A job missing from this list can fail without
 # blocking a merge — which for an automerged Renovate PR means it lands red.
 #
-# `Render previews` is here deliberately despite costing ~90 min: it is the only
-# check that proves the catalog still renders, and the compose-ai-tools group is
-# both the most frequently automerged update and the one whose failure mode is
-# preview discovery breaking outright. It already runs on every PR, so requiring
-# it adds no runner time — it only makes automerge wait for the answer.
+# `Render previews` is the one worth naming: it is the only check that proves the
+# catalog still renders, and compose-ai-tools is both the most frequently
+# automerged group and the one whose failure mode is preview discovery breaking
+# outright. The 90-minute timeout on that job describes a cold full render; the
+# last 15 runs came in at 1-5 min, because the action renders against a warm
+# baseline and only redraws what changed. So it is cheap to require, and there is
+# no automerge-latency argument for leaving it out.
 REQUIRED_CHECKS=(
   "Build + discover previews"
   "Unit tests"
