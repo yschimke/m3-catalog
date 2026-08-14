@@ -767,7 +767,11 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `SquareShape` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SquareShape_Dark.png" width="150" /> |
 | `SquareShape` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SquareShape_Light.png" width="150" /> |
 | `SunnyShape` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SunnyShape_Dark.png" width="150" /> |
+| `SunnyShape` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SunnyShape_Dark_VARIANT_count_12.png" width="150" /> |
+| `SunnyShape` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SunnyShape_Dark_VARIANT_unrounded.png" width="150" /> |
 | `SunnyShape` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SunnyShape_Light.png" width="150" /> |
+| `SunnyShape` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SunnyShape_Light_VARIANT_count_12.png" width="150" /> |
+| `SunnyShape` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SunnyShape_Light_VARIANT_unrounded.png" width="150" /> |
 | `TriangleShape` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TriangleShape_Dark.png" width="150" /> |
 | `TriangleShape` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TriangleShape_Light.png" width="150" /> |
 | `VerySunnyShape` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/VerySunnyShape_Dark.png" width="150" /> |
