@@ -523,7 +523,7 @@ async function main() {
   console.log(
     `import-figma-pages: refreshed ${pages.length} of ${ordered.length} page(s) in ` +
       `${path.relative(".", outDir)}` +
-      (skipped.length > 0 ? `; skipped ${skipped.length} oversized (${skipped.join(", ")})` : ""),
+      (skipped.length > 0 ? `; skipped ${skipped.length} (${skipped.join(", ")})` : ""),
   );
 }
 

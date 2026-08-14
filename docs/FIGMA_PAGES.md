@@ -17,9 +17,11 @@ FIGMA_TOKEN=figd_... node scripts/list-figma-pages.mjs
 ```
 
 That returns every page's id and name from `GET /v1/files/:key?depth=1`. The
-table below was assembled by inspecting pages one at a time through the MCP
-server, which is why part of it is still blank — see
-[Unidentified pages](#unidentified-pages).
+importer now makes the same call itself (`"discover": true`), so the tables
+below are no longer hand-assembled: every page name and id in them came out of
+[`design/pages/pages.json`](../design/pages/pages.json), which the import
+writes. The fourteen pages this file used to list as bare numbers are named in
+[Component pages](#component-pages).
 
 ## The one structural fact that matters
 
