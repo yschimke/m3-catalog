@@ -136,9 +136,44 @@ FIGMA_TOKEN=figd_... node scripts/import-figma-pages.mjs --page shape
   "enabled": true,
   "fileKey": "ocdacdEsnHipMJD3egzxKb",
   "outDir": "design/pages",
+  // Ask the file for its own page list — one `GET /v1/files/:key?depth=1`, the same call
+  // `list-figma-pages.mjs` makes. Every page becomes an import; its id is a slug of its name.
+  "discover": true,
+  // Drop a page by node id or by name. Empty: every page in the kit is imported.
+  "exclude": [],
+  // PINS. An entry here fixes the id for that node however discovery names it.
   "pages": [{ "id": "shape", "nodeId": "58548:7093", "name": "Shape" }]
 }
 ```
+
+### Every page, not a hand-kept list
+
+The table above could name only half the file's pages, and the section below still lists fourteen
+as bare numbers, because naming one costs a full subtree dump through the MCP server. That is also
+what kept this import at a single page: adding one meant a human finding an id, a name and a slug.
+
+So the importer asks the file. With `"discover": true` it enumerates the document's pages in one
+request and imports each of them, deriving the page id from the page's **own name** — `Date & time
+pickers` → `date-time-pickers` — so a published URL reads like the design file rather than like a
+node id. Slugging is pinned by
+[`scripts/import-figma-pages.test.mjs`](../scripts/import-figma-pages.test.mjs), because those
+slugs *are* URLs.
+
+`pages` survives as the **pin** list: an entry fixes the id for its node wherever discovery finds
+it, and `shape` is pinned for exactly that reason — its URL is already published, and a slug is
+only stable while the designer leaves the page name alone. The name still follows the file, so a
+renamed tab reads correctly in the index without moving.
+
+### An oversized sheet is skipped, not cached
+
+The cache is committed here *and* appended to the `design-artifacts/m3-catalog` delivery branch on
+every regeneration, so a page's export costs its bytes twice, forever. `Shape` is ~0.8 MB; the
+`Buttons` sheet carries a few thousand component nodes and `Examples` fourteen whole screens. A
+page whose SVG exceeds `maxSvgBytes` (default 12 MB) is therefore **skipped with a line in the run
+log** rather than committed, and any stale export of it is deleted — the server caps a page at 500
+nodes regardless, so the densest sheets are mostly undrawable even when they fit. A skip is not a
+failure: with discovery on, an enormous sheet is a fact about the design file, not a config
+mistake. A page that truncates at that 500-node cap says so in the log too.
 
 `svg_include_node_id=true` is the whole trick. Without it the export is a picture; with it, it is a
 **document a consumer can address** — the preview server inlines the SVG, finds `Shape=Circle` by

@@ -39,6 +39,24 @@
 // effect bleed), so the two disagree by a few pixels on anything with a shadow, and a consumer
 // choosing between them would silently pick the wrong one. One source of truth: the SVG.
 //
+// EVERY PAGE, NOT A HAND-KEPT LIST
+//
+// The kit has ~31 pages and `docs/FIGMA_PAGES.md` could name only half of them: page ids are as
+// undiscoverable as node ids, and fourteen of them were listed there as bare numbers because naming
+// one costs a full subtree dump through the MCP server. Requiring a human to type an id, a name and
+// a slug per page is what kept this import at one page.
+//
+// So `design-pages.json` can say `"discover": true`, and the importer asks the file itself — the
+// same one request `list-figma-pages.mjs` makes (`GET /v1/files/:key?depth=1`, the document
+// truncated to its pages). Each page it finds becomes an entry whose **id is a slug of the page's
+// own name** (`Date & time pickers` → `date-time-pickers`), so the published URL reads like the
+// design file rather than like a node id.
+//
+// `pages` is still honoured, and now means *pinned*: an entry there fixes the id (and optionally
+// the name) for that node, wherever discovery finds it. `shape` is pinned for exactly that reason —
+// its URL is already published, and a slug is only stable while the designer leaves the page name
+// alone. `exclude` drops a page by node id or by name.
+//
 // USAGE
 //
 //   FIGMA_TOKEN=figd_... node scripts/import-figma-pages.mjs
@@ -52,8 +70,9 @@
 // token needs `file_content:read` — the same scope `resolve-figma-refs.mjs` and
 // `list-figma-pages.mjs` already document.
 
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 /** The manifest version this importer writes. Mirrored by `DesignPagesManifest` in the server. */
 const PAGES_VERSION = 2;
@@ -66,6 +85,24 @@ const PLACEABLE_TYPES = new Set(["COMPONENT", "COMPONENT_SET", "INSTANCE"]);
  * well means the cache never carries a node the consumer will silently discard.
  */
 const MAX_NODES = 500;
+
+/**
+ * How large one page's export may be before it is skipped rather than cached, in bytes.
+ *
+ * Importing every page changes the arithmetic here. The `Shape` sheet is ~0.8 MB, but the kit's
+ * `Buttons` page carries a few thousand component nodes and `Examples` fourteen whole screens, and
+ * the cache is *committed* — to this repo and then, on every regeneration, to the
+ * `design-artifacts/m3-catalog` delivery branch, whose history is append-only by design. A page
+ * nobody can open (the server caps at 500 nodes, so a 3000-node sheet is mostly undrawable anyway)
+ * is not worth tens of megabytes in two histories.
+ *
+ * A page over the cap is *skipped with a warning*, not fatal: with discovery on, an enormous sheet
+ * is a fact about the design file, not a mistake in the config. Override with `maxSvgBytes`.
+ */
+const MAX_SVG_BYTES = 12 * 1024 * 1024;
+
+/** A page id is a URL path segment on `/{system}/pages/{id}` — `ServeDesignPageStore.SAFE_ID`. */
+const SAFE_ID = /^[A-Za-z0-9._-]{1,160}$/;
 
 function arg(name, fallback) {
   const i = process.argv.indexOf(`--${name}`);
@@ -80,8 +117,109 @@ const token = process.env.FIGMA_TOKEN;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /** `123-456` and `123:456` are the same node. Figma accepts both on input and answers with `:`. */
-function canonicalNodeId(id) {
+export function canonicalNodeId(id) {
   return String(id ?? "").replace(/-/g, ":");
+}
+
+/**
+ * A route-safe page id from the page's own name — `Date & time pickers` → `date-time-pickers`.
+ *
+ * The id is the published URL (`/{system}/pages/{id}`) and the join key a pin uses, so it is
+ * deliberately derived from the *name* rather than the node id: `55141:14175` tells a reader
+ * nothing, and the names are what `docs/FIGMA_PAGES.md` is a table of. A name that slugs to nothing
+ * — punctuation only, or an alphabet this regex does not survive — falls back to the node id with
+ * its colon dashed, which is ugly but addressable, and never empty.
+ */
+export function slugForPage(name, nodeId) {
+  const slug = String(name ?? "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 160)
+    .replace(/-+$/g, "");
+  if (slug !== "" && SAFE_ID.test(slug) && !/^\.{1,2}$/.test(slug) && !/\.svg$/i.test(slug)) {
+    return slug;
+  }
+  return canonicalNodeId(nodeId).replace(/:/g, "-");
+}
+
+/** The ids the consumer refuses: not route-safe, a path segment, or shadowed by an export URL. */
+function assertUsableId(id, where) {
+  if (!SAFE_ID.test(id) || /^\.{1,2}$/.test(id) || /\.svg$/i.test(id)) {
+    throw new Error(`${where} declares the id ${JSON.stringify(id)}, which the server will refuse`);
+  }
+}
+
+/**
+ * The pages to import: the file's own page list, with `pages` pins applied and `exclude` removed.
+ *
+ * `discovered` is what `GET /v1/files/:key?depth=1` returned (document order, which is the order
+ * the designer put the tabs in — the most useful order for the published index, and a stable one to
+ * diff the manifest against). `pins` is `design-pages.json`'s `pages` array: an entry there fixes
+ * the id — and the name, if it gives one — for its node id, so a published URL never moves because
+ * a designer renamed a tab. A pin whose node the file does not contain is kept and appended, so the
+ * importer behaves exactly as it did before discovery existed when `discovered` is empty.
+ *
+ * `exclude` matches a node id or a page name (case-insensitively), because a human writing that
+ * list has the names in front of them and the ids nowhere.
+ */
+export function resolvePages({ pins = [], discovered = [], exclude = [] } = {}) {
+  const excludedIds = new Set();
+  const excludedNames = new Set();
+  for (const entry of exclude) {
+    const text = String(entry ?? "").trim();
+    if (text === "") continue;
+    if (/^\d+[-:]\d+$/.test(text)) excludedIds.add(canonicalNodeId(text));
+    else excludedNames.add(text.toLowerCase());
+  }
+  const isExcluded = (nodeId, name) =>
+    excludedIds.has(canonicalNodeId(nodeId)) || excludedNames.has(String(name ?? "").toLowerCase());
+
+  const pinsByNode = new Map();
+  for (const pin of pins) {
+    const nodeId = canonicalNodeId(pin?.nodeId);
+    if (nodeId === "") throw new Error(`a pin in "pages" names no nodeId`);
+    const id =
+      typeof pin?.id === "string" && pin.id !== "" ? pin.id : slugForPage(pin?.name, nodeId);
+    assertUsableId(id, `the pin for ${nodeId}`);
+    if (pinsByNode.has(nodeId)) throw new Error(`"pages" pins ${nodeId} twice`);
+    pinsByNode.set(nodeId, { id, nodeId, ...(pin?.name ? { name: String(pin.name) } : {}) });
+  }
+
+  const taken = new Set([...pinsByNode.values()].map((pin) => pin.id));
+  const usedPins = new Set();
+  const resolved = [];
+
+  for (const page of discovered) {
+    const nodeId = canonicalNodeId(page?.nodeId ?? page?.id);
+    if (nodeId === "") continue;
+    const name = String(page?.name ?? "");
+    const pin = pinsByNode.get(nodeId);
+    if (isExcluded(nodeId, pin?.name ?? name)) continue;
+    if (pin) {
+      usedPins.add(nodeId);
+      // The pin fixes the id; the *name* still comes from the file unless the pin overrode it, so a
+      // renamed page reads correctly in the index while keeping its published URL.
+      resolved.push({ id: pin.id, nodeId, name: pin.name ?? name });
+      continue;
+    }
+    let id = slugForPage(name, nodeId);
+    if (taken.has(id)) {
+      // Two tabs may share a name. Suffixing keeps both importable; the first one found keeps the
+      // bare slug so an already-published URL is not the one that moves.
+      let n = 2;
+      while (taken.has(`${id}-${n}`)) n += 1;
+      id = `${id}-${n}`;
+    }
+    taken.add(id);
+    resolved.push({ id, nodeId, name });
+  }
+
+  for (const [nodeId, pin] of pinsByNode) {
+    if (usedPins.has(nodeId) || isExcluded(nodeId, pin.name)) continue;
+    resolved.push({ id: pin.id, nodeId, name: pin.name ?? pin.id });
+  }
+  return resolved;
 }
 
 /**
@@ -211,7 +349,7 @@ function countNodeIds(svg) {
   return (svg.match(/\bdata-node-id\s*=/g) ?? []).length;
 }
 
-async function importPage(page, { fileKey, byRef, outDir }) {
+async function importPage(page, { fileKey, byRef, outDir, maxSvgBytes = MAX_SVG_BYTES }) {
   const nodeId = canonicalNodeId(page.nodeId);
   const encoded = encodeURIComponent(nodeId);
 
@@ -233,6 +371,18 @@ async function importPage(page, { fileKey, byRef, outDir }) {
   const svg = await (await get(url)).text();
   if (!/^\s*<svg\b/i.test(svg)) throw new Error("the export did not start with an <svg> element");
 
+  const bytes = Buffer.byteLength(svg, "utf8");
+  if (bytes > maxSvgBytes) {
+    // Skipped, not thrown: see MAX_SVG_BYTES. Reported at the same level as a successful page so
+    // the run log says which sheets the cache does *not* carry, rather than leaving that to be
+    // inferred from a shorter list.
+    console.log(
+      `${page.id}: SKIPPED — ${(bytes / 1024 / 1024).toFixed(1)} MB SVG exceeds the ` +
+        `${(maxSvgBytes / 1024 / 1024).toFixed(0)} MB cap`,
+    );
+    return null;
+  }
+
   const nodes = collectNodes(document).map((node) => {
     const ref = `figma:${fileKey}/${node.nodeId}`;
     const mapped = byRef.get(ref);
@@ -251,7 +401,11 @@ async function importPage(page, { fileKey, byRef, outDir }) {
   const linked = nodes.filter((n) => n.link !== "unlinked").length;
   console.log(
     `${id}: ${(svg.length / 1024).toFixed(0)} KB SVG, ${countNodeIds(svg)} addressable nodes, ` +
-      `${linked}/${nodes.length} nodes linked`,
+      `${linked}/${nodes.length} nodes linked` +
+      // The kit's biggest sheets hold thousands of components, and both this walk and the server
+      // stop at 500. Say so on the page it happens to: a truncated sheet still renders whole, and
+      // the missing rows are only visible as an absence otherwise.
+      (nodes.length >= MAX_NODES ? ` (truncated at the ${MAX_NODES}-node cap)` : ""),
   );
 
   return {
@@ -287,9 +441,32 @@ async function main() {
     process.exit(2);
   }
   const outDir = path.resolve(config.outDir || "design/pages");
-  const wanted = (config.pages ?? []).filter((p) => !onlyPage || p.id === onlyPage);
+  const maxSvgBytes = Number.isFinite(config.maxSvgBytes) ? config.maxSvgBytes : MAX_SVG_BYTES;
+
+  // One request for the whole page list — the same call `list-figma-pages.mjs` makes. Only made
+  // when the config asks for discovery, so a repo that wants a hand-kept list still costs two calls
+  // per page and nothing else.
+  let discovered = [];
+  if (config.discover === true) {
+    const doc = await figma(`/v1/files/${fileKey}?depth=1`);
+    discovered = (doc?.document?.children ?? [])
+      .filter((node) => node?.type === "CANVAS")
+      .map((node) => ({ nodeId: canonicalNodeId(node.id), name: String(node.name ?? "") }));
+    console.log(`import-figma-pages: the file declares ${discovered.length} page(s)`);
+  }
+
+  const resolved = resolvePages({
+    pins: config.pages ?? [],
+    discovered,
+    exclude: config.exclude ?? [],
+  });
+  const wanted = resolved.filter((p) => !onlyPage || p.id === onlyPage);
   if (wanted.length === 0) {
-    console.error(`import-figma-pages: ${configPath} declares no pages to import`);
+    console.error(
+      onlyPage
+        ? `import-figma-pages: no page is called ${onlyPage}`
+        : `import-figma-pages: ${configPath} declares no pages to import`,
+    );
     process.exit(2);
   }
 
@@ -297,19 +474,30 @@ async function main() {
   mkdirSync(outDir, { recursive: true });
 
   const pages = [];
+  const skipped = [];
   for (const page of wanted) {
     // One page's failure does not cost the others their refresh — but it does fail the run, so a
-    // broken node id in the config can't quietly shrink the cache to nothing.
-    pages.push(await importPage(page, { fileKey, byRef, outDir }));
+    // broken node id in the config can't quietly shrink the cache to nothing. A page skipped for
+    // its size is not a failure and is recorded separately.
+    const imported = await importPage(page, { fileKey, byRef, outDir, maxSvgBytes });
+    if (imported) pages.push(imported);
+    else skipped.push(page.id);
   }
 
   // `--page` refreshes ONE page without discarding the rest of the cache. Rewriting the manifest
   // from just what this run fetched would silently delete the others' entries while leaving their
-  // SVGs on disk — a cache that disagrees with itself. Order follows the config, so the manifest
-  // diffs cleanly however the run was scoped.
+  // SVGs on disk — a cache that disagrees with itself. Order follows the resolved page list, so the
+  // manifest diffs cleanly however the run was scoped.
   const merged = new Map(readCachedPages(outDir).map((page) => [page.id, page]));
   for (const page of pages) merged.set(page.id, page);
-  const ordered = (config.pages ?? []).map((p) => merged.get(p.id)).filter(Boolean);
+  // A page that has just been refused for its size must lose its cached entry *and* its export.
+  // Keeping either would leave the cache advertising a sheet this run deliberately declined to
+  // carry, and the delivery branch would publish the stale bytes forever.
+  for (const id of skipped) {
+    merged.delete(id);
+    rmSync(path.join(outDir, `${id}.svg`), { force: true });
+  }
+  const ordered = resolved.map((p) => merged.get(p.id)).filter(Boolean);
 
   writeFileSync(
     path.join(outDir, "pages.json"),
@@ -317,8 +505,13 @@ async function main() {
   );
   console.log(
     `import-figma-pages: refreshed ${pages.length} of ${ordered.length} page(s) in ` +
-      `${path.relative(".", outDir)}`,
+      `${path.relative(".", outDir)}` +
+      (skipped.length > 0 ? `; skipped ${skipped.length} oversized (${skipped.join(", ")})` : ""),
   );
 }
 
-await main();
+// Only when run as a script: `resolvePages` and `slugForPage` are pure and unit-tested
+// (`import-figma-pages.test.mjs`), and importing this module must not start talking to Figma.
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  await main();
+}

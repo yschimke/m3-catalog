@@ -111,6 +111,12 @@ jobs:
       - name: Test Figma variant resolution
         run: node --test scripts/kit-variants.test.mjs
 
+      # Which pages the import covers, and what each one is called. Both answers are published URLs
+      # (`/{system}/pages/{id}`), and the page list is now discovered from the Figma file rather
+      # than hand-kept, so the slug rule is the only thing holding those URLs still.
+      - name: Test Figma page resolution
+        run: node --test scripts/import-figma-pages.test.mjs
+
       # design-map.json is GENERATED from the @CatalogComponent(reference = …) annotations, but it
       # is also COMMITTED, because design-artifacts.yml reads the committed copy to publish design
       # references onto the delivery branch. That combination can drift: add a reference in Kotlin,
