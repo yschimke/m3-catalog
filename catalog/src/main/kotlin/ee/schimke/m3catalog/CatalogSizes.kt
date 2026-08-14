@@ -5,8 +5,10 @@ package ee.schimke.m3catalog
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonShapes
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.IconButtonShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SplitButtonDefaults
 import androidx.compose.material3.ToggleButtonDefaults
@@ -119,6 +121,11 @@ fun catalogButtonShape(): Shape =
     CatalogShape.Square -> ButtonDefaults.squareShape
   }
 
+/** Resting and pressed shapes for an expressive button at the selected size and shape. */
+@Composable
+fun catalogButtonShapes(size: CatalogSize): ButtonShapes =
+  ButtonDefaults.shapesFor(size.containerHeight).copy(shape = catalogButtonShape())
+
 /**
  * Whether this sticker renders enabled: the [CatalogState] axis.
  *
@@ -187,6 +194,21 @@ fun catalogIconShape(size: CatalogSize): Shape {
       else IconButtonDefaults.extraLargeRoundShape
   }
 }
+
+/** Resting and pressed shapes for an expressive icon button at [size]. */
+@Composable
+fun catalogIconShapes(size: CatalogSize): IconButtonShapes =
+  IconButtonDefaults.shapes(
+    shape = catalogIconShape(size),
+    pressedShape =
+      when (size) {
+        CatalogSize.ExtraSmall -> IconButtonDefaults.extraSmallPressedShape
+        CatalogSize.Small -> IconButtonDefaults.smallPressedShape
+        CatalogSize.Medium -> IconButtonDefaults.mediumPressedShape
+        CatalogSize.Large -> IconButtonDefaults.largePressedShape
+        CatalogSize.ExtraLarge -> IconButtonDefaults.extraLargePressedShape
+      },
+  )
 
 /** The glyph size [size] carries — an icon button scales its glyph with its container. */
 val CatalogSize.iconButtonIconSize: Dp

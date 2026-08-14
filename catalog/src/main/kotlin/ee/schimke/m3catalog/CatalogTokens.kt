@@ -1,9 +1,13 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package ee.schimke.m3catalog
 
 import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.expressiveLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -35,6 +39,14 @@ val BaselineLight: ColorScheme = lightColorScheme()
 @ColorCatalog(name = "Baseline Dark", group = "Scheme")
 val BaselineDark: ColorScheme = darkColorScheme()
 
+/** Material 3 Expressive's stock light scheme. */
+@ColorCatalog(name = "Expressive Light", group = "Scheme")
+val ExpressiveLight: ColorScheme = expressiveLightColorScheme()
+
+/** Material 3 Expressive has no separate dark factory; its documented dark scheme is baseline. */
+@ColorCatalog(name = "Expressive Dark", group = "Scheme")
+val ExpressiveDark: ColorScheme = darkColorScheme()
+
 /**
  * The M3 type scale on **static Roboto** — the face the Figma kit's text styles are authored in.
  */
@@ -46,8 +58,8 @@ val CatalogTypography: Typography = typographyOn(Roboto)
 val RobotoFlexTypography: Typography = typographyOn(RobotoFlex)
 
 /**
- * The stock Material 3 shape scale (`extraSmall` 4dp … `extraLarge` 28dp) — matching the kit's
- * `Corner.*` variables.
+ * The stock Material 3 shape scale (`extraSmall` 4dp … `extraExtraLarge` 48dp) — matching the kit's
+ * `Corner.*` variables, including the increased expressive sizes.
  */
 @ShapeCatalog(name = "M3 shapes", group = "Shape") val CatalogShapes: Shapes = Shapes()
 

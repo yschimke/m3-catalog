@@ -117,15 +117,23 @@ disabled stickers, which stay inert because unresponsiveness is the state they d
 
 ## Themes
 
-The kit defines six colour modes — light and dark, each at standard, medium and high contrast — and
-all six are declared as `@ThemeCatalog` wrapper providers, so the renderer builds a specimen sheet
-per theme and the viewer offers them in its theme select. Any sticker can be re-rendered under any
-of them.
+The catalog declares eight `@ThemeCatalog` wrapper providers: the kit's six colour modes — light
+and dark, each at standard, medium and high contrast — plus Material 3 Expressive light and dark.
+The renderer builds a specimen sheet per theme and the viewer offers them in its theme select. Any
+sticker can be re-rendered under any of them.
 
 | Mode | Source |
 | --- | --- |
 | Baseline Light / Baseline Dark | Compose's stock `lightColorScheme()` / `darkColorScheme()` |
+| Expressive Light / Expressive Dark | `expressiveLightColorScheme()` / `darkColorScheme()` |
 | Light + Dark × Medium / High Contrast | generated from the baseline seed via MaterialKolor |
+
+Expressive themes install `MaterialExpressiveTheme` and `MotionScheme.expressive()` rather than
+the standard `MaterialTheme` / `MotionScheme.standard()` pair. Component families with expressive
+shape overloads use their whole stateful shape sets only under those themes: buttons and icon
+buttons morph from their resting shape to the size-specific pressed shape in a live session, while
+standard themes keep the single static shape. Expressive-only components remain in the inventory
+under every theme because they are components in the kit, not substitutes for a standard sticker.
 
 The standard pair is expressed as the stock schemes rather than re-typed hex, because those defaults
 *are* the Material 3 baseline — verified against the kit's own published `M3.sys.light.*` variables

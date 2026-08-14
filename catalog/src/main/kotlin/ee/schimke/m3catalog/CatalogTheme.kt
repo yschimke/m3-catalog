@@ -1,8 +1,13 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package ee.schimke.m3catalog
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MotionScheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Typography
@@ -19,8 +24,9 @@ import androidx.compose.ui.tooling.preview.Preview
 /**
  * The sticker frame every component preview is wrapped in.
  *
- * Stock [MaterialTheme] over the kit's baseline scheme, so the `compose/theme` token set the
- * renderer extracts is the **real** Material 3 system rather than a bespoke palette.
+ * Stock [MaterialTheme] or [MaterialExpressiveTheme] over a declared catalog scheme, so the
+ * `compose/theme` token set the renderer extracts is the **real** Material 3 system rather than a
+ * bespoke palette.
  *
  * The surface is deliberately [Color.Transparent]: a component sticker reads as a silhouette on the
  * viewer's backing, and `contentColor = onSurface` keeps text and icons themed against it. The
@@ -30,7 +36,11 @@ import androidx.compose.ui.tooling.preview.Preview
  */
 @Composable
 fun Sticker(content: @Composable () -> Unit) {
-  StickerFrame(colorScheme = catalogColorScheme(), content = content)
+  StickerFrame(
+    colorScheme = catalogColorScheme(),
+    themeStyle = LocalCatalogThemeStyle.current,
+    content = content,
+  )
 }
 
 /**
@@ -51,23 +61,56 @@ fun catalogColorScheme(): ColorScheme =
  */
 val LocalCatalogScheme = androidx.compose.runtime.staticCompositionLocalOf<ColorScheme?> { null }
 
+/** Whether a named catalog theme uses standard or expressive Material component behavior. */
+enum class CatalogThemeStyle {
+  Standard,
+  Expressive,
+}
+
+/** Set beside [LocalCatalogScheme] by a named theme provider. */
+val LocalCatalogThemeStyle =
+  androidx.compose.runtime.staticCompositionLocalOf { CatalogThemeStyle.Standard }
+
+/** True while a sticker is being rendered under a Material 3 Expressive named theme. */
+@Composable
+fun catalogExpressive(): Boolean = LocalCatalogThemeStyle.current == CatalogThemeStyle.Expressive
+
 /**
- * The sticker frame with its [colorScheme] / [typography] / [shapes] supplied by the caller — the
- * shared body of [Sticker] and of every `@ThemeCatalog` provider in `CatalogThemes.kt`, so a named
- * theme re-skins every sticker from this one place without touching a single preview.
+ * The sticker frame with its [colorScheme] / [themeStyle] / [typography] / [shapes] supplied by the
+ * caller — the shared body of [Sticker] and every `@ThemeCatalog` provider in `CatalogThemes.kt`,
+ * so a named theme re-skins every sticker from this one place without touching a single preview.
  */
 @Composable
 fun StickerFrame(
   colorScheme: ColorScheme,
+  themeStyle: CatalogThemeStyle = CatalogThemeStyle.Standard,
   typography: Typography = CatalogTypography,
   shapes: Shapes = CatalogShapes,
   content: @Composable () -> Unit,
 ) {
   CompositionLocalProvider(LocalGenericFonts provides CatalogGenericFonts) {
-    MaterialTheme(colorScheme = colorScheme, typography = typography, shapes = shapes) {
+    val themedContent: @Composable () -> Unit = {
       Surface(color = Color.Transparent, contentColor = MaterialTheme.colorScheme.onSurface) {
         content()
       }
+    }
+    when (themeStyle) {
+      CatalogThemeStyle.Standard ->
+        MaterialTheme(
+          colorScheme = colorScheme,
+          motionScheme = MotionScheme.standard(),
+          typography = typography,
+          shapes = shapes,
+          content = themedContent,
+        )
+      CatalogThemeStyle.Expressive ->
+        MaterialExpressiveTheme(
+          colorScheme = colorScheme,
+          motionScheme = MotionScheme.expressive(),
+          typography = typography,
+          shapes = shapes,
+          content = themedContent,
+        )
     }
   }
 }

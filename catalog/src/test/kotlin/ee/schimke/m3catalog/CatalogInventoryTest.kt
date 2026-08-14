@@ -1,6 +1,7 @@
 package ee.schimke.m3catalog
 
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.expressiveLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -152,6 +153,17 @@ class CatalogInventoryTest {
     assertEquals(darkColorScheme().toString(), BaselineDark.toString())
   }
 
+  @OptIn(androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class)
+  @Test
+  fun `expressive schemes remain the stock Compose schemes`() {
+    assertEquals(expressiveLightColorScheme().toString(), ExpressiveLight.toString())
+    assertEquals(darkColorScheme().toString(), ExpressiveDark.toString())
+    assertTrue(
+      ExpressiveLight.onPrimaryContainer != BaselineLight.onPrimaryContainer,
+      "the expressive light provider must not silently collapse to the baseline scheme",
+    )
+  }
+
   @Test
   fun `declared themes are wrapper providers`() {
     // `@ThemeCatalog` is BINARY retention — discovery reads it off the class file with ClassGraph,
@@ -162,6 +174,8 @@ class CatalogInventoryTest {
       listOf(
         BaselineLightTheme(),
         BaselineDarkTheme(),
+        ExpressiveLightTheme(),
+        ExpressiveDarkTheme(),
         LightMediumContrastTheme(),
         LightHighContrastTheme(),
         DarkMediumContrastTheme(),

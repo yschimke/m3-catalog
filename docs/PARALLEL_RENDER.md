@@ -216,10 +216,11 @@ The earlier draft of this page said: *"This catalog renders six themes. Deferrin
 tiers cuts the baked set to roughly a third."* **That is wrong for this catalog**, and worth
 recording so nobody re-derives it.
 
-The six themes are [`@ThemeCatalog`](../catalog/src/main/kotlin/ee/schimke/m3catalog/CatalogThemes.kt)
-wrapper providers — Baseline Light/Dark plus four contrast tiers. They are entries in the preview
-server's **Theme** select and a handful of synthesised specimen sheets; they are *not* a per-preview
-fan-out. Nothing renders each component six times.
+The eight named themes are
+[`@ThemeCatalog`](../catalog/src/main/kotlin/ee/schimke/m3catalog/CatalogThemes.kt) wrapper providers
+— Baseline Light/Dark, Expressive Light/Dark, plus four contrast tiers. They are entries in the
+preview server's **Theme** select and a handful of synthesised specimen sheets; they are *not* a
+per-preview fan-out. Nothing renders each component eight times.
 
 The per-preview mode axis is
 [`@CatalogModes`](../catalog/src/main/kotlin/ee/schimke/m3catalog/CatalogTheme.kt) — **light and
