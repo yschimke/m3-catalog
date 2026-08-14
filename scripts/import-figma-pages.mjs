@@ -310,12 +310,17 @@ function asArray(value) {
 export function collectNodes(node, depth = 0, out = []) {
   if (out.length >= MAX_NODES) return out;
   if (depth > 0 && PLACEABLE_TYPES.has(node.type)) {
-    const recorded = {
+    out.push({
       nodeId: canonicalNodeId(node.id),
       name: String(node.name ?? ""),
       depth,
-    };
-    out.push(recorded);
+      // The node's own type, which is what lets the consumer tell a CONTAINER from the components
+      // inside it: a `COMPONENT_SET` is the box a family came in, its variants are the components,
+      // and both are listed. `DesignPage.coverageGaps` reads this, and without it falls back to
+      // inferring containment from nesting depth — an inference an unlisted frame between two
+      // components can fool, since only components are listed. A fact is cheaper than a judgement.
+      type: String(node.type ?? ""),
+    });
     // A specimen's INSIDES are not specimens, whatever the node type says. Its children are that
     // other component's internals: they carry ids nothing in `design-map.json` can name — a
     // reference names a variant, never a part of one — so every last one of them publishes as "no
@@ -332,16 +337,6 @@ export function collectNodes(node, depth = 0, out = []) {
     // descend through a component set's variants (`COMPONENT`) into their internals: 736 of the
     // kit's 5,991 imported nodes were parts of a node already listed above them.
     if (node.type !== "COMPONENT_SET") return out;
-    // A set that yields variants is a GROUPING, and says so on the wire (`PageNode.container`): the
-    // consumer draws it as structure and leaves it out of the coverage count, because nothing
-    // implements a component set — a reference names one of its variants. Stated here rather than
-    // inferred there, since only the import has the real tree: a manifest lists components only, so
-    // an unlisted frame between two of them lets a shallower node be followed by a deeper one that
-    // is not inside it, and depth alone would call the shallower one a grouping.
-    const before = out.length;
-    for (const child of node.children ?? []) collectNodes(child, depth + 1, out);
-    if (out.length > before) recorded.container = true;
-    return out;
   }
   for (const child of node.children ?? []) collectNodes(child, depth + 1, out);
   return out;

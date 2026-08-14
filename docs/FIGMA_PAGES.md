@@ -204,12 +204,15 @@ those variants were always mapped, they were just past the cut. The whole import
 nodes to 3,014.
 
 The component set itself stays in the list, because the reader wants to see the grid boundary, but it
-is a **grouping** rather than a component and says so on the wire (`container: true`, read as
-`PageNode.container`): the preview server draws it as structure and leaves it out of the coverage
-count, since nothing implements a component set. The flag is stated by the import rather than inferred
-downstream, because a manifest lists components only — an unlisted frame between two of them lets a
-shallower node be followed by a deeper one that is not inside it, so nesting depth alone would call
-the shallower one a grouping.
+is a **container** rather than a component: nothing implements a component set — a reference names one
+of its variants — so the preview server draws it as structure and leaves it out of the coverage count
+(`DesignPage.coverageGaps`).
+
+Every node therefore records its own `type` (`COMPONENT`, `COMPONENT_SET`, `INSTANCE`). That is what
+makes the distinction exact. The consumer's fallback, for a manifest that states no type, is to infer
+containment from nesting depth — and only components are listed, so an unlisted frame between two of
+them lets a shallower node be followed by a deeper one that is not inside it, which the inference then
+reads as a container and drops from the count. A fact is cheaper than a judgement.
 
 ### A page the file cannot export is skipped; a pinned one still fails the run
 
