@@ -45,7 +45,8 @@ import org.jetbrains.compose.resources.stringResource
 @CatalogComponent(
   id = "SplitButton/Filled",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:16184",
-  caption = "Primary action plus a related-choices affordance. Five sizes and four colours fold in.",
+  caption =
+    "Primary action plus a related-choices affordance. Five sizes and four colours fold in.",
 )
 @CatalogModes
 @OverrideVariant(name = "xs", strings = ["size=xs"])

@@ -85,7 +85,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@v7.0.0
         with:
-          node-version: 24.18.1
+          node-version: 24.19.0
       # The build-free pre-flight: resolves every spec reference against the
       # module's actual `@Preview` functions and flags PNG-less previews, before
       # the (long) render in design-artifacts.yml spends a runner discovering the
@@ -106,7 +106,7 @@ jobs:
           cache-read-only: 'true'
       - uses: actions/setup-node@v7.0.0
         with:
-          node-version: 24.18.1
+          node-version: 24.19.0
 
       - name: Test Figma variant resolution
         run: node --test scripts/kit-variants.test.mjs
