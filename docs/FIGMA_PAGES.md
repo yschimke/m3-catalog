@@ -184,6 +184,25 @@ it, and `shape` is pinned for exactly that reason — its URL is already publish
 only stable while the designer leaves the page name alone. The name still follows the file, so a
 renamed tab reads correctly in the index without moving.
 
+### A specimen's insides are not specimens
+
+The walk records `COMPONENT` / `COMPONENT_SET` / `INSTANCE` nodes, and **stops at every one of them
+except a component set**. A set's children are its variants — the cells the sheet is a grid of, and
+the only things a `design-map.json` ref can name — so the walk continues through the set and halts on
+each variant it finds.
+
+Descending past a variant looks harmless and isn't. A reference names a *variant*, never a part of
+one, so every node inside a variant publishes as "no code behind this" however complete the catalog
+is: the kit's `Switch` sheet gave each `Icon=True` variant an `Icon` instance and each
+`State=Focused` variant a `Focus indicator`, which the page then drew as fourteen red rectangles —
+four of them *inside* the enabled and disabled switches this catalog does implement. Across the
+whole kit, 736 of 5,991 imported nodes were parts of a node already listed above them.
+
+The component set itself stays in the list, because the reader wants to see the grid boundary, but it
+is a **grouping** rather than a component: the preview server derives that from the nesting
+(`DesignPage.containers`) and leaves it out of the coverage count, since nothing implements a
+component set.
+
 ### A page the file cannot export is skipped; a pinned one still fails the run
 
 At least one page of the kit is a sheet `/v1/images` answers for with no url at all. Under a

@@ -5,7 +5,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { resolvePages, slugForPage } from "./import-figma-pages.mjs";
+import { collectNodes, resolvePages, slugForPage } from "./import-figma-pages.mjs";
 
 const page = (nodeId, name) => ({ nodeId, name });
 
@@ -92,6 +92,47 @@ test("excludes by node id or by name, case-insensitively", () => {
       exclude: ["Shape"],
     }).map((p) => p.id),
     ["examples"],
+  );
+});
+
+// The node walk. Shaped after the kit's real `Switch` sheet, which is what showed the bug: a
+// component set of variants, each variant carrying an `Icon` instance and the focused ones a
+// `Focus indicator`, none of which a `design-map.json` reference can name.
+const set = (id, name, children) => ({ id, name, type: "COMPONENT_SET", children });
+const variant = (id, name, children = []) => ({ id, name, type: "COMPONENT", children });
+const instance = (id, name, children = []) => ({ id, name, type: "INSTANCE", children });
+const frame = (children) => ({ id: "0:1", name: "Switch", type: "CANVAS", children });
+
+test("walks a component set's variants but never a variant's insides", () => {
+  const page = frame([
+    set("1:1", "Switch", [
+      variant("1:2", "Selected=True, State=Enabled, Icon=True", [
+        instance("1:3", "Icon", [{ id: "1:4", name: "vector", type: "VECTOR" }]),
+      ]),
+      variant("1:5", "Selected=True, State=Focused, Icon=False", [
+        instance("1:6", "Focus indicator"),
+      ]),
+    ]),
+    instance("1:7", "Header"),
+  ]);
+  assert.deepEqual(
+    collectNodes(page).map((n) => [n.nodeId, n.name, n.depth]),
+    [
+      ["1:1", "Switch", 1],
+      ["1:2", "Selected=True, State=Enabled, Icon=True", 2],
+      ["1:5", "Selected=True, State=Focused, Icon=False", 2],
+      ["1:7", "Header", 1],
+    ],
+  );
+});
+
+test("finds a set however deeply the sheet nests it, and dashes its ids", () => {
+  const page = frame([
+    { id: "2:0", name: "row", type: "FRAME", children: [set("2-1", "Switch", [variant("2-2", "A")])] },
+  ]);
+  assert.deepEqual(
+    collectNodes(page).map((n) => n.nodeId),
+    ["2:1", "2:2"],
   );
 });
 
