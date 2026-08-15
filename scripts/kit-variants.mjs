@@ -36,7 +36,10 @@ for (const [setId, set] of Object.entries(index.sets)) {
 // describes the Compose API. Where the two disagree it is a translation, not a
 // guess — each entry is checked against the set's real axis list before use.
 const AXIS_ALIASES = {
-  status: ["State"],
+  // `status` is our word for error/disabled. The kit files `Disabled` under
+  // `State` and `Error …` under `Type`, so the knob names both axes and the
+  // value decides which one answers.
+  status: ["State", "Type"],
   state: ["State", "Type", "Selected", "Configuration"],
   selected: ["Selected", "Type"],
   size: ["Size"],
@@ -382,6 +385,49 @@ const SIZE_KNOBS = new Set(["size", "shape"]);
  * undefined when the kit models no such axis — a badge's digit count, a top app
  * bar's action count. Those are real gaps, reported rather than guessed at.
  */
+/** The values an axis actually publishes across a set's variants. */
+function axisValues(set, axis) {
+  const out = new Set();
+  for (const child of set.children) {
+    const value = variantIndex.get(child.id)?.axes?.[axis];
+    if (value !== undefined) out.add(value);
+  }
+  return [...out];
+}
+
+const wordsOf = (s) =>
+  new Set(
+    String(s)
+      .toLowerCase()
+      .split(/[^a-z0-9]+/)
+      .filter(Boolean),
+  );
+
+/**
+ * The published value that means BOTH `chosen` and `want` on the same axis.
+ *
+ * The kit sometimes folds two of our knobs into one of its axes: a checkbox's
+ * error state is not a `State` beside `Selected`, it is `Type=Error selected` —
+ * one value carrying what the catalog spells as `state=unchecked, status=error`.
+ * Without this, each seed claims its own axis, the second finds none left that
+ * accepts it, and three variants the catalog already renders resolve to nothing.
+ *
+ * Matched on the SET of words rather than by concatenation, so word order does
+ * not have to agree: `Error unselected` is reachable from `unselected` + `error`
+ * whichever seed came first. Requiring set EQUALITY rather than containment is
+ * what keeps this from being a wildcard — `Error unselected` is not a candidate
+ * for `unselected` alone, and a third word in the published value means it says
+ * something neither seed did.
+ */
+function fuseAxisValue(set, axis, chosen, want) {
+  const wanted = new Set([...wordsOf(chosen), ...wordsOf(want)]);
+  if (wanted.size < 2) return undefined;
+  return axisValues(set, axis).find((value) => {
+    const have = wordsOf(value);
+    return have.size === wanted.size && [...have].every((w) => wanted.has(w));
+  });
+}
+
 function resolveSetVariantRef(baseVar, seeds) {
   const set = setIndex.get(baseVar.setId);
   const eq = (a, b) => String(a).toLowerCase() === String(b).toLowerCase();
@@ -394,7 +440,19 @@ function resolveSetVariantRef(baseVar, seeds) {
     }
     const seed = seeds[index];
     for (const axis of axisCandidates(seed.key, baseVar.axes, seed.raw)) {
-      if (usedAxes.has(axis)) continue;
+      if (usedAxes.has(axis)) {
+        // The axis is taken, which is not automatically a dead end: the kit may
+        // model both seeds as one value of it. See `fuseAxisValue`.
+        const chosen = target[axis];
+        if (chosen === undefined) continue;
+        for (const want of valueCandidates(seed.raw)) {
+          const fused = fuseAxisValue(set, axis, chosen, want);
+          if (!fused || eq(baseVar.axes[axis], fused)) continue;
+          const match = search(index + 1, { ...target, [axis]: fused }, usedAxes);
+          if (match) return match;
+        }
+        continue;
+      }
       for (const want of valueCandidates(seed.raw)) {
         const noOp = eq(baseVar.axes[axis], want);
         // Some shared matrices spell their default size explicitly in a
