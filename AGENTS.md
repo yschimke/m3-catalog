@@ -42,6 +42,29 @@ other mutating Figma tool, and do not enable design-parity's Code-to-Canvas push
 `design-led` direction already gates that push-back off, so the config and the convention agree —
 keep them that way.
 
+## What enters the inventory, and what it is called
+
+The same question has arrived four times (#3, #5, #9, #10): what does this catalog do when Compose
+has a component and the kit does not, and whose word wins when the two taxonomies disagree? One
+answer to both halves.
+
+**Membership is the kit's call.** Every published component names one exact, renderable kit node in
+its `reference`. A Compose API the kit never published or has retired — the 80dp `NavigationBar`
+against the kit's single 64dp bar, the navigation drawers the kit files under `Deprecated`, the
+generic screen templates — does not enter the component inventory at all. There is no
+"published but unmapped" state, and no reason field buys an exemption: `CatalogInventoryTest`'s
+`every component maps to Figma` fails the build for a `@CatalogComponent` with no `reference`, and
+`generate-design-map.mjs` fails the same way before a render is ever attempted. Leaving the
+reference off to keep an unmatched component is the posture that rule replaced — a sticker with
+nothing to compare against publishes a picture the catalog cannot defend.
+
+**Naming is Compose's call.** Ids follow the Compose API surface, because that is what a reader of a
+Compose catalog greps for: `NavigationBar/Short` is named for `ShortNavigationBar` even though the
+kit calls that node simply "Navigation bar". The one hard rule is not to borrow a kit word for
+something the kit uses differently — `DatePicker/Docked` named the bare `DatePicker()` grid while
+"docked" in the kit means the text-field-led picker, so the catalog and the kit disagreed about the
+same word. Where Compose has no name of its own, take the kit's.
+
 ## Sticker conventions
 
 - One file per component **group**, opening with `@file:CatalogGroup(name = …, section = …)`.

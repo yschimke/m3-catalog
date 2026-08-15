@@ -6,6 +6,9 @@ importable design catalog.
 Every published component has an exact, renderable node in that kit. Compose-only APIs, generic
 screen templates and hand-authored token specimens do not enter the component inventory; colors,
 typography and shapes are published separately through their dedicated token-catalog annotations.
+Membership is the kit's call that way; **naming is Compose's** — ids follow the Compose API surface
+(`NavigationBar/Short` for `ShortNavigationBar`), and a kit word is never borrowed for something the
+kit uses it for differently. [`AGENTS.md`](AGENTS.md) states both halves.
 
 **The Figma kit is the source of truth.** A divergence between the two is a bug in this code, and
 the code is what changes — that is what `direction: "design-led"` in

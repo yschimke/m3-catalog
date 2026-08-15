@@ -11,9 +11,10 @@
 > branch is a claim.
 
 **The first sweep is complete.** Every group in the table below has been fanned out over the axes
-the kit documents for it — 1095 previews across 40 files. What is left is not fan-out but
-*verification*: design-parity findings, the seven components with no confirmed Figma reference, and
-whatever the next kit release adds. The claim protocol still applies to that work.
+the kit documents for it — 1095 previews across 40 files. Every published component now names a
+confirmed kit node; the ones that never found one were removed rather than published unmapped
+(#10). What is left is not fan-out but *verification*: design-parity findings, and whatever the next
+kit release adds. The claim protocol still applies to that work.
 
 The job this document describes is one repeated per group: take a component group, enumerate the
 axes the **Figma kit** documents for it, and fan the sticker out over that matrix.
@@ -201,10 +202,15 @@ gh workflow run figma-refs.yml     # or the Actions UI
 **The resolver proposes; you confirm.** Its top pick was wrong for eight of thirty-seven components
 even after icon and building-block filtering — it offered "App bar" for the bottom app bar, "Button"
 for the radio button, "FAB" for the segmented button. Read the candidate names and pick the one the
-kit actually calls your component. If nothing defensible matches, **leave the reference off**: an
-entry mapped to a near-match generates parity findings about the wrong component, which is worse
-than a visible gap. Seven components are unmapped for exactly this reason and the generator names
-them on every run.
+kit actually calls your component. Never settle for a near-match: an entry mapped to the wrong node
+generates parity findings about a component you did not author.
+
+If nothing defensible matches, **the component does not enter the inventory** — do not author it, and
+delete it if it is already there. A published component with no `reference` is not an option here:
+`CatalogInventoryTest` and `generate-design-map.mjs` both fail on one, because a sticker with nothing
+to compare against is a picture this catalog cannot defend. See
+[*What enters the inventory, and what it is called*](../AGENTS.md#what-enters-the-inventory-and-what-it-is-called)
+for that rule and the naming half that goes with it.
 
 ---
 

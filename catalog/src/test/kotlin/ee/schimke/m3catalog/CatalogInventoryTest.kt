@@ -117,7 +117,9 @@ class CatalogInventoryTest {
       emptyList(),
       silent,
       "this catalog reproduces the Figma kit: a component without an exact Figma reference does " +
-        "not belong in its published component inventory",
+        "not belong in its published component inventory. There is no `noReference` escape hatch " +
+        "— remove the component rather than publishing a sticker with nothing to compare " +
+        "against. See AGENTS.md, \"What enters the inventory, and what it is called\"",
     )
   }
 
