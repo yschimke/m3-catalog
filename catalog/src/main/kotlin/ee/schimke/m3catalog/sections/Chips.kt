@@ -25,6 +25,7 @@ import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,9 +33,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
+import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.HoverFocusStates
 import ee.schimke.m3catalog.InteractionStates
@@ -215,14 +218,31 @@ fun InputChipSticker() = Sticker {
 @CatalogModes
 @OverrideVariant(name = "elevated", strings = ["style=elevated"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
+@OverrideVariant(name = "icon", booleans = ["icon=true"])
 @InteractionStates
 @Composable
 fun SuggestionChipSticker() = Sticker {
   val c = counted(stringResource(Res.string.chip_sounds_good))
   val enabled = chipEnabled()
+  // The kit's `Show icon` axis. Decorative beside its own label, so no contentDescription.
+  val icon: (@Composable () -> Unit)? =
+    if (!previewOverrideBoolean("icon", false)) null
+    else
+      ({
+        Icon(
+          CatalogFilledStars,
+          contentDescription = null,
+          modifier = Modifier.size(SuggestionChipDefaults.IconSize),
+        )
+      })
   if (chipElevated()) {
-    ElevatedSuggestionChip(onClick = c.onClick, label = { Text(c.label) }, enabled = enabled)
+    ElevatedSuggestionChip(
+      onClick = c.onClick,
+      label = { Text(c.label) },
+      enabled = enabled,
+      icon = icon,
+    )
   } else {
-    SuggestionChip(onClick = c.onClick, label = { Text(c.label) }, enabled = enabled)
+    SuggestionChip(onClick = c.onClick, label = { Text(c.label) }, enabled = enabled, icon = icon)
   }
 }
