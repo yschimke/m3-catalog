@@ -3,35 +3,26 @@
 
 package ee.schimke.m3catalog.sections
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialShapes
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.carousel.HorizontalCenteredHeroCarousel
 import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
 import androidx.compose.material3.carousel.HorizontalUncontainedCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
-import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
+import ee.schimke.m3catalog.CatalogImagePlaceholder
 import ee.schimke.m3catalog.CatalogModes412
 import ee.schimke.m3catalog.Sticker
 
@@ -43,35 +34,9 @@ import ee.schimke.m3catalog.Sticker
 
 @Composable
 private fun CarouselItem() {
-  BoxWithConstraints(
-    Modifier.fillMaxSize()
-      .clip(RoundedCornerShape(24.dp))
-      .background(MaterialTheme.colorScheme.surfaceContainer)
-  ) {
-    val scale = minOf(1f, maxWidth.value / 188f)
-    val tint = MaterialTheme.colorScheme.outlineVariant
-    Box(
-      Modifier.align(Alignment.Center)
-        .offset(y = (-36).dp * scale)
-        .size(56.dp * scale)
-        .clip(MaterialShapes.Triangle.toShape())
-        .background(tint)
-    )
-    Box(
-      Modifier.align(Alignment.Center)
-        .offset(x = (-36).dp * scale, y = 28.dp * scale)
-        .size(52.dp * scale)
-        .clip(MaterialShapes.SoftBurst.toShape())
-        .background(tint)
-    )
-    Box(
-      Modifier.align(Alignment.Center)
-        .offset(x = 34.dp * scale, y = 28.dp * scale)
-        .size(52.dp * scale)
-        .clip(MaterialShapes.Square.toShape())
-        .background(tint)
-    )
-  }
+  // The motif itself now lives beside the other catalog helpers: the kit draws the same
+  // placeholder inside an app bar's image cell, and one copy is what keeps the two identical.
+  CatalogImagePlaceholder(Modifier.fillMaxSize())
 }
 
 @CatalogComponent(

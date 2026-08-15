@@ -119,6 +119,14 @@ jobs:
       - name: Test interaction-state coverage
         run: node --test scripts/interaction-coverage.test.mjs
 
+      # Which of the kit's axis values the catalog has a picture of, and the short list it
+      # knowingly does not (kit-unauthorable.json). Fails in BOTH directions: an entry naming a
+      # value the kit no longer publishes, and an entry for a cell that has since been authored —
+      # so an exemption cannot outlive the limitation that earned it. Reads the committed
+      # design-map.json and figma-kit-index.json, so it needs no render and no Figma token.
+      - name: Test kit axis coverage
+        run: node --test scripts/kit-coverage.test.mjs
+
       # Which pages the import covers, and what each one is called. Both answers are published URLs
       # (`/{system}/pages/{id}`), and the page list is now discovered from the Figma file rather
       # than hand-kept, so the slug rule is the only thing holding those URLs still.
