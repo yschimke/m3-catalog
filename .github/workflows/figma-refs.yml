@@ -35,7 +35,7 @@ jobs:
           cache-read-only: 'true'
       - uses: actions/setup-node@v7.0.0
         with:
-          node-version: 24.18.1
+          node-version: 24.19.0
 
       # Investigation aid for #3 / #2: the kit's full inventory per page, deeper than the resolver
       # walks, plus the type/visibility/radius of every ref already in use. Needs no Gradle.

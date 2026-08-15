@@ -1,7 +1,8 @@
 package ee.schimke.m3catalog
 
 import androidx.compose.runtime.Composable
-import ee.schimke.composeai.overrides.previewOverrideString
+import ee.schimke.composeai.data.overrides.PreviewOverrideOption
+import ee.schimke.composeai.overrides.previewOverrideChoice
 
 /**
  * The catalog's **variant axes**, in one place and in two forms.
@@ -49,14 +50,32 @@ interface CatalogKnob {
  * renderer seeds through — and resolves it back to an enum entry, falling back to [default] rather
  * than throwing, so an unrecognised seed degrades to the published default instead of failing a
  * render mid-sheet.
+ *
+ * It reads it as a **closed** value set ([previewOverrideChoice]) rather than free text, so the
+ * declared alphabet travels with the render in `previews/<id>.overrides.json` and a viewer offers
+ * the axis as a picker. That is the difference between a size knob showing a text field reading `s`
+ * — correct, and no help in discovering that `xs` / `m` / `l` / `xl` exist — and showing the five
+ * values the enum already knows about. Nothing is enforced at render time: [current] still resolves
+ * an off-set seed the same way it always did, by falling back to [default], so an old link keeps
+ * behaving exactly as it did before the set was declared.
  */
 class CatalogKnobAxis<E>(val key: String, val values: List<E>, val default: E)
   where E : Enum<E>, E : CatalogKnob {
 
+  /**
+   * The axis as the renderer publishes it: every value, labelled, in declaration order.
+   *
+   * Held rather than rebuilt, because [current] runs on every render of every cell and the set is
+   * fixed the moment the axis is constructed.
+   */
+  private val options: List<PreviewOverrideOption> = values.map {
+    PreviewOverrideOption(value = it.knob, label = labelFor(it))
+  }
+
   /** The value this render should use: the [key] knob, resolved to [E], defaulting to [default]. */
   @Composable
   fun current(): E {
-    val raw = previewOverrideString(key, default.knob)
+    val raw = previewOverrideChoice(key, default.knob, options)
     return values.firstOrNull { it.knob == raw } ?: default
   }
 
@@ -69,6 +88,60 @@ class CatalogKnobAxis<E>(val key: String, val values: List<E>, val default: E)
       kind = CatalogSeedKind.STRING,
       namesEveryValue = namesEveryValue,
     )
+}
+
+/**
+ * A picker label for one axis value: its enum entry name, spaced and sentence-cased.
+ *
+ * `ExtraSmall` reads `Extra small`, `Round` reads `Round`. The label is the only part of the option
+ * a viewer shows; the **wire value stays [CatalogKnob.knob]** — the slug the sticker resolves, the
+ * seeds spell, and the published variant names carry — so labelling an axis moves no render and
+ * breaks no link. Derived rather than authored because the enum entry already says it: a separate
+ * `label = "Extra small"` beside `ExtraSmall` is one more pair of strings that can disagree, which
+ * is the failure this file exists to remove.
+ */
+private fun <E> labelFor(value: E): String where E : Enum<E>, E : CatalogKnob {
+  val spaced = value.name.replace(Regex("(?<!^)(?=\\p{Lu})"), " ")
+  return spaced.take(1) + spaced.drop(1).lowercase()
+}
+
+/**
+ * A **section-local** closed set: a knob whose values are an axis of one component rather than of
+ * the whole catalog.
+ *
+ * [CatalogKnobAxis] carries the four axes every button-family sticker shares. Most of the catalog's
+ * other knobs are just as closed — a list's trailing slot is one of five things, a text field's
+ * state one of four — but they belong to a single file, and giving each an enum and an axis object
+ * would be ceremony around a `when` that already reads fine. This is the same declaration in one
+ * line: the values, in the order the picker should show them.
+ *
+ * Values that are *not* a closed set stay [previewOverrideString] on purpose — a count fed into
+ * `repeat(n)`, a badge's label, a carousel item's width in dp. Declaring a set for those would put
+ * three sizes in a picker and imply the other numbers are unavailable, which is worse than the text
+ * field that lets you type 7.
+ */
+@Composable
+fun catalogChoice(key: String, default: String, vararg values: String): String =
+  previewOverrideChoice(key, default, values.map { PreviewOverrideOption(it, choiceLabel(it)) })
+
+/**
+ * As [catalogChoice], for the few knobs whose label cannot be derived from the value — a slug that
+ * is empty, or one whose plain reading says less than the thing it selects.
+ */
+@Composable
+fun catalogChoice(key: String, default: String, vararg options: Pair<String, String>): String =
+  previewOverrideChoice(key, default, options.map { PreviewOverrideOption(it.first, it.second) })
+
+/**
+ * A picker label for a slug: `media+actions` reads `Media + actions`, `primary-container` reads
+ * `Primary container`.
+ *
+ * Only the label moves — the value a sticker resolves stays the slug the seeds and variant names
+ * already spell.
+ */
+private fun choiceLabel(value: String): String {
+  val spaced = value.replace("+", " + ").replace('-', ' ').replace(Regex(" +"), " ").trim()
+  return spaced.take(1).uppercase() + spaced.drop(1)
 }
 
 /** How an axis's value travels in an `@OverrideVariant` — which array the seed lives in. */

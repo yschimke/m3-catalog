@@ -17,12 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes366
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_dismiss
@@ -60,12 +60,14 @@ import org.jetbrains.compose.resources.stringResource
 fun SnackbarMessage() = Sticker {
   val undo = counted(stringResource(Res.string.action_undo))
   val dismiss = counted(stringResource(Res.string.action_dismiss))
-  val long = previewOverrideString("lines", "one") == "two"
+  val long = catalogChoice("lines", "one", "one" to "One line", "two" to "Two lines") == "two"
   Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp)) {
     Snackbar(
       modifier = Modifier.width(344.dp).height(if (long) 68.dp else 48.dp),
       action =
-        if (previewOverrideString("configuration", "text").startsWith("text+action")) {
+        if (
+          catalogChoice("configuration", "text", "text", "text+action").startsWith("text+action")
+        ) {
           { TextButton(onClick = undo.onClick) { Text(undo.label) } }
         } else null,
       dismissAction =

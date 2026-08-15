@@ -1,0 +1,127 @@
+{
+  "$comment": [
+    "What this catalog's own scaffolding is, so the preview server can rewrite a sticker into the",
+    "plain Compose a developer would write — the code behind the 'playground' link on a catalog",
+    "card. Read by compose-ai-tools' PlaygroundSourceCleaner; see that file for the rule kinds.",
+    "",
+    "This file is the whole maintenance cost of the feature. Twenty-five entries, for ~400",
+    "catalogued components: the ratio is the point. A per-component snippet mapping would drift the",
+    "moment a sticker was edited and fail silently when it did, which is exactly what this repo's",
+    "README rejects for name-keyed mapping files. Scaffolding is added a few times a year.",
+    "",
+    "A helper with no entry is not silently ignored: the cleaner reports it as residue and the",
+    "playground says so in the seed note, so the gap surfaces on the card rather than in a review."
+  ],
+
+  "scaffoldAnnotationPackages": ["ee.schimke.composeai.preview", "ee.schimke.m3catalog"],
+  "stringsPath": "src/main/composeResources/values/strings.xml",
+  "previewAnnotation": "androidx.compose.ui.tooling.preview.Preview",
+
+  "scaffolds": {
+    "Sticker": {
+      "$comment": "The sticker frame IS a MaterialTheme over the baseline scheme, so renaming is the honest reading. Unwrapping it would leave the snippet unthemed — noisier is better than wrong.",
+      "kind": "RENAME",
+      "renameTo": "MaterialTheme",
+      "addImport": "androidx.compose.material3.MaterialTheme"
+    },
+    "StickerFrame": {
+      "kind": "RENAME",
+      "renameTo": "MaterialTheme",
+      "addImport": "androidx.compose.material3.MaterialTheme"
+    },
+
+    "counted": {
+      "$comment": "The click tally exists so no sticker ships a dead handler. To a reader it means: the label you passed, and a click handler.",
+      "kind": "INLINE",
+      "members": { "label": "$0", "onClick": "{}" }
+    },
+
+    "catalogChoice": {
+      "$comment": "Returns its default on the baked lane by construction, so the default IS what the render on screen was made with.",
+      "kind": "SUBSTITUTE",
+      "plain": "$1"
+    },
+    "catalogInteractive": { "kind": "SUBSTITUTE", "plain": "false" },
+    "catalogToggleSelected": { "kind": "SUBSTITUTE", "plain": "true" },
+
+    "catalogEnabled": {
+      "$comment": "DROP rather than SUBSTITUTE to true: `enabled = true` is the parameter's own default, and a usage snippet that spells out defaults teaches the reader nothing.",
+      "kind": "DROP"
+    },
+    "catalogButtonSize": { "kind": "DROP" },
+    "catalogButtonShape": { "kind": "DROP" },
+    "catalogIconShape": { "kind": "DROP" },
+    "catalogIconContainerSize": { "kind": "DROP" },
+    "catalogToggleButtonShapes": { "kind": "DROP" },
+    "iconButtonIconSize": { "kind": "DROP" },
+    "splitLeadingContentPadding": { "kind": "DROP" },
+    "splitTrailingContentPadding": { "kind": "DROP" },
+    "splitTrailingIconSize": { "kind": "DROP" },
+
+    "toggleable": {
+      "$comment": "Owned boolean state, destructured into a value and its setter. The plain reading is the state a developer writes themselves.",
+      "kind": "DESTRUCTURE",
+      "plain": "var $value by remember { mutableStateOf($0) }",
+      "setter": "{ $value = it }",
+      "addImports": [
+        "androidx.compose.runtime.getValue",
+        "androidx.compose.runtime.mutableStateOf",
+        "androidx.compose.runtime.remember",
+        "androidx.compose.runtime.setValue"
+      ]
+    },
+    "editable": {
+      "$comment": "Owned text state, for text fields.",
+      "kind": "DESTRUCTURE",
+      "plain": "var $value by remember { mutableStateOf($0) }",
+      "setter": "{ $value = it }",
+      "addImports": [
+        "androidx.compose.runtime.getValue",
+        "androidx.compose.runtime.mutableStateOf",
+        "androidx.compose.runtime.remember",
+        "androidx.compose.runtime.setValue"
+      ]
+    },
+    "selectable": {
+      "$comment": "Owned index state, for single-select families (segmented buttons, tabs, navigation bars).",
+      "kind": "DESTRUCTURE",
+      "plain": "var $value by remember { mutableIntStateOf($0) }",
+      "setter": "{ $value = it }",
+      "addImports": [
+        "androidx.compose.runtime.getValue",
+        "androidx.compose.runtime.mutableIntStateOf",
+        "androidx.compose.runtime.remember",
+        "androidx.compose.runtime.setValue"
+      ]
+    },
+    "draggable": {
+      "$comment": "Owned float state, for continuous controls (sliders).",
+      "kind": "DESTRUCTURE",
+      "plain": "var $value by remember { mutableFloatStateOf($0) }",
+      "setter": "{ $value = it }",
+      "addImports": [
+        "androidx.compose.runtime.getValue",
+        "androidx.compose.runtime.mutableFloatStateOf",
+        "androidx.compose.runtime.remember",
+        "androidx.compose.runtime.setValue"
+      ]
+    },
+    "multiSelectable": {
+      "$comment": "Owned multi-select state. The setter takes the cell index and its new state, so a row of any length wires up from one call.",
+      "kind": "DESTRUCTURE",
+      "plain": "var $value by remember { mutableStateOf($0) }",
+      "setter": "{ index, on -> $value = if (on) $value + index else $value - index }",
+      "addImports": [
+        "androidx.compose.runtime.getValue",
+        "androidx.compose.runtime.mutableStateOf",
+        "androidx.compose.runtime.remember",
+        "androidx.compose.runtime.setValue"
+      ]
+    },
+
+    "ButtonFrame": {
+      "$comment": "A per-section private frame that exists to keep the RENDER consistent across matrix cells, not to say anything about the component.",
+      "kind": "UNWRAP"
+    }
+  }
+}

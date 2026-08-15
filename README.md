@@ -99,6 +99,27 @@ mirroring the kit's own information architecture.
 | Text inputs | Text fields |
 | Styles | Color, Typography, Shape, Elevation |
 
+## Shapes: Material's own by default, adjustable when you ask
+
+The 35 shape specimens draw `MaterialShapes.Circle`, `MaterialShapes.Heart` and the rest —
+the library's finished `RoundedPolygon`s, so the published render is what any consumer of Material
+gets and not this repo's arithmetic. A finished polygon has no seam to push on, though: the sheet
+tells you what a `Heart` looks like and nothing about what makes it one.
+
+So each shape is also written out. `MaterialShapeRecipes` transcribes Material's own private builder
+for every entry — the vertex tables, the corner radii, the star's inner radius, the `customPolygon`
+repeat helpers — and exposes four knobs over them: `rounding`, `smoothing`, `innerRadius` and
+`count`, each a **multiplier over what Material authored** rather than a raw value. A sticker draws
+the stock entry while the knobs sit at their defaults and switches to the inlined construction the
+moment one moves, so nothing is inlined into the published sheet by accident. `Shape/Sunny` bakes
+two cells (`rounding=0`, `count=12`) to hold that path in the sheet; every other shape offers the
+same knobs live on the preview server.
+
+Transcribed code drifts, which is the real cost of this. `MaterialShapeRecipeTest` closes it by
+rebuilding all 35 shapes at the default knobs and comparing them to `MaterialShapes` **cubic for
+cubic** — so a Material release that re-authors a shape fails the build instead of leaving a knob
+that reshapes something the library no longer draws.
+
 ## Two lanes: what a click does
 
 Every sticker is rendered on two surfaces that want opposite things from a pointer.
@@ -117,15 +138,23 @@ disabled stickers, which stay inert because unresponsiveness is the state they d
 
 ## Themes
 
-The kit defines six colour modes — light and dark, each at standard, medium and high contrast — and
-all six are declared as `@ThemeCatalog` wrapper providers, so the renderer builds a specimen sheet
-per theme and the viewer offers them in its theme select. Any sticker can be re-rendered under any
-of them.
+The catalog declares eight `@ThemeCatalog` wrapper providers: the kit's six colour modes — light
+and dark, each at standard, medium and high contrast — plus Material 3 Expressive light and dark.
+The renderer builds a specimen sheet per theme and the viewer offers them in its theme select. Any
+sticker can be re-rendered under any of them.
 
 | Mode | Source |
 | --- | --- |
 | Baseline Light / Baseline Dark | Compose's stock `lightColorScheme()` / `darkColorScheme()` |
+| Expressive Light / Expressive Dark | `expressiveLightColorScheme()` / `darkColorScheme()` |
 | Light + Dark × Medium / High Contrast | generated from the baseline seed via MaterialKolor |
+
+Expressive themes install `MaterialExpressiveTheme` and `MotionScheme.expressive()` rather than
+the standard `MaterialTheme` / `MotionScheme.standard()` pair. Component families with expressive
+shape overloads use their whole stateful shape sets only under those themes: buttons and icon
+buttons morph from their resting shape to the size-specific pressed shape in a live session, while
+standard themes keep the single static shape. Expressive-only components remain in the inventory
+under every theme because they are components in the kit, not substitutes for a standard sticker.
 
 The standard pair is expressed as the stock schemes rather than re-typed hex, because those defaults
 *are* the Material 3 baseline — verified against the kit's own published `M3.sys.light.*` variables
@@ -230,6 +259,11 @@ Page ids are undiscoverable for the same reason, one level up.
 example screens (the only one that can back a design-parity page backdrop).
 [`scripts/list-figma-pages.mjs`](scripts/list-figma-pages.mjs) regenerates the
 list in one REST call.
+
+The Upcoming-Mobile screen is published with the catalog and browsable at
+[`preview.coo.ee/m3-catalog/pages`](https://preview.coo.ee/m3-catalog/pages):
+every component instance on it is linked back to the sticker that implements it,
+and the catalog's own renders can be laid over the design live.
 
 ```sh
 FIGMA_TOKEN=figd_... node scripts/list-figma-pages.mjs

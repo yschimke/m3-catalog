@@ -38,12 +38,14 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_cancel
 import ee.schimke.m3catalog.generated.resources.action_ok
 import ee.schimke.m3catalog.generated.resources.time_enter
 import ee.schimke.m3catalog.generated.resources.time_select
+import ee.schimke.m3catalog.toggleable
 import org.jetbrains.compose.resources.stringResource
 
 // Pinned to the kit's 20:00 example so the baked capture is deterministic across renders.
@@ -52,7 +54,9 @@ import org.jetbrains.compose.resources.stringResource
 // the 12-hour / 24-hour axis is a state parameter; the dial additionally has the vertical and
 // horizontal layouts the kit shows for portrait and landscape.
 
-@Composable private fun timeIs24Hour(): Boolean = previewOverrideString("hours", "24") == "24"
+@Composable
+private fun timeIs24Hour(): Boolean =
+  catalogChoice("hours", "24", "24" to "24 hour", "12" to "12 hour") == "24"
 
 @Composable
 private fun initialTime(): Pair<Int, Int> {
@@ -66,10 +70,10 @@ private fun TimePickerFrame(
   headline: String,
   switchIcon: ImageVector,
   switchDescription: String,
+  onSwitch: () -> Unit,
   modifier: Modifier,
   content: @Composable () -> Unit,
 ) {
-  val switch = counted(switchDescription)
   val cancel = counted(stringResource(Res.string.action_cancel))
   val ok = counted(stringResource(Res.string.action_ok))
   Surface(
@@ -90,7 +94,7 @@ private fun TimePickerFrame(
         Modifier.fillMaxWidth().padding(start = 12.dp, end = 24.dp, bottom = 20.dp),
         verticalAlignment = Alignment.CenterVertically,
       ) {
-        IconButton(onClick = switch.onClick) { Icon(switchIcon, contentDescription = switch.label) }
+        IconButton(onClick = onSwitch) { Icon(switchIcon, contentDescription = switchDescription) }
         Spacer(Modifier.weight(1f))
         TextButton(onClick = cancel.onClick) { Text(cancel.label) }
         TextButton(onClick = ok.onClick) { Text(ok.label) }
@@ -109,28 +113,49 @@ private fun TimePickerFrame(
 @OverrideVariant(name = "horizontal", strings = ["layout=horizontal"])
 @OverrideVariant(name = "12-hour-horizontal", strings = ["hours=12", "layout=horizontal"])
 @Composable
-fun TimePickerSticker() = Sticker {
+fun TimePickerSticker() = Sticker { TimePickerDialogFrame(seedInput = false) }
+
+/**
+ * The dial and the keyboard form publish as two components — two composables, two kit nodes — but
+ * inside the dialog the icon button between them is the *mode switch*, not decoration. So the frame
+ * owns the mode rather than handing that button the [counted] tally, whose only effect there was on
+ * a `contentDescription` nothing paints: the baked capture stays frozen on the form its component
+ * publishes, and on the live lane the switch really swaps dial for keyboard, carrying the title,
+ * the icon and the dialog's own footprint with it. The entered time is hoisted alongside it, so
+ * switching modes keeps the time the way the real dialog does instead of resetting to the seed.
+ */
+@Composable
+private fun TimePickerDialogFrame(seedInput: Boolean) {
   val is24Hour = timeIs24Hour()
-  val horizontal = previewOverrideString("layout", "vertical") == "horizontal"
+  val horizontal = catalogChoice("layout", "vertical", "vertical", "horizontal") == "horizontal"
   val (initialHour, initialMinute) = initialTime()
+  val (input, setInput) = toggleable(seedInput)
+  val state =
+    rememberTimePickerState(
+      initialHour = initialHour,
+      initialMinute = initialMinute,
+      is24Hour = is24Hour,
+    )
   TimePickerFrame(
-    headline = stringResource(Res.string.time_select),
-    switchIcon = Icons.Filled.Keyboard,
-    switchDescription = stringResource(Res.string.time_enter),
+    headline = stringResource(if (input) Res.string.time_enter else Res.string.time_select),
+    switchIcon = if (input) Icons.Filled.AccessTime else Icons.Filled.Keyboard,
+    switchDescription =
+      stringResource(if (input) Res.string.time_select else Res.string.time_enter),
+    onSwitch = { setInput(!input) },
     modifier =
-      if (horizontal) Modifier.width(572.dp).height(384.dp)
+      if (input) Modifier.width(if (is24Hour) 264.dp else 328.dp).height(243.dp)
+      else if (horizontal) Modifier.width(572.dp).height(384.dp)
       else Modifier.width(328.dp).height(520.dp),
   ) {
-    TimePicker(
-      state =
-        rememberTimePickerState(
-          initialHour = initialHour,
-          initialMinute = initialMinute,
-          is24Hour = is24Hour,
-        ),
-      layoutType =
-        if (horizontal) TimePickerLayoutType.Horizontal else TimePickerLayoutType.Vertical,
-    )
+    if (input) {
+      TimeInput(state = state)
+    } else {
+      TimePicker(
+        state = state,
+        layoutType =
+          if (horizontal) TimePickerLayoutType.Horizontal else TimePickerLayoutType.Vertical,
+      )
+    }
   }
 }
 
@@ -142,22 +167,4 @@ fun TimePickerSticker() = Sticker {
 @CatalogModes
 @OverrideVariant(name = "12-hour", strings = ["hours=12"])
 @Composable
-fun TimeInputSticker() = Sticker {
-  val is24Hour = timeIs24Hour()
-  val (initialHour, initialMinute) = initialTime()
-  TimePickerFrame(
-    headline = stringResource(Res.string.time_enter),
-    switchIcon = Icons.Filled.AccessTime,
-    switchDescription = stringResource(Res.string.time_select),
-    modifier = Modifier.width(if (is24Hour) 264.dp else 328.dp).height(243.dp),
-  ) {
-    TimeInput(
-      state =
-        rememberTimePickerState(
-          initialHour = initialHour,
-          initialMinute = initialMinute,
-          is24Hour = is24Hour,
-        )
-    )
-  }
-}
+fun TimeInputSticker() = Sticker { TimePickerDialogFrame(seedInput = true) }

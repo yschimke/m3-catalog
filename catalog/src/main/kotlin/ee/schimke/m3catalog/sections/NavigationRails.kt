@@ -40,6 +40,7 @@ import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_menu
@@ -122,7 +123,7 @@ private fun RailHeaderContent(wide: Boolean) {
 @Composable
 fun NavigationRailSticker() = Sticker {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
-  val labels = previewOverrideString("labels", "always")
+  val labels = catalogChoice("labels", "always", "always", "none")
   val (selected, select) = selectable(0)
   Box(Modifier.padding(horizontal = 8.dp)) {
     NavigationRail(

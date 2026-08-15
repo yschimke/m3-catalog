@@ -31,8 +31,10 @@ import ee.schimke.m3catalog.CatalogSize
 import ee.schimke.m3catalog.SizeShapeMatrix
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonShape
+import ee.schimke.m3catalog.catalogButtonShapes
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.catalogEnabled
+import ee.schimke.m3catalog.catalogExpressive
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.label_elevated
@@ -96,14 +98,26 @@ fun FilledButton() = Sticker {
   val c = counted(stringResource(Res.string.label_filled))
   val size = catalogButtonSize()
   ButtonFrame(size) {
-    Button(
-      onClick = c.onClick,
-      enabled = catalogEnabled(),
-      shape = catalogButtonShape(),
-      contentPadding = size.contentPadding,
-      modifier = Modifier.height(size.containerHeight),
-    ) {
-      FigmaButtonContent(c.label)
+    if (catalogExpressive()) {
+      Button(
+        onClick = c.onClick,
+        shapes = catalogButtonShapes(size),
+        enabled = catalogEnabled(),
+        contentPadding = size.contentPadding,
+        modifier = Modifier.height(size.containerHeight),
+      ) {
+        FigmaButtonContent(c.label)
+      }
+    } else {
+      Button(
+        onClick = c.onClick,
+        enabled = catalogEnabled(),
+        shape = catalogButtonShape(),
+        contentPadding = size.contentPadding,
+        modifier = Modifier.height(size.containerHeight),
+      ) {
+        FigmaButtonContent(c.label)
+      }
     }
   }
 }
@@ -120,14 +134,26 @@ fun TonalButton() = Sticker {
   val c = counted(stringResource(Res.string.label_tonal))
   val size = catalogButtonSize()
   ButtonFrame(size) {
-    FilledTonalButton(
-      onClick = c.onClick,
-      enabled = catalogEnabled(),
-      shape = catalogButtonShape(),
-      contentPadding = size.contentPadding,
-      modifier = Modifier.height(size.containerHeight),
-    ) {
-      FigmaButtonContent(c.label)
+    if (catalogExpressive()) {
+      FilledTonalButton(
+        onClick = c.onClick,
+        shapes = catalogButtonShapes(size),
+        enabled = catalogEnabled(),
+        contentPadding = size.contentPadding,
+        modifier = Modifier.height(size.containerHeight),
+      ) {
+        FigmaButtonContent(c.label)
+      }
+    } else {
+      FilledTonalButton(
+        onClick = c.onClick,
+        enabled = catalogEnabled(),
+        shape = catalogButtonShape(),
+        contentPadding = size.contentPadding,
+        modifier = Modifier.height(size.containerHeight),
+      ) {
+        FigmaButtonContent(c.label)
+      }
     }
   }
 }
@@ -144,14 +170,26 @@ fun OutlinedButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_outlined))
   val size = catalogButtonSize()
   ButtonFrame(size) {
-    OutlinedButton(
-      onClick = c.onClick,
-      enabled = catalogEnabled(),
-      shape = catalogButtonShape(),
-      contentPadding = size.contentPadding,
-      modifier = Modifier.height(size.containerHeight),
-    ) {
-      FigmaButtonContent(c.label)
+    if (catalogExpressive()) {
+      OutlinedButton(
+        onClick = c.onClick,
+        shapes = catalogButtonShapes(size),
+        enabled = catalogEnabled(),
+        contentPadding = size.contentPadding,
+        modifier = Modifier.height(size.containerHeight),
+      ) {
+        FigmaButtonContent(c.label)
+      }
+    } else {
+      OutlinedButton(
+        onClick = c.onClick,
+        enabled = catalogEnabled(),
+        shape = catalogButtonShape(),
+        contentPadding = size.contentPadding,
+        modifier = Modifier.height(size.containerHeight),
+      ) {
+        FigmaButtonContent(c.label)
+      }
     }
   }
 }
@@ -168,14 +206,26 @@ fun ElevatedButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_elevated))
   val size = catalogButtonSize()
   Box(Modifier.padding(start = 4.dp, top = 4.dp, end = 4.dp, bottom = 5.dp)) {
-    ElevatedButton(
-      onClick = c.onClick,
-      enabled = catalogEnabled(),
-      shape = catalogButtonShape(),
-      contentPadding = size.contentPadding,
-      modifier = Modifier.height(size.containerHeight),
-    ) {
-      FigmaButtonContent(c.label)
+    if (catalogExpressive()) {
+      ElevatedButton(
+        onClick = c.onClick,
+        shapes = catalogButtonShapes(size),
+        enabled = catalogEnabled(),
+        contentPadding = size.contentPadding,
+        modifier = Modifier.height(size.containerHeight),
+      ) {
+        FigmaButtonContent(c.label)
+      }
+    } else {
+      ElevatedButton(
+        onClick = c.onClick,
+        enabled = catalogEnabled(),
+        shape = catalogButtonShape(),
+        contentPadding = size.contentPadding,
+        modifier = Modifier.height(size.containerHeight),
+      ) {
+        FigmaButtonContent(c.label)
+      }
     }
   }
 }
@@ -192,14 +242,26 @@ fun TextButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
   val size = catalogButtonSize()
   ButtonFrame(size) {
-    TextButton(
-      onClick = c.onClick,
-      enabled = catalogEnabled(),
-      shape = catalogButtonShape(),
-      contentPadding = size.contentPadding,
-      modifier = Modifier.height(size.containerHeight),
-    ) {
-      FigmaButtonContent(c.label)
+    if (catalogExpressive()) {
+      TextButton(
+        onClick = c.onClick,
+        shapes = catalogButtonShapes(size),
+        enabled = catalogEnabled(),
+        contentPadding = size.contentPadding,
+        modifier = Modifier.height(size.containerHeight),
+      ) {
+        FigmaButtonContent(c.label)
+      }
+    } else {
+      TextButton(
+        onClick = c.onClick,
+        enabled = catalogEnabled(),
+        shape = catalogButtonShape(),
+        contentPadding = size.contentPadding,
+        modifier = Modifier.height(size.containerHeight),
+      ) {
+        FigmaButtonContent(c.label)
+      }
     }
   }
 }

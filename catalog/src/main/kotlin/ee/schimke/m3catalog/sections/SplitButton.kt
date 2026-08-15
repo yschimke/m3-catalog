@@ -4,7 +4,9 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -15,8 +17,6 @@ import androidx.compose.material3.SplitButtonLayout
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -24,6 +24,7 @@ import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonSize
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_more_options
@@ -44,7 +45,8 @@ import org.jetbrains.compose.resources.stringResource
 @CatalogComponent(
   id = "SplitButton/Filled",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:16184",
-  caption = "Primary action plus a related-choices affordance. Five sizes and four colours fold in.",
+  caption =
+    "Primary action plus a related-choices affordance. Five sizes and four colours fold in.",
 )
 @CatalogModes
 @OverrideVariant(name = "xs", strings = ["size=xs"])
@@ -59,9 +61,14 @@ fun SplitButton() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
   val (expanded, setExpanded) = toggleable(false)
   val size = catalogButtonSize()
-  val colour = previewOverrideString("color", "filled")
+  val colour = catalogChoice("color", "filled", "filled", "tonal", "outlined", "elevated")
   val label: @Composable RowScope.() -> Unit = {
-    Icon(CatalogFilledStars, contentDescription = null, modifier = Modifier.size(20.dp))
+    Icon(CatalogFilledStars, contentDescription = null, modifier = Modifier.size(size.iconSize))
+    // `LeadingButton` lays its content out as a bare centred `Row` and adds no spacing of its own,
+    // so the icon-to-label gap is the caller's to supply — exactly as the upstream
+    // `FilledSplitButtonSample` does. Without it the leading half renders 8dp narrow with the glyph
+    // welded to the label, which is what the kit comparison was flagging.
+    Spacer(Modifier.width(size.iconSpacing))
     ProvideTextStyle(size.labelStyle) { Text(c.label) }
   }
   val chevron: @Composable RowScope.() -> Unit = {

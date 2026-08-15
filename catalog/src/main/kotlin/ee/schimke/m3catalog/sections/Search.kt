@@ -41,13 +41,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes360
 import ee.schimke.m3catalog.CatalogModes412
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.editable
 import ee.schimke.m3catalog.generated.resources.Res
@@ -84,7 +84,9 @@ private val SUGGESTIONS =
     Res.string.search_suggestion_motion,
   )
 
-@Composable private fun searchContent(): String = previewOverrideString("content", "placeholder")
+@Composable
+private fun searchContent(): String =
+  catalogChoice("content", "placeholder", "placeholder", "query", "avatar")
 
 @Composable private fun searchQuery(): String = if (searchContent() == "query") "material" else ""
 
@@ -186,7 +188,8 @@ fun DockedSearchBarSticker() = Sticker {
 @CatalogComponent(
   id = "Search/AppBar",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20571",
-  caption = "A top app bar that carries a search field between its navigation icon and its actions.",
+  caption =
+    "A top app bar that carries a search field between its navigation icon and its actions.",
 )
 @CatalogModes412
 @OverrideVariant(name = "query", strings = ["content=query"])
@@ -254,6 +257,7 @@ fun ExpandedDockedSearchBarSticker() = Sticker {
 @CatalogComponent(
   id = "Search/ExpandedFullScreen",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/59178:4964",
+  referenceContentsOnly = false,
   caption = "The full-screen search view, where results take the whole surface.",
 )
 @CatalogModes412

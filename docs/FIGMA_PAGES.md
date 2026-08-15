@@ -17,9 +17,11 @@ FIGMA_TOKEN=figd_... node scripts/list-figma-pages.mjs
 ```
 
 That returns every page's id and name from `GET /v1/files/:key?depth=1`. The
-table below was assembled by inspecting pages one at a time through the MCP
-server, which is why part of it is still blank — see
-[Unidentified pages](#unidentified-pages).
+importer now makes the same call itself (`"discover": true`), so the tables
+below are no longer hand-assembled: every page name and id in them came out of
+[`design/pages/pages.json`](../design/pages/pages.json), which the import
+writes. The fourteen pages this file used to list as bare numbers are named in
+[Component pages](#component-pages).
 
 ## The one structural fact that matters
 
@@ -31,9 +33,10 @@ That decides what each page is good for:
 
 - **Reference targets.** A definition page is where `design-map.json` refs
   point, and where `resolve-figma-refs.mjs` looks.
-- **Not page backdrops.** A design-parity page backdrop places *instances* on a
-  screen; a page with no instances yields no placements. Only `Examples` holds
-  composed screens, so it is the only backdrop source in the file.
+- **And therefore the right thing to import.** A definition sheet is the design
+  file *stating* what a component should look like, which is exactly the claim
+  this catalog reproduces — so an imported page is a claim we can put our own
+  renders on top of, node by node. See [Importing a page](#importing-a-page).
 
 ## Style, documentation and utility pages
 
@@ -42,15 +45,16 @@ That decides what each page is good for:
 | Getting started | `11:1833` | Introduction cards and the kit cover. Prose and screenshots. |
 | Table of contents | `55879:3580` | Navigation index — 8 style groups and 38 components. Useful as a coverage checklist against `catalog/src/main/kotlin/ee/schimke/m3catalog/sections/`. |
 | Styles | `49823:12141` | Type scale, `material-theme`, light/dark colour sheets. 424 text nodes and 3 instances — a specimen sheet, not components. |
-| Shape | `58548:7093` | The corner-radius scale (0–48dp, full) plus the 36-shape Expressive library. Pairs with `ShapeScale.kt`. |
+| Shape | `58548:7093` | The corner-radius scale (0–48dp, full) plus the 35-shape Expressive library. The shape set pairs with `sections/Shapes.kt`, one component per shape; the radius scale has no code behind it yet. **The page this surface started with, and still the only one whose specimens are almost all linked** (35 of 38). |
 | Icons | `55594:2483` | ~150 icon components. |
 | Avatars | `55595:3788` | Generic avatar styles (avatar / monogram / check) and 30 3D avatars. |
 | Utilities | `55594:2484` | Status bar, gesture/navigation bar, device frame, keyboard configurations, scrim, focus indicator. These are kit utilities rather than catalog components. |
 
-## `Examples` — the composed screens
+## `Examples` — the composed screens (not the source any more)
 
 `55594:2480`. **The only page in the file with instances on it**, and therefore
-the only source of design-parity page backdrops. Fourteen screens, each the same
+the only page the retired screen-backdrop import could use at all. Kept here as
+the record of why that approach was dropped. Fourteen screens, each the same
 seven flows at two window size classes, plus a layout-grid section
 (`56384:120`) showing all five window size classes with and without a navigation
 region.
@@ -80,139 +84,215 @@ each screen is hand-drawn rather than assembled from the kit's components:
 
 ## Component pages
 
-Each holds one component family's variant sets. The `design-map.json` refs in
-the right column are the **container frames** — Figma component *sets*, named
-with `Property=Value` variants — which is exactly what an instance's
-`componentSetId` points at.
+Each holds one component family's variant sets — Figma component *sets*, named
+with `Property=Value` variants, which is exactly what an instance's
+`componentSetId` points at and what a `design-map.json` ref names. Every one of
+these pages is imported; per-node detail (which node, which layer name, which
+Kotlin member) lives in [`design/pages/pages.json`](../design/pages/pages.json).
 
-| Page | Node id | `design-map.json` refs verified on it |
+**Nodes** is how many component nodes the import recorded for the page (`500` is
+the cap — the sheet has more); **linked** is how many of them `design-map.json`
+joins to code, which is this surface's coverage number. Both come straight out
+of the last import, so they are a snapshot, not a target.
+
+| Page | Node id | Page id | Nodes | Linked |
+| --- | --- | --- | --- | --- |
+| App bars | `55141:14169` | `app-bars` | 51 | 8 |
+| Badges | `55141:14167` | `badges` | 4 | 2 |
+| Buttons | `55141:14168` | `buttons` | 500 | 88 |
+| Cards | `55141:14171` | `cards` | 33 | 6 |
+| Carousel | `55141:14172` | `carousel` | 20 | 2 |
+| Checkboxes | `55141:14173` | `checkboxes` | 32 | 6 |
+| Chips | `55141:14174` | `chips` | 256 | 16 |
+| Date & time pickers | `55141:14175` | `date-time-pickers` | 114 | 6 |
+| Dialogs | `55141:14176` | `dialogs` | 16 | 3 |
+| Dividers | `55141:14177` | `dividers` | 8 | 4 |
+| Lists | `55141:14249` | `lists` | 500 | 0 |
+| Loading & progress | `55141:14252` | `loading-progress` | 101 | 12 |
+| Menu | `55141:14250` | `menu` | 92 | 1 |
+| Navigation | `55141:14251` | `navigation` | 265 | 7 |
+| Radio button | `55141:14253` | `radio-button` | 12 | 4 |
+| Search | `55141:14254` | `search` | 21 | 4 |
+| Sheets | `55141:14170` | `sheets` | 21 | 2 |
+| Sliders | `55141:14255` | `sliders` | 311 | 6 |
+| Snackbar | `55141:14256` | `snackbar` | 32 | 6 |
+| Switch | `55141:14257` | `switch` | 22 | 8 |
+| Tabs | `55141:14258` | `tabs` | 57 | 9 |
+| Text fields | `55141:14259` | `text-fields` | 122 | 6 |
+| Toolbars | `58295:22726` | `toolbars` | 173 | 4 |
+| Tooltips | `55141:14261` | `tooltips` | 7 | 2 |
+
+The fourteen ids this file used to list as unidentified are in that table:
+`14176` is Dialogs, `14177` Dividers, `14249` Lists, `14250` Menu, `14251`
+Navigation, `14252` Loading & progress, `14253` Radio button, `14254` Search,
+`14255` Sliders, `14256` Snackbar, `14257` Switch, `14258` Tabs, `14259` Text
+fields, `14261` Tooltips, and `58295:22726` Toolbars. They were never in
+alphabetical order, which is why guessing them from the Table of contents would
+have been wrong — the import read them off the file.
+
+### The three pages not imported
+
+| Page | Node id | Why |
 | --- | --- | --- |
-| App bars | `55141:14169` | `58114:20565` → `TopAppBars.kt#SmallTopAppBar`<br>`51159:5105` → `BottomAppBars.kt#BottomAppBarSticker` |
-| Badges | `55141:14167` | `51592:4768` → `Badges.kt#NumberBadge` |
-| Buttons | `55141:14168` | — (3018 component nodes; the largest page in the file) |
-| Cards | `55141:14171` | — (`Cards.kt` is not yet in `design-map.json`) |
-| Carousel | `55141:14172` | `53912:27480` → `Carousel.kt#MultiBrowseCarousel` |
-| Checkboxes | `55141:14173` | — (`Checkboxes.kt` is not yet in `design-map.json`) |
-| Chips | `55141:14174` | `53923:28089` → `AssistChipSticker`<br>`53923:28270` → `FilterChipSticker`<br>`53923:27888` → `InputChipSticker`<br>`53923:28679` → `SuggestionChipSticker` |
-| Date & time pickers | `55141:14175` | `52949:27916` → `TimePickers.kt#TimePickerSticker` |
-| Sheets | `55141:14170` | `53198:27851` → `SideSheets.kt#StandardSideSheet`<br>`51827:5859` → `BottomSheets.kt#ModalBottomSheetSticker` |
+| Avatars | `55595:3788` | Exports at **52 MB** — generic avatar styles plus 30 3D renders. Over any sane cap, and no component in this catalog stands behind it. |
+| Getting started | `11:1833` | Excluded by name. 12.8 MB of introduction cards and screenshots, with no `COMPONENT` nodes for a render to sit on top of. |
+| *(unnamed)* | `55597:372` | Figma answers `/v1/images` with **no url** for it. Its layer name slugs to nothing printable, so the log calls it `55597-372`. |
 
-### Unidentified pages
+## Importing a page
 
-These fourteen page ids are known to exist but have not been named here.
-Enumerating them through the MCP server costs one full subtree dump each — the
-`Buttons` page is ~448 KB and `Chips` comparable — which is not a sane way to
-learn fourteen names. **Run `scripts/list-figma-pages.mjs` to fill them in**; it
-answers the whole question in one request.
+A page is imported as **one SVG with `data-node-id` on every element**, plus a `pages.json` naming
+the component nodes on it and the code each one maps to. Two REST calls per page
+([`scripts/import-figma-pages.mjs`](../scripts/import-figma-pages.mjs)):
 
-```
-55141:14176   55141:14177   55141:14249   55141:14250   55141:14251
-55141:14252   55141:14253   55141:14254   55141:14256   55141:14257
-55141:14258   55141:14259   55141:14261   58295:22726
+```sh
+FIGMA_TOKEN=figd_... node scripts/import-figma-pages.mjs
+FIGMA_TOKEN=figd_... node scripts/import-figma-pages.mjs --page shape
 ```
 
-Their names are almost certainly drawn from the Table of contents' component
-list, but the ids are **not** in alphabetical order (`App bars` is `14169`,
-after `Badges` `14167` and `Buttons` `14168`), so nothing here is inferred from
-position — an entry is listed above only if the page was actually opened.
-
-## Using this for a page backdrop
-
-`@design-parity/page-backdrop` is opt-in and off by default; it does nothing
-until a `design-pages.json` exists with `"enabled": true`.
+`design-pages.json` says which pages, and where the cache lands:
 
 ```jsonc
 {
   "enabled": true,
   "fileKey": "ocdacdEsnHipMJD3egzxKb",
-  "pages": [{ "nodeId": "56615:48121", "id": "upcoming-mobile" }],
-  "outDir": "design/pages"
+  "outDir": "design/pages",
+  // Ask the file for its own page list — one `GET /v1/files/:key?depth=1`, the same call
+  // `list-figma-pages.mjs` makes. Every page becomes an import; its id is a slug of its name.
+  "discover": true,
+  // Drop a page by node id or by name. Empty: every page in the kit is imported.
+  "exclude": [],
+  // PINS. An entry here fixes the id for that node however discovery names it.
+  "pages": [{ "id": "shape", "nodeId": "58548:7093", "name": "Shape" }]
 }
 ```
 
-```sh
-design-parity-pages import --design-map design-map.json
-```
+### Every page, not a hand-kept list
 
-A committed [`design-pages.json`](../design-pages.json) is already in the repo
-with `"enabled": false` — the deliberate "landed but dark" state. Flipping that
-one boolean is the opt-in; nothing runs until you do.
+The table above could name only half the file's pages, and the section below still lists fourteen
+as bare numbers, because naming one costs a full subtree dump through the MCP server. That is also
+what kept this import at a single page: adding one meant a human finding an id, a name and a slug.
 
-The [`Refresh Figma page backdrop`](../.github/workflows/figma-page-backdrop.yml)
-workflow drives it in CI: manual dispatch, artifact-only, no writes back to the
-repo, on the same reasoning as `figma-refs.yml`. It checks the opt-in first and
-stops cleanly if the feature is off, so it is safe to run today — it will simply
-report that it is dark. The run summary lists every placement with its link
-method, so you can see what resolved without downloading anything.
+So the importer asks the file. With `"discover": true` it enumerates the document's pages in one
+request and imports each of them, deriving the page id from the page's **own name** — `Date & time
+pickers` → `date-time-pickers` — so a published URL reads like the design file rather than like a
+node id. Slugging is pinned by
+[`scripts/import-figma-pages.test.mjs`](../scripts/import-figma-pages.test.mjs), because those
+slugs *are* URLs.
 
-### Where the overlay images come from
+`pages` survives as the **pin** list: an entry fixes the id for its node wherever discovery finds
+it, and `shape` is pinned for exactly that reason — its URL is already published, and a slug is
+only stable while the designer leaves the page name alone. The name still follows the file, so a
+renamed tab reads correctly in the index without moving.
 
-The viewer's "show renders on top" layer needs one PNG per code component.
-Rendering the catalog to produce them costs **~43 minutes** (1095 previews, see
-[PARALLEL_RENDER.md](./PARALLEL_RENDER.md)) — absurd for the couple of dozen a
-screen actually uses. The `compose-preview/main` branch already holds every
-render, refreshed on each merge to `main` by `compose-preview.yml`, so
-[`scripts/page-backdrop-renders.mjs`](../scripts/page-backdrop-renders.mjs)
-reads that instead. No Gradle, no Android SDK, no render.
+### A specimen's insides are not specimens
 
-It **joins**, never reconstructs. A render's filename is not derivable from its
-preview id: `renderOutput` strips the *common* dotted package prefix across
-every preview in the module (compose-ai-tools `docs/RENDER_FILENAMES.md`), so the
-answer depends on the whole set — and the baseline branch flattens it again to a
-basename. Both are recorded facts. The branch's `baselines.json` is keyed
-`<module>/<previewId>` and carries `renderBasename`, so the script looks the
-answer up. Measured against the current branch: **77 of 77** design-map
-components resolve to a render that exists on disk.
+The walk records `COMPONENT` / `COMPONENT_SET` / `INSTANCE` nodes, and **stops at every one of them
+except a component set**. A set's children are its variants — the cells the sheet is a grid of, and
+the only things a `design-map.json` ref can name — so the walk continues through the set and halts on
+each variant it finds.
 
-### The import needs the REST API — MCP is not a substitute
+Descending past a variant looks harmless and isn't. A reference names a *variant*, never a part of
+one, so every node inside a variant publishes as "no code behind this" however complete the catalog
+is: the kit's `Switch` sheet gave each `Icon=True` variant an `Icon` instance and each
+`State=Focused` variant a `Focus indicator`, which the page then drew as fourteen red rectangles —
+four of them *inside* the enabled and disabled switches this catalog does implement. Across the
+whole kit, 736 of 5,991 imported nodes were parts of a node already listed above them.
 
-A trial run drove the importer from `get_metadata` instead of the REST API. The
-geometry came through perfectly: 11 placements, every nested offset resolved
-(the text button lands at y=381 = 164 + 217, the five list items at 469…825).
-Two things did not, and both are properties of the MCP source rather than bugs:
+Pruning them also **recovered coverage**, because the 500-node cap was being spent on internals: on
+`Buttons` the linked count went from 29 to 88, `Chips` from 14 to 16 and `Navigation` from 0 to 7 —
+those variants were always mapped, they were just past the cut. The whole import went from 5,991
+nodes to 3,014.
 
-- **No `componentId`.** `get_metadata` reports id, name, type and box, but never
-  an instance's main component — so the only ref the linker can try is the
-  instance's own node id, which nothing in `design-map.json` points at. Every
-  placement came back `unlinked`. Linking needs `/v1/files/:key/nodes`, which
-  returns `componentId` per instance plus the file-level `components` map that
-  carries `componentSetId`. Code Connect would also answer this, but the kit is
-  a Community file and `get_code_connect_map` requires a Dev/Full seat.
-- **Parent-local coordinates.** MCP reports x/y relative to the parent;
-  `absoluteBoundingBox` (what the importer consumes) is canvas-absolute. Any
-  MCP-backed fetcher has to accumulate offsets down the tree.
+The component set itself stays in the list, because the reader wants to see the grid boundary, but it
+is a **container** rather than a component: nothing implements a component set — a reference names one
+of its variants — so the preview server draws it as structure and leaves it out of the coverage count
+(`DesignPage.coverageGaps`).
 
-The backdrop image needs `/v1/images`. Note that an agent sandbox may not have
-egress to `figma.com` at all — in the environment this was tried in, both
-`www.figma.com` and `api.figma.com` were refused at the proxy with `403
-CONNECT`, so no token would have helped either.
+Every node therefore records its own `type` (`COMPONENT`, `COMPONENT_SET`, `INSTANCE`). That is what
+makes the distinction exact. The consumer's fallback, for a manifest that states no type, is to infer
+containment from nesting depth — and only components are listed, so an unlisted frame between two of
+them lets a shallower node be followed by a deeper one that is not inside it, which the inference then
+reads as a container and drops from the count. A fact is cheaper than a judgement.
 
-### A screen uses sibling variants, so a per-variant ref under-links
+### A page the file cannot export is skipped; a pinned one still fails the run
 
-The first real import of the Upcoming screen linked **3 of 11** placements. Not
-a coordinate problem and not a missing mapping: the two big misses — five list
-items and a carousel — are instances of components this catalog *already maps*,
-but of **sibling variants** of the node the sticker pictures. The screen's list
-items are `51964:65404`; `Lists.kt#ListItemSticker` names a different variant of
-the same family (`51964:63037`). Matching on the mapped variant alone can only
-hit when the screen happens to use exactly the variant a catalog chose to
-picture, which is rare.
+At least one page of the kit is a sheet `/v1/images` answers for with no url at all. Under a
+hand-kept list that would be a config mistake worth failing on; under discovery it is just
+something the file contains, and letting it abort the run would mean one unrenderable sheet costs
+the other thirty their import. So a **discovered** page that fails is skipped with a line in the
+log, and a **pinned** one still fails the run — a human put that id there. A run that imports
+*nothing* fails regardless: that is an expired token or a moved file, not a partial result, and it
+must not commit an emptied cache over a good one.
 
-All three links that *did* land matched on the instance's `componentId`, not on
-its `componentSetId` — worth stating because it contradicts the guess that these
-refs are already set ids. They are not; set-only matching would have linked
-**zero**.
+### An oversized sheet is skipped, not cached
 
-The fix is a second handle rather than a widened one, because the two readers
-want opposite things: a parity diff needs the single renderable node, whole-page
-matching needs the family. So `@CatalogComponent` gained
-[`referenceSet`](https://github.com/yschimke/compose-ai-tools/pull/3530),
-[`design-map.json` gained `refSet`](https://github.com/yschimke/design-parity/pull/299),
-and `generate-design-map.mjs` projects one to the other. `ref` is unchanged, and
-a component that names no set behaves exactly as before.
+The cache is committed here *and* appended to the `design-artifacts/m3-catalog` delivery branch on
+every regeneration, so a page's export costs its bytes twice, forever. `Shape` is ~0.8 MB; the
+`Buttons` sheet carries a few thousand component nodes and `Examples` fourteen whole screens. A
+page whose SVG exceeds `maxSvgBytes` (default 12 MB) is therefore **skipped with a line in the run
+log** rather than committed, and any stale export of it is deleted — the server caps a page at 500
+nodes regardless, so the densest sheets are mostly undrawable even when they fit. A skip is not a
+failure: with discovery on, an enormous sheet is a fact about the design file, not a config
+mistake. A page that truncates at that 500-node cap says so in the log too.
 
-Because this repo is `design-led`, anything the overlay shows drifting is by
-definition a bug in the code — which is the whole reason a whole-screen view is
-worth having here and not everywhere.
+`svg_include_node_id=true` is the whole trick. Without it the export is a picture; with it, it is a
+**document a consumer can address** — the preview server inlines the SVG, finds `Shape=Circle` by
+its node id, hides the design's own drawing of it, and puts this catalog's `Shape/Circle` render in
+the hole it leaves. Same sheet, same layout, our pixels.
+
+The join is `design-map.json`, so it is annotation-first like everything else here: a page node
+links to code exactly when some `@CatalogComponent(reference = "figma:<key>/<nodeId>")` names that
+node. `Shapes.kt` names all 35 symbols of the shape set; nothing on the corner-radius section above
+them is named yet, so those import as **unlinked** — which is the finding the surface exists to
+report, not a gap in the import.
+
+### What this replaced, and why
+
+The first cut of this surface imported one composed **screen** from `Examples` as a flat PNG and
+drew a rectangle per component instance on it. The section above is the post-mortem: `Examples` is
+the only page in the file with instances on it, most of each screen there is hand-drawn rather than
+assembled from the kit, the densest screen yields **11** placements of which 2 are OS chrome, and a
+per-variant `ref` under-links the rest. The kit's value is on the other thirty pages — the
+definition sheets — and a definition sheet is exactly the claim this catalog is trying to reproduce.
+
+A raster could never have done the swap, either. Nothing can reach inside an `<img>`, so the old
+surface could only lay a translucent overlay on top and hope the eye separated the two drawings.
+
+### No geometry is recorded, deliberately
+
+A node in `pages.json` carries no bounding box. The old PNG manifest had to — a flat raster has no
+structure to ask. An SVG does: the element is right there, and the browser measures it. Recording
+Figma's `absoluteBoundingBox` alongside would give one question two answers that disagree by a few
+pixels on anything with a shadow (the export box is the *render* box, effect bleed included), and a
+consumer choosing between them would silently pick the wrong one.
+
+### Refreshing the cache
+
+The [`Refresh Figma pages`](../.github/workflows/figma-pages.yml) workflow runs the import on
+demand and commits the refreshed `design/pages/` to the branch it ran on. It is manual and
+read-only against Figma for the same reasons `figma-refs.yml` is: the Figma file moves on its own
+schedule, and a push-triggered re-import would attribute a designer's edit to whoever opened the PR.
+
+It **commits**, where `figma-refs.yml` only uploads an artifact, because the import is a *cache*:
+a committed `design/pages/` means the catalog publish, a fork, and a local `serve` all render the
+page with no Figma token at all.
+
+Note that an agent sandbox may have no egress to `figma.com` at all — in the environment this was
+built in, both `www.figma.com` and `api.figma.com` were refused at the proxy with `403 CONNECT`, so
+no token would have helped. That is what the workflow is for.
+
+### Where it is shown
+
+**On the preview server, at
+[`preview.coo.ee/m3-catalog/pages`](https://preview.coo.ee/m3-catalog/pages).** The catalog's
+`design-artifacts/m3-catalog` branch carries the cache (`pages/index.json` plus each page's SVG),
+the server stages it like any other catalog asset, and the catalog landing links the page count beside
+"design parity" — 30 of them, listed by name in the catalog's navigation tree.
+
+Publishing happens inside the ordinary
+[`Design Artifacts`](../.github/workflows/design-artifacts.yml) run, and needs **no credential**:
+the shared reusable workflow only re-keys the committed import onto the published catalog's serve
+preview ids and copies the SVGs into the bundle. So a fork, a token-less run and an offline
+republish all produce the same pages.
 
 [kit]: https://www.figma.com/design/ocdacdEsnHipMJD3egzxKb/Material-3-Design-Kit--Community-

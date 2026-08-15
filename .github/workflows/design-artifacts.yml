@@ -26,6 +26,18 @@ on:
     paths:
       - 'catalog/**'
       - 'catalog.spec.json'
+      # The page-backdrop opt-in and its page list. Changing which screens are
+      # published — or turning the surface on or off — changes what the delivery
+      # branch carries, so it belongs in the same set as the spec.
+      - 'design-pages.json'
+      # And the import itself. `design-pages.json` says *which* pages; this is
+      # the cache the publisher actually copies into the bundle, refreshed by
+      # `figma-pages.yml` on its own schedule rather than by a source edit. The
+      # first import landed here without a republish precisely because only the
+      # config was listed — the surface stayed 404 on a main that had every byte
+      # of it committed. A refreshed SVG is a changed published page, so it is
+      # as much a render input as the spec.
+      - 'design/pages/**'
       - 'gradle/libs.versions.toml'
       - 'gradle/wrapper/gradle-wrapper.properties'
       - 'settings.gradle.kts'
