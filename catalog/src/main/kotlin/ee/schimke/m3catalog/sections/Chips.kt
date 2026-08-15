@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Event
@@ -140,6 +141,7 @@ fun AssistChipSticker() = Sticker {
 @OverrideVariant(name = "elevated-unselected", strings = ["style=elevated", "state=unselected"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @OverrideVariant(name = "disabled-unselected", strings = ["state=unselected", "status=disabled"])
+@OverrideVariant(name = "trailing-icon", booleans = ["trailing=true"])
 @InteractionStates
 @Composable
 fun FilterChipSticker() = Sticker {
@@ -157,6 +159,18 @@ fun FilterChipSticker() = Sticker {
           modifier = Modifier.size(FilterChipDefaults.IconSize),
         )
       })
+  // The kit's `Show trailing icon` axis — the caret that says this chip opens a menu. Decorative
+  // beside its own label, so no contentDescription.
+  val caret: (@Composable () -> Unit)? =
+    if (!previewOverrideBoolean("trailing", false)) null
+    else
+      ({
+        Icon(
+          Icons.Filled.ArrowDropDown,
+          contentDescription = null,
+          modifier = Modifier.size(FilterChipDefaults.IconSize),
+        )
+      })
   if (chipElevated()) {
     ElevatedFilterChip(
       selected = selected,
@@ -164,6 +178,7 @@ fun FilterChipSticker() = Sticker {
       label = label,
       enabled = enabled,
       leadingIcon = check,
+      trailingIcon = caret,
     )
   } else {
     FilterChip(
@@ -172,6 +187,7 @@ fun FilterChipSticker() = Sticker {
       label = label,
       enabled = enabled,
       leadingIcon = check,
+      trailingIcon = caret,
     )
   }
 }

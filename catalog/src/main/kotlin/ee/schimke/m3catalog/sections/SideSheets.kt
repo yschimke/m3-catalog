@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
@@ -32,6 +33,7 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.action_back
 import ee.schimke.m3catalog.generated.resources.action_cancel
 import ee.schimke.m3catalog.generated.resources.action_close
 import ee.schimke.m3catalog.generated.resources.action_save
@@ -52,6 +54,7 @@ import org.jetbrains.compose.resources.stringResource
   caption = "Supporting pane anchored to the side. NO M3 Compose API — composed from Surface.",
 )
 @CatalogModes
+@OverrideVariant(name = "back", booleans = ["back=true"])
 @OverrideVariant(name = "no-header", booleans = ["header=false"])
 @OverrideVariant(name = "no-footer", booleans = ["footer=false"])
 @OverrideVariant(name = "no-header-no-footer", booleans = ["header=false", "footer=false"])
@@ -59,6 +62,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun StandardSideSheet() = Sticker {
   val close = counted(stringResource(Res.string.action_close))
+  val back = counted(stringResource(Res.string.action_back))
   val cancel = counted(stringResource(Res.string.action_cancel))
   val save = counted(stringResource(Res.string.action_save))
   Surface(
@@ -72,6 +76,13 @@ fun StandardSideSheet() = Sticker {
           Modifier.fillMaxWidth().padding(start = 24.dp, top = 12.dp, end = 12.dp, bottom = 16.dp),
           verticalAlignment = Alignment.CenterVertically,
         ) {
+          // The kit's `Show back` axis: a back affordance ahead of the title, for a sheet
+          // reached from somewhere rather than opened in place.
+          if (previewOverrideBoolean("back", false)) {
+            IconButton(onClick = back.onClick) {
+              Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = back.label)
+            }
+          }
           Text(
             stringResource(Res.string.sheet_details),
             style = MaterialTheme.typography.titleLarge,

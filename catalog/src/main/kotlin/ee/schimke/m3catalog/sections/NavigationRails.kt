@@ -113,7 +113,7 @@ private fun RailHeaderContent(wide: Boolean) {
 
 @CatalogComponent(
   id = "NavigationRail/Standard",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:36880",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:36948",
   caption = "Destinations along the side. Count, menu, FAB and labels fold in.",
 )
 @CatalogModes
@@ -122,10 +122,17 @@ private fun RailHeaderContent(wide: Boolean) {
 @OverrideVariant(name = "no-fab", booleans = ["fab=false"])
 @OverrideVariant(name = "no-menu-fab", booleans = ["menu=false", "fab=false"])
 @OverrideVariant(name = "labels-none", strings = ["labels=none"])
+@OverrideVariant(name = "middle", strings = ["alignment=middle"])
 @Composable
 fun NavigationRailSticker() = Sticker {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
   val labels = catalogChoice("labels", "always", "always", "none")
+  // The kit's `Alignment` axis. `NavigationRail` stacks its header and items from the top and
+  // offers no arrangement parameter, so TOP is what an unseeded rail draws — the reference above
+  // points at the kit's `Alignment=Top` node for that reason, having previously named `Middle`
+  // while rendering neither. Middle is the variant, and a leading weighted spacer is what makes
+  // it: there is nothing on `NavigationRail` to ask for it.
+  val middleAligned = catalogChoice("alignment", "top", "top", "middle") == "middle"
   var selected by selectable(0)
   Box(Modifier.padding(horizontal = 8.dp)) {
     NavigationRail(
@@ -133,6 +140,7 @@ fun NavigationRailSticker() = Sticker {
       containerColor = Color.Transparent,
       header = { RailHeaderContent(wide = false) },
     ) {
+      if (middleAligned) Column(Modifier.weight(1f)) {}
       RAIL.take(count).forEachIndexed { index, label ->
         NavigationRailItem(
           selected = index == selected,
@@ -146,6 +154,7 @@ fun NavigationRailSticker() = Sticker {
           label = if (labels == "none") null else ({ Text(stringResource(label)) }),
         )
       }
+      if (middleAligned) Column(Modifier.weight(1f)) {}
     }
   }
 }
