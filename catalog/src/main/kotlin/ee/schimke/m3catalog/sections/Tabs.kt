@@ -16,6 +16,8 @@ import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
@@ -67,12 +69,12 @@ private fun tabIcon(icon: ImageVector): (@Composable () -> Unit)? =
 @OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
 @Composable
 fun PrimaryTabs() = Sticker {
-  val (selected, select) = selectable(0)
+  var selected by selectable(0)
   PrimaryTabRow(selectedTabIndex = selected, modifier = Modifier.width(360.dp)) {
     TABS.take(3).forEachIndexed { index, (title, icon) ->
       Tab(
         selected = index == selected,
-        onClick = { select(index) },
+        onClick = { selected = index },
         text = tabText(stringResource(title)),
         icon = tabIcon(icon),
       )
@@ -90,12 +92,12 @@ fun PrimaryTabs() = Sticker {
 @OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
 @Composable
 fun SecondaryTabs() = Sticker {
-  val (selected, select) = selectable(1)
+  var selected by selectable(1)
   SecondaryTabRow(selectedTabIndex = selected, modifier = Modifier.width(360.dp)) {
     TABS.take(3).forEachIndexed { index, (title, icon) ->
       Tab(
         selected = index == selected,
-        onClick = { select(index) },
+        onClick = { selected = index },
         text = tabText(stringResource(title)),
         icon = tabIcon(icon),
       )
@@ -112,12 +114,12 @@ fun SecondaryTabs() = Sticker {
 @OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
 @Composable
 fun PrimaryScrollableTabs() = Sticker {
-  val (selected, select) = selectable(0)
+  var selected by selectable(0)
   PrimaryScrollableTabRow(selectedTabIndex = selected, modifier = Modifier.width(360.dp)) {
     TABS.forEachIndexed { index, (title, icon) ->
       Tab(
         selected = index == selected,
-        onClick = { select(index) },
+        onClick = { selected = index },
         text = tabText(stringResource(title)),
         icon = tabIcon(icon),
       )
@@ -134,12 +136,12 @@ fun PrimaryScrollableTabs() = Sticker {
 @OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
 @Composable
 fun SecondaryScrollableTabs() = Sticker {
-  val (selected, select) = selectable(0)
+  var selected by selectable(0)
   SecondaryScrollableTabRow(selectedTabIndex = selected, modifier = Modifier.width(360.dp)) {
     TABS.forEachIndexed { index, (title, icon) ->
       Tab(
         selected = index == selected,
-        onClick = { select(index) },
+        onClick = { selected = index },
         text = tabText(stringResource(title)),
         icon = tabIcon(icon),
       )

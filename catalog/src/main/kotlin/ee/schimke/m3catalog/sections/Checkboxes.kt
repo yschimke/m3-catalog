@@ -11,6 +11,8 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.state.ToggleableState
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
@@ -83,10 +85,10 @@ fun CheckboxChecked() = Sticker {
         colors = colors,
       )
     else -> {
-      val (checked, set) = toggleable(checkboxSelection() == "checked")
+      var checked by toggleable(checkboxSelection() == "checked")
       Checkbox(
         checked = checked,
-        onCheckedChange = if (enabled) set else null,
+        onCheckedChange = if (enabled) ({ checked = it }) else null,
         enabled = enabled,
         colors = colors,
       )

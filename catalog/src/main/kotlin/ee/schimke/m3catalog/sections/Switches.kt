@@ -13,6 +13,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
@@ -53,10 +55,10 @@ private fun switchIcon(): Boolean = catalogChoice("content", "none", "none", "ic
 @Composable
 fun SwitchOn() = Sticker {
   val enabled = switchStatus() != "disabled"
-  val (checked, set) = toggleable(switchSelection() == "on")
+  var checked by toggleable(switchSelection() == "on")
   Switch(
     checked = checked,
-    onCheckedChange = if (enabled) set else null,
+    onCheckedChange = if (enabled) ({ checked = it }) else null,
     enabled = enabled,
     thumbContent =
       if (!switchIcon()) null

@@ -59,10 +59,10 @@
     "splitTrailingIconSize": { "kind": "DROP" },
 
     "toggleable": {
-      "$comment": "Owned boolean state, destructured into a value and its setter. The plain reading is the state a developer writes themselves.",
-      "kind": "DESTRUCTURE",
-      "plain": "var $value by remember { mutableStateOf($0) }",
-      "setter": "{ $value = it }",
+      "$comment": "Owned boolean state, read and written through `by`. The helper returns a MutableState precisely so the plain reading is a one-expression swap rather than a declaration rewrite — see CatalogInteractive.kt.",
+      "kind": "SUBSTITUTE",
+      "params": ["initial"],
+      "plain": "remember { mutableStateOf($0) }",
       "addImports": [
         "androidx.compose.runtime.getValue",
         "androidx.compose.runtime.mutableStateOf",
@@ -72,9 +72,9 @@
     },
     "editable": {
       "$comment": "Owned text state, for text fields.",
-      "kind": "DESTRUCTURE",
-      "plain": "var $value by remember { mutableStateOf($0) }",
-      "setter": "{ $value = it }",
+      "kind": "SUBSTITUTE",
+      "params": ["initial"],
+      "plain": "remember { mutableStateOf($0) }",
       "addImports": [
         "androidx.compose.runtime.getValue",
         "androidx.compose.runtime.mutableStateOf",
@@ -84,9 +84,9 @@
     },
     "selectable": {
       "$comment": "Owned index state, for single-select families (segmented buttons, tabs, navigation bars).",
-      "kind": "DESTRUCTURE",
-      "plain": "var $value by remember { mutableIntStateOf($0) }",
-      "setter": "{ $value = it }",
+      "kind": "SUBSTITUTE",
+      "params": ["initial"],
+      "plain": "remember { mutableIntStateOf($0) }",
       "addImports": [
         "androidx.compose.runtime.getValue",
         "androidx.compose.runtime.mutableIntStateOf",
@@ -96,9 +96,9 @@
     },
     "draggable": {
       "$comment": "Owned float state, for continuous controls (sliders).",
-      "kind": "DESTRUCTURE",
-      "plain": "var $value by remember { mutableFloatStateOf($0) }",
-      "setter": "{ $value = it }",
+      "kind": "SUBSTITUTE",
+      "params": ["initial"],
+      "plain": "remember { mutableFloatStateOf($0) }",
       "addImports": [
         "androidx.compose.runtime.getValue",
         "androidx.compose.runtime.mutableFloatStateOf",
@@ -107,10 +107,10 @@
       ]
     },
     "multiSelectable": {
-      "$comment": "Owned multi-select state. The setter takes the cell index and its new state, so a row of any length wires up from one call.",
-      "kind": "DESTRUCTURE",
-      "plain": "var $value by remember { mutableStateOf($0) }",
-      "setter": "{ index, on -> $value = if (on) $value + index else $value - index }",
+      "$comment": "Owned multi-select state, for families where any number of cells may be on at once. The set update lives at the call site, which is also what a developer would write.",
+      "kind": "SUBSTITUTE",
+      "params": ["initial"],
+      "plain": "remember { mutableStateOf($0) }",
       "addImports": [
         "androidx.compose.runtime.getValue",
         "androidx.compose.runtime.mutableStateOf",

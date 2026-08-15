@@ -16,6 +16,8 @@ import androidx.compose.material3.SplitButtonDefaults
 import androidx.compose.material3.SplitButtonLayout
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
@@ -59,7 +61,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun SplitButton() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
-  val (expanded, setExpanded) = toggleable(false)
+  var expanded by toggleable(false)
   val size = catalogButtonSize()
   val colour = catalogChoice("color", "filled", "filled", "tonal", "outlined", "elevated")
   val label: @Composable RowScope.() -> Unit = {
@@ -106,7 +108,7 @@ fun SplitButton() = Sticker {
     },
     trailingButton = {
       val padding = size.splitTrailingContentPadding
-      val onCheck: (Boolean) -> Unit = { setExpanded(it) }
+      val onCheck: (Boolean) -> Unit = { expanded = it }
       when (colour) {
         "tonal" ->
           SplitButtonDefaults.TonalTrailingButton(

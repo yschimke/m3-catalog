@@ -28,6 +28,8 @@ import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerLayoutType
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -129,7 +131,7 @@ private fun TimePickerDialogFrame(seedInput: Boolean) {
   val is24Hour = timeIs24Hour()
   val horizontal = catalogChoice("layout", "vertical", "vertical", "horizontal") == "horizontal"
   val (initialHour, initialMinute) = initialTime()
-  val (input, setInput) = toggleable(seedInput)
+  var input by toggleable(seedInput)
   val state =
     rememberTimePickerState(
       initialHour = initialHour,
@@ -141,7 +143,7 @@ private fun TimePickerDialogFrame(seedInput: Boolean) {
     switchIcon = if (input) Icons.Filled.AccessTime else Icons.Filled.Keyboard,
     switchDescription =
       stringResource(if (input) Res.string.time_select else Res.string.time_enter),
-    onSwitch = { setInput(!input) },
+    onSwitch = { input = !input },
     modifier =
       if (input) Modifier.width(if (is24Hour) 264.dp else 328.dp).height(243.dp)
       else if (horizontal) Modifier.width(572.dp).height(384.dp)

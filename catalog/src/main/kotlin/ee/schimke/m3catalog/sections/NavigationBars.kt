@@ -13,6 +13,8 @@ import androidx.compose.material3.ShortNavigationBar
 import androidx.compose.material3.ShortNavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
@@ -60,7 +62,7 @@ private val DESTINATIONS =
 fun ShortNavigationBarSticker() = Sticker {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
   val labels = catalogChoice("labels", "always", "always", "none")
-  val (selected, select) = selectable(0)
+  var selected by selectable(0)
   ShortNavigationBar(Modifier.width(412.dp).height(64.dp)) {
     // Give the broken equal-weight policy one full-width child, then divide that width correctly.
     // Remove after https://github.com/yschimke/m3-catalog/issues/41 is fixed upstream.
@@ -68,7 +70,7 @@ fun ShortNavigationBarSticker() = Sticker {
       DESTINATIONS.take(count).forEachIndexed { index, label ->
         ShortNavigationBarItem(
           selected = index == selected,
-          onClick = { select(index) },
+          onClick = { selected = index },
           icon = {
             Icon(
               if (index == selected) CatalogFilledStars else CatalogOutlinedStars,

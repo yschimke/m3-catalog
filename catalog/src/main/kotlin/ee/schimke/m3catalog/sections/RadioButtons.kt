@@ -10,6 +10,8 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonColors
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -56,10 +58,10 @@ private fun radioColors(): RadioButtonColors =
 @Composable
 fun RadioSelected() = Sticker {
   val enabled = radioStatus() != "disabled"
-  val (selected, set) = toggleable(radioSelection() == "selected")
+  var selected by toggleable(radioSelection() == "selected")
   RadioButton(
     selected = selected,
-    onClick = if (enabled) ({ set(!selected) }) else null,
+    onClick = if (enabled) ({ selected = !selected }) else null,
     enabled = enabled,
     colors = radioColors(),
   )

@@ -28,6 +28,8 @@ import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
@@ -134,7 +136,7 @@ fun AssistChipSticker() = Sticker {
 @OverrideVariant(name = "disabled-unselected", strings = ["state=unselected", "status=disabled"])
 @Composable
 fun FilterChipSticker() = Sticker {
-  val (selected, set) =
+  var selected by
     toggleable(catalogChoice("state", "selected", "selected", "unselected") == "selected")
   val enabled = chipEnabled()
   val label: @Composable () -> Unit = { Text(stringResource(Res.string.chip_unread)) }
@@ -151,7 +153,7 @@ fun FilterChipSticker() = Sticker {
   if (chipElevated()) {
     ElevatedFilterChip(
       selected = selected,
-      onClick = { set(!selected) },
+      onClick = { selected = !selected },
       label = label,
       enabled = enabled,
       leadingIcon = check,
@@ -159,7 +161,7 @@ fun FilterChipSticker() = Sticker {
   } else {
     FilterChip(
       selected = selected,
-      onClick = { set(!selected) },
+      onClick = { selected = !selected },
       label = label,
       enabled = enabled,
       leadingIcon = check,
@@ -182,11 +184,11 @@ fun FilterChipSticker() = Sticker {
 @OverrideVariant(name = "disabled-avatar", strings = ["leading=avatar", "status=disabled"])
 @Composable
 fun InputChipSticker() = Sticker {
-  val (selected, set) =
+  var selected by
     toggleable(catalogChoice("state", "unselected", "selected", "unselected") == "selected")
   InputChip(
     selected = selected,
-    onClick = { set(!selected) },
+    onClick = { selected = !selected },
     label = { Text(stringResource(Res.string.chip_unread)) },
     enabled = chipEnabled(),
     avatar = chipIcon(),
