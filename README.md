@@ -260,6 +260,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Dark_VARIANT_focused-aff72251.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Dark_VARIANT_hovered-f8897d32.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Dark_VARIANT_pressed-2a95bd66.png" width="150" /> |
+| `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Dark_VARIANT_trailing_icon-72acc333.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Dark_VARIANT_unselected-84b50392.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light-6f7b70de.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light_VARIANT_disabled-f396b84b.png" width="150" /> |
@@ -269,6 +270,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light_VARIANT_focused-7aadbe02.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light_VARIANT_hovered-256e28ee.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light_VARIANT_pressed-1788a948.png" width="150" /> |
+| `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light_VARIANT_trailing_icon-42e054ee.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light_VARIANT_unselected-6d707325.png" width="150" /> |
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Dark-4d9c2d30.png" width="150" /> |
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Dark_VARIANT_avatar-eca00072.png" width="150" /> |
@@ -705,12 +707,14 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Dark-a9ef0f0e.png" width="150" /> |
 | `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Dark_VARIANT_four-2a1f40d7.png" width="150" /> |
 | `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Dark_VARIANT_labels_none-1489dbf5.png" width="150" /> |
+| `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Dark_VARIANT_middle-103c1d15.png" width="150" /> |
 | `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Dark_VARIANT_no_fab-a930fd36.png" width="150" /> |
 | `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Dark_VARIANT_no_menu-77c49ff1.png" width="150" /> |
 | `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Dark_VARIANT_no_menu_fab-b621ae39.png" width="150" /> |
 | `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Light-195ff75b.png" width="150" /> |
 | `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Light_VARIANT_four-88b17927.png" width="150" /> |
 | `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Light_VARIANT_labels_none-56db905d.png" width="150" /> |
+| `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Light_VARIANT_middle-d4acd4f8.png" width="150" /> |
 | `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Light_VARIANT_no_fab-c9b9d637.png" width="150" /> |
 | `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Light_VARIANT_no_menu-92f089f8.png" width="150" /> |
 | `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Light_VARIANT_no_menu_fab-a637f795.png" width="150" /> |
@@ -907,11 +911,13 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `VerySunnyShape` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/VerySunnyShape_Dark-c251538c.png" width="150" /> |
 | `VerySunnyShape` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/VerySunnyShape_Light-5a372d1c.png" width="150" /> |
 | `StandardSideSheet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardSideSheet_Dark-ec79dd2b.png" width="150" /> |
+| `StandardSideSheet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardSideSheet_Dark_VARIANT_back-59ed0db9.png" width="150" /> |
 | `StandardSideSheet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardSideSheet_Dark_VARIANT_content-98eaba75.png" width="150" /> |
 | `StandardSideSheet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardSideSheet_Dark_VARIANT_no_footer-e168c128.png" width="150" /> |
 | `StandardSideSheet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardSideSheet_Dark_VARIANT_no_header-4cd34cdb.png" width="150" /> |
 | `StandardSideSheet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardSideSheet_Dark_VARIANT_no_header_no_footer-edb8e36a.png" width="150" /> |
 | `StandardSideSheet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardSideSheet_Light-baa810c5.png" width="150" /> |
+| `StandardSideSheet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardSideSheet_Light_VARIANT_back-67cd01c1.png" width="150" /> |
 | `StandardSideSheet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardSideSheet_Light_VARIANT_content-8f634fd3.png" width="150" /> |
 | `StandardSideSheet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardSideSheet_Light_VARIANT_no_footer-87dbd825.png" width="150" /> |
 | `StandardSideSheet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardSideSheet_Light_VARIANT_no_header-0a94da25.png" width="150" /> |
