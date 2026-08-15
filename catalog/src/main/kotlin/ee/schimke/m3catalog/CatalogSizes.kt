@@ -102,6 +102,17 @@ enum class CatalogSize(
      * render is pixel-identical to the pre-matrix sticker.
      */
     val Axis = CatalogKnobAxis("size", entries, Small)
+
+    /**
+     * The same axis as the **slider** family carries it, defaulting to [ExtraSmall].
+     *
+     * One axis, two defaults, for the same reason [catalogToggleSelected] takes one: the default is
+     * a property of the component, not of the axis. The kit's `Standard slider` and `Range slider`
+     * sets both draw `Size=XSmall` as their first variant, and a bare `Slider(...)` is that size —
+     * a 16dp track under a 44dp handle — so an unseeded slider render stays exactly what it
+     * published before this axis arrived.
+     */
+    val SliderAxis = CatalogKnobAxis("size", entries, ExtraSmall)
   }
 }
 
@@ -320,3 +331,82 @@ val CatalogSize.splitTrailingIconSize: Dp
  */
 @Composable
 fun catalogToggleSelected(default: Boolean): Boolean = previewOverrideBoolean("selected", default)
+
+// --- Sliders -----------------------------------------------------------------------------------
+//
+// The slider size axis is authored from the kit rather than from the library, because
+// `SliderTokens` carries ONE set of handle and track dimensions — the extra-small ones — and no
+// per-size scale to read the other four off. So unlike the button family, where a size resolves to
+// `ButtonDefaults.MediumContainerHeight` and the library owns the number, these are measured from
+// the `Standard slider` set's own variant frames:
+//
+//   Size     node          frame     track height   handle    track corner
+//   XSmall   58008:10357   354x44    16             4x44      Corner/Large (16)
+//   Small    58008:10412   354x44    24             4x44      Corner/Small (8)
+//   Medium   58008:10467   354x52    40             4x52      Corner/Medium (12)
+//   Large    58008:10534   354x68    56             4x68      Corner/Large (16)
+//   XLarge   58008:10601   354x108   96             4x108     Corner/Extra-large (28)
+//
+// The handle stays 4dp wide at every size and as tall as the frame, and the 6dp gap either side of
+// it is `SliderDefaults`' own `thumbTrackGapSize`, so neither is restated here.
+
+/**
+ * Track height for [CatalogSize], from the kit's slider frames.
+ *
+ * `SliderDefaults.Track` sizes itself from `SliderTokens.ActiveTrackHeight` — 16dp, the extra-small
+ * value — so the height travels as a modifier on the track rather than as a parameter of it.
+ */
+val CatalogSize.sliderTrackHeight: Dp
+  get() =
+    when (this) {
+      CatalogSize.ExtraSmall -> 16.dp
+      CatalogSize.Small -> 24.dp
+      CatalogSize.Medium -> 40.dp
+      CatalogSize.Large -> 56.dp
+      CatalogSize.ExtraLarge -> 96.dp
+    }
+
+/**
+ * Handle size for [CatalogSize]: 4dp wide, as tall as the frame.
+ *
+ * Also the sticker's own height, since the handle is the tallest thing in a slider frame at every
+ * size — see [sliderFrameHeight].
+ */
+val CatalogSize.sliderThumbSize: DpSize
+  get() = DpSize(4.dp, sliderFrameHeight)
+
+/** Frame height for [CatalogSize] — the handle's height, which sets the sticker's own. */
+val CatalogSize.sliderFrameHeight: Dp
+  get() =
+    when (this) {
+      CatalogSize.ExtraSmall -> 44.dp
+      CatalogSize.Small -> 44.dp
+      CatalogSize.Medium -> 52.dp
+      CatalogSize.Large -> 68.dp
+      CatalogSize.ExtraLarge -> 108.dp
+    }
+
+/**
+ * Outer track corner for [CatalogSize], from the corner variable the kit binds on each frame.
+ *
+ * Extra small is the one that does not read across literally: the kit binds `Corner/Large` (16dp)
+ * to a 16dp-tall track, which Figma clamps to a full pill at 8dp. Compose does not clamp, so
+ * passing 16 there would draw a corner half again as tall as the track it rounds. 8dp is the value
+ * the kit actually renders, and it is also what `SliderTokens` already resolves `CornerFull` to at
+ * that height — so the base render does not move.
+ *
+ * The **inside** corners, the ones facing the handle, stay `SliderDefaults`' 2dp at every size; the
+ * kit draws them the same way.
+ */
+val CatalogSize.sliderTrackCorner: Dp
+  get() =
+    when (this) {
+      CatalogSize.ExtraSmall -> 8.dp
+      CatalogSize.Small -> 8.dp
+      CatalogSize.Medium -> 12.dp
+      CatalogSize.Large -> 16.dp
+      CatalogSize.ExtraLarge -> 28.dp
+    }
+
+/** The size this slider sticker should render at. See [CatalogSize.SliderAxis]. */
+@Composable fun catalogSliderSize(): CatalogSize = CatalogSize.SliderAxis.current()

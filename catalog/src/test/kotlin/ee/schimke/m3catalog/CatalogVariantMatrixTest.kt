@@ -120,7 +120,7 @@ class CatalogVariantMatrixTest {
     )
   }
 
-  private fun assertCarries(fileName: String, expected: Map<String, String>) {
+  private fun assertCarries(fileName: String, expected: Map<String, String?>) {
     assertEquals(
       expected,
       matrixByComponent(fileName),
@@ -150,6 +150,25 @@ class CatalogVariantMatrixTest {
   fun `the toggle button matrices carry the size x shape x selected cells`() {
     assertMatches("SelectedToggleButtonMatrix", CatalogVariantMatrices.toggleButton(true))
     assertMatches("UnselectedToggleButtonMatrix", CatalogVariantMatrices.toggleButton(false))
+  }
+
+  /**
+   * The slider matrix is the one whose base is not [CatalogSize.Small], so its cells name four
+   * sizes where the button matrices name four and leave small unnamed. `Slider/Vertical` carries no
+   * matrix on purpose: it is the same `Standard slider` set as `Slider/Continuous` seen down the
+   * other axis, so its sizes would resolve to variants the horizontal cells already compare.
+   */
+  @Test
+  fun `the slider matrix carries the size cells`() {
+    assertMatches("SliderSizeMatrix", CatalogVariantMatrices.SliderSize)
+    assertCarries(
+      "Sliders.kt",
+      mapOf(
+        "Slider/Continuous" to "SliderSizeMatrix",
+        "Slider/Range" to "SliderSizeMatrix",
+        "Slider/Vertical" to null,
+      ),
+    )
   }
 
   @Test
