@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -59,7 +60,12 @@ private class FieldSpec(
 @Composable
 private fun fieldSpec(): FieldSpec {
   val state = catalogChoice("state", "value", "value", "empty", "error", "disabled")
-  val content = catalogChoice("content", "none", "none", "leading", "trailing", "both")
+  // Two knobs rather than one four-valued `content`, because the kit models them as two
+  // independent axes — `Leading icon` and `Trailing icon`, each True/False. Seeding one of them
+  // now lands on a real kit variant; `content=leading` named an axis the kit does not have and
+  // resolved to nothing. The variant NAMES are unchanged, so no published URL moves.
+  val leadingIcon = previewOverrideBoolean("leading", false)
+  val trailingIcon = previewOverrideBoolean("trailing", false)
   val error = state == "error"
   return FieldSpec(
     value =
@@ -71,10 +77,9 @@ private fun fieldSpec(): FieldSpec {
     placeholder =
       if (state == "empty") ({ Text(stringResource(Res.string.field_placeholder)) }) else null,
     leading =
-      if (content != "leading" && content != "both") null
-      else ({ Icon(Icons.Filled.Search, contentDescription = null) }),
+      if (!leadingIcon) null else ({ Icon(Icons.Filled.Search, contentDescription = null) }),
     trailing =
-      if (content != "trailing" && content != "both") null
+      if (!trailingIcon) null
       else
         ({
           Icon(Icons.Filled.Cancel, contentDescription = stringResource(Res.string.action_clear))
@@ -104,9 +109,9 @@ private fun fieldSpec(): FieldSpec {
 @OverrideVariant(name = "empty", strings = ["state=empty"])
 @OverrideVariant(name = "error", strings = ["state=error"])
 @OverrideVariant(name = "disabled", strings = ["state=disabled"])
-@OverrideVariant(name = "leading-icon", strings = ["content=leading"])
-@OverrideVariant(name = "trailing-icon", strings = ["content=trailing"])
-@OverrideVariant(name = "both-icons", strings = ["content=both"])
+@OverrideVariant(name = "leading-icon", booleans = ["leading=true"])
+@OverrideVariant(name = "trailing-icon", booleans = ["trailing=true"])
+@OverrideVariant(name = "both-icons", booleans = ["leading=true", "trailing=true"])
 @OverrideVariant(name = "no-supporting", strings = ["supporting=off"])
 @OverrideVariant(name = "no-label", strings = ["label=off"])
 @OverrideVariant(name = "no-label-empty", strings = ["label=off", "state=empty"])
@@ -138,9 +143,9 @@ fun FilledTextField() = Sticker {
 @OverrideVariant(name = "empty", strings = ["state=empty"])
 @OverrideVariant(name = "error", strings = ["state=error"])
 @OverrideVariant(name = "disabled", strings = ["state=disabled"])
-@OverrideVariant(name = "leading-icon", strings = ["content=leading"])
-@OverrideVariant(name = "trailing-icon", strings = ["content=trailing"])
-@OverrideVariant(name = "both-icons", strings = ["content=both"])
+@OverrideVariant(name = "leading-icon", booleans = ["leading=true"])
+@OverrideVariant(name = "trailing-icon", booleans = ["trailing=true"])
+@OverrideVariant(name = "both-icons", booleans = ["leading=true", "trailing=true"])
 @OverrideVariant(name = "no-supporting", strings = ["supporting=off"])
 @OverrideVariant(name = "no-label", strings = ["label=off"])
 @OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)

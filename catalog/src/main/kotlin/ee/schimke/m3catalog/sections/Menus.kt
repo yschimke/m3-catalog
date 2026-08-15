@@ -1,4 +1,5 @@
 @file:CatalogGroup(name = "Menus", section = "Selection")
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
 package ee.schimke.m3catalog.sections
 
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowRight
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MenuDefaults
@@ -60,6 +62,7 @@ private val MENU_ROWS = List(6) { MenuRow(Res.string.label_text, CatalogOutlined
 @OverrideVariant(name = "no-icons", strings = ["leading=none"])
 @OverrideVariant(name = "shortcuts", strings = ["trailing=shortcut"])
 @OverrideVariant(name = "icons-shortcuts", strings = ["leading=icon", "trailing=shortcut"])
+@OverrideVariant(name = "vibrant", strings = ["theme=vibrant"])
 @OverrideVariant(name = "dividers", strings = ["dividers=on"])
 @OverrideVariant(name = "text-only", strings = ["leading=none", "dividers=on"])
 @OverrideVariant(name = "disabled-item", strings = ["status=disabled"])
@@ -87,7 +90,12 @@ fun DropdownMenuSticker() = Sticker {
     Surface(
       modifier = Modifier.width(208.dp).height(292.dp),
       shape = MenuDefaults.shape,
-      color = MenuDefaults.containerColor,
+      // The kit's `Theme` axis. `MenuDefaults` carries the vibrant container itself, so this is a
+      // knob over two published colours rather than a hand-mixed one.
+      color =
+        if (catalogChoice("theme", "standard", "standard", "vibrant") == "vibrant")
+          MenuDefaults.groupVibrantContainerColor
+        else MenuDefaults.containerColor,
       tonalElevation = MenuDefaults.TonalElevation,
       shadowElevation = MenuDefaults.ShadowElevation,
     ) {
