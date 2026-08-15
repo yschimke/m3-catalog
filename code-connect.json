@@ -7,7 +7,7 @@
     "ref": "main",
     "module": ":catalog"
   },
-  "generatedAt": "2026-08-15T07:14:57.226Z",
+  "generatedAt": "2026-08-15T08:01:06.483Z",
   "mappings": [
     {
       "componentId": "Badge/Number",
@@ -426,6 +426,16 @@
         }
       ],
       "figmaSvg": "figma/chip-suggestion.svg"
+    },
+    {
+      "componentId": "Color/Role grid",
+      "figmaLayerName": "Color/Role grid",
+      "componentName": "ColorRoleGridSticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Colors.kt",
+      "label": "Compose",
+      "confidence": "preview-fallback",
+      "previewName": "ColorRoleGridSticker",
+      "figmaSvg": "figma/color-role-grid.svg"
     },
     {
       "componentId": "DatePicker/Range",
@@ -1130,6 +1140,28 @@
         }
       ],
       "figmaSvg": "figma/segmentedbutton-multichoice.svg"
+    },
+    {
+      "componentId": "Shape/Corner scale",
+      "figmaLayerName": "Shape/Corner scale",
+      "componentName": "Sticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/catalog/src/main/kotlin/ee/schimke/m3catalog/CatalogTheme.kt",
+      "label": "Compose",
+      "confidence": "HIGH",
+      "previewName": "CornerScaleSticker",
+      "codeSnippet": "Sticker(\n    content = { },\n)",
+      "imports": [
+        "import ee.schimke.m3catalog.Sticker"
+      ],
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "hasDefault": false,
+          "composableSlot": true
+        }
+      ],
+      "figmaSvg": "figma/shape-corner-scale.svg"
     },
     {
       "componentId": "Shape/Circle",
@@ -2494,6 +2526,28 @@
         }
       ],
       "figmaSvg": "figma/topappbar-large.svg"
+    },
+    {
+      "componentId": "Typography/Type scale",
+      "figmaLayerName": "Typography/Type scale",
+      "componentName": "Sticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/catalog/src/main/kotlin/ee/schimke/m3catalog/CatalogTheme.kt",
+      "label": "Compose",
+      "confidence": "HIGH",
+      "previewName": "TypeScaleRoleSticker",
+      "codeSnippet": "Sticker(\n    content = { },\n)",
+      "imports": [
+        "import ee.schimke.m3catalog.Sticker"
+      ],
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "hasDefault": false,
+          "composableSlot": true
+        }
+      ],
+      "figmaSvg": "figma/typography-type-scale.svg"
     }
   ]
 }
