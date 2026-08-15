@@ -1,11 +1,36 @@
 {
   "schema": "compose-preview-activity/v1",
-  "generatedAt": "2026-08-15T08:02:34.221Z",
+  "generatedAt": "2026-08-15T08:32:11.979Z",
   "windowDays": 30,
   "code": {
     "repo": "yschimke/m3-catalog",
     "ref": "main",
     "events": [
+      {
+        "sha": "140eaca8c79409605362713a658b02ae01158591",
+        "subject": "fix: localize numeric catalog samples (#78)",
+        "at": "2026-08-15T09:20:15+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [
+          "badge-dot__ideal__default__light",
+          "badge-number__ideal__default__light",
+          "dialog-basic__ideal__default__light",
+          "dialog-basic__ideal__icon",
+          "dialog-list__ideal__default__light",
+          "list-group__ideal__default__light",
+          "list-item__ideal__default__light",
+          "menu-dropdown__ideal__default__light"
+        ],
+        "components": [
+          "Badge/Dot",
+          "Badge/Number",
+          "Dialog/Basic",
+          "Dialog/List",
+          "List/Group",
+          "List/Item",
+          "Menu/Dropdown"
+        ]
+      },
       {
         "sha": "cc7f1fdc0ed2ad02e92fffb9bb54ca06f06daa68",
         "subject": "feat: add typography, color, and shape style catalogs (#73)",
@@ -2482,57 +2507,6 @@
         "components": [
           "DatePicker/Modal",
           "DatePicker/Range"
-        ]
-      },
-      {
-        "sha": "e5276240f75507f6fd241adf6c0e4f9bfdff6931",
-        "subject": "fix: make every sticker's state reachable on the live lane",
-        "at": "2026-08-09T11:12:24Z",
-        "author": "Claude",
-        "previewIds": [
-          "card-elevated__ideal__default__light__compact",
-          "card-elevated__ideal__slot__compact",
-          "card-filled__ideal__default__light__compact",
-          "card-filled__ideal__media__compact",
-          "card-outlined__ideal__default__light__compact",
-          "card-outlined__ideal__media__compact",
-          "menu-dropdown__ideal__default__light",
-          "navigationrail-standard__ideal__default__light",
-          "navigationrail-standard__ideal__four",
-          "navigationrail-wide__ideal__default__light",
-          "navigationrail-wide__ideal__four",
-          "search-appbar__ideal__default__light__compact",
-          "search-docked__ideal__default__light__compact",
-          "search-docked__ideal__avatar__compact",
-          "search-expandeddocked__ideal__default__light__compact",
-          "search-expandedfullscreen__ideal__default__light__compact",
-          "search-bar__ideal__default__light__compact",
-          "search-bar__ideal__avatar__compact",
-          "segmentedbutton-multichoice__ideal__default__light",
-          "segmentedbutton-multichoice__ideal__count-2",
-          "segmentedbutton-multichoice__ideal__count-4",
-          "segmentedbutton-multichoice__ideal__count-5",
-          "segmentedbutton-singlechoice__ideal__default__light",
-          "segmentedbutton-singlechoice__ideal__count-2",
-          "segmentedbutton-singlechoice__ideal__count-4",
-          "segmentedbutton-singlechoice__ideal__count-5",
-          "sidesheet-standard__ideal__default__light"
-        ],
-        "components": [
-          "Card/Elevated",
-          "Card/Filled",
-          "Card/Outlined",
-          "Menu/Dropdown",
-          "NavigationRail/Standard",
-          "NavigationRail/Wide",
-          "Search/AppBar",
-          "Search/Docked",
-          "Search/ExpandedDocked",
-          "Search/ExpandedFullScreen",
-          "Search/Bar",
-          "SegmentedButton/MultiChoice",
-          "SegmentedButton/SingleChoice",
-          "SideSheet/Standard"
         ]
       }
     ]
