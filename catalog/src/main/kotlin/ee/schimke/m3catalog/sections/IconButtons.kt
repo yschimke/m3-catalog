@@ -21,6 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
+import ee.schimke.composeai.preview.InteractionGesture
+import ee.schimke.composeai.preview.InteractionPreview
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
@@ -107,6 +109,16 @@ fun StandardIconButton() = Sticker {
   reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:10312",
   caption =
     "Highest emphasis icon-only action. Five sizes x three widths x two shapes fold in as variants.",
+)
+// PressAndHold rather than Tap: the pressed shape is held for as long as the finger is down, and
+// a momentary tap passes through it too fast to read. This is the one capture here whose subject
+// is a state rather than a transition.
+@InteractionPreview(
+  gesture = InteractionGesture.PressAndHold,
+  targets = [0],
+  caption =
+    "Press and hold. Expressive animates the container into its pressed shape and holds it there " +
+      "for the duration of the press; Baseline leaves the container static.",
 )
 @CatalogModes
 @IconButtonMatrix
