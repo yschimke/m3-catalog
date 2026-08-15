@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
+import ee.schimke.composeai.preview.VariantInteraction
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
@@ -88,6 +89,10 @@ private fun fieldSpec(): FieldSpec {
   )
 }
 
+// `State=Hovered` is absent for the same reason it is absent on the sliders: `TextFieldColors`
+// carries focused, unfocused, disabled and error containers and no hovered one, so a real hover
+// over a text field is byte-identical to its resting render. Issue #91.
+
 @CatalogComponent(
   id = "TextField/Filled",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/52798:24430",
@@ -105,6 +110,7 @@ private fun fieldSpec(): FieldSpec {
 @OverrideVariant(name = "no-supporting", strings = ["supporting=off"])
 @OverrideVariant(name = "no-label", strings = ["label=off"])
 @OverrideVariant(name = "no-label-empty", strings = ["label=off", "state=empty"])
+@OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)
 @Composable
 fun FilledTextField() = Sticker {
   val spec = fieldSpec()
@@ -137,6 +143,7 @@ fun FilledTextField() = Sticker {
 @OverrideVariant(name = "both-icons", strings = ["content=both"])
 @OverrideVariant(name = "no-supporting", strings = ["supporting=off"])
 @OverrideVariant(name = "no-label", strings = ["label=off"])
+@OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)
 @Composable
 fun OutlinedTextFieldSticker() = Sticker {
   val spec = fieldSpec()

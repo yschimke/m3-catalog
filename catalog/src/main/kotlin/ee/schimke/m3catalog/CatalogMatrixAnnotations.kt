@@ -1,6 +1,7 @@
 package ee.schimke.m3catalog
 
 import ee.schimke.composeai.preview.OverrideVariant
+import ee.schimke.composeai.preview.VariantInteraction
 
 //
 // The catalog's variant matrices, declared **once each** as annotations rather than retyped per
@@ -186,3 +187,41 @@ annotation class UnselectedToggleButtonMatrix
 @OverrideVariant(name = "l", strings = ["size=l"])
 @OverrideVariant(name = "xl", strings = ["size=xl"])
 annotation class SliderSizeMatrix
+
+//
+// The **interaction states**, which are not seeds at all.
+//
+// Every other cell in this file seeds a knob and re-renders the same composable with different
+// data. These three seed nothing: `interaction` tells the renderer to drive real hover, focus or
+// press against the composed node before it captures, so what moves is the harness rather than the
+// sticker. That distinction is the whole point — a sticker that forged the state by emitting into a
+// `MutableInteractionSource` would draw a state layer whether or not the component can actually
+// receive the state, which is the failure compose-ai-tools#3672 removed from its own samples.
+//
+// They are the last third of the kit's `State` axis. `CatalogState` declares only Enabled and
+// Disabled and says why: a static `@Preview` could not reach the other three. That was true until
+// compose-ai-tools 1.6.0 (#3877) made an interaction variant addressable — it lands as a
+// `_VARIANT_` preview id with its own render, which is what a design-map entry needs to join it to
+// a kit node. So the comment in `CatalogAxes.kt` is now history rather than a live constraint.
+//
+// Which of the three a component carries is decided by its kit set, never by what Compose could
+// draw: the search bar and the sliders publish no `Focused` variant, and the input chip and text
+// fields publish no `Pressed` one. Authoring a state the kit does not draw would render a sticker
+// with nothing to compare it against, which is the same waste as a combination variant.
+//
+
+/** Hover, focus and press — the full interaction triple, for sets that publish all three. */
+@OverrideVariant(name = "hovered", interaction = VariantInteraction.Hovered)
+@OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)
+@OverrideVariant(name = "pressed", interaction = VariantInteraction.Pressed)
+annotation class InteractionStates
+
+/** For sets that publish no `Pressed` variant: the input chip and the two text fields. */
+@OverrideVariant(name = "hovered", interaction = VariantInteraction.Hovered)
+@OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)
+annotation class HoverFocusStates
+
+// There is deliberately no hover-plus-press annotation, though the search bar and the sliders are
+// the sets that would want one. Compose draws no hover state for either — see issue #91 — so those
+// components carry a single `pressed` cell inline instead, and the search bar carries none at all.
+// An annotation whose cells render nothing is worse than no annotation: it reads as coverage.

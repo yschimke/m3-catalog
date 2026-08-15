@@ -111,6 +111,14 @@ jobs:
       - name: Test Figma variant resolution
         run: node --test scripts/kit-variants.test.mjs
 
+      # The kit's Hovered / Focused / Pressed values against the map that compares them, plus the
+      # short list of states Compose draws nothing for (issue #91). Runs off the committed
+      # design-map.json and figma-kit-index.json, so it needs neither a render nor a Figma token —
+      # and it fails in both directions, so a fixed upstream gap surfaces as work to do rather than
+      # as a stale excuse nobody revisits.
+      - name: Test interaction-state coverage
+        run: node --test scripts/interaction-coverage.test.mjs
+
       # Which pages the import covers, and what each one is called. Both answers are published URLs
       # (`/{system}/pages/{id}`), and the page list is now discovered from the Figma file rather
       # than hand-kept, so the slug rule is the only thing holding those URLs still.

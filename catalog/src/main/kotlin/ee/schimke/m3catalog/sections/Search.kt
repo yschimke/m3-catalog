@@ -122,6 +122,10 @@ private fun searchTrailing(): (@Composable () -> Unit)? =
     else -> ({ Icon(Icons.Filled.Search, contentDescription = null) })
   }
 
+// No interaction cells here at all. The kit draws this set `Hovered` and `Pressed`; driving either
+// against the composed search bar changes no pixel — `SearchBarKt` collects no hover or press
+// interaction and `inputFieldColors` has no state beyond focused/unfocused. Issue #91.
+
 @CatalogComponent(
   id = "Search/Bar",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/52977:33948",

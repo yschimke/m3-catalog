@@ -20,6 +20,7 @@ import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.toggleable
@@ -52,6 +53,7 @@ private fun switchIcon(): Boolean = catalogChoice("content", "none", "none", "ic
   name = "disabled-icon-off",
   strings = ["state=off", "content=icon", "status=disabled"],
 )
+@InteractionStates
 @Composable
 fun SwitchOn() = Sticker {
   val enabled = switchStatus() != "disabled"

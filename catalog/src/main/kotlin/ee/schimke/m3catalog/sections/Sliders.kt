@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
+import ee.schimke.composeai.preview.VariantInteraction
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogModes354
 import ee.schimke.m3catalog.SliderSizeMatrix
@@ -61,6 +62,10 @@ private fun sliderSteps(): Int =
 private fun sliderEnabled(): Boolean =
   catalogChoice("status", "enabled", "enabled", "disabled") != "disabled"
 
+// The kit publishes `State=Hovered` for both slider sets and Compose draws nothing for it: the
+// thumb collects Drag, Focus and Press interactions and not Hover, even though `SliderTokens`
+// declares a `HoverHandleWidth`. So these carry `pressed` and no `hovered` — issue #91.
+
 @CatalogComponent(
   id = "Slider/Continuous",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58008:10357",
@@ -73,6 +78,7 @@ private fun sliderEnabled(): Boolean =
 @OverrideVariant(name = "centered-discrete", strings = ["track=centered", "steps=discrete"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @OverrideVariant(name = "disabled-discrete", strings = ["steps=discrete", "status=disabled"])
+@OverrideVariant(name = "pressed", interaction = VariantInteraction.Pressed)
 @Composable
 fun ContinuousSlider() = Sticker {
   val steps = sliderSteps()
@@ -123,6 +129,7 @@ fun ContinuousSlider() = Sticker {
 @SliderSizeMatrix
 @OverrideVariant(name = "discrete", strings = ["steps=discrete"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
+@OverrideVariant(name = "pressed", interaction = VariantInteraction.Pressed)
 @Composable
 fun RangeSliderSticker() = Sticker {
   val steps = sliderSteps()

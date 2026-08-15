@@ -81,6 +81,12 @@ const VALUE_ALIASES = {
   none: ["False", "Label only", "None"],
   icon: ["Icon only", "True"],
   disabled: ["Disabled"], enabled: ["Enabled"],
+  hovered: ["Hovered"], focused: ["Focused"],
+  // `Presssed` is the kit's own misspelling, on all ten `Button - outline` press
+  // variants and nowhere else. Figma is read-only here, so the choice is to
+  // carry the typo or leave that component's press state uncompared; the
+  // correct spelling is tried first, so this only ever catches that one set.
+  pressed: ["Pressed", "Presssed"],
   selected: ["True", "Selected"], unselected: ["False", "Unselected"],
   checked: ["Selected", "True"], unchecked: ["Unselected", "False"],
   indeterminate: ["Indeterminate"],

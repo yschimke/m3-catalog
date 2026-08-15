@@ -18,6 +18,7 @@ import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.toggleable
@@ -77,6 +78,7 @@ private fun checkboxColors(): CheckboxColors =
 @OverrideVariant(name = "error", strings = ["status=error"])
 @OverrideVariant(name = "error-unchecked", strings = ["state=unchecked", "status=error"])
 @OverrideVariant(name = "error-indeterminate", strings = ["state=indeterminate", "status=error"])
+@InteractionStates
 @Composable
 fun CheckboxChecked() = Sticker {
   val enabled = checkboxStatus() != "disabled"

@@ -100,7 +100,18 @@ for (const preview of previews) {
   if (!catalog || !/_Light(_VARIANT_.*)?$/.test(preview.id)) continue;
 
   if (catalog.role === "COMPONENT" && /_Light_VARIANT_/.test(preview.id)) {
-    const seeds = preview.overrides?.seeds ?? [];
+    const seeds = [...(preview.overrides?.seeds ?? [])];
+    // An interaction variant seeds no knob — the renderer drives real hover,
+    // focus or press against the composed node instead, so the difference is
+    // in the harness rather than in the data. The kit models it as a value of
+    // the same `State` axis that carries Enabled and Disabled, so it enters
+    // resolution as a seed of the `state` knob and reaches the kit through the
+    // alias that knob already has. Without this the variant resolves nothing:
+    // `seeds` is empty, and an empty vector matches every sibling.
+    const interaction = preview.overrides?.interaction;
+    if (interaction && interaction !== "None") {
+      seeds.push({ key: "state", index: null, kind: "STRING", raw: interaction.toLowerCase() });
+    }
     if (seeds.length) {
       add(catalog.componentId, { preview, seeds, name: preview.overrides.name });
     }
