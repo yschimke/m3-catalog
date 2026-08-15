@@ -16,11 +16,23 @@
 # Neither step is this repo's business to implement; both used to live in scripts/ and drifted from
 # the annotations they project. What stays here is this wrapper and the two committed outputs.
 #
-# WHY THE FETCH. Step 2 is on npm, so npx reaches it. Step 1 ships in the compose-ai-tools repo
-# rather than as a package, and the design-parity reusable workflow runs `design-map-command`
-# inside a checkout of THIS repo alone — so there is nothing to `node` unless we go and get it.
-# Two files, no dependencies (the module is deliberately dependency-free), floating on main to
-# match how ci.yml already takes that repo at `ref: main`.
+# WHY THE FETCH. Step 2 is on npm, so npx reaches it. Step 1 does not ship as a package yet, and
+# the design-parity reusable workflow runs `design-map-command` inside a checkout of THIS repo
+# alone — so there is nothing to `node` unless we go and get it. Two files, no dependencies (the
+# module is deliberately dependency-free).
+#
+# PINNED TO A COMMIT, not to main. Two reasons, and the second is why this changed:
+#
+#   * Same reason step 2 is pinned (below): the outputs are committed and CI fails on any
+#     difference, so a change to the projection turns this repo red for a change nobody here made.
+#     Floating on main gave step 1 the weaker guarantee of the two halves.
+#   * Those files are MOVING. compose-ai-tools is packaging them as `@yschimke/compose-design-map`
+#     (yschimke/compose-ai-tools#3918), which deletes both paths from `main`. A floating fetch
+#     would start 404ing the moment that merges; a commit pin keeps resolving forever, because
+#     raw.githubusercontent.com serves any historical SHA.
+#
+# Replace this whole block with `npx --yes @yschimke/compose-design-map@<version>` once that
+# package has had its first release.
 #
 # WHY STEP 2 IS PINNED AND STEP 1 IS NOT. Both outputs are COMMITTED and CI fails on any
 # difference, so the resolver's version is an input to a checked-in artifact: float it, and the
@@ -43,7 +55,10 @@ CHECK=""
 [ "${1:-}" = "--check" ] && CHECK=1
 
 TOOL_DIR="${RUNNER_TEMP:-/tmp}/design-map-tool"
-RAW="https://raw.githubusercontent.com/yschimke/compose-ai-tools/main/scripts/design-artifacts"
+# compose-ai-tools main as of 2026-08-15, the last commit before the modules move into their own
+# package. Bump this deliberately, in a commit that also regenerates the two outputs below.
+TOOL_REF="60b34b27677c979a886a094f979624324dc6d612"
+RAW="https://raw.githubusercontent.com/yschimke/compose-ai-tools/${TOOL_REF}/scripts/design-artifacts"
 
 mkdir -p "$TOOL_DIR"
 for f in design-map.mjs emit-design-map.mjs; do
