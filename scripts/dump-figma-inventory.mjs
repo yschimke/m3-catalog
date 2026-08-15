@@ -30,6 +30,26 @@ if (!token) {
   process.exit(1);
 }
 
+// Limit configured instances to component sets the catalog actually references.
+// A kit page can contain hundreds of unrelated screen instances; retaining all
+// of them would turn this focused index into a second copy of the document.
+let refs = [];
+try {
+  const map = JSON.parse(readFileSync(mapPath, "utf8"));
+  refs = (map.components ?? []).flatMap((component) => {
+    const entries = typeof component.ref === "string" ? [{ ref: component.ref }] : component.ref;
+    return (entries ?? [])
+      .filter((entry) => entry.ref.startsWith(`figma:${fileKey}/`))
+      .map((entry) => ({
+        code: component.code,
+        nodeId: entry.ref.slice(`figma:${fileKey}/`.length),
+      }));
+  });
+} catch (e) {
+  console.log(`No design map at ${mapPath}: ${e.message}`);
+}
+const referencedNodeIds = new Set(refs.map((ref) => ref.nodeId));
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function figma(path, { attempts = 6 } = {}) {
@@ -116,6 +136,16 @@ for (const [i, page] of pages.entries()) {
         id: node.id,
         componentId: node.componentId,
         name: node.name,
+        // Unlike a component definition, an instance carries the values that
+        // were actually chosen. Keep every non-variant property so the kit
+        // index can use this instance as a render handle for a property-shaped
+        // catalog variant. Names have an opaque `#id` suffix in the REST
+        // response; definitions are normalised the same way by the indexer.
+        properties: Object.fromEntries(
+          Object.entries(node.componentProperties ?? {})
+            .filter(([, v]) => v.type !== "VARIANT")
+            .map(([k, v]) => [k.split("#")[0], { type: v.type, value: v.value }]),
+        ),
         trail: trail.join(" / "),
         example: trail.some((part) => /\bexamples?\b/i.test(part)),
         w: Math.round(node.absoluteBoundingBox?.width ?? 0),
@@ -130,25 +160,37 @@ for (const [i, page] of pages.entries()) {
       .filter((component) => component.type === "COMPONENT_SET" && component.hidden)
       .flatMap((component) => component.children.map((variant) => variant.id)),
   );
+  const referencedSetVariants = new Set(
+    components
+      .filter(
+        (component) =>
+          component.type === "COMPONENT_SET" &&
+          component.children.some((variant) => referencedNodeIds.has(variant.id)),
+      )
+      .flatMap((component) => component.children.map((variant) => variant.id)),
+  );
   const renderInstances = instances.filter((instance) => hiddenVariants.has(instance.componentId));
+  const propertyInstances = instances.filter(
+    (instance) =>
+      referencedSetVariants.has(instance.componentId) &&
+      Object.keys(instance.properties ?? {}).length > 0,
+  );
   console.log(
     `  [${i + 1}/${pages.length}] ${page.name} (${page.id}): ${components.length} component(s), ` +
-      `${renderInstances.length} hidden-variant example(s), deepest ${deepest}`,
+      `${renderInstances.length} hidden-variant example(s), ` +
+      `${propertyInstances.length} configured instance(s), deepest ${deepest}`,
   );
-  inventory.push({ page: page.name, pageId: page.id, deepest, components, renderInstances });
+  inventory.push({
+    page: page.name,
+    pageId: page.id,
+    deepest,
+    components,
+    renderInstances,
+    propertyInstances,
+  });
 }
 
 // --- Resolve the refs already in use ------------------------------------------------------------
-
-let refs = [];
-try {
-  const map = JSON.parse(readFileSync(mapPath, "utf8"));
-  refs = (map.components ?? [])
-    .filter((c) => typeof c.ref === "string" && c.ref.startsWith(`figma:${fileKey}/`))
-    .map((c) => ({ code: c.code, nodeId: c.ref.slice(`figma:${fileKey}/`.length) }));
-} catch (e) {
-  console.log(`No design map at ${mapPath}: ${e.message}`);
-}
 
 const mapped = [];
 for (let i = 0; i < refs.length; i += 20) {

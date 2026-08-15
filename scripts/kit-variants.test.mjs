@@ -2,7 +2,11 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
-import { renderableRef, resolveVariantRef } from "./kit-variants.mjs";
+import {
+  renderableRef,
+  resolvePropertyInstance,
+  resolveVariantRef,
+} from "./kit-variants.mjs";
 
 const FILE = "ocdacdEsnHipMJD3egzxKb";
 const ref = (nodeId) => `figma:${FILE}/${nodeId}`;
@@ -31,6 +35,13 @@ test("accepts an explicit default size inside a multi-axis matrix cell", () => {
       name: "Type=Square, Size=Small, Width=Narrow, State=Enabled",
     },
   );
+});
+
+test("prefers a real variant axis over a similarly named component property", () => {
+  assert.deepEqual(resolveVariantRef(ref("57994:2485"), { key: "selected", raw: "true" }), {
+    nodeId: "57994:2475",
+    name: "Type=Round, Size=Small, State=Enabled, Selected=True",
+  });
 });
 
 test("does not map two different content configurations to label and icon", () => {
@@ -72,10 +83,81 @@ test("uses visible examples for hidden component-set definitions", () => {
   );
 });
 
+test("resolves false boolean and text properties to exact configured instances", () => {
+  const set = {
+    properties: {
+      "Show icon": { type: "BOOLEAN", default: true },
+      Label: { type: "TEXT", default: "Label" },
+    },
+    instances: [
+      {
+        id: "instance:label-only",
+        componentId: "component:enabled",
+        properties: { "Show icon": false, Label: "Save" },
+      },
+    ],
+  };
+  assert.deepEqual(
+    resolvePropertyInstance(set, "component:enabled", [
+      { key: "icon", raw: "false" },
+      { key: "label", raw: "Save" },
+    ]),
+    {
+      nodeId: "instance:label-only",
+      properties: { "Show icon": false, Label: "Save" },
+    },
+  );
+});
+
+test("resolves a count across ordinal boolean properties as one exact vector", () => {
+  const set = {
+    properties: {
+      "Show 1st trailing action": { type: "BOOLEAN", default: true },
+      "Show 2nd trailing action": { type: "BOOLEAN", default: false },
+      "Show 3rd trailing action": { type: "BOOLEAN", default: false },
+    },
+    instances: [
+      {
+        id: "instance:two-actions",
+        componentId: "component:small",
+        properties: {
+          "Show 1st trailing action": true,
+          "Show 2nd trailing action": true,
+          "Show 3rd trailing action": false,
+        },
+      },
+    ],
+  };
+  assert.equal(
+    resolvePropertyInstance(set, "component:small", { key: "actions", raw: "2" })?.nodeId,
+    "instance:two-actions",
+  );
+});
+
+test("does not guess an instance-swap property from a semantic seed", () => {
+  const set = {
+    properties: { "Leading icon": { type: "INSTANCE_SWAP", default: "icon:star" } },
+    instances: [
+      {
+        id: "instance:icon",
+        componentId: "component:enabled",
+        properties: { "Leading icon": "icon:add" },
+      },
+    ],
+  };
+  assert.equal(
+    resolvePropertyInstance(set, "component:enabled", { key: "leading", raw: "icon" }),
+    undefined,
+  );
+});
+
 test("every mapped node exists in the checked-in kit index", () => {
   const indexed = new Set([
     ...Object.values(kitIndex.sets).flatMap((set) =>
-      set.variants.flatMap((variant) => [variant.id, variant.renderId].filter(Boolean)),
+      [
+        ...set.variants.flatMap((variant) => [variant.id, variant.renderId].filter(Boolean)),
+        ...(set.instances ?? []).map((instance) => instance.id),
+      ],
     ),
     ...Object.keys(kitIndex.standalone),
     ...Object.keys(kitIndex.specimens ?? {}),

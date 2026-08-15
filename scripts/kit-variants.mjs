@@ -248,6 +248,89 @@ function matchProperty(properties, knob) {
   return best.length ? best : undefined;
 }
 
+const eqValue = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+
+/**
+ * Translate one catalog seed into the value of a Figma component property.
+ *
+ * Boolean and text properties have a lossless representation. Instance swaps
+ * and slots do not: `leading=icon` says what the content means, not which Figma
+ * component id supplies it, so those stay unpairable rather than guessing.
+ */
+function seededPropertyValue(property, seed, peers) {
+  const raw = String(seed.raw);
+  const lower = raw.toLowerCase();
+  if (property.type === "BOOLEAN") {
+    if (TRUTHY.has(lower)) return true;
+    if (FALSY.has(lower)) return false;
+
+    // A numeric count controls the kit's ordinal switches as a family:
+    // actions=2 means the first two are on and the third is off.
+    const ordinal = property.name.match(/\b(\d+)(?:st|nd|rd|th)\b/i)?.[1];
+    const count = Number(raw);
+    if (ordinal && Number.isInteger(count)) return Number(ordinal) <= count;
+
+    const name = norm(property.name);
+    if (name.includes("icon")) {
+      if (["label", "text", "none"].includes(lower)) return false;
+      if (["icon", "both", "icon+label", "label+icon"].includes(lower)) return true;
+    }
+    return undefined;
+  }
+  if (property.type === "TEXT") {
+    // When a sibling visibility property is off, its hidden text stays at the
+    // default. A lone text property uses the empty string to express absence.
+    if (FALSY.has(lower)) {
+      return peers.some((peer) => peer.type === "BOOLEAN") ? property.default : "";
+    }
+    return raw;
+  }
+  if (property.type === "INSTANCE_SWAP") {
+    // `content=label` commonly matches both `Show icon` and `Icon`. The
+    // instance-swap value is immaterial when the paired visibility switch is
+    // off, so retain its default instead of demanding an icon id the catalog
+    // seed intentionally does not name.
+    const hidden = peers
+      .filter((peer) => peer.type === "BOOLEAN")
+      .some((peer) => seededPropertyValue(peer, seed, peers) === false);
+    return hidden ? property.default : undefined;
+  }
+  return undefined;
+}
+
+/**
+ * Resolve a property-shaped variant to a visible instance already configured
+ * that way in the kit. Exported as a pure helper so false booleans, text and
+ * multi-switch counts can be pinned without depending on the live kit file.
+ */
+export function resolvePropertyInstance(set, componentId, seeds) {
+  if (!set?.properties || !set?.instances?.length) return undefined;
+  const seedList = Array.isArray(seeds) ? seeds : [seeds];
+  const target = Object.fromEntries(
+    Object.entries(set.properties).map(([name, def]) => [name, def.default]),
+  );
+
+  let claimed = false;
+  for (const seed of seedList) {
+    const matches = matchProperty(set.properties, seed.key);
+    if (!matches) continue;
+    const values = matches.map((property) => seededPropertyValue(property, seed, matches));
+    if (values.some((value) => value === undefined)) return undefined;
+    matches.forEach((property, index) => {
+      target[property.name] = values[index];
+    });
+    claimed = true;
+  }
+  if (!claimed) return undefined;
+
+  const hit = set.instances.find(
+    (instance) =>
+      instance.componentId === componentId &&
+      Object.entries(target).every(([name, value]) => eqValue(instance.properties?.[name], value)),
+  );
+  return hit ? { nodeId: hit.id, properties: target } : undefined;
+}
+
 /**
  * The kit property a knob names, when the kit models it as a property rather
  * than an axis — so there is no sibling node to compare against, and the miss
@@ -361,7 +444,44 @@ export function resolveVariantRef(ref, seedOrSeeds) {
   // standalone render unmapped.
   const nodeId = ref.split("/")[1];
   const baseVar = variantIndex.get(nodeId);
-  if (baseVar) return resolveSetVariantRef(baseVar, seeds);
+  if (baseVar) {
+    // Axes are the stronger signal: they name an exact sibling definition.
+    // Only project a seed onto component properties when the set cannot
+    // express it as an axis. This prevents `Icon (selected)` from stealing the
+    // real `Selected` axis, or a `Segments` slot from stealing a count axis.
+    const exactAxisHit = resolveSetVariantRef(baseVar, seeds);
+    if (exactAxisHit) return exactAxisHit;
+
+    const set = setIndex.get(baseVar.setId);
+    const propertySeeds = seeds.filter(
+      (seed) =>
+        !resolveSetVariantRef(baseVar, [seed]) &&
+        matchProperty(index.sets[baseVar.setId].properties, seed.key),
+    );
+    const axisSeeds = seeds.filter((seed) => !propertySeeds.includes(seed));
+    const axisHit = axisSeeds.length ? resolveSetVariantRef(baseVar, axisSeeds) : undefined;
+    if (axisSeeds.length && !axisHit) return undefined;
+    const definitionId = axisHit
+      ? set.children.find(
+          (child) => (variantIndex.get(child.id).renderId ?? child.id) === axisHit.nodeId,
+        )?.id
+      : nodeId;
+    if (propertySeeds.length && definitionId) {
+      const propertyHit = resolvePropertyInstance(
+        index.sets[baseVar.setId],
+        definitionId,
+        propertySeeds,
+      );
+      if (propertyHit) {
+        return {
+          nodeId: propertyHit.nodeId,
+          name: `${variantIndex.get(definitionId).name} (configured instance)`,
+        };
+      }
+      return undefined;
+    }
+    return axisHit;
+  }
   if (seeds.length > 1) return undefined;
   const siblings = componentSiblings(nodeId);
   const hit = siblings && matchSibling(siblings, seeds[0]);

@@ -63,6 +63,13 @@ fun FilledButtonDisabled() = Sticker { Button(onClick = {}, enabled = false) { T
 [`catalog.spec.json`](catalog.spec.json) carries only cover-sheet fields the code has no opinion
 about: the system slug, title, primary modes, documented breakpoints and the front-door hero.
 
+Figma has two kinds of variation. Variant axes produce sibling component nodes and map directly.
+Boolean, text, instance-swap and slot properties do not: a definition node always renders at their
+defaults. The checked-in kit index therefore also records visible instances already configured on
+the kit's example pages. Property-shaped catalog variants use an exact matching instance when one
+exists and stay explicitly unpaired when it does not; the resolver never substitutes a definition
+whose defaults depict different content.
+
 | Annotation | Declares |
 | --- | --- |
 | `@file:CatalogGroup(name, section)` | the file's group, and the tab it sits under |

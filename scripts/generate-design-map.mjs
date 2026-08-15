@@ -228,8 +228,8 @@ console.log(
 if (propertyVariants.length) {
   console.log(
     `\n${propertyVariants.length} variant(s) are a component PROPERTY in the kit, ` +
-      `not a variant beside it. The kit models them; a node reference cannot ask for ` +
-      `them, because a reference renders at the property defaults:`,
+      `not a variant beside it. A definition node renders at the defaults, and no exact ` +
+      `configured instance was indexed for these values, so they remain unpaired:`,
   );
   for (const v of propertyVariants.sort()) console.log(`  - ${v}`);
 }
