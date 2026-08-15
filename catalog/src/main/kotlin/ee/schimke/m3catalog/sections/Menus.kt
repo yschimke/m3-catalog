@@ -8,13 +8,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowRight
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,22 +36,15 @@ import org.jetbrains.compose.resources.stringResource
 
 // `DropdownMenu` renders into a popup window a single-surface capture cannot reach. Its **items**
 // are plain composables, so the sticker composes them in the menu container the component uses —
-// the real `DropdownMenuItem` rows, in the real surface colour and the kit's corner.
+// the real `DropdownMenuItem` rows, in the real surface shape and colour.
+//
+// `MenuDefaults.shape` is 4dp where the kit specs 16 (#85). It stays the library's value on
+// purpose: hard-coding 16 would draw a container `DropdownMenu` never draws, and would hide the
+// divergence from every future parity run. The break is left visible and filed upstream instead.
 //
 // The kit varies three things inside that container, and all three are item parameters rather than
 // different components: the leading icon, a trailing shortcut label, and dividers grouping the
 // items.
-
-/**
- * The menu container's corner, at the kit's 16dp rather than `MenuDefaults.shape`'s 4dp.
- *
- * This is the one corner in issue #1's triage where the code was genuinely wrong and moved:
- * `direction: "design-led"` makes the kit authoritative, and the kit's Menu container is 16.
- * Compose still resolves `MenuDefaults.shape` to `shapes.extraSmall` (4dp), so this is a deliberate
- * divergence from the library rather than an oversight — `KitCornerRadiusTest` pins both halves so
- * a Material release that moves the library onto 16 shows up as a failure to delete this constant.
- */
-internal val MenuContainerShape = RoundedCornerShape(16.dp)
 
 private data class MenuRow(val label: StringResource, val icon: ImageVector)
 
@@ -80,7 +73,7 @@ fun DropdownMenuSticker() = Sticker {
   Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp)) {
     Surface(
       modifier = Modifier.width(208.dp).height(292.dp),
-      shape = MenuContainerShape,
+      shape = MenuDefaults.shape,
       color = MaterialTheme.colorScheme.surfaceContainer,
       tonalElevation = 3.dp,
       shadowElevation = 3.dp,

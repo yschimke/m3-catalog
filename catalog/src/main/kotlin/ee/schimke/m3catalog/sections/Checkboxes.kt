@@ -36,7 +36,7 @@ import ee.schimke.m3catalog.toggleable
 // a private constant inside material3's own `Checkbox` — it is not exposed on `CheckboxDefaults`
 // and
 // no parameter reaches it, so matching the kit's 4 would mean hand-drawing a checkbox instead of
-// rendering the component. Recorded rather than worked around.
+// rendering the component. Left as it draws and filed upstream as #87.
 
 @Composable
 private fun checkboxSelection(): String =
