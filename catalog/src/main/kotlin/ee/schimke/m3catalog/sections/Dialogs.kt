@@ -43,6 +43,7 @@ import ee.schimke.m3catalog.generated.resources.dialog_add_account
 import ee.schimke.m3catalog.generated.resources.dialog_backup_title
 import ee.schimke.m3catalog.generated.resources.dialog_delete_body
 import ee.schimke.m3catalog.generated.resources.dialog_delete_title
+import ee.schimke.m3catalog.localizedDigits
 import ee.schimke.m3catalog.toggleable
 import org.jetbrains.compose.resources.stringResource
 
@@ -158,7 +159,7 @@ fun ListDialog() = Sticker {
           Spacer(Modifier.width(16.dp))
           Text(stringResource(Res.string.dialog_add_account))
           Spacer(Modifier.weight(1f))
-          Text("100+", style = MaterialTheme.typography.labelSmall)
+          Text(localizedDigits("100+"), style = MaterialTheme.typography.labelSmall)
           Checkbox(checked = checked, onCheckedChange = { checked = it })
         }
         if (i < 2) {

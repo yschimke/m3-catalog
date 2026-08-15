@@ -150,4 +150,47 @@ class CatalogTranslationsTest {
     val unused = defaults.keys.filterNot { sources.contains("Res.string.$it") }.sorted()
     assertEquals(emptyList(), unused, "values/strings.xml declares copy no sticker renders")
   }
+
+  /**
+   * Language-bearing copy must enter a visible text or accessibility slot through a resource. These
+   * are the deliberate exceptions: person data and a platform keyboard shortcut. Numeric samples
+   * are not allowlisted because they must pass through `localizedDigits(...)` instead.
+   */
+  private val visibleLiteralAllowed =
+    mapOf(
+      "Dialogs.kt" to setOf("A"),
+      "Lists.kt" to setOf("⌘C"),
+      "Menus.kt" to setOf("⌘C"),
+    )
+
+  private val visibleLiteralPattern =
+    Regex(
+      """(?:\b(?:Text|BasicText)\s*\(\s*(?:text\s*=\s*)?|\bcontentDescription\s*=\s*)"((?:\\.|[^"\\])*)""""
+    )
+
+  @Test
+  fun visibleLiteralsAreDeliberate() {
+    val sections = File("src/main/kotlin/ee/schimke/m3catalog/sections")
+    val found =
+      sections
+        .walkTopDown()
+        .filter { it.extension == "kt" }
+        .flatMap { file ->
+          visibleLiteralPattern.findAll(file.readText()).map { file.name to it.groupValues[1] }
+        }
+        .toSet()
+    val allowed =
+      visibleLiteralAllowed.flatMap { (file, values) -> values.map { file to it } }.toSet()
+
+    assertEquals(
+      emptySet(),
+      found - allowed,
+      "Visible string literals must use a resource or an explicit locale-aware formatter",
+    )
+    assertEquals(
+      allowed,
+      found.intersect(allowed),
+      "Remove stale visible-literal exceptions when their call sites disappear",
+    )
+  }
 }
