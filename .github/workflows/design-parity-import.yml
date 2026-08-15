@@ -31,7 +31,7 @@ jobs:
       design-parity-ref: ${{ inputs.design_parity_ref || '' }}
       design-map-command: >
         ./gradlew :catalog:composePreviewDiscover --stacktrace &&
-        node scripts/generate-design-map.mjs
+        scripts/design-map.sh
       timeout-minutes: 90
     secrets:
       figma-token: ${{ secrets.FIGMA_TOKEN }}

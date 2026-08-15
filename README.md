@@ -259,8 +259,10 @@ looking at, and Code Connect needs a Dev/Full seat), so
 [`scripts/resolve-figma-refs.mjs`](scripts/resolve-figma-refs.mjs) resolves them over the REST API
 and **proposes** a ref per catalogued component, ranked by name similarity. It writes no mapping
 file: you paste the ref onto the annotation, and
-[`scripts/generate-design-map.mjs`](scripts/generate-design-map.mjs) projects `design-map.json` out
-of the discovered manifest from there.
+[`scripts/design-map.sh`](scripts/design-map.sh) projects `design-map.json` out of the discovered
+manifest from there — compose-ai-tools' `emit-design-map.mjs` reads the annotations, then
+[`@design-parity/kit-index`](https://www.npmjs.com/package/@design-parity/kit-index) resolves each
+variant knob against the committed `figma-kit-index.json`.
 
 ```sh
 FIGMA_TOKEN=figd_... node scripts/resolve-figma-refs.mjs

@@ -10,11 +10,14 @@ name: Design parity
 # beyond reporting — Code-to-Canvas push-back is gated on `code-led`, so
 # `design-led` makes writing back to the Figma file structurally impossible.
 #
-# The map is not hand-written. `scripts/generate-design-map.mjs` projects it out
-# of the discovered preview manifest, joining each component's
+# The map is not hand-written. `scripts/design-map.sh` projects it out of the
+# discovered preview manifest, joining each component's
 # `@CatalogComponent(reference = "figma:<fileKey>/<nodeId>")` to its light
 # preview id — so adding a component to the comparison is one annotation
-# argument, not a JSON edit that can drift from a renamed preview.
+# argument, not a JSON edit that can drift from a renamed preview. Both halves
+# of that projection are upstream now (compose-ai-tools reads the annotations,
+# @design-parity/kit-index resolves the variants against the kit); the script is
+# the wrapper that runs them in order.
 #
 # Everything below the `uses:` line — install the CLI, discover, scope the
 # render, compare, publish, apply the verdict — lives in design-parity's
@@ -105,7 +108,7 @@ jobs:
       # path `module` implies) and projects `design-map.json` out of it.
       design-map-command: >
         ./gradlew :catalog:composePreviewDiscover --stacktrace &&
-        node scripts/generate-design-map.mjs
+        scripts/design-map.sh
 
       # A backstop, not a budget: the scoped render takes ~4 min. If the
       # exclusions ever stop taking effect this degrades to a full render and

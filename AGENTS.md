@@ -54,7 +54,8 @@ against the kit's single 64dp bar, the navigation drawers the kit files under `D
 generic screen templates — does not enter the component inventory at all. There is no
 "published but unmapped" state, and no reason field buys an exemption: `CatalogInventoryTest`'s
 `every component maps to Figma` fails the build for a `@CatalogComponent` with no `reference`, and
-`generate-design-map.mjs` fails the same way before a render is ever attempted. Leaving the
+`scripts/design-map.sh` fails the same way (it passes `--strict`) before a render is ever
+attempted. Leaving the
 reference off to keep an unmatched component is the posture that rule replaced — a sticker with
 nothing to compare against publishes a picture the catalog cannot defend.
 
@@ -132,7 +133,7 @@ same word. Where Compose has no name of its own, take the kit's.
 
 ```sh
 ./gradlew :catalog:assemble :catalog:composePreviewDiscover test ktfmtCheck
-node scripts/generate-design-map.mjs
+scripts/design-map.sh
 ```
 
 `composePreviewDiscover` is the real contract: it is what turns the annotations into the published
