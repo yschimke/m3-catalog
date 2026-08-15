@@ -36,6 +36,8 @@ import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.HoverFocusStates
+import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
@@ -100,6 +102,7 @@ private fun chipIcon(): (@Composable () -> Unit)? =
 @OverrideVariant(name = "elevated-icon", strings = ["style=elevated", "leading=icon"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @OverrideVariant(name = "disabled-icon", strings = ["leading=icon", "status=disabled"])
+@InteractionStates
 @Composable
 fun AssistChipSticker() = Sticker {
   val c = counted(stringResource(Res.string.chip_add_to_calendar))
@@ -134,6 +137,7 @@ fun AssistChipSticker() = Sticker {
 @OverrideVariant(name = "elevated-unselected", strings = ["style=elevated", "state=unselected"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @OverrideVariant(name = "disabled-unselected", strings = ["state=unselected", "status=disabled"])
+@InteractionStates
 @Composable
 fun FilterChipSticker() = Sticker {
   var selected by
@@ -182,6 +186,7 @@ fun FilterChipSticker() = Sticker {
 @OverrideVariant(name = "selected-avatar", strings = ["state=selected", "leading=avatar"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @OverrideVariant(name = "disabled-avatar", strings = ["leading=avatar", "status=disabled"])
+@HoverFocusStates
 @Composable
 fun InputChipSticker() = Sticker {
   var selected by
@@ -210,6 +215,7 @@ fun InputChipSticker() = Sticker {
 @CatalogModes
 @OverrideVariant(name = "elevated", strings = ["style=elevated"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
+@InteractionStates
 @Composable
 fun SuggestionChipSticker() = Sticker {
   val c = counted(stringResource(Res.string.chip_sounds_good))

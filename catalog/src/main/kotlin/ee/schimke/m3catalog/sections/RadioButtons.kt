@@ -16,6 +16,7 @@ import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.toggleable
@@ -55,6 +56,7 @@ private fun radioColors(): RadioButtonColors =
 @OverrideVariant(name = "disabled-unselected", strings = ["state=unselected", "status=disabled"])
 @OverrideVariant(name = "error", strings = ["status=error"])
 @OverrideVariant(name = "error-unselected", strings = ["state=unselected", "status=error"])
+@InteractionStates
 @Composable
 fun RadioSelected() = Sticker {
   val enabled = radioStatus() != "disabled"

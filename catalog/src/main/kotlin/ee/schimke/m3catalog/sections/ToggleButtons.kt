@@ -30,6 +30,7 @@ import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.CatalogSize
+import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.SelectedToggleButtonMatrix
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.UnselectedToggleButtonMatrix
@@ -87,6 +88,7 @@ private fun ToggleButtonFrame(size: CatalogSize, content: @Composable () -> Unit
 )
 @CatalogModes
 @SelectedToggleButtonMatrix
+@InteractionStates
 @Composable
 fun ToggleButtonSticker() = Sticker {
   var on by toggleable(catalogToggleSelected(default = true))
@@ -115,6 +117,7 @@ fun ToggleButtonSticker() = Sticker {
 )
 @CatalogModes
 @SelectedToggleButtonMatrix
+@InteractionStates
 @Composable
 fun TonalToggleButtonSticker() = Sticker {
   var on by toggleable(catalogToggleSelected(default = true))
@@ -148,6 +151,7 @@ fun TonalToggleButtonSticker() = Sticker {
 )
 @CatalogModes
 @UnselectedToggleButtonMatrix
+@InteractionStates
 @Composable
 fun OutlinedToggleButtonSticker() = Sticker {
   var on by toggleable(catalogToggleSelected(default = false))
@@ -176,6 +180,7 @@ fun OutlinedToggleButtonSticker() = Sticker {
 )
 @CatalogModes
 @UnselectedToggleButtonMatrix
+@InteractionStates
 @Composable
 fun ElevatedToggleButtonSticker() = Sticker {
   var on by toggleable(catalogToggleSelected(default = false))

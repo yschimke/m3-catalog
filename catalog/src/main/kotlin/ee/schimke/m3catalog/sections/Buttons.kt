@@ -28,6 +28,7 @@ import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogSize
+import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.SizeShapeMatrix
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonShape
@@ -93,6 +94,7 @@ private fun ButtonFrame(size: CatalogSize, content: @Composable () -> Unit) {
 )
 @CatalogModes
 @SizeShapeMatrix
+@InteractionStates
 @Composable
 fun FilledButton() = Sticker {
   val c = counted(stringResource(Res.string.label_filled))
@@ -129,6 +131,7 @@ fun FilledButton() = Sticker {
 )
 @CatalogModes
 @SizeShapeMatrix
+@InteractionStates
 @Composable
 fun TonalButton() = Sticker {
   val c = counted(stringResource(Res.string.label_tonal))
@@ -165,6 +168,7 @@ fun TonalButton() = Sticker {
 )
 @CatalogModes
 @SizeShapeMatrix
+@InteractionStates
 @Composable
 fun OutlinedButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_outlined))
@@ -201,6 +205,7 @@ fun OutlinedButtonSticker() = Sticker {
 )
 @CatalogModes
 @SizeShapeMatrix
+@InteractionStates
 @Composable
 fun ElevatedButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_elevated))
@@ -237,6 +242,7 @@ fun ElevatedButtonSticker() = Sticker {
 )
 @CatalogModes
 @SizeShapeMatrix
+@InteractionStates
 @Composable
 fun TextButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_text))

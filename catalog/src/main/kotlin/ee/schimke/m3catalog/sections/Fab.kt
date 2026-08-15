@@ -29,6 +29,7 @@ import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
@@ -92,6 +93,7 @@ private fun catalogFabColor(): Color =
 @OverrideVariant(name = "tertiary", strings = ["color=tertiary"])
 @OverrideVariant(name = "secondary-container", strings = ["color=secondary-container"])
 @OverrideVariant(name = "tertiary-container", strings = ["color=tertiary-container"])
+@InteractionStates
 @Composable
 fun Fab() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
@@ -147,6 +149,7 @@ fun FabLarge() = Sticker {
 @OverrideVariant(name = "tertiary", strings = ["color=tertiary"])
 @OverrideVariant(name = "secondary-container", strings = ["color=secondary-container"])
 @OverrideVariant(name = "tertiary-container", strings = ["color=tertiary-container"])
+@InteractionStates
 @Composable
 fun ExtendedFab() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
