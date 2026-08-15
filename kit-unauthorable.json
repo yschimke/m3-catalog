@@ -1,0 +1,51 @@
+{
+  "$comment": [
+    "Kit axis values this catalog knowingly does not cover, and why.",
+    "",
+    "An uncovered value is normally work to do. A few are not: Compose publishes no",
+    "API that reaches them, or the mapping needs a decision nobody has made yet. Left",
+    "undeclared, those sit in the coverage report forever and train the reader to",
+    "skim it — the report stops being a list of work and becomes background noise.",
+    "",
+    "Declaring one here takes it out of the report and puts the reason in the diff.",
+    "scripts/kit-coverage.mjs checks every entry in BOTH directions: an entry naming",
+    "a set, axis or value the kit does not publish fails (the kit moved under us),",
+    "and so does an entry for a value the catalog has since covered (the excuse",
+    "outlived the problem). So this file cannot quietly rot into a list of things",
+    "nobody rechecked.",
+    "",
+    "The State axis is NOT declared here — scripts/interaction-coverage.test.mjs",
+    "owns it, with its own NOT_DRAWN_BY_COMPOSE list. One axis, one owner, so the",
+    "two can never disagree about the same cell."
+  ],
+  "declarations": [
+    {
+      "set": "Modal date picker",
+      "axis": "Type",
+      "values": ["Year"],
+      "reason": "The year grid is internal DatePicker state with no parameter that opens it.",
+      "evidence": "androidx.compose.material3.DisplayMode publishes Picker and Input only; DatePickerKt exposes no year-mode argument."
+    },
+    {
+      "set": "Toolbar",
+      "axis": "Configuration",
+      "values": ["Docked"],
+      "reason": "Compose publishes no docked toolbar — only the floating pair the catalog already renders.",
+      "evidence": "material3 exports HorizontalFloatingToolbar and VerticalFloatingToolbar; no Docked* toolbar composable exists."
+    },
+    {
+      "set": "List",
+      "axis": "Type",
+      "values": ["Expandable", "Draggable", "Swipable - standard", "Swipable - segmented"],
+      "reason": "These are gestures and behaviour, not a ListItem appearance — a sticker would have to hand-build the affordance and then pose it mid-interaction.",
+      "evidence": "ListItem has a single overload with no type parameter; expand, drag and swipe are caller-supplied behaviour."
+    },
+    {
+      "set": "Navigation Rail: Expanded",
+      "axis": "Type",
+      "values": ["Floating"],
+      "reason": "Blocked on a decision, not an API: whether ModalWideNavigationRail is what the kit means by Floating is a judgement call, and guessing it would point a parity diff at the wrong node.",
+      "evidence": "ModalWideNavigationRail exists and may be the right mapping; nothing in the kit or the API confirms it."
+    }
+  ]
+}

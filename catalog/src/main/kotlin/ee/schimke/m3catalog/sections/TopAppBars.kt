@@ -3,11 +3,13 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Interests
@@ -33,6 +35,7 @@ import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
+import ee.schimke.m3catalog.CatalogImagePlaceholder
 import ee.schimke.m3catalog.CatalogModes412
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
@@ -91,11 +94,26 @@ private const val W = 412
 @OverrideVariant(name = "no-actions", strings = ["actions=0"])
 @OverrideVariant(name = "two-actions", strings = ["actions=2"])
 @OverrideVariant(name = "on-scroll", strings = ["elevation=on-scroll"])
+@OverrideVariant(name = "small-image", strings = ["content=small-image"])
 @Composable
 fun SmallTopAppBar() = Sticker {
   val nav = NavIcon()
   TopAppBar(
-    title = { Text(stringResource(Res.string.appbar_title)) },
+    // The kit's `Configuration=Small-image` puts an image where the title goes. What that node
+    // actually shows is Figma's placeholder graphic, which this catalog already draws from
+    // `MaterialShapes` for its carousel items — so the cell reuses that rather than carrying the
+    // kit's raster into the repo, and it themes and scales as a consequence.
+    title = {
+      if (catalogChoice("content", "title", "title", "small-image") == "small-image") {
+        CatalogImagePlaceholder(
+          Modifier.fillMaxWidth().height(44.dp),
+          shape = RoundedCornerShape(8.dp),
+          scaleBasis = 122f,
+        )
+      } else {
+        Text(stringResource(Res.string.appbar_title))
+      }
+    },
     navigationIcon = nav ?: {},
     actions = Actions(),
     // The kit's `Elevation` axis is not a shadow on this component — it is the container colour a
