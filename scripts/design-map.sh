@@ -77,7 +77,7 @@ node "$TOOL_DIR/emit-design-map.mjs" \
   --variants "$WORK/design-map-variants.json" \
   --strict
 
-npx --yes @design-parity/kit-index@0.1.50 resolve \
+npx --yes @design-parity/kit-index@0.1.51 resolve \
   --map "$WORK/design-map.json" \
   --variants "$WORK/design-map-variants.json" \
   --index figma-kit-index.json \
