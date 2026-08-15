@@ -1346,11 +1346,13 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Dark_VARIANT_no_actions-8aedb8c4.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Dark_VARIANT_no_nav-fcac8c77.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Dark_VARIANT_on_scroll-42e6dc03.png" width="150" /> |
+| `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Dark_VARIANT_small_image-727a7c92.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Dark_VARIANT_two_actions-1e398a22.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Light-56b36cd7.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Light_VARIANT_no_actions-7d610efe.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Light_VARIANT_no_nav-4e17753f.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Light_VARIANT_on_scroll-81f4e8b0.png" width="150" /> |
+| `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Light_VARIANT_small_image-618c3014.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Light_VARIANT_two_actions-5f7bc6a3.png" width="150" /> |
 | `TypeScaleRoleSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TypeScaleRoleSticker_Dark-ba0e764c.png" width="150" /> |
 | `TypeScaleRoleSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TypeScaleRoleSticker_Dark_VARIANT_body_large-6d468b6d.png" width="150" /> |
