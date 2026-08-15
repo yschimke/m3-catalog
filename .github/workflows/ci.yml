@@ -108,8 +108,11 @@ jobs:
         with:
           node-version: 24.19.0
 
-      - name: Test Figma variant resolution
-        run: node --test scripts/kit-variants.test.mjs
+      # The resolver itself is @design-parity/kit-index's to test, against its own slice of the
+      # same kit. What is left here is the pair of invariants only this repo can check: that the
+      # committed map and the committed index agree with each other.
+      - name: Test design-map integrity
+        run: node --test scripts/design-map.test.mjs
 
       # The kit's Hovered / Focused / Pressed values against the map that compares them, plus the
       # short list of states Compose draws nothing for (issue #91). Runs off the committed
@@ -145,8 +148,8 @@ jobs:
         run: |
           set -euo pipefail
           ./gradlew :catalog:composePreviewDiscover --stacktrace
-          node scripts/generate-design-map.mjs
-          if ! git diff --exit-code --stat -- design-map.json; then
-            echo "::error::design-map.json is stale. Run: ./gradlew :catalog:composePreviewDiscover && node scripts/generate-design-map.mjs"
+          scripts/design-map.sh
+          if ! git diff --exit-code --stat -- design-map.json design-map-variants.json; then
+            echo "::error::design-map.json is stale. Run: ./gradlew :catalog:composePreviewDiscover && scripts/design-map.sh"
             exit 1
           fi
