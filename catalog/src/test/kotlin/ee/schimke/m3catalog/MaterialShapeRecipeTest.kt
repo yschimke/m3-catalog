@@ -96,9 +96,18 @@ class MaterialShapeRecipeTest {
   fun `a shape sticker draws the recipe of the same name`() {
     val source = File("src/main/kotlin/ee/schimke/m3catalog/sections/Shapes.kt").readText()
     val stickers =
-      Regex("""id = "Shape/([^"]+)"[\s\S]*?ShapeSticker\(MaterialShapeRecipes\.(\w+)\)""")
-        .findAll(source)
-        .map { it.groupValues[1] to it.groupValues[2] }
+      source
+        .split("@CatalogComponent(")
+        .asSequence()
+        .mapNotNull { component ->
+          Regex("""id = "Shape/([^"]+)"""").find(component)?.groupValues?.get(1)?.let { id ->
+            Regex("""ShapeSticker\(MaterialShapeRecipes\.(\w+)\)""")
+              .find(component)
+              ?.groupValues
+              ?.get(1)
+              ?.let { recipe -> id to recipe }
+          }
+        }
         .toList()
     assertEquals(35, stickers.size)
     for ((id, recipe) in stickers) {

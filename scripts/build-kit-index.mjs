@@ -95,9 +95,13 @@ const keepFolders = new Set();
 const keepStandalone = new Set();
 for (const c of components) {
   if (referenced.has(c.id)) {
-    keepStandalone.add(c.id);
-    if (c.name.includes("/")) {
-      keepFolders.add(c.name.slice(0, c.name.lastIndexOf("/")));
+    if (c.children?.length) {
+      keepSets.add(c.id);
+    } else {
+      keepStandalone.add(c.id);
+      if (c.name.includes("/")) {
+        keepFolders.add(c.name.slice(0, c.name.lastIndexOf("/")));
+      }
     }
   }
   for (const v of c.children ?? []) if (referenced.has(v.id)) keepSets.add(c.id);
@@ -131,6 +135,41 @@ for (const c of components) {
     (c.name.includes("/") && keepFolders.has(c.name.slice(0, c.name.lastIndexOf("/"))))
   ) {
     standalone[c.id] = { name: c.name };
+  }
+}
+
+// Foundation sheets such as typography, colour and shape are specimen frames rather than Figma
+// components. They are still valid design-led references, but have no variant vocabulary to keep
+// in `sets` or `standalone`. Fetch those referenced nodes directly so the checked-in index can
+// prove that the reference exists without pretending it is a component.
+const componentIds = new Set(
+  components.flatMap((component) => [component.id, ...(component.children ?? []).map((it) => it.id)]),
+);
+const specimenIds = [...referenced].filter((id) => !componentIds.has(id));
+const specimens = {};
+
+if (token && specimenIds.length) {
+  for (let i = 0; i < specimenIds.length; i += BATCH) {
+    const chunk = specimenIds.slice(i, i + BATCH);
+    if (i > 0) await sleep(500);
+    const res = await figma(
+      `/files/${fileKey}/nodes?ids=${encodeURIComponent(chunk.join(","))}&depth=1`,
+    );
+    for (const id of chunk) {
+      const document = res.nodes?.[id]?.document;
+      if (document) specimens[id] = { name: document.name, type: document.type };
+    }
+  }
+} else if (specimenIds.length) {
+  // Preserve a previously generated specimen vocabulary for token-free local rebuilds. CI's
+  // authenticated freshness job always repopulates this from Figma.
+  try {
+    const previous = JSON.parse(readFileSync(outPath, "utf8"));
+    for (const id of specimenIds) {
+      if (previous.specimens?.[id]) specimens[id] = previous.specimens[id];
+    }
+  } catch {
+    // The normal first authenticated build has no previous output to preserve.
   }
 }
 
@@ -169,11 +208,16 @@ const renderAliases = Object.values(sets).reduce(
 );
 writeFileSync(
   outPath,
-  `${JSON.stringify({ fileKey, generatedBy: "scripts/build-kit-index.mjs", sets, standalone }, null, 2)}\n`,
+  `${JSON.stringify(
+    { fileKey, generatedBy: "scripts/build-kit-index.mjs", sets, standalone, specimens },
+    null,
+    2,
+  )}\n`,
 );
 console.log(
   `Wrote ${outPath}: ${Object.keys(sets).length} set(s), ${variants} variant(s), ` +
     `${renderAliases} hidden variant render alias(es), ` +
     `${Object.keys(standalone).length} standalone component(s), ` +
+    `${Object.keys(specimens).length} specimen node(s), ` +
     `${propertied} set(s) carrying component properties.`,
 );

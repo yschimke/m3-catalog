@@ -78,6 +78,7 @@ test("every mapped node exists in the checked-in kit index", () => {
       set.variants.flatMap((variant) => [variant.id, variant.renderId].filter(Boolean)),
     ),
     ...Object.keys(kitIndex.standalone),
+    ...Object.keys(kitIndex.specimens ?? {}),
   ]);
   for (const component of designMap.components) {
     const refs = typeof component.ref === "string" ? [{ ref: component.ref }] : component.ref;
