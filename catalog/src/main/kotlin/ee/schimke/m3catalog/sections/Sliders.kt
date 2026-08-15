@@ -46,9 +46,11 @@ import ee.schimke.m3catalog.sliderTrackHeight
 // library: `SliderDefaults` sizes its track and handle from `SliderTokens`, which carries the
 // extra-small values and no scale for the other four. So each sticker passes the track's height and
 // corner and the handle's size explicitly, from the kit's own frames — see the table in
-// `CatalogSizes.kt`. The vertical slider is deliberately left at one size: it shares the
-// `Standard slider` set with the horizontal one, whose size variants these already compare, so a
-// second set of four would add renders that resolve to the same axis values.
+// `CatalogSizes.kt`, and issue #89 for the upstream gap it stands in for.
+//
+// The vertical slider is deliberately left at one size: it shares the `Standard slider` set with
+// the horizontal one, whose size variants these already compare, so a second set of four would add
+// renders that resolve to the same axis values.
 
 @Composable
 private fun sliderSteps(): Int =

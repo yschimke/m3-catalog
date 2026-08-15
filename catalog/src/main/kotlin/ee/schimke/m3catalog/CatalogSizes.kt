@@ -349,6 +349,12 @@ fun catalogToggleSelected(default: Boolean): Boolean = previewOverrideBoolean("s
 //
 // The handle stays 4dp wide at every size and as tall as the frame, and the 6dp gap either side of
 // it is `SliderDefaults`' own `thumbTrackGapSize`, so neither is restated here.
+//
+// This table is a stand-in for a library gap, not a catalog constant, and it is reported as one in
+// issue #89 — every other expressive family resolves a size to `ButtonDefaults.…` /
+// `IconButtonDefaults.…` and owns none of the numbers. **When Compose Material 3 exposes a slider
+// size scale, delete this and resolve against it**; leaving both would put the spec in two places,
+// which is the failure the rest of this file is written to avoid.
 
 /**
  * Track height for [CatalogSize], from the kit's slider frames.
