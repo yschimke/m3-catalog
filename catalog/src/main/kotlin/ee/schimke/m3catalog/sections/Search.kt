@@ -267,6 +267,12 @@ fun ExpandedDockedSearchBarSticker() = Sticker {
 fun ExpandedFullScreenSearchBarSticker() = Sticker {
   // `ExpandedFullScreenSearchBar` renders into a Dialog; the container is composed from
   // `SearchBarDefaults.fullScreenShape` so the sticker shows the real surface, not a lookalike.
+  //
+  // That shape is `RectangleShape` — a full-screen search view has no corners in Compose — while
+  // the kit specs a 16dp corner on this node (issue #1). It is the only corner divergence that
+  // survived that triage, and it is the library's value, not a catalog choice: hard-coding 16 here
+  // would draw something `ExpandedFullScreenSearchBar` never draws. Recorded rather than silently
+  // rendered, per AGENTS.md; `KitCornerRadiusTest` pins it so a library change is not missed.
   Surface(
     shape = SearchBarDefaults.fullScreenShape,
     color = MaterialTheme.colorScheme.surface,

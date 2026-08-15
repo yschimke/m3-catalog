@@ -30,6 +30,13 @@ import ee.schimke.m3catalog.toggleable
 //
 // Compose has no `error` flag on `Checkbox`; the kit's error checkbox is expressed by driving the
 // container and outline from the error role, which is what `errorCheckboxColors` does.
+//
+// Parity reports `spacing.padding: 2 vs spec 4` here (issue #1). The 2dp is
+// `CheckboxDefaultPadding`,
+// a private constant inside material3's own `Checkbox` — it is not exposed on `CheckboxDefaults`
+// and
+// no parameter reaches it, so matching the kit's 4 would mean hand-drawing a checkbox instead of
+// rendering the component. Recorded rather than worked around.
 
 @Composable
 private fun checkboxSelection(): String =
