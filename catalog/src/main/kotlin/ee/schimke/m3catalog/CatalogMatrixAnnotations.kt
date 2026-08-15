@@ -172,3 +172,17 @@ annotation class SelectedToggleButtonMatrix
 )
 @OverrideVariant(name = "disabled", strings = ["state=disabled"])
 annotation class UnselectedToggleButtonMatrix
+
+/**
+ * The **slider matrix**: the size axis alone, four cells.
+ *
+ * Its base is extra small rather than small — the size a bare `Slider(...)` is, and the first
+ * variant of the kit's slider sets — so `s` is a cell here where it is the unnamed base everywhere
+ * else. Nothing is crossed into it: the size carries the track's corner, and the `steps`, `track`
+ * and `status` knobs the slider stickers already had stay beside it as single-axis variants.
+ */
+@OverrideVariant(name = "s", strings = ["size=s"])
+@OverrideVariant(name = "m", strings = ["size=m"])
+@OverrideVariant(name = "l", strings = ["size=l"])
+@OverrideVariant(name = "xl", strings = ["size=xl"])
+annotation class SliderSizeMatrix

@@ -363,6 +363,18 @@ object CatalogVariantMatrices {
       alongside = state,
     )
 
+  /**
+   * Sliders: the size axis on its own, four cells.
+   *
+   * The one matrix whose base is not [CatalogSize.Small] — a slider's unseeded render is extra
+   * small (see [CatalogSize.SliderAxis]), so the cells are `s` / `m` / `l` / `xl` and the extra
+   * small one is the base rather than a variant. No shape or state crossed in: a slider's shape is
+   * its track corner, which the size already carries, and `disabled` is a knob the slider stickers
+   * had before this matrix and keeps beside it.
+   */
+  val SliderSize =
+    CatalogVariantMatrix(listOf(CatalogSize.SliderAxis.declaration(namesEveryValue = true)))
+
   /** Toggle buttons: [SizeShape] plus the selected axis, plus disabled. Twenty cells. */
   fun toggleButton(selectedByDefault: Boolean) =
     CatalogVariantMatrix(
