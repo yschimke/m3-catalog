@@ -15,9 +15,12 @@
 // `composePreviewDiscover` writes that through to `previews.json` as
 // `catalog.reference`, so this script is a pure projection of the annotations:
 // every component with a `reference` becomes one design-map entry pinned to its
-// LIGHT preview id (the mode the kit's frames are drawn in). Components with no
-// reference are skipped and reported, so an unmapped component reads as itself
-// rather than as a silent gap.
+// LIGHT preview id (the mode the kit's frames are drawn in).
+//
+// A component with NO reference is an error here, not a skip. This catalog
+// reproduces the kit, so a component with no exact kit node does not belong in
+// the published inventory at all (#10) — skipping it would publish a sticker
+// with nothing to compare against while the map quietly stayed one entry short.
 //
 // A component may also name the component SET its reference is one variant of
 // (`@CatalogComponent(referenceSet = …)`), which projects to `refSet`. `ref`
@@ -53,14 +56,8 @@ const manifest = JSON.parse(readFileSync(previewsPath, "utf8"));
 const previews = manifest.previews ?? [];
 
 const components = [];
-const unmapped = [];
-/**
- * Components whose reference is absent for a STATED reason. Reported apart from
- * `unmapped` because they are the opposite situation: someone looked, and what
- * they found is that the kit has nothing live to point at. Rolling the two
- * together is what made a retired pattern read as neglect.
- */
-const statedAbsent = [];
+/** Components carrying no `reference` at all — collected, then thrown as one. */
+const unreferenced = [];
 /** Variants whose axis the kit does not model — reported, never guessed at. */
 const unresolvedVariants = [];
 /**
@@ -135,8 +132,7 @@ for (const preview of previews) {
   if (!/_Light$/.test(preview.id)) continue;
 
   if (!catalog.reference) {
-    if (catalog.noReference) statedAbsent.push(`${catalog.componentId} — ${catalog.noReference}`);
-    else unmapped.push(catalog.componentId);
+    unreferenced.push(catalog.componentId);
     continue;
   }
 
@@ -212,6 +208,20 @@ for (const preview of previews) {
   });
 }
 
+// Collected rather than thrown on the first hit: an author who dropped a whole
+// group's references wants the list, not one name at a time. Thrown before the
+// write, so a run that fails leaves the committed map intact instead of
+// replacing it with a partial one CI would then report as merely stale.
+if (unreferenced.length) {
+  throw new Error(
+    `${unreferenced.length} component(s) carry no @CatalogComponent(reference = …): ` +
+      `${unreferenced.sort().join(", ")}. This catalog reproduces the Figma kit, so a component ` +
+      `with no exact, renderable kit node does not belong in the published inventory — remove it ` +
+      `rather than publishing a sticker with nothing to compare against. See AGENTS.md, ` +
+      `"What enters the inventory, and what it is called".`,
+  );
+}
+
 components.sort((a, b) => a.code.localeCompare(b.code));
 writeFileSync(outPath, `${JSON.stringify({ components }, null, 2)}\n`);
 
@@ -247,18 +257,4 @@ if (defaultedRefs.length) {
       `something it never claimed (#21):`,
   );
   for (const r of defaultedRefs.sort()) console.log(`  - ${r}`);
-}
-if (statedAbsent.length) {
-  console.log(
-    `\n${statedAbsent.length} component(s) have no reference for a stated reason — the kit has ` +
-      `nothing live to point at, which is a fact about the kit rather than a gap in this catalog:`,
-  );
-  for (const s of statedAbsent.sort()) console.log(`  - ${s}`);
-}
-if (unmapped.length) {
-  console.log(
-    `\n${unmapped.length} component(s) carry neither @CatalogComponent(reference = …) nor a ` +
-      `noReference explaining why, and were skipped:`,
-  );
-  for (const id of unmapped.sort()) console.log(`  - ${id}`);
 }

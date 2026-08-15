@@ -243,7 +243,9 @@ for (const [componentId, meta] of [...catalogued].sort()) {
   if (best?.s) {
     console.log(`        reference = "figma:${fileKey}/${best.nodeId}"`);
   } else {
-    console.log(`        (no candidate — leave the reference off; the component simply isn't compared)`);
+    console.log(
+      `        (no candidate — this component has no place in the inventory; see AGENTS.md)`,
+    );
   }
   console.log("");
 }
