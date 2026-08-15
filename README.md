@@ -202,6 +202,8 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `OutlinedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedCardSticker_Light_VARIANT_actions-e3beb8d2.png" width="150" /> |
 | `OutlinedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedCardSticker_Light_VARIANT_media-2231e2bb.png" width="150" /> |
 | `OutlinedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedCardSticker_Light_VARIANT_media_actions-700dcfe1.png" width="150" /> |
+| `CenteredHeroCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CenteredHeroCarousel_Dark-0911cb1d.png" width="150" /> |
+| `CenteredHeroCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CenteredHeroCarousel_Light-63e88c96.png" width="150" /> |
 | `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Dark-18321422.png" width="150" /> |
 | `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Dark_VARIANT_full_screen-d9b8dc5d.png" width="150" /> |
 | `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Dark_VARIANT_hero-5ac01e55.png" width="150" /> |
@@ -323,7 +325,9 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `BasicDialog` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/BasicDialog_Light-22185362.png" width="150" /> |
 | `BasicDialog` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/BasicDialog_Light_VARIANT_icon-eab6335b.png" width="150" /> |
 | `ListDialog` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ListDialog_Dark-f41e35ab.png" width="150" /> |
+| `ListDialog` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ListDialog_Dark_VARIANT_icon-6537007d.png" width="150" /> |
 | `ListDialog` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ListDialog_Light-7ab44fbb.png" width="150" /> |
+| `ListDialog` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ListDialog_Light_VARIANT_icon-312b272c.png" width="150" /> |
 | `HorizontalDividerSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/HorizontalDividerSticker_Dark-0c299a0c.png" width="150" /> |
 | `HorizontalDividerSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/HorizontalDividerSticker_Dark_VARIANT_context-ef80d804.png" width="150" /> |
 | `HorizontalDividerSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/HorizontalDividerSticker_Dark_VARIANT_inset-85846f87.png" width="150" /> |
@@ -720,8 +724,10 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `NavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationRailSticker_Light_VARIANT_no_menu_fab-a637f795.png" width="150" /> |
 | `WideNavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/WideNavigationRailSticker_Dark-2bf46631.png" width="150" /> |
 | `WideNavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/WideNavigationRailSticker_Dark_VARIANT_four-e8ce4b21.png" width="150" /> |
+| `WideNavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/WideNavigationRailSticker_Dark_VARIANT_middle-739d61bf.png" width="150" /> |
 | `WideNavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/WideNavigationRailSticker_Light-aba5cbb2.png" width="150" /> |
 | `WideNavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/WideNavigationRailSticker_Light_VARIANT_four-6d5089af.png" width="150" /> |
+| `WideNavigationRailSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/WideNavigationRailSticker_Light_VARIANT_middle-1041607e.png" width="150" /> |
 | `CircularProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CircularProgress_Dark-1fdb8901.png" width="150" /> |
 | `CircularProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CircularProgress_Dark_VARIANT_empty-0f141583.png" width="150" /> |
 | `CircularProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CircularProgress_Dark_VARIANT_full-5e102f41.png" width="150" /> |
@@ -1329,10 +1335,12 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Dark-d9447e3e.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Dark_VARIANT_no_actions-8aedb8c4.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Dark_VARIANT_no_nav-fcac8c77.png" width="150" /> |
+| `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Dark_VARIANT_on_scroll-42e6dc03.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Dark_VARIANT_two_actions-1e398a22.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Light-56b36cd7.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Light_VARIANT_no_actions-7d610efe.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Light_VARIANT_no_nav-4e17753f.png" width="150" /> |
+| `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Light_VARIANT_on_scroll-81f4e8b0.png" width="150" /> |
 | `SmallTopAppBar` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SmallTopAppBar_Light_VARIANT_two_actions-5f7bc6a3.png" width="150" /> |
 | `TypeScaleRoleSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TypeScaleRoleSticker_Dark-ba0e764c.png" width="150" /> |
 | `TypeScaleRoleSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TypeScaleRoleSticker_Dark_VARIANT_body_large-6d468b6d.png" width="150" /> |
