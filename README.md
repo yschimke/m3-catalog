@@ -293,12 +293,14 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Dark_VARIANT_elevated-f3e4da0d.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Dark_VARIANT_focused-848fdffa.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Dark_VARIANT_hovered-37072676.png" width="150" /> |
+| `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Dark_VARIANT_icon-58a3cab6.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Dark_VARIANT_pressed-0583b5d8.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light-d4378225.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light_VARIANT_disabled-1079848e.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light_VARIANT_elevated-0242d30d.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light_VARIANT_focused-bde85d9a.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light_VARIANT_hovered-24cbff62.png" width="150" /> |
+| `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light_VARIANT_icon-6f098d1e.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light_VARIANT_pressed-8297667a.png" width="150" /> |
 | `ColorRoleGridSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ColorRoleGridSticker_Light-7e7927cb.png" width="150" /> |
 | `ColorRoleGridSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ColorRoleGridSticker_Light_VARIANT_baseline_dark-b78ec01b.png" width="150" /> |
@@ -683,6 +685,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `DropdownMenuSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DropdownMenuSticker_Dark_VARIANT_no_icons-71fe6fd7.png" width="150" /> |
 | `DropdownMenuSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DropdownMenuSticker_Dark_VARIANT_shortcuts-10b30377.png" width="150" /> |
 | `DropdownMenuSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DropdownMenuSticker_Dark_VARIANT_text_only-194dc965.png" width="150" /> |
+| `DropdownMenuSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DropdownMenuSticker_Dark_VARIANT_vibrant-bf8a8b13.png" width="150" /> |
 | `DropdownMenuSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DropdownMenuSticker_Light-72f05439.png" width="150" /> |
 | `DropdownMenuSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DropdownMenuSticker_Light_VARIANT_disabled_item-8da7df39.png" width="150" /> |
 | `DropdownMenuSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DropdownMenuSticker_Light_VARIANT_dividers-797261fd.png" width="150" /> |
@@ -690,6 +693,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `DropdownMenuSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DropdownMenuSticker_Light_VARIANT_no_icons-cdb879ac.png" width="150" /> |
 | `DropdownMenuSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DropdownMenuSticker_Light_VARIANT_shortcuts-f92e1c6f.png" width="150" /> |
 | `DropdownMenuSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DropdownMenuSticker_Light_VARIANT_text_only-8b0c34fa.png" width="150" /> |
+| `DropdownMenuSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DropdownMenuSticker_Light_VARIANT_vibrant-8d8654fc.png" width="150" /> |
 | `ShortNavigationBarSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ShortNavigationBarSticker_Dark-ca03dd89.png" width="150" /> |
 | `ShortNavigationBarSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ShortNavigationBarSticker_Dark_VARIANT_five-46c64e99.png" width="150" /> |
 | `ShortNavigationBarSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ShortNavigationBarSticker_Dark_VARIANT_four-a3ac28fe.png" width="150" /> |
