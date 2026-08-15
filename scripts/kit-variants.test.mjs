@@ -196,3 +196,53 @@ test("every component pairs unique references and previews slot for slot", () =>
     });
   }
 });
+
+/**
+ * The kit folds two of the catalog's knobs into one `Type` value for a checkbox
+ * error: `state=unchecked, status=error` is not two axes, it is
+ * `Type=Error unselected`. These three renders existed long before they
+ * resolved to anything.
+ */
+test("fuses two knobs onto one axis when the kit models them as one value", () => {
+  assert.deepEqual(resolveVariantRef(ref("51859:5629"), [{ key: "status", raw: "error" }]), {
+    nodeId: "51859:5633",
+    name: "Type=Error selected, State=Enabled",
+  });
+  assert.equal(
+    resolveVariantRef(ref("51859:5629"), [
+      { key: "state", raw: "unchecked" },
+      { key: "status", raw: "error" },
+    ])?.name,
+    "Type=Error unselected, State=Enabled",
+  );
+  assert.equal(
+    resolveVariantRef(ref("51859:5629"), [
+      { key: "state", raw: "indeterminate" },
+      { key: "status", raw: "error" },
+    ])?.name,
+    "Type=Error indeterminate, State=Enabled",
+  );
+});
+
+/**
+ * The fusion matches on the SET of words and requires it to be equal, not
+ * merely contained. Without that it degrades into a wildcard: one seed would
+ * reach any value that happens to mention it, and `unchecked` alone would
+ * answer with the error variant.
+ */
+test("a single knob does not reach a value that says more than it does", () => {
+  assert.equal(
+    resolveVariantRef(ref("51859:5629"), [{ key: "state", raw: "unchecked" }])?.name,
+    "Type=Unselected, State=Enabled",
+  );
+});
+
+/**
+ * A radio button's error has no kit counterpart at all — `Radio buttons`
+ * publishes `Selected` and `State` and no `Type` — so the same seed that now
+ * resolves for a checkbox must still resolve to nothing here. Widening the
+ * `status` alias to reach `Type` is what makes this worth pinning.
+ */
+test("leaves an error state the kit does not publish unresolved", () => {
+  assert.equal(resolveVariantRef(ref("51739:4611"), [{ key: "status", raw: "error" }]), undefined);
+});
