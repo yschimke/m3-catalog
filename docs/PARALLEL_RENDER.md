@@ -21,9 +21,19 @@ adds lengthens the same serial render. That is a different document
 > `compose-preview` 0.19.44 shipped `bundle merge`, and the sharded render's silent data loss —
 > unanchored `--exclude-preview-id` deleting each shard's own variants — was fixed by
 > compose-ai-tools#3561 (anchored `=<id>` matching) and #3570 (the pipeline emits it), with the
-> reusable workflow now hard-erroring up front on a CLI that predates it. What remains unresolved is
-> only the third question the draft raised — **shard balance on a real sheet has still never been
-> measured**, because the one sharded run this catalog took was the buggy one.
+> reusable workflow now hard-erroring up front on a CLI that predates it.
+>
+> **And the silence is closed too**, which matters more than the fix for the next person to turn this
+> up. The word in "silent data loss" was carrying the cost: the partition was *correct*, the plan
+> cross-check printed `6 shard(s) cover 1095 preview(s) exactly once` and was *true*, and the run was
+> green while 828 renders went missing — because nothing compared the merged bundle back against what
+> the shards said they would render. compose-ai-tools#3885 adds that comparison to the merge step, so
+> a shard that loses work now fails the run naming the shard and the ids. The remaining risk of
+> raising `render-shards` is wall clock, not a quietly thinner catalog.
+>
+> What remains unresolved is only the third question the draft raised — **shard balance on a real
+> sheet has still never been measured**, because the one sharded run this catalog took was the buggy
+> one.
 
 ---
 

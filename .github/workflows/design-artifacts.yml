@@ -109,6 +109,14 @@ jobs:
       # in #3570, and the reusable workflow now hard-errors up front if the resolved CLI predates
       # that. Turning this back up is safe.
       #
+      # And it is now OBSERVABLE, which is the half that made the original bug expensive: the
+      # partition was correct, the plan cross-check printed `6 shard(s) cover 1095 preview(s) exactly
+      # once` and was true, and the run went green with 828 renders missing, because nothing compared
+      # the merged bundle back against what the shards said they would render. compose-ai-tools#3885
+      # adds that comparison after the merge, so a shard that loses work fails the run naming the
+      # shard and the ids instead of publishing a thinner catalog. Raising this now risks wall clock,
+      # not silent coverage loss.
+      #
       # It is just not worth it. Re-measured on CI after compose-ai-tools#3548 moved captures onto a
       # warm renderer (issue #3559), a single-job render is ~100s fixed + ~0.39s per preview — the
       # marginal term fell 6.5x while the fixed term did not move, which pushes the optimal shard
