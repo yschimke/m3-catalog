@@ -1,11 +1,49 @@
 {
   "schema": "compose-preview-activity/v1",
-  "generatedAt": "2026-08-15T11:22:14.197Z",
+  "generatedAt": "2026-08-15T13:07:01.481Z",
   "windowDays": 30,
   "code": {
     "repo": "yschimke/m3-catalog",
     "ref": "main",
     "events": [
+      {
+        "sha": "2fe169430564769d56d227fe87fd87d46ac5b890",
+        "subject": "feat(axes): author the rest of the reachable kit values (#112)",
+        "at": "2026-08-15T13:53:32+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [
+          "carousel-multibrowse__ideal__default__light__compact",
+          "carousel-multibrowse__ideal__default__light__compact__layout-center-aligned-hero",
+          "carousel-uncontained__ideal__default__light__compact",
+          "dialog-basic__ideal__default__light",
+          "dialog-basic__ideal__icon",
+          "dialog-list__ideal__default__light",
+          "dialog-list__ideal__icon",
+          "navigationrail-standard__ideal__default__light",
+          "navigationrail-standard__ideal__four",
+          "navigationrail-standard__ideal__middle",
+          "navigationrail-wide__ideal__default__light",
+          "navigationrail-wide__ideal__four",
+          "navigationrail-wide__ideal__middle",
+          "topappbar-centeraligned__ideal__default__light__compact",
+          "topappbar-large__ideal__default__light__compact",
+          "topappbar-medium__ideal__default__light__compact",
+          "topappbar-small__ideal__default__light__compact",
+          "topappbar-small__ideal__on-scroll__compact"
+        ],
+        "components": [
+          "Carousel/MultiBrowse",
+          "Carousel/Uncontained",
+          "Dialog/Basic",
+          "Dialog/List",
+          "NavigationRail/Standard",
+          "NavigationRail/Wide",
+          "TopAppBar/CenterAligned",
+          "TopAppBar/Large",
+          "TopAppBar/Medium",
+          "TopAppBar/Small"
+        ]
+      },
       {
         "sha": "b8fe0d8a3d68980fb23eaaef0d1f8ee22cfae370",
         "subject": "feat(axes): author three more kit axes, and point the rail at the node it draws (#111)",
@@ -46,6 +84,7 @@
           "navigationrail-standard__ideal__middle",
           "navigationrail-wide__ideal__default__light",
           "navigationrail-wide__ideal__four",
+          "navigationrail-wide__ideal__middle",
           "sidesheet-standard__ideal__default__light",
           "sidesheet-standard__ideal__back"
         ],
@@ -760,6 +799,7 @@
           "dialog-basic__ideal__default__light",
           "dialog-basic__ideal__icon",
           "dialog-list__ideal__default__light",
+          "dialog-list__ideal__icon",
           "list-group__ideal__default__light",
           "list-item__ideal__default__light",
           "menu-dropdown__ideal__default__light",
@@ -911,6 +951,7 @@
           "dialog-basic__ideal__default__light",
           "dialog-basic__ideal__icon",
           "dialog-list__ideal__default__light",
+          "dialog-list__ideal__icon",
           "iconbutton-filled__ideal__default__light",
           "iconbutton-filled__ideal__disabled",
           "iconbutton-filled__ideal__focused",
@@ -1057,6 +1098,7 @@
           "navigationrail-standard__ideal__middle",
           "navigationrail-wide__ideal__default__light",
           "navigationrail-wide__ideal__four",
+          "navigationrail-wide__ideal__middle",
           "radiobutton-selected__ideal__default__light",
           "radiobutton-selected__ideal__disabled",
           "radiobutton-selected__ideal__disabled-unselected",
@@ -1125,6 +1167,8 @@
           "timepicker-input__ideal__12-hour",
           "timepicker-dial__ideal__default__light",
           "timepicker-dial__ideal__12-hour",
+          "timepicker-dial__ideal__12-hour-horizontal",
+          "timepicker-dial__ideal__horizontal",
           "togglebutton-elevated__ideal__default__light",
           "togglebutton-elevated__ideal__disabled",
           "togglebutton-elevated__ideal__focused",
@@ -1772,6 +1816,7 @@
           "navigationrail-standard__ideal__middle",
           "navigationrail-wide__ideal__default__light",
           "navigationrail-wide__ideal__four",
+          "navigationrail-wide__ideal__middle",
           "radiobutton-selected__ideal__default__light",
           "radiobutton-selected__ideal__disabled",
           "radiobutton-selected__ideal__disabled-unselected",
@@ -1862,6 +1907,8 @@
           "timepicker-input__ideal__12-hour",
           "timepicker-dial__ideal__default__light",
           "timepicker-dial__ideal__12-hour",
+          "timepicker-dial__ideal__12-hour-horizontal",
+          "timepicker-dial__ideal__horizontal",
           "toolbar-horizontalfloating__ideal__default__light",
           "toolbar-horizontalfloating__ideal__vibrant",
           "toolbar-verticalfloating__ideal__default__light",
@@ -1927,7 +1974,9 @@
           "timepicker-input__ideal__default__light",
           "timepicker-input__ideal__12-hour",
           "timepicker-dial__ideal__default__light",
-          "timepicker-dial__ideal__12-hour"
+          "timepicker-dial__ideal__12-hour",
+          "timepicker-dial__ideal__12-hour-horizontal",
+          "timepicker-dial__ideal__horizontal"
         ],
         "components": [
           "DatePicker/Modal",
@@ -1986,28 +2035,6 @@
         ],
         "components": [
           "NavigationBar/Short"
-        ]
-      },
-      {
-        "sha": "b591980037ba62d5068f1bc0499423f46cb84513",
-        "subject": "fix: scope Figma background to search preview",
-        "at": "2026-08-11T22:29:02+01:00",
-        "author": "Yuri Schimke",
-        "previewIds": [
-          "search-appbar__ideal__default__light__compact",
-          "search-docked__ideal__default__light__compact",
-          "search-docked__ideal__avatar__compact",
-          "search-expandeddocked__ideal__default__light__compact",
-          "search-expandedfullscreen__ideal__default__light__compact",
-          "search-bar__ideal__default__light__compact",
-          "search-bar__ideal__avatar__compact"
-        ],
-        "components": [
-          "Search/AppBar",
-          "Search/Docked",
-          "Search/ExpandedDocked",
-          "Search/ExpandedFullScreen",
-          "Search/Bar"
         ]
       }
     ]

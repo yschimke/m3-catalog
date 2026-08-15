@@ -17982,6 +17982,36 @@
               "optionsExhaustive": false
             }
           ]
+        },
+        {
+          "variant": "ideal",
+          "path": "images/carousel-multibrowse/ideal__default__dark__compact__layout-center-aligned-hero.png",
+          "state": "default",
+          "width": 1082,
+          "height": 580,
+          "theme": "dark",
+          "size": "compact",
+          "props": {
+            "layout": "center-aligned-hero"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/carousel-multibrowse__ideal__default__dark__compact__layout-center-aligned-hero",
+          "previewId": "ee.schimke.m3catalog.sections.CarouselKt.CenteredHeroCarousel_Dark",
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/carousel-multibrowse/ideal__default__light__compact__layout-center-aligned-hero.png",
+          "state": "default",
+          "width": 1082,
+          "height": 580,
+          "theme": "light",
+          "size": "compact",
+          "props": {
+            "layout": "center-aligned-hero"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/carousel-multibrowse__ideal__default__light__compact__layout-center-aligned-hero",
+          "previewId": "ee.schimke.m3catalog.sections.CarouselKt.CenteredHeroCarousel_Light",
+          "density": 2.625
         }
       ],
       "greenlines": [],
@@ -18039,7 +18069,7 @@
       "referenceSet": "figma:ocdacdEsnHipMJD3egzxKb/53912:27480",
       "wireframe": "wireframes/carousel-multibrowse.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Carousel.kt",
-      "bodyLine": 85
+      "bodyLine": 87
     },
     {
       "componentId": "Carousel/Uncontained",
@@ -18105,7 +18135,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/54577:26035",
       "wireframe": "wireframes/carousel-uncontained.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Carousel.kt",
-      "bodyLine": 107
+      "bodyLine": 131
     },
     {
       "componentId": "Checkbox/Checked",
@@ -32048,7 +32078,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/50723:10948",
       "wireframe": "wireframes/dialog-basic.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Dialogs.kt",
-      "bodyLine": 87
+      "bodyLine": 88
     },
     {
       "componentId": "Dialog/List",
@@ -32062,7 +32092,57 @@
           "theme": "dark",
           "livePreview": "https://preview.coo.ee/m3-catalog/p/dialog-list__ideal__default__dark",
           "previewId": "ee.schimke.m3catalog.sections.DialogsKt.ListDialog_Dark",
+          "overrides": [
+            {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            }
+          ],
           "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/dialog-list/ideal__icon__dark.png",
+          "state": "icon",
+          "width": 819,
+          "height": 1139,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/dialog-list__ideal__icon__dark",
+          "previewId": "ee.schimke.m3catalog.sections.DialogsKt.ListDialog_Dark_VARIANT_icon",
+          "overrides": [
+            {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            }
+          ]
         },
         {
           "variant": "ideal",
@@ -32073,7 +32153,56 @@
           "theme": "light",
           "livePreview": "https://preview.coo.ee/m3-catalog/p/dialog-list__ideal__default__light",
           "previewId": "ee.schimke.m3catalog.sections.DialogsKt.ListDialog_Light",
+          "overrides": [
+            {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            }
+          ],
           "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/dialog-list/ideal__icon.png",
+          "state": "icon",
+          "width": 819,
+          "height": 1139,
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/dialog-list__ideal__icon",
+          "previewId": "ee.schimke.m3catalog.sections.DialogsKt.ListDialog_Light_VARIANT_icon",
+          "overrides": [
+            {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            }
+          ]
         }
       ],
       "greenlines": [
@@ -32317,7 +32446,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/50723:10964",
       "wireframe": "wireframes/dialog-list.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Dialogs.kt",
-      "bodyLine": 123
+      "bodyLine": 125
     },
     {
       "componentId": "Divider/Horizontal",
@@ -78497,7 +78626,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58016:36948",
       "wireframe": "wireframes/navigationrail-standard.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/NavigationRails.kt",
-      "bodyLine": 127
+      "bodyLine": 128
     },
     {
       "componentId": "NavigationRail/Wide",
@@ -78529,6 +78658,33 @@
               "googleFonts": false,
               "options": [],
               "optionsExhaustive": false
+            },
+            {
+              "key": "alignment",
+              "type": "string",
+              "label": "alignment",
+              "default": {
+                "kind": "string",
+                "value": "top"
+              },
+              "current": {
+                "kind": "string",
+                "value": "top"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "top",
+                  "label": "Top"
+                },
+                {
+                  "value": "middle",
+                  "label": "Middle"
+                }
+              ],
+              "optionsExhaustive": true
             },
             {
               "key": "menu",
@@ -78598,6 +78754,126 @@
               "optionsExhaustive": false
             },
             {
+              "key": "alignment",
+              "type": "string",
+              "label": "alignment",
+              "default": {
+                "kind": "string",
+                "value": "top"
+              },
+              "current": {
+                "kind": "string",
+                "value": "top"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "top",
+                  "label": "Top"
+                },
+                {
+                  "value": "middle",
+                  "label": "Middle"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "menu",
+              "type": "bool",
+              "label": "menu",
+              "default": {
+                "kind": "bool",
+                "value": true
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "fab",
+              "type": "bool",
+              "label": "fab",
+              "default": {
+                "kind": "bool",
+                "value": true
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            }
+          ]
+        },
+        {
+          "variant": "ideal",
+          "path": "images/navigationrail-wide/ideal__middle__dark.png",
+          "state": "middle",
+          "width": 578,
+          "height": 2100,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/navigationrail-wide__ideal__middle__dark",
+          "previewId": "ee.schimke.m3catalog.sections.NavigationRailsKt.WideNavigationRailSticker_Dark_VARIANT_middle",
+          "overrides": [
+            {
+              "key": "count",
+              "type": "string",
+              "label": "count",
+              "default": {
+                "kind": "string",
+                "value": "3"
+              },
+              "current": {
+                "kind": "string",
+                "value": "3"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "alignment",
+              "type": "string",
+              "label": "alignment",
+              "default": {
+                "kind": "string",
+                "value": "top"
+              },
+              "current": {
+                "kind": "string",
+                "value": "middle"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "top",
+                  "label": "Top"
+                },
+                {
+                  "value": "middle",
+                  "label": "Middle"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
               "key": "menu",
               "type": "bool",
               "label": "menu",
@@ -78664,6 +78940,33 @@
               "optionsExhaustive": false
             },
             {
+              "key": "alignment",
+              "type": "string",
+              "label": "alignment",
+              "default": {
+                "kind": "string",
+                "value": "top"
+              },
+              "current": {
+                "kind": "string",
+                "value": "top"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "top",
+                  "label": "Top"
+                },
+                {
+                  "value": "middle",
+                  "label": "Middle"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
               "key": "menu",
               "type": "bool",
               "label": "menu",
@@ -78728,6 +79031,125 @@
               "googleFonts": false,
               "options": [],
               "optionsExhaustive": false
+            },
+            {
+              "key": "alignment",
+              "type": "string",
+              "label": "alignment",
+              "default": {
+                "kind": "string",
+                "value": "top"
+              },
+              "current": {
+                "kind": "string",
+                "value": "top"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "top",
+                  "label": "Top"
+                },
+                {
+                  "value": "middle",
+                  "label": "Middle"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "menu",
+              "type": "bool",
+              "label": "menu",
+              "default": {
+                "kind": "bool",
+                "value": true
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "fab",
+              "type": "bool",
+              "label": "fab",
+              "default": {
+                "kind": "bool",
+                "value": true
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            }
+          ]
+        },
+        {
+          "variant": "ideal",
+          "path": "images/navigationrail-wide/ideal__middle.png",
+          "state": "middle",
+          "width": 578,
+          "height": 2100,
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/navigationrail-wide__ideal__middle",
+          "previewId": "ee.schimke.m3catalog.sections.NavigationRailsKt.WideNavigationRailSticker_Light_VARIANT_middle",
+          "overrides": [
+            {
+              "key": "count",
+              "type": "string",
+              "label": "count",
+              "default": {
+                "kind": "string",
+                "value": "3"
+              },
+              "current": {
+                "kind": "string",
+                "value": "3"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "alignment",
+              "type": "string",
+              "label": "alignment",
+              "default": {
+                "kind": "string",
+                "value": "top"
+              },
+              "current": {
+                "kind": "string",
+                "value": "middle"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "top",
+                  "label": "Top"
+                },
+                {
+                  "value": "middle",
+                  "label": "Middle"
+                }
+              ],
+              "optionsExhaustive": true
             },
             {
               "key": "menu",
@@ -78948,7 +79370,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58016:36671",
       "wireframe": "wireframes/navigationrail-wide.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/NavigationRails.kt",
-      "bodyLine": 170
+      "bodyLine": 172
     },
     {
       "componentId": "Progress/Linear",
@@ -136387,6 +136809,33 @@
               "googleFonts": false,
               "options": [],
               "optionsExhaustive": false
+            },
+            {
+              "key": "elevation",
+              "type": "string",
+              "label": "elevation",
+              "default": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "current": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "flat",
+                  "label": "Flat"
+                },
+                {
+                  "value": "on-scroll",
+                  "label": "On scroll"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ],
           "density": 2.625
@@ -136437,6 +136886,33 @@
               "googleFonts": false,
               "options": [],
               "optionsExhaustive": false
+            },
+            {
+              "key": "elevation",
+              "type": "string",
+              "label": "elevation",
+              "default": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "current": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "flat",
+                  "label": "Flat"
+                },
+                {
+                  "value": "on-scroll",
+                  "label": "On scroll"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ]
         },
@@ -136486,6 +136962,109 @@
               "googleFonts": false,
               "options": [],
               "optionsExhaustive": false
+            },
+            {
+              "key": "elevation",
+              "type": "string",
+              "label": "elevation",
+              "default": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "current": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "flat",
+                  "label": "Flat"
+                },
+                {
+                  "value": "on-scroll",
+                  "label": "On scroll"
+                }
+              ],
+              "optionsExhaustive": true
+            }
+          ]
+        },
+        {
+          "variant": "ideal",
+          "path": "images/topappbar-small/ideal__on-scroll__dark__compact.png",
+          "state": "on-scroll",
+          "width": 1082,
+          "height": 168,
+          "theme": "dark",
+          "size": "compact",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/topappbar-small__ideal__on-scroll__dark__compact",
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.SmallTopAppBar_Dark_VARIANT_on-scroll",
+          "overrides": [
+            {
+              "key": "nav",
+              "type": "bool",
+              "label": "nav",
+              "default": {
+                "kind": "bool",
+                "value": true
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "actions",
+              "type": "string",
+              "label": "actions",
+              "default": {
+                "kind": "string",
+                "value": "1"
+              },
+              "current": {
+                "kind": "string",
+                "value": "1"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "elevation",
+              "type": "string",
+              "label": "elevation",
+              "default": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "current": {
+                "kind": "string",
+                "value": "on-scroll"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "flat",
+                  "label": "Flat"
+                },
+                {
+                  "value": "on-scroll",
+                  "label": "On scroll"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ]
         },
@@ -136535,6 +137114,33 @@
               "googleFonts": false,
               "options": [],
               "optionsExhaustive": false
+            },
+            {
+              "key": "elevation",
+              "type": "string",
+              "label": "elevation",
+              "default": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "current": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "flat",
+                  "label": "Flat"
+                },
+                {
+                  "value": "on-scroll",
+                  "label": "On scroll"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ]
         },
@@ -136584,6 +137190,33 @@
               "googleFonts": false,
               "options": [],
               "optionsExhaustive": false
+            },
+            {
+              "key": "elevation",
+              "type": "string",
+              "label": "elevation",
+              "default": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "current": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "flat",
+                  "label": "Flat"
+                },
+                {
+                  "value": "on-scroll",
+                  "label": "On scroll"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ],
           "density": 2.625
@@ -136633,6 +137266,33 @@
               "googleFonts": false,
               "options": [],
               "optionsExhaustive": false
+            },
+            {
+              "key": "elevation",
+              "type": "string",
+              "label": "elevation",
+              "default": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "current": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "flat",
+                  "label": "Flat"
+                },
+                {
+                  "value": "on-scroll",
+                  "label": "On scroll"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ]
         },
@@ -136681,6 +137341,108 @@
               "googleFonts": false,
               "options": [],
               "optionsExhaustive": false
+            },
+            {
+              "key": "elevation",
+              "type": "string",
+              "label": "elevation",
+              "default": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "current": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "flat",
+                  "label": "Flat"
+                },
+                {
+                  "value": "on-scroll",
+                  "label": "On scroll"
+                }
+              ],
+              "optionsExhaustive": true
+            }
+          ]
+        },
+        {
+          "variant": "ideal",
+          "path": "images/topappbar-small/ideal__on-scroll__compact.png",
+          "state": "on-scroll",
+          "width": 1082,
+          "height": 168,
+          "size": "compact",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/topappbar-small__ideal__on-scroll__compact",
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.SmallTopAppBar_Light_VARIANT_on-scroll",
+          "overrides": [
+            {
+              "key": "nav",
+              "type": "bool",
+              "label": "nav",
+              "default": {
+                "kind": "bool",
+                "value": true
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "actions",
+              "type": "string",
+              "label": "actions",
+              "default": {
+                "kind": "string",
+                "value": "1"
+              },
+              "current": {
+                "kind": "string",
+                "value": "1"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "elevation",
+              "type": "string",
+              "label": "elevation",
+              "default": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "current": {
+                "kind": "string",
+                "value": "on-scroll"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "flat",
+                  "label": "Flat"
+                },
+                {
+                  "value": "on-scroll",
+                  "label": "On scroll"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ]
         },
@@ -136729,6 +137491,33 @@
               "googleFonts": false,
               "options": [],
               "optionsExhaustive": false
+            },
+            {
+              "key": "elevation",
+              "type": "string",
+              "label": "elevation",
+              "default": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "current": {
+                "kind": "string",
+                "value": "flat"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "flat",
+                  "label": "Flat"
+                },
+                {
+                  "value": "on-scroll",
+                  "label": "On scroll"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ]
         }
@@ -136817,7 +137606,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58114:20585",
       "wireframe": "wireframes/topappbar-small.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt",
-      "bodyLine": 93
+      "bodyLine": 95
     },
     {
       "componentId": "TopAppBar/CenterAligned",
@@ -136998,7 +137787,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58114:20566",
       "wireframe": "wireframes/topappbar-centeraligned.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt",
-      "bodyLine": 116
+      "bodyLine": 134
     },
     {
       "componentId": "TopAppBar/Medium",
@@ -137299,7 +138088,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58114:20592",
       "wireframe": "wireframes/topappbar-medium.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt",
-      "bodyLine": 158
+      "bodyLine": 176
     },
     {
       "componentId": "TopAppBar/Large",
@@ -137600,7 +138389,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58114:20600",
       "wireframe": "wireframes/topappbar-large.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt",
-      "bodyLine": 180
+      "bodyLine": 198
     },
     {
       "componentId": "Typography/Type scale",
@@ -138510,7 +139299,7 @@
     "org.jetbrains.compose.material:material-icons-extended"
   ],
   "renderer": "compose-preview 1.6.0",
-  "generatedAt": "2026-08-15T11:20:36.688Z",
+  "generatedAt": "2026-08-15T13:05:26.686Z",
   "display": {
     "hero": "DatePicker/Modal"
   },
