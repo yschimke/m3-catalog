@@ -37,8 +37,9 @@ jobs:
         with:
           node-version: 24.19.0
 
-      # Investigation aid for #3 / #2: the kit's full inventory per page, deeper than the resolver
-      # walks, plus the type/visibility/radius of every ref already in use. Needs no Gradle.
+      # The kit's full inventory per page, deeper than the resolver walks, plus configured
+      # instances whose component-property values can render variants that a definition node
+      # cannot express (#21). Also records the type/visibility/radius of refs already in use.
       - name: Dump inventory
         env:
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
@@ -74,6 +75,7 @@ jobs:
           path: |
             figma-inventory.json
             figma-inventory.txt
+            figma-kit-index.json
           if-no-files-found: warn
 
       # The resolver reads the discovered manifest, so the annotations are the list of things to

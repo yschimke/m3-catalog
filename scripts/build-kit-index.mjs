@@ -177,6 +177,7 @@ if (token && specimenIds.length) {
 
 const ids = Object.keys(sets);
 let propertied = 0;
+let configuredInstances = 0;
 if (token && ids.length) {
   for (let i = 0; i < ids.length; i += BATCH) {
     const chunk = ids.slice(i, i + BATCH);
@@ -193,6 +194,37 @@ if (token && ids.length) {
         .map(([k, v]) => [k.split("#")[0], { type: v.type, default: v.defaultValue }]);
       if (props.length) {
         sets[id].properties = Object.fromEntries(props);
+        const variantIds = new Set(sets[id].variants.map((variant) => variant.id));
+        const candidates = (inventory.pages ?? []).flatMap((page) =>
+          (page.propertyInstances ?? []).filter((instance) => variantIds.has(instance.componentId)),
+        );
+        // One exact property vector needs only one render handle. Prefer an
+        // Examples-frame instance, then the smaller node, so the checked-in
+        // index stays stable when the kit repeats the same configuration.
+        candidates.sort(
+          (a, b) =>
+            Number(b.example) - Number(a.example) ||
+            a.w * a.h - b.w * b.h ||
+            a.id.localeCompare(b.id),
+        );
+        const seen = new Set();
+        const instances = [];
+        for (const instance of candidates) {
+          const values = Object.fromEntries(
+            props.map(([name, def]) => [
+              name,
+              instance.properties?.[name]?.value ?? def.default,
+            ]),
+          );
+          const vector = `${instance.componentId}\0${JSON.stringify(values)}`;
+          if (seen.has(vector)) continue;
+          seen.add(vector);
+          instances.push({ id: instance.id, componentId: instance.componentId, properties: values });
+        }
+        if (instances.length) {
+          sets[id].instances = instances;
+          configuredInstances += instances.length;
+        }
         propertied += 1;
       }
     }
@@ -219,5 +251,6 @@ console.log(
     `${renderAliases} hidden variant render alias(es), ` +
     `${Object.keys(standalone).length} standalone component(s), ` +
     `${Object.keys(specimens).length} specimen node(s), ` +
-    `${propertied} set(s) carrying component properties.`,
+    `${propertied} set(s) carrying component properties, ` +
+    `${configuredInstances} configured instance render handle(s).`,
 );
