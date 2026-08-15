@@ -27,6 +27,8 @@ import androidx.compose.material3.WideNavigationRailItem
 import androidx.compose.material3.WideNavigationRailValue
 import androidx.compose.material3.rememberWideNavigationRailState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -124,7 +126,7 @@ private fun RailHeaderContent(wide: Boolean) {
 fun NavigationRailSticker() = Sticker {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
   val labels = catalogChoice("labels", "always", "always", "none")
-  val (selected, select) = selectable(0)
+  var selected by selectable(0)
   Box(Modifier.padding(horizontal = 8.dp)) {
     NavigationRail(
       modifier = Modifier.height(800.dp),
@@ -134,7 +136,7 @@ fun NavigationRailSticker() = Sticker {
       RAIL.take(count).forEachIndexed { index, label ->
         NavigationRailItem(
           selected = index == selected,
-          onClick = { select(index) },
+          onClick = { selected = index },
           icon = {
             Icon(
               if (index == selected) CatalogFilledStars else CatalogOutlinedStars,
@@ -158,7 +160,7 @@ fun NavigationRailSticker() = Sticker {
 @Composable
 fun WideNavigationRailSticker() = Sticker {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
-  val (selected, select) = selectable(0)
+  var selected by selectable(0)
   // `WideNavigationRail` takes a state object, not an `expanded` flag — the expansion is animated
   // and the rail owns it. Seeded Expanded so the baked capture shows the form this component is
   // for; the collapsed rail is `NavigationRail/Standard` above.
@@ -172,7 +174,7 @@ fun WideNavigationRailSticker() = Sticker {
       WideNavigationRailItem(
         railExpanded = true,
         selected = index == selected,
-        onClick = { select(index) },
+        onClick = { selected = index },
         icon = {
           Icon(
             if (index == selected) CatalogFilledStars else CatalogOutlinedStars,

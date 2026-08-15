@@ -16,6 +16,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
@@ -106,10 +108,10 @@ private fun fieldSpec(): FieldSpec {
 @Composable
 fun FilledTextField() = Sticker {
   val spec = fieldSpec()
-  val (text, set) = editable(spec.value)
+  var text by editable(spec.value)
   TextField(
     value = text,
-    onValueChange = set,
+    onValueChange = { text = it },
     enabled = spec.enabled,
     isError = spec.isError,
     label = spec.label,
@@ -138,11 +140,11 @@ fun FilledTextField() = Sticker {
 @Composable
 fun OutlinedTextFieldSticker() = Sticker {
   val spec = fieldSpec()
-  val (text, set) = editable(spec.value)
+  var text by editable(spec.value)
   Box(Modifier.padding(top = 8.dp)) {
     OutlinedTextField(
       value = text,
-      onValueChange = set,
+      onValueChange = { text = it },
       enabled = spec.enabled,
       isError = spec.isError,
       label = spec.label,
