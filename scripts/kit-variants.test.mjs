@@ -246,3 +246,28 @@ test("a single knob does not reach a value that says more than it does", () => {
 test("leaves an error state the kit does not publish unresolved", () => {
   assert.equal(resolveVariantRef(ref("51739:4611"), [{ key: "status", raw: "error" }]), undefined);
 });
+
+/**
+ * Our knobs slug what the kit spaces, and the two do not line up by swapping
+ * one separator for the other: `center-aligned-hero` is the kit's
+ * `Center-aligned hero` — hyphen in one place, space in the other.
+ */
+test("matches a multi-word slug against the axis's own spelling", () => {
+  assert.equal(
+    resolveVariantRef(ref("53912:27490"), [{ key: "layout", raw: "center-aligned-hero" }])?.name,
+    "Context=Mobile, Layout=Center-aligned hero",
+  );
+});
+
+/**
+ * And does NOT do it for a bare number. Normalising strips every separator, so
+ * `progress=1.0` would otherwise land on the `Progress=10` variant — a real
+ * value of that axis and the wrong one, where the candidate list already turns
+ * 1.0 into 100.
+ */
+test("does not normalise a decimal into a different published number", () => {
+  assert.match(
+    resolveVariantRef(ref("58005:8492"), [{ key: "progress", raw: "1.0" }])?.name ?? "",
+    /Progress=100/,
+  );
+});

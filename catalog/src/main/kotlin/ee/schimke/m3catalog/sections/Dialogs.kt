@@ -33,6 +33,7 @@ import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
+import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
@@ -119,6 +120,7 @@ fun BasicDialog() = Sticker {
   caption = "A choice list in place of supporting text.",
 )
 @CatalogModes
+@OverrideVariant(name = "icon", booleans = ["icon=true"])
 @Composable
 fun ListDialog() = Sticker {
   Surface(
@@ -128,6 +130,16 @@ fun ListDialog() = Sticker {
     tonalElevation = AlertDialogDefaults.TonalElevation,
   ) {
     Column {
+      // The kit's `Icon` axis: a hero icon above the title, centred, in the dialog's own icon
+      // colour. Decorative beside the title it introduces, so no contentDescription.
+      if (previewOverrideBoolean("icon", false)) {
+        Icon(
+          CatalogFilledStars,
+          contentDescription = null,
+          modifier = Modifier.padding(top = 24.dp).align(Alignment.CenterHorizontally),
+          tint = AlertDialogDefaults.iconContentColor,
+        )
+      }
       Text(
         stringResource(Res.string.dialog_backup_title),
         Modifier.padding(start = 24.dp, top = 24.dp, end = 24.dp),

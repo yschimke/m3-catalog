@@ -3,6 +3,7 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -166,6 +167,7 @@ fun NavigationRailSticker() = Sticker {
 )
 @CatalogModes
 @OverrideVariant(name = "four", strings = ["count=4"])
+@OverrideVariant(name = "middle", strings = ["alignment=middle"])
 @Composable
 fun WideNavigationRailSticker() = Sticker {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
@@ -173,8 +175,12 @@ fun WideNavigationRailSticker() = Sticker {
   // `WideNavigationRail` takes a state object, not an `expanded` flag — the expansion is animated
   // and the rail owns it. Seeded Expanded so the baked capture shows the form this component is
   // for; the collapsed rail is `NavigationRail/Standard` above.
+  // The kit's `Alignment` axis. Unlike the standard rail, this one takes an `arrangement`, so
+  // the middle cell is a parameter rather than a spacer.
+  val middle = catalogChoice("alignment", "top", "top", "middle") == "middle"
   WideNavigationRail(
     modifier = Modifier.height(800.dp),
+    arrangement = if (middle) Arrangement.Center else Arrangement.Top,
     state = rememberWideNavigationRailState(WideNavigationRailValue.Expanded),
     colors = WideNavigationRailDefaults.colors(containerColor = Color.Transparent),
     header = { RailHeaderContent(wide = true) },

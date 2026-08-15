@@ -53,7 +53,9 @@ const AXIS_ALIASES = {
   trailing: ["Show trailing icon", "Trailing icon", "Configuration"],
   icon: ["Icon", "Show icon"],
   style: ["Style"],
-  layout: ["Layout"],
+  // `layout` is our word for both: a card's content arrangement is the kit's
+  // `Layout`, a time picker's is its `Orientation`. The value decides.
+  layout: ["Layout", "Orientation"],
   mode: ["Type"],
   hours: ["Format"],
   header: ["Show back", "Configuration"],
@@ -428,6 +430,30 @@ function fuseAxisValue(set, axis, chosen, want) {
   });
 }
 
+/**
+ * The axis's own spelling of `want`, matched without separators or case.
+ *
+ * Our knobs slug what the kit spaces and capitalises — `center-aligned-hero` is
+ * the kit's `Center-aligned hero`, hyphen in one place and space in the other,
+ * which no amount of swapping one for the other reaches. Normalising both sides
+ * to letters and digits does, and it can only ever return a value the axis
+ * actually publishes, so a spelling the kit does not have still resolves to
+ * nothing. This is the general form of the hand-written `secondary-container`
+ * style entries in VALUE_ALIASES.
+ */
+function publishedValue(set, axis, want) {
+  if (want === undefined) return undefined;
+  // Only for MULTI-WORD slugs. Normalising strips every separator, and that is
+  // too strong for a bare number: `progress=1.0` normalises to `10`, which is a
+  // real value of the kit's `Progress` axis and the wrong one — the candidate
+  // list already turns 1.0 into `100` for exactly that axis. A hyphen or a
+  // space is what says "this is a phrase the kit spells with its own spacing".
+  const text = String(want);
+  if (!/[-\s]/.test(text)) return undefined;
+  const target = norm(text);
+  return axisValues(set, axis).find((value) => norm(value) === target);
+}
+
 function resolveSetVariantRef(baseVar, seeds) {
   const set = setIndex.get(baseVar.setId);
   const eq = (a, b) => String(a).toLowerCase() === String(b).toLowerCase();
@@ -453,7 +479,8 @@ function resolveSetVariantRef(baseVar, seeds) {
         }
         continue;
       }
-      for (const want of valueCandidates(seed.raw)) {
+      for (const candidate of valueCandidates(seed.raw)) {
+        const want = publishedValue(set, axis, candidate) ?? candidate;
         const noOp = eq(baseVar.axes[axis], want);
         // Some shared matrices spell their default size explicitly in a
         // combination (`size=s, width=narrow, shape=square`). That seed is a
