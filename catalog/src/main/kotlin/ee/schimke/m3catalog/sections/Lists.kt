@@ -22,6 +22,8 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
@@ -59,7 +61,7 @@ private fun leading(): (@Composable () -> Unit)? =
 
 @Composable
 private fun trailing(): (@Composable () -> Unit)? {
-  val (checked, set) = toggleable(true)
+  var checked by toggleable(true)
   return when (catalogChoice("trailing", "none", "none", "text", "icon", "checkbox", "switch")) {
     "text" -> {
       { Text(localizedDigits("10:30")) }
@@ -68,10 +70,10 @@ private fun trailing(): (@Composable () -> Unit)? {
       { Icon(Icons.Filled.MoreVert, contentDescription = stringResource(Res.string.action_more)) }
     }
     "checkbox" -> {
-      { Checkbox(checked = checked, onCheckedChange = set) }
+      { Checkbox(checked = checked, onCheckedChange = { checked = it }) }
     }
     "switch" -> {
-      { Switch(checked = checked, onCheckedChange = set) }
+      { Switch(checked = checked, onCheckedChange = { checked = it }) }
     }
     else -> null
   }

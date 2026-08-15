@@ -38,6 +38,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberSearchBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -163,23 +165,23 @@ fun DockedSearchBarSticker() = Sticker {
   // `query` / `onQueryChange` pair, so it owns the same state through `editable` rather than
   // dropping every keystroke. The dropdown is the bar's own expansion rather than a popup window,
   // so the live lane can open it — the baked capture stays collapsed on the seeded state.
-  val (query, setQuery) = editable(searchQuery())
-  val (expanded, setExpanded) = toggleable(false)
+  var query by editable(searchQuery())
+  var expanded by toggleable(false)
   DockedSearchBar(
     inputField = {
       SearchBarDefaults.InputField(
         query = query,
-        onQueryChange = setQuery,
+        onQueryChange = { query = it },
         onSearch = {},
         expanded = expanded,
-        onExpandedChange = setExpanded,
+        onExpandedChange = { expanded = it },
         placeholder = searchPlaceholder(),
         leadingIcon = searchLeading(),
         trailingIcon = searchTrailing(),
       )
     },
     expanded = expanded,
-    onExpandedChange = setExpanded,
+    onExpandedChange = { expanded = it },
     modifier = Modifier.width(360.dp),
     content = { SuggestionRows() },
   )
@@ -284,13 +286,13 @@ fun ExpandedFullScreenSearchBarSticker() = Sticker {
  */
 @Composable
 private fun ExpandedInputField(fullScreen: Boolean) {
-  val (query, setQuery) = editable(stringResource(Res.string.search_input_text))
+  var query by editable(stringResource(Res.string.search_input_text))
   val back = counted("back")
   val clear = counted("clear")
   val microphone = counted("microphone")
   SearchBarDefaults.InputField(
     query = query,
-    onQueryChange = setQuery,
+    onQueryChange = { query = it },
     onSearch = {},
     expanded = true,
     onExpandedChange = {},

@@ -3,16 +3,23 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideFloat
 import ee.schimke.composeai.overrides.previewOverrideInt
+import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -58,6 +65,49 @@ import ee.schimke.m3catalog.Sticker
 // builder for that shape, transcribed with the corner radii, smoothing, repeat count and star inner
 // radius left adjustable. `MaterialShapeRecipeTest` asserts the two agree cubic-for-cubic at the
 // defaults, so the switch changes what you can change, never what you see by default.
+
+@Composable
+private fun cornerScaleRole(): Pair<String, Shape> =
+  when (previewOverrideString("corner", "none")) {
+    "extra-small" -> "Extra-small · 4dp" to RoundedCornerShape(4.dp)
+    "small" -> "Small · 8dp" to RoundedCornerShape(8.dp)
+    "medium" -> "Medium · 12dp" to RoundedCornerShape(12.dp)
+    "large" -> "Large · 16dp" to RoundedCornerShape(16.dp)
+    "large-increased" -> "Large-increased · 20dp" to RoundedCornerShape(20.dp)
+    "extra-large" -> "Extra-large · 28dp" to RoundedCornerShape(28.dp)
+    "extra-large-increased" -> "Extra-large-increased · 32dp" to RoundedCornerShape(32.dp)
+    "extra-extra-large" -> "Extra-extra-large · 48dp" to RoundedCornerShape(48.dp)
+    "full" -> "Full · 50%" to RoundedCornerShape(percent = 50)
+    else -> "None · 0dp" to RoundedCornerShape(0.dp)
+  }
+
+@CatalogComponent(
+  id = "Shape/Corner scale",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7181",
+  caption = "The Material corner scale, with each of its ten radius tokens folded in as a variant.",
+)
+@CatalogModes
+@OverrideVariant(name = "extra-small", strings = ["corner=extra-small"])
+@OverrideVariant(name = "small", strings = ["corner=small"])
+@OverrideVariant(name = "medium", strings = ["corner=medium"])
+@OverrideVariant(name = "large", strings = ["corner=large"])
+@OverrideVariant(name = "large-increased", strings = ["corner=large-increased"])
+@OverrideVariant(name = "extra-large", strings = ["corner=extra-large"])
+@OverrideVariant(name = "extra-large-increased", strings = ["corner=extra-large-increased"])
+@OverrideVariant(name = "extra-extra-large", strings = ["corner=extra-extra-large"])
+@OverrideVariant(name = "full", strings = ["corner=full"])
+@Composable
+fun CornerScaleSticker() = Sticker {
+  val (name, shape) = cornerScaleRole()
+  Column(
+    modifier = Modifier.size(width = 220.dp, height = 176.dp),
+    verticalArrangement = Arrangement.spacedBy(12.dp),
+    horizontalAlignment = Alignment.CenterHorizontally,
+  ) {
+    Box(Modifier.size(136.dp).clip(shape).background(MaterialTheme.colorScheme.primary))
+    Text(name, style = MaterialTheme.typography.labelLarge)
+  }
+}
 
 @Composable
 private fun ShapeSticker(recipe: MaterialShapeRecipe) = Sticker {

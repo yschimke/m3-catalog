@@ -17,6 +17,8 @@ import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
@@ -84,12 +86,12 @@ private fun SegmentContent(label: String, checked: Boolean) {
 @Composable
 fun SegmentedButtons() = Sticker {
   val count = segmentCount()
-  val (selected, select) = selectable(0)
+  var selected by selectable(0)
   SingleChoiceSegmentedButtonRow(Modifier.width(310.dp).height(40.dp)) {
     LABELS.take(count).forEachIndexed { index, label ->
       SegmentedButton(
         selected = index == selected,
-        onClick = { select(index) },
+        onClick = { selected = index },
         shape = SegmentedButtonDefaults.itemShape(index = index, count = count),
         modifier = Modifier.weight(1f),
       ) {
@@ -116,13 +118,15 @@ fun MultiChoiceSegmentedButtons() = Sticker {
   // Every segment carries its own checked state — a fixed pair of booleans pinned the third and
   // later segments to `false` behind a handler that dropped the click, so the `count-4` / `count-5`
   // variants published segments the live lane could not move.
-  val (checkedSegments, setChecked) = multiSelectable(setOf(0))
+  var checkedSegments by multiSelectable(setOf(0))
   MultiChoiceSegmentedButtonRow(Modifier.width(310.dp).height(40.dp)) {
     LABELS.take(count).forEachIndexed { index, label ->
       val checked = index in checkedSegments
       SegmentedButton(
         checked = checked,
-        onCheckedChange = { setChecked(index, it) },
+        onCheckedChange = {
+          checkedSegments = if (it) checkedSegments + index else checkedSegments - index
+        },
         shape = SegmentedButtonDefaults.itemShape(index = index, count = count),
         modifier = Modifier.weight(1f),
       ) {

@@ -15,6 +15,8 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -66,7 +68,7 @@ private fun IconButtonFrame(content: @Composable () -> Unit) {
 @IconButtonMatrix
 @Composable
 fun StandardIconButton() = Sticker {
-  val (on, set) = toggleable(true)
+  var on by toggleable(true)
   val size = catalogButtonSize()
   IconButtonFrame {
     val content: @Composable () -> Unit = {
@@ -80,7 +82,7 @@ fun StandardIconButton() = Sticker {
       IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.onSurfaceVariant)
     if (catalogExpressive()) {
       IconButton(
-        onClick = { set(!on) },
+        onClick = { on = !on },
         shapes = catalogIconShapes(size),
         enabled = catalogEnabled(),
         colors = colors,
@@ -89,7 +91,7 @@ fun StandardIconButton() = Sticker {
       )
     } else {
       IconButton(
-        onClick = { set(!on) },
+        onClick = { on = !on },
         enabled = catalogEnabled(),
         shape = catalogIconShape(size),
         colors = colors,
@@ -110,7 +112,7 @@ fun StandardIconButton() = Sticker {
 @IconButtonMatrix
 @Composable
 fun FilledIconButtonSticker() = Sticker {
-  val (on, set) = toggleable(true)
+  var on by toggleable(true)
   val size = catalogButtonSize()
   IconButtonFrame {
     val content: @Composable () -> Unit = {
@@ -122,7 +124,7 @@ fun FilledIconButtonSticker() = Sticker {
     }
     if (catalogExpressive()) {
       FilledIconButton(
-        onClick = { set(!on) },
+        onClick = { on = !on },
         shapes = catalogIconShapes(size),
         enabled = catalogEnabled(),
         modifier = Modifier.size(catalogIconContainerSize(size)),
@@ -130,7 +132,7 @@ fun FilledIconButtonSticker() = Sticker {
       )
     } else {
       FilledIconButton(
-        onClick = { set(!on) },
+        onClick = { on = !on },
         enabled = catalogEnabled(),
         shape = catalogIconShape(size),
         modifier = Modifier.size(catalogIconContainerSize(size)),
@@ -149,7 +151,7 @@ fun FilledIconButtonSticker() = Sticker {
 @IconButtonMatrix
 @Composable
 fun TonalIconButton() = Sticker {
-  val (on, set) = toggleable(true)
+  var on by toggleable(true)
   val size = catalogButtonSize()
   IconButtonFrame {
     val content: @Composable () -> Unit = {
@@ -161,7 +163,7 @@ fun TonalIconButton() = Sticker {
     }
     if (catalogExpressive()) {
       FilledTonalIconButton(
-        onClick = { set(!on) },
+        onClick = { on = !on },
         shapes = catalogIconShapes(size),
         enabled = catalogEnabled(),
         modifier = Modifier.size(catalogIconContainerSize(size)),
@@ -169,7 +171,7 @@ fun TonalIconButton() = Sticker {
       )
     } else {
       FilledTonalIconButton(
-        onClick = { set(!on) },
+        onClick = { on = !on },
         enabled = catalogEnabled(),
         shape = catalogIconShape(size),
         modifier = Modifier.size(catalogIconContainerSize(size)),
@@ -189,7 +191,7 @@ fun TonalIconButton() = Sticker {
 @IconButtonMatrix
 @Composable
 fun OutlinedIconButtonSticker() = Sticker {
-  val (on, set) = toggleable(true)
+  var on by toggleable(true)
   val size = catalogButtonSize()
   IconButtonFrame {
     val content: @Composable () -> Unit = {
@@ -206,7 +208,7 @@ fun OutlinedIconButtonSticker() = Sticker {
     val border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     if (catalogExpressive()) {
       OutlinedIconButton(
-        onClick = { set(!on) },
+        onClick = { on = !on },
         shapes = catalogIconShapes(size),
         enabled = catalogEnabled(),
         colors = colors,
@@ -216,7 +218,7 @@ fun OutlinedIconButtonSticker() = Sticker {
       )
     } else {
       OutlinedIconButton(
-        onClick = { set(!on) },
+        onClick = { on = !on },
         enabled = catalogEnabled(),
         shape = catalogIconShape(size),
         colors = colors,

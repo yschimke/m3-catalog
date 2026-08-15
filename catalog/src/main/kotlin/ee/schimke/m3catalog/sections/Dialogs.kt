@@ -24,6 +24,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -141,7 +143,7 @@ fun ListDialog() = Sticker {
       )
       Spacer(Modifier.height(27.dp))
       repeat(3) { i ->
-        val (checked, setChecked) = toggleable(true)
+        var checked by toggleable(true)
         Row(
           modifier = Modifier.fillMaxWidth().height(57.dp).padding(horizontal = 16.dp),
           verticalAlignment = Alignment.CenterVertically,
@@ -158,7 +160,7 @@ fun ListDialog() = Sticker {
           Text(stringResource(Res.string.dialog_add_account))
           Spacer(Modifier.weight(1f))
           Text(localizedDigits("100+"), style = MaterialTheme.typography.labelSmall)
-          Checkbox(checked = checked, onCheckedChange = setChecked)
+          Checkbox(checked = checked, onCheckedChange = { checked = it })
         }
         if (i < 2) {
           HorizontalDivider(Modifier.padding(horizontal = 16.dp))

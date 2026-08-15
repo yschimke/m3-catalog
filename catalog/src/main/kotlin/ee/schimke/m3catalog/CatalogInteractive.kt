@@ -1,7 +1,9 @@
 package ee.schimke.m3catalog
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,53 +37,73 @@ fun counted(label: String): Counted {
 }
 
 /**
- * Owned boolean state for a stateful component (checked / selected / expanded). Frozen at [initial]
- * on the baked lane — the deterministic frame the published catalog shows — and live on the
- * interactive lane.
+ * Owned boolean state (checked / selected / expanded), as a plain [MutableState] the sticker reads
+ * and writes through `by`.
+ *
+ * ### Why a MutableState and not a destructured Pair
+ *
+ * These helpers used to return `Pair<T, (T) -> Unit>`, destructured at the call site. That reads
+ * fine, but it made the *usage* rewrite hard out of all proportion: the preview server has to turn
+ * a sticker into the plain Compose a developer would paste, and a destructuring is the one shape
+ * that forces it to replace a **declaration** and rebind a second name at every use site. That
+ * needed a whole rule kind of its own, a Kotlin parse to find the entries, and guards for
+ * shadowing, `_` entries and setter-as-callee — four separate ways to emit code that looks clean
+ * and does not compile.
+ *
+ * Returning a [MutableState] removes the problem rather than handling it. The call site is already
+ * the shape the answer wants:
+ * ```
+ * var checked by toggleable(true)          →   var checked by remember { mutableStateOf(true) }
+ * ```
+ *
+ * so the rewrite is a single expression substitution — the simplest rule there is — and there is no
+ * second name to rebind. Nothing is lost on either lane: the baked snapshot still ignores writes,
+ * the live session still recomposes.
  */
 @Composable
-fun toggleable(initial: Boolean): Pair<Boolean, (Boolean) -> Unit> {
-  if (!catalogInteractive()) return initial to {}
-  var checked by remember { mutableStateOf(initial) }
-  return checked to { v: Boolean -> checked = v }
-}
+fun toggleable(initial: Boolean): MutableState<Boolean> =
+  if (catalogInteractive()) remember { mutableStateOf(initial) } else frozen(initial)
 
 /** Owned index state, for single-select families (segmented buttons, tabs, navigation bars). */
 @Composable
-fun selectable(initial: Int): Pair<Int, (Int) -> Unit> {
-  if (!catalogInteractive()) return initial to {}
-  var index by remember { mutableIntStateOf(initial) }
-  return index to { v: Int -> index = v }
-}
+fun selectable(initial: Int): MutableState<Int> =
+  if (catalogInteractive()) remember { mutableIntStateOf(initial) } else frozen(initial)
 
 /**
- * Owned multi-select state, for families where any number of the cells may be on at once
- * (multi-choice segmented buttons). The setter takes the cell's index and its new state, so a row
- * of any length wires up from one call — a fixed pair of booleans leaves every cell past the second
- * one inert.
+ * Owned multi-select state, for families where any number of cells may be on at once.
+ *
+ * The set update lives at the call site now rather than behind a two-argument setter — which is
+ * also what a developer would write, so the usage snippet reads the same as the sticker.
  */
 @Composable
-fun multiSelectable(initial: Set<Int>): Pair<Set<Int>, (Int, Boolean) -> Unit> {
-  if (!catalogInteractive()) return initial to { _, _ -> }
-  var selected by remember { mutableStateOf(initial) }
-  return selected to
-    { index: Int, on: Boolean ->
-      selected = if (on) selected + index else selected - index
-    }
-}
+fun multiSelectable(initial: Set<Int>): MutableState<Set<Int>> =
+  if (catalogInteractive()) remember { mutableStateOf(initial) } else frozen(initial)
 
 /** Owned float state, for continuous controls (sliders). */
 @Composable
-fun draggable(initial: Float): Pair<Float, (Float) -> Unit> {
-  if (!catalogInteractive()) return initial to {}
-  var value by remember { mutableStateOf(initial) }
-  return value to { v: Float -> value = v }
-}
+fun draggable(initial: Float): MutableState<Float> =
+  if (catalogInteractive()) remember { mutableFloatStateOf(initial) } else frozen(initial)
 
 /** Owned text state, for text fields. */
 @Composable
-fun editable(initial: String): Pair<String, (String) -> Unit> {
-  if (!catalogInteractive()) return initial to {}
-  var text by remember { mutableStateOf(initial) }
-  return text to { v: String -> text = v }
-}
+fun editable(initial: String): MutableState<String> =
+  if (catalogInteractive()) remember { mutableStateOf(initial) } else frozen(initial)
+
+/**
+ * A [MutableState] that reports [value] and silently drops writes — the baked lane's contract.
+ *
+ * A published PNG cannot depend on whether something tapped it, so a click must change nothing.
+ * Dropping the write does that while keeping the *type* identical to the live lane's, which is what
+ * lets one sticker body serve both.
+ */
+private fun <T> frozen(initial: T): MutableState<T> =
+  object : MutableState<T> {
+    override var value: T = initial
+      set(@Suppress("UNUSED_PARAMETER") ignored) {
+        // Baked lane: deliberately inert, so the frame stays deterministic.
+      }
+
+    override fun component1(): T = value
+
+    override fun component2(): (T) -> Unit = {}
+  }
