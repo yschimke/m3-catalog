@@ -40,6 +40,7 @@ import ee.schimke.m3catalog.generated.resources.list_last_seen
 import ee.schimke.m3catalog.generated.resources.list_overline
 import ee.schimke.m3catalog.generated.resources.list_supporting
 import ee.schimke.m3catalog.generated.resources.list_supporting_long
+import ee.schimke.m3catalog.localizedDigits
 import ee.schimke.m3catalog.toggleable
 import org.jetbrains.compose.resources.stringResource
 
@@ -61,7 +62,7 @@ private fun trailing(): (@Composable () -> Unit)? {
   val (checked, set) = toggleable(true)
   return when (catalogChoice("trailing", "none", "none", "text", "icon", "checkbox", "switch")) {
     "text" -> {
-      { Text("10:30") }
+      { Text(localizedDigits("10:30")) }
     }
     "icon" -> {
       { Icon(Icons.Filled.MoreVert, contentDescription = stringResource(Res.string.action_more)) }

@@ -11,6 +11,7 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.localizedDigits
 
 // A badge is a status carrier, not a control: nothing to respond to, so it ships no handler.
 //
@@ -28,7 +29,7 @@ import ee.schimke.m3catalog.Sticker
 @OverrideVariant(name = "digits-3", strings = ["label=147"])
 @OverrideVariant(name = "overflow", strings = ["label=999+"])
 @Composable
-fun NumberBadge() = Sticker { Badge { Text(previewOverrideString("label", "3")) } }
+fun NumberBadge() = Sticker { Badge { Text(localizedDigits(previewOverrideString("label", "3"))) } }
 
 @CatalogComponent(
   id = "Badge/Dot",

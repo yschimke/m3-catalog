@@ -31,7 +31,7 @@ class Counted internal constructor(val label: String, val onClick: () -> Unit)
 fun counted(label: String): Counted {
   if (!catalogInteractive()) return Counted(label) {}
   var n by remember { mutableIntStateOf(0) }
-  return Counted(if (n == 0) label else "$label ($n)") { n++ }
+  return Counted(if (n == 0) label else "$label (${localizedDigits(n.toString())})") { n++ }
 }
 
 /**

@@ -42,9 +42,9 @@ import org.jetbrains.compose.resources.stringResource
 // different components: the leading icon, a trailing shortcut label, and dividers grouping the
 // items.
 
-private data class MenuRow(val label: StringResource, val icon: ImageVector, val shortcut: String)
+private data class MenuRow(val label: StringResource, val icon: ImageVector)
 
-private val MENU_ROWS = List(6) { MenuRow(Res.string.label_text, CatalogOutlinedStars, "⌘C") }
+private val MENU_ROWS = List(6) { MenuRow(Res.string.label_text, CatalogOutlinedStars) }
 
 @CatalogComponent(
   id = "Menu/Dropdown",
@@ -89,7 +89,7 @@ fun DropdownMenuSticker() = Sticker {
               if (!icons) null
               else ({ Icon(row.icon, contentDescription = null, modifier = Modifier.size(20.dp)) }),
             trailingIcon =
-              if (shortcuts) ({ Text(row.shortcut) })
+              if (shortcuts) ({ Text("⌘C") })
               else
                 ({
                   Icon(

@@ -177,7 +177,7 @@ surface than the one below.
 
 ## Translations
 
-Every string a sticker renders comes from Compose Multiplatform string resources under
+Every language-bearing string a sticker renders comes from Compose Multiplatform string resources under
 [`catalog/src/main/composeResources/`](catalog/src/main/composeResources) — English in `values/`
 and **17 translations** beside it: `ar de es fr hi id it ja ko nl pl pt-rBR ru th tr zh-rCN
 zh-rTW`. Nothing in a sticker body is a hard-coded label, so any render that carries a locale — a
@@ -190,10 +190,13 @@ The desktop renderer applies the tag twice, and both halves matter: the composit
 layout together.
 
 What stays a Kotlin literal, deliberately: design-system token names (`primary`, `Display Large`,
-`XS`) — they are API identifiers, not copy — and sample data that isn't language (`10:30`,
-`alice@example.com`, `⌘E`). `CatalogTranslationsTest` pins the translations: every locale carries
-exactly the keys `values/strings.xml` declares, no locale silently repeats the English copy, and no
-key is declared that no sticker renders.
+`XS`) — they are API identifiers, not copy — and sample data that isn't language
+(`alice@example.com`, `⌘E`, person names). Numeric samples such as `10:30` and badge counts pass
+through `localizedDigits(...)`, so Arabic and explicit Unicode numbering-system locales receive
+their own digit shapes without turning sample data into translated prose. `CatalogTranslationsTest`
+pins both directions: every locale carries exactly the keys `values/strings.xml` declares, no locale
+silently repeats the English copy, no key is declared that no sticker renders, and direct visible
+literals are limited to an explicit allowlist.
 
 ## Building
 
