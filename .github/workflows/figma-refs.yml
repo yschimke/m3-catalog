@@ -40,13 +40,18 @@ jobs:
       # The kit's full inventory per page, deeper than the resolver walks, plus configured
       # instances whose component-property values can render variants that a definition node
       # cannot express (#21). Also records the type/visibility/radius of refs already in use.
+      #
+      # Upstream since @design-parity/kit-index landed: this walk was never specific to this
+      # catalog — it keeps the sets the map references, so another catalog pointed at another
+      # file gets its own vocabulary from the same code. Floating rather than pinned, matching
+      # how ci.yml already takes compose-ai-tools at `ref: main`.
       - name: Dump inventory
         env:
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
           FIGMA_FILE: ${{ inputs.file }}
         run: |
           set -euo pipefail
-          node scripts/dump-figma-inventory.mjs --file "$FIGMA_FILE" --depth 8 \
+          npx --yes @design-parity/kit-index dump --file "$FIGMA_FILE" --depth 8 \
             --out figma-inventory.json | tee figma-inventory.txt
 
       # The index is an INPUT to design-map.json, so it going stale is silent:
@@ -59,10 +64,10 @@ jobs:
           FIGMA_FILE: ${{ inputs.file }}
         run: |
           set -euo pipefail
-          node scripts/build-kit-index.mjs --file "$FIGMA_FILE" \
+          npx --yes @design-parity/kit-index build --file "$FIGMA_FILE" \
             --inventory figma-inventory.json --out figma-kit-index.json
           if ! git diff --quiet -- figma-kit-index.json; then
-            echo "::error title=Kit index is stale::The kit has changed since figma-kit-index.json was built. Run: node scripts/build-kit-index.mjs --inventory figma-inventory.json"
+            echo "::error title=Kit index is stale::The kit has changed since figma-kit-index.json was built. Run: npx @design-parity/kit-index build --inventory figma-inventory.json"
             git --no-pager diff --stat -- figma-kit-index.json
             exit 1
           fi
