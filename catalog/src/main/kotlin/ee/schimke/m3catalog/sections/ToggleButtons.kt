@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
+import ee.schimke.composeai.preview.InteractionPreview
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogOutlinedStars
@@ -85,6 +86,14 @@ private fun ToggleButtonFrame(size: CatalogSize, content: @Composable () -> Unit
   id = "ToggleButton/Filled",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2475",
   caption = "A button whose selection persists. Five sizes x two shapes fold in as variants.",
+)
+// `[0, 0, 0]` is the toggle idiom: one control tapped three times, so both directions of the
+// shape transition are shown and the second cycle confirms the first was not a one-off.
+@InteractionPreview(
+  targets = [0, 0, 0],
+  caption =
+    "Toggle repeatedly. The container morphs between its unchecked and checked shapes through " +
+      "the theme's spatial animation — Baseline swaps the shape, Expressive travels between them.",
 )
 @CatalogModes
 @SelectedToggleButtonMatrix

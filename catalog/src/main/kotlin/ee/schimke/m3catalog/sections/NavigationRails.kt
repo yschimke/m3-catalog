@@ -38,6 +38,7 @@ import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.InteractionPreview
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
@@ -164,6 +165,17 @@ fun NavigationRailSticker() = Sticker {
   id = "NavigationRail/Wide",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:36671",
   caption = "The expanded form, labels beside the icons. Count folds in.",
+)
+// Indices count EVERY clickable node in layout order, and this rail's header contributes two of
+// its own before any destination: the menu button (0) and the extended FAB (1). So the three
+// destinations are 2, 3 and 4 — targeting [0] here would repeatedly tap "menu" and record a rail
+// whose selection never moved. Both header knobs default on; a variant that turned them off would
+// shift these, which is one more reason the interaction rides the default render only.
+@InteractionPreview(
+  targets = [4, 2, 3],
+  caption =
+    "Change destinations. The indicator travels while the item's label and icon cross-fade — the " +
+      "two run on different specs, which is only visible when they move together.",
 )
 @CatalogModes
 @OverrideVariant(name = "four", strings = ["count=4"])

@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.InteractionPreview
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes412
@@ -53,6 +54,15 @@ private val DESTINATIONS =
   id = "NavigationBar/Short",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:37260",
   caption = "The expressive compact bar. Count and labels fold in.",
+)
+// Three destinations by default, so 2 -> 0 -> 2 is the longest travel this bar offers. The
+// distance is the point: the indicator's spring is a function of how far it has to go, so a
+// neighbouring hop under-sells exactly what Expressive changed.
+@InteractionPreview(
+  targets = [2, 0, 2],
+  caption =
+    "Tap between distant destinations. The selection indicator moves on Expressive's spatial " +
+      "spring — watch it overshoot and settle rather than ease linearly into place.",
 )
 @CatalogModes412
 @OverrideVariant(name = "four", strings = ["count=4"])

@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.InteractionPreview
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.InteractionStates
@@ -41,6 +42,15 @@ private fun switchIcon(): Boolean = catalogChoice("content", "none", "none", "ic
   id = "Switch/On",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/54446:25290",
   caption = "Toggle a single setting on or off. Off, thumb icon and disabled fold in.",
+)
+// A shorter gap than the default: the point is the thumb resolving under quick, successive
+// toggles, which a long settle between taps would turn back into two separate slow animations.
+@InteractionPreview(
+  targets = [0, 0, 0],
+  gapMs = 420,
+  caption =
+    "Toggle quickly. The thumb's travel resolves through Expressive's FastSpatial motion spec — " +
+      "fast enough to feel immediate, still springy enough to overshoot slightly on arrival.",
 )
 @CatalogModes
 @OverrideVariant(name = "off", strings = ["state=off"])
