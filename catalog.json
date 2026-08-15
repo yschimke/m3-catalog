@@ -21717,7 +21717,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/53923:28267",
       "wireframe": "wireframes/chip-assist.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Chips.kt",
-      "bodyLine": 107
+      "bodyLine": 110
     },
     {
       "componentId": "Chip/Filter",
@@ -23435,7 +23435,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/53923:28465",
       "wireframe": "wireframes/chip-filter.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Chips.kt",
-      "bodyLine": 142
+      "bodyLine": 145
     },
     {
       "componentId": "Chip/Input",
@@ -25223,7 +25223,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/53923:28082",
       "wireframe": "wireframes/chip-input.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Chips.kt",
-      "bodyLine": 191
+      "bodyLine": 194
     },
     {
       "componentId": "Chip/Suggestion",
@@ -25264,6 +25264,24 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "style",
@@ -25333,6 +25351,24 @@
               "optionsExhaustive": true
             },
             {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
               "key": "style",
               "type": "string",
               "label": "style",
@@ -25399,6 +25435,24 @@
               "optionsExhaustive": true
             },
             {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
               "key": "style",
               "type": "string",
               "label": "style",
@@ -25463,6 +25517,24 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "style",
@@ -25532,6 +25604,108 @@
               "optionsExhaustive": true
             },
             {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "style",
+              "type": "string",
+              "label": "style",
+              "default": {
+                "kind": "string",
+                "value": "outlined"
+              },
+              "current": {
+                "kind": "string",
+                "value": "outlined"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "outlined",
+                  "label": "Outlined"
+                },
+                {
+                  "value": "elevated",
+                  "label": "Elevated"
+                }
+              ],
+              "optionsExhaustive": true
+            }
+          ]
+        },
+        {
+          "variant": "ideal",
+          "path": "images/chip-suggestion/ideal__icon__dark.png",
+          "state": "icon",
+          "width": 222,
+          "height": 126,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/chip-suggestion__ideal__icon__dark",
+          "previewId": "ee.schimke.m3catalog.sections.ChipsKt.SuggestionChipSticker_Dark_VARIANT_icon",
+          "overrides": [
+            {
+              "key": "status",
+              "type": "string",
+              "label": "status",
+              "default": {
+                "kind": "string",
+                "value": "enabled"
+              },
+              "current": {
+                "kind": "string",
+                "value": "enabled"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "enabled",
+                  "label": "Enabled"
+                },
+                {
+                  "value": "disabled",
+                  "label": "Disabled"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
               "key": "style",
               "type": "string",
               "label": "style",
@@ -25596,6 +25770,24 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "style",
@@ -25665,6 +25857,24 @@
               "optionsExhaustive": true
             },
             {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
               "key": "style",
               "type": "string",
               "label": "style",
@@ -25729,6 +25939,24 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "style",
@@ -25796,6 +26024,24 @@
               "optionsExhaustive": true
             },
             {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
               "key": "style",
               "type": "string",
               "label": "style",
@@ -25859,6 +26105,24 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "style",
@@ -25927,6 +26191,107 @@
               "optionsExhaustive": true
             },
             {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "style",
+              "type": "string",
+              "label": "style",
+              "default": {
+                "kind": "string",
+                "value": "outlined"
+              },
+              "current": {
+                "kind": "string",
+                "value": "outlined"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "outlined",
+                  "label": "Outlined"
+                },
+                {
+                  "value": "elevated",
+                  "label": "Elevated"
+                }
+              ],
+              "optionsExhaustive": true
+            }
+          ]
+        },
+        {
+          "variant": "ideal",
+          "path": "images/chip-suggestion/ideal__icon.png",
+          "state": "icon",
+          "width": 222,
+          "height": 126,
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/chip-suggestion__ideal__icon",
+          "previewId": "ee.schimke.m3catalog.sections.ChipsKt.SuggestionChipSticker_Light_VARIANT_icon",
+          "overrides": [
+            {
+              "key": "status",
+              "type": "string",
+              "label": "status",
+              "default": {
+                "kind": "string",
+                "value": "enabled"
+              },
+              "current": {
+                "kind": "string",
+                "value": "enabled"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "enabled",
+                  "label": "Enabled"
+                },
+                {
+                  "value": "disabled",
+                  "label": "Disabled"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
               "key": "style",
               "type": "string",
               "label": "style",
@@ -25990,6 +26355,24 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "icon",
+              "type": "bool",
+              "label": "icon",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "style",
@@ -26062,7 +26445,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/53923:28845",
       "wireframe": "wireframes/chip-suggestion.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Chips.kt",
-      "bodyLine": 220
+      "bodyLine": 224
     },
     {
       "componentId": "Color/Role grid",
@@ -72798,6 +73181,33 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ],
           "density": 2.625
@@ -72916,6 +73326,33 @@
                 {
                   "value": "disabled",
                   "label": "Disabled"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
                 }
               ],
               "optionsExhaustive": true
@@ -73039,6 +73476,33 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ]
         },
@@ -73156,6 +73620,33 @@
                 {
                   "value": "disabled",
                   "label": "Disabled"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
                 }
               ],
               "optionsExhaustive": true
@@ -73279,6 +73770,33 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ]
         },
@@ -73396,6 +73914,33 @@
                 {
                   "value": "disabled",
                   "label": "Disabled"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
                 }
               ],
               "optionsExhaustive": true
@@ -73519,6 +74064,180 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
+                }
+              ],
+              "optionsExhaustive": true
+            }
+          ]
+        },
+        {
+          "variant": "ideal",
+          "path": "images/menu-dropdown/ideal__vibrant__dark.png",
+          "state": "vibrant",
+          "width": 604,
+          "height": 824,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/menu-dropdown__ideal__vibrant__dark",
+          "previewId": "ee.schimke.m3catalog.sections.MenusKt.DropdownMenuSticker_Dark_VARIANT_vibrant",
+          "overrides": [
+            {
+              "key": "leading",
+              "type": "string",
+              "label": "leading",
+              "default": {
+                "kind": "string",
+                "value": "icon"
+              },
+              "current": {
+                "kind": "string",
+                "value": "icon"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "icon",
+                  "label": "Icon"
+                },
+                {
+                  "value": "none",
+                  "label": "None"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "trailing",
+              "type": "string",
+              "label": "trailing",
+              "default": {
+                "kind": "string",
+                "value": "chevron"
+              },
+              "current": {
+                "kind": "string",
+                "value": "chevron"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "chevron",
+                  "label": "Chevron"
+                },
+                {
+                  "value": "shortcut",
+                  "label": "Shortcut"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "dividers",
+              "type": "string",
+              "label": "dividers",
+              "default": {
+                "kind": "string",
+                "value": "off"
+              },
+              "current": {
+                "kind": "string",
+                "value": "off"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "off",
+                  "label": "Off"
+                },
+                {
+                  "value": "on",
+                  "label": "On"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "status",
+              "type": "string",
+              "label": "status",
+              "default": {
+                "kind": "string",
+                "value": "enabled"
+              },
+              "current": {
+                "kind": "string",
+                "value": "enabled"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "enabled",
+                  "label": "Enabled"
+                },
+                {
+                  "value": "disabled",
+                  "label": "Disabled"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "vibrant"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ]
         },
@@ -73636,6 +74355,33 @@
                 {
                   "value": "disabled",
                   "label": "Disabled"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
                 }
               ],
               "optionsExhaustive": true
@@ -73759,6 +74505,33 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ]
         },
@@ -73875,6 +74648,33 @@
                 {
                   "value": "disabled",
                   "label": "Disabled"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
                 }
               ],
               "optionsExhaustive": true
@@ -73997,6 +74797,33 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ]
         },
@@ -74113,6 +74940,33 @@
                 {
                   "value": "disabled",
                   "label": "Disabled"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
                 }
               ],
               "optionsExhaustive": true
@@ -74235,6 +75089,33 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ]
         },
@@ -74354,6 +75235,179 @@
                 }
               ],
               "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
+                }
+              ],
+              "optionsExhaustive": true
+            }
+          ]
+        },
+        {
+          "variant": "ideal",
+          "path": "images/menu-dropdown/ideal__vibrant.png",
+          "state": "vibrant",
+          "width": 604,
+          "height": 824,
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/menu-dropdown__ideal__vibrant",
+          "previewId": "ee.schimke.m3catalog.sections.MenusKt.DropdownMenuSticker_Light_VARIANT_vibrant",
+          "overrides": [
+            {
+              "key": "leading",
+              "type": "string",
+              "label": "leading",
+              "default": {
+                "kind": "string",
+                "value": "icon"
+              },
+              "current": {
+                "kind": "string",
+                "value": "icon"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "icon",
+                  "label": "Icon"
+                },
+                {
+                  "value": "none",
+                  "label": "None"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "trailing",
+              "type": "string",
+              "label": "trailing",
+              "default": {
+                "kind": "string",
+                "value": "chevron"
+              },
+              "current": {
+                "kind": "string",
+                "value": "chevron"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "chevron",
+                  "label": "Chevron"
+                },
+                {
+                  "value": "shortcut",
+                  "label": "Shortcut"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "dividers",
+              "type": "string",
+              "label": "dividers",
+              "default": {
+                "kind": "string",
+                "value": "off"
+              },
+              "current": {
+                "kind": "string",
+                "value": "off"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "off",
+                  "label": "Off"
+                },
+                {
+                  "value": "on",
+                  "label": "On"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "status",
+              "type": "string",
+              "label": "status",
+              "default": {
+                "kind": "string",
+                "value": "enabled"
+              },
+              "current": {
+                "kind": "string",
+                "value": "enabled"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "enabled",
+                  "label": "Enabled"
+                },
+                {
+                  "value": "disabled",
+                  "label": "Disabled"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "theme",
+              "type": "string",
+              "label": "theme",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "vibrant"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
+                }
+              ],
+              "optionsExhaustive": true
             }
           ]
         }
@@ -74460,7 +75514,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58966:4078",
       "wireframe": "wireframes/menu-dropdown.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Menus.kt",
-      "bodyLine": 67
+      "bodyLine": 70
     },
     {
       "componentId": "NavigationBar/Short",
@@ -101091,39 +102145,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -101228,39 +102283,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "both"
+                "kind": "bool",
+                "value": true
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -101364,39 +102420,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -101500,39 +102557,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -101636,39 +102694,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -101745,39 +102804,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -101882,39 +102942,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "leading"
+                "kind": "bool",
+                "value": true
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -102018,39 +103079,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -102154,39 +103216,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -102290,39 +103353,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -102426,39 +103490,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "trailing"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -102562,39 +103627,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -102698,39 +103764,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "both"
+                "kind": "bool",
+                "value": true
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -102833,39 +103900,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -102968,39 +104036,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -103103,39 +104172,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -103211,39 +104281,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -103347,39 +104418,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "leading"
+                "kind": "bool",
+                "value": true
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -103482,39 +104554,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -103617,39 +104690,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -103752,39 +104826,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -103887,39 +104962,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "trailing"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -103986,7 +105062,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/52798:24430",
       "wireframe": "wireframes/textfield-filled.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TextFields.kt",
-      "bodyLine": 115
+      "bodyLine": 120
     },
     {
       "componentId": "TextField/Outlined",
@@ -104037,39 +105113,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -104174,39 +105251,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "both"
+                "kind": "bool",
+                "value": true
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -104310,39 +105388,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -104446,39 +105525,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -104582,39 +105662,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -104691,39 +105772,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -104828,39 +105910,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "leading"
+                "kind": "bool",
+                "value": true
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -104964,39 +106047,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -105100,39 +106184,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -105236,39 +106321,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "trailing"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -105372,39 +106458,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -105508,39 +106595,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "both"
+                "kind": "bool",
+                "value": true
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -105643,39 +106731,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -105778,39 +106867,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -105913,39 +107003,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -106021,39 +107112,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -106157,39 +107249,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "leading"
+                "kind": "bool",
+                "value": true
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -106292,39 +107385,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -106427,39 +107521,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": false
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -106562,39 +107657,40 @@
               "optionsExhaustive": true
             },
             {
-              "key": "content",
-              "type": "string",
-              "label": "content",
+              "key": "leading",
+              "type": "bool",
+              "label": "leading",
               "default": {
-                "kind": "string",
-                "value": "none"
+                "kind": "bool",
+                "value": false
               },
               "current": {
-                "kind": "string",
-                "value": "trailing"
+                "kind": "bool",
+                "value": false
               },
               "index": null,
               "suggestions": [],
               "googleFonts": false,
-              "options": [
-                {
-                  "value": "none",
-                  "label": "None"
-                },
-                {
-                  "value": "leading",
-                  "label": "Leading"
-                },
-                {
-                  "value": "trailing",
-                  "label": "Trailing"
-                },
-                {
-                  "value": "both",
-                  "label": "Both"
-                }
-              ],
-              "optionsExhaustive": true
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "trailing",
+              "type": "bool",
+              "label": "trailing",
+              "default": {
+                "kind": "bool",
+                "value": false
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
             },
             {
               "key": "label",
@@ -106676,7 +107772,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/52798:24397",
       "wireframe": "wireframes/textfield-outlined.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/TextFields.kt",
-      "bodyLine": 148
+      "bodyLine": 153
     },
     {
       "componentId": "TimePicker/Dial",
@@ -136031,7 +137127,7 @@
     "org.jetbrains.compose.material:material-icons-extended"
   ],
   "renderer": "compose-preview 1.6.0",
-  "generatedAt": "2026-08-15T10:39:11.325Z",
+  "generatedAt": "2026-08-15T10:52:46.314Z",
   "display": {
     "hero": "DatePicker/Modal"
   },
