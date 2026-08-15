@@ -3,6 +3,7 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -37,6 +38,7 @@ import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.InteractionPreview
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
@@ -164,8 +166,20 @@ fun NavigationRailSticker() = Sticker {
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:36671",
   caption = "The expanded form, labels beside the icons. Count folds in.",
 )
+// Indices count EVERY clickable node in layout order, and this rail's header contributes two of
+// its own before any destination: the menu button (0) and the extended FAB (1). So the three
+// destinations are 2, 3 and 4 — targeting [0] here would repeatedly tap "menu" and record a rail
+// whose selection never moved. Both header knobs default on; a variant that turned them off would
+// shift these, which is one more reason the interaction rides the default render only.
+@InteractionPreview(
+  targets = [4, 2, 3],
+  caption =
+    "Change destinations. The indicator travels while the item's label and icon cross-fade — the " +
+      "two run on different specs, which is only visible when they move together.",
+)
 @CatalogModes
 @OverrideVariant(name = "four", strings = ["count=4"])
+@OverrideVariant(name = "middle", strings = ["alignment=middle"])
 @Composable
 fun WideNavigationRailSticker() = Sticker {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
@@ -173,8 +187,12 @@ fun WideNavigationRailSticker() = Sticker {
   // `WideNavigationRail` takes a state object, not an `expanded` flag — the expansion is animated
   // and the rail owns it. Seeded Expanded so the baked capture shows the form this component is
   // for; the collapsed rail is `NavigationRail/Standard` above.
+  // The kit's `Alignment` axis. Unlike the standard rail, this one takes an `arrangement`, so
+  // the middle cell is a parameter rather than a spacer.
+  val middle = catalogChoice("alignment", "top", "top", "middle") == "middle"
   WideNavigationRail(
     modifier = Modifier.height(800.dp),
+    arrangement = if (middle) Arrangement.Center else Arrangement.Top,
     state = rememberWideNavigationRailState(WideNavigationRailValue.Expanded),
     colors = WideNavigationRailDefaults.colors(containerColor = Color.Transparent),
     header = { RailHeaderContent(wide = true) },

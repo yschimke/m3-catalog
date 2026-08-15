@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.carousel.HorizontalCenteredHeroCarousel
 import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
 import androidx.compose.material3.carousel.HorizontalUncontainedCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
@@ -29,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes412
 import ee.schimke.m3catalog.Sticker
@@ -88,6 +90,28 @@ fun MultiBrowseCarousel() = Sticker {
     HorizontalMultiBrowseCarousel(
       state = rememberCarouselState { 5 },
       preferredItemWidth = width.dp,
+      modifier = Modifier.fillMaxSize(),
+      itemSpacing = 8.dp,
+      contentPadding = PaddingValues(horizontal = 16.dp),
+    ) {
+      CarouselItem()
+    }
+  }
+}
+
+/**
+ * The kit's `Layout=Center-aligned hero`. Its own composable rather than a knob, because Compose
+ * publishes it as one — `HorizontalCenteredHeroCarousel` is a different component, not a parameter
+ * of the multi-browse one, and `@CatalogVariant` is how this catalog folds that shape under a
+ * parent id.
+ */
+@CatalogVariant(of = "Carousel/MultiBrowse", props = ["layout=center-aligned-hero"])
+@CatalogModes412
+@Composable
+fun CenteredHeroCarousel() = Sticker {
+  Box(Modifier.width(412.dp).height(221.dp).padding(vertical = 8.dp)) {
+    HorizontalCenteredHeroCarousel(
+      state = rememberCarouselState { 5 },
       modifier = Modifier.fillMaxSize(),
       itemSpacing = 8.dp,
       contentPadding = PaddingValues(horizontal = 16.dp),

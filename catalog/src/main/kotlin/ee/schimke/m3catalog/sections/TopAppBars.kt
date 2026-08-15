@@ -35,6 +35,7 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes412
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_back
@@ -89,6 +90,7 @@ private const val W = 412
 @OverrideVariant(name = "no-nav", booleans = ["nav=false"])
 @OverrideVariant(name = "no-actions", strings = ["actions=0"])
 @OverrideVariant(name = "two-actions", strings = ["actions=2"])
+@OverrideVariant(name = "on-scroll", strings = ["elevation=on-scroll"])
 @Composable
 fun SmallTopAppBar() = Sticker {
   val nav = NavIcon()
@@ -96,13 +98,29 @@ fun SmallTopAppBar() = Sticker {
     title = { Text(stringResource(Res.string.appbar_title)) },
     navigationIcon = nav ?: {},
     actions = Actions(),
-    colors =
-      TopAppBarDefaults.topAppBarColors(
-        containerColor = androidx.compose.ui.graphics.Color.Transparent
-      ),
+    // The kit's `Elevation` axis is not a shadow on this component — it is the container colour a
+    // bar takes once content has scrolled under it. A `TopAppBarScrollBehavior` seeded with an
+    // offset was the first attempt and rendered nothing: the colour transition is driven by a
+    // scroll this lane cannot make. So the cell paints `TopAppBarDefaults`' OWN scrolled colour,
+    // which is the value that behaviour would have reached rather than one picked here.
+    colors = catalogAppBarColors(),
     modifier = Modifier.width(W.dp).height(64.dp),
   )
 }
+
+/**
+ * A pinned scroll behaviour reporting content already scrolled under the bar, or null for the
+ * resting bar. Deterministic: the offset is seeded rather than produced by a gesture the baked lane
+ * cannot make.
+ */
+@Composable
+private fun catalogAppBarColors() =
+  TopAppBarDefaults.topAppBarColors(
+    containerColor =
+      if (catalogChoice("elevation", "flat", "flat", "on-scroll") == "on-scroll")
+        TopAppBarDefaults.topAppBarColors().scrolledContainerColor
+      else androidx.compose.ui.graphics.Color.Transparent
+  )
 
 @CatalogComponent(
   id = "TopAppBar/CenterAligned",
