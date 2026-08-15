@@ -101,7 +101,13 @@ jobs:
             echo "::error::FIGMA_TOKEN secret is not set."
             exit 1
           fi
-          node scripts/resolve-figma-refs.mjs --file "$FIGMA_FILE" \
+          # Pinned, like every other published tool this repo drives: the proposals are
+          # read by a human and pasted onto annotations, so a silent ranking change
+          # between runs would show up as "the tool moved my component" with nothing to
+          # point at. Bump deliberately.
+          npx --yes -p @design-parity/baseline@0.1.51 design-parity-propose-refs \
+            --file "$FIGMA_FILE" \
+            --previews catalog/build/compose-previews/previews.json \
             | tee figma-refs.txt
 
       - uses: actions/upload-artifact@v7.0.1

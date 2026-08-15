@@ -256,24 +256,26 @@ failing while either is missing:
 
 Node ids aren't discoverable without API access (the Figma MCP server exposes only the page you're
 looking at, and Code Connect needs a Dev/Full seat), so
-[`scripts/resolve-figma-refs.mjs`](scripts/resolve-figma-refs.mjs) resolves them over the REST API
-and **proposes** a ref per catalogued component, ranked by name similarity. It writes no mapping
-file: you paste the ref onto the annotation, and
+[`@design-parity/baseline`](https://www.npmjs.com/package/@design-parity/baseline) resolves them
+over the REST API and **proposes** a ref per catalogued component, ranked by name similarity. It
+writes no mapping file: you paste the ref onto the annotation, and
 [`scripts/design-map.sh`](scripts/design-map.sh) projects `design-map.json` out of the discovered
 manifest from there — compose-ai-tools' `emit-design-map.mjs` reads the annotations, then
 [`@design-parity/kit-index`](https://www.npmjs.com/package/@design-parity/kit-index) resolves each
 variant knob against the committed `figma-kit-index.json`.
 
 ```sh
-FIGMA_TOKEN=figd_... node scripts/resolve-figma-refs.mjs
+./gradlew :catalog:composePreviewDiscover
+FIGMA_TOKEN=figd_... npx --yes -p @design-parity/baseline@0.1.51 design-parity-propose-refs \
+  --file ocdacdEsnHipMJD3egzxKb \
+  --previews catalog/build/compose-previews/previews.json
 ```
 
 Page ids are undiscoverable for the same reason, one level up.
 [`docs/FIGMA_PAGES.md`](docs/FIGMA_PAGES.md) indexes the kit's pages — which
 `design-map.json` refs live on which page, and which page holds the composed
 example screens (the only one that can back a design-parity page backdrop).
-[`scripts/list-figma-pages.mjs`](scripts/list-figma-pages.mjs) regenerates the
-list in one REST call.
+`design-parity-pages list` regenerates that table in one REST call.
 
 The Upcoming-Mobile screen is published with the catalog and browsable at
 [`preview.coo.ee/m3-catalog/pages`](https://preview.coo.ee/m3-catalog/pages):
@@ -281,8 +283,14 @@ every component instance on it is linked back to the sticker that implements it,
 and the catalog's own renders can be laid over the design live.
 
 ```sh
-FIGMA_TOKEN=figd_... node scripts/list-figma-pages.mjs
+FIGMA_TOKEN=figd_... npx --yes -p @design-parity/page-backdrop@0.1.51 design-parity-pages list \
+  --file ocdacdEsnHipMJD3egzxKb --slug Material-3-Design-Kit--Community-
 ```
+
+Both used to be scripts in this repo. They are upstream now, for the same reason
+`design-map.json` is projected rather than hand-maintained: the logic is about **design kits**, not
+about this catalog, and a copy here drifts from the one everyone else runs. What stays local is the
+kit handle on each annotation — the only part that is genuinely this repo's.
 
 Dependencies update themselves via Renovate ([`renovate.json`](.github/renovate.json)). The
 compose-ai-tools CLI, Gradle plugin and annotation coordinates are grouped into one automerged PR,

@@ -5,15 +5,15 @@ Node ids for the pages of the kit this catalog reproduces:
 
 `design-map.json` pins each catalogued component to a **node** id. This is the
 level above: which **pages** exist, what is on them, and which page a given ref
-lives on. It exists because page ids are as undiscoverable as node ids —
-[`scripts/resolve-figma-refs.mjs`](../scripts/resolve-figma-refs.mjs) already
-notes that *"the Figma MCP server exposes only the page a user is looking at"* —
-so without this file the answer is a manual click-through every time.
+lives on. It exists because page ids are as undiscoverable as node ids — the
+Figma MCP server exposes only the page a user is looking at — so without this
+file the answer is a manual click-through every time.
 
 **Regenerate the complete list with one REST call:**
 
 ```sh
-FIGMA_TOKEN=figd_... node scripts/list-figma-pages.mjs
+FIGMA_TOKEN=figd_... npx --yes -p @design-parity/page-backdrop@0.1.51 design-parity-pages list \
+  --file ocdacdEsnHipMJD3egzxKb --slug Material-3-Design-Kit--Community-
 ```
 
 That returns every page's id and name from `GET /v1/files/:key?depth=1`. The
@@ -32,7 +32,7 @@ pulls instances *from* — not instances of anything.
 That decides what each page is good for:
 
 - **Reference targets.** A definition page is where `design-map.json` refs
-  point, and where `resolve-figma-refs.mjs` looks.
+  point, and where `design-parity-propose-refs` looks.
 - **And therefore the right thing to import.** A definition sheet is the design
   file *stating* what a component should look like, which is exactly the claim
   this catalog reproduces — so an imported page is a claim we can put our own
@@ -157,7 +157,7 @@ FIGMA_TOKEN=figd_... node scripts/import-figma-pages.mjs --page shape
   "fileKey": "ocdacdEsnHipMJD3egzxKb",
   "outDir": "design/pages",
   // Ask the file for its own page list — one `GET /v1/files/:key?depth=1`, the same call
-  // `list-figma-pages.mjs` makes. Every page becomes an import; its id is a slug of its name.
+  // `design-parity-pages list` makes. Every page becomes an import; its id is a slug of its name.
   "discover": true,
   // Drop a page by node id or by name. Empty: every page in the kit is imported.
   "exclude": [],

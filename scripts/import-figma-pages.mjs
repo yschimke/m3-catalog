@@ -47,7 +47,7 @@
 // a slug per page is what kept this import at one page.
 //
 // So `design-pages.json` can say `"discover": true`, and the importer asks the file itself — the
-// same one request `list-figma-pages.mjs` makes (`GET /v1/files/:key?depth=1`, the document
+// same one request `design-parity-pages list` makes (`GET /v1/files/:key?depth=1`, the document
 // truncated to its pages). Each page it finds becomes an entry whose **id is a slug of the page's
 // own name** (`Date & time pickers` → `date-time-pickers`), so the published URL reads like the
 // design file rather than like a node id.
@@ -67,8 +67,8 @@
 // `<outDir>/pages.json` and one `<outDir>/<id>.svg` per page.
 //
 // This script is READ-ONLY against Figma, like every other Figma interaction in this repo. The
-// token needs `file_content:read` — the same scope `resolve-figma-refs.mjs` and
-// `list-figma-pages.mjs` already document.
+// token needs `file_content:read` — the same scope `design-parity-propose-refs` and
+// `design-parity-pages list` already document.
 
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -225,7 +225,7 @@ export function resolvePages({ pins = [], discovered = [], exclude = [] } = {}) 
 /**
  * One REST call, with backoff on 429/5xx.
  *
- * Retrying matters more here than in `list-figma-pages.mjs`: a page import is two calls plus an
+ * Retrying matters more here than in `design-parity-pages list`: a page import is two calls plus an
  * asset download, and the asset host is a different origin with its own limits.
  */
 async function get(url, { headers = {}, attempt = 0 } = {}) {
@@ -464,7 +464,7 @@ async function main() {
   const outDir = path.resolve(config.outDir || "design/pages");
   const maxSvgBytes = Number.isFinite(config.maxSvgBytes) ? config.maxSvgBytes : MAX_SVG_BYTES;
 
-  // One request for the whole page list — the same call `list-figma-pages.mjs` makes. Only made
+  // One request for the whole page list — the same call `design-parity-pages list` makes. Only made
   // when the config asks for discovery, so a repo that wants a hand-kept list still costs two calls
   // per page and nothing else.
   let discovered = [];
