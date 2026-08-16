@@ -49,6 +49,12 @@ import org.jetbrains.compose.resources.stringResource
 // Three axes the kit documents: LINE COUNT (one, two, three), the LEADING slot (none, icon,
 // avatar), and the TRAILING slot (none, text, icon, checkbox, switch). They compose, so one
 // preview carries the grid.
+//
+// The DEFAULT render is the kit's own frame — six rows with dividers, the shape a real list takes —
+// because that is what `Type=Standard, Multi-line=True` draws, and the single-row axes above are
+// what fold onto it. There used to be a second `List/Group` component for that group frame naming
+// the same node and calling the same `FigmaList()`; it was a byte-identical duplicate of this
+// component's default capture, not a variant of it, so it is gone rather than folded.
 
 @Composable
 private fun leading(): (@Composable () -> Unit)? =
@@ -83,7 +89,8 @@ private fun trailing(): (@Composable () -> Unit)? {
   id = "List/Item",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/59106:13049",
   referenceSet = "figma:ocdacdEsnHipMJD3egzxKb/51964:63037",
-  caption = "A list row. Line count, leading and trailing slots all fold in.",
+  caption =
+    "The kit's list frame. Line count, leading and trailing slots all fold in as single rows.",
 )
 @CatalogModes
 @OverrideVariant(name = "one-line", strings = ["lines=1", "leading=none"])
@@ -130,15 +137,6 @@ fun ListItemSticker() = Sticker {
     )
   }
 }
-
-@CatalogComponent(
-  id = "List/Group",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/59106:13049",
-  caption = "Several rows with dividers — the shape a real list takes.",
-)
-@CatalogModes
-@Composable
-fun ListItemGroup() = Sticker { FigmaList() }
 
 @Composable
 private fun FigmaList() {

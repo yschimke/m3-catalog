@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
@@ -38,9 +39,20 @@ import ee.schimke.m3catalog.multiSelectable
 import ee.schimke.m3catalog.selectable
 import org.jetbrains.compose.resources.stringResource
 
-// Two axes the kit documents: segment COUNT (2-5) and segment CONTENT (label, icon, or both). The
-// selection mode is the third, but single- and multi-choice are separate row composables rather
-// than a parameter, so they are separate components rather than knob cells.
+// Two axes the kit documents: segment COUNT (2-5) and segment CONTENT (label, icon, or both). Both
+// fold onto the one component below.
+//
+// Selection mode does NOT appear in the kit at all: the `Segmented button` set varies `Segments` x
+// `Density` and nothing else, so single- and multi-choice both resolve to the same node — they were
+// two components naming one reference, which is one component with a variant. Multi-choice is a
+// separate row composable rather than a parameter, and `@CatalogVariant` is how this catalog folds
+// that shape under a parent id (the move `Carousel/MultiBrowse` already makes for
+// `HorizontalCenteredHeroCarousel`).
+//
+// The folded render carries no count/content cells of its own. They would resolve to the same
+// `Segments=N` values the single-choice cells already compare, and a second set of renders against
+// one reference variant adds no comparison — the same reasoning that keeps the vertical slider at
+// one size in `Sliders.kt`.
 
 private val LABELS =
   listOf(
@@ -74,7 +86,7 @@ private fun SegmentContent(label: String, checked: Boolean) {
 @CatalogComponent(
   id = "SegmentedButton/SingleChoice",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:36653",
-  caption = "Two to five related options; exactly one selected. Count and content fold in.",
+  caption = "Two to five related options. Count, content and multi-select fold in.",
 )
 @CatalogModes
 @OverrideVariant(name = "count-2", strings = ["count=2"])
@@ -101,17 +113,12 @@ fun SegmentedButtons() = Sticker {
   }
 }
 
-@CatalogComponent(
-  id = "SegmentedButton/MultiChoice",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:36653",
-  caption = "Any number of the options selected at once. Count and content fold in.",
+@CatalogVariant(
+  of = "SegmentedButton/SingleChoice",
+  props = ["selection=multi"],
+  caption = "Any number of the options selected at once.",
 )
 @CatalogModes
-@OverrideVariant(name = "count-2", strings = ["count=2"])
-@OverrideVariant(name = "count-4", strings = ["count=4"])
-@OverrideVariant(name = "count-5", strings = ["count=5"])
-@OverrideVariant(name = "icon", strings = ["content=icon"])
-@OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
 @Composable
 fun MultiChoiceSegmentedButtons() = Sticker {
   val count = segmentCount()
