@@ -715,11 +715,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `CircularProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CircularProgress_Light_VARIANT_full-0d3887cc.png" width="150" /> |
 | `CircularProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CircularProgress_Light_VARIANT_quarter-381d7883.png" width="150" /> |
 | `CircularWavyProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CircularWavyProgress_Dark-c34885fb.png" width="150" /> |
-| `CircularWavyProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CircularWavyProgress_Dark_VARIANT_full-49bfaa58.png" width="150" /> |
-| `CircularWavyProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CircularWavyProgress_Dark_VARIANT_quarter-3be19834.png" width="150" /> |
 | `CircularWavyProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CircularWavyProgress_Light-674eabfa.png" width="150" /> |
-| `CircularWavyProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CircularWavyProgress_Light_VARIANT_full-9d98dd1c.png" width="150" /> |
-| `CircularWavyProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CircularWavyProgress_Light_VARIANT_quarter-5b5056ca.png" width="150" /> |
 | `LinearProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/LinearProgress_Dark-a0a59524.png" width="150" /> |
 | `LinearProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/LinearProgress_Dark_VARIANT_empty-9e7643b4.png" width="150" /> |
 | `LinearProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/LinearProgress_Dark_VARIANT_full-eb6be93e.png" width="150" /> |
@@ -729,11 +725,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `LinearProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/LinearProgress_Light_VARIANT_full-2d292673.png" width="150" /> |
 | `LinearProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/LinearProgress_Light_VARIANT_quarter-79ba5d12.png" width="150" /> |
 | `LinearWavyProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/LinearWavyProgress_Dark-9787576b.png" width="150" /> |
-| `LinearWavyProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/LinearWavyProgress_Dark_VARIANT_full-692de0f9.png" width="150" /> |
-| `LinearWavyProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/LinearWavyProgress_Dark_VARIANT_quarter-2609113e.png" width="150" /> |
 | `LinearWavyProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/LinearWavyProgress_Light-6fe5a4e8.png" width="150" /> |
-| `LinearWavyProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/LinearWavyProgress_Light_VARIANT_full-44e6a748.png" width="150" /> |
-| `LinearWavyProgress` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/LinearWavyProgress_Light_VARIANT_quarter-07568806.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Dark-82821895.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Dark_VARIANT_disabled-ada70c08.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Dark_VARIANT_disabled_unselected-f4b50e1e.png" width="150" /> |
@@ -915,11 +907,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `RangeSliderSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RangeSliderSticker_Light_VARIANT_s-83f4341c.png" width="150" /> |
 | `RangeSliderSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RangeSliderSticker_Light_VARIANT_xl-9f828305.png" width="150" /> |
 | `VerticalSliderSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/VerticalSliderSticker_Dark-7980bef8.png" width="150" /> |
-| `VerticalSliderSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/VerticalSliderSticker_Dark_VARIANT_disabled-ddf92f59.png" width="150" /> |
-| `VerticalSliderSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/VerticalSliderSticker_Dark_VARIANT_discrete-b085fcde.png" width="150" /> |
 | `VerticalSliderSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/VerticalSliderSticker_Light-29a3e69c.png" width="150" /> |
-| `VerticalSliderSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/VerticalSliderSticker_Light_VARIANT_disabled-36f90ae2.png" width="150" /> |
-| `VerticalSliderSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/VerticalSliderSticker_Light_VARIANT_discrete-60f40d68.png" width="150" /> |
 | `SnackbarMessage` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SnackbarMessage_Dark-bf570047.png" width="150" /> |
 | `SnackbarMessage` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SnackbarMessage_Dark_VARIANT_action-75e3354e.png" width="150" /> |
 | `SnackbarMessage` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SnackbarMessage_Dark_VARIANT_action_close-cf17d33e.png" width="150" /> |
