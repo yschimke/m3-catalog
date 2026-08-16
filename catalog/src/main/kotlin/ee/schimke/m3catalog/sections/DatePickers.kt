@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes360Us
 import ee.schimke.m3catalog.InlineDialogHost
@@ -47,18 +48,21 @@ private fun dateMillisOverride(key: String, default: Long): Long =
   previewOverrideString(key, default.toString()).toLongOrNull() ?: default
 
 // Calendar vs keyboard entry is `DisplayMode`, a parameter, so it folds in. Single vs range is
-// `DatePicker` vs `DateRangePicker`, two composables, so they stay two components. The modal single
-// picker uses the real `DatePickerDialog`; InlineDialogHost replaces only its platform window.
+// `DatePicker` vs `DateRangePicker`, two composables — but the kit carries both as `Type` values of
+// the one `Modal date picker` set, so the range form folds in as a `@CatalogVariant` too. Its prop
+// spells the kit's own value, `full-screen (range)`, because that is what the resolver matches
+// against; `type=range` resolves to nothing and silently drops the node. The modal single picker
+// uses the real `DatePickerDialog`; InlineDialogHost replaces only its platform window.
 
 @Composable
 private fun dateDisplayMode(): DisplayMode =
   if (catalogChoice("mode", "calendar", "calendar", "input") == "input") DisplayMode.Input
   else DisplayMode.Picker
 
-@CatalogComponent(
-  id = "DatePicker/Range",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/51954:18254",
-  caption = "Start and end dates in one grid. Keyboard entry folds in.",
+@CatalogVariant(
+  of = "DatePicker/Modal",
+  props = ["type=full-screen (range)"],
+  caption = "Start and end dates in one grid.",
 )
 @CatalogModes360Us
 @OverrideVariant(name = "input", strings = ["mode=input"])

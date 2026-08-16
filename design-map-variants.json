@@ -36,6 +36,16 @@
               "raw": "999+"
             }
           ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.BadgesKt.DotBadge_Light",
+          "name": "small",
+          "seeds": [
+            {
+              "key": "size",
+              "raw": "small"
+            }
+          ]
         }
       ]
     },
@@ -1588,25 +1598,17 @@
       "basePreviewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light",
       "renders": [
         {
-          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light_VARIANT_input",
-          "name": "input",
+          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DateRangePickerSticker_Light",
+          "name": "full-screen (range)",
           "seeds": [
             {
-              "key": "mode",
-              "raw": "input"
+              "key": "type",
+              "raw": "full-screen (range)"
             }
           ]
-        }
-      ]
-    },
-    {
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/DatePickers.kt#DateRangePickerSticker",
-      "componentId": "DatePicker/Range",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/51954:18254",
-      "basePreviewId": "ee.schimke.m3catalog.sections.DatePickersKt.DateRangePickerSticker_Light",
-      "renders": [
+        },
         {
-          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DateRangePickerSticker_Light_VARIANT_input",
+          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light_VARIANT_input",
           "name": "input",
           "seeds": [
             {
@@ -3906,6 +3908,24 @@
       ]
     },
     {
+      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/LoadingIndicator.kt#LoadingIndicatorSticker",
+      "componentId": "LoadingIndicator/Uncontained",
+      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58005:8556",
+      "basePreviewId": "ee.schimke.m3catalog.sections.LoadingIndicatorKt.LoadingIndicatorSticker_Light",
+      "renders": [
+        {
+          "previewId": "ee.schimke.m3catalog.sections.LoadingIndicatorKt.ContainedLoadingIndicatorSticker_Light",
+          "name": "true",
+          "seeds": [
+            {
+              "key": "container",
+              "raw": "true"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/NavigationBars.kt#ShortNavigationBarSticker",
       "componentId": "NavigationBar/Short",
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58016:37260",
@@ -4078,32 +4098,14 @@
               "raw": "0.25"
             }
           ]
-        }
-      ]
-    },
-    {
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt#CircularWavyProgress",
-      "componentId": "Progress/CircularWavy",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58005:8498",
-      "basePreviewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.CircularWavyProgress_Light",
-      "renders": [
-        {
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.CircularWavyProgress_Light_VARIANT_full",
-          "name": "full",
-          "seeds": [
-            {
-              "key": "progress",
-              "raw": "1.0"
-            }
-          ]
         },
         {
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.CircularWavyProgress_Light_VARIANT_quarter",
-          "name": "quarter",
+          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.CircularWavyProgress_Light",
+          "name": "wave",
           "seeds": [
             {
-              "key": "progress",
-              "raw": "0.25"
+              "key": "type",
+              "raw": "wave"
             }
           ]
         }
@@ -4144,32 +4146,14 @@
               "raw": "0.25"
             }
           ]
-        }
-      ]
-    },
-    {
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt#LinearWavyProgress",
-      "componentId": "Progress/LinearWavy",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58005:8115",
-      "basePreviewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Light",
-      "renders": [
-        {
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Light_VARIANT_full",
-          "name": "full",
-          "seeds": [
-            {
-              "key": "progress",
-              "raw": "1.0"
-            }
-          ]
         },
         {
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Light_VARIANT_quarter",
-          "name": "quarter",
+          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Light",
+          "name": "wave",
           "seeds": [
             {
-              "key": "progress",
-              "raw": "0.25"
+              "key": "type",
+              "raw": "wave"
             }
           ]
         }
@@ -4658,6 +4642,16 @@
               "raw": "xl"
             }
           ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.VerticalSliderSticker_Light",
+          "name": "vertical",
+          "seeds": [
+            {
+              "key": "orientation",
+              "raw": "vertical"
+            }
+          ]
         }
       ]
     },
@@ -4734,34 +4728,6 @@
             {
               "key": "size",
               "raw": "xl"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Sliders.kt#VerticalSliderSticker",
-      "componentId": "Slider/Vertical",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58008:10668",
-      "basePreviewId": "ee.schimke.m3catalog.sections.SlidersKt.VerticalSliderSticker_Light",
-      "renders": [
-        {
-          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.VerticalSliderSticker_Light_VARIANT_disabled",
-          "name": "disabled",
-          "seeds": [
-            {
-              "key": "status",
-              "raw": "disabled"
-            }
-          ]
-        },
-        {
-          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.VerticalSliderSticker_Light_VARIANT_discrete",
-          "name": "discrete",
-          "seeds": [
-            {
-              "key": "steps",
-              "raw": "discrete"
             }
           ]
         }
@@ -6686,32 +6652,14 @@
               "raw": "vibrant"
             }
           ]
-        }
-      ]
-    },
-    {
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Toolbars.kt#VerticalFloatingToolbarSticker",
-      "componentId": "Toolbar/VerticalFloating",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58467:8325",
-      "basePreviewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light",
-      "renders": [
-        {
-          "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light_VARIANT_collapsed",
-          "name": "collapsed",
-          "seeds": [
-            {
-              "key": "expanded",
-              "raw": "false"
-            }
-          ]
         },
         {
-          "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light_VARIANT_vibrant",
-          "name": "vibrant",
+          "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light",
+          "name": "vertical",
           "seeds": [
             {
-              "key": "color",
-              "raw": "vibrant"
+              "key": "orientation",
+              "raw": "vertical"
             }
           ]
         }

@@ -163,11 +163,11 @@ class CatalogVariantMatrixTest {
     assertMatches("SliderSizeMatrix", CatalogVariantMatrices.SliderSize)
     assertCarries(
       "Sliders.kt",
-      mapOf(
-        "Slider/Continuous" to "SliderSizeMatrix",
-        "Slider/Range" to "SliderSizeMatrix",
-        "Slider/Vertical" to null,
-      ),
+      // The vertical slider is no longer here to check: it is a `@CatalogVariant` cell of
+      // `Slider/Continuous` (the kit carries orientation as a property of the one `Standard slider`
+      // set), and this helper reads top-level components. Its one size is asserted by the map it
+      // resolves into rather than by a matrix annotation it deliberately does not carry.
+      mapOf("Slider/Continuous" to "SliderSizeMatrix", "Slider/Range" to "SliderSizeMatrix"),
     )
   }
 
