@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
@@ -37,9 +38,9 @@ import org.jetbrains.compose.resources.stringResource
 
 // The expressive floating toolbar: a small cluster of related actions floating over content.
 //
-// Orientation is two composables rather than a parameter, so horizontal and vertical are separate
-// components. Within each, the kit documents expanded/collapsed and standard/vibrant colours, and
-// the horizontal and vertical forms are separate components.
+// The kit models one `Toolbar` set varying `Configuration` x `Orientation` x `Color`, so this is
+// one component. Colour and the expanded/collapsed axis were already folded as cells; orientation
+// now folds the same way, as a `@CatalogVariant` — two composables, one component.
 
 @Composable
 private fun ToolbarActions() {
@@ -98,10 +99,10 @@ fun HorizontalFloatingToolbarSticker() = Sticker {
   }
 }
 
-@CatalogComponent(
-  id = "Toolbar/VerticalFloating",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58467:8325",
-  caption = "The side-anchored form. Expanded and vibrant fold in.",
+@CatalogVariant(
+  of = "Toolbar/HorizontalFloating",
+  props = ["orientation=vertical"],
+  caption = "The side-anchored form.",
 )
 @CatalogModes
 @OverrideVariant(name = "collapsed", booleans = ["expanded=false"])

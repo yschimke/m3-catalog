@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogModes404
@@ -29,8 +30,11 @@ import ee.schimke.m3catalog.Sticker
 // animation, and a baked PNG freezes it at an arbitrary frame — so the published capture is the
 // fixed fraction, and the progress value is the axis that folds in.
 //
-// The kit's other axis is the TRACK: flat or wavy. Wavy is the expressive form and a separate
-// composable rather than a parameter, so it is its own component.
+// The kit's other axis is the TRACK: `Type = Flat | Wave`, one property of one component set.
+// Wavy is a separate composable rather than a parameter, but that is a fact about the Compose API,
+// not about the taxonomy — so it folds in as a `@CatalogVariant` rather than standing as its own
+// component. The kit-index resolver reads `type=wave` back to the set's `Type=Wave` variant, so
+// the wavy node is still compared; it is now compared as a cell of the indicator it varies.
 
 @Composable
 private fun progress(): Float = previewOverrideString("progress", "0.5").toFloatOrNull() ?: 0.5f
@@ -72,14 +76,12 @@ fun CircularProgress() = Sticker {
   CircularProgressIndicator(progress = { value })
 }
 
-@CatalogComponent(
-  id = "Progress/LinearWavy",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8115",
-  caption = "The expressive wavy track. Values across the range fold in.",
+@CatalogVariant(
+  of = "Progress/Linear",
+  props = ["type=wave"],
+  caption = "The expressive wavy track.",
 )
 @CatalogModes404
-@OverrideVariant(name = "quarter", strings = ["progress=0.25"])
-@OverrideVariant(name = "full", strings = ["progress=1.0"])
 @Composable
 fun LinearWavyProgress() = Sticker {
   val value = progress()
@@ -91,14 +93,12 @@ fun LinearWavyProgress() = Sticker {
   }
 }
 
-@CatalogComponent(
-  id = "Progress/CircularWavy",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8498",
-  caption = "The expressive wavy circular track. Values across the range fold in.",
+@CatalogVariant(
+  of = "Progress/Circular",
+  props = ["type=wave"],
+  caption = "The expressive wavy circular track.",
 )
 @CatalogModes
-@OverrideVariant(name = "quarter", strings = ["progress=0.25"])
-@OverrideVariant(name = "full", strings = ["progress=1.0"])
 @Composable
 fun CircularWavyProgress() = Sticker {
   val value = progress()

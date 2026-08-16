@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.composeai.preview.VariantInteraction
 import ee.schimke.m3catalog.CatalogModes
@@ -38,10 +39,11 @@ import ee.schimke.m3catalog.sliderTrackHeight
 // one. (The earlier `enabled = catalogInteractive()` trick published the range slider looking
 // *disabled* in every baked render, which is a defect, not a policy.)
 //
-// The stops axis (continuous / discrete) and the track axis (standard / centered) are parameters,
-// so
-// they fold onto one sticker. The orientation and the two-thumb form are separate composables and
-// stay separate components.
+// The stops axis (continuous / discrete), the track axis (standard / centered) and ORIENTATION all
+// fold onto one sticker. The first two are parameters; orientation is a separate composable, but
+// the kit carries it as a property of the one `Standard slider` set, so it folds as a
+// `@CatalogVariant`. The two-thumb form stays its own component — the kit gives `Range slider` its
+// own set.
 //
 // The size axis is `@SliderSizeMatrix`, and it is the one axis a slider cannot get from the
 // library: `SliderDefaults` sizes its track and handle from `SliderTokens`, which carries the
@@ -49,9 +51,9 @@ import ee.schimke.m3catalog.sliderTrackHeight
 // corner and the handle's size explicitly, from the kit's own frames — see the table in
 // `CatalogSizes.kt`, and issue #89 for the upstream gap it stands in for.
 //
-// The vertical slider is deliberately left at one size: it shares the `Standard slider` set with
-// the horizontal one, whose size variants these already compare, so a second set of four would add
-// renders that resolve to the same axis values.
+// The vertical render is deliberately left at one size: it is a cell of the same `Standard slider`
+// set as the horizontal one, whose size variants these already compare, so a second set of four
+// would add renders that resolve to the same axis values.
 
 @Composable
 private fun sliderSteps(): Int =
@@ -172,14 +174,12 @@ fun RangeSliderSticker() = Sticker {
   )
 }
 
-@CatalogComponent(
-  id = "Slider/Vertical",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58008:10668",
+@CatalogVariant(
+  of = "Slider/Continuous",
+  props = ["orientation=vertical"],
   caption = "The same control rotated for vertical controls such as volume and brightness.",
 )
 @CatalogModes
-@OverrideVariant(name = "discrete", strings = ["steps=discrete"])
-@OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @Composable
 fun VerticalSliderSticker() = Sticker {
   val steps = sliderSteps()

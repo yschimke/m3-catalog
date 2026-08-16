@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
@@ -18,6 +19,10 @@ import ee.schimke.m3catalog.localizedDigits
 // The kit's axis is the LABEL, and digit count is not cosmetic — the container grows from a circle
 // at one digit to a pill at three, and overflows to "999+" past its cap. Each width is its own
 // cell.
+//
+// The dot is the same `Badge()` composable with no content, and the kit's `Badges` set carries
+// exactly two variants — `Size=Small` (the dot) and `Size=Large` (the count). So it is one
+// component with a size axis, not two components.
 
 @CatalogComponent(
   id = "Badge/Number",
@@ -31,9 +36,9 @@ import ee.schimke.m3catalog.localizedDigits
 @Composable
 fun NumberBadge() = Sticker { Badge { Text(localizedDigits(previewOverrideString("label", "3"))) } }
 
-@CatalogComponent(
-  id = "Badge/Dot",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/51592:4769",
+@CatalogVariant(
+  of = "Badge/Number",
+  props = ["size=small"],
   caption = "Something changed, without a count — the smallest badge form.",
 )
 @CatalogModes
