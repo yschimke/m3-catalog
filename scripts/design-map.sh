@@ -16,32 +16,22 @@
 # Neither step is this repo's business to implement; both used to live in scripts/ and drifted from
 # the annotations they project. What stays here is this wrapper and the two committed outputs.
 #
-# WHY THE FETCH. Step 2 is on npm, so npx reaches it. Step 1 does not ship as a package yet, and
-# the design-parity reusable workflow runs `design-map-command` inside a checkout of THIS repo
-# alone — so there is nothing to `node` unless we go and get it. Two files, no dependencies (the
-# module is deliberately dependency-free).
+# BOTH STEPS ARE NOW npm PACKAGES, and both are pinned to an exact version.
 #
-# PINNED TO A COMMIT, not to main. Two reasons, and the second is why this changed:
+# Step 1 used to be a `curl` of two raw files at a commit SHA, because it did not ship as a package
+# and the design-parity reusable workflow runs `design-map-command` inside a checkout of THIS repo
+# alone — so there was nothing to `node` unless we went and got it. That block carried its own
+# instruction to replace it once `@yschimke/compose-design-map` had a release, and this is that
+# replacement: the package is published, so the SHA pin (and the path it hard-coded, which the
+# modules have since moved out of) is gone.
 #
-#   * Same reason step 2 is pinned (below): the outputs are committed and CI fails on any
-#     difference, so a change to the projection turns this repo red for a change nobody here made.
-#     Floating on main gave step 1 the weaker guarantee of the two halves.
-#   * Those files are MOVING. compose-ai-tools is packaging them as `@yschimke/compose-design-map`
-#     (yschimke/compose-ai-tools#3918), which deletes both paths from `main`. A floating fetch
-#     would start 404ing the moment that merges; a commit pin keeps resolving forever, because
-#     raw.githubusercontent.com serves any historical SHA.
-#
-# Replace this whole block with `npx --yes @yschimke/compose-design-map@<version>` once that
-# package has had its first release.
-#
-# WHY STEP 2 IS PINNED AND STEP 1 IS NOT. Both outputs are COMMITTED and CI fails on any
+# WHY BOTH ARE PINNED. Both outputs are COMMITTED and CI fails on any
 # difference, so the resolver's version is an input to a checked-in artifact: float it, and the
 # next release upstream turns this repo red for a change nobody here made. That is not
 # hypothetical — a floating `npx` resolved 0.1.49 against a map built with 0.1.50's slug matching
 # and produced 439 variant references across 58 components where the committed map has 442 across
 # 59, which is what CI reported as "stale". Pinning makes the bump a commit that regenerates the
-# map in the same diff. Step 1 needs no pin because it only reads
-# annotations this repo owns; a change there shows up as an annotation change, not as drift.
+# map in the same diff.
 #
 # WHY IT STAGES. Both steps run into a scratch directory and only the finished pair is copied into
 # place. Step 1's map is an INTERMEDIATE — base references with the variants still unresolved — so
@@ -54,24 +44,13 @@ set -euo pipefail
 CHECK=""
 [ "${1:-}" = "--check" ] && CHECK=1
 
-TOOL_DIR="${RUNNER_TEMP:-/tmp}/design-map-tool"
-# compose-ai-tools main as of 2026-08-15, the last commit before the modules move into their own
-# package. Bump this deliberately, in a commit that also regenerates the two outputs below.
-TOOL_REF="60b34b27677c979a886a094f979624324dc6d612"
-RAW="https://raw.githubusercontent.com/yschimke/compose-ai-tools/${TOOL_REF}/scripts/design-artifacts"
-
-mkdir -p "$TOOL_DIR"
-for f in design-map.mjs emit-design-map.mjs; do
-  curl -fsSL --retry 3 --retry-delay 2 -o "$TOOL_DIR/$f" "$RAW/$f"
-done
-
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 
 # --strict: this catalog reproduces the kit, so a component with no exact kit node does not belong
 # in the published inventory at all (#10). Gated before anything is written, so a failed run leaves
 # the committed map intact rather than replacing it with one CI would report as merely stale.
-node "$TOOL_DIR/emit-design-map.mjs" \
+npx --yes @yschimke/compose-design-map@1.11.0 \
   --previews catalog/build/compose-previews/previews.json \
   --out "$WORK/design-map.json" \
   --variants "$WORK/design-map-variants.json" \
