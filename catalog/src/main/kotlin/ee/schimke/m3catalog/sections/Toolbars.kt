@@ -102,10 +102,9 @@ fun HorizontalFloatingToolbarSticker() = Sticker {
 @CatalogVariant(
   of = "Toolbar/HorizontalFloating",
   props = ["orientation=vertical"],
-  caption = "The side-anchored form. Vibrant folds in.",
+  caption = "The side-anchored form. Collapsed and vibrant fold in.",
 )
 @CatalogModes
-@OverrideVariant(name = "vibrant", strings = ["color=vibrant"])
 @OverrideVariant(name = "collapsed", booleans = ["expanded=false"])
 @OverrideVariant(name = "vibrant", strings = ["color=vibrant"])
 @Composable
