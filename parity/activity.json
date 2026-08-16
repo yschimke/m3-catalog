@@ -1,11 +1,83 @@
 {
   "schema": "compose-preview-activity/v1",
-  "generatedAt": "2026-08-16T18:48:03.807Z",
+  "generatedAt": "2026-08-16T23:31:04.718Z",
   "windowDays": 30,
   "code": {
     "repo": "yschimke/m3-catalog",
     "ref": "main",
     "events": [
+      {
+        "sha": "e3c3baedbe01b4d3983cd4aa963774ba81f2bcaa",
+        "subject": "fix: fold the seven kit sets split across two components each (#130)",
+        "at": "2026-08-16T23:53:51+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [
+          "badge-number__ideal__default__light",
+          "badge-number__ideal__default__light__size-small",
+          "datepicker-modal__ideal__default__light__compact",
+          "datepicker-modal__ideal__default__light__compact__type-full-screen-range",
+          "loadingindicator-uncontained__ideal__default__light",
+          "loadingindicator-uncontained__ideal__default__light__container-true",
+          "progress-circular__ideal__default__light",
+          "progress-circular__ideal__empty",
+          "progress-circular__ideal__full",
+          "progress-circular__ideal__default__light__type-wave",
+          "progress-linear__ideal__default__light__compact",
+          "progress-linear__ideal__empty__compact",
+          "progress-linear__ideal__full__compact",
+          "progress-linear__ideal__default__light__compact__type-wave",
+          "slider-continuous__ideal__default__light__compact",
+          "slider-continuous__ideal__disabled__compact",
+          "slider-continuous__ideal__l__compact",
+          "slider-continuous__ideal__m__compact",
+          "slider-continuous__ideal__pressed__compact",
+          "slider-continuous__ideal__s__compact",
+          "slider-continuous__ideal__xl__compact",
+          "slider-continuous__ideal__default__light__orientation-vertical",
+          "slider-range__ideal__default__light__compact",
+          "slider-range__ideal__disabled__compact",
+          "slider-range__ideal__l__compact",
+          "slider-range__ideal__m__compact",
+          "slider-range__ideal__pressed__compact",
+          "slider-range__ideal__s__compact",
+          "slider-range__ideal__xl__compact",
+          "toolbar-horizontalfloating__ideal__default__light",
+          "toolbar-horizontalfloating__ideal__vibrant",
+          "toolbar-horizontalfloating__ideal__default__light__orientation-vertical"
+        ],
+        "components": [
+          "Badge/Number",
+          "DatePicker/Modal",
+          "LoadingIndicator/Uncontained",
+          "Progress/Circular",
+          "Progress/Linear",
+          "Slider/Continuous",
+          "Slider/Range",
+          "Toolbar/HorizontalFloating"
+        ]
+      },
+      {
+        "sha": "8a8bfd89340765619d575c317e1974d368126038",
+        "subject": "fix: fold the three components that named an already-taken kit node (#127)",
+        "at": "2026-08-16T23:42:05+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [
+          "list-item__ideal__default__light",
+          "search-appbar__ideal__default__light__compact",
+          "search-bar__ideal__default__light__compact",
+          "search-bar__ideal__avatar__compact",
+          "segmentedbutton-singlechoice__ideal__default__light",
+          "segmentedbutton-singlechoice__ideal__count-2",
+          "segmentedbutton-singlechoice__ideal__count-4",
+          "segmentedbutton-singlechoice__ideal__count-5"
+        ],
+        "components": [
+          "List/Item",
+          "Search/AppBar",
+          "Search/Bar",
+          "SegmentedButton/SingleChoice"
+        ]
+      },
       {
         "sha": "c77dd488f189e47c77dd0feeb1bd96a65aae205d",
         "subject": "fix: compare real Material composables (#124)",
@@ -13,14 +85,12 @@
         "author": "Yuri Schimke",
         "previewIds": [
           "datepicker-modal__ideal__default__light__compact",
-          "datepicker-range__ideal__default__light__compact",
+          "datepicker-modal__ideal__default__light__compact__type-full-screen-range",
           "dialog-basic__ideal__default__light",
           "dialog-basic__ideal__icon",
           "dialog-list__ideal__default__light",
           "dialog-list__ideal__icon",
           "search-appbar__ideal__default__light__compact",
-          "search-docked__ideal__default__light__compact",
-          "search-docked__ideal__avatar__compact",
           "search-bar__ideal__default__light__compact",
           "search-bar__ideal__avatar__compact",
           "timepicker-input__ideal__default__light",
@@ -32,11 +102,9 @@
         ],
         "components": [
           "DatePicker/Modal",
-          "DatePicker/Range",
           "Dialog/Basic",
           "Dialog/List",
           "Search/AppBar",
-          "Search/Docked",
           "Search/Bar",
           "TimePicker/Input",
           "TimePicker/Dial"
@@ -846,8 +914,6 @@
           "radiobutton-selected__ideal__pressed",
           "radiobutton-selected__ideal__unselected",
           "search-appbar__ideal__default__light__compact",
-          "search-docked__ideal__default__light__compact",
-          "search-docked__ideal__avatar__compact",
           "search-bar__ideal__default__light__compact",
           "search-bar__ideal__avatar__compact",
           "slider-continuous__ideal__default__light__compact",
@@ -857,6 +923,7 @@
           "slider-continuous__ideal__pressed__compact",
           "slider-continuous__ideal__s__compact",
           "slider-continuous__ideal__xl__compact",
+          "slider-continuous__ideal__default__light__orientation-vertical",
           "slider-range__ideal__default__light__compact",
           "slider-range__ideal__disabled__compact",
           "slider-range__ideal__l__compact",
@@ -864,8 +931,6 @@
           "slider-range__ideal__pressed__compact",
           "slider-range__ideal__s__compact",
           "slider-range__ideal__xl__compact",
-          "slider-vertical__ideal__default__light",
-          "slider-vertical__ideal__disabled",
           "switch-on__ideal__default__light",
           "switch-on__ideal__disabled",
           "switch-on__ideal__disabled-icon",
@@ -1007,11 +1072,9 @@
           "IconButton/Tonal",
           "RadioButton/Selected",
           "Search/AppBar",
-          "Search/Docked",
           "Search/Bar",
           "Slider/Continuous",
           "Slider/Range",
-          "Slider/Vertical",
           "Switch/On",
           "TextField/Filled",
           "TextField/Outlined",
@@ -1034,20 +1097,18 @@
           "slider-continuous__ideal__pressed__compact",
           "slider-continuous__ideal__s__compact",
           "slider-continuous__ideal__xl__compact",
+          "slider-continuous__ideal__default__light__orientation-vertical",
           "slider-range__ideal__default__light__compact",
           "slider-range__ideal__disabled__compact",
           "slider-range__ideal__l__compact",
           "slider-range__ideal__m__compact",
           "slider-range__ideal__pressed__compact",
           "slider-range__ideal__s__compact",
-          "slider-range__ideal__xl__compact",
-          "slider-vertical__ideal__default__light",
-          "slider-vertical__ideal__disabled"
+          "slider-range__ideal__xl__compact"
         ],
         "components": [
           "Slider/Continuous",
-          "Slider/Range",
-          "Slider/Vertical"
+          "Slider/Range"
         ]
       },
       {
@@ -1069,15 +1130,12 @@
           "checkbox-checked__ideal__pressed",
           "checkbox-checked__ideal__unchecked",
           "search-appbar__ideal__default__light__compact",
-          "search-docked__ideal__default__light__compact",
-          "search-docked__ideal__avatar__compact",
           "search-bar__ideal__default__light__compact",
           "search-bar__ideal__avatar__compact"
         ],
         "components": [
           "Checkbox/Checked",
           "Search/AppBar",
-          "Search/Docked",
           "Search/Bar"
         ]
       },
@@ -1094,20 +1152,18 @@
           "slider-continuous__ideal__pressed__compact",
           "slider-continuous__ideal__s__compact",
           "slider-continuous__ideal__xl__compact",
+          "slider-continuous__ideal__default__light__orientation-vertical",
           "slider-range__ideal__default__light__compact",
           "slider-range__ideal__disabled__compact",
           "slider-range__ideal__l__compact",
           "slider-range__ideal__m__compact",
           "slider-range__ideal__pressed__compact",
           "slider-range__ideal__s__compact",
-          "slider-range__ideal__xl__compact",
-          "slider-vertical__ideal__default__light",
-          "slider-vertical__ideal__disabled"
+          "slider-range__ideal__xl__compact"
         ],
         "components": [
           "Slider/Continuous",
-          "Slider/Range",
-          "Slider/Vertical"
+          "Slider/Range"
         ]
       },
       {
@@ -1116,21 +1172,18 @@
         "at": "2026-08-15T09:20:15+01:00",
         "author": "Yuri Schimke",
         "previewIds": [
-          "badge-dot__ideal__default__light",
           "badge-number__ideal__default__light",
+          "badge-number__ideal__default__light__size-small",
           "dialog-basic__ideal__default__light",
           "dialog-basic__ideal__icon",
           "dialog-list__ideal__default__light",
           "dialog-list__ideal__icon",
-          "list-group__ideal__default__light",
           "list-item__ideal__default__light"
         ],
         "components": [
-          "Badge/Dot",
           "Badge/Number",
           "Dialog/Basic",
           "Dialog/List",
-          "List/Group",
           "List/Item"
         ]
       },
@@ -1407,7 +1460,6 @@
           "iconbutton-tonal__ideal__xs-square",
           "iconbutton-tonal__ideal__xs-wide",
           "iconbutton-tonal__ideal__xs-wide-square",
-          "list-group__ideal__default__light",
           "list-item__ideal__default__light",
           "navigationbar-short__ideal__default__light__compact",
           "navigationbar-short__ideal__five__compact",
@@ -1426,14 +1478,8 @@
           "radiobutton-selected__ideal__pressed",
           "radiobutton-selected__ideal__unselected",
           "search-appbar__ideal__default__light__compact",
-          "search-docked__ideal__default__light__compact",
-          "search-docked__ideal__avatar__compact",
           "search-bar__ideal__default__light__compact",
           "search-bar__ideal__avatar__compact",
-          "segmentedbutton-multichoice__ideal__default__light",
-          "segmentedbutton-multichoice__ideal__count-2",
-          "segmentedbutton-multichoice__ideal__count-4",
-          "segmentedbutton-multichoice__ideal__count-5",
           "segmentedbutton-singlechoice__ideal__default__light",
           "segmentedbutton-singlechoice__ideal__count-2",
           "segmentedbutton-singlechoice__ideal__count-4",
@@ -1595,16 +1641,13 @@
           "IconButton/Outlined",
           "IconButton/Standard",
           "IconButton/Tonal",
-          "List/Group",
           "List/Item",
           "NavigationBar/Short",
           "NavigationRail/Standard",
           "NavigationRail/Wide",
           "RadioButton/Selected",
           "Search/AppBar",
-          "Search/Docked",
           "Search/Bar",
-          "SegmentedButton/MultiChoice",
           "SegmentedButton/SingleChoice",
           "SplitButton/Filled",
           "Switch/On",
@@ -1854,8 +1897,6 @@
         "author": "Yuri Schimke",
         "previewIds": [
           "search-appbar__ideal__default__light__compact",
-          "search-docked__ideal__default__light__compact",
-          "search-docked__ideal__avatar__compact",
           "search-bar__ideal__default__light__compact",
           "search-bar__ideal__avatar__compact",
           "splitbutton-filled__ideal__default__light",
@@ -1869,7 +1910,6 @@
         ],
         "components": [
           "Search/AppBar",
-          "Search/Docked",
           "Search/Bar",
           "SplitButton/Filled"
         ]

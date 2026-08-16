@@ -2,32 +2,6 @@
   "schema": "compose-preview-references/v1",
   "references": [
     {
-      "id": "badge-dot__ideal__default__light",
-      "previewId": "badge-dot__ideal__default__light",
-      "label": "Badge/Dot — figma",
-      "tier": "primary",
-      "raster": {
-        "path": "references/badge-dot__ideal__default__light.png",
-        "width": 16,
-        "height": 16,
-        "density": 2.625,
-        "sha256": "13ebf729a19bf90bccd537bea4d68477aaa5ce6ef59750ee3d173806b422dcb1"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Badges.kt#DotBadge",
-          "preview": "DotBadge",
-          "componentId": "Badge/Dot"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/51592:4769"
-      },
-      "match": {
-        "percent": 99.94,
-        "changedPercent": 19.92
-      }
-    },
-    {
       "id": "badge-number__ideal__default__light",
       "previewId": "badge-number__ideal__default__light",
       "label": "Badge/Number — figma",
@@ -51,6 +25,35 @@
       "match": {
         "percent": 99.61,
         "changedPercent": 18.2
+      }
+    },
+    {
+      "id": "badge-number__ideal__default__light__size-small",
+      "previewId": "badge-number__ideal__default__light__size-small",
+      "label": "Badge/Number — figma",
+      "tier": "secondary",
+      "slot": {
+        "size": "small"
+      },
+      "raster": {
+        "path": "references/badge-number__ideal__default__light__size-small.png",
+        "width": 16,
+        "height": 16,
+        "density": 2.625,
+        "sha256": "13ebf729a19bf90bccd537bea4d68477aaa5ce6ef59750ee3d173806b422dcb1"
+      },
+      "source": {
+        "provider": "figma",
+        "attributes": {
+          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Badges.kt#NumberBadge",
+          "preview": "NumberBadge",
+          "componentId": "Badge/Number"
+        },
+        "uri": "figma:ocdacdEsnHipMJD3egzxKb/51592:4769"
+      },
+      "match": {
+        "percent": 99.94,
+        "changedPercent": 19.92
       }
     },
     {
@@ -3657,12 +3660,15 @@
       }
     },
     {
-      "id": "datepicker-range__ideal__default__light__compact",
-      "previewId": "datepicker-range__ideal__default__light__compact",
-      "label": "DatePicker/Range — figma",
-      "tier": "primary",
+      "id": "datepicker-modal__ideal__default__light__compact__type-full-screen-range",
+      "previewId": "datepicker-modal__ideal__default__light__compact__type-full-screen-range",
+      "label": "DatePicker/Modal — figma",
+      "tier": "secondary",
+      "slot": {
+        "state": "full-screen (range)"
+      },
       "raster": {
-        "path": "references/datepicker-range__ideal__default__light__compact.png",
+        "path": "references/datepicker-modal__ideal__default__light__compact__type-full-screen-range.png",
         "width": 945,
         "height": 1827,
         "density": 2.625,
@@ -3671,9 +3677,9 @@
       "source": {
         "provider": "figma",
         "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/DatePickers.kt#DateRangePickerSticker",
-          "preview": "DateRangePickerSticker",
-          "componentId": "DatePicker/Range"
+          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/DatePickers.kt#DatePickerModalSticker",
+          "preview": "DatePickerModalSticker",
+          "componentId": "DatePicker/Modal"
         },
         "uri": "figma:ocdacdEsnHipMJD3egzxKb/51954:18254"
       },
@@ -8479,32 +8485,6 @@
       }
     },
     {
-      "id": "list-group__ideal__default__light",
-      "previewId": "list-group__ideal__default__light",
-      "label": "List/Group — figma",
-      "tier": "primary",
-      "raster": {
-        "path": "references/list-group__ideal__default__light.png",
-        "width": 735,
-        "height": 1008,
-        "density": 2.625,
-        "sha256": "13c7379c51fb56ad482ba2e37fbcfe786f4a94583ce58498f223446ab25d9b47"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Lists.kt#ListItemGroup",
-          "preview": "ListItemGroup",
-          "componentId": "List/Group"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/59106:13049"
-      },
-      "match": {
-        "percent": 99.5,
-        "changedPercent": 11.68
-      }
-    },
-    {
       "id": "list-item__ideal__default__light",
       "previewId": "list-item__ideal__default__light",
       "label": "List/Item — figma",
@@ -8528,32 +8508,6 @@
       "match": {
         "percent": 99.5,
         "changedPercent": 11.68
-      }
-    },
-    {
-      "id": "loadingindicator-contained__ideal__default__light",
-      "previewId": "loadingindicator-contained__ideal__default__light",
-      "label": "LoadingIndicator/Contained — figma",
-      "tier": "primary",
-      "raster": {
-        "path": "references/loadingindicator-contained__ideal__default__light.png",
-        "width": 126,
-        "height": 126,
-        "density": 2.625,
-        "sha256": "c9c523b71c77f6eda19fcd01b9d3523f7ca5371aae33598c103756e494297f68"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/LoadingIndicator.kt#ContainedLoadingIndicatorSticker",
-          "preview": "ContainedLoadingIndicatorSticker",
-          "componentId": "LoadingIndicator/Contained"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/58005:8559"
-      },
-      "match": {
-        "percent": 91.26,
-        "changedPercent": 38.54
       }
     },
     {
@@ -8581,6 +8535,35 @@
         "percent": 91.26,
         "changedPercent": 24.47,
         "geometry": 6.6
+      }
+    },
+    {
+      "id": "loadingindicator-uncontained__ideal__default__light__container-true",
+      "previewId": "loadingindicator-uncontained__ideal__default__light__container-true",
+      "label": "LoadingIndicator/Uncontained — figma",
+      "tier": "secondary",
+      "slot": {
+        "state": "true"
+      },
+      "raster": {
+        "path": "references/loadingindicator-uncontained__ideal__default__light__container-true.png",
+        "width": 126,
+        "height": 126,
+        "density": 2.625,
+        "sha256": "c9c523b71c77f6eda19fcd01b9d3523f7ca5371aae33598c103756e494297f68"
+      },
+      "source": {
+        "provider": "figma",
+        "attributes": {
+          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/LoadingIndicator.kt#LoadingIndicatorSticker",
+          "preview": "LoadingIndicatorSticker",
+          "componentId": "LoadingIndicator/Uncontained"
+        },
+        "uri": "figma:ocdacdEsnHipMJD3egzxKb/58005:8559"
+      },
+      "match": {
+        "percent": 91.26,
+        "changedPercent": 38.54
       }
     },
     {
@@ -8926,12 +8909,15 @@
       }
     },
     {
-      "id": "progress-circularwavy__ideal__default__light",
-      "previewId": "progress-circularwavy__ideal__default__light",
-      "label": "Progress/CircularWavy — figma",
-      "tier": "primary",
+      "id": "progress-circular__ideal__default__light__type-wave",
+      "previewId": "progress-circular__ideal__default__light__type-wave",
+      "label": "Progress/Circular — figma",
+      "tier": "secondary",
+      "slot": {
+        "state": "wave"
+      },
       "raster": {
-        "path": "references/progress-circularwavy__ideal__default__light.png",
+        "path": "references/progress-circular__ideal__default__light__type-wave.png",
         "width": 126,
         "height": 126,
         "density": 2.625,
@@ -8940,44 +8926,15 @@
       "source": {
         "provider": "figma",
         "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt#CircularWavyProgress",
-          "preview": "CircularWavyProgress",
-          "componentId": "Progress/CircularWavy"
+          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt#CircularProgress",
+          "preview": "CircularProgress",
+          "componentId": "Progress/Circular"
         },
         "uri": "figma:ocdacdEsnHipMJD3egzxKb/58005:8498"
       },
       "match": {
         "percent": 98.58,
         "changedPercent": 16.56
-      }
-    },
-    {
-      "id": "progress-circularwavy__ideal__full",
-      "previewId": "progress-circularwavy__ideal__full",
-      "label": "Progress/CircularWavy — figma",
-      "tier": "secondary",
-      "slot": {
-        "state": "full"
-      },
-      "raster": {
-        "path": "references/progress-circularwavy__ideal__full.png",
-        "width": 126,
-        "height": 126,
-        "density": 2.625,
-        "sha256": "f80ae2764494d33d170adccae07048b5a24bedd401760f6cee8c5fcbc683a587"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt#CircularWavyProgress",
-          "preview": "CircularWavyProgress",
-          "componentId": "Progress/CircularWavy"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/58005:8520"
-      },
-      "match": {
-        "percent": 95.21,
-        "changedPercent": 20.35
       }
     },
     {
@@ -9065,12 +9022,15 @@
       }
     },
     {
-      "id": "progress-linearwavy__ideal__default__light__compact",
-      "previewId": "progress-linearwavy__ideal__default__light__compact",
-      "label": "Progress/LinearWavy — figma",
-      "tier": "primary",
+      "id": "progress-linear__ideal__default__light__compact__type-wave",
+      "previewId": "progress-linear__ideal__default__light__compact__type-wave",
+      "label": "Progress/Linear — figma",
+      "tier": "secondary",
+      "slot": {
+        "state": "wave"
+      },
       "raster": {
-        "path": "references/progress-linearwavy__ideal__default__light__compact.png",
+        "path": "references/progress-linear__ideal__default__light__compact__type-wave.png",
         "width": 1061,
         "height": 32,
         "density": 2.625,
@@ -9079,44 +9039,15 @@
       "source": {
         "provider": "figma",
         "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt#LinearWavyProgress",
-          "preview": "LinearWavyProgress",
-          "componentId": "Progress/LinearWavy"
+          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt#LinearProgress",
+          "preview": "LinearProgress",
+          "componentId": "Progress/Linear"
         },
         "uri": "figma:ocdacdEsnHipMJD3egzxKb/58005:8115"
       },
       "match": {
         "percent": 99.9,
         "changedPercent": 11.43
-      }
-    },
-    {
-      "id": "progress-linearwavy__ideal__full__compact",
-      "previewId": "progress-linearwavy__ideal__full__compact",
-      "label": "Progress/LinearWavy — figma",
-      "tier": "secondary",
-      "slot": {
-        "state": "full"
-      },
-      "raster": {
-        "path": "references/progress-linearwavy__ideal__full__compact.png",
-        "width": 1061,
-        "height": 32,
-        "density": 2.625,
-        "sha256": "04a06217323f08a13cb773ddc38a8f7ba44a1d84712b4af9496598b968bd54d5"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt#LinearWavyProgress",
-          "preview": "LinearWavyProgress",
-          "componentId": "Progress/LinearWavy"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/58005:8175"
-      },
-      "match": {
-        "percent": 100,
-        "changedPercent": 7.75
       }
     },
     {
@@ -9347,61 +9278,6 @@
       }
     },
     {
-      "id": "search-docked__ideal__default__light__compact",
-      "previewId": "search-docked__ideal__default__light__compact",
-      "label": "Search/Docked — figma",
-      "tier": "primary",
-      "raster": {
-        "path": "references/search-docked__ideal__default__light__compact.png",
-        "width": 945,
-        "height": 150,
-        "density": 2.625,
-        "sha256": "2d8913a95c9ba29146779edbb5b3eb81ea46192de394dc55ab88a2bfadc51d25"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Search.kt#DockedSearchBarSticker",
-          "preview": "DockedSearchBarSticker",
-          "componentId": "Search/Docked"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/52977:33948"
-      },
-      "match": {
-        "percent": 99.75,
-        "changedPercent": 7.53
-      }
-    },
-    {
-      "id": "search-docked__ideal__avatar__compact",
-      "previewId": "search-docked__ideal__avatar__compact",
-      "label": "Search/Docked — figma",
-      "tier": "secondary",
-      "slot": {
-        "state": "avatar"
-      },
-      "raster": {
-        "path": "references/search-docked__ideal__avatar__compact.png",
-        "width": 945,
-        "height": 150,
-        "density": 2.625,
-        "sha256": "a82685a123db4deae6fc6170f16e0269991d7e3221a405ea749b3c1f967be925"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Search.kt#DockedSearchBarSticker",
-          "preview": "DockedSearchBarSticker",
-          "componentId": "Search/Docked"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/52977:33920"
-      },
-      "match": {
-        "percent": 98.5,
-        "changedPercent": 11.75
-      }
-    },
-    {
       "id": "search-bar__ideal__default__light__compact",
       "previewId": "search-bar__ideal__default__light__compact",
       "label": "Search/Bar — figma",
@@ -9454,123 +9330,6 @@
       "match": {
         "percent": 98.5,
         "changedPercent": 11.63
-      }
-    },
-    {
-      "id": "segmentedbutton-multichoice__ideal__default__light",
-      "previewId": "segmentedbutton-multichoice__ideal__default__light",
-      "label": "SegmentedButton/MultiChoice — figma",
-      "tier": "primary",
-      "raster": {
-        "path": "references/segmentedbutton-multichoice__ideal__default__light.png",
-        "width": 814,
-        "height": 105,
-        "density": 2.625,
-        "sha256": "309a444d5912ccf30fc59c9f5f76b8777f8b92f54c0ddc21f4019818660a44df"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/SegmentedButtons.kt#MultiChoiceSegmentedButtons",
-          "preview": "MultiChoiceSegmentedButtons",
-          "componentId": "SegmentedButton/MultiChoice"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/53923:36653"
-      },
-      "match": {
-        "percent": 99.24,
-        "changedPercent": 20.51,
-        "geometry": 11.4
-      }
-    },
-    {
-      "id": "segmentedbutton-multichoice__ideal__count-2",
-      "previewId": "segmentedbutton-multichoice__ideal__count-2",
-      "label": "SegmentedButton/MultiChoice — figma",
-      "tier": "secondary",
-      "slot": {
-        "state": "count-2"
-      },
-      "raster": {
-        "path": "references/segmentedbutton-multichoice__ideal__count-2.png",
-        "width": 814,
-        "height": 105,
-        "density": 2.625,
-        "sha256": "064a98bd1435d77df666dc966f588fa121b6eee9c6b55b1d7c4d2507e69ce821"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/SegmentedButtons.kt#MultiChoiceSegmentedButtons",
-          "preview": "MultiChoiceSegmentedButtons",
-          "componentId": "SegmentedButton/MultiChoice"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/53923:36664"
-      },
-      "match": {
-        "percent": 98,
-        "changedPercent": 25.08,
-        "geometry": 23.2
-      }
-    },
-    {
-      "id": "segmentedbutton-multichoice__ideal__count-4",
-      "previewId": "segmentedbutton-multichoice__ideal__count-4",
-      "label": "SegmentedButton/MultiChoice — figma",
-      "tier": "secondary",
-      "slot": {
-        "state": "count-4"
-      },
-      "raster": {
-        "path": "references/segmentedbutton-multichoice__ideal__count-4.png",
-        "width": 814,
-        "height": 105,
-        "density": 2.625,
-        "sha256": "73b82b4b573abdb034962d3e21b0c19043bea62a857c3681f7eccd7e369570d5"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/SegmentedButtons.kt#MultiChoiceSegmentedButtons",
-          "preview": "MultiChoiceSegmentedButtons",
-          "componentId": "SegmentedButton/MultiChoice"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/53923:36639"
-      },
-      "match": {
-        "percent": 97.47,
-        "changedPercent": 28.03,
-        "geometry": 28.6
-      }
-    },
-    {
-      "id": "segmentedbutton-multichoice__ideal__count-5",
-      "previewId": "segmentedbutton-multichoice__ideal__count-5",
-      "label": "SegmentedButton/MultiChoice — figma",
-      "tier": "secondary",
-      "slot": {
-        "state": "count-5"
-      },
-      "raster": {
-        "path": "references/segmentedbutton-multichoice__ideal__count-5.png",
-        "width": 814,
-        "height": 105,
-        "density": 2.625,
-        "sha256": "52fe4a057610effb0e6956d10b216a58f81cf806417591cb8f63951a606c148c"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/SegmentedButtons.kt#MultiChoiceSegmentedButtons",
-          "preview": "MultiChoiceSegmentedButtons",
-          "componentId": "SegmentedButton/MultiChoice"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/53923:36622"
-      },
-      "match": {
-        "percent": 97.11,
-        "changedPercent": 28.71,
-        "geometry": 41.9
       }
     },
     {
@@ -10830,6 +10589,35 @@
       }
     },
     {
+      "id": "slider-continuous__ideal__default__light__orientation-vertical",
+      "previewId": "slider-continuous__ideal__default__light__orientation-vertical",
+      "label": "Slider/Continuous — figma",
+      "tier": "secondary",
+      "slot": {
+        "state": "vertical"
+      },
+      "raster": {
+        "path": "references/slider-continuous__ideal__default__light__orientation-vertical.png",
+        "width": 116,
+        "height": 929,
+        "density": 2.625,
+        "sha256": "12b46fac396dba89da39a7243e4e7d695ef951221ffe214e578b7cab8dc23923"
+      },
+      "source": {
+        "provider": "figma",
+        "attributes": {
+          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Sliders.kt#ContinuousSlider",
+          "preview": "ContinuousSlider",
+          "componentId": "Slider/Continuous"
+        },
+        "uri": "figma:ocdacdEsnHipMJD3egzxKb/58008:10668"
+      },
+      "match": {
+        "percent": 99.96,
+        "changedPercent": 2.87
+      }
+    },
+    {
       "id": "slider-range__ideal__default__light__compact",
       "previewId": "slider-range__ideal__default__light__compact",
       "label": "Slider/Range — figma",
@@ -11028,61 +10816,6 @@
       "match": {
         "percent": 99.79,
         "changedPercent": 4.91
-      }
-    },
-    {
-      "id": "slider-vertical__ideal__default__light",
-      "previewId": "slider-vertical__ideal__default__light",
-      "label": "Slider/Vertical — figma",
-      "tier": "primary",
-      "raster": {
-        "path": "references/slider-vertical__ideal__default__light.png",
-        "width": 116,
-        "height": 929,
-        "density": 2.625,
-        "sha256": "12b46fac396dba89da39a7243e4e7d695ef951221ffe214e578b7cab8dc23923"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Sliders.kt#VerticalSliderSticker",
-          "preview": "VerticalSliderSticker",
-          "componentId": "Slider/Vertical"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/58008:10668"
-      },
-      "match": {
-        "percent": 99.96,
-        "changedPercent": 2.87
-      }
-    },
-    {
-      "id": "slider-vertical__ideal__disabled",
-      "previewId": "slider-vertical__ideal__disabled",
-      "label": "Slider/Vertical — figma",
-      "tier": "secondary",
-      "slot": {
-        "state": "disabled"
-      },
-      "raster": {
-        "path": "references/slider-vertical__ideal__disabled.png",
-        "width": 116,
-        "height": 929,
-        "density": 2.625,
-        "sha256": "70a7182e30d46d0aff2ab727f428cd7c2394b1d435d4954124bb962ef2d4ce0e"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Sliders.kt#VerticalSliderSticker",
-          "preview": "VerticalSliderSticker",
-          "componentId": "Slider/Vertical"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/58008:10710"
-      },
-      "match": {
-        "percent": 99.93,
-        "changedPercent": 20.19
       }
     },
     {
@@ -15514,12 +15247,15 @@
       }
     },
     {
-      "id": "toolbar-verticalfloating__ideal__default__light",
-      "previewId": "toolbar-verticalfloating__ideal__default__light",
-      "label": "Toolbar/VerticalFloating — figma",
-      "tier": "primary",
+      "id": "toolbar-horizontalfloating__ideal__default__light__orientation-vertical",
+      "previewId": "toolbar-horizontalfloating__ideal__default__light__orientation-vertical",
+      "label": "Toolbar/HorizontalFloating — figma",
+      "tier": "secondary",
+      "slot": {
+        "state": "vertical"
+      },
       "raster": {
-        "path": "references/toolbar-verticalfloating__ideal__default__light.png",
+        "path": "references/toolbar-horizontalfloating__ideal__default__light__orientation-vertical.png",
         "width": 226,
         "height": 499,
         "density": 2.625,
@@ -15528,45 +15264,15 @@
       "source": {
         "provider": "figma",
         "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Toolbars.kt#VerticalFloatingToolbarSticker",
-          "preview": "VerticalFloatingToolbarSticker",
-          "componentId": "Toolbar/VerticalFloating"
+          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Toolbars.kt#HorizontalFloatingToolbarSticker",
+          "preview": "HorizontalFloatingToolbarSticker",
+          "componentId": "Toolbar/HorizontalFloating"
         },
         "uri": "figma:ocdacdEsnHipMJD3egzxKb/58467:8325"
       },
       "match": {
         "percent": 98.69,
         "changedPercent": 20.13,
-        "geometry": 4.4
-      }
-    },
-    {
-      "id": "toolbar-verticalfloating__ideal__vibrant",
-      "previewId": "toolbar-verticalfloating__ideal__vibrant",
-      "label": "Toolbar/VerticalFloating — figma",
-      "tier": "secondary",
-      "slot": {
-        "state": "vibrant"
-      },
-      "raster": {
-        "path": "references/toolbar-verticalfloating__ideal__vibrant.png",
-        "width": 226,
-        "height": 499,
-        "density": 2.625,
-        "sha256": "3b98f5b2945303a5cd54e7e9d6cf3cd6574596ba9c7b38d0ace4e1750a966170"
-      },
-      "source": {
-        "provider": "figma",
-        "attributes": {
-          "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Toolbars.kt#VerticalFloatingToolbarSticker",
-          "preview": "VerticalFloatingToolbarSticker",
-          "componentId": "Toolbar/VerticalFloating"
-        },
-        "uri": "figma:ocdacdEsnHipMJD3egzxKb/58467:8350"
-      },
-      "match": {
-        "percent": 98.87,
-        "changedPercent": 21.19,
         "geometry": 4.4
       }
     },

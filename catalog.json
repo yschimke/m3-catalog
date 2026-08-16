@@ -250,6 +250,34 @@
             }
           ],
           "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/badge-number/ideal__default__dark__size-small.png",
+          "state": "default",
+          "width": 16,
+          "height": 16,
+          "theme": "dark",
+          "props": {
+            "size": "small"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/badge-number__ideal__default__dark__size-small",
+          "previewId": "ee.schimke.m3catalog.sections.BadgesKt.DotBadge_Dark",
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/badge-number/ideal__default__light__size-small.png",
+          "state": "default",
+          "width": 16,
+          "height": 16,
+          "theme": "light",
+          "props": {
+            "size": "small"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/badge-number__ideal__default__light__size-small",
+          "previewId": "ee.schimke.m3catalog.sections.BadgesKt.DotBadge_Light",
+          "density": 2.625
         }
       ],
       "greenlines": [],
@@ -276,53 +304,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/51592:4770",
       "wireframe": "wireframes/badge-number.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Badges.kt",
-      "bodyLine": 32
-    },
-    {
-      "componentId": "Badge/Dot",
-      "images": [
-        {
-          "variant": "ideal",
-          "path": "images/badge-dot/ideal__default__dark.png",
-          "state": "default",
-          "width": 16,
-          "height": 16,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/badge-dot__ideal__default__dark",
-          "previewId": "ee.schimke.m3catalog.sections.BadgesKt.DotBadge_Dark",
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/badge-dot/ideal__default__light.png",
-          "state": "default",
-          "width": 16,
-          "height": 16,
-          "theme": "light",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/badge-dot__ideal__default__light",
-          "previewId": "ee.schimke.m3catalog.sections.BadgesKt.DotBadge_Light",
-          "density": 2.625
-        }
-      ],
-      "greenlines": [],
-      "redlines": [
-        {
-          "bounds": {
-            "x": 0,
-            "y": 0,
-            "width": 16,
-            "height": 16
-          },
-          "cornerRadius": 3.05
-        }
-      ],
-      "section": "Communication",
-      "group": "Badges",
-      "caption": "Something changed, without a count — the smallest badge form.",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/51592:4769",
-      "wireframe": "wireframes/badge-dot.svg",
-      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Badges.kt",
-      "bodyLine": 41
+      "bodyLine": 37
     },
     {
       "componentId": "BottomAppBar/Standard",
@@ -27407,2378 +27389,6 @@
       "bodyLine": 134
     },
     {
-      "componentId": "DatePicker/Range",
-      "images": [
-        {
-          "variant": "ideal",
-          "path": "images/datepicker-range/ideal__default__dark__compact.png",
-          "state": "default",
-          "width": 945,
-          "height": 1827,
-          "theme": "dark",
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/datepicker-range__ideal__default__dark__compact",
-          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DateRangePickerSticker_Dark",
-          "overrides": [
-            {
-              "key": "dateMillis",
-              "type": "string",
-              "label": "dateMillis",
-              "default": {
-                "kind": "string",
-                "value": "1755388800000"
-              },
-              "current": {
-                "kind": "string",
-                "value": "1755388800000"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "endDateMillis",
-              "type": "string",
-              "label": "endDateMillis",
-              "default": {
-                "kind": "string",
-                "value": "1755907200000"
-              },
-              "current": {
-                "kind": "string",
-                "value": "1755907200000"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "mode",
-              "type": "string",
-              "label": "mode",
-              "default": {
-                "kind": "string",
-                "value": "calendar"
-              },
-              "current": {
-                "kind": "string",
-                "value": "calendar"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "calendar",
-                  "label": "Calendar"
-                },
-                {
-                  "value": "input",
-                  "label": "Input"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/datepicker-range/ideal__input__dark__compact.png",
-          "state": "input",
-          "width": 945,
-          "height": 1827,
-          "theme": "dark",
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/datepicker-range__ideal__input__dark__compact",
-          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DateRangePickerSticker_Dark_VARIANT_input",
-          "overrides": [
-            {
-              "key": "dateMillis",
-              "type": "string",
-              "label": "dateMillis",
-              "default": {
-                "kind": "string",
-                "value": "1755388800000"
-              },
-              "current": {
-                "kind": "string",
-                "value": "1755388800000"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "endDateMillis",
-              "type": "string",
-              "label": "endDateMillis",
-              "default": {
-                "kind": "string",
-                "value": "1755907200000"
-              },
-              "current": {
-                "kind": "string",
-                "value": "1755907200000"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "mode",
-              "type": "string",
-              "label": "mode",
-              "default": {
-                "kind": "string",
-                "value": "calendar"
-              },
-              "current": {
-                "kind": "string",
-                "value": "input"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "calendar",
-                  "label": "Calendar"
-                },
-                {
-                  "value": "input",
-                  "label": "Input"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/datepicker-range/ideal__default__light__compact.png",
-          "state": "default",
-          "width": 945,
-          "height": 1827,
-          "theme": "light",
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/datepicker-range__ideal__default__light__compact",
-          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DateRangePickerSticker_Light",
-          "overrides": [
-            {
-              "key": "dateMillis",
-              "type": "string",
-              "label": "dateMillis",
-              "default": {
-                "kind": "string",
-                "value": "1755388800000"
-              },
-              "current": {
-                "kind": "string",
-                "value": "1755388800000"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "endDateMillis",
-              "type": "string",
-              "label": "endDateMillis",
-              "default": {
-                "kind": "string",
-                "value": "1755907200000"
-              },
-              "current": {
-                "kind": "string",
-                "value": "1755907200000"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "mode",
-              "type": "string",
-              "label": "mode",
-              "default": {
-                "kind": "string",
-                "value": "calendar"
-              },
-              "current": {
-                "kind": "string",
-                "value": "calendar"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "calendar",
-                  "label": "Calendar"
-                },
-                {
-                  "value": "input",
-                  "label": "Input"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/datepicker-range/ideal__input__compact.png",
-          "state": "input",
-          "width": 945,
-          "height": 1827,
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/datepicker-range__ideal__input__compact",
-          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DateRangePickerSticker_Light_VARIANT_input",
-          "overrides": [
-            {
-              "key": "dateMillis",
-              "type": "string",
-              "label": "dateMillis",
-              "default": {
-                "kind": "string",
-                "value": "1755388800000"
-              },
-              "current": {
-                "kind": "string",
-                "value": "1755388800000"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "endDateMillis",
-              "type": "string",
-              "label": "endDateMillis",
-              "default": {
-                "kind": "string",
-                "value": "1755907200000"
-              },
-              "current": {
-                "kind": "string",
-                "value": "1755907200000"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "mode",
-              "type": "string",
-              "label": "mode",
-              "default": {
-                "kind": "string",
-                "value": "calendar"
-              },
-              "current": {
-                "kind": "string",
-                "value": "input"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "calendar",
-                  "label": "Calendar"
-                },
-                {
-                  "value": "input",
-                  "label": "Input"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        }
-      ],
-      "greenlines": [
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button",
-          "detail": {
-            "role": "button",
-            "bounds": {
-              "x": 798,
-              "y": 75,
-              "width": 105,
-              "height": 105
-            }
-          },
-          "bounds": {
-            "x": 798,
-            "y": 75,
-            "width": 105,
-            "height": 105
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Friday, August 1, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Friday, August 1, 2025",
-            "bounds": {
-              "x": 662,
-              "y": 489,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 662,
-            "y": 489,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Saturday, August 2, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Saturday, August 2, 2025",
-            "bounds": {
-              "x": 788,
-              "y": 489,
-              "width": 125,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 788,
-            "y": 489,
-            "width": 125,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Sunday, August 3, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Sunday, August 3, 2025",
-            "bounds": {
-              "x": 32,
-              "y": 615,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 32,
-            "y": 615,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Monday, August 4, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Monday, August 4, 2025",
-            "bounds": {
-              "x": 158,
-              "y": 615,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 158,
-            "y": 615,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Tuesday, August 5, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Tuesday, August 5, 2025",
-            "bounds": {
-              "x": 284,
-              "y": 615,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 284,
-            "y": 615,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Wednesday, August 6, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Wednesday, August 6, 2025",
-            "bounds": {
-              "x": 410,
-              "y": 615,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 410,
-            "y": 615,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Thursday, August 7, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Thursday, August 7, 2025",
-            "bounds": {
-              "x": 536,
-              "y": 615,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 536,
-            "y": 615,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Friday, August 8, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Friday, August 8, 2025",
-            "bounds": {
-              "x": 662,
-              "y": 615,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 662,
-            "y": 615,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Saturday, August 9, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Saturday, August 9, 2025",
-            "bounds": {
-              "x": 788,
-              "y": 615,
-              "width": 125,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 788,
-            "y": 615,
-            "width": 125,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Sunday, August 10, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Sunday, August 10, 2025",
-            "bounds": {
-              "x": 32,
-              "y": 741,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 32,
-            "y": 741,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Monday, August 11, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Monday, August 11, 2025",
-            "bounds": {
-              "x": 158,
-              "y": 741,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 158,
-            "y": 741,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Tuesday, August 12, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Tuesday, August 12, 2025",
-            "bounds": {
-              "x": 284,
-              "y": 741,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 284,
-            "y": 741,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Wednesday, August 13, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Wednesday, August 13, 2025",
-            "bounds": {
-              "x": 410,
-              "y": 741,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 410,
-            "y": 741,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Thursday, August 14, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Thursday, August 14, 2025",
-            "bounds": {
-              "x": 536,
-              "y": 741,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 536,
-            "y": 741,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Friday, August 15, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Friday, August 15, 2025",
-            "bounds": {
-              "x": 662,
-              "y": 741,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 662,
-            "y": 741,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Saturday, August 16, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Saturday, August 16, 2025",
-            "bounds": {
-              "x": 788,
-              "y": 741,
-              "width": 125,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 788,
-            "y": 741,
-            "width": 125,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Start date, Sunday, August 17, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Start date, Sunday, August 17, 2025",
-            "bounds": {
-              "x": 32,
-              "y": 867,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 32,
-            "y": 867,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"In range, Monday, August 18, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "In range, Monday, August 18, 2025",
-            "bounds": {
-              "x": 158,
-              "y": 867,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 158,
-            "y": 867,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"In range, Tuesday, August 19, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "In range, Tuesday, August 19, 2025",
-            "bounds": {
-              "x": 284,
-              "y": 867,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 284,
-            "y": 867,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"In range, Wednesday, August 20, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "In range, Wednesday, August 20, 2025",
-            "bounds": {
-              "x": 410,
-              "y": 867,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 410,
-            "y": 867,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"In range, Thursday, August 21, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "In range, Thursday, August 21, 2025",
-            "bounds": {
-              "x": 536,
-              "y": 867,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 536,
-            "y": 867,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"In range, Friday, August 22, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "In range, Friday, August 22, 2025",
-            "bounds": {
-              "x": 662,
-              "y": 867,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 662,
-            "y": 867,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"End date, Saturday, August 23, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "End date, Saturday, August 23, 2025",
-            "bounds": {
-              "x": 788,
-              "y": 867,
-              "width": 125,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 788,
-            "y": 867,
-            "width": 125,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Sunday, August 24, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Sunday, August 24, 2025",
-            "bounds": {
-              "x": 32,
-              "y": 993,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 32,
-            "y": 993,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Monday, August 25, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Monday, August 25, 2025",
-            "bounds": {
-              "x": 158,
-              "y": 993,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 158,
-            "y": 993,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Tuesday, August 26, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Tuesday, August 26, 2025",
-            "bounds": {
-              "x": 284,
-              "y": 993,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 284,
-            "y": 993,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Wednesday, August 27, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Wednesday, August 27, 2025",
-            "bounds": {
-              "x": 410,
-              "y": 993,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 410,
-            "y": 993,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Thursday, August 28, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Thursday, August 28, 2025",
-            "bounds": {
-              "x": 536,
-              "y": 993,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 536,
-            "y": 993,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Friday, August 29, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Friday, August 29, 2025",
-            "bounds": {
-              "x": 662,
-              "y": 993,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 662,
-            "y": 993,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Saturday, August 30, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Saturday, August 30, 2025",
-            "bounds": {
-              "x": 788,
-              "y": 993,
-              "width": 125,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 788,
-            "y": 993,
-            "width": 125,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Sunday, August 31, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Sunday, August 31, 2025",
-            "bounds": {
-              "x": 32,
-              "y": 1119,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 32,
-            "y": 1119,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Monday, September 1, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Monday, September 1, 2025",
-            "bounds": {
-              "x": 158,
-              "y": 1372,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 158,
-            "y": 1372,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Tuesday, September 2, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Tuesday, September 2, 2025",
-            "bounds": {
-              "x": 284,
-              "y": 1372,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 284,
-            "y": 1372,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Wednesday, September 3, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Wednesday, September 3, 2025",
-            "bounds": {
-              "x": 410,
-              "y": 1372,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 410,
-            "y": 1372,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Thursday, September 4, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Thursday, September 4, 2025",
-            "bounds": {
-              "x": 536,
-              "y": 1372,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 536,
-            "y": 1372,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Friday, September 5, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Friday, September 5, 2025",
-            "bounds": {
-              "x": 662,
-              "y": 1372,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 662,
-            "y": 1372,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Saturday, September 6, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Saturday, September 6, 2025",
-            "bounds": {
-              "x": 788,
-              "y": 1372,
-              "width": 125,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 788,
-            "y": 1372,
-            "width": 125,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Sunday, September 7, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Sunday, September 7, 2025",
-            "bounds": {
-              "x": 32,
-              "y": 1498,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 32,
-            "y": 1498,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Monday, September 8, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Monday, September 8, 2025",
-            "bounds": {
-              "x": 158,
-              "y": 1498,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 158,
-            "y": 1498,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Tuesday, September 9, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Tuesday, September 9, 2025",
-            "bounds": {
-              "x": 284,
-              "y": 1498,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 284,
-            "y": 1498,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Wednesday, September 10, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Wednesday, September 10, 2025",
-            "bounds": {
-              "x": 410,
-              "y": 1498,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 410,
-            "y": 1498,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Thursday, September 11, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Thursday, September 11, 2025",
-            "bounds": {
-              "x": 536,
-              "y": 1498,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 536,
-            "y": 1498,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Friday, September 12, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Friday, September 12, 2025",
-            "bounds": {
-              "x": 662,
-              "y": 1498,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 662,
-            "y": 1498,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Saturday, September 13, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Saturday, September 13, 2025",
-            "bounds": {
-              "x": 788,
-              "y": 1498,
-              "width": 125,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 788,
-            "y": 1498,
-            "width": 125,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Sunday, September 14, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Sunday, September 14, 2025",
-            "bounds": {
-              "x": 32,
-              "y": 1624,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 32,
-            "y": 1624,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Monday, September 15, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Monday, September 15, 2025",
-            "bounds": {
-              "x": 158,
-              "y": 1624,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 158,
-            "y": 1624,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Tuesday, September 16, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Tuesday, September 16, 2025",
-            "bounds": {
-              "x": 284,
-              "y": 1624,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 284,
-            "y": 1624,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Wednesday, September 17, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Wednesday, September 17, 2025",
-            "bounds": {
-              "x": 410,
-              "y": 1624,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 410,
-            "y": 1624,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Thursday, September 18, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Thursday, September 18, 2025",
-            "bounds": {
-              "x": 536,
-              "y": 1624,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 536,
-            "y": 1624,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Friday, September 19, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Friday, September 19, 2025",
-            "bounds": {
-              "x": 662,
-              "y": 1624,
-              "width": 126,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 662,
-            "y": 1624,
-            "width": 126,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Saturday, September 20, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Saturday, September 20, 2025",
-            "bounds": {
-              "x": 788,
-              "y": 1624,
-              "width": 125,
-              "height": 126
-            }
-          },
-          "bounds": {
-            "x": 788,
-            "y": 1624,
-            "width": 125,
-            "height": 126
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Sunday, September 21, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Sunday, September 21, 2025",
-            "bounds": {
-              "x": 32,
-              "y": 1750,
-              "width": 126,
-              "height": 77
-            }
-          },
-          "bounds": {
-            "x": 32,
-            "y": 1750,
-            "width": 126,
-            "height": 77
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Monday, September 22, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Monday, September 22, 2025",
-            "bounds": {
-              "x": 158,
-              "y": 1750,
-              "width": 126,
-              "height": 77
-            }
-          },
-          "bounds": {
-            "x": 158,
-            "y": 1750,
-            "width": 126,
-            "height": 77
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Tuesday, September 23, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Tuesday, September 23, 2025",
-            "bounds": {
-              "x": 284,
-              "y": 1750,
-              "width": 126,
-              "height": 77
-            }
-          },
-          "bounds": {
-            "x": 284,
-            "y": 1750,
-            "width": 126,
-            "height": 77
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Wednesday, September 24, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Wednesday, September 24, 2025",
-            "bounds": {
-              "x": 410,
-              "y": 1750,
-              "width": 126,
-              "height": 77
-            }
-          },
-          "bounds": {
-            "x": 410,
-            "y": 1750,
-            "width": 126,
-            "height": 77
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Thursday, September 25, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Thursday, September 25, 2025",
-            "bounds": {
-              "x": 536,
-              "y": 1750,
-              "width": 126,
-              "height": 77
-            }
-          },
-          "bounds": {
-            "x": 536,
-            "y": 1750,
-            "width": 126,
-            "height": 77
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Friday, September 26, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Friday, September 26, 2025",
-            "bounds": {
-              "x": 662,
-              "y": 1750,
-              "width": 126,
-              "height": 77
-            }
-          },
-          "bounds": {
-            "x": 662,
-            "y": 1750,
-            "width": 126,
-            "height": 77
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Saturday, September 27, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Saturday, September 27, 2025",
-            "bounds": {
-              "x": 788,
-              "y": 1750,
-              "width": 125,
-              "height": 77
-            }
-          },
-          "bounds": {
-            "x": 788,
-            "y": 1750,
-            "width": 125,
-            "height": 77
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Sunday, September 28, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Sunday, September 28, 2025",
-            "bounds": {
-              "x": 0,
-              "y": 0,
-              "width": 0,
-              "height": 0
-            }
-          },
-          "bounds": {
-            "x": 0,
-            "y": 0,
-            "width": 0,
-            "height": 0
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Monday, September 29, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Monday, September 29, 2025",
-            "bounds": {
-              "x": 0,
-              "y": 0,
-              "width": 0,
-              "height": 0
-            }
-          },
-          "bounds": {
-            "x": 0,
-            "y": 0,
-            "width": 0,
-            "height": 0
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button \"Tuesday, September 30, 2025\"",
-          "detail": {
-            "role": "button",
-            "label": "Tuesday, September 30, 2025",
-            "bounds": {
-              "x": 0,
-              "y": 0,
-              "width": 0,
-              "height": 0
-            }
-          },
-          "bounds": {
-            "x": 0,
-            "y": 0,
-            "width": 0,
-            "height": 0
-          }
-        }
-      ],
-      "redlines": [
-        {
-          "bounds": {
-            "x": 168,
-            "y": 0,
-            "width": 207,
-            "height": 53
-          },
-          "label": "Select dates",
-          "padding": {
-            "start": 64,
-            "top": 0,
-            "end": 12,
-            "bottom": 0
-          }
-        },
-        {
-          "bounds": {
-            "x": 168,
-            "y": 53,
-            "width": 587,
-            "height": 148
-          },
-          "label": "Start date: Sunday, August 17, 2025, End date: Saturday, August 23, 2025",
-          "padding": {
-            "start": 64,
-            "top": 0,
-            "end": 12,
-            "bottom": 12
-          },
-          "gap": 4
-        },
-        {
-          "bounds": {
-            "x": 798,
-            "y": 75,
-            "width": 105,
-            "height": 105
-          },
-          "role": "Button",
-          "padding": {
-            "start": 0,
-            "top": 0,
-            "end": 12,
-            "bottom": 12
-          },
-          "cornerRadius": 20
-        },
-        {
-          "bounds": {
-            "x": 95,
-            "y": 415,
-            "width": 213,
-            "height": 53
-          },
-          "label": "August 2025",
-          "padding": {
-            "start": 24,
-            "top": 20,
-            "end": 0,
-            "bottom": 8
-          }
-        },
-        {
-          "bounds": {
-            "x": 662,
-            "y": 489,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Friday, August 1, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 788,
-            "y": 489,
-            "width": 125,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Saturday, August 2, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 32,
-            "y": 615,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Sunday, August 3, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 158,
-            "y": 615,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Monday, August 4, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 284,
-            "y": 615,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Tuesday, August 5, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 410,
-            "y": 615,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Wednesday, August 6, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 536,
-            "y": 615,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Thursday, August 7, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 662,
-            "y": 615,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Friday, August 8, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 788,
-            "y": 615,
-            "width": 125,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Saturday, August 9, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 32,
-            "y": 741,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Sunday, August 10, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 158,
-            "y": 741,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Monday, August 11, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 284,
-            "y": 741,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Tuesday, August 12, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 410,
-            "y": 741,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Wednesday, August 13, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 536,
-            "y": 741,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Thursday, August 14, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 662,
-            "y": 741,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Friday, August 15, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 788,
-            "y": 741,
-            "width": 125,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Saturday, August 16, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 32,
-            "y": 867,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Start date, Sunday, August 17, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 158,
-            "y": 867,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "In range, Monday, August 18, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 284,
-            "y": 867,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "In range, Tuesday, August 19, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 410,
-            "y": 867,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "In range, Wednesday, August 20, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 536,
-            "y": 867,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "In range, Thursday, August 21, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 662,
-            "y": 867,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "In range, Friday, August 22, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 788,
-            "y": 867,
-            "width": 125,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "End date, Saturday, August 23, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 32,
-            "y": 993,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Sunday, August 24, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 158,
-            "y": 993,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Monday, August 25, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 284,
-            "y": 993,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Tuesday, August 26, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 410,
-            "y": 993,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Wednesday, August 27, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 536,
-            "y": 993,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Thursday, August 28, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 662,
-            "y": 993,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Friday, August 29, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 788,
-            "y": 993,
-            "width": 125,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Saturday, August 30, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 32,
-            "y": 1119,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Sunday, August 31, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 95,
-            "y": 1298,
-            "width": 277,
-            "height": 53
-          },
-          "label": "September 2025",
-          "padding": {
-            "start": 24,
-            "top": 20,
-            "end": 0,
-            "bottom": 8
-          }
-        },
-        {
-          "bounds": {
-            "x": 158,
-            "y": 1372,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Monday, September 1, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 284,
-            "y": 1372,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Tuesday, September 2, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 410,
-            "y": 1372,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Wednesday, September 3, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 536,
-            "y": 1372,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Thursday, September 4, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 662,
-            "y": 1372,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Friday, September 5, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 788,
-            "y": 1372,
-            "width": 125,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Saturday, September 6, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 32,
-            "y": 1498,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Sunday, September 7, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 158,
-            "y": 1498,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Monday, September 8, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 284,
-            "y": 1498,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Tuesday, September 9, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 410,
-            "y": 1498,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Wednesday, September 10, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 536,
-            "y": 1498,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Thursday, September 11, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 662,
-            "y": 1498,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Friday, September 12, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 788,
-            "y": 1498,
-            "width": 125,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Saturday, September 13, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 32,
-            "y": 1624,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Sunday, September 14, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 158,
-            "y": 1624,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Monday, September 15, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 284,
-            "y": 1624,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Tuesday, September 16, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 410,
-            "y": 1624,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Wednesday, September 17, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 536,
-            "y": 1624,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Thursday, September 18, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 662,
-            "y": 1624,
-            "width": 126,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Friday, September 19, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 788,
-            "y": 1624,
-            "width": 125,
-            "height": 126
-          },
-          "role": "Button",
-          "label": "Saturday, September 20, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 32,
-            "y": 1750,
-            "width": 126,
-            "height": 77
-          },
-          "role": "Button",
-          "label": "Sunday, September 21, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 158,
-            "y": 1750,
-            "width": 126,
-            "height": 77
-          },
-          "role": "Button",
-          "label": "Monday, September 22, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 284,
-            "y": 1750,
-            "width": 126,
-            "height": 77
-          },
-          "role": "Button",
-          "label": "Tuesday, September 23, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 410,
-            "y": 1750,
-            "width": 126,
-            "height": 77
-          },
-          "role": "Button",
-          "label": "Wednesday, September 24, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 536,
-            "y": 1750,
-            "width": 126,
-            "height": 77
-          },
-          "role": "Button",
-          "label": "Thursday, September 25, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 662,
-            "y": 1750,
-            "width": 126,
-            "height": 77
-          },
-          "role": "Button",
-          "label": "Friday, September 26, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 788,
-            "y": 1750,
-            "width": 125,
-            "height": 77
-          },
-          "role": "Button",
-          "label": "Saturday, September 27, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 0,
-            "y": 0,
-            "width": 0,
-            "height": 0
-          },
-          "role": "Button",
-          "label": "Sunday, September 28, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 0,
-            "y": 0,
-            "width": 0,
-            "height": 0
-          },
-          "role": "Button",
-          "label": "Monday, September 29, 2025",
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 0,
-            "y": 0,
-            "width": 0,
-            "height": 0
-          },
-          "role": "Button",
-          "label": "Tuesday, September 30, 2025",
-          "cornerRadius": 24
-        }
-      ],
-      "section": "Selection",
-      "group": "Date pickers",
-      "caption": "Start and end dates in one grid. Keyboard entry folds in.",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/51954:18254",
-      "wireframe": "wireframes/datepicker-range.svg",
-      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/DatePickers.kt",
-      "bodyLine": 66
-    },
-    {
       "componentId": "DatePicker/Modal",
       "images": [
         {
@@ -30015,6 +27625,191 @@
             }
           ],
           "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/datepicker-modal/ideal__default__dark__compact__type-full-screen-range.png",
+          "state": "default",
+          "width": 945,
+          "height": 1827,
+          "theme": "dark",
+          "size": "compact",
+          "props": {
+            "type": "full-screen (range)"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/datepicker-modal__ideal__default__dark__compact__type-full-screen-range",
+          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DateRangePickerSticker_Dark",
+          "overrides": [
+            {
+              "key": "dateMillis",
+              "type": "string",
+              "label": "dateMillis",
+              "default": {
+                "kind": "string",
+                "value": "1755388800000"
+              },
+              "current": {
+                "kind": "string",
+                "value": "1755388800000"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "endDateMillis",
+              "type": "string",
+              "label": "endDateMillis",
+              "default": {
+                "kind": "string",
+                "value": "1755907200000"
+              },
+              "current": {
+                "kind": "string",
+                "value": "1755907200000"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "mode",
+              "type": "string",
+              "label": "mode",
+              "default": {
+                "kind": "string",
+                "value": "calendar"
+              },
+              "current": {
+                "kind": "string",
+                "value": "calendar"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "calendar",
+                  "label": "Calendar"
+                },
+                {
+                  "value": "input",
+                  "label": "Input"
+                }
+              ],
+              "optionsExhaustive": true
+            }
+          ],
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/datepicker-modal/ideal__input__dark__compact__type-full-screen-range.png",
+          "state": "input",
+          "width": 945,
+          "height": 1827,
+          "theme": "dark",
+          "size": "compact",
+          "props": {
+            "type": "full-screen (range)"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/datepicker-modal__ideal__input__dark__compact__type-full-screen-range"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/datepicker-modal/ideal__default__light__compact__type-full-screen-range.png",
+          "state": "default",
+          "width": 945,
+          "height": 1827,
+          "theme": "light",
+          "size": "compact",
+          "props": {
+            "type": "full-screen (range)"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/datepicker-modal__ideal__default__light__compact__type-full-screen-range",
+          "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DateRangePickerSticker_Light",
+          "overrides": [
+            {
+              "key": "dateMillis",
+              "type": "string",
+              "label": "dateMillis",
+              "default": {
+                "kind": "string",
+                "value": "1755388800000"
+              },
+              "current": {
+                "kind": "string",
+                "value": "1755388800000"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "endDateMillis",
+              "type": "string",
+              "label": "endDateMillis",
+              "default": {
+                "kind": "string",
+                "value": "1755907200000"
+              },
+              "current": {
+                "kind": "string",
+                "value": "1755907200000"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            },
+            {
+              "key": "mode",
+              "type": "string",
+              "label": "mode",
+              "default": {
+                "kind": "string",
+                "value": "calendar"
+              },
+              "current": {
+                "kind": "string",
+                "value": "calendar"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "calendar",
+                  "label": "Calendar"
+                },
+                {
+                  "value": "input",
+                  "label": "Input"
+                }
+              ],
+              "optionsExhaustive": true
+            }
+          ],
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/datepicker-modal/ideal__input__compact__type-full-screen-range.png",
+          "state": "input",
+          "width": 945,
+          "height": 1827,
+          "size": "compact",
+          "props": {
+            "type": "full-screen (range)"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/datepicker-modal__ideal__input__compact__type-full-screen-range"
         }
       ],
       "greenlines": [
@@ -31274,7 +29069,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/51954:18137",
       "wireframe": "wireframes/datepicker-modal.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/DatePickers.kt",
-      "bodyLine": 91
+      "bodyLine": 95
     },
     {
       "componentId": "Dialog/Basic",
@@ -53434,6 +51229,18 @@
           "cornerRadius": 20
         }
       ],
+      "motion": [
+        {
+          "path": "motion/iconbutton-filled/ideal__default__dark.apng",
+          "kind": "interaction",
+          "caption": "Press and hold. Expressive animates the container into its pressed shape and holds it there for the duration of the press; Baseline leaves the container static."
+        },
+        {
+          "path": "motion/iconbutton-filled/ideal__default__light.apng",
+          "kind": "interaction",
+          "caption": "Press and hold. Expressive animates the container into its pressed shape and holds it there for the duration of the press; Baseline leaves the container static."
+        }
+      ],
       "section": "Actions",
       "group": "Icon buttons",
       "caption": "Highest emphasis icon-only action. Five sizes x three widths x two shapes fold in as variants.",
@@ -73296,48 +71103,12 @@
       "redlines": [],
       "section": "Containment",
       "group": "Lists",
-      "caption": "A list row. Line count, leading and trailing slots all fold in.",
+      "caption": "The kit's list frame. Line count, leading and trailing slots all fold in as single rows.",
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/59106:13049",
       "referenceSet": "figma:ocdacdEsnHipMJD3egzxKb/51964:63037",
       "wireframe": "wireframes/list-item.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Lists.kt",
-      "bodyLine": 98
-    },
-    {
-      "componentId": "List/Group",
-      "images": [
-        {
-          "variant": "ideal",
-          "path": "images/list-group/ideal__default__dark.png",
-          "state": "default",
-          "width": 735,
-          "height": 1008,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/list-group__ideal__default__dark",
-          "previewId": "ee.schimke.m3catalog.sections.ListsKt.ListItemGroup_Dark",
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/list-group/ideal__default__light.png",
-          "state": "default",
-          "width": 735,
-          "height": 1008,
-          "theme": "light",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/list-group__ideal__default__light",
-          "previewId": "ee.schimke.m3catalog.sections.ListsKt.ListItemGroup_Light",
-          "density": 2.625
-        }
-      ],
-      "greenlines": [],
-      "redlines": [],
-      "section": "Containment",
-      "group": "Lists",
-      "caption": "Several rows with dividers — the shape a real list takes.",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/59106:13049",
-      "wireframe": "wireframes/list-group.svg",
-      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Lists.kt",
-      "bodyLine": 141
+      "bodyLine": 105
     },
     {
       "componentId": "LoadingIndicator/Uncontained",
@@ -73363,6 +71134,34 @@
           "livePreview": "https://preview.coo.ee/m3-catalog/p/loadingindicator-uncontained__ideal__default__light",
           "previewId": "ee.schimke.m3catalog.sections.LoadingIndicatorKt.LoadingIndicatorSticker_Light",
           "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/loadingindicator-uncontained/ideal__default__dark__container-true.png",
+          "state": "default",
+          "width": 126,
+          "height": 126,
+          "theme": "dark",
+          "props": {
+            "container": "true"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/loadingindicator-uncontained__ideal__default__dark__container-true",
+          "previewId": "ee.schimke.m3catalog.sections.LoadingIndicatorKt.ContainedLoadingIndicatorSticker_Dark",
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/loadingindicator-uncontained/ideal__default__light__container-true.png",
+          "state": "default",
+          "width": 126,
+          "height": 126,
+          "theme": "light",
+          "props": {
+            "container": "true"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/loadingindicator-uncontained__ideal__default__light__container-true",
+          "previewId": "ee.schimke.m3catalog.sections.LoadingIndicatorKt.ContainedLoadingIndicatorSticker_Light",
+          "density": 2.625
         }
       ],
       "greenlines": [],
@@ -73383,53 +71182,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58005:8556",
       "wireframe": "wireframes/loadingindicator-uncontained.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/LoadingIndicator.kt",
-      "bodyLine": 26
-    },
-    {
-      "componentId": "LoadingIndicator/Contained",
-      "images": [
-        {
-          "variant": "ideal",
-          "path": "images/loadingindicator-contained/ideal__default__dark.png",
-          "state": "default",
-          "width": 126,
-          "height": 126,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/loadingindicator-contained__ideal__default__dark",
-          "previewId": "ee.schimke.m3catalog.sections.LoadingIndicatorKt.ContainedLoadingIndicatorSticker_Dark",
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/loadingindicator-contained/ideal__default__light.png",
-          "state": "default",
-          "width": 126,
-          "height": 126,
-          "theme": "light",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/loadingindicator-contained__ideal__default__light",
-          "previewId": "ee.schimke.m3catalog.sections.LoadingIndicatorKt.ContainedLoadingIndicatorSticker_Light",
-          "density": 2.625
-        }
-      ],
-      "greenlines": [],
-      "redlines": [
-        {
-          "bounds": {
-            "x": 0,
-            "y": 0,
-            "width": 126,
-            "height": 126
-          },
-          "cornerRadius": 24
-        }
-      ],
-      "section": "Communication",
-      "group": "Loading indicator",
-      "caption": "The same indicator inside its container surface.",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58005:8559",
-      "wireframe": "wireframes/loadingindicator-contained.svg",
-      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/LoadingIndicator.kt",
-      "bodyLine": 35
+      "bodyLine": 30
     },
     {
       "componentId": "NavigationBar/Short",
@@ -74002,6 +71755,18 @@
             "height": 84
           },
           "cornerRadius": 16
+        }
+      ],
+      "motion": [
+        {
+          "path": "motion/navigationbar-short/ideal__default__dark__compact.apng",
+          "kind": "interaction",
+          "caption": "Tap between distant destinations. The selection indicator moves on Expressive's spatial spring — watch it overshoot and settle rather than ease linearly into place."
+        },
+        {
+          "path": "motion/navigationbar-short/ideal__default__light__compact.apng",
+          "kind": "interaction",
+          "caption": "Tap between distant destinations. The selection indicator moves on Expressive's spatial spring — watch it overshoot and settle rather than ease linearly into place."
         }
       ],
       "section": "Navigation",
@@ -76627,6 +74392,18 @@
           "cornerRadius": 28
         }
       ],
+      "motion": [
+        {
+          "path": "motion/navigationrail-wide/ideal__default__dark.apng",
+          "kind": "interaction",
+          "caption": "Change destinations. The indicator travels while the item's label and icon cross-fade — the two run on different specs, which is only visible when they move together."
+        },
+        {
+          "path": "motion/navigationrail-wide/ideal__default__light.apng",
+          "kind": "interaction",
+          "caption": "Change destinations. The indicator travels while the item's label and icon cross-fade — the two run on different specs, which is only visible when they move together."
+        }
+      ],
       "section": "Navigation",
       "group": "Navigation rail",
       "caption": "The expanded form, labels beside the icons. Count folds in.",
@@ -76890,6 +74667,76 @@
             }
           ],
           "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/progress-linear/ideal__default__dark__compact__type-wave.png",
+          "state": "default",
+          "width": 1061,
+          "height": 32,
+          "theme": "dark",
+          "size": "compact",
+          "props": {
+            "type": "wave"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-linear__ideal__default__dark__compact__type-wave",
+          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Dark",
+          "overrides": [
+            {
+              "key": "progress",
+              "type": "string",
+              "label": "progress",
+              "default": {
+                "kind": "string",
+                "value": "0.5"
+              },
+              "current": {
+                "kind": "string",
+                "value": "0.5"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            }
+          ],
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/progress-linear/ideal__default__light__compact__type-wave.png",
+          "state": "default",
+          "width": 1061,
+          "height": 32,
+          "theme": "light",
+          "size": "compact",
+          "props": {
+            "type": "wave"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-linear__ideal__default__light__compact__type-wave",
+          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Light",
+          "overrides": [
+            {
+              "key": "progress",
+              "type": "string",
+              "label": "progress",
+              "default": {
+                "kind": "string",
+                "value": "0.5"
+              },
+              "current": {
+                "kind": "string",
+                "value": "0.5"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            }
+          ],
+          "density": 2.625
         }
       ],
       "greenlines": [],
@@ -76915,7 +74762,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58005:8017",
       "wireframe": "wireframes/progress-linear.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt",
-      "bodyLine": 48
+      "bodyLine": 52
     },
     {
       "componentId": "Progress/Circular",
@@ -77164,248 +75011,18 @@
             }
           ],
           "density": 2.625
-        }
-      ],
-      "greenlines": [],
-      "redlines": [],
-      "section": "Communication",
-      "group": "Progress indicators",
-      "caption": "Determinate circular progress. Values across the range fold in.",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58005:8492",
-      "wireframe": "wireframes/progress-circular.svg",
-      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt",
-      "bodyLine": 70
-    },
-    {
-      "componentId": "Progress/LinearWavy",
-      "images": [
-        {
-          "variant": "ideal",
-          "path": "images/progress-linearwavy/ideal__default__dark__compact.png",
-          "state": "default",
-          "width": 1061,
-          "height": 32,
-          "theme": "dark",
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-linearwavy__ideal__default__dark__compact",
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Dark",
-          "overrides": [
-            {
-              "key": "progress",
-              "type": "string",
-              "label": "progress",
-              "default": {
-                "kind": "string",
-                "value": "0.5"
-              },
-              "current": {
-                "kind": "string",
-                "value": "0.5"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
         },
         {
           "variant": "ideal",
-          "path": "images/progress-linearwavy/ideal__full__dark__compact.png",
-          "state": "full",
-          "width": 1061,
-          "height": 32,
-          "theme": "dark",
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-linearwavy__ideal__full__dark__compact",
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Dark_VARIANT_full",
-          "overrides": [
-            {
-              "key": "progress",
-              "type": "string",
-              "label": "progress",
-              "default": {
-                "kind": "string",
-                "value": "0.5"
-              },
-              "current": {
-                "kind": "string",
-                "value": "1.0"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/progress-linearwavy/ideal__quarter__dark__compact.png",
-          "state": "quarter",
-          "width": 1061,
-          "height": 32,
-          "theme": "dark",
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-linearwavy__ideal__quarter__dark__compact",
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Dark_VARIANT_quarter",
-          "overrides": [
-            {
-              "key": "progress",
-              "type": "string",
-              "label": "progress",
-              "default": {
-                "kind": "string",
-                "value": "0.5"
-              },
-              "current": {
-                "kind": "string",
-                "value": "0.25"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/progress-linearwavy/ideal__default__light__compact.png",
-          "state": "default",
-          "width": 1061,
-          "height": 32,
-          "theme": "light",
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-linearwavy__ideal__default__light__compact",
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Light",
-          "overrides": [
-            {
-              "key": "progress",
-              "type": "string",
-              "label": "progress",
-              "default": {
-                "kind": "string",
-                "value": "0.5"
-              },
-              "current": {
-                "kind": "string",
-                "value": "0.5"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/progress-linearwavy/ideal__full__compact.png",
-          "state": "full",
-          "width": 1061,
-          "height": 32,
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-linearwavy__ideal__full__compact",
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Light_VARIANT_full",
-          "overrides": [
-            {
-              "key": "progress",
-              "type": "string",
-              "label": "progress",
-              "default": {
-                "kind": "string",
-                "value": "0.5"
-              },
-              "current": {
-                "kind": "string",
-                "value": "1.0"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/progress-linearwavy/ideal__quarter__compact.png",
-          "state": "quarter",
-          "width": 1061,
-          "height": 32,
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-linearwavy__ideal__quarter__compact",
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearWavyProgress_Light_VARIANT_quarter",
-          "overrides": [
-            {
-              "key": "progress",
-              "type": "string",
-              "label": "progress",
-              "default": {
-                "kind": "string",
-                "value": "0.5"
-              },
-              "current": {
-                "kind": "string",
-                "value": "0.25"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        }
-      ],
-      "greenlines": [],
-      "redlines": [
-        {
-          "bounds": {
-            "x": 0,
-            "y": 0,
-            "width": 1061,
-            "height": 32
-          },
-          "padding": {
-            "start": 0,
-            "top": 10,
-            "end": 0,
-            "bottom": 10
-          }
-        }
-      ],
-      "section": "Communication",
-      "group": "Progress indicators",
-      "caption": "The expressive wavy track. Values across the range fold in.",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58005:8115",
-      "wireframe": "wireframes/progress-linearwavy.svg",
-      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt",
-      "bodyLine": 84
-    },
-    {
-      "componentId": "Progress/CircularWavy",
-      "images": [
-        {
-          "variant": "ideal",
-          "path": "images/progress-circularwavy/ideal__default__dark.png",
+          "path": "images/progress-circular/ideal__default__dark__type-wave.png",
           "state": "default",
           "width": 126,
           "height": 126,
           "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-circularwavy__ideal__default__dark",
+          "props": {
+            "type": "wave"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-circular__ideal__default__dark__type-wave",
           "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.CircularWavyProgress_Dark",
           "overrides": [
             {
@@ -77431,74 +75048,15 @@
         },
         {
           "variant": "ideal",
-          "path": "images/progress-circularwavy/ideal__full__dark.png",
-          "state": "full",
-          "width": 126,
-          "height": 126,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-circularwavy__ideal__full__dark",
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.CircularWavyProgress_Dark_VARIANT_full",
-          "overrides": [
-            {
-              "key": "progress",
-              "type": "string",
-              "label": "progress",
-              "default": {
-                "kind": "string",
-                "value": "0.5"
-              },
-              "current": {
-                "kind": "string",
-                "value": "1.0"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/progress-circularwavy/ideal__quarter__dark.png",
-          "state": "quarter",
-          "width": 126,
-          "height": 126,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-circularwavy__ideal__quarter__dark",
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.CircularWavyProgress_Dark_VARIANT_quarter",
-          "overrides": [
-            {
-              "key": "progress",
-              "type": "string",
-              "label": "progress",
-              "default": {
-                "kind": "string",
-                "value": "0.5"
-              },
-              "current": {
-                "kind": "string",
-                "value": "0.25"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/progress-circularwavy/ideal__default__light.png",
+          "path": "images/progress-circular/ideal__default__light__type-wave.png",
           "state": "default",
           "width": 126,
           "height": 126,
           "theme": "light",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-circularwavy__ideal__default__light",
+          "props": {
+            "type": "wave"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-circular__ideal__default__light__type-wave",
           "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.CircularWavyProgress_Light",
           "overrides": [
             {
@@ -77521,77 +75079,17 @@
             }
           ],
           "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/progress-circularwavy/ideal__full.png",
-          "state": "full",
-          "width": 126,
-          "height": 126,
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-circularwavy__ideal__full",
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.CircularWavyProgress_Light_VARIANT_full",
-          "overrides": [
-            {
-              "key": "progress",
-              "type": "string",
-              "label": "progress",
-              "default": {
-                "kind": "string",
-                "value": "0.5"
-              },
-              "current": {
-                "kind": "string",
-                "value": "1.0"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/progress-circularwavy/ideal__quarter.png",
-          "state": "quarter",
-          "width": 126,
-          "height": 126,
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/progress-circularwavy__ideal__quarter",
-          "previewId": "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.CircularWavyProgress_Light_VARIANT_quarter",
-          "overrides": [
-            {
-              "key": "progress",
-              "type": "string",
-              "label": "progress",
-              "default": {
-                "kind": "string",
-                "value": "0.5"
-              },
-              "current": {
-                "kind": "string",
-                "value": "0.25"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
         }
       ],
       "greenlines": [],
       "redlines": [],
       "section": "Communication",
       "group": "Progress indicators",
-      "caption": "The expressive wavy circular track. Values across the range fold in.",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58005:8498",
-      "wireframe": "wireframes/progress-circularwavy.svg",
+      "caption": "Determinate circular progress. Values across the range fold in.",
+      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58005:8492",
+      "wireframe": "wireframes/progress-circular.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt",
-      "bodyLine": 103
+      "bodyLine": 74
     },
     {
       "componentId": "RadioButton/Selected",
@@ -79167,40 +76665,19 @@
             }
           ],
           "density": 2.625
-        }
-      ],
-      "greenlines": [],
-      "redlines": [
-        {
-          "bounds": {
-            "x": 0,
-            "y": 0,
-            "width": 945,
-            "height": 150
-          },
-          "cornerRadius": 28.57
-        }
-      ],
-      "section": "Navigation",
-      "group": "Search",
-      "caption": "The collapsed entry point, floating over content. Query and avatar states fold in.",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/52977:33948",
-      "wireframe": "wireframes/search-bar.svg",
-      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Search.kt",
-      "bodyLine": 138
-    },
-    {
-      "componentId": "Search/Docked",
-      "images": [
+        },
         {
           "variant": "ideal",
-          "path": "images/search-docked/ideal__default__dark__compact.png",
+          "path": "images/search-bar/ideal__default__dark__compact__container-docked.png",
           "state": "default",
           "width": 945,
           "height": 150,
           "theme": "dark",
           "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/search-docked__ideal__default__dark__compact",
+          "props": {
+            "container": "docked"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/search-bar__ideal__default__dark__compact__container-docked",
           "previewId": "ee.schimke.m3catalog.sections.SearchKt.DockedSearchBarSticker_Dark",
           "overrides": [
             {
@@ -79239,103 +76716,16 @@
         },
         {
           "variant": "ideal",
-          "path": "images/search-docked/ideal__avatar__dark__compact.png",
-          "state": "avatar",
-          "width": 945,
-          "height": 150,
-          "theme": "dark",
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/search-docked__ideal__avatar__dark__compact",
-          "previewId": "ee.schimke.m3catalog.sections.SearchKt.DockedSearchBarSticker_Dark_VARIANT_avatar",
-          "overrides": [
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "placeholder"
-              },
-              "current": {
-                "kind": "string",
-                "value": "avatar"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "placeholder",
-                  "label": "Placeholder"
-                },
-                {
-                  "value": "query",
-                  "label": "Query"
-                },
-                {
-                  "value": "avatar",
-                  "label": "Avatar"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/search-docked/ideal__query__dark__compact.png",
-          "state": "query",
-          "width": 945,
-          "height": 147,
-          "theme": "dark",
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/search-docked__ideal__query__dark__compact",
-          "previewId": "ee.schimke.m3catalog.sections.SearchKt.DockedSearchBarSticker_Dark_VARIANT_query",
-          "overrides": [
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "placeholder"
-              },
-              "current": {
-                "kind": "string",
-                "value": "query"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "placeholder",
-                  "label": "Placeholder"
-                },
-                {
-                  "value": "query",
-                  "label": "Query"
-                },
-                {
-                  "value": "avatar",
-                  "label": "Avatar"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/search-docked/ideal__default__light__compact.png",
+          "path": "images/search-bar/ideal__default__light__compact__container-docked.png",
           "state": "default",
           "width": 945,
           "height": 150,
           "theme": "light",
           "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/search-docked__ideal__default__light__compact",
+          "props": {
+            "container": "docked"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/search-bar__ideal__default__light__compact__container-docked",
           "previewId": "ee.schimke.m3catalog.sections.SearchKt.DockedSearchBarSticker_Light",
           "overrides": [
             {
@@ -79371,94 +76761,6 @@
             }
           ],
           "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/search-docked/ideal__avatar__compact.png",
-          "state": "avatar",
-          "width": 945,
-          "height": 150,
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/search-docked__ideal__avatar__compact",
-          "previewId": "ee.schimke.m3catalog.sections.SearchKt.DockedSearchBarSticker_Light_VARIANT_avatar",
-          "overrides": [
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "placeholder"
-              },
-              "current": {
-                "kind": "string",
-                "value": "avatar"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "placeholder",
-                  "label": "Placeholder"
-                },
-                {
-                  "value": "query",
-                  "label": "Query"
-                },
-                {
-                  "value": "avatar",
-                  "label": "Avatar"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/search-docked/ideal__query__compact.png",
-          "state": "query",
-          "width": 945,
-          "height": 147,
-          "size": "compact",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/search-docked__ideal__query__compact",
-          "previewId": "ee.schimke.m3catalog.sections.SearchKt.DockedSearchBarSticker_Light_VARIANT_query",
-          "overrides": [
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "placeholder"
-              },
-              "current": {
-                "kind": "string",
-                "value": "query"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "placeholder",
-                  "label": "Placeholder"
-                },
-                {
-                  "value": "query",
-                  "label": "Query"
-                },
-                {
-                  "value": "avatar",
-                  "label": "Avatar"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
         }
       ],
       "greenlines": [],
@@ -79470,16 +76772,16 @@
             "width": 945,
             "height": 150
           },
-          "cornerRadius": 28
+          "cornerRadius": 28.57
         }
       ],
       "section": "Navigation",
       "group": "Search",
-      "caption": "The collapsed bar anchored in the layout rather than floating; expands into a dropdown.",
+      "caption": "The collapsed entry point, floating over content. Query, avatar and the docked form fold in.",
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/52977:33948",
-      "wireframe": "wireframes/search-docked.svg",
+      "wireframe": "wireframes/search-bar.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Search.kt",
-      "bodyLine": 167
+      "bodyLine": 146
     },
     {
       "componentId": "Search/AppBar",
@@ -79833,7 +77135,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58114:20571",
       "wireframe": "wireframes/search-appbar.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Search.kt",
-      "bodyLine": 204
+      "bodyLine": 210
     },
     {
       "componentId": "SegmentedButton/SingleChoice",
@@ -80699,50 +78001,18 @@
             }
           ],
           "density": 2.625
-        }
-      ],
-      "greenlines": [],
-      "redlines": [
-        {
-          "bounds": {
-            "x": 541,
-            "y": 1,
-            "width": 273,
-            "height": 104
-          },
-          "role": "RadioButton",
-          "cornerRadius": 0
         },
         {
-          "bounds": {
-            "x": 0,
-            "y": 1,
-            "width": 274,
-            "height": 104
-          },
-          "role": "RadioButton",
-          "cornerRadius": 20
-        }
-      ],
-      "section": "Actions",
-      "group": "Segmented buttons",
-      "caption": "Two to five related options; exactly one selected. Count and content fold in.",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/53923:36653",
-      "wireframe": "wireframes/segmentedbutton-singlechoice.svg",
-      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/SegmentedButtons.kt",
-      "bodyLine": 87
-    },
-    {
-      "componentId": "SegmentedButton/MultiChoice",
-      "images": [
-        {
           "variant": "ideal",
-          "path": "images/segmentedbutton-multichoice/ideal__default__dark.png",
+          "path": "images/segmentedbutton-singlechoice/ideal__default__dark__selection-multi.png",
           "state": "default",
           "width": 814,
           "height": 105,
           "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-multichoice__ideal__default__dark",
+          "props": {
+            "selection": "multi"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-singlechoice__ideal__default__dark__selection-multi",
           "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.MultiChoiceSegmentedButtons_Dark",
           "overrides": [
             {
@@ -80799,322 +78069,15 @@
         },
         {
           "variant": "ideal",
-          "path": "images/segmentedbutton-multichoice/ideal__count-2__dark.png",
-          "state": "count-2",
-          "width": 814,
-          "height": 105,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-multichoice__ideal__count-2__dark",
-          "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.MultiChoiceSegmentedButtons_Dark_VARIANT_count-2",
-          "overrides": [
-            {
-              "key": "count",
-              "type": "string",
-              "label": "count",
-              "default": {
-                "kind": "string",
-                "value": "3"
-              },
-              "current": {
-                "kind": "string",
-                "value": "2"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "label"
-              },
-              "current": {
-                "kind": "string",
-                "value": "label"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "label",
-                  "label": "Label"
-                },
-                {
-                  "value": "icon",
-                  "label": "Icon"
-                },
-                {
-                  "value": "icon+label",
-                  "label": "Icon + label"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/segmentedbutton-multichoice/ideal__count-4__dark.png",
-          "state": "count-4",
-          "width": 814,
-          "height": 105,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-multichoice__ideal__count-4__dark",
-          "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.MultiChoiceSegmentedButtons_Dark_VARIANT_count-4",
-          "overrides": [
-            {
-              "key": "count",
-              "type": "string",
-              "label": "count",
-              "default": {
-                "kind": "string",
-                "value": "3"
-              },
-              "current": {
-                "kind": "string",
-                "value": "4"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "label"
-              },
-              "current": {
-                "kind": "string",
-                "value": "label"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "label",
-                  "label": "Label"
-                },
-                {
-                  "value": "icon",
-                  "label": "Icon"
-                },
-                {
-                  "value": "icon+label",
-                  "label": "Icon + label"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/segmentedbutton-multichoice/ideal__count-5__dark.png",
-          "state": "count-5",
-          "width": 814,
-          "height": 105,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-multichoice__ideal__count-5__dark",
-          "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.MultiChoiceSegmentedButtons_Dark_VARIANT_count-5",
-          "overrides": [
-            {
-              "key": "count",
-              "type": "string",
-              "label": "count",
-              "default": {
-                "kind": "string",
-                "value": "3"
-              },
-              "current": {
-                "kind": "string",
-                "value": "5"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "label"
-              },
-              "current": {
-                "kind": "string",
-                "value": "label"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "label",
-                  "label": "Label"
-                },
-                {
-                  "value": "icon",
-                  "label": "Icon"
-                },
-                {
-                  "value": "icon+label",
-                  "label": "Icon + label"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/segmentedbutton-multichoice/ideal__icon__dark.png",
-          "state": "icon",
-          "width": 814,
-          "height": 105,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-multichoice__ideal__icon__dark",
-          "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.MultiChoiceSegmentedButtons_Dark_VARIANT_icon",
-          "overrides": [
-            {
-              "key": "count",
-              "type": "string",
-              "label": "count",
-              "default": {
-                "kind": "string",
-                "value": "3"
-              },
-              "current": {
-                "kind": "string",
-                "value": "3"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "label"
-              },
-              "current": {
-                "kind": "string",
-                "value": "icon"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "label",
-                  "label": "Label"
-                },
-                {
-                  "value": "icon",
-                  "label": "Icon"
-                },
-                {
-                  "value": "icon+label",
-                  "label": "Icon + label"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/segmentedbutton-multichoice/ideal__icon-label__dark.png",
-          "state": "icon-label",
-          "width": 814,
-          "height": 105,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-multichoice__ideal__icon-label__dark",
-          "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.MultiChoiceSegmentedButtons_Dark_VARIANT_icon-label",
-          "overrides": [
-            {
-              "key": "count",
-              "type": "string",
-              "label": "count",
-              "default": {
-                "kind": "string",
-                "value": "3"
-              },
-              "current": {
-                "kind": "string",
-                "value": "3"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "label"
-              },
-              "current": {
-                "kind": "string",
-                "value": "icon+label"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "label",
-                  "label": "Label"
-                },
-                {
-                  "value": "icon",
-                  "label": "Icon"
-                },
-                {
-                  "value": "icon+label",
-                  "label": "Icon + label"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/segmentedbutton-multichoice/ideal__default__light.png",
+          "path": "images/segmentedbutton-singlechoice/ideal__default__light__selection-multi.png",
           "state": "default",
           "width": 814,
           "height": 105,
           "theme": "light",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-multichoice__ideal__default__light",
+          "props": {
+            "selection": "multi"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-singlechoice__ideal__default__light__selection-multi",
           "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.MultiChoiceSegmentedButtons_Light",
           "overrides": [
             {
@@ -81168,311 +78131,6 @@
             }
           ],
           "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/segmentedbutton-multichoice/ideal__count-2.png",
-          "state": "count-2",
-          "width": 814,
-          "height": 105,
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-multichoice__ideal__count-2",
-          "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.MultiChoiceSegmentedButtons_Light_VARIANT_count-2",
-          "overrides": [
-            {
-              "key": "count",
-              "type": "string",
-              "label": "count",
-              "default": {
-                "kind": "string",
-                "value": "3"
-              },
-              "current": {
-                "kind": "string",
-                "value": "2"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "label"
-              },
-              "current": {
-                "kind": "string",
-                "value": "label"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "label",
-                  "label": "Label"
-                },
-                {
-                  "value": "icon",
-                  "label": "Icon"
-                },
-                {
-                  "value": "icon+label",
-                  "label": "Icon + label"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/segmentedbutton-multichoice/ideal__count-4.png",
-          "state": "count-4",
-          "width": 814,
-          "height": 105,
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-multichoice__ideal__count-4",
-          "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.MultiChoiceSegmentedButtons_Light_VARIANT_count-4",
-          "overrides": [
-            {
-              "key": "count",
-              "type": "string",
-              "label": "count",
-              "default": {
-                "kind": "string",
-                "value": "3"
-              },
-              "current": {
-                "kind": "string",
-                "value": "4"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "label"
-              },
-              "current": {
-                "kind": "string",
-                "value": "label"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "label",
-                  "label": "Label"
-                },
-                {
-                  "value": "icon",
-                  "label": "Icon"
-                },
-                {
-                  "value": "icon+label",
-                  "label": "Icon + label"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/segmentedbutton-multichoice/ideal__count-5.png",
-          "state": "count-5",
-          "width": 814,
-          "height": 105,
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-multichoice__ideal__count-5",
-          "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.MultiChoiceSegmentedButtons_Light_VARIANT_count-5",
-          "overrides": [
-            {
-              "key": "count",
-              "type": "string",
-              "label": "count",
-              "default": {
-                "kind": "string",
-                "value": "3"
-              },
-              "current": {
-                "kind": "string",
-                "value": "5"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "label"
-              },
-              "current": {
-                "kind": "string",
-                "value": "label"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "label",
-                  "label": "Label"
-                },
-                {
-                  "value": "icon",
-                  "label": "Icon"
-                },
-                {
-                  "value": "icon+label",
-                  "label": "Icon + label"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/segmentedbutton-multichoice/ideal__icon.png",
-          "state": "icon",
-          "width": 814,
-          "height": 105,
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-multichoice__ideal__icon",
-          "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.MultiChoiceSegmentedButtons_Light_VARIANT_icon",
-          "overrides": [
-            {
-              "key": "count",
-              "type": "string",
-              "label": "count",
-              "default": {
-                "kind": "string",
-                "value": "3"
-              },
-              "current": {
-                "kind": "string",
-                "value": "3"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "label"
-              },
-              "current": {
-                "kind": "string",
-                "value": "icon"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "label",
-                  "label": "Label"
-                },
-                {
-                  "value": "icon",
-                  "label": "Icon"
-                },
-                {
-                  "value": "icon+label",
-                  "label": "Icon + label"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/segmentedbutton-multichoice/ideal__icon-label.png",
-          "state": "icon-label",
-          "width": 814,
-          "height": 105,
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/segmentedbutton-multichoice__ideal__icon-label",
-          "previewId": "ee.schimke.m3catalog.sections.SegmentedButtonsKt.MultiChoiceSegmentedButtons_Light_VARIANT_icon-label",
-          "overrides": [
-            {
-              "key": "count",
-              "type": "string",
-              "label": "count",
-              "default": {
-                "kind": "string",
-                "value": "3"
-              },
-              "current": {
-                "kind": "string",
-                "value": "3"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            },
-            {
-              "key": "content",
-              "type": "string",
-              "label": "content",
-              "default": {
-                "kind": "string",
-                "value": "label"
-              },
-              "current": {
-                "kind": "string",
-                "value": "icon+label"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "label",
-                  "label": "Label"
-                },
-                {
-                  "value": "icon",
-                  "label": "Icon"
-                },
-                {
-                  "value": "icon+label",
-                  "label": "Icon + label"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
         }
       ],
       "greenlines": [],
@@ -81484,6 +78142,7 @@
             "width": 273,
             "height": 104
           },
+          "role": "RadioButton",
           "cornerRadius": 0
         },
         {
@@ -81493,16 +78152,17 @@
             "width": 274,
             "height": 104
           },
+          "role": "RadioButton",
           "cornerRadius": 20
         }
       ],
       "section": "Actions",
       "group": "Segmented buttons",
-      "caption": "Any number of the options selected at once. Count and content fold in.",
+      "caption": "Two to five related options. Count, content and multi-select fold in.",
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/53923:36653",
-      "wireframe": "wireframes/segmentedbutton-multichoice.svg",
+      "wireframe": "wireframes/segmentedbutton-singlechoice.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/SegmentedButtons.kt",
-      "bodyLine": 116
+      "bodyLine": 99
     },
     {
       "componentId": "Shape/Corner scale",
@@ -91859,6 +88519,146 @@
             }
           ],
           "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/slider-continuous/ideal__default__dark__orientation-vertical.png",
+          "state": "default",
+          "width": 116,
+          "height": 929,
+          "theme": "dark",
+          "props": {
+            "orientation": "vertical"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-continuous__ideal__default__dark__orientation-vertical",
+          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.VerticalSliderSticker_Dark",
+          "overrides": [
+            {
+              "key": "steps",
+              "type": "string",
+              "label": "steps",
+              "default": {
+                "kind": "string",
+                "value": ""
+              },
+              "current": {
+                "kind": "string",
+                "value": ""
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "",
+                  "label": "Continuous"
+                },
+                {
+                  "value": "discrete",
+                  "label": "Discrete"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "status",
+              "type": "string",
+              "label": "status",
+              "default": {
+                "kind": "string",
+                "value": "enabled"
+              },
+              "current": {
+                "kind": "string",
+                "value": "enabled"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "enabled",
+                  "label": "Enabled"
+                },
+                {
+                  "value": "disabled",
+                  "label": "Disabled"
+                }
+              ],
+              "optionsExhaustive": true
+            }
+          ],
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/slider-continuous/ideal__default__light__orientation-vertical.png",
+          "state": "default",
+          "width": 116,
+          "height": 929,
+          "theme": "light",
+          "props": {
+            "orientation": "vertical"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-continuous__ideal__default__light__orientation-vertical",
+          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.VerticalSliderSticker_Light",
+          "overrides": [
+            {
+              "key": "steps",
+              "type": "string",
+              "label": "steps",
+              "default": {
+                "kind": "string",
+                "value": ""
+              },
+              "current": {
+                "kind": "string",
+                "value": ""
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "",
+                  "label": "Continuous"
+                },
+                {
+                  "value": "discrete",
+                  "label": "Discrete"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "status",
+              "type": "string",
+              "label": "status",
+              "default": {
+                "kind": "string",
+                "value": "enabled"
+              },
+              "current": {
+                "kind": "string",
+                "value": "enabled"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "enabled",
+                  "label": "Enabled"
+                },
+                {
+                  "value": "disabled",
+                  "label": "Disabled"
+                }
+              ],
+              "optionsExhaustive": true
+            }
+          ],
+          "density": 2.625
         }
       ],
       "greenlines": [],
@@ -91893,7 +88693,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58008:10357",
       "wireframe": "wireframes/slider-continuous.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Sliders.kt",
-      "bodyLine": 83
+      "bodyLine": 85
     },
     {
       "componentId": "Slider/Range",
@@ -93663,445 +90463,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58008:11811",
       "wireframe": "wireframes/slider-range.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Sliders.kt",
-      "bodyLine": 134
-    },
-    {
-      "componentId": "Slider/Vertical",
-      "images": [
-        {
-          "variant": "ideal",
-          "path": "images/slider-vertical/ideal__default__dark.png",
-          "state": "default",
-          "width": 116,
-          "height": 929,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-vertical__ideal__default__dark",
-          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.VerticalSliderSticker_Dark",
-          "overrides": [
-            {
-              "key": "steps",
-              "type": "string",
-              "label": "steps",
-              "default": {
-                "kind": "string",
-                "value": ""
-              },
-              "current": {
-                "kind": "string",
-                "value": ""
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "",
-                  "label": "Continuous"
-                },
-                {
-                  "value": "discrete",
-                  "label": "Discrete"
-                }
-              ],
-              "optionsExhaustive": true
-            },
-            {
-              "key": "status",
-              "type": "string",
-              "label": "status",
-              "default": {
-                "kind": "string",
-                "value": "enabled"
-              },
-              "current": {
-                "kind": "string",
-                "value": "enabled"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "enabled",
-                  "label": "Enabled"
-                },
-                {
-                  "value": "disabled",
-                  "label": "Disabled"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/slider-vertical/ideal__disabled__dark.png",
-          "state": "disabled",
-          "width": 116,
-          "height": 929,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-vertical__ideal__disabled__dark",
-          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.VerticalSliderSticker_Dark_VARIANT_disabled",
-          "overrides": [
-            {
-              "key": "steps",
-              "type": "string",
-              "label": "steps",
-              "default": {
-                "kind": "string",
-                "value": ""
-              },
-              "current": {
-                "kind": "string",
-                "value": ""
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "",
-                  "label": "Continuous"
-                },
-                {
-                  "value": "discrete",
-                  "label": "Discrete"
-                }
-              ],
-              "optionsExhaustive": true
-            },
-            {
-              "key": "status",
-              "type": "string",
-              "label": "status",
-              "default": {
-                "kind": "string",
-                "value": "enabled"
-              },
-              "current": {
-                "kind": "string",
-                "value": "disabled"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "enabled",
-                  "label": "Enabled"
-                },
-                {
-                  "value": "disabled",
-                  "label": "Disabled"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/slider-vertical/ideal__discrete__dark.png",
-          "state": "discrete",
-          "width": 116,
-          "height": 929,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-vertical__ideal__discrete__dark",
-          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.VerticalSliderSticker_Dark_VARIANT_discrete",
-          "overrides": [
-            {
-              "key": "steps",
-              "type": "string",
-              "label": "steps",
-              "default": {
-                "kind": "string",
-                "value": ""
-              },
-              "current": {
-                "kind": "string",
-                "value": "discrete"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "",
-                  "label": "Continuous"
-                },
-                {
-                  "value": "discrete",
-                  "label": "Discrete"
-                }
-              ],
-              "optionsExhaustive": true
-            },
-            {
-              "key": "status",
-              "type": "string",
-              "label": "status",
-              "default": {
-                "kind": "string",
-                "value": "enabled"
-              },
-              "current": {
-                "kind": "string",
-                "value": "enabled"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "enabled",
-                  "label": "Enabled"
-                },
-                {
-                  "value": "disabled",
-                  "label": "Disabled"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/slider-vertical/ideal__default__light.png",
-          "state": "default",
-          "width": 116,
-          "height": 929,
-          "theme": "light",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-vertical__ideal__default__light",
-          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.VerticalSliderSticker_Light",
-          "overrides": [
-            {
-              "key": "steps",
-              "type": "string",
-              "label": "steps",
-              "default": {
-                "kind": "string",
-                "value": ""
-              },
-              "current": {
-                "kind": "string",
-                "value": ""
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "",
-                  "label": "Continuous"
-                },
-                {
-                  "value": "discrete",
-                  "label": "Discrete"
-                }
-              ],
-              "optionsExhaustive": true
-            },
-            {
-              "key": "status",
-              "type": "string",
-              "label": "status",
-              "default": {
-                "kind": "string",
-                "value": "enabled"
-              },
-              "current": {
-                "kind": "string",
-                "value": "enabled"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "enabled",
-                  "label": "Enabled"
-                },
-                {
-                  "value": "disabled",
-                  "label": "Disabled"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/slider-vertical/ideal__disabled.png",
-          "state": "disabled",
-          "width": 116,
-          "height": 929,
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-vertical__ideal__disabled",
-          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.VerticalSliderSticker_Light_VARIANT_disabled",
-          "overrides": [
-            {
-              "key": "steps",
-              "type": "string",
-              "label": "steps",
-              "default": {
-                "kind": "string",
-                "value": ""
-              },
-              "current": {
-                "kind": "string",
-                "value": ""
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "",
-                  "label": "Continuous"
-                },
-                {
-                  "value": "discrete",
-                  "label": "Discrete"
-                }
-              ],
-              "optionsExhaustive": true
-            },
-            {
-              "key": "status",
-              "type": "string",
-              "label": "status",
-              "default": {
-                "kind": "string",
-                "value": "enabled"
-              },
-              "current": {
-                "kind": "string",
-                "value": "disabled"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "enabled",
-                  "label": "Enabled"
-                },
-                {
-                  "value": "disabled",
-                  "label": "Disabled"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/slider-vertical/ideal__discrete.png",
-          "state": "discrete",
-          "width": 116,
-          "height": 929,
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/slider-vertical__ideal__discrete",
-          "previewId": "ee.schimke.m3catalog.sections.SlidersKt.VerticalSliderSticker_Light_VARIANT_discrete",
-          "overrides": [
-            {
-              "key": "steps",
-              "type": "string",
-              "label": "steps",
-              "default": {
-                "kind": "string",
-                "value": ""
-              },
-              "current": {
-                "kind": "string",
-                "value": "discrete"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "",
-                  "label": "Continuous"
-                },
-                {
-                  "value": "discrete",
-                  "label": "Discrete"
-                }
-              ],
-              "optionsExhaustive": true
-            },
-            {
-              "key": "status",
-              "type": "string",
-              "label": "status",
-              "default": {
-                "kind": "string",
-                "value": "enabled"
-              },
-              "current": {
-                "kind": "string",
-                "value": "enabled"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "enabled",
-                  "label": "Enabled"
-                },
-                {
-                  "value": "disabled",
-                  "label": "Disabled"
-                }
-              ],
-              "optionsExhaustive": true
-            }
-          ],
-          "density": 2.625
-        }
-      ],
-      "greenlines": [],
-      "redlines": [
-        {
-          "bounds": {
-            "x": 0,
-            "y": 0,
-            "width": 116,
-            "height": 929
-          },
-          "padding": {
-            "start": 0,
-            "top": 10,
-            "end": 0,
-            "bottom": 10
-          }
-        },
-        {
-          "bounds": {
-            "x": 0,
-            "y": 459,
-            "width": 116,
-            "height": 11
-          },
-          "cornerRadius": 2.1
-        }
-      ],
-      "section": "Selection",
-      "group": "Sliders",
-      "caption": "The same control rotated for vertical controls such as volume and brightness.",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58008:10668",
-      "wireframe": "wireframes/slider-vertical.svg",
-      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Sliders.kt",
-      "bodyLine": 184
+      "bodyLine": 136
     },
     {
       "componentId": "Snackbar/Message",
@@ -98701,6 +95063,18 @@
             "height": 63
           },
           "cornerRadius": 12
+        }
+      ],
+      "motion": [
+        {
+          "path": "motion/switch-on/ideal__default__dark.apng",
+          "kind": "interaction",
+          "caption": "Toggle quickly. The thumb's travel resolves through Expressive's FastSpatial motion spec — fast enough to feel immediate, still springy enough to overshoot slightly on arrival."
+        },
+        {
+          "path": "motion/switch-on/ideal__default__light.apng",
+          "kind": "interaction",
+          "caption": "Toggle quickly. The thumb's travel resolves through Expressive's FastSpatial motion spec — fast enough to feel immediate, still springy enough to overshoot slightly on arrival."
         }
       ],
       "section": "Selection",
@@ -113190,6 +109564,18 @@
         }
       ],
       "redlines": [],
+      "motion": [
+        {
+          "path": "motion/togglebutton-filled/ideal__default__dark.apng",
+          "kind": "interaction",
+          "caption": "Toggle repeatedly. The container morphs between its unchecked and checked shapes through the theme's spatial animation — Baseline swaps the shape, Expressive travels between them."
+        },
+        {
+          "path": "motion/togglebutton-filled/ideal__default__light.apng",
+          "kind": "interaction",
+          "caption": "Toggle repeatedly. The container morphs between its unchecked and checked shapes through the theme's spatial animation — Baseline swaps the shape, Expressive travels between them."
+        }
+      ],
       "section": "Actions",
       "group": "Toggle buttons",
       "caption": "A button whose selection persists. Five sizes x two shapes fold in as variants.",
@@ -131565,6 +127951,174 @@
             }
           ],
           "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/toolbar-horizontalfloating/ideal__default__dark__orientation-vertical.png",
+          "state": "default",
+          "width": 226,
+          "height": 499,
+          "theme": "dark",
+          "props": {
+            "orientation": "vertical"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-horizontalfloating__ideal__default__dark__orientation-vertical",
+          "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Dark",
+          "overrides": [
+            {
+              "key": "color",
+              "type": "string",
+              "label": "color",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "expanded",
+              "type": "bool",
+              "label": "expanded",
+              "default": {
+                "kind": "bool",
+                "value": true
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            }
+          ],
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/toolbar-horizontalfloating/ideal__collapsed__dark__orientation-vertical.png",
+          "state": "collapsed",
+          "width": 226,
+          "height": 499,
+          "theme": "dark",
+          "props": {
+            "orientation": "vertical"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-horizontalfloating__ideal__collapsed__dark__orientation-vertical"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/toolbar-horizontalfloating/ideal__vibrant__dark__orientation-vertical.png",
+          "state": "vibrant",
+          "width": 226,
+          "height": 499,
+          "theme": "dark",
+          "props": {
+            "orientation": "vertical"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-horizontalfloating__ideal__vibrant__dark__orientation-vertical"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/toolbar-horizontalfloating/ideal__default__light__orientation-vertical.png",
+          "state": "default",
+          "width": 226,
+          "height": 499,
+          "theme": "light",
+          "props": {
+            "orientation": "vertical"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-horizontalfloating__ideal__default__light__orientation-vertical",
+          "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light",
+          "overrides": [
+            {
+              "key": "color",
+              "type": "string",
+              "label": "color",
+              "default": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "current": {
+                "kind": "string",
+                "value": "standard"
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard"
+                },
+                {
+                  "value": "vibrant",
+                  "label": "Vibrant"
+                }
+              ],
+              "optionsExhaustive": true
+            },
+            {
+              "key": "expanded",
+              "type": "bool",
+              "label": "expanded",
+              "default": {
+                "kind": "bool",
+                "value": true
+              },
+              "current": {
+                "kind": "bool",
+                "value": true
+              },
+              "index": null,
+              "suggestions": [],
+              "googleFonts": false,
+              "options": [],
+              "optionsExhaustive": false
+            }
+          ],
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/toolbar-horizontalfloating/ideal__collapsed__orientation-vertical.png",
+          "state": "collapsed",
+          "width": 226,
+          "height": 499,
+          "props": {
+            "orientation": "vertical"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-horizontalfloating__ideal__collapsed__orientation-vertical"
+        },
+        {
+          "variant": "ideal",
+          "path": "images/toolbar-horizontalfloating/ideal__vibrant__orientation-vertical.png",
+          "state": "vibrant",
+          "width": 226,
+          "height": 499,
+          "props": {
+            "orientation": "vertical"
+          },
+          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-horizontalfloating__ideal__vibrant__orientation-vertical"
         }
       ],
       "greenlines": [
@@ -131682,474 +128236,7 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58467:8210",
       "wireframe": "wireframes/toolbar-horizontalfloating.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Toolbars.kt",
-      "bodyLine": 86
-    },
-    {
-      "componentId": "Toolbar/VerticalFloating",
-      "images": [
-        {
-          "variant": "ideal",
-          "path": "images/toolbar-verticalfloating/ideal__default__dark.png",
-          "state": "default",
-          "width": 226,
-          "height": 499,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-verticalfloating__ideal__default__dark",
-          "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Dark",
-          "overrides": [
-            {
-              "key": "color",
-              "type": "string",
-              "label": "color",
-              "default": {
-                "kind": "string",
-                "value": "standard"
-              },
-              "current": {
-                "kind": "string",
-                "value": "standard"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "standard",
-                  "label": "Standard"
-                },
-                {
-                  "value": "vibrant",
-                  "label": "Vibrant"
-                }
-              ],
-              "optionsExhaustive": true
-            },
-            {
-              "key": "expanded",
-              "type": "bool",
-              "label": "expanded",
-              "default": {
-                "kind": "bool",
-                "value": true
-              },
-              "current": {
-                "kind": "bool",
-                "value": true
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/toolbar-verticalfloating/ideal__collapsed__dark.png",
-          "state": "collapsed",
-          "width": 226,
-          "height": 499,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-verticalfloating__ideal__collapsed__dark",
-          "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Dark_VARIANT_collapsed",
-          "overrides": [
-            {
-              "key": "color",
-              "type": "string",
-              "label": "color",
-              "default": {
-                "kind": "string",
-                "value": "standard"
-              },
-              "current": {
-                "kind": "string",
-                "value": "standard"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "standard",
-                  "label": "Standard"
-                },
-                {
-                  "value": "vibrant",
-                  "label": "Vibrant"
-                }
-              ],
-              "optionsExhaustive": true
-            },
-            {
-              "key": "expanded",
-              "type": "bool",
-              "label": "expanded",
-              "default": {
-                "kind": "bool",
-                "value": true
-              },
-              "current": {
-                "kind": "bool",
-                "value": false
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/toolbar-verticalfloating/ideal__vibrant__dark.png",
-          "state": "vibrant",
-          "width": 226,
-          "height": 499,
-          "theme": "dark",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-verticalfloating__ideal__vibrant__dark",
-          "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Dark_VARIANT_vibrant",
-          "overrides": [
-            {
-              "key": "color",
-              "type": "string",
-              "label": "color",
-              "default": {
-                "kind": "string",
-                "value": "standard"
-              },
-              "current": {
-                "kind": "string",
-                "value": "vibrant"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "standard",
-                  "label": "Standard"
-                },
-                {
-                  "value": "vibrant",
-                  "label": "Vibrant"
-                }
-              ],
-              "optionsExhaustive": true
-            },
-            {
-              "key": "expanded",
-              "type": "bool",
-              "label": "expanded",
-              "default": {
-                "kind": "bool",
-                "value": true
-              },
-              "current": {
-                "kind": "bool",
-                "value": true
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/toolbar-verticalfloating/ideal__default__light.png",
-          "state": "default",
-          "width": 226,
-          "height": 499,
-          "theme": "light",
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-verticalfloating__ideal__default__light",
-          "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light",
-          "overrides": [
-            {
-              "key": "color",
-              "type": "string",
-              "label": "color",
-              "default": {
-                "kind": "string",
-                "value": "standard"
-              },
-              "current": {
-                "kind": "string",
-                "value": "standard"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "standard",
-                  "label": "Standard"
-                },
-                {
-                  "value": "vibrant",
-                  "label": "Vibrant"
-                }
-              ],
-              "optionsExhaustive": true
-            },
-            {
-              "key": "expanded",
-              "type": "bool",
-              "label": "expanded",
-              "default": {
-                "kind": "bool",
-                "value": true
-              },
-              "current": {
-                "kind": "bool",
-                "value": true
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/toolbar-verticalfloating/ideal__collapsed.png",
-          "state": "collapsed",
-          "width": 226,
-          "height": 499,
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-verticalfloating__ideal__collapsed",
-          "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light_VARIANT_collapsed",
-          "overrides": [
-            {
-              "key": "color",
-              "type": "string",
-              "label": "color",
-              "default": {
-                "kind": "string",
-                "value": "standard"
-              },
-              "current": {
-                "kind": "string",
-                "value": "standard"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "standard",
-                  "label": "Standard"
-                },
-                {
-                  "value": "vibrant",
-                  "label": "Vibrant"
-                }
-              ],
-              "optionsExhaustive": true
-            },
-            {
-              "key": "expanded",
-              "type": "bool",
-              "label": "expanded",
-              "default": {
-                "kind": "bool",
-                "value": true
-              },
-              "current": {
-                "kind": "bool",
-                "value": false
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        },
-        {
-          "variant": "ideal",
-          "path": "images/toolbar-verticalfloating/ideal__vibrant.png",
-          "state": "vibrant",
-          "width": 226,
-          "height": 499,
-          "livePreview": "https://preview.coo.ee/m3-catalog/p/toolbar-verticalfloating__ideal__vibrant",
-          "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light_VARIANT_vibrant",
-          "overrides": [
-            {
-              "key": "color",
-              "type": "string",
-              "label": "color",
-              "default": {
-                "kind": "string",
-                "value": "standard"
-              },
-              "current": {
-                "kind": "string",
-                "value": "vibrant"
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [
-                {
-                  "value": "standard",
-                  "label": "Standard"
-                },
-                {
-                  "value": "vibrant",
-                  "label": "Vibrant"
-                }
-              ],
-              "optionsExhaustive": true
-            },
-            {
-              "key": "expanded",
-              "type": "bool",
-              "label": "expanded",
-              "default": {
-                "kind": "bool",
-                "value": true
-              },
-              "current": {
-                "kind": "bool",
-                "value": true
-              },
-              "index": null,
-              "suggestions": [],
-              "googleFonts": false,
-              "options": [],
-              "optionsExhaustive": false
-            }
-          ],
-          "density": 2.625
-        }
-      ],
-      "greenlines": [
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button",
-          "detail": {
-            "role": "button",
-            "bounds": {
-              "x": 61,
-              "y": 72,
-              "width": 105,
-              "height": 105
-            }
-          },
-          "bounds": {
-            "x": 61,
-            "y": 72,
-            "width": 105,
-            "height": 105
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button",
-          "detail": {
-            "role": "button",
-            "bounds": {
-              "x": 61,
-              "y": 198,
-              "width": 105,
-              "height": 105
-            }
-          },
-          "bounds": {
-            "x": 61,
-            "y": 198,
-            "width": 105,
-            "height": 105
-          }
-        },
-        {
-          "kind": "a11y",
-          "severity": "info",
-          "message": "button",
-          "detail": {
-            "role": "button",
-            "bounds": {
-              "x": 61,
-              "y": 324,
-              "width": 105,
-              "height": 105
-            }
-          },
-          "bounds": {
-            "x": 61,
-            "y": 324,
-            "width": 105,
-            "height": 105
-          }
-        }
-      ],
-      "redlines": [
-        {
-          "bounds": {
-            "x": 50,
-            "y": 50,
-            "width": 126,
-            "height": 399
-          },
-          "padding": {
-            "start": 8,
-            "top": 8,
-            "end": 8,
-            "bottom": 8
-          },
-          "cornerRadius": 24
-        },
-        {
-          "bounds": {
-            "x": 61,
-            "y": 72,
-            "width": 105,
-            "height": 105
-          },
-          "role": "Button",
-          "cornerRadius": 20
-        },
-        {
-          "bounds": {
-            "x": 61,
-            "y": 198,
-            "width": 105,
-            "height": 105
-          },
-          "role": "Button",
-          "cornerRadius": 20
-        },
-        {
-          "bounds": {
-            "x": 61,
-            "y": 324,
-            "width": 105,
-            "height": 105
-          },
-          "role": "Button",
-          "cornerRadius": 20
-        }
-      ],
-      "section": "Actions",
-      "group": "Toolbars",
-      "caption": "The side-anchored form. Expanded and vibrant fold in.",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58467:8325",
-      "wireframe": "wireframes/toolbar-verticalfloating.svg",
-      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/sections/Toolbars.kt",
-      "bodyLine": 110
+      "bodyLine": 87
     },
     {
       "componentId": "TopAppBar/Small",
@@ -135210,18 +131297,13 @@
     "org.jetbrains.compose.material3:material3",
     "org.jetbrains.compose.material:material-icons-extended"
   ],
-  "renderer": "compose-preview 1.9.0",
-  "generatedAt": "2026-08-16T18:44:37.461Z",
+  "renderer": "compose-preview 1.10.1",
+  "generatedAt": "2026-08-16T23:26:23.513Z",
   "display": {
     "hero": "DatePicker/Modal"
   },
   "liveBundle": {
     "path": "bundle/",
     "file": "bundle.png"
-  },
-  "source": {
-    "repo": "yschimke/m3-catalog",
-    "ref": "main",
-    "module": ":catalog"
   }
 }
