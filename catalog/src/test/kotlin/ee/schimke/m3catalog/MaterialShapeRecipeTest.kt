@@ -1,6 +1,7 @@
 package ee.schimke.m3catalog
 
 import androidx.graphics.shapes.RoundedPolygon
+import ee.schimke.m3catalog.sections.SHAPE_SET
 import java.io.File
 import kotlin.math.abs
 import kotlin.test.Test
@@ -93,25 +94,54 @@ class MaterialShapeRecipeTest {
   }
 
   @Test
-  fun `a shape sticker draws the recipe of the same name`() {
+  fun `the shape set table covers every recipe exactly once`() {
+    assertEquals(
+      35,
+      SHAPE_SET.size,
+      "the kit's `Shape Set` publishes 35 variants, so the table carries 35 cells",
+    )
+    assertEquals(
+      MaterialShapeRecipes.All.size,
+      SHAPE_SET.size,
+      "every `MaterialShapes` entry is one cell of the shape sticker",
+    )
+    assertEquals(
+      MaterialShapeRecipes.All.toSet(),
+      SHAPE_SET.map { it.second }.toSet(),
+      "the table and `MaterialShapeRecipes.All` name the same shapes",
+    )
+    assertEquals(
+      SHAPE_SET.size,
+      SHAPE_SET.map { it.first }.toSet().size,
+      "a duplicate seed key would make one shape unreachable",
+    )
+    assertEquals(
+      "circle",
+      SHAPE_SET.first().first,
+      "the unseeded render is the kit's first variant",
+    )
+  }
+
+  /**
+   * The seed keys and the `@OverrideVariant` cells have to agree, and nothing else checks it: a
+   * cell seeding a key the table does not carry falls back to Circle and publishes a duplicate
+   * silhouette under another shape's name, while a table entry with no cell never renders at all.
+   * Both fail quietly, which is why this reads the source rather than trusting the pair.
+   */
+  @Test
+  fun `every shape but the default has a cell, and every cell names a real shape`() {
     val source = File("src/main/kotlin/ee/schimke/m3catalog/sections/Shapes.kt").readText()
-    val stickers =
-      source
-        .split("@CatalogComponent(")
-        .asSequence()
-        .mapNotNull { component ->
-          Regex("""id = "Shape/([^"]+)"""").find(component)?.groupValues?.get(1)?.let { id ->
-            Regex("""ShapeSticker\(MaterialShapeRecipes\.(\w+)\)""")
-              .find(component)
-              ?.groupValues
-              ?.get(1)
-              ?.let { recipe -> id to recipe }
-          }
-        }
+    val seeded =
+      Regex("""@OverrideVariant\(name = "[^"]+", strings = \["shape=([^"]+)"\]\)""")
+        .findAll(source)
+        .map { it.groupValues[1] }
         .toList()
-    assertEquals(35, stickers.size)
-    for ((id, recipe) in stickers) {
-      assertEquals(id, recipe, "the `Shape/$id` sticker draws MaterialShapeRecipes.$recipe")
-    }
+    val keys = SHAPE_SET.map { it.first }
+    assertEquals(
+      keys.drop(1).toSet(),
+      seeded.toSet(),
+      "every shape except the unseeded default carries exactly one cell",
+    )
+    assertEquals(seeded.size, seeded.toSet().size, "a repeated cell would overwrite its own render")
   }
 }

@@ -34,33 +34,29 @@ import ee.schimke.m3catalog.Sticker
 // `MaterialShapes`, so each sticker here is one entry of that object and nothing else — the point
 // of the sticker is the outline, and any content inside it would only be something else to compare.
 //
-// EVERY STICKER NAMES ITS FIGMA NODE, AND THAT IS THE FEATURE
+// ONE COMPONENT, THIRTY-FIVE CELLS
 //
-// The `reference` on each component is the node id of that shape's symbol on the kit's `Shape`
-// page. `generate-design-map.mjs` projects it into `design-map.json`, and
-// `scripts/import-figma-pages.mjs` joins the imported page's `data-node-id` elements against that
-// map — so the preview server can hide the kit's own drawing of `Shape=Circle` and put this
-// catalog's `Shape/Circle` render in the hole it leaves. A shape with no `reference` still
-// publishes; it just isn't swappable on the page view. See `docs/FIGMA_PAGES.md`.
+// The kit models these as ONE component set — `Shape Set`, varying a single `Shape=` property — so
+// by this catalog's own rule (membership is the kit's call, see `AGENTS.md`) they are one component
+// with a shape axis, not 35 components. They used to be 35, and the comment here justified that on
+// tooling grounds: `@CatalogVariant` has no `reference` argument, so folding was said to cost each
+// shape its node id. That was never the whole picture and is now simply wrong — `@design-parity/
+// kit-index` resolves each cell's seed against the parent's component set and supplies the node,
+// the same way `type=wave` resolves for the progress indicators.
 //
-// One component per shape rather than one component with 35 variants, which is the exception to
-// the fold-variants-behind-defaults rule in `AGENTS.md` and worth stating.
+// EVERY CELL STILL NAMES ITS FIGMA NODE, AND THAT IS THE FEATURE
 //
-// The reason used to be a tooling one: `@CatalogVariant` has no `reference` argument, so folding
-// was said to cost each shape its node id and with it the whole page-swap join. THAT REASON IS
-// GONE. `@design-parity/kit-index` resolves a variant's props against the parent's component set,
-// so a folded `shape=arch` would resolve to the set's `Shape=Arch` node the same way `type=wave`
-// resolves for the progress indicators (see `ProgressIndicators.kt`). Nothing here is blocked.
+// This is what the fold had to preserve, and does. `design-map.json` carries the component's `ref`
+// as a TAGGED ARRAY — the base node plus one per cell, each tagged with the cell's state — and
+// `scripts/import-figma-pages.mjs` walks that array, so the preview server can still hide the kit's
+// own drawing of `Shape=Circle` and put this catalog's render in the hole it leaves. All 35 node
+// ids stay addressable; what changed is that they hang off one component instead of 35. A shape
+// whose seed fails to resolve drops out of that array silently, which is why `CatalogShapeSetTest`
+// exists and why the seed keys below are the kit's spelling. See `docs/FIGMA_PAGES.md`.
 //
-// What remains is a real question rather than a constraint, and it is open — see issue #128. The
-// kit does model these as one set with a `Shape=` property, which by the catalog's own rule makes
-// them one component. Against that: 35 is a third of the inventory, this page is the best-linked
-// in the file (35 of 38 specimens, `docs/FIGMA_PAGES.md`), and the swap depends on every node id
-// staying addressable through `design-map.json`, which wants verifying on one shape before it is
-// done to 34. Left split deliberately, pending that decision — not because the tooling forbids it.
-//
-// `Shape=Hexagon` is the kit's layer name for the shape its own caption calls **Clamshell**, and
-// Compose calls `MaterialShapes.ClamShell`. The reference follows the node id, not the name.
+// The knob is a `MaterialShapeRecipe` selector rather than 35 functions, which is exactly how the
+// `Shape/Corner scale` sticker above already handles its ten radius tokens. Renders are unchanged
+// in number and in content: 35 silhouettes, plus Sunny's two knob-seam cells.
 //
 // STOCK BY DEFAULT, INLINED WHEN A KNOB MOVES
 //
@@ -139,327 +135,112 @@ private fun shapeTweaks(): ShapeTweaks =
     count = previewOverrideInt("count", 0),
   )
 
+/**
+ * Every shape in the set, keyed by THE KIT'S OWN variant value, lower-cased.
+ *
+ * The key is the seed the `shape` knob takes, and the kit-index resolver matches that seed against
+ * the `Shape Set`'s `Shape=` property to find each cell's node — so the key has to be the kit's
+ * spelling, not Compose's. Mostly they agree. Where they do not, the kit wins and the Compose name
+ * survives only on the right-hand side: `hexagon` is `MaterialShapes.ClamShell` (the kit's layer
+ * name for the shape its own caption calls Clamshell), and the cookies and clovers put their count
+ * first. A key spelled the Compose way resolves to nothing and drops that shape's node silently —
+ * see yschimke/compose-ai-tools#4086, which is the gap that would let this name both sides.
+ *
+ * `CatalogShapeSetTest` holds this table to [MaterialShapeRecipes.All] and to the
+ * `@OverrideVariant` cells below, so a shape cannot be added to one and forgotten in the others.
+ */
+internal val SHAPE_SET: List<Pair<String, MaterialShapeRecipe>> =
+  listOf(
+    "circle" to MaterialShapeRecipes.Circle,
+    "square" to MaterialShapeRecipes.Square,
+    "slanted" to MaterialShapeRecipes.Slanted,
+    "arch" to MaterialShapeRecipes.Arch,
+    "fan" to MaterialShapeRecipes.Fan,
+    "arrow" to MaterialShapeRecipes.Arrow,
+    "semicircle" to MaterialShapeRecipes.SemiCircle,
+    "oval" to MaterialShapeRecipes.Oval,
+    "pill" to MaterialShapeRecipes.Pill,
+    "triangle" to MaterialShapeRecipes.Triangle,
+    "diamond" to MaterialShapeRecipes.Diamond,
+    "hexagon" to MaterialShapeRecipes.ClamShell,
+    "pentagon" to MaterialShapeRecipes.Pentagon,
+    "gem" to MaterialShapeRecipes.Gem,
+    "very sunny" to MaterialShapeRecipes.VerySunny,
+    "sunny" to MaterialShapeRecipes.Sunny,
+    "4-sided cookie" to MaterialShapeRecipes.Cookie4Sided,
+    "6-sided cookie" to MaterialShapeRecipes.Cookie6Sided,
+    "7-sided cookie" to MaterialShapeRecipes.Cookie7Sided,
+    "9-sided cookie" to MaterialShapeRecipes.Cookie9Sided,
+    "12-sided cookie" to MaterialShapeRecipes.Cookie12Sided,
+    "ghost-ish" to MaterialShapeRecipes.Ghostish,
+    "4-leaf clover" to MaterialShapeRecipes.Clover4Leaf,
+    "8-leaf clover" to MaterialShapeRecipes.Clover8Leaf,
+    "burst" to MaterialShapeRecipes.Burst,
+    "soft burst" to MaterialShapeRecipes.SoftBurst,
+    "boom" to MaterialShapeRecipes.Boom,
+    "soft boom" to MaterialShapeRecipes.SoftBoom,
+    "flower" to MaterialShapeRecipes.Flower,
+    "puffy" to MaterialShapeRecipes.Puffy,
+    "puffy diamond" to MaterialShapeRecipes.PuffyDiamond,
+    "pixel circle" to MaterialShapeRecipes.PixelCircle,
+    "pixel triangle" to MaterialShapeRecipes.PixelTriangle,
+    "bun" to MaterialShapeRecipes.Bun,
+    "heart" to MaterialShapeRecipes.Heart,
+  )
+
+@Composable
+private fun catalogShape(): MaterialShapeRecipe {
+  val key = previewOverrideString("shape", "circle")
+  return SHAPE_SET.firstOrNull { it.first == key }?.second ?: MaterialShapeRecipes.Circle
+}
+
 @CatalogComponent(
-  id = "Shape/Circle",
+  id = "Shape/MaterialShapes",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7249",
-  caption = "The kit's Circle shape, drawn from `MaterialShapes.Circle`.",
+  caption = "The expressive shape library. All 35 of `MaterialShapes` fold in as variants.",
 )
 @CatalogModes
-@Composable
-fun CircleShape() = ShapeSticker(MaterialShapeRecipes.Circle)
-
-@CatalogComponent(
-  id = "Shape/Square",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7251",
-  caption = "The kit's Square shape, drawn from `MaterialShapes.Square`.",
-)
-@CatalogModes
-@Composable
-fun SquareShape() = ShapeSticker(MaterialShapeRecipes.Square)
-
-@CatalogComponent(
-  id = "Shape/Slanted",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7253",
-  caption = "The kit's Slanted shape, drawn from `MaterialShapes.Slanted`.",
-)
-@CatalogModes
-@Composable
-fun SlantedShape() = ShapeSticker(MaterialShapeRecipes.Slanted)
-
-@CatalogComponent(
-  id = "Shape/Arch",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7255",
-  caption = "The kit's Arch shape, drawn from `MaterialShapes.Arch`.",
-)
-@CatalogModes
-@Composable
-fun ArchShape() = ShapeSticker(MaterialShapeRecipes.Arch)
-
-@CatalogComponent(
-  id = "Shape/Fan",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7257",
-  caption = "The kit's Fan shape, drawn from `MaterialShapes.Fan`.",
-)
-@CatalogModes
-@Composable
-fun FanShape() = ShapeSticker(MaterialShapeRecipes.Fan)
-
-@CatalogComponent(
-  id = "Shape/Arrow",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7259",
-  caption = "The kit's Arrow shape, drawn from `MaterialShapes.Arrow`.",
-)
-@CatalogModes
-@Composable
-fun ArrowShape() = ShapeSticker(MaterialShapeRecipes.Arrow)
-
-@CatalogComponent(
-  id = "Shape/SemiCircle",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7261",
-  caption = "The kit's Semicircle shape, drawn from `MaterialShapes.SemiCircle`.",
-)
-@CatalogModes
-@Composable
-fun SemiCircleShape() = ShapeSticker(MaterialShapeRecipes.SemiCircle)
-
-@CatalogComponent(
-  id = "Shape/Oval",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7263",
-  caption = "The kit's Oval shape, drawn from `MaterialShapes.Oval`.",
-)
-@CatalogModes
-@Composable
-fun OvalShape() = ShapeSticker(MaterialShapeRecipes.Oval)
-
-@CatalogComponent(
-  id = "Shape/Pill",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7265",
-  caption = "The kit's Pill shape, drawn from `MaterialShapes.Pill`.",
-)
-@CatalogModes
-@Composable
-fun PillShape() = ShapeSticker(MaterialShapeRecipes.Pill)
-
-@CatalogComponent(
-  id = "Shape/Triangle",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7267",
-  caption = "The kit's Triangle shape, drawn from `MaterialShapes.Triangle`.",
-)
-@CatalogModes
-@Composable
-fun TriangleShape() = ShapeSticker(MaterialShapeRecipes.Triangle)
-
-@CatalogComponent(
-  id = "Shape/Diamond",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7269",
-  caption = "The kit's Diamond shape, drawn from `MaterialShapes.Diamond`.",
-)
-@CatalogModes
-@Composable
-fun DiamondShape() = ShapeSticker(MaterialShapeRecipes.Diamond)
-
-@CatalogComponent(
-  id = "Shape/ClamShell",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7271",
-  caption = "The kit's Clamshell shape, drawn from `MaterialShapes.ClamShell`.",
-)
-@CatalogModes
-@Composable
-fun ClamShellShape() = ShapeSticker(MaterialShapeRecipes.ClamShell)
-
-@CatalogComponent(
-  id = "Shape/Pentagon",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7273",
-  caption = "The kit's Pentagon shape, drawn from `MaterialShapes.Pentagon`.",
-)
-@CatalogModes
-@Composable
-fun PentagonShape() = ShapeSticker(MaterialShapeRecipes.Pentagon)
-
-@CatalogComponent(
-  id = "Shape/Gem",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7275",
-  caption = "The kit's Gem shape, drawn from `MaterialShapes.Gem`.",
-)
-@CatalogModes
-@Composable
-fun GemShape() = ShapeSticker(MaterialShapeRecipes.Gem)
-
-@CatalogComponent(
-  id = "Shape/VerySunny",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7277",
-  caption = "The kit's Very sunny shape, drawn from `MaterialShapes.VerySunny`.",
-)
-@CatalogModes
-@Composable
-fun VerySunnyShape() = ShapeSticker(MaterialShapeRecipes.VerySunny)
-
+@OverrideVariant(name = "square", strings = ["shape=square"])
+@OverrideVariant(name = "slanted", strings = ["shape=slanted"])
+@OverrideVariant(name = "arch", strings = ["shape=arch"])
+@OverrideVariant(name = "fan", strings = ["shape=fan"])
+@OverrideVariant(name = "arrow", strings = ["shape=arrow"])
+@OverrideVariant(name = "semicircle", strings = ["shape=semicircle"])
+@OverrideVariant(name = "oval", strings = ["shape=oval"])
+@OverrideVariant(name = "pill", strings = ["shape=pill"])
+@OverrideVariant(name = "triangle", strings = ["shape=triangle"])
+@OverrideVariant(name = "diamond", strings = ["shape=diamond"])
+@OverrideVariant(name = "hexagon", strings = ["shape=hexagon"])
+@OverrideVariant(name = "pentagon", strings = ["shape=pentagon"])
+@OverrideVariant(name = "gem", strings = ["shape=gem"])
+@OverrideVariant(name = "very-sunny", strings = ["shape=very sunny"])
+@OverrideVariant(name = "sunny", strings = ["shape=sunny"])
+@OverrideVariant(name = "4-sided-cookie", strings = ["shape=4-sided cookie"])
+@OverrideVariant(name = "6-sided-cookie", strings = ["shape=6-sided cookie"])
+@OverrideVariant(name = "7-sided-cookie", strings = ["shape=7-sided cookie"])
+@OverrideVariant(name = "9-sided-cookie", strings = ["shape=9-sided cookie"])
+@OverrideVariant(name = "12-sided-cookie", strings = ["shape=12-sided cookie"])
+@OverrideVariant(name = "ghost-ish", strings = ["shape=ghost-ish"])
+@OverrideVariant(name = "4-leaf-clover", strings = ["shape=4-leaf clover"])
+@OverrideVariant(name = "8-leaf-clover", strings = ["shape=8-leaf clover"])
+@OverrideVariant(name = "burst", strings = ["shape=burst"])
+@OverrideVariant(name = "soft-burst", strings = ["shape=soft burst"])
+@OverrideVariant(name = "boom", strings = ["shape=boom"])
+@OverrideVariant(name = "soft-boom", strings = ["shape=soft boom"])
+@OverrideVariant(name = "flower", strings = ["shape=flower"])
+@OverrideVariant(name = "puffy", strings = ["shape=puffy"])
+@OverrideVariant(name = "puffy-diamond", strings = ["shape=puffy diamond"])
+@OverrideVariant(name = "pixel-circle", strings = ["shape=pixel circle"])
+@OverrideVariant(name = "pixel-triangle", strings = ["shape=pixel triangle"])
+@OverrideVariant(name = "bun", strings = ["shape=bun"])
+@OverrideVariant(name = "heart", strings = ["shape=heart"])
 // Sunny carries the two demonstration cells for the knob seam — every shape reads the same four
 // knobs, and one shape baking two of them is enough to hold the inlined path in the published sheet
 // rather than only in a unit test. It is also the clearest shape to show them on: it is a star, so
 // it answers both knobs visibly (`rounding=0` gives the raw 8-pointed skeleton, `count=12` the same
 // star with twelve points). Baking these on all 35 would double the shape renders to say the same
 // thing 35 times.
-@CatalogComponent(
-  id = "Shape/Sunny",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7279",
-  caption =
-    "The kit's Sunny shape, drawn from `MaterialShapes.Sunny`. Its `rounding` / `count` knobs " +
-      "rebuild it from the inlined star.",
-)
-@CatalogModes
-@OverrideVariant(name = "unrounded", floats = ["rounding=0.0"])
-@OverrideVariant(name = "count-12", ints = ["count=12"])
+@OverrideVariant(name = "sunny-unrounded", strings = ["shape=sunny"], floats = ["rounding=0.0"])
+@OverrideVariant(name = "sunny-count-12", strings = ["shape=sunny"], ints = ["count=12"])
 @Composable
-fun SunnyShape() = ShapeSticker(MaterialShapeRecipes.Sunny)
-
-@CatalogComponent(
-  id = "Shape/Cookie4Sided",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7281",
-  caption = "The kit's 4-sided cookie shape, drawn from `MaterialShapes.Cookie4Sided`.",
-)
-@CatalogModes
-@Composable
-fun Cookie4SidedShape() = ShapeSticker(MaterialShapeRecipes.Cookie4Sided)
-
-@CatalogComponent(
-  id = "Shape/Cookie6Sided",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7283",
-  caption = "The kit's 6-sided cookie shape, drawn from `MaterialShapes.Cookie6Sided`.",
-)
-@CatalogModes
-@Composable
-fun Cookie6SidedShape() = ShapeSticker(MaterialShapeRecipes.Cookie6Sided)
-
-@CatalogComponent(
-  id = "Shape/Cookie7Sided",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7285",
-  caption = "The kit's 7-sided cookie shape, drawn from `MaterialShapes.Cookie7Sided`.",
-)
-@CatalogModes
-@Composable
-fun Cookie7SidedShape() = ShapeSticker(MaterialShapeRecipes.Cookie7Sided)
-
-@CatalogComponent(
-  id = "Shape/Cookie9Sided",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7287",
-  caption = "The kit's 9-sided cookie shape, drawn from `MaterialShapes.Cookie9Sided`.",
-)
-@CatalogModes
-@Composable
-fun Cookie9SidedShape() = ShapeSticker(MaterialShapeRecipes.Cookie9Sided)
-
-@CatalogComponent(
-  id = "Shape/Cookie12Sided",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7289",
-  caption = "The kit's 12-sided cookie shape, drawn from `MaterialShapes.Cookie12Sided`.",
-)
-@CatalogModes
-@Composable
-fun Cookie12SidedShape() = ShapeSticker(MaterialShapeRecipes.Cookie12Sided)
-
-@CatalogComponent(
-  id = "Shape/Ghostish",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7291",
-  caption = "The kit's Ghost-ish shape, drawn from `MaterialShapes.Ghostish`.",
-)
-@CatalogModes
-@Composable
-fun GhostishShape() = ShapeSticker(MaterialShapeRecipes.Ghostish)
-
-@CatalogComponent(
-  id = "Shape/Clover4Leaf",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7293",
-  caption = "The kit's 4-leaf clover shape, drawn from `MaterialShapes.Clover4Leaf`.",
-)
-@CatalogModes
-@Composable
-fun Clover4LeafShape() = ShapeSticker(MaterialShapeRecipes.Clover4Leaf)
-
-@CatalogComponent(
-  id = "Shape/Clover8Leaf",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7295",
-  caption = "The kit's 8-leaf clover shape, drawn from `MaterialShapes.Clover8Leaf`.",
-)
-@CatalogModes
-@Composable
-fun Clover8LeafShape() = ShapeSticker(MaterialShapeRecipes.Clover8Leaf)
-
-@CatalogComponent(
-  id = "Shape/Burst",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7297",
-  caption = "The kit's Burst shape, drawn from `MaterialShapes.Burst`.",
-)
-@CatalogModes
-@Composable
-fun BurstShape() = ShapeSticker(MaterialShapeRecipes.Burst)
-
-@CatalogComponent(
-  id = "Shape/SoftBurst",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7299",
-  caption = "The kit's Soft burst shape, drawn from `MaterialShapes.SoftBurst`.",
-)
-@CatalogModes
-@Composable
-fun SoftBurstShape() = ShapeSticker(MaterialShapeRecipes.SoftBurst)
-
-@CatalogComponent(
-  id = "Shape/Boom",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7301",
-  caption = "The kit's Boom shape, drawn from `MaterialShapes.Boom`.",
-)
-@CatalogModes
-@Composable
-fun BoomShape() = ShapeSticker(MaterialShapeRecipes.Boom)
-
-@CatalogComponent(
-  id = "Shape/SoftBoom",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7303",
-  caption = "The kit's Soft boom shape, drawn from `MaterialShapes.SoftBoom`.",
-)
-@CatalogModes
-@Composable
-fun SoftBoomShape() = ShapeSticker(MaterialShapeRecipes.SoftBoom)
-
-@CatalogComponent(
-  id = "Shape/Flower",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7305",
-  caption = "The kit's Flower shape, drawn from `MaterialShapes.Flower`.",
-)
-@CatalogModes
-@Composable
-fun FlowerShape() = ShapeSticker(MaterialShapeRecipes.Flower)
-
-@CatalogComponent(
-  id = "Shape/Puffy",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7307",
-  caption = "The kit's Puffy shape, drawn from `MaterialShapes.Puffy`.",
-)
-@CatalogModes
-@Composable
-fun PuffyShape() = ShapeSticker(MaterialShapeRecipes.Puffy)
-
-@CatalogComponent(
-  id = "Shape/PuffyDiamond",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7309",
-  caption = "The kit's Puffy diamond shape, drawn from `MaterialShapes.PuffyDiamond`.",
-)
-@CatalogModes
-@Composable
-fun PuffyDiamondShape() = ShapeSticker(MaterialShapeRecipes.PuffyDiamond)
-
-@CatalogComponent(
-  id = "Shape/PixelCircle",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7311",
-  caption = "The kit's Pixel circle shape, drawn from `MaterialShapes.PixelCircle`.",
-)
-@CatalogModes
-@Composable
-fun PixelCircleShape() = ShapeSticker(MaterialShapeRecipes.PixelCircle)
-
-@CatalogComponent(
-  id = "Shape/PixelTriangle",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7313",
-  caption = "The kit's Pixel triangle shape, drawn from `MaterialShapes.PixelTriangle`.",
-)
-@CatalogModes
-@Composable
-fun PixelTriangleShape() = ShapeSticker(MaterialShapeRecipes.PixelTriangle)
-
-@CatalogComponent(
-  id = "Shape/Bun",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7315",
-  caption = "The kit's Bun shape, drawn from `MaterialShapes.Bun`.",
-)
-@CatalogModes
-@Composable
-fun BunShape() = ShapeSticker(MaterialShapeRecipes.Bun)
-
-@CatalogComponent(
-  id = "Shape/Heart",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7317",
-  caption = "The kit's Heart shape, drawn from `MaterialShapes.Heart`.",
-)
-@CatalogModes
-@Composable
-fun HeartShape() = ShapeSticker(MaterialShapeRecipes.Heart)
+fun MaterialShapesSticker() = ShapeSticker(catalogShape())

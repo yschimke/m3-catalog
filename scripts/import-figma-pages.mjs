@@ -248,47 +248,72 @@ async function figma(pathAndQuery) {
 }
 
 /**
+ * The variant slot a resolved `design-map.json` entry was tagged with, or `null` for the base one.
+ *
+ * `@design-parity/kit-index` tags each resolved variant with ONE of `state` / `size` / `theme`, and
+ * which one it picks depends on the axis it matched — a button's sizes come back as `size`, an
+ * interaction as `state`. The two sides of an entry are always tagged the same way, so the join
+ * below only needs "the tag this entry carries", not a guess at which slot it should have been.
+ *
+ * Reading `state` alone is what this used to do, and it silently degraded every `size`-tagged
+ * entry: no state, so every ref fell through to the component's base preview. Folding the 35-shape
+ * `Shape Set` onto one component is what surfaced it — the shapes resolve as `size` (their axis is
+ * neither an interaction nor a theme), so all 35 kit symbols would have swapped in the Circle
+ * render, which is the same picture 35 times and reads as a working page.
+ */
+function variantSlot(tagged) {
+  if (!tagged || typeof tagged === "string") return null;
+  return tagged.state ?? tagged.size ?? tagged.theme ?? null;
+}
+
+/**
  * `design-map.json` keyed by design ref — the join this whole surface hangs on.
  *
- * The map is a projection of the `@CatalogComponent(reference = …)` annotations
- * (`generate-design-map.mjs`), so a page node links to code exactly when some component named that
- * node id. Both the scalar and the per-state array forms are read; a state array contributes one
- * entry per ref, each paired with the preview id of the *same* state, because that is the render a
- * consumer will draw and pairing by position alone would silently mismatch them.
+ * The map is a projection of the `@CatalogComponent(reference = …)` annotations, so a page node
+ * links to code exactly when some component named that node id. Both the scalar and the per-variant
+ * array forms are read; a variant array contributes one entry per ref, each paired with the preview
+ * id of the *same* variant, because that is the render a consumer will draw and pairing by position
+ * alone would silently mismatch them.
+ *
+ * Exported for its own test: every failure mode here is quiet. A ref that pairs with the wrong
+ * preview still renders something, and a page of 35 identical silhouettes looks like a page.
  */
-function readDesignMap(file) {
+export function indexDesignMap(map) {
   const byRef = new Map();
-  let map;
-  try {
-    map = JSON.parse(readFileSync(file, "utf8"));
-  } catch (error) {
-    console.warn(`import-figma-pages: no usable ${file} (${error.message}); nothing will link`);
-    return byRef;
-  }
-  for (const entry of map.components ?? []) {
+  for (const entry of map?.components ?? []) {
     const code = entry.code;
     if (typeof code !== "string" || code === "") continue;
 
-    const previewsByState = new Map();
+    const previewsByVariant = new Map();
     let basePreview = null;
     for (const p of asArray(entry.previewId)) {
       if (typeof p === "string") basePreview ??= p;
       else if (p?.previewId) {
-        if (p.state) previewsByState.set(p.state, p.previewId);
+        const slot = variantSlot(p);
+        if (slot) previewsByVariant.set(slot, p.previewId);
         else basePreview ??= p.previewId;
       }
     }
     for (const r of asArray(entry.ref)) {
       const ref = typeof r === "string" ? r : r?.ref;
       if (typeof ref !== "string" || ref === "") continue;
-      const state = typeof r === "string" ? null : (r?.state ?? null);
-      const previewId = (state && previewsByState.get(state)) || basePreview || null;
+      const slot = variantSlot(r);
+      const previewId = (slot && previewsByVariant.get(slot)) || basePreview || null;
       // First writer wins: two components naming one node is a mapping bug, and picking the later
       // one silently would make which of them shows depend on file order.
       if (!byRef.has(ref)) byRef.set(ref, { code, previewId });
     }
   }
   return byRef;
+}
+
+function readDesignMap(file) {
+  try {
+    return indexDesignMap(JSON.parse(readFileSync(file, "utf8")));
+  } catch (error) {
+    console.warn(`import-figma-pages: no usable ${file} (${error.message}); nothing will link`);
+    return new Map();
+  }
 }
 
 /** The pages already in the cache, so a scoped refresh adds to it rather than replacing it. */

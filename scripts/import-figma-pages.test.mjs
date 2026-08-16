@@ -5,7 +5,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { collectNodes, resolvePages, slugForPage } from "./import-figma-pages.mjs";
+import {
+  collectNodes,
+  indexDesignMap,
+  resolvePages,
+  slugForPage,
+} from "./import-figma-pages.mjs";
 
 const page = (nodeId, name) => ({ nodeId, name });
 
@@ -150,4 +155,68 @@ test("refuses a pin the server would refuse", () => {
     () => resolvePages({ pins: [{ id: "a", nodeId: "1:1" }, { id: "b", nodeId: "1-1" }] }),
     /twice/,
   );
+});
+
+// The design-map join. Every failure here is quiet — a ref paired with the wrong preview still
+// renders something, so a page of 35 identical silhouettes looks exactly like a page that works.
+
+const ref = (id) => `figma:AbCdEf/${id}`;
+const preview = (name) => `com.example.ShapesKt.${name}`;
+
+test("pairs each ref with the preview of the same variant, whatever slot it was tagged with", () => {
+  // `size` is the slot the kit resolver picks for a shape axis; reading only `state` used to send
+  // every one of these to the base preview.
+  const byRef = indexDesignMap({
+    components: [
+      {
+        code: "Shapes.kt#MaterialShapesSticker",
+        ref: [
+          { ref: ref("1:1") },
+          { ref: ref("1:2"), size: "square" },
+          { ref: ref("1:3"), size: "very sunny" },
+        ],
+        previewId: [
+          { previewId: preview("Sticker_Light") },
+          { previewId: preview("Sticker_Light_VARIANT_square"), size: "square" },
+          { previewId: preview("Sticker_Light_VARIANT_very-sunny"), size: "very sunny" },
+        ],
+      },
+    ],
+  });
+  assert.equal(byRef.get(ref("1:1")).previewId, preview("Sticker_Light"));
+  assert.equal(byRef.get(ref("1:2")).previewId, preview("Sticker_Light_VARIANT_square"));
+  assert.equal(byRef.get(ref("1:3")).previewId, preview("Sticker_Light_VARIANT_very-sunny"));
+});
+
+test("still pairs a state-tagged entry, and falls back to the base preview when unmatched", () => {
+  const byRef = indexDesignMap({
+    components: [
+      {
+        code: "Buttons.kt#FilledButton",
+        ref: [
+          { ref: ref("2:1") },
+          { ref: ref("2:2"), state: "disabled" },
+          { ref: ref("2:3"), state: "hovered" },
+        ],
+        previewId: [
+          { previewId: preview("Button_Light") },
+          { previewId: preview("Button_Light_VARIANT_disabled"), state: "disabled" },
+        ],
+      },
+    ],
+  });
+  assert.equal(byRef.get(ref("2:2")).previewId, preview("Button_Light_VARIANT_disabled"));
+  // No `hovered` render: the base is the honest answer, not another variant's picture.
+  assert.equal(byRef.get(ref("2:3")).previewId, preview("Button_Light"));
+});
+
+test("reads the scalar form, and lets the first component to name a node win", () => {
+  const byRef = indexDesignMap({
+    components: [
+      { code: "A.kt#First", ref: ref("3:1"), previewId: preview("First_Light") },
+      { code: "B.kt#Second", ref: ref("3:1"), previewId: preview("Second_Light") },
+    ],
+  });
+  assert.equal(byRef.get(ref("3:1")).code, "A.kt#First");
+  assert.equal(byRef.size, 1);
 });
