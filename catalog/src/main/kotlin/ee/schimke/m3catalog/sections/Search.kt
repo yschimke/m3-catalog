@@ -45,6 +45,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes360
 import ee.schimke.m3catalog.CatalogModes412
@@ -67,11 +68,17 @@ import ee.schimke.m3catalog.generated.resources.search_suggestion_symbols
 import ee.schimke.m3catalog.toggleable
 import org.jetbrains.compose.resources.stringResource
 
-// The kit's Search section is four collapsed entry points and two expanded search views, and
-// Compose
-// models each as its own composable — so each is a component. The foldable axis inside a collapsed
-// bar is the input field's CONTENT: an empty placeholder, a typed query with a clear affordance, or
-// an account avatar in the trailing slot.
+// The kit's Search section is two expanded search views and — despite Compose offering three
+// collapsed composables — ONE collapsed bar: the `Search bar` set varies `State` x `Show avatar`
+// and carries no floating/docked axis, so `SearchBar` and `DockedSearchBar` name the same node.
+// They were two components against one reference, so the docked form folds onto the bar as a
+// variant. `AppBarWithSearch` stays its own component: it names a different node, the
+// `Configuration=Search` variant of the kit's `App bar` set.
+//
+// The foldable axis inside a collapsed bar is the input field's CONTENT: an empty placeholder, a
+// typed query with a clear affordance, or an account avatar in the trailing slot. The docked
+// render carries no content cells of its own — they would resolve to the same `Show avatar` values
+// the floating bar's cells already compare.
 //
 // The two expanded views are hosted in their own platform window (`ExpandedDockedSearchBar` in a
 // Popup, `ExpandedFullScreenSearchBar` in a Dialog), which a single-surface capture cannot reach.
@@ -129,7 +136,8 @@ private fun searchTrailing(): (@Composable () -> Unit)? =
 @CatalogComponent(
   id = "Search/Bar",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/52977:33948",
-  caption = "The collapsed entry point, floating over content. Query and avatar states fold in.",
+  caption =
+    "The collapsed entry point, floating over content. Query, avatar and the docked form fold in.",
 )
 @CatalogModes360
 @OverrideVariant(name = "query", strings = ["content=query"])
@@ -154,15 +162,13 @@ fun SearchBarSticker() = Sticker {
   )
 }
 
-@CatalogComponent(
-  id = "Search/Docked",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/52977:33948",
+@CatalogVariant(
+  of = "Search/Bar",
+  props = ["container=docked"],
   caption =
     "The collapsed bar anchored in the layout rather than floating; expands into a dropdown.",
 )
 @CatalogModes360
-@OverrideVariant(name = "query", strings = ["content=query"])
-@OverrideVariant(name = "avatar", strings = ["content=avatar"])
 @Composable
 fun DockedSearchBarSticker() = Sticker {
   // The sibling bars own their query through `rememberTextFieldState`; this one takes the older
