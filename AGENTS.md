@@ -90,10 +90,13 @@ same word. Where Compose has no name of its own, take the kit's.
   stays a literal: token names (`primary`, `Display Large`, `XS`) and sample data that isn't
   language (`alice@example.com`, `⌘E`, person names). Numeric samples such as `10:30` and badge
   counts pass through `localizedDigits(...)` so the locale's numbering system still applies.
-- Components hosted in their own platform window (dialogs, modal sheets, dropdown menus) cannot be
-  reached by a single-surface capture. Compose the component's **container** from its own
-  `*Defaults` shape / colour / elevation and say so in a comment — never a hand-drawn lookalike, and
-  never an entry that renders nothing.
+- Every published comparison must invoke the actual named Material 3 composable. Rebuilding a
+  component from `Surface`, `Column`, or its `*Defaults` can make a replica line up, but it cannot
+  test the library and therefore does not belong in the comparison inventory. Dialog APIs may use
+  `InlineDialogHost`, which replaces only their platform window while leaving the real Material
+  layout intact. Popup-hosted components stay out of the inventory until the renderer can capture
+  their popup surface (compose-ai-tools#3916). A kit component with no Compose Material 3 API also
+  stays out of the inventory.
 
 ## Kotlin
 

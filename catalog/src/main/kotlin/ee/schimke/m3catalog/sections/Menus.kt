@@ -22,10 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
-import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
@@ -51,21 +48,7 @@ private data class MenuRow(val label: StringResource, val icon: ImageVector)
 
 private val MENU_ROWS = List(6) { MenuRow(Res.string.label_text, CatalogOutlinedStars) }
 
-@CatalogComponent(
-  id = "Menu/Dropdown",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58966:4078",
-  caption =
-    "A list of choices on a temporary surface. Leading icons, trailing shortcuts, dividers and a " +
-      "disabled item fold in.",
-)
-@CatalogModes
-@OverrideVariant(name = "no-icons", strings = ["leading=none"])
-@OverrideVariant(name = "shortcuts", strings = ["trailing=shortcut"])
-@OverrideVariant(name = "icons-shortcuts", strings = ["leading=icon", "trailing=shortcut"])
-@OverrideVariant(name = "vibrant", strings = ["theme=vibrant"])
-@OverrideVariant(name = "dividers", strings = ["dividers=on"])
-@OverrideVariant(name = "text-only", strings = ["leading=none", "dividers=on"])
-@OverrideVariant(name = "disabled-item", strings = ["status=disabled"])
+// Not a catalog comparison until popup surfaces can be captured (compose-ai-tools#3916).
 @Composable
 fun DropdownMenuSticker() = Sticker {
   val icons = catalogChoice("leading", "icon", "icon", "none") == "icon"

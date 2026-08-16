@@ -124,6 +124,27 @@ class CatalogInventoryTest {
   }
 
   @Test
+  fun `known replicas never re-enter the comparison inventory`() {
+    val ids = componentIds.map { it.first }.toSet()
+    val replicas =
+      setOf(
+        "BottomSheet/Modal",
+        "Menu/Dropdown",
+        "Search/ExpandedDocked",
+        "Search/ExpandedFullScreen",
+        "SideSheet/Standard",
+        "Tooltip/Plain",
+        "Tooltip/Rich",
+      )
+    assertEquals(
+      emptySet(),
+      ids.intersect(replicas),
+      "These entries do not invoke their named Material composable. Popup-hosted entries can " +
+        "return after compose-ai-tools#3916 enables capture; the side sheet needs an M3 API.",
+    )
+  }
+
+  @Test
   fun `the declared hero resolves to a component`() {
     val spec = File("../catalog.spec.json").readText()
     val hero = Regex(""""hero"\s*:\s*"([^"]+)"""").find(spec)!!.groupValues[1]

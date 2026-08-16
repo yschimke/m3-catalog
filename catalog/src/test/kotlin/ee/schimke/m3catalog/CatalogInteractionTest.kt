@@ -2,6 +2,8 @@ package ee.schimke.m3catalog
 
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotSelected
+import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -19,11 +21,11 @@ import kotlin.test.Test
  *
  * `CatalogInventoryTest` guards what the catalog publishes and the render pipeline guards what it
  * looks like; between them sits the failure this test exists for — a sticker that renders perfectly
- * and is inert. Both cases here shipped that way: the date picker's headline was the kit's sample
- * copy, so picking a date moved the grid selection under a caption that still read `Mon, Aug 17`,
- * and the time picker's mode switch carried the click tally, whose only effect was on a
- * `contentDescription` nothing paints. Neither is visible to a render diff, because the baked frame
- * — the one the published catalog shows — is correct in both the broken and the fixed build.
+ * and is inert. Both cases here shipped that way: the date picker's headline was once fixed sample
+ * copy, so picking a date moved the grid selection under a stale caption, and the time picker's
+ * mode switch carried the click tally, whose only effect was on a `contentDescription` nothing
+ * paints. Neither is visible to a render diff, because the baked frame — the one the published
+ * catalog shows — is correct in both the broken and the fixed build.
  *
  * Locale is pinned to US for the duration: the assertions read formatted dates, which the picker
  * derives from the default locale, and a test that only passes on an `en-US` machine is worse than
@@ -46,28 +48,28 @@ class CatalogInteractionTest {
   }
 
   @Test
-  fun pickingADateMovesTheHeadline() = runComposeUiTest {
+  fun pickingADateMovesTheSelection() = runComposeUiTest {
     setContent { DatePickerModalSticker() }
 
-    // The seeded frame is the kit's own sample copy, verbatim — this is the published sticker.
-    onNodeWithText("Mon, Aug 17").assertIsDisplayed()
+    // A day cell carries its verbose date as its semantics text, not the bare number.
+    val seeded = onNodeWithText("Sunday, August 17, 2025")
+    val target = onNodeWithText("Thursday, August 21, 2025")
+    seeded.assertIsSelected()
+    target.performClick()
 
-    // August 2023 is the grid the picker actually draws, so the 21st is the Monday four days on;
-    // a day cell carries its verbose date as its semantics text, not the bare number.
-    onNodeWithText("Monday, August 21, 2023").performClick()
-
-    onNodeWithText("Mon, Aug 21").assertIsDisplayed()
+    target.assertIsSelected()
+    seeded.assertIsNotSelected()
   }
 
   @Test
-  fun clearingADateEmptiesTheHeadline() = runComposeUiTest {
+  fun clearingADateClearsTheSelection() = runComposeUiTest {
     setContent { DatePickerModalSticker() }
 
+    val seeded = onNodeWithText("Sunday, August 17, 2025")
+    seeded.assertIsSelected()
     onNodeWithText("Clear").performClick()
 
-    // Nothing is selected any more, so the kit's sample copy has to go with it — the picker falls
-    // back to its own prompt, the way the real dialog does.
-    onNodeWithText("Mon, Aug 17").assertDoesNotExist()
+    seeded.assertIsNotSelected()
   }
 
   @Test

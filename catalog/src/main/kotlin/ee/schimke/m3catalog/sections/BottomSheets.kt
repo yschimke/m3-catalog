@@ -25,10 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
-import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
-import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogModes492
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_compose
@@ -94,18 +91,5 @@ private fun SheetBody() {
   }
 }
 
-@CatalogComponent(
-  id = "BottomSheet/Modal",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/51827:5863",
-  caption = "Secondary content anchored to the bottom. Handle and header fold in.",
-)
-@CatalogModes492
-@OverrideVariant(name = "no-handle", booleans = ["handle=false"])
-@OverrideVariant(name = "content", booleans = ["content=true"])
-@OverrideVariant(name = "header", booleans = ["header=true", "content=true"])
-@OverrideVariant(
-  name = "header-no-handle",
-  booleans = ["header=true", "handle=false", "content=true"],
-)
-@Composable
-fun ModalBottomSheetSticker() = Sticker { SheetSurface { SheetBody() } }
+// Not a catalog comparison until popup surfaces can be captured (compose-ai-tools#3916).
+@Composable fun ModalBottomSheetSticker() = Sticker { SheetSurface { SheetBody() } }

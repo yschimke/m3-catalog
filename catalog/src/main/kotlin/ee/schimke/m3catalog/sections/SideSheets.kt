@@ -26,10 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
-import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
-import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
@@ -48,17 +45,7 @@ import org.jetbrains.compose.resources.stringResource
 //
 // The kit's axes are the header and the footer action row.
 
-@CatalogComponent(
-  id = "SideSheet/Standard",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/53198:27873",
-  caption = "Supporting pane anchored to the side. NO M3 Compose API — composed from Surface.",
-)
-@CatalogModes
-@OverrideVariant(name = "back", booleans = ["back=true"])
-@OverrideVariant(name = "no-header", booleans = ["header=false"])
-@OverrideVariant(name = "no-footer", booleans = ["footer=false"])
-@OverrideVariant(name = "no-header-no-footer", booleans = ["header=false", "footer=false"])
-@OverrideVariant(name = "content", booleans = ["content=true"])
+// There is no named Material 3 Compose side-sheet API, so this cannot be a parity comparison.
 @Composable
 fun StandardSideSheet() = Sticker {
   val close = counted(stringResource(Res.string.action_close))

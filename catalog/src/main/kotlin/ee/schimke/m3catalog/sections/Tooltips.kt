@@ -19,10 +19,7 @@ import androidx.compose.material3.TooltipDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
-import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
@@ -42,13 +39,7 @@ import org.jetbrains.compose.resources.stringResource
 // Plain and rich are two composables, so two components. Inside each the kit's axes are parameters:
 // the plain tooltip's caret, and the rich tooltip's title and action.
 
-@CatalogComponent(
-  id = "Tooltip/Plain",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/54061:33882",
-  caption = "Short label for an unlabelled element. The caret pointing at the anchor folds in.",
-)
-@CatalogModes
-@OverrideVariant(name = "caret", strings = ["caret=on"])
+// Not catalog comparisons until popup surfaces can be captured (compose-ai-tools#3916).
 @Composable
 fun PlainTooltipSticker() = Sticker {
   Surface(
@@ -65,16 +56,6 @@ fun PlainTooltipSticker() = Sticker {
   }
 }
 
-@CatalogComponent(
-  id = "Tooltip/Rich",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/54061:33872",
-  caption = "Longer guidance on its own surface. The title and action row each fold in as knobs.",
-)
-@CatalogModes
-@OverrideVariant(name = "no-title", strings = ["title=off"])
-@OverrideVariant(name = "no-action", strings = ["action=off"])
-@OverrideVariant(name = "body-only", strings = ["title=off", "action=off"])
-@OverrideVariant(name = "legacy-action", strings = ["action=legacy"])
 @Composable
 fun RichTooltipSticker() = Sticker {
   val primary = counted(stringResource(Res.string.action_action))
