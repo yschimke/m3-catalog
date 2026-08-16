@@ -68,7 +68,10 @@ jobs:
     with:
       system: m3-catalog
       spec: catalog.spec.json
-      module: ':catalog'
+      # 1.9.0 can discover every preview-enabled Gradle module. This repository currently has
+      # only :catalog, so the output is unchanged today; keeping discovery repository-wide means
+      # a future preview module cannot be silently omitted from the published catalog.
+      modules: all
       # Keep the render CLI lockstep with the applied Gradle plugin — the pin is
       # `composePreviewPlugin` in libs.versions.toml, and a CLI/plugin skew
       # breaks preview discovery outright.
