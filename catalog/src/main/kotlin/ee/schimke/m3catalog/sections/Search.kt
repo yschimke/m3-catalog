@@ -235,12 +235,7 @@ fun AppBarWithSearchSticker() = Sticker {
   )
 }
 
-@CatalogComponent(
-  id = "Search/ExpandedDocked",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/59178:4993",
-  caption = "The docked search view: field plus suggestion list, in the dropdown's own shape.",
-)
-@CatalogModes360
+// Not catalog comparisons until popup/dialog surfaces can be captured (compose-ai-tools#3916).
 @Composable
 fun ExpandedDockedSearchBarSticker() = Sticker {
   // `ExpandedDockedSearchBar` renders into a Popup, so the container is composed here from the same
@@ -260,13 +255,6 @@ fun ExpandedDockedSearchBarSticker() = Sticker {
   }
 }
 
-@CatalogComponent(
-  id = "Search/ExpandedFullScreen",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/59178:4964",
-  referenceContentsOnly = false,
-  caption = "The full-screen search view, where results take the whole surface.",
-)
-@CatalogModes412
 @Composable
 fun ExpandedFullScreenSearchBarSticker() = Sticker {
   // `ExpandedFullScreenSearchBar` renders into a Dialog; the container is composed from

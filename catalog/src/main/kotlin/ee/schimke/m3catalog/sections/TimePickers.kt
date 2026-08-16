@@ -4,23 +4,17 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Keyboard
-import androidx.compose.material3.AlertDialogDefaults
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimeInput
@@ -39,6 +33,7 @@ import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.InlineDialogHost
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
@@ -78,30 +73,22 @@ private fun TimePickerFrame(
 ) {
   val cancel = counted(stringResource(Res.string.action_cancel))
   val ok = counted(stringResource(Res.string.action_ok))
-  Surface(
-    modifier = modifier,
-    shape = AlertDialogDefaults.shape,
-    color = AlertDialogDefaults.containerColor,
-    tonalElevation = AlertDialogDefaults.TonalElevation,
-  ) {
-    Column {
-      Text(
-        headline,
-        modifier = Modifier.padding(start = 24.dp, top = 24.dp, end = 24.dp),
-        style = MaterialTheme.typography.labelMedium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-      )
-      Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) { content() }
-      Row(
-        Modifier.fillMaxWidth().padding(start = 12.dp, end = 24.dp, bottom = 20.dp),
-        verticalAlignment = Alignment.CenterVertically,
-      ) {
-        IconButton(onClick = onSwitch) { Icon(switchIcon, contentDescription = switchDescription) }
-        Spacer(Modifier.weight(1f))
-        TextButton(onClick = cancel.onClick) { Text(cancel.label) }
-        TextButton(onClick = ok.onClick) { Text(ok.label) }
-      }
-    }
+  InlineDialogHost {
+    AlertDialog(
+      onDismissRequest = {},
+      modifier = modifier,
+      title = { Text(headline) },
+      text = { Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { content() } },
+      dismissButton = {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+          IconButton(onClick = onSwitch) {
+            Icon(switchIcon, contentDescription = switchDescription)
+          }
+          TextButton(onClick = cancel.onClick) { Text(cancel.label) }
+        }
+      },
+      confirmButton = { TextButton(onClick = ok.onClick) { Text(ok.label) } },
+    )
   }
 }
 
@@ -145,9 +132,8 @@ private fun TimePickerDialogFrame(seedInput: Boolean) {
       stringResource(if (input) Res.string.time_select else Res.string.time_enter),
     onSwitch = { input = !input },
     modifier =
-      if (input) Modifier.width(if (is24Hour) 264.dp else 328.dp).height(243.dp)
-      else if (horizontal) Modifier.width(572.dp).height(384.dp)
-      else Modifier.width(328.dp).height(520.dp),
+      if (input) Modifier.width(if (is24Hour) 264.dp else 328.dp)
+      else if (horizontal) Modifier.width(572.dp) else Modifier.width(328.dp),
   ) {
     if (input) {
       TimeInput(state = state)
