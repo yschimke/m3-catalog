@@ -79,9 +79,11 @@ fun CircularProgress() = Sticker {
 @CatalogVariant(
   of = "Progress/Linear",
   props = ["type=wave"],
-  caption = "The expressive wavy track.",
+  caption = "The expressive wavy track. Values across the range fold in.",
 )
 @CatalogModes404
+@OverrideVariant(name = "quarter", strings = ["progress=0.25"])
+@OverrideVariant(name = "full", strings = ["progress=1.0"])
 @Composable
 fun LinearWavyProgress() = Sticker {
   val value = progress()
@@ -96,9 +98,11 @@ fun LinearWavyProgress() = Sticker {
 @CatalogVariant(
   of = "Progress/Circular",
   props = ["type=wave"],
-  caption = "The expressive wavy circular track.",
+  caption = "The expressive wavy circular track. Values across the range fold in.",
 )
 @CatalogModes
+@OverrideVariant(name = "quarter", strings = ["progress=0.25"])
+@OverrideVariant(name = "full", strings = ["progress=1.0"])
 @Composable
 fun CircularWavyProgress() = Sticker {
   val value = progress()

@@ -177,9 +177,11 @@ fun RangeSliderSticker() = Sticker {
 @CatalogVariant(
   of = "Slider/Continuous",
   props = ["orientation=vertical"],
-  caption = "The same control rotated for vertical controls such as volume and brightness.",
+  caption = "The same control rotated for volume and brightness. Discrete and disabled fold in.",
 )
 @CatalogModes
+@OverrideVariant(name = "discrete", strings = ["steps=discrete"])
+@OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @Composable
 fun VerticalSliderSticker() = Sticker {
   val steps = sliderSteps()

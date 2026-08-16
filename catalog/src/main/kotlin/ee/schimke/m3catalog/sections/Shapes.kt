@@ -44,10 +44,20 @@ import ee.schimke.m3catalog.Sticker
 // publishes; it just isn't swappable on the page view. See `docs/FIGMA_PAGES.md`.
 //
 // One component per shape rather than one component with 35 variants, which is the exception to
-// the fold-variants-behind-defaults rule in `AGENTS.md` and worth stating. These are not a state
-// axis of one thing: the kit models each as its own symbol with its own node id, and only a
-// per-component `reference` can carry that id — `@CatalogVariant` has no such argument. Folding
-// them would cost the join the whole surface is built on.
+// the fold-variants-behind-defaults rule in `AGENTS.md` and worth stating.
+//
+// The reason used to be a tooling one: `@CatalogVariant` has no `reference` argument, so folding
+// was said to cost each shape its node id and with it the whole page-swap join. THAT REASON IS
+// GONE. `@design-parity/kit-index` resolves a variant's props against the parent's component set,
+// so a folded `shape=arch` would resolve to the set's `Shape=Arch` node the same way `type=wave`
+// resolves for the progress indicators (see `ProgressIndicators.kt`). Nothing here is blocked.
+//
+// What remains is a real question rather than a constraint, and it is open — see issue #128. The
+// kit does model these as one set with a `Shape=` property, which by the catalog's own rule makes
+// them one component. Against that: 35 is a third of the inventory, this page is the best-linked
+// in the file (35 of 38 specimens, `docs/FIGMA_PAGES.md`), and the swap depends on every node id
+// staying addressable through `design-map.json`, which wants verifying on one shape before it is
+// done to 34. Left split deliberately, pending that decision — not because the tooling forbids it.
 //
 // `Shape=Hexagon` is the kit's layer name for the shape its own caption calls **Clamshell**, and
 // Compose calls `MaterialShapes.ClamShell`. The reference follows the node id, not the name.
