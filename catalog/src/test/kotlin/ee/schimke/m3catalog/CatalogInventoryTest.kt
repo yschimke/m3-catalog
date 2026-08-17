@@ -123,6 +123,81 @@ class CatalogInventoryTest {
     )
   }
 
+  /**
+   * The kit's component-set boundary is this catalog's taxonomy: one set is one component, and a
+   * variant property folds in (`AGENTS.md`, "One kit component set is one catalog component"). Two
+   * components resolving to the same set means the sheet is splitting an axis the kit does not.
+   *
+   * The exemptions are the emphasis/style axis, which stays a component per style — and they are
+   * listed rather than inferred, because "these two are different emphases" is a judgement about a
+   * design system and not something a regex can decide. A new split has to come here and say why.
+   *
+   * This is the check that was missing while the inventory carried ten of these: three pairs naming
+   * the *identical* node, and seven sets split along a single property.
+   */
+  @Test
+  fun `no two components resolve to the same kit set without a stated reason`() {
+    val exempt =
+      mapOf(
+        "Stacked card" to "emphasis: Card / OutlinedCard / ElevatedCard",
+        "Text field" to "emphasis: TextField / OutlinedTextField",
+        "Tabs" to "emphasis: PrimaryTabRow / SecondaryTabRow",
+        // Not emphasis, and not settled: `Search/AppBar` is the `Configuration=Search` cell of the
+        // app-bar set, but it lives in the Search group with the other entry points. Folding it
+        // would move it across groups. Tracked in issue #128.
+        "App bar" to "open: Search/AppBar's group placement, issue #128",
+      )
+
+    val index = File("../figma-kit-index.json").readText()
+    // node id -> set name, straight out of the committed kit index.
+    val setOfNode = buildMap {
+      Regex(
+          """"name"\s*:\s*"([^"]+)"\s*,\s*"variants"\s*:\s*\[(.*?)]""",
+          RegexOption.DOT_MATCHES_ALL,
+        )
+        .findAll(index)
+        .forEach { set ->
+          val name = set.groupValues[1]
+          Regex(""""id"\s*:\s*"([^"]+)"""").findAll(set.groupValues[2]).forEach {
+            put(it.groupValues[1], name)
+          }
+        }
+    }
+
+    val bySet = mutableMapOf<String, MutableList<String>>()
+    for ((file, text) in sources) {
+      Regex("""@CatalogComponent\((.*?)\)\s*\n""", RegexOption.DOT_MATCHES_ALL)
+        .findAll(text)
+        .forEach {
+          val args = it.groupValues[1]
+          val id = Regex("""id = "([^"]+)"""").find(args)?.groupValues?.get(1) ?: return@forEach
+          val node =
+            Regex("""reference = "figma:[^/]+/([^"]+)"""").find(args)?.groupValues?.get(1)
+              ?: return@forEach
+          val set = setOfNode[node] ?: return@forEach
+          bySet.getOrPut(set) { mutableListOf() }.add("$id (${file.name})")
+        }
+    }
+
+    val unexplained = bySet.filterValues { it.size > 1 }.filterKeys { it !in exempt }
+    assertEquals(
+      emptyMap(),
+      unexplained,
+      "these components share a kit component set, so the kit models them as ONE component with a " +
+        "variant property. Fold the axis in as a `@CatalogVariant`, or — if the axis really is " +
+        "emphasis/style — add the set to this test's `exempt` table with the reason. See " +
+        "AGENTS.md, \"One kit component set is one catalog component\"",
+    )
+
+    val stale = exempt.keys.filter { (bySet[it]?.size ?: 0) < 2 }
+    assertEquals(
+      emptyList(),
+      stale,
+      "these sets are exempted but no longer carry more than one component — drop them from the " +
+        "table so it keeps naming only live decisions",
+    )
+  }
+
   @Test
   fun `known replicas never re-enter the comparison inventory`() {
     val ids = componentIds.map { it.first }.toSet()
