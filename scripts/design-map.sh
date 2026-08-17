@@ -50,13 +50,13 @@ trap 'rm -rf "$WORK"' EXIT
 # --strict: this catalog reproduces the kit, so a component with no exact kit node does not belong
 # in the published inventory at all (#10). Gated before anything is written, so a failed run leaves
 # the committed map intact rather than replacing it with one CI would report as merely stale.
-npx --yes @yschimke/compose-design-map@1.11.1 \
+npx --yes @yschimke/compose-design-map@1.12.0 \
   --previews catalog/build/compose-previews/previews.json \
   --out "$WORK/design-map.json" \
   --variants "$WORK/design-map-variants.json" \
   --strict
 
-npx --yes @design-parity/kit-index@0.1.51 resolve \
+npx --yes @design-parity/kit-index@0.1.53 resolve \
   --map "$WORK/design-map.json" \
   --variants "$WORK/design-map-variants.json" \
   --index figma-kit-index.json \
