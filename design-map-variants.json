@@ -5456,24 +5456,6 @@
       ]
     },
     {
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Tabs.kt#PrimaryScrollableTabs",
-      "componentId": "Tabs/PrimaryScrollable",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/54563:40124",
-      "basePreviewId": "ee.schimke.m3catalog.sections.TabsKt.PrimaryScrollableTabs_Light",
-      "renders": [
-        {
-          "previewId": "ee.schimke.m3catalog.sections.TabsKt.PrimaryScrollableTabs_Light_VARIANT_icon-label",
-          "name": "icon-label",
-          "seeds": [
-            {
-              "key": "content",
-              "raw": "icon+label"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Tabs.kt#PrimaryTabs",
       "componentId": "Tabs/Primary",
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/54563:40116",
@@ -5498,19 +5480,25 @@
               "raw": "icon+label"
             }
           ]
-        }
-      ]
-    },
-    {
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Tabs.kt#SecondaryScrollableTabs",
-      "componentId": "Tabs/SecondaryScrollable",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/54563:40055",
-      "basePreviewId": "ee.schimke.m3catalog.sections.TabsKt.SecondaryScrollableTabs_Light",
-      "renders": [
+        },
         {
-          "previewId": "ee.schimke.m3catalog.sections.TabsKt.SecondaryScrollableTabs_Light_VARIANT_icon-label",
-          "name": "icon-label",
+          "previewId": "ee.schimke.m3catalog.sections.TabsKt.PrimaryScrollableTabs_Light",
+          "name": "scrollable",
           "seeds": [
+            {
+              "key": "configuration",
+              "raw": "scrollable"
+            }
+          ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.TabsKt.PrimaryScrollableTabs_Light_VARIANT_icon-label",
+          "name": "scrollable-icon-label",
+          "seeds": [
+            {
+              "key": "configuration",
+              "raw": "scrollable"
+            },
             {
               "key": "content",
               "raw": "icon+label"
@@ -5539,6 +5527,30 @@
           "previewId": "ee.schimke.m3catalog.sections.TabsKt.SecondaryTabs_Light_VARIANT_icon-label",
           "name": "icon-label",
           "seeds": [
+            {
+              "key": "content",
+              "raw": "icon+label"
+            }
+          ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.TabsKt.SecondaryScrollableTabs_Light",
+          "name": "scrollable",
+          "seeds": [
+            {
+              "key": "configuration",
+              "raw": "scrollable"
+            }
+          ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.TabsKt.SecondaryScrollableTabs_Light_VARIANT_icon-label",
+          "name": "scrollable-icon-label",
+          "seeds": [
+            {
+              "key": "configuration",
+              "raw": "scrollable"
+            },
             {
               "key": "content",
               "raw": "icon+label"
@@ -7140,70 +7152,6 @@
       ]
     },
     {
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt#CenterTopAppBar",
-      "componentId": "TopAppBar/CenterAligned",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58114:20566",
-      "basePreviewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.CenterTopAppBar_Light",
-      "renders": [
-        {
-          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.CenterTopAppBar_Light_VARIANT_no-actions",
-          "name": "no-actions",
-          "seeds": [
-            {
-              "key": "actions",
-              "raw": "0"
-            }
-          ]
-        },
-        {
-          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.CenterTopAppBar_Light_VARIANT_no-nav",
-          "name": "no-nav",
-          "seeds": [
-            {
-              "key": "nav",
-              "raw": "false"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt#LargeTopAppBarSticker",
-      "componentId": "TopAppBar/Large",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58114:20600",
-      "basePreviewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.LargeTopAppBarSticker_Light",
-      "renders": [
-        {
-          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.LargeTopAppBarSticker_Light_VARIANT_two-actions",
-          "name": "two-actions",
-          "seeds": [
-            {
-              "key": "actions",
-              "raw": "2"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt#MediumTopAppBarSticker",
-      "componentId": "TopAppBar/Medium",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58114:20592",
-      "basePreviewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.MediumTopAppBarSticker_Light",
-      "renders": [
-        {
-          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.MediumTopAppBarSticker_Light_VARIANT_two-actions",
-          "name": "two-actions",
-          "seeds": [
-            {
-              "key": "actions",
-              "raw": "2"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt#SmallTopAppBar",
       "componentId": "TopAppBar/Small",
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58114:20585",
@@ -7253,6 +7201,92 @@
           "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.SmallTopAppBar_Light_VARIANT_two-actions",
           "name": "two-actions",
           "seeds": [
+            {
+              "key": "actions",
+              "raw": "2"
+            }
+          ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.CenterTopAppBar_Light",
+          "name": "small-centered",
+          "seeds": [
+            {
+              "key": "configuration",
+              "raw": "small-centered"
+            }
+          ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.CenterTopAppBar_Light_VARIANT_no-actions",
+          "name": "small-centered-no-actions",
+          "seeds": [
+            {
+              "key": "configuration",
+              "raw": "small-centered"
+            },
+            {
+              "key": "actions",
+              "raw": "0"
+            }
+          ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.CenterTopAppBar_Light_VARIANT_no-nav",
+          "name": "small-centered-no-nav",
+          "seeds": [
+            {
+              "key": "configuration",
+              "raw": "small-centered"
+            },
+            {
+              "key": "nav",
+              "raw": "false"
+            }
+          ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.MediumTopAppBarSticker_Light",
+          "name": "medium",
+          "seeds": [
+            {
+              "key": "configuration",
+              "raw": "medium"
+            }
+          ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.MediumTopAppBarSticker_Light_VARIANT_two-actions",
+          "name": "medium-two-actions",
+          "seeds": [
+            {
+              "key": "configuration",
+              "raw": "medium"
+            },
+            {
+              "key": "actions",
+              "raw": "2"
+            }
+          ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.LargeTopAppBarSticker_Light",
+          "name": "large",
+          "seeds": [
+            {
+              "key": "configuration",
+              "raw": "large"
+            }
+          ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.LargeTopAppBarSticker_Light_VARIANT_two-actions",
+          "name": "large-two-actions",
+          "seeds": [
+            {
+              "key": "configuration",
+              "raw": "large"
+            },
             {
               "key": "actions",
               "raw": "2"
