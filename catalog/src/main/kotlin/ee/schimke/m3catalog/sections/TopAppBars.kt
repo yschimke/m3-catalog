@@ -34,6 +34,7 @@ import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogImagePlaceholder
 import ee.schimke.m3catalog.CatalogModes412
@@ -49,8 +50,19 @@ import ee.schimke.m3catalog.generated.resources.appbar_title
 import ee.schimke.m3catalog.generated.resources.label_account
 import org.jetbrains.compose.resources.stringResource
 
-// Four sizes, each its own composable. Within each, the kit's foldable axes are the navigation icon
-// and the action count.
+// One component. The kit's `App bar` set varies `Configuration` x `Elevation`, and `Configuration`
+// carries the four sizes alongside the centred, image and search layouts — a size/layout axis, not
+// an emphasis one, so it folds rather than standing as four cards (`AGENTS.md`; emphasis is the
+// only carve-out, and these bars have none). Each size is its own composable, which is a fact about
+// the Compose API rather than about the taxonomy.
+//
+// `Small` is the parent because it is the kit's own base `Configuration`. The nav icon and action
+// count fold in as knob cells on top, and they cross with the size: an `@OverrideVariant` on a
+// `@CatalogVariant` projects since compose-ai-tools#4081, so a folded bar keeps its own matrix.
+//
+// `Search/AppBar` is the `Configuration=Search` cell of this same set but lives in the Search group
+// with the other search entry points; folding it would move it across groups, which is a separate
+// decision and not made here. See issue #128.
 
 @Composable
 private fun NavIcon(): (@Composable () -> Unit)? {
@@ -87,7 +99,8 @@ private const val W = 412
 @CatalogComponent(
   id = "TopAppBar/Small",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20585",
-  caption = "The default; title beside the actions. Nav icon and action count fold in.",
+  caption =
+    "The app bar. Its four sizes, the centred and image layouts, nav icon and action count fold in.",
 )
 @CatalogModes412
 @OverrideVariant(name = "no-nav", booleans = ["nav=false"])
@@ -140,9 +153,9 @@ private fun catalogAppBarColors() =
       else androidx.compose.ui.graphics.Color.Transparent
   )
 
-@CatalogComponent(
-  id = "TopAppBar/CenterAligned",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20566",
+@CatalogVariant(
+  of = "TopAppBar/Small",
+  props = ["configuration=small-centered"],
   caption = "Title centred; one action at most.",
 )
 @CatalogModes412
@@ -183,9 +196,9 @@ fun CenterTopAppBar() = Sticker {
   )
 }
 
-@CatalogComponent(
-  id = "TopAppBar/Medium",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20592",
+@CatalogVariant(
+  of = "TopAppBar/Small",
+  props = ["configuration=medium"],
   caption = "Two rows; title below the actions.",
 )
 @CatalogModes412
@@ -205,9 +218,9 @@ fun MediumTopAppBarSticker() = Sticker {
   )
 }
 
-@CatalogComponent(
-  id = "TopAppBar/Large",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20600",
+@CatalogVariant(
+  of = "TopAppBar/Small",
+  props = ["configuration=large"],
   caption = "The tallest form, for a prominent headline.",
 )
 @CatalogModes412

@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
@@ -36,9 +37,19 @@ import ee.schimke.m3catalog.selectable
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
-// Emphasis (primary / secondary) and scroll behaviour (fixed / scrollable) are four separate row
-// composables, so they are four components. The foldable axis within each is the tab CONTENT:
-// label, icon, or both.
+// The kit's `Tabs` set varies three properties, and this file splits on exactly one of them.
+//
+// `Style = Primary | Secondary` is the EMPHASIS axis, and emphasis stays a component per style —
+// the carve-out in `AGENTS.md`, and what the kit itself does everywhere else it carries this axis
+// (five button sets, four icon-button sets, four toggle-button sets, four chip sets). `Stacked
+// card` and `Text field` are the only sets the kit does not split that way, and they are its
+// outliers rather than its rule.
+//
+// `Configuration = Fixed | Scrollable` is not emphasis, so it folds — a `@CatalogVariant` under its
+// own style, rather than a second pair of top-level cards. Compose backs it with a separate
+// composable, which is a fact about the API and not about the taxonomy.
+//
+// `Layout` is the tab CONTENT — label, icon, or both — and folds as knob cells on each.
 
 private val TABS: List<Pair<StringResource, ImageVector>> =
   listOf(
@@ -105,9 +116,9 @@ fun SecondaryTabs() = Sticker {
   }
 }
 
-@CatalogComponent(
-  id = "Tabs/PrimaryScrollable",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40124",
+@CatalogVariant(
+  of = "Tabs/Primary",
+  props = ["configuration=scrollable"],
   caption = "More categories than fit; the row scrolls.",
 )
 @CatalogModes
@@ -127,9 +138,9 @@ fun PrimaryScrollableTabs() = Sticker {
   }
 }
 
-@CatalogComponent(
-  id = "Tabs/SecondaryScrollable",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40055",
+@CatalogVariant(
+  of = "Tabs/Secondary",
+  props = ["configuration=scrollable"],
   caption = "The scrolling form of the nested row.",
 )
 @CatalogModes
