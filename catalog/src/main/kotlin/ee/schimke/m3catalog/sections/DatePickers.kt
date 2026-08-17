@@ -50,9 +50,11 @@ private fun dateMillisOverride(key: String, default: Long): Long =
 // Calendar vs keyboard entry is `DisplayMode`, a parameter, so it folds in. Single vs range is
 // `DatePicker` vs `DateRangePicker`, two composables — but the kit carries both as `Type` values of
 // the one `Modal date picker` set, so the range form folds in as a `@CatalogVariant` too. Its prop
-// spells the kit's own value, `full-screen (range)`, because that is what the resolver matches
-// against; `type=range` resolves to nothing and silently drops the node. The modal single picker
-// uses the real `DatePickerDialog`; InlineDialogHost replaces only its platform window.
+// says `range`, the Compose word, and `kitAxis`/`kitValue` carry the kit's own spelling beside it.
+// The prop used to have to BE the kit's spelling — `type=full-screen (range)`, parentheses and all
+// — because that is what the resolver matched against, which put a Figma string in Kotlin source
+// that would rot the next time the kit renamed a value (compose-ai-tools#4086). The modal single
+// picker uses the real `DatePickerDialog`; InlineDialogHost replaces only its platform window.
 
 @Composable
 private fun dateDisplayMode(): DisplayMode =
@@ -61,7 +63,9 @@ private fun dateDisplayMode(): DisplayMode =
 
 @CatalogVariant(
   of = "DatePicker/Modal",
-  props = ["type=full-screen (range)"],
+  props = ["type=range"],
+  kitAxis = "Type",
+  kitValue = "Full-screen (range)",
   caption = "Start and end dates in one grid.",
 )
 @CatalogModes360Us
