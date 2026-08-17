@@ -74,6 +74,27 @@ same word. Where Compose has no name of its own, take the kit's.
 - **Fold variants behind defaults.** A state / content axis is a `@CatalogVariant(of = …)` under its
   parent, not a new top-level component. A system this size is only browsable because the card count
   tracks components, not renders.
+- **One kit component set is one catalog component — except for emphasis.** The kit's set boundary
+  decides the taxonomy, so a kit variant property folds in as a variant: `Type = Flat | Wave` on the
+  progress indicators, `Orientation` on the toolbars and sliders, `Size = Small | Large` on badges,
+  `Configuration` on the app bars, `Shape=` on all 35 shapes. The one carve-out is the
+  **emphasis/style** axis — filled / outlined / elevated / tonal / text, and the tabs' primary vs
+  secondary — which stays a component per style. That is not a fudge: the kit itself splits that
+  axis into five `Button` sets, four `Icon button` sets, four `Toggle button` sets and four chip
+  sets, and `Stacked card` and `Text field` are the only two sets where it does not. It is also the
+  choice a reader makes at the call site (`Card` vs `OutlinedCard` vs `ElevatedCard`), where the
+  folding axes are states of one component.
+  **"It is a separate composable" is not a reason to split.** That is a fact about the Compose API,
+  not about the taxonomy — `HorizontalCenteredHeroCarousel`, `VerticalSlider`, `DockedSearchBar` and
+  `CircularWavyProgressIndicator` are all separate functions folded as variants. Naming still
+  follows Compose (see above); membership follows the kit.
+  `CatalogInventoryTest` fails the build when two components resolve to the same kit set without an
+  entry in its exemption table, so a new split has to state its reason.
+- **Check a fold by regenerating the map, not by reading it.** A variant's props are matched against
+  the kit's own variant *values*, so the prop has to spell what the kit says — `type=range` resolves
+  to nothing against `Type=Full-screen (range)`, and drops that node from the comparison with no
+  diagnostic anywhere. Run `scripts/design-map.sh` and confirm the node count did not fall.
+  (compose-ai-tools#4086 would let a variant name the Compose value and the kit value separately.)
 - Component ids are the published sticker's URL and the join key for `@CatalogVariant(of = …)`.
   Renaming one moves a published URL — do it deliberately.
 - **No dead handlers.** Stateful components own their state (`toggleable` / `selectable` /

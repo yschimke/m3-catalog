@@ -69,6 +69,9 @@ fun MultiBrowseCarousel() = Sticker {
  * publishes it as one — `HorizontalCenteredHeroCarousel` is a different component, not a parameter
  * of the multi-browse one, and `@CatalogVariant` is how this catalog folds that shape under a
  * parent id.
+ *
+ * The `Layout` axis is why `Carousel/Uncontained` folds the same way below. It was a top-level
+ * component while this one was a variant, which made the file answer one axis two ways.
  */
 @CatalogVariant(of = "Carousel/MultiBrowse", props = ["layout=center-aligned-hero"])
 @CatalogModes412
@@ -86,9 +89,9 @@ fun CenteredHeroCarousel() = Sticker {
   }
 }
 
-@CatalogComponent(
-  id = "Carousel/Uncontained",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/54577:26035",
+@CatalogVariant(
+  of = "Carousel/MultiBrowse",
+  props = ["layout=uncontained"],
   caption = "Items keep their size and scroll past the edge.",
 )
 @CatalogModes412
