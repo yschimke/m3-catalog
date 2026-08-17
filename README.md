@@ -36,40 +36,39 @@ customising the live render are two ends of one workflow.
 
 | | |
 | --- | --- |
-| Components | **99** |
-| Rendered images (PNG) | **1284** |
-| Editable wireframes (SVG) | **99** |
-| Editable design vectors (figma-svg) | **99** |
-| Components with a11y greenlines | **41** |
+| Components | **59** |
+| Rendered images (PNG) | **1296** |
+| Editable wireframes (SVG) | **59** |
+| Editable design vectors (figma-svg) | **59** |
+| Components with a11y greenlines | **36** |
 | Library | `org.jetbrains.compose.material3:material3`<br>`org.jetbrains.compose.material:material-icons-extended` |
-| Renderer | compose-preview 1.10.1 |
+| Renderer | compose-preview 1.11.1 |
 | Schema | `design-parity-catalog/v1` |
-| Generated | 2026-08-16 |
+| Generated | 2026-08-17 |
 
 ## Components by group
 
 | Group | Count |
 | --- | ---: |
-| Shapes | 36 |
 | Buttons | 5 |
 | Chips | 4 |
 | Icon buttons | 4 |
-| Tabs | 4 |
 | Toggle buttons | 4 |
-| Top app bar | 4 |
 | Cards | 3 |
-| Carousel | 2 |
 | Dialogs | 2 |
 | Divider | 2 |
 | FAB | 2 |
 | Navigation rail | 2 |
 | Progress indicators | 2 |
 | Search | 2 |
+| Shapes | 2 |
 | Sliders | 2 |
+| Tabs | 2 |
 | Text fields | 2 |
 | Time pickers | 2 |
 | Badges | 1 |
 | Bottom app bar | 1 |
+| Carousel | 1 |
 | Checkbox | 1 |
 | Color | 1 |
 | Date pickers | 1 |
@@ -82,6 +81,7 @@ customising the live render are two ends of one workflow.
 | Split button | 1 |
 | Switch | 1 |
 | Toolbars | 1 |
+| Top app bar | 1 |
 | Typography | 1 |
 
 ## What's in this branch
