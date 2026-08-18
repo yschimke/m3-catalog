@@ -45,6 +45,11 @@ import org.jetbrains.compose.resources.stringResource
 // Icon buttons carry no label, so they read as a favourite TOGGLE on the interactive lane rather
 // than taking the click tally: the glyph swaps between outlined and filled.
 //
+// Each sticker resolves the arguments both theme styles pass — onClick, enabled and the container
+// modifier — above the branch, so the standard/expressive split costs one call per arm rather than
+// two full argument lists: `shape: Shape` and `shapes: IconButtonShapes` are separate overloads
+// with no parameter in common, and that is the whole of what has to be written twice (#104).
+//
 // Three axes here, not two. The kit lists colour, size, WIDTH and shape, so each emphasis is five
 // sizes x three widths x two shapes — thirty cells, carried by one `@Preview` through knobs and a
 // stacked `@OverrideVariant` per cell. Shapes are per-size constants because an icon button's
@@ -84,24 +89,15 @@ fun StandardIconButton() = Sticker {
     }
     val colors =
       IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.onSurfaceVariant)
+    val onClick = { on = !on }
+    val enabled = catalogEnabled()
+    val modifier = Modifier.size(catalogIconContainerSize(size))
     if (catalogExpressive()) {
-      IconButton(
-        onClick = { on = !on },
-        shapes = catalogIconShapes(size),
-        enabled = catalogEnabled(),
-        colors = colors,
-        modifier = Modifier.size(catalogIconContainerSize(size)),
-        content = content,
-      )
+      val shapes = catalogIconShapes(size)
+      IconButton(onClick, shapes, modifier, enabled, colors = colors, content = content)
     } else {
-      IconButton(
-        onClick = { on = !on },
-        enabled = catalogEnabled(),
-        shape = catalogIconShape(size),
-        colors = colors,
-        modifier = Modifier.size(catalogIconContainerSize(size)),
-        content = content,
-      )
+      val shape = catalogIconShape(size)
+      IconButton(onClick, modifier, enabled, colors, shape = shape, content = content)
     }
   }
 }
@@ -137,22 +133,15 @@ fun FilledIconButtonSticker() = Sticker {
         modifier = Modifier.size(size.iconButtonIconSize),
       )
     }
+    val onClick = { on = !on }
+    val enabled = catalogEnabled()
+    val modifier = Modifier.size(catalogIconContainerSize(size))
     if (catalogExpressive()) {
-      FilledIconButton(
-        onClick = { on = !on },
-        shapes = catalogIconShapes(size),
-        enabled = catalogEnabled(),
-        modifier = Modifier.size(catalogIconContainerSize(size)),
-        content = content,
-      )
+      val shapes = catalogIconShapes(size)
+      FilledIconButton(onClick, shapes, modifier, enabled, content = content)
     } else {
-      FilledIconButton(
-        onClick = { on = !on },
-        enabled = catalogEnabled(),
-        shape = catalogIconShape(size),
-        modifier = Modifier.size(catalogIconContainerSize(size)),
-        content = content,
-      )
+      val shape = catalogIconShape(size)
+      FilledIconButton(onClick, modifier, enabled, shape, content = content)
     }
   }
 }
@@ -177,22 +166,15 @@ fun TonalIconButton() = Sticker {
         modifier = Modifier.size(size.iconButtonIconSize),
       )
     }
+    val onClick = { on = !on }
+    val enabled = catalogEnabled()
+    val modifier = Modifier.size(catalogIconContainerSize(size))
     if (catalogExpressive()) {
-      FilledTonalIconButton(
-        onClick = { on = !on },
-        shapes = catalogIconShapes(size),
-        enabled = catalogEnabled(),
-        modifier = Modifier.size(catalogIconContainerSize(size)),
-        content = content,
-      )
+      val shapes = catalogIconShapes(size)
+      FilledTonalIconButton(onClick, shapes, modifier, enabled, content = content)
     } else {
-      FilledTonalIconButton(
-        onClick = { on = !on },
-        enabled = catalogEnabled(),
-        shape = catalogIconShape(size),
-        modifier = Modifier.size(catalogIconContainerSize(size)),
-        content = content,
-      )
+      val shape = catalogIconShape(size)
+      FilledTonalIconButton(onClick, modifier, enabled, shape, content = content)
     }
   }
 }
@@ -223,26 +205,15 @@ fun OutlinedIconButtonSticker() = Sticker {
         contentColor = MaterialTheme.colorScheme.onSurfaceVariant
       )
     val border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+    val onClick = { on = !on }
+    val enabled = catalogEnabled()
+    val modifier = Modifier.size(catalogIconContainerSize(size))
     if (catalogExpressive()) {
-      OutlinedIconButton(
-        onClick = { on = !on },
-        shapes = catalogIconShapes(size),
-        enabled = catalogEnabled(),
-        colors = colors,
-        border = border,
-        modifier = Modifier.size(catalogIconContainerSize(size)),
-        content = content,
-      )
+      val shapes = catalogIconShapes(size)
+      OutlinedIconButton(onClick, shapes, modifier, enabled, colors, border, content = content)
     } else {
-      OutlinedIconButton(
-        onClick = { on = !on },
-        enabled = catalogEnabled(),
-        shape = catalogIconShape(size),
-        colors = colors,
-        border = border,
-        modifier = Modifier.size(catalogIconContainerSize(size)),
-        content = content,
-      )
+      val shape = catalogIconShape(size)
+      OutlinedIconButton(onClick, modifier, enabled, shape, colors, border, content = content)
     }
   }
 }
