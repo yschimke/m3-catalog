@@ -72,14 +72,27 @@ private fun FigmaToggleButtonContent(selected: Boolean, label: String) {
   ProvideTextStyle(size.labelStyle) { Text(label) }
 }
 
+/**
+ * The cell a toggle button sticker renders in: the size's container height, content centred.
+ *
+ * [shadowGutter] is room for a shadow OUTSIDE the container, for the one emphasis that casts one. A
+ * sticker's render bounds are the component's bounds by design (see [Sticker]), so an elevated
+ * toggle button's Level 1 shadow is cropped at the edge of the image without it. Asymmetric because
+ * the shadow is offset downward. It is a parameter here rather than a padded `Box` at the elevated
+ * call site so that all four emphases keep one frame, and therefore one basis for their render
+ * bounds, at every size — the same fix `ButtonFrame` carries for #102.
+ */
 @Composable
-private fun ToggleButtonFrame(size: CatalogSize, content: @Composable () -> Unit) {
-  Box(
-    modifier = Modifier.height(if (size == CatalogSize.Small) 48.dp else size.containerHeight),
-    contentAlignment = Alignment.Center,
-  ) {
-    content()
-  }
+private fun ToggleButtonFrame(
+  size: CatalogSize,
+  shadowGutter: Boolean = false,
+  content: @Composable () -> Unit,
+) {
+  val height = if (size == CatalogSize.Small) 48.dp else size.containerHeight
+  val gutter =
+    if (shadowGutter) Modifier.padding(start = 4.dp, top = 4.dp, end = 4.dp, bottom = 5.dp)
+    else Modifier
+  Box(modifier = gutter.height(height), contentAlignment = Alignment.Center) { content() }
 }
 
 @CatalogComponent(
@@ -194,7 +207,7 @@ fun OutlinedToggleButtonSticker() = Sticker {
 fun ElevatedToggleButtonSticker() = Sticker {
   var on by toggleable(catalogToggleSelected(default = false))
   val size = catalogButtonSize()
-  Box(Modifier.padding(start = 4.dp, top = 4.dp, end = 4.dp, bottom = 5.dp)) {
+  ToggleButtonFrame(size, shadowGutter = true) {
     ElevatedToggleButton(
       checked = on,
       onCheckedChange = { on = it },
