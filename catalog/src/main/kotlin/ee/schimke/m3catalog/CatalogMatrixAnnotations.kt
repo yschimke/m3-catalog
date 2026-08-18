@@ -210,15 +210,46 @@ annotation class SliderSizeMatrix
 // with nothing to compare it against, which is the same waste as a combination variant.
 //
 
+//
+// Each of the two annotations below carries the same interaction **twice**: once as the kit's
+// `State=Focused` variant (`focused`) and once as the keyboard focus indicator (`focus-ring`).
+//
+// That is not a duplicate cell, because the two are different pictures of different things. The
+// kit's focused VARIANT is the resting container under a 10% state layer and nothing else — go and
+// read `58651:12409` in `design/pages/buttons.svg`, it is a `#6750A4` rect with a `white` rect at
+// `fill-opacity="0.1"` over it. The keyboard focus indicator is a separate `Show focus indicator`
+// BOOLEAN **property** on the same set, defaulting to false, and it is the ring a Tab draws. Issue
+// #148 is the second of those two missing from the sheet while the first was on it, which read as
+// the catalog claiming Compose draws no focus indicator at all.
+//
+// Only `focused` resolves to a kit node, and it is the one parity diffs. `focus-ring` seeds a kit
+// property rather than a variant, so `scripts/design-map.sh` files it under "a component PROPERTY
+// in the kit, not a variant beside it" and it adds no reference to `design-map.json` — the same
+// place `Show FAB` and `Show icon` already sit. See [CatalogFocus] for why the honest place to
+// record the ring's remaining divergence from the kit's utility node (3dp `secondary`, against
+// Material's 2dp `secondary` over 3dp `onSecondary`) is a KDoc rather than a hand-tuned
+// `InsetRing(...)`.
+//
+
 /** Hover, focus and press — the full interaction triple, for sets that publish all three. */
 @OverrideVariant(name = "hovered", interaction = VariantInteraction.Hovered)
 @OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)
+@OverrideVariant(
+  name = "focus-ring",
+  interaction = VariantInteraction.Focused,
+  strings = ["focus=ring"],
+)
 @OverrideVariant(name = "pressed", interaction = VariantInteraction.Pressed)
 annotation class InteractionStates
 
 /** For sets that publish no `Pressed` variant: the input chip and the two text fields. */
 @OverrideVariant(name = "hovered", interaction = VariantInteraction.Hovered)
 @OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)
+@OverrideVariant(
+  name = "focus-ring",
+  interaction = VariantInteraction.Focused,
+  strings = ["focus=ring"],
+)
 annotation class HoverFocusStates
 
 // There is deliberately no hover-plus-press annotation, though the search bar and the sliders are

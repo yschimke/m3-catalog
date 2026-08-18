@@ -6,13 +6,38 @@ ktfmt = "0.27.0"
 # `androidx.compose.ui.tooling.preview.PreviewWrapperProvider` on the desktop
 # target, which is what `@ThemeCatalog` needs — the catalog's named themes are
 # declared as wrapper providers rather than as knob strings.
-compose-multiplatform = "1.11.1"
+#
+# On the 1.12 line because material3 1.12 needs it — see below — and pinned at
+# **alpha02 rather than the newest 1.12**, which is a render-pipeline
+# constraint, not a taste:
+#
+#   skiko 0.150.0 added a parameter to `Image.encodeToData`, and 1.12.0-beta01
+#   is the first Compose Multiplatform release that pulls it in. compose-ai-tools'
+#   desktop renderer is compiled against 0.148's two-argument form, and skiko
+#   resolves to ONE version across `composePreviewRenderClasspath` — so every
+#   capture reaches the encoder and dies there:
+#   `Render failed … 'org.jetbrains.skia.Data org.jetbrains.skia.Image.encodeToData$default(…)'`.
+#   Nothing in the catalog can bridge that; the renderer has to be rebuilt
+#   against 0.150 before this can move past alpha02, which is
+#   compose-ai-tools#4190. Renovate does not know this, and neither does the
+#   render task — it reports `Rendered N preview(s)` and exits 0 having written
+#   nothing — so a 1.12.0-beta/rc bump WILL come back green in `assemble`,
+#   `test` and `ktfmtCheck` and publish an empty sticker sheet. Render before
+#   merging one.
+compose-multiplatform = "1.12.0-alpha02"
 # Material 3 is versioned independently of the Compose Multiplatform BOM; the
-# 1.11 line matches `compose-multiplatform = 1.11.1`.
-compose-multiplatform-material3 = "1.11.0-alpha07"
+# 1.12 line matches `compose-multiplatform = 1.12.0-alpha02`.
+#
+# The 1.12 line is the first carrying the **keyboard focus indicator** —
+# `RippleThemeConfiguration.Focus.InsetRing`, `LocalRippleThemeConfiguration`
+# and the `focusRingShape` / `enable*Indication` arguments on `ripple(...)`.
+# The kit publishes that ring as its `Focus indicator` utility and Compose had
+# nothing to draw it with before, which is why the catalog's focused stickers
+# could only ever show the state layer. See `CatalogFocus.kt` and issue #148.
+compose-multiplatform-material3 = "1.12.0-alpha02"
 # The extended Material icon set is frozen at 1.7.3 upstream (Google stopped
 # shipping new releases of it); it is pure icon `ImageVector` definitions, so it
-# resolves cleanly alongside the 1.11 line. Only `material-icons-core` — which
+# resolves cleanly alongside the 1.12 line. Only `material-icons-core` — which
 # material3 pulls in itself — tracks the main version.
 compose-material-icons = "1.7.3"
 
