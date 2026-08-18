@@ -37,12 +37,12 @@ customising the live render are two ends of one workflow.
 | | |
 | --- | --- |
 | Components | **59** |
-| Rendered images (PNG) | **1296** |
+| Rendered images (PNG) | **1340** |
 | Editable wireframes (SVG) | **59** |
 | Editable design vectors (figma-svg) | **59** |
 | Components with a11y greenlines | **36** |
 | Library | `org.jetbrains.compose.material3:material3`<br>`org.jetbrains.compose.material:material-icons-extended` |
-| Renderer | compose-preview 1.14.1 |
+| Renderer | compose-preview 1.15.0 |
 | Schema | `design-parity-catalog/v1` |
 | Generated | 2026-08-18 |
 
