@@ -17,6 +17,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
@@ -74,15 +75,23 @@ private fun dateDisplayMode(): DisplayMode =
 fun DateRangePickerSticker() = Sticker {
   val initialStartDateMillis = dateMillisOverride("dateMillis", PINNED_DATE_MILLIS)
   val initialEndDateMillis = dateMillisOverride("endDateMillis", PINNED_DATE_END_MILLIS)
+  val displayMode = dateDisplayMode()
   val state =
-    rememberDateRangePickerState(
-      initialSelectedStartDateMillis = initialStartDateMillis,
-      initialSelectedEndDateMillis = initialEndDateMillis,
-      initialDisplayedMonthMillis = initialStartDateMillis,
-      initialDisplayMode = dateDisplayMode(),
-    )
+    key(initialStartDateMillis, initialEndDateMillis, displayMode) {
+      rememberDateRangePickerState(
+        initialSelectedStartDateMillis = initialStartDateMillis,
+        initialSelectedEndDateMillis = initialEndDateMillis,
+        initialDisplayedMonthMillis = initialStartDateMillis,
+        initialDisplayMode = displayMode,
+      )
+    }
   DateRangePicker(
-    modifier = Modifier.fillMaxWidth().height(696.dp),
+    // The calendar grid is a lazy list, so it needs a bounded height to have a full-screen one to
+    // fill; the two text fields the input mode puts in its place do not, and the 696dp published
+    // that mode as a pair of fields above 500dp of empty surface (#142).
+    modifier =
+      if (displayMode == DisplayMode.Input) Modifier.fillMaxWidth()
+      else Modifier.fillMaxWidth().height(696.dp),
     state = state,
     showModeToggle = true,
   )
@@ -98,12 +107,17 @@ fun DateRangePickerSticker() = Sticker {
 @Composable
 fun DatePickerModalSticker() = Sticker {
   val initialDateMillis = dateMillisOverride("dateMillis", PINNED_DATE_MILLIS)
+  val displayMode = dateDisplayMode()
+  // Keyed for the same reason the time picker is: `rememberDatePickerState` saves through a keyless
+  // `rememberSaveable`, so a knob that moves under a live re-render never reaches the state.
   val state =
-    rememberDatePickerState(
-      initialSelectedDateMillis = initialDateMillis,
-      initialDisplayedMonthMillis = initialDateMillis,
-      initialDisplayMode = dateDisplayMode(),
-    )
+    key(initialDateMillis, displayMode) {
+      rememberDatePickerState(
+        initialSelectedDateMillis = initialDateMillis,
+        initialDisplayedMonthMillis = initialDateMillis,
+        initialDisplayMode = displayMode,
+      )
+    }
   val confirm = counted(stringResource(Res.string.action_ok))
   val dismiss = counted(stringResource(Res.string.action_cancel))
   // Clear owns the picker's selection rather than taking the `counted` tally: the state is right

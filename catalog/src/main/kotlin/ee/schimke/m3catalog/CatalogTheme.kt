@@ -151,6 +151,19 @@ annotation class CatalogModes360
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 360, locale = "en-US")
 annotation class CatalogModes360Us
 
+/**
+ * Light/dark modes at Material's 560dp `DialogMaxWidth`, for the landscape time-picker dialog.
+ *
+ * The default harness caps a wrap-content sticker at 400dp, which is narrower than the landscape
+ * `TimePicker` can lay out in — the clock face overflowed the clock display and clipped at the
+ * dialog edge (#146). `widthDp` is per-`@Preview`, so it belongs to the whole component rather than
+ * to the one `@OverrideVariant` that needs it; the portrait cells simply keep their own footprint
+ * inside the wider viewport.
+ */
+@Preview(name = "Light", group = "modes", widthDp = 560)
+@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 560)
+annotation class CatalogModes560
+
 /** Light/dark modes for the kit's 354dp slider track frame. */
 @Preview(name = "Light", group = "modes", widthDp = 354)
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 354)
