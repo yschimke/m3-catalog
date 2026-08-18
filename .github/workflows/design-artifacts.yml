@@ -86,6 +86,31 @@ jobs:
       # and what the theme / knob overrides need in order to redraw anything.
       publish-live-bundle: true
       split-per-preview: true
+      # Pool `classes/app.jar` into `bundle/res/<sha256>` once instead of copying it into all ~1300
+      # per-preview bundles. Not a tuning knob — at this catalog's size the default (`full`) is the
+      # single largest thing in the repository.
+      #
+      # Measured by splitting the published `bundle/bundle.png` both ways with the same CLI build:
+      # `full` writes 828,091,478 bytes across 1,296 bundles, of which 809,522,630 — 97.8% — is the
+      # same 625,114-byte app.jar repeated. `full-shared-classpath` writes 52,192,691 bytes plus a
+      # single 625,114-byte pool blob. 789.7 MB -> 50.4 MB, a 15.7x reduction.
+      #
+      # The compounding cost is worse than the tip. This branch is append-only on purpose (see
+      # README, "The delivery branch's history is intentional"), and every catalog change rewrites
+      # app.jar, which rewrites all 1,296 polyglots, which forces a fresh delta chain per publish:
+      # ~33 MB each, ~230 MB/day, and a `git clone` of this repo had reached 2.5 GiB against 19.5 MB
+      # for main. Pooling fixes that without rewriting any history.
+      #
+      # The trade, documented at compose-ai-tools docs/portable-bundles.md "Shared per-preview
+      # classpath (opt-in)": these bundles need their sibling `bundle/res/` pool to re-render, so a
+      # bare `curl` of one preview PNG is no longer offline-executable. preview.coo.ee fetches and
+      # hash-verifies the pooled jar and hydrates it, which is the consumer that matters here — but
+      # it does mean a change to the serve host can break the live lane without breaking a browse,
+      # so verify a knob override actually re-renders, not just that the sheet loads.
+      #
+      # Needs CLI >= 1.9.0 (compose-ai-tools#3641); the pin above is 1.15.0. This is the same mode
+      # compose-ai-tools' own CMP tier publishes with. See compose-ai-tools#3036.
+      split-mode: full-shared-classpath
       commit-user-name: Yuri Schimke
       commit-user-email: yuri@schimke.ee
       timeout-minutes: 90
