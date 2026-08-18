@@ -28,6 +28,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `BottomAppBarSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/BottomAppBarSticker_Light_VARIANT_two_actions-99ca175d.png" width="150" /> |
 | `ElevatedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedButtonSticker_Dark-30990a5d.png" width="150" /> |
 | `ElevatedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedButtonSticker_Dark_VARIANT_disabled-ed300a11.png" width="150" /> |
+| `ElevatedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedButtonSticker_Dark_VARIANT_focus_ring-0c822abe.png" width="150" /> |
 | `ElevatedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedButtonSticker_Dark_VARIANT_focused-48f4a6ae.png" width="150" /> |
 | `ElevatedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedButtonSticker_Dark_VARIANT_hovered-eba9aafa.png" width="150" /> |
 | `ElevatedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedButtonSticker_Dark_VARIANT_l-47322ed9.png" width="150" /> |
@@ -42,6 +43,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `ElevatedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedButtonSticker_Dark_VARIANT_xs_square-3dcd57a5.png" width="150" /> |
 | `ElevatedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedButtonSticker_Light-c968534a.png" width="150" /> |
 | `ElevatedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedButtonSticker_Light_VARIANT_disabled-edbc5239.png" width="150" /> |
+| `ElevatedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedButtonSticker_Light_VARIANT_focus_ring-1824bf9f.png" width="150" /> |
 | `ElevatedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedButtonSticker_Light_VARIANT_focused-3bf440a5.png" width="150" /> |
 | `ElevatedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedButtonSticker_Light_VARIANT_hovered-1e13a5b2.png" width="150" /> |
 | `ElevatedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedButtonSticker_Light_VARIANT_l-f714d68e.png" width="150" /> |
@@ -58,6 +60,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FilledButtonLabelOnly` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButtonLabelOnly_Light-aca4a5db.png" width="150" /> |
 | `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Dark-04d2adf3.png" width="150" /> |
 | `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Dark_VARIANT_disabled-8bfedd06.png" width="150" /> |
+| `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Dark_VARIANT_focus_ring-bbd573c3.png" width="150" /> |
 | `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Dark_VARIANT_focused-ea2d3a5b.png" width="150" /> |
 | `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Dark_VARIANT_hovered-11d0487f.png" width="150" /> |
 | `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Dark_VARIANT_l-ecec6968.png" width="150" /> |
@@ -72,6 +75,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Dark_VARIANT_xs_square-5ed6375e.png" width="150" /> |
 | `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Light-de769ec2.png" width="150" /> |
 | `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Light_VARIANT_disabled-e7e3bfb3.png" width="150" /> |
+| `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Light_VARIANT_focus_ring-c11ee7b5.png" width="150" /> |
 | `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Light_VARIANT_focused-d365cac5.png" width="150" /> |
 | `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Light_VARIANT_hovered-46e86b42.png" width="150" /> |
 | `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Light_VARIANT_l-3a9f0062.png" width="150" /> |
@@ -86,6 +90,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FilledButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledButton_Light_VARIANT_xs_square-46d51c27.png" width="150" /> |
 | `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Dark-9b04503e.png" width="150" /> |
 | `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Dark_VARIANT_disabled-8bbb618b.png" width="150" /> |
+| `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Dark_VARIANT_focus_ring-b10ba755.png" width="150" /> |
 | `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Dark_VARIANT_focused-4dab58c0.png" width="150" /> |
 | `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Dark_VARIANT_hovered-cc4fe37e.png" width="150" /> |
 | `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Dark_VARIANT_l-b759aa45.png" width="150" /> |
@@ -100,6 +105,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Dark_VARIANT_xs_square-a7997583.png" width="150" /> |
 | `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Light-af9c3ed3.png" width="150" /> |
 | `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Light_VARIANT_disabled-418946ac.png" width="150" /> |
+| `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Light_VARIANT_focus_ring-b2738890.png" width="150" /> |
 | `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Light_VARIANT_focused-97444f6e.png" width="150" /> |
 | `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Light_VARIANT_hovered-e5e9d9e4.png" width="150" /> |
 | `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Light_VARIANT_l-179c241e.png" width="150" /> |
@@ -114,6 +120,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `OutlinedButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedButtonSticker_Light_VARIANT_xs_square-b6417326.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark-128f6df4.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark_VARIANT_disabled-8b70e1e9.png" width="150" /> |
+| `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark_VARIANT_focus_ring-6ddd549c.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark_VARIANT_focused-27d3539e.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark_VARIANT_hovered-c66eff59.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark_VARIANT_l-d88d3c69.png" width="150" /> |
@@ -128,6 +135,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark_VARIANT_xs_square-3f2e9899.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light-476a3802.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light_VARIANT_disabled-c103a58c.png" width="150" /> |
+| `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light_VARIANT_focus_ring-0d2e3c72.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light_VARIANT_focused-1dc3160e.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light_VARIANT_hovered-57e81260.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light_VARIANT_l-435e59fa.png" width="150" /> |
@@ -142,6 +150,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light_VARIANT_xs_square-39f37cbe.png" width="150" /> |
 | `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Dark-d425a4e7.png" width="150" /> |
 | `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Dark_VARIANT_disabled-af8175ad.png" width="150" /> |
+| `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Dark_VARIANT_focus_ring-3b1af0f0.png" width="150" /> |
 | `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Dark_VARIANT_focused-d10770e6.png" width="150" /> |
 | `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Dark_VARIANT_hovered-d0eb2dd8.png" width="150" /> |
 | `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Dark_VARIANT_l-2588721c.png" width="150" /> |
@@ -156,6 +165,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Dark_VARIANT_xs_square-cc600c3e.png" width="150" /> |
 | `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Light-8fc4c109.png" width="150" /> |
 | `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Light_VARIANT_disabled-2cc33dd8.png" width="150" /> |
+| `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Light_VARIANT_focus_ring-9454c917.png" width="150" /> |
 | `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Light_VARIANT_focused-fe6e956b.png" width="150" /> |
 | `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Light_VARIANT_hovered-76479668.png" width="150" /> |
 | `TonalButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalButton_Light_VARIANT_l-5457234f.png" width="150" /> |
@@ -209,6 +219,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Dark_VARIANT_error-21d717c9.png" width="150" /> |
 | `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Dark_VARIANT_error_indeterminate-9a461950.png" width="150" /> |
 | `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Dark_VARIANT_error_unchecked-b62e0cba.png" width="150" /> |
+| `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Dark_VARIANT_focus_ring-74ad9d78.png" width="150" /> |
 | `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Dark_VARIANT_focused-c8e222a3.png" width="150" /> |
 | `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Dark_VARIANT_hovered-cc8bcc8d.png" width="150" /> |
 | `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Dark_VARIANT_indeterminate-419597a5.png" width="150" /> |
@@ -221,6 +232,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Light_VARIANT_error-c5ee6ff7.png" width="150" /> |
 | `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Light_VARIANT_error_indeterminate-26fc9154.png" width="150" /> |
 | `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Light_VARIANT_error_unchecked-9bb329ce.png" width="150" /> |
+| `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Light_VARIANT_focus_ring-045257f7.png" width="150" /> |
 | `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Light_VARIANT_focused-8be515b7.png" width="150" /> |
 | `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Light_VARIANT_hovered-4a2e8cfe.png" width="150" /> |
 | `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Light_VARIANT_indeterminate-575eab76.png" width="150" /> |
@@ -231,6 +243,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Dark_VARIANT_disabled_icon-d3a064ab.png" width="150" /> |
 | `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Dark_VARIANT_elevated-9703454e.png" width="150" /> |
 | `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Dark_VARIANT_elevated_icon-279b0d22.png" width="150" /> |
+| `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Dark_VARIANT_focus_ring-9a7bc3c6.png" width="150" /> |
 | `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Dark_VARIANT_focused-f2be86d4.png" width="150" /> |
 | `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Dark_VARIANT_hovered-968a9138.png" width="150" /> |
 | `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Dark_VARIANT_icon-2ad5a643.png" width="150" /> |
@@ -240,6 +253,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Light_VARIANT_disabled_icon-776ce5f8.png" width="150" /> |
 | `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Light_VARIANT_elevated-6c736c3c.png" width="150" /> |
 | `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Light_VARIANT_elevated_icon-993458ad.png" width="150" /> |
+| `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Light_VARIANT_focus_ring-36d960a2.png" width="150" /> |
 | `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Light_VARIANT_focused-3d9e6cfd.png" width="150" /> |
 | `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Light_VARIANT_hovered-227a9aad.png" width="150" /> |
 | `AssistChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AssistChipSticker_Light_VARIANT_icon-d0d91a76.png" width="150" /> |
@@ -249,6 +263,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Dark_VARIANT_disabled_unselected-8b0de07a.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Dark_VARIANT_elevated-8cf8bb5c.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Dark_VARIANT_elevated_unselected-642a522c.png" width="150" /> |
+| `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Dark_VARIANT_focus_ring-c111772d.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Dark_VARIANT_focused-aff72251.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Dark_VARIANT_hovered-f8897d32.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Dark_VARIANT_pressed-2a95bd66.png" width="150" /> |
@@ -259,6 +274,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light_VARIANT_disabled_unselected-48a2773d.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light_VARIANT_elevated-b1207ffd.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light_VARIANT_elevated_unselected-9864a087.png" width="150" /> |
+| `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light_VARIANT_focus_ring-9af9e909.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light_VARIANT_focused-7aadbe02.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light_VARIANT_hovered-256e28ee.png" width="150" /> |
 | `FilterChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilterChipSticker_Light_VARIANT_pressed-1788a948.png" width="150" /> |
@@ -268,6 +284,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Dark_VARIANT_avatar-eca00072.png" width="150" /> |
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Dark_VARIANT_disabled-4efb57a3.png" width="150" /> |
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Dark_VARIANT_disabled_avatar-25d03190.png" width="150" /> |
+| `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Dark_VARIANT_focus_ring-ce252e28.png" width="150" /> |
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Dark_VARIANT_focused-5cc28510.png" width="150" /> |
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Dark_VARIANT_hovered-880608ef.png" width="150" /> |
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Dark_VARIANT_icon-6e5cd398.png" width="150" /> |
@@ -277,6 +294,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Light_VARIANT_avatar-d21610cc.png" width="150" /> |
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Light_VARIANT_disabled-584edba2.png" width="150" /> |
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Light_VARIANT_disabled_avatar-8d0023e1.png" width="150" /> |
+| `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Light_VARIANT_focus_ring-fb4154a8.png" width="150" /> |
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Light_VARIANT_focused-1c765d01.png" width="150" /> |
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Light_VARIANT_hovered-dd88796c.png" width="150" /> |
 | `InputChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/InputChipSticker_Light_VARIANT_icon-186e28a7.png" width="150" /> |
@@ -285,6 +303,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Dark-d5496d65.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Dark_VARIANT_disabled-b69cb05e.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Dark_VARIANT_elevated-f3e4da0d.png" width="150" /> |
+| `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Dark_VARIANT_focus_ring-ec541b13.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Dark_VARIANT_focused-848fdffa.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Dark_VARIANT_hovered-37072676.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Dark_VARIANT_icon-58a3cab6.png" width="150" /> |
@@ -292,6 +311,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light-d4378225.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light_VARIANT_disabled-1079848e.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light_VARIANT_elevated-0242d30d.png" width="150" /> |
+| `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light_VARIANT_focus_ring-0e2e95b2.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light_VARIANT_focused-bde85d9a.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light_VARIANT_hovered-24cbff62.png" width="150" /> |
 | `SuggestionChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SuggestionChipSticker_Light_VARIANT_icon-6f098d1e.png" width="150" /> |
@@ -337,6 +357,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `ExtendedFabSmall` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFabSmall_Dark-b5bb8a61.png" width="150" /> |
 | `ExtendedFabSmall` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFabSmall_Light-a5d9b0f1.png" width="150" /> |
 | `ExtendedFab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFab_Dark-f9c46e1e.png" width="150" /> |
+| `ExtendedFab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFab_Dark_VARIANT_focus_ring-14c3f456.png" width="150" /> |
 | `ExtendedFab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFab_Dark_VARIANT_focused-cfa76fe2.png" width="150" /> |
 | `ExtendedFab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFab_Dark_VARIANT_hovered-01faa19a.png" width="150" /> |
 | `ExtendedFab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFab_Dark_VARIANT_pressed-2fa8b8de.png" width="150" /> |
@@ -346,6 +367,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `ExtendedFab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFab_Dark_VARIANT_tertiary-95d8a9e4.png" width="150" /> |
 | `ExtendedFab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFab_Dark_VARIANT_tertiary_container-420d7749.png" width="150" /> |
 | `ExtendedFab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFab_Light-eae87d44.png" width="150" /> |
+| `ExtendedFab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFab_Light_VARIANT_focus_ring-d1eeaca0.png" width="150" /> |
 | `ExtendedFab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFab_Light_VARIANT_focused-eae790a1.png" width="150" /> |
 | `ExtendedFab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFab_Light_VARIANT_hovered-d2f8726a.png" width="150" /> |
 | `ExtendedFab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ExtendedFab_Light_VARIANT_pressed-10fb1aca.png" width="150" /> |
@@ -361,6 +383,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FabSmall` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FabSmall_Dark-0872c24c.png" width="150" /> |
 | `FabSmall` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FabSmall_Light-6bdda9df.png" width="150" /> |
 | `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Dark-a5041d8a.png" width="150" /> |
+| `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Dark_VARIANT_focus_ring-653c049a.png" width="150" /> |
 | `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Dark_VARIANT_focused-07ce04ca.png" width="150" /> |
 | `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Dark_VARIANT_hovered-b747e382.png" width="150" /> |
 | `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Dark_VARIANT_pressed-1ebdd473.png" width="150" /> |
@@ -370,6 +393,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Dark_VARIANT_tertiary-0565b34c.png" width="150" /> |
 | `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Dark_VARIANT_tertiary_container-2df5d56e.png" width="150" /> |
 | `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Light-f6721a11.png" width="150" /> |
+| `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Light_VARIANT_focus_ring-b06e5a04.png" width="150" /> |
 | `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Light_VARIANT_focused-43fb1e07.png" width="150" /> |
 | `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Light_VARIANT_hovered-3bb10a3c.png" width="150" /> |
 | `Fab` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/Fab_Light_VARIANT_pressed-e8bffefb.png" width="150" /> |
@@ -381,6 +405,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Dark-521fc312.png" width="150" /> |
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Dark-521fc312.apng" width="150" /> |
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Dark_VARIANT_disabled-be52102a.png" width="150" /> |
+| `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Dark_VARIANT_focus_ring-524e0e61.png" width="150" /> |
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Dark_VARIANT_focused-a2162798.png" width="150" /> |
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Dark_VARIANT_hovered-7ac7f994.png" width="150" /> |
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Dark_VARIANT_l-f305ef00.png" width="150" /> |
@@ -416,6 +441,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Light-c3a24658.png" width="150" /> |
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Light-c3a24658.apng" width="150" /> |
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Light_VARIANT_disabled-d8147b02.png" width="150" /> |
+| `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Light_VARIANT_focus_ring-fa495437.png" width="150" /> |
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Light_VARIANT_focused-ce01bbed.png" width="150" /> |
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Light_VARIANT_hovered-c942f25b.png" width="150" /> |
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Light_VARIANT_l-9576a209.png" width="150" /> |
@@ -450,6 +476,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FilledIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledIconButtonSticker_Light_VARIANT_xs_wide_square-d47b2f02.png" width="150" /> |
 | `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Dark-648fa2e5.png" width="150" /> |
 | `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Dark_VARIANT_disabled-5d2dfe1e.png" width="150" /> |
+| `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Dark_VARIANT_focus_ring-78d892f2.png" width="150" /> |
 | `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Dark_VARIANT_focused-2848f5e4.png" width="150" /> |
 | `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Dark_VARIANT_hovered-5f91f8a6.png" width="150" /> |
 | `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Dark_VARIANT_l-380500ad.png" width="150" /> |
@@ -484,6 +511,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Dark_VARIANT_xs_wide_square-f64e6440.png" width="150" /> |
 | `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Light-29dc3d9b.png" width="150" /> |
 | `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Light_VARIANT_disabled-26498c75.png" width="150" /> |
+| `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Light_VARIANT_focus_ring-25a7f9b2.png" width="150" /> |
 | `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Light_VARIANT_focused-5ab72df4.png" width="150" /> |
 | `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Light_VARIANT_hovered-7687ebed.png" width="150" /> |
 | `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Light_VARIANT_l-26c4fcc6.png" width="150" /> |
@@ -518,6 +546,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `OutlinedIconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedIconButtonSticker_Light_VARIANT_xs_wide_square-1e392b5b.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark-0f3722b0.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark_VARIANT_disabled-72e66613.png" width="150" /> |
+| `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark_VARIANT_focus_ring-75e23369.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark_VARIANT_focused-9aba8e2e.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark_VARIANT_hovered-7700d37f.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark_VARIANT_l-88cb66e3.png" width="150" /> |
@@ -552,6 +581,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark_VARIANT_xs_wide_square-58d755d8.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light-e6371d4f.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light_VARIANT_disabled-e1017019.png" width="150" /> |
+| `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light_VARIANT_focus_ring-af456c85.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light_VARIANT_focused-1b64d8ea.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light_VARIANT_hovered-a682ef19.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light_VARIANT_l-36431437.png" width="150" /> |
@@ -586,6 +616,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light_VARIANT_xs_wide_square-e383fb31.png" width="150" /> |
 | `TonalIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalIconButton_Dark-f433316a.png" width="150" /> |
 | `TonalIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalIconButton_Dark_VARIANT_disabled-29216c2a.png" width="150" /> |
+| `TonalIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalIconButton_Dark_VARIANT_focus_ring-db481225.png" width="150" /> |
 | `TonalIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalIconButton_Dark_VARIANT_focused-89b5249c.png" width="150" /> |
 | `TonalIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalIconButton_Dark_VARIANT_hovered-da51c295.png" width="150" /> |
 | `TonalIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalIconButton_Dark_VARIANT_l-2c67de75.png" width="150" /> |
@@ -620,6 +651,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `TonalIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalIconButton_Dark_VARIANT_xs_wide_square-9b774f83.png" width="150" /> |
 | `TonalIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalIconButton_Light-a414f1d5.png" width="150" /> |
 | `TonalIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalIconButton_Light_VARIANT_disabled-8ad98f2b.png" width="150" /> |
+| `TonalIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalIconButton_Light_VARIANT_focus_ring-3efd7ecc.png" width="150" /> |
 | `TonalIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalIconButton_Light_VARIANT_focused-57906a6c.png" width="150" /> |
 | `TonalIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalIconButton_Light_VARIANT_hovered-9360bf37.png" width="150" /> |
 | `TonalIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalIconButton_Light_VARIANT_l-b7151517.png" width="150" /> |
@@ -739,6 +771,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Dark_VARIANT_disabled_unselected-f4b50e1e.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Dark_VARIANT_error-fab97d47.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Dark_VARIANT_error_unselected-cabb1dcd.png" width="150" /> |
+| `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Dark_VARIANT_focus_ring-677a8a5b.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Dark_VARIANT_focused-c4c9de23.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Dark_VARIANT_hovered-7d8e0a45.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Dark_VARIANT_pressed-3372ac5e.png" width="150" /> |
@@ -748,6 +781,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Light_VARIANT_disabled_unselected-c8b47898.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Light_VARIANT_error-142de060.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Light_VARIANT_error_unselected-257de9e8.png" width="150" /> |
+| `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Light_VARIANT_focus_ring-294eb5f7.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Light_VARIANT_focused-467aae76.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Light_VARIANT_hovered-5a4c6340.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Light_VARIANT_pressed-a4a6f98e.png" width="150" /> |
@@ -954,6 +988,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Dark_VARIANT_disabled_icon-b6fbcb23.png" width="150" /> |
 | `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Dark_VARIANT_disabled_icon_off-9655d9e7.png" width="150" /> |
 | `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Dark_VARIANT_disabled_off-4fb2b7cf.png" width="150" /> |
+| `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Dark_VARIANT_focus_ring-7ad16cca.png" width="150" /> |
 | `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Dark_VARIANT_focused-2ece4745.png" width="150" /> |
 | `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Dark_VARIANT_hovered-afe4686a.png" width="150" /> |
 | `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Dark_VARIANT_icon-5286cfb4.png" width="150" /> |
@@ -966,6 +1001,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Light_VARIANT_disabled_icon-1e60e90a.png" width="150" /> |
 | `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Light_VARIANT_disabled_icon_off-ef72a9c1.png" width="150" /> |
 | `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Light_VARIANT_disabled_off-6a0701c0.png" width="150" /> |
+| `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Light_VARIANT_focus_ring-fa91781e.png" width="150" /> |
 | `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Light_VARIANT_focused-08d6c02d.png" width="150" /> |
 | `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Light_VARIANT_hovered-a920fe2b.png" width="150" /> |
 | `SwitchOn` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SwitchOn_Light_VARIANT_icon-fdc8fc3e.png" width="150" /> |
@@ -1048,6 +1084,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `TimePickerSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TimePickerSticker_Light_VARIANT_horizontal-704c2bd3.png" width="150" /> |
 | `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Dark-0725f86c.png" width="150" /> |
 | `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Dark_VARIANT_disabled-c3f493a8.png" width="150" /> |
+| `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Dark_VARIANT_focus_ring-c6ff1ab5.png" width="150" /> |
 | `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Dark_VARIANT_focused-2d848e4b.png" width="150" /> |
 | `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Dark_VARIANT_hovered-283a5765.png" width="150" /> |
 | `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Dark_VARIANT_l-689f3952.png" width="150" /> |
@@ -1072,6 +1109,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Dark_VARIANT_xs_square_on-7697d45d.png" width="150" /> |
 | `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Light-55950c89.png" width="150" /> |
 | `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Light_VARIANT_disabled-931845a9.png" width="150" /> |
+| `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Light_VARIANT_focus_ring-8a70c1a9.png" width="150" /> |
 | `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Light_VARIANT_focused-7548aba4.png" width="150" /> |
 | `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Light_VARIANT_hovered-7e0462e3.png" width="150" /> |
 | `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Light_VARIANT_l-d649f511.png" width="150" /> |
@@ -1096,6 +1134,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `ElevatedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ElevatedToggleButtonSticker_Light_VARIANT_xs_square_on-bbbff873.png" width="150" /> |
 | `OutlinedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedToggleButtonSticker_Dark-238520d2.png" width="150" /> |
 | `OutlinedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedToggleButtonSticker_Dark_VARIANT_disabled-de425658.png" width="150" /> |
+| `OutlinedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedToggleButtonSticker_Dark_VARIANT_focus_ring-a48288d6.png" width="150" /> |
 | `OutlinedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedToggleButtonSticker_Dark_VARIANT_focused-589fe742.png" width="150" /> |
 | `OutlinedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedToggleButtonSticker_Dark_VARIANT_hovered-8c61826f.png" width="150" /> |
 | `OutlinedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedToggleButtonSticker_Dark_VARIANT_l-55529c17.png" width="150" /> |
@@ -1120,6 +1159,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `OutlinedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedToggleButtonSticker_Dark_VARIANT_xs_square_on-8f543333.png" width="150" /> |
 | `OutlinedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedToggleButtonSticker_Light-edc693a9.png" width="150" /> |
 | `OutlinedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedToggleButtonSticker_Light_VARIANT_disabled-3ca051b3.png" width="150" /> |
+| `OutlinedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedToggleButtonSticker_Light_VARIANT_focus_ring-30b5f20f.png" width="150" /> |
 | `OutlinedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedToggleButtonSticker_Light_VARIANT_focused-16abeea4.png" width="150" /> |
 | `OutlinedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedToggleButtonSticker_Light_VARIANT_hovered-c619568b.png" width="150" /> |
 | `OutlinedToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedToggleButtonSticker_Light_VARIANT_l-6b66b601.png" width="150" /> |
@@ -1147,6 +1187,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Dark-31ef428c.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Dark-31ef428c.apng" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Dark_VARIANT_disabled-4f282ca5.png" width="150" /> |
+| `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Dark_VARIANT_focus_ring-3e6b4712.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Dark_VARIANT_focused-e45cda24.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Dark_VARIANT_hovered-7f4d4beb.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Dark_VARIANT_l-e265a587.png" width="150" /> |
@@ -1172,6 +1213,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Light-ef8e2388.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Light-ef8e2388.apng" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Light_VARIANT_disabled-aaf475fd.png" width="150" /> |
+| `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Light_VARIANT_focus_ring-57998ffb.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Light_VARIANT_focused-dcdcde52.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Light_VARIANT_hovered-36845954.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Light_VARIANT_l-b4dae757.png" width="150" /> |
@@ -1196,6 +1238,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ToggleButtonSticker_Light_VARIANT_xs_square_off-0a4526c5.png" width="150" /> |
 | `TonalToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalToggleButtonSticker_Dark-06611aed.png" width="150" /> |
 | `TonalToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalToggleButtonSticker_Dark_VARIANT_disabled-c537728c.png" width="150" /> |
+| `TonalToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalToggleButtonSticker_Dark_VARIANT_focus_ring-95fceed5.png" width="150" /> |
 | `TonalToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalToggleButtonSticker_Dark_VARIANT_focused-2432c893.png" width="150" /> |
 | `TonalToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalToggleButtonSticker_Dark_VARIANT_hovered-78f27389.png" width="150" /> |
 | `TonalToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalToggleButtonSticker_Dark_VARIANT_l-9ca2f4a6.png" width="150" /> |
@@ -1220,6 +1263,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `TonalToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalToggleButtonSticker_Dark_VARIANT_xs_square_off-f413aec7.png" width="150" /> |
 | `TonalToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalToggleButtonSticker_Light-61113f6c.png" width="150" /> |
 | `TonalToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalToggleButtonSticker_Light_VARIANT_disabled-877d8c66.png" width="150" /> |
+| `TonalToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalToggleButtonSticker_Light_VARIANT_focus_ring-15a8f187.png" width="150" /> |
 | `TonalToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalToggleButtonSticker_Light_VARIANT_focused-5bc43195.png" width="150" /> |
 | `TonalToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalToggleButtonSticker_Light_VARIANT_hovered-1175c7b1.png" width="150" /> |
 | `TonalToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TonalToggleButtonSticker_Light_VARIANT_l-2e4fdf89.png" width="150" /> |
