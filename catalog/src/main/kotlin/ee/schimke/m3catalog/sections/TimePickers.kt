@@ -23,6 +23,7 @@ import androidx.compose.material3.TimePickerLayoutType
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,8 +32,10 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.CatalogModes560
 import ee.schimke.m3catalog.InlineDialogHost
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
@@ -50,6 +53,16 @@ import org.jetbrains.compose.resources.stringResource
 // The clock face and the keyboard entry form are two composables, so two components. Inside each,
 // the 12-hour / 24-hour axis is a state parameter; the dial additionally has the vertical and
 // horizontal layouts the kit shows for portrait and landscape.
+
+/**
+ * The landscape dialog's width.
+ *
+ * `AlertDialog` clamps itself to Material's 560dp `DialogMaxWidth`, so the 572dp this used to ask
+ * for was never granted — and 400dp was all the default harness offered anyway. The landscape
+ * `TimePicker` lays out 216dp of clock display, a 36dp gutter and the 256dp dial: 508dp, which is
+ * what the 560dp dialog leaves once its own padding is taken off.
+ */
+private val HorizontalDialogWidth = 560.dp
 
 @Composable
 private fun timeIs24Hour(): Boolean =
@@ -99,10 +112,34 @@ private fun TimePickerFrame(
 )
 @CatalogModes
 @OverrideVariant(name = "12-hour", strings = ["hours=12"])
-@OverrideVariant(name = "horizontal", strings = ["layout=horizontal"])
-@OverrideVariant(name = "12-hour-horizontal", strings = ["hours=12", "layout=horizontal"])
 @Composable
 fun TimePickerSticker() = Sticker { TimePickerDialogFrame(seedInput = false) }
+
+/**
+ * The landscape dial, which is a `@CatalogVariant` rather than another `@OverrideVariant` for one
+ * reason: **`widthDp` belongs to the `@Preview`, not to the seed.**
+ *
+ * The landscape layout needs 508dp of content — 216dp of clock display, a 36dp gutter and the 256dp
+ * dial — where the portrait one needs 328dp, and the default harness caps a wrap-content sticker at
+ * 400dp. Seeded onto the portrait sticker the layout had no way to ask for more room, so the dial
+ * overflowed the display and clipped at the dialog edge (#146). A variant is a composable of its
+ * own, so it carries [CatalogModes560] and leaves the portrait cells on their own footprint. The
+ * `layout` knob still exists and still flips on the live lane; this sticker only starts it on the
+ * other value.
+ */
+@CatalogVariant(
+  of = "TimePicker/Dial",
+  props = ["layout=horizontal"],
+  kitAxis = "Orientation",
+  kitValue = "Horizontal",
+  caption = "The landscape dial the kit pairs with the portrait one. 12-hour folds in.",
+)
+@CatalogModes560
+@OverrideVariant(name = "12-hour", strings = ["hours=12"])
+@Composable
+fun TimePickerHorizontalSticker() = Sticker {
+  TimePickerDialogFrame(seedInput = false, seedHorizontal = true)
+}
 
 /**
  * The dial and the keyboard form publish as two components — two composables, two kit nodes — but
@@ -114,17 +151,29 @@ fun TimePickerSticker() = Sticker { TimePickerDialogFrame(seedInput = false) }
  * switching modes keeps the time the way the real dialog does instead of resetting to the seed.
  */
 @Composable
-private fun TimePickerDialogFrame(seedInput: Boolean) {
+private fun TimePickerDialogFrame(seedInput: Boolean, seedHorizontal: Boolean = false) {
   val is24Hour = timeIs24Hour()
-  val horizontal = catalogChoice("layout", "vertical", "vertical", "horizontal") == "horizontal"
+  val horizontal =
+    catalogChoice(
+      "layout",
+      if (seedHorizontal) "horizontal" else "vertical",
+      "vertical",
+      "horizontal",
+    ) == "horizontal"
   val (initialHour, initialMinute) = initialTime()
   var input by toggleable(seedInput)
+  // `rememberTimePickerState` saves through a keyless `rememberSaveable`, so a knob that moves
+  // under a live re-render — the preview server's `?themeProvider=` lane recomposes a held session
+  // rather than building a fresh one — never reaches the state, and the 12-hour cells came back
+  // rendering the 24-hour dial (#146, #147). `key` rebuilds the state when the seed does.
   val state =
-    rememberTimePickerState(
-      initialHour = initialHour,
-      initialMinute = initialMinute,
-      is24Hour = is24Hour,
-    )
+    key(is24Hour, initialHour, initialMinute) {
+      rememberTimePickerState(
+        initialHour = initialHour,
+        initialMinute = initialMinute,
+        is24Hour = is24Hour,
+      )
+    }
   TimePickerFrame(
     headline = stringResource(if (input) Res.string.time_enter else Res.string.time_select),
     switchIcon = if (input) Icons.Filled.AccessTime else Icons.Filled.Keyboard,
@@ -133,7 +182,7 @@ private fun TimePickerDialogFrame(seedInput: Boolean) {
     onSwitch = { input = !input },
     modifier =
       if (input) Modifier.width(if (is24Hour) 264.dp else 328.dp)
-      else if (horizontal) Modifier.width(572.dp) else Modifier.width(328.dp),
+      else if (horizontal) Modifier.width(HorizontalDialogWidth) else Modifier.width(328.dp),
   ) {
     if (input) {
       TimeInput(state = state)

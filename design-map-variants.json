@@ -5826,26 +5826,30 @@
           ]
         },
         {
-          "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerSticker_Light_VARIANT_12-hour-horizontal",
-          "name": "12-hour-horizontal",
-          "seeds": [
-            {
-              "key": "hours",
-              "raw": "12"
-            },
-            {
-              "key": "layout",
-              "raw": "horizontal"
-            }
-          ]
-        },
-        {
-          "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerSticker_Light_VARIANT_horizontal",
+          "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerHorizontalSticker_Light",
           "name": "horizontal",
           "seeds": [
             {
               "key": "layout",
-              "raw": "horizontal"
+              "raw": "horizontal",
+              "kitAxis": "Orientation",
+              "kitValue": "Horizontal"
+            }
+          ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerHorizontalSticker_Light_VARIANT_12-hour",
+          "name": "horizontal-12-hour",
+          "seeds": [
+            {
+              "key": "layout",
+              "raw": "horizontal",
+              "kitAxis": "Orientation",
+              "kitValue": "Horizontal"
+            },
+            {
+              "key": "hours",
+              "raw": "12"
             }
           ]
         }
