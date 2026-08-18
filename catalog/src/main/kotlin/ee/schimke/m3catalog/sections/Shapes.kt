@@ -1,4 +1,5 @@
 @file:CatalogGroup(name = "Shapes", section = "Styles")
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
 package ee.schimke.m3catalog.sections
 
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.toShape
