@@ -24,6 +24,22 @@ ktfmt = "0.27.0"
 #   nothing — so a 1.12.0-beta/rc bump WILL come back green in `assemble`,
 #   `test` and `ktfmtCheck` and publish an empty sticker sheet. Render before
 #   merging one.
+#
+# The OTHER end of this line is the preview server. A published catalog's bundle records its
+# classpath as Maven coordinates, and Skiko splits in two: `skiko-awt` (the `org.jetbrains.skia.*`
+# bindings) and a per-platform `skiko-awt-runtime-<os>-<arch>` carrying the actual `libskiko`. Only
+# the bindings are a coordinate — the native arrives as a transitive artifact — so a bundle records
+# `skiko-awt` alone, and until compose-ai-tools#4236 the serve host paired those bindings with its
+# OWN older `libskiko`. Moving this ref to the 1.12 line (skiko 0.148.2) against a host on 1.11.1
+# (skiko 0.144.6) therefore killed every live render on preview.coo.ee with
+# `UnsatisfiedLinkError: _nGetUnresolvedCodepointsCount` — a paragraph symbol 0.148.2 exports and
+# 0.144.6 does not — while `assemble`, `test` and the baked stickers all stayed green. That is
+# issue #159 (and compose-ai-tools#3447 before it, one Skiko symbol earlier).
+#
+# The host now resolves the bundle's own native, so a catalog may lead it again. What is left is
+# ordinary care: after moving this ref, check `preview.coo.ee/status.json` for this catalog's
+# `degradation` once the regenerated bundle is live. A dead lane is invisible from here — the baked
+# PNGs keep serving and only knob/theme/device edits break.
 compose-multiplatform = "1.12.0-alpha02"
 # Material 3 is versioned independently of the Compose Multiplatform BOM; the
 # 1.12 line matches `compose-multiplatform = 1.12.0-alpha02`.
