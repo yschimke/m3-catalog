@@ -100,6 +100,11 @@ same word. Where Compose has no name of its own, take the kit's.
 - **No dead handlers.** Stateful components own their state (`toggleable` / `selectable` /
   `draggable` / `editable`); everything else takes `counted`. Disabled stickers stay inert on
   purpose. See `CatalogInteractive.kt`.
+- **A live click answers with the component, not with the label.** `counted` returns the label it
+  was given; the ripple, state layer and pressed shape are what a click is supposed to show. The
+  `(n)` tally is the `clickCount` knob, off by default — reach for it when the question really is
+  "did the handler run?", never as a sticker's standing answer to a press
+  ([wear-m3-catalog#32](https://github.com/yschimke/wear-m3-catalog/issues/32)).
 - Renders must be **deterministic**: a date picker is pinned to a fixed instant, a time picker to
   10:10. An unpinned picker would open on "today" and every nightly render would differ from the
   last, which turns the delivery branch's history into noise.

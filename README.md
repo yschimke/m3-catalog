@@ -141,10 +141,16 @@ Every sticker is rendered on two surfaces that want opposite things from a point
 
 The split is one derived flag (`catalogInteractive()`), never a hard-coded constant, so a single
 sticker body serves both. **No sticker ships a dead handler**: stateful components own their state
-(`toggleable` / `selectable` / `draggable` / `editable`), and everything else takes the click tally
-(`counted`), which appends `(n)` to a label. At `n == 0` the tally returns the bare label and a
-no-op handler, so the baked capture is byte-identical either way. The deliberate exceptions are
-disabled stickers, which stay inert because unresponsiveness is the state they document.
+(`toggleable` / `selectable` / `draggable` / `editable`), and everything else takes `counted` — the
+label it was given, and a handler that is real on the live lane and a no-op on the baked one. What
+a live click *shows* is the component's own press feedback: the ripple, the state layer, the
+pressed shape. `counted` used to append `(n)` to the label so a sticker could be seen to respond;
+that is `clickCount` now, a knob every sticker exposes and nothing turns on by default, because a
+growing label is not what the component does when you press it — and reading it as proof hid the
+fact that the ripple was missing on the live lane at all
+([wear-m3-catalog#32](https://github.com/yschimke/wear-m3-catalog/issues/32)). The deliberate
+exceptions are disabled stickers, which stay inert because unresponsiveness is the state they
+document.
 
 ## Themes
 
