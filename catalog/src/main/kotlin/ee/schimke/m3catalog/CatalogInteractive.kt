@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import ee.schimke.composeai.overrides.previewOverrideBoolean
 
 /**
  * Every catalog sticker is rendered on two surfaces that want opposite things from a pointer:
@@ -19,21 +20,36 @@ import androidx.compose.runtime.setValue
  *
  * **No sticker may ship a dead handler.** Components that carry state (switch, checkbox, radio,
  * chip, slider, segmented button, text fields) own it and mutate it via [toggleable] / [selectable]
- * / [multiSelectable]. Everything else takes the **click tally** [counted] as its default: it
- * appends `(n)` to a label, so `Filled` → `Filled (1)`. At `n == 0` the tally returns the bare
- * label and a no-op handler, so the baked capture is byte-identical either way.
+ * / [multiSelectable]. Everything else takes [counted] as its default: the label it was given, and
+ * a handler that is real on the live lane and a no-op on the baked one.
  */
 class Counted internal constructor(val label: String, val onClick: () -> Unit)
 
 /**
- * A click tally over [label]. On the baked lane the label is unchanged and [Counted.onClick] is a
- * no-op; on the live lane each click appends `(n)`.
+ * [label] and a real `onClick` — no-op on the baked lane, live on the other.
+ *
+ * ### What a live click shows, and why it is not the label
+ *
+ * This used to append `(n)` to the label on every click, so a sticker could be *seen* to respond.
+ * It answered the wrong question twice over. A growing label is not what the component does when
+ * you press it, and reading it as proof that clicks work hid the fact that the press feedback was
+ * missing on the live lane at all — see
+ * [wear-m3-catalog#32](https://github.com/yschimke/wear-m3-catalog/issues/32), where the ripple
+ * never reached the wire and the tally was the only thing that moved. With that fixed upstream the
+ * tally competes with the ripple: two answers, the louder one wrong.
+ *
+ * So it is `clickCount`, a knob every sticker exposes and nothing turns on by default. Set it and
+ * the label counts again — useful when the question really is "did the handler run?", e.g. on a
+ * component whose press feedback is subtle or suppressed. Leave it and the component speaks for
+ * itself. The default is what every published PNG renders, so the knob costs the baked lane
+ * nothing.
  */
 @Composable
 fun counted(label: String): Counted {
   if (!catalogInteractive()) return Counted(label) {}
   var n by remember { mutableIntStateOf(0) }
-  return Counted(if (n == 0) label else "$label (${localizedDigits(n.toString())})") { n++ }
+  val tally = previewOverrideBoolean("clickCount", false)
+  return Counted(if (tally && n > 0) "$label (${localizedDigits(n.toString())})" else label) { n++ }
 }
 
 /**
