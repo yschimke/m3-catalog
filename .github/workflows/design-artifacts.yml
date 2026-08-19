@@ -108,7 +108,7 @@ jobs:
       # it does mean a change to the serve host can break the live lane without breaking a browse,
       # so verify a knob override actually re-renders, not just that the sheet loads.
       #
-      # Needs CLI >= 1.9.0 (compose-ai-tools#3641); the pin above is 1.15.0. This is the same mode
+      # Needs CLI >= 1.9.0 (compose-ai-tools#3641); the pin above is 1.18.0. This is the same mode
       # compose-ai-tools' own CMP tier publishes with. See compose-ai-tools#3036.
       split-mode: full-shared-classpath
       commit-user-name: Yuri Schimke
