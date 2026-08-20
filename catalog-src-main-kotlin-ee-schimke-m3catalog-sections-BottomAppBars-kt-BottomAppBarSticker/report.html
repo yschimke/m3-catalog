@@ -99,7 +99,7 @@ th.matrix-row{text-align:left;white-space:nowrap;background:#13131a;font-family:
 </head>
 <body>
 <header class="page">
-  <h1>catalog/src/main/kotlin/ee/schimke/m3catalog/sections/BottomAppBars.kt#BottomAppBarSticker<span class="status status-warn">Warn</span></h1>
+  <h1>catalog/src/main/kotlin/ee/schimke/m3catalog/sections/BottomAppBars.kt#BottomAppBarSticker<span class="status status-fail">Fail</span></h1>
   <div class="subtitle">figma reference vs candidate render</div>
   <div class="depicts">Reference depicts <span class="chip">Icons=3</span><span class="chip chip-default">Show FAB=true</span></div>
 </header>
@@ -255,11 +255,15 @@ th.matrix-row{text-align:left;white-space:nowrap;background:#13131a;font-family:
 <section class="findings">
 <div class="finding-section">
                 <h3>Token compliance</h3>
-                <ul class="finding-list"><li class="finding sev-info">
-                    <span class="sev-tag">info</span>
+                <ul class="finding-list"><li class="finding sev-error">
+                    <span class="sev-tag">error</span>
                     <div class="finding-body">
-                      <span class="finding-msg">spacing: candidate resolved no spacing tokens; compliance not evaluated (1 spec token)</span>
-                      
+                      <span class="finding-msg">spacing.padding: renders 8 vs spec 4 (Δ4)</span>
+                      <div class="delta">
+                   <code>spacing.padding</code>
+                   <span class="expected">expected 4</span>
+                   <span class="actual">actual 8</span>
+                 </div>
                     </div>
                   </li></ul>
               </div>
