@@ -51,9 +51,25 @@ on:
 
 permissions: {}
 
+# ONE run at a time, and every one of them finishes.
+#
+# The group stays global on purpose: the job appends the regenerated board to
+# `design-parity/main`, so two runs publishing at once would race on the same
+# branch. Serialising them is right.
+#
+# `cancel-in-progress` was how that serialisation was enforced, and it is the
+# wrong lever: it throws the render away rather than ordering it. A push
+# arriving mid-run leaves nothing published, and `design-parity/main` keeps
+# reading as current while being several merges stale — a report nobody can
+# trust to be fresh is worse than a slow one. Run 160 died exactly that way.
+#
+# Queuing gives the same one-writer guarantee without discarding the work.
+# GitHub keeps only the newest *pending* run per group, so the backlog never
+# grows past one waiting run: the in-flight render completes and publishes, and
+# the newest commit is what runs next.
 concurrency:
   group: design-parity-artifacts
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   parity:
