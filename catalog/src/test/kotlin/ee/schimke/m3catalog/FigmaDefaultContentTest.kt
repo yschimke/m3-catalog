@@ -34,6 +34,9 @@ class FigmaDefaultContentTest {
         "segment_day" to "Label",
         "segment_week" to "Label",
         "segment_month" to "Label",
+        "card_title" to "Title",
+        "card_supporting" to
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
         "search_hint" to "Hinted search text",
         "search_app_hint" to "Search product",
         "search_input_text" to "Input text",
