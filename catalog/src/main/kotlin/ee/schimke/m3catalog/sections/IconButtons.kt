@@ -27,6 +27,7 @@ import ee.schimke.composeai.preview.InteractionPreview
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogOutlinedStars
+import ee.schimke.m3catalog.ContainerlessInteractionStates
 import ee.schimke.m3catalog.IconButtonMatrix
 import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.Sticker
@@ -70,11 +71,13 @@ private fun IconButtonFrame(content: @Composable () -> Unit) {
   id = "IconButton/Standard",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:10132",
   caption =
-    "Lowest emphasis; inline on a surface. Five sizes x three widths x two shapes fold in as variants.",
+    "Lowest emphasis; inline on a surface. Five sizes x three widths x two shapes fold in as " +
+      "variants. The container is transparent, so the shape axis is invisible at rest — the kit " +
+      "draws its square nodes the same way, and `square-hovered` is the cell where it shows.",
 )
 @CatalogModes
 @IconButtonMatrix
-@InteractionStates
+@ContainerlessInteractionStates
 @Composable
 fun StandardIconButton() = Sticker {
   var on by toggleable(true)

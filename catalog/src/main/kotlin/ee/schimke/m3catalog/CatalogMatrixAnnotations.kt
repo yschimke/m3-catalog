@@ -256,3 +256,47 @@ annotation class HoverFocusStates
 // the sets that would want one. Compose draws no hover state for either — see issue #91 — so those
 // components carry a single `pressed` cell inline instead, and the search bar carries none at all.
 // An annotation whose cells render nothing is worse than no annotation: it reads as coverage.
+
+/**
+ * [InteractionStates] plus the one square cell a state layer makes visible — for the two
+ * **containerless** styles, `IconButton/Standard` and `Button/Text`.
+ *
+ * Those two draw no container in their resting state, so `catalogIconShape` / `catalogButtonShape`
+ * resolve a different `Shape`, the component honours it, and nothing is painted with it. Every one
+ * of the forty `*-square` cells their matrices carry is therefore byte-identical to its round
+ * counterpart — measured across all 1340 baked renders in issue #175, thirty on the icon button
+ * (five sizes x three widths, both schemes) and ten on the text button.
+ *
+ * Those cells stay, because the redundancy is the **kit's** as much as ours: `Icon button -
+ * standard` and `Button - text` publish a separate `Type=Square` node for every one of them, and
+ * each draws exactly what its `Type=Round` sibling draws. Read `57994:2254` and `57994:2264` in
+ * `design/pages/buttons.svg` — same glyph path, same label path, no container between them, and the
+ * only difference is the `rx=12` / `rx=20` clip around a frame with nothing painted inside it. So
+ * the duplicates are a correct comparison of two identical pictures, and dropping them would strand
+ * forty kit variants with no candidate render to claim a gap that is not there.
+ *
+ * What was missing is a cell where the axis shows. Under a state layer that clip stops being empty
+ * — the kit's own `State=Hovered` square nodes (`58650:8161`, `58663:30916`) are the same 8%
+ * overlay as their round siblings clipped to `rx=12` rather than `rx=20` — and Compose clips its
+ * state layer the same way. `square-hovered` is that cell: one per component, at the default size,
+ * against a kit node that genuinely differs from the round one beside it.
+ *
+ * Hover rather than focus or press, and one cell rather than three: all three states clip the same
+ * layer to the same shape, so the second and third would re-publish the first's finding at three
+ * times the render cost. This is the only place the catalog crosses `shape` with `state` — see
+ * [CatalogVariantMatrix.alongside] for why the matrices themselves never do.
+ */
+@OverrideVariant(name = "hovered", interaction = VariantInteraction.Hovered)
+@OverrideVariant(
+  name = "square-hovered",
+  interaction = VariantInteraction.Hovered,
+  strings = ["shape=square"],
+)
+@OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)
+@OverrideVariant(
+  name = "focus-ring",
+  interaction = VariantInteraction.Focused,
+  strings = ["focus=ring"],
+)
+@OverrideVariant(name = "pressed", interaction = VariantInteraction.Pressed)
+annotation class ContainerlessInteractionStates

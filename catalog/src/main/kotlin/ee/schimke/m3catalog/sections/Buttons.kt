@@ -29,6 +29,7 @@ import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogSize
+import ee.schimke.m3catalog.ContainerlessInteractionStates
 import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.SizeShapeMatrix
 import ee.schimke.m3catalog.Sticker
@@ -231,11 +232,14 @@ fun ElevatedButtonSticker() = Sticker {
 @CatalogComponent(
   id = "Button/Text",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2264",
-  caption = "Lowest emphasis; inline actions. Five sizes x two shapes fold in as variants.",
+  caption =
+    "Lowest emphasis; inline actions. Five sizes x two shapes fold in as variants. The container " +
+      "is transparent, so the shape axis is invisible at rest — the kit draws its square nodes " +
+      "the same way, and `square-hovered` is the cell where it shows.",
 )
 @CatalogModes
 @SizeShapeMatrix
-@InteractionStates
+@ContainerlessInteractionStates
 @Composable
 fun TextButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
