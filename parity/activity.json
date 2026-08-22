@@ -1,11 +1,32 @@
 {
   "schema": "compose-preview-activity/v1",
-  "generatedAt": "2026-08-22T10:08:18.908Z",
+  "generatedAt": "2026-08-22T10:38:17.244Z",
   "windowDays": 30,
   "code": {
     "repo": "yschimke/m3-catalog",
     "ref": "main",
     "events": [
+      {
+        "sha": "190108ba8dac2b85a296ea78bf7a6aad76245463",
+        "subject": "fix: take the kit's bounds off the Snackbar and the floating toolbar (#185)",
+        "at": "2026-08-22T12:50:40+03:00",
+        "author": "Yuri Schimke",
+        "previewIds": [
+          "snackbar-message__ideal__default__light__compact",
+          "snackbar-message__ideal__action__compact",
+          "snackbar-message__ideal__action-close__compact",
+          "snackbar-message__ideal__close__compact",
+          "snackbar-message__ideal__two-line__compact",
+          "snackbar-message__ideal__two-line-action-close__compact",
+          "toolbar-horizontalfloating__ideal__default__light",
+          "toolbar-horizontalfloating__ideal__vibrant",
+          "toolbar-horizontalfloating__ideal__default__light__orientation-vertical"
+        ],
+        "components": [
+          "Snackbar/Message",
+          "Toolbar/HorizontalFloating"
+        ]
+      },
       {
         "sha": "5562535beb850fdb3660836415398f64e8f62030",
         "subject": "fix: make three stickers read the knob their @OverrideVariant seeds, and guard against duplicate renders (#183)",
@@ -1457,40 +1478,6 @@
           "TextField/Filled",
           "TextField/Outlined"
         ]
-      },
-      {
-        "sha": "603ed67e11614420eed54e821928f14765244419",
-        "subject": "fix(fab): draw the 24dp icon the kit specifies, and stop clamping the extended container (#94)",
-        "at": "2026-08-15T11:20:54+01:00",
-        "author": "Yuri Schimke",
-        "previewIds": [
-          "fab-extended__ideal__default__light",
-          "fab-extended__ideal__focused",
-          "fab-extended__ideal__hovered",
-          "fab-extended__ideal__pressed",
-          "fab-extended__ideal__primary",
-          "fab-extended__ideal__secondary",
-          "fab-extended__ideal__secondary-container",
-          "fab-extended__ideal__tertiary",
-          "fab-extended__ideal__tertiary-container",
-          "fab-extended__ideal__default__light__size-medium",
-          "fab-extended__ideal__default__light__size-large",
-          "fab-standard__ideal__default__light",
-          "fab-standard__ideal__focused",
-          "fab-standard__ideal__hovered",
-          "fab-standard__ideal__pressed",
-          "fab-standard__ideal__primary",
-          "fab-standard__ideal__secondary",
-          "fab-standard__ideal__secondary-container",
-          "fab-standard__ideal__tertiary",
-          "fab-standard__ideal__tertiary-container",
-          "fab-standard__ideal__default__light__size-medium",
-          "fab-standard__ideal__default__light__size-large"
-        ],
-        "components": [
-          "Fab/Extended",
-          "Fab/Standard"
-        ]
       }
     ]
   },
@@ -1548,159 +1535,6 @@
       "detail": "design-map names ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light_VARIANT_vibrant, which this catalog does not publish.",
       "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Toolbars.kt#HorizontalFloatingToolbarSticker",
       "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light_VARIANT_vibrant"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Buttons.kt#TonalButton",
-      "previewId": "ee.schimke.m3catalog.sections.ButtonsKt.TonalButton_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Cards.kt#ElevatedCardSticker",
-      "previewId": "ee.schimke.m3catalog.sections.CardsKt.ElevatedCardSticker_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Cards.kt#FilledCard",
-      "previewId": "ee.schimke.m3catalog.sections.CardsKt.FilledCard_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Cards.kt#OutlinedCardSticker",
-      "previewId": "ee.schimke.m3catalog.sections.CardsKt.OutlinedCardSticker_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Carousel.kt#MultiBrowseCarousel",
-      "previewId": "ee.schimke.m3catalog.sections.CarouselKt.MultiBrowseCarousel_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Checkboxes.kt#CheckboxChecked",
-      "previewId": "ee.schimke.m3catalog.sections.CheckboxesKt.CheckboxChecked_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Chips.kt#AssistChipSticker",
-      "previewId": "ee.schimke.m3catalog.sections.ChipsKt.AssistChipSticker_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Chips.kt#FilterChipSticker",
-      "previewId": "ee.schimke.m3catalog.sections.ChipsKt.FilterChipSticker_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Chips.kt#InputChipSticker",
-      "previewId": "ee.schimke.m3catalog.sections.ChipsKt.InputChipSticker_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Chips.kt#SuggestionChipSticker",
-      "previewId": "ee.schimke.m3catalog.sections.ChipsKt.SuggestionChipSticker_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Colors.kt#ColorRoleGridSticker",
-      "ref": "figma:ocdacdEsnHipMJD3egzxKb/53699:35493",
-      "previewId": "ee.schimke.m3catalog.sections.ColorsKt.ColorRoleGridSticker_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/DatePickers.kt#DatePickerModalSticker",
-      "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Dialogs.kt#BasicDialog",
-      "previewId": "ee.schimke.m3catalog.sections.DialogsKt.BasicDialog_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Dialogs.kt#ListDialog",
-      "previewId": "ee.schimke.m3catalog.sections.DialogsKt.ListDialog_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Dividers.kt#HorizontalDividerSticker",
-      "previewId": "ee.schimke.m3catalog.sections.DividersKt.HorizontalDividerSticker_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Dividers.kt#VerticalDividerSticker",
-      "ref": "figma:ocdacdEsnHipMJD3egzxKb/51816:5862",
-      "previewId": "ee.schimke.m3catalog.sections.DividersKt.VerticalDividerSticker_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Fab.kt#ExtendedFab",
-      "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Fab.kt#Fab",
-      "previewId": "ee.schimke.m3catalog.sections.FabKt.Fab_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Sliders.kt#RangeSliderSticker",
-      "previewId": "ee.schimke.m3catalog.sections.SlidersKt.RangeSliderSticker_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Snackbar.kt#SnackbarMessage",
-      "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/SplitButton.kt#SplitButton",
-      "previewId": "ee.schimke.m3catalog.sections.SplitButtonKt.SplitButton_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Switches.kt#SwitchOn",
-      "previewId": "ee.schimke.m3catalog.sections.SwitchesKt.SwitchOn_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/ToggleButtons.kt#TonalToggleButtonSticker",
-      "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.TonalToggleButtonSticker_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt#SmallTopAppBar",
-      "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.SmallTopAppBar_Light"
-    },
-    {
-      "kind": "unrendered-reference",
-      "detail": "Mapped to a Figma node, but no reference raster was published for it — the render step could not produce one, so nothing can score this preview against its spec.",
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Typography.kt#TypeScaleRoleSticker",
-      "ref": "figma:ocdacdEsnHipMJD3egzxKb/58186:19244",
-      "previewId": "ee.schimke.m3catalog.sections.TypographyKt.TypeScaleRoleSticker_Light"
     }
   ]
 }
