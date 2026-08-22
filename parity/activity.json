@@ -1,11 +1,30 @@
 {
   "schema": "compose-preview-activity/v1",
-  "generatedAt": "2026-08-21T22:32:18.588Z",
+  "generatedAt": "2026-08-22T09:45:45.510Z",
   "windowDays": 30,
   "code": {
     "repo": "yschimke/m3-catalog",
     "ref": "main",
     "events": [
+      {
+        "sha": "ed5e7ba31587e95604c312c5ceccecb9d0b10c4b",
+        "subject": "fix(cards): publish kit content instead of the slot placeholder (#181)",
+        "at": "2026-08-22T12:26:50+03:00",
+        "author": "Yuri Schimke",
+        "previewIds": [
+          "card-elevated__ideal__default__light__compact",
+          "card-elevated__ideal__slot__compact",
+          "card-filled__ideal__default__light__compact",
+          "card-filled__ideal__slot__compact",
+          "card-outlined__ideal__default__light__compact",
+          "card-outlined__ideal__slot__compact"
+        ],
+        "components": [
+          "Card/Elevated",
+          "Card/Filled",
+          "Card/Outlined"
+        ]
+      },
       {
         "sha": "978d0f6c9cfbf370d54e376dbc578af29aa72cb7",
         "subject": "fix(togglebuttons): frame ToggleButton/Elevated like its siblings too (#155)",
@@ -1676,61 +1695,6 @@
         "sha": "8ca7d4331b4634d05ad25ac707731f8d2ffdf6a3",
         "subject": "docs(sliders): point the hand-measured size table at the upstream gap (#90)",
         "at": "2026-08-15T10:52:34+01:00",
-        "author": "Yuri Schimke",
-        "previewIds": [
-          "slider-continuous__ideal__default__light__compact",
-          "slider-continuous__ideal__disabled__compact",
-          "slider-continuous__ideal__l__compact",
-          "slider-continuous__ideal__m__compact",
-          "slider-continuous__ideal__pressed__compact",
-          "slider-continuous__ideal__s__compact",
-          "slider-continuous__ideal__xl__compact",
-          "slider-continuous__ideal__default__light__orientation-vertical",
-          "slider-range__ideal__default__light__compact",
-          "slider-range__ideal__disabled__compact",
-          "slider-range__ideal__l__compact",
-          "slider-range__ideal__m__compact",
-          "slider-range__ideal__pressed__compact",
-          "slider-range__ideal__s__compact",
-          "slider-range__ideal__xl__compact"
-        ],
-        "components": [
-          "Slider/Continuous",
-          "Slider/Range"
-        ]
-      },
-      {
-        "sha": "94ea0f67b32d0882a72a5aa770d23094d00f8531",
-        "subject": "fix: leave the kit's corner divergences visible, and pin the rest (#84)",
-        "at": "2026-08-15T10:17:50+01:00",
-        "author": "Yuri Schimke",
-        "previewIds": [
-          "checkbox-checked__ideal__default__light",
-          "checkbox-checked__ideal__disabled",
-          "checkbox-checked__ideal__disabled-indeterminate",
-          "checkbox-checked__ideal__disabled-unchecked",
-          "checkbox-checked__ideal__error",
-          "checkbox-checked__ideal__error-indeterminate",
-          "checkbox-checked__ideal__error-unchecked",
-          "checkbox-checked__ideal__focused",
-          "checkbox-checked__ideal__hovered",
-          "checkbox-checked__ideal__indeterminate",
-          "checkbox-checked__ideal__pressed",
-          "checkbox-checked__ideal__unchecked",
-          "search-appbar__ideal__default__light__compact",
-          "search-bar__ideal__default__light__compact",
-          "search-bar__ideal__avatar__compact"
-        ],
-        "components": [
-          "Checkbox/Checked",
-          "Search/AppBar",
-          "Search/Bar"
-        ]
-      },
-      {
-        "sha": "dd1fbc35af19540793e8bd5534e1f6c8a63f1ce3",
-        "subject": "feat(sliders): compare every size the kit publishes (#88)",
-        "at": "2026-08-15T10:17:18+01:00",
         "author": "Yuri Schimke",
         "previewIds": [
           "slider-continuous__ideal__default__light__compact",
