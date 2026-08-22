@@ -130,6 +130,14 @@ jobs:
       - name: Test kit axis coverage
         run: node --test scripts/kit-coverage.test.mjs
 
+      # The duplicate-render scan's own logic, and the shape of the exemption
+      # table it reads. The scan itself needs a render and runs in
+      # compose-preview.yml; what is checkable without one is that it groups
+      # renders the way it claims, and that every entry in duplicate-renders.json
+      # names a live composable, a live variant cell and the issue tracking it.
+      - name: Test duplicate-render declarations
+        run: node --test scripts/duplicate-renders.test.mjs
+
       # Which pages the import covers, and what each one is called. Both answers are published URLs
       # (`/{system}/pages/{id}`), and the page list is now discovered from the Figma file rather
       # than hand-kept, so the slug rule is the only thing holding those URLs still.
