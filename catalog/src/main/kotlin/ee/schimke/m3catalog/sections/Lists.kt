@@ -56,9 +56,24 @@ import org.jetbrains.compose.resources.stringResource
 // the same node and calling the same `FigmaList()`; it was a byte-identical duplicate of this
 // component's default capture, not a variant of it, so it is gone rather than folded.
 
+// The three axes read as knobs, and their defaults. The sticker reads all three BEFORE it decides
+// which body to draw, because the Figma frame below is only the right answer while every one of
+// them is still at its default — see `ListItemSticker`.
+
+private const val LEADING_DEFAULT = "icon"
+private const val TRAILING_DEFAULT = "none"
+private const val LINES_DEFAULT = "figma"
+
 @Composable
-private fun leading(): (@Composable () -> Unit)? =
-  when (catalogChoice("leading", "icon", "icon", "none")) {
+private fun leadingSetting(): String = catalogChoice("leading", LEADING_DEFAULT, "icon", "none")
+
+@Composable
+private fun trailingSetting(): String =
+  catalogChoice("trailing", TRAILING_DEFAULT, "none", "text", "icon", "checkbox", "switch")
+
+@Composable
+private fun leading(setting: String): (@Composable () -> Unit)? =
+  when (setting) {
     "none" -> null
     else -> {
       { Icon(Icons.Filled.Person, contentDescription = null) }
@@ -66,9 +81,9 @@ private fun leading(): (@Composable () -> Unit)? =
   }
 
 @Composable
-private fun trailing(): (@Composable () -> Unit)? {
+private fun trailing(setting: String): (@Composable () -> Unit)? {
   var checked by toggleable(true)
-  return when (catalogChoice("trailing", "none", "none", "text", "icon", "checkbox", "switch")) {
+  return when (setting) {
     "text" -> {
       { Text(localizedDigits("10:30")) }
     }
@@ -106,12 +121,24 @@ fun ListItemSticker() = Sticker {
   val lineSetting =
     catalogChoice(
       "lines",
-      "figma",
+      LINES_DEFAULT,
       "figma" to "Figma default",
       "1" to "One line",
       "3" to "Three lines",
     )
-  if (lineSetting == "figma") {
+  val leadingSetting = leadingSetting()
+  val trailingSetting = trailingSetting()
+  // The kit's default IS the six-row frame, so an unseeded render draws it. It is only the right
+  // answer while every axis is at its default, though: the early return used to be taken on the
+  // `lines` knob alone, so the five cells that seed only `leading=` / `trailing=` never reached
+  // the single row that shows them and published the default frame under their own names
+  // (issue #176). A seeded row axis falls through to the two-line row, which is what those cells
+  // are variants of.
+  val everyAxisAtItsDefault =
+    lineSetting == LINES_DEFAULT &&
+      leadingSetting == LEADING_DEFAULT &&
+      trailingSetting == TRAILING_DEFAULT
+  if (everyAxisAtItsDefault) {
     FigmaList()
     return@Sticker
   }
@@ -132,8 +159,8 @@ fun ListItemSticker() = Sticker {
         } else null,
       overlineContent =
         if (lines >= 3) ({ Text(stringResource(Res.string.list_overline)) }) else null,
-      leadingContent = leading(),
-      trailingContent = trailing(),
+      leadingContent = leading(leadingSetting),
+      trailingContent = trailing(trailingSetting),
     )
   }
 }

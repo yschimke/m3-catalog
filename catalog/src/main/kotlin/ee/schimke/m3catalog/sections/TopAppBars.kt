@@ -64,10 +64,23 @@ import org.jetbrains.compose.resources.stringResource
 // with the other search entry points; folding it would move it across groups, which is a separate
 // decision and not made here. See issue #128.
 
+/**
+ * Whether the bar draws a navigation icon — the `nav` knob the `no-nav` cells seed.
+ *
+ * Read through this rather than inline, because every bar in the file has to answer the seed the
+ * same way. `CenterTopAppBar` used to hardcode both slots while still declaring `no-nav` and
+ * `no-actions`, so those two cells published the default render under their own names (issue #176).
+ */
+@Composable private fun navEnabled(): Boolean = previewOverrideBoolean("nav", true)
+
+/** How many trailing actions the bar draws — the `actions` knob the action cells seed. */
+@Composable
+private fun actionCount(): Int = previewOverrideString("actions", "1").toIntOrNull() ?: 1
+
 @Composable
 private fun NavIcon(): (@Composable () -> Unit)? {
   val c = counted(stringResource(Res.string.action_back))
-  if (!previewOverrideBoolean("nav", true)) return null
+  if (!navEnabled()) return null
   return {
     IconButton(onClick = c.onClick) {
       Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = c.label)
@@ -79,7 +92,7 @@ private fun NavIcon(): (@Composable () -> Unit)? {
 private fun Actions(): @Composable androidx.compose.foundation.layout.RowScope.() -> Unit {
   val more = counted(stringResource(Res.string.action_more))
   val search = counted(stringResource(Res.string.action_search))
-  val count = previewOverrideString("actions", "1").toIntOrNull() ?: 1
+  val count = actionCount()
   return {
     if (count >= 1) {
       IconButton(onClick = search.onClick) {
@@ -165,26 +178,35 @@ private fun catalogAppBarColors() =
 fun CenterTopAppBar() = Sticker {
   val menu = counted(stringResource(Res.string.action_menu))
   val account = counted(stringResource(Res.string.label_account))
+  // The centred bar keeps its own slot CONTENT — the kit draws it with a menu icon and an avatar
+  // rather than the parent's back arrow and search — but reads the same two knobs, so `no-nav` and
+  // `no-actions` mean here what they mean on every other bar in the file.
+  val nav = navEnabled()
+  val actions = actionCount()
   CenterAlignedTopAppBar(
     title = { Text(stringResource(Res.string.appbar_title)) },
     navigationIcon = {
-      IconButton(onClick = menu.onClick) {
-        Icon(Icons.Filled.Menu, contentDescription = menu.label)
+      if (nav) {
+        IconButton(onClick = menu.onClick) {
+          Icon(Icons.Filled.Menu, contentDescription = menu.label)
+        }
       }
     },
     actions = {
-      IconButton(onClick = account.onClick) {
-        Surface(
-          modifier = Modifier.size(32.dp),
-          shape = CircleShape,
-          color = MaterialTheme.colorScheme.primaryContainer,
-        ) {
-          Icon(
-            Icons.Filled.Interests,
-            contentDescription = account.label,
-            tint = MaterialTheme.colorScheme.outlineVariant,
-            modifier = Modifier.padding(4.dp),
-          )
+      if (actions >= 1) {
+        IconButton(onClick = account.onClick) {
+          Surface(
+            modifier = Modifier.size(32.dp),
+            shape = CircleShape,
+            color = MaterialTheme.colorScheme.primaryContainer,
+          ) {
+            Icon(
+              Icons.Filled.Interests,
+              contentDescription = account.label,
+              tint = MaterialTheme.colorScheme.outlineVariant,
+              modifier = Modifier.padding(4.dp),
+            )
+          }
         }
       }
     },

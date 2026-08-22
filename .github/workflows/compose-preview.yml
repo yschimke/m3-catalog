@@ -32,7 +32,7 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           cache-read-only: ${{ github.event_name == 'pull_request' && 'true' || 'false' }}
-      - uses: yschimke/compose-ai-tools/.github/actions/apply@v1.29.0
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@v1.30.0
         with:
           # Single source of truth for the renderer version: the
           # composePreviewPlugin entry in libs.versions.toml. A newer published
@@ -49,3 +49,22 @@ jobs:
           # 4800 matches design-artifacts.yml, which renders the same sheet. Past roughly 2400
           # previews the job timeout binds instead and sharding is the answer, not a bigger number.
           timeout: '4800'
+
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 24.19.0
+
+      # The render is the only place this repo can see its own pixels, so it is
+      # the only place the duplicate-render scan can run. `_previews.json` is
+      # what the action leaves behind: one row per capture, each already
+      # carrying its sha256, so the scan is a pass over JSON rather than a
+      # second hash of 1300 PNGs.
+      #
+      # A variant cell that renders its sibling's picture publishes coverage the
+      # sheet does not have, and the parity number computed for it scores the
+      # wrong image (issues #157, #175, #176). The known ones are declared in
+      # duplicate-renders.json against the issue that tracks them; anything else
+      # fails here. Runs after the comment step on purpose — a reviewer still
+      # gets the visual diff for the change that tripped it.
+      - name: No undeclared duplicate renders
+        run: node scripts/duplicate-renders.mjs

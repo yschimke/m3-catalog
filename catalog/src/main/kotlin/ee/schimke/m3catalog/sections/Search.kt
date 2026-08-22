@@ -97,7 +97,11 @@ private val SUGGESTIONS =
 private fun searchContent(): String =
   catalogChoice("content", "placeholder", "placeholder", "query", "avatar")
 
-@Composable private fun searchQuery(): String = if (searchContent() == "query") "material" else ""
+/** The typed query the `query` cells seed into a bar's input field. */
+private const val SEARCH_QUERY_TEXT = "material"
+
+@Composable
+private fun searchQuery(): String = if (searchContent() == "query") SEARCH_QUERY_TEXT else ""
 
 @Composable
 private fun searchPlaceholder(): (@Composable () -> Unit)? =
@@ -197,6 +201,19 @@ fun DockedSearchBarSticker() = Sticker {
   )
 }
 
+/**
+ * The app bar's own content axis, which is the collapsed bar's minus the avatar.
+ *
+ * The kit's `Configuration=Search` node draws the avatar in its trailing slot ALREADY, and its set
+ * publishes no `Show avatar` property to turn it off — the only axes on `App bar` are
+ * `Configuration` and `Elevation`. So there is no avatar cell to author here: the one that used to
+ * be declared seeded `content=avatar` into a sticker that never called [searchTrailing], and
+ * published the default render under its own name (issue #176).
+ */
+@Composable
+private fun appBarSearchContent(): String =
+  catalogChoice("content", "placeholder", "placeholder", "query")
+
 @CatalogComponent(
   id = "Search/AppBar",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20571",
@@ -205,11 +222,11 @@ fun DockedSearchBarSticker() = Sticker {
 )
 @CatalogModes412
 @OverrideVariant(name = "query", strings = ["content=query"])
-@OverrideVariant(name = "avatar", strings = ["content=avatar"])
 @Composable
 fun AppBarWithSearchSticker() = Sticker {
   val state = rememberSearchBarState(SearchBarValue.Collapsed)
-  val text = rememberTextFieldState(searchQuery())
+  val query = if (appBarSearchContent() == "query") SEARCH_QUERY_TEXT else ""
+  val text = rememberTextFieldState(query)
   val menu = counted("menu")
   AppBarWithSearch(
     state = state,
