@@ -103,31 +103,6 @@
         ["xl-on", "xl-square-on"],
         ["xs-on", "xs-square-on"]
       ]
-    },
-    {
-      "function": "HorizontalFloatingToolbarSticker",
-      "issue": 177,
-      "reason": "The sticker pins the toolbar to `Modifier.width(168.dp)`, which leaves it no room to collapse, so `expanded=false` renders the expanded bar.",
-      "collisions": [
-        ["collapsed", "default"],
-        ["collapsed-vibrant", "vibrant"]
-      ]
-    },
-    {
-      "function": "VerticalFloatingToolbarSticker",
-      "issue": 177,
-      "reason": "Same pinned-size cause as the horizontal toolbar, through `Modifier.height(168.dp)`.",
-      "collisions": [
-        ["collapsed", "default"]
-      ]
-    },
-    {
-      "function": "SnackbarMessage",
-      "issue": 177,
-      "reason": "The pinned width leaves the snackbar no room for both the action and the dismiss icon, so it paints the close over the action and `action-close` lands on `close`.",
-      "collisions": [
-        ["action-close", "close"]
-      ]
     }
   ]
 }
