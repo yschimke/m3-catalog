@@ -55,7 +55,7 @@ push-back; `design-led` already gates it off, and the config and the convention 
 | Actions | FAB | `Fab.kt` | 4 sizes × standard/extended; no shape axis | ✅ done (6 variants) |
 | Actions | Split button | `SplitButton.kt` | 5 sizes; no shape axis | ✅ done (4 cells) |
 | Actions | Segmented buttons | `SegmentedButtons.kt` | sizes, single/multi-select, icon/label | ✅ done (26 previews) |
-| Actions | Toolbars | `Toolbars.kt` | horizontal/vertical, expanded/collapsed | ✅ done (14 previews) |
+| Actions | Toolbars | `Toolbars.kt` | horizontal/vertical, standard/vibrant | ✅ done (8 previews) |
 | Communication | Badges | `Badges.kt` | dot / number, 1–3 digits | ✅ done (10 previews) |
 | Communication | Progress indicators | `ProgressIndicators.kt` | linear/circular × determinate/indeterminate × wavy | ✅ done (28 previews) |
 | Communication | Loading indicator | `LoadingIndicator.kt` | contained / uncontained | ✅ done (4 previews) |

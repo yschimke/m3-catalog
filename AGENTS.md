@@ -105,6 +105,17 @@ same word. Where Compose has no name of its own, take the kit's.
   `(n)` tally is the `clickCount` knob, off by default — reach for it when the question really is
   "did the handler run?", never as a sticker's standing answer to a press
   ([wear-m3-catalog#32](https://github.com/yschimke/wear-m3-catalog/issues/32)).
+- **A kit BOUND goes on a frame; a kit SIZE goes on the component.** The two look the same in a
+  diff and are not the same thing. A size the kit specifies and a caller would really pass —
+  `Card`'s 360x480, a nav bar's 412dp, a text field's 210dp — belongs on the component: that is the
+  component being used as documented. A bound that is the component's OWN measured extent in the kit
+  — the snackbar's 344x48 bar, the floating toolbar's 168dp — belongs on a `Box` around it, the way
+  `ButtonFrame` / `ToggleButtonFrame` / `IconButtonFrame` already do it. `Modifier.width(…)` is a
+  TIGHT constraint, so pinning one of those hands the component a minimum it has to honour: the
+  snackbar measured its action and close slots at the full bar width and drew the message across
+  them, and the toolbar published a container 8dp wider than Compose builds (#177). A frame gives the
+  same extent with a loose minimum, so the sticker still renders at the kit node's size and the
+  component still measures itself.
 - Renders must be **deterministic**: a date picker is pinned to a fixed instant, a time picker to
   10:10. An unpinned picker would open on "today" and every nightly render would differ from the
   last, which turns the delivery branch's history into noise.

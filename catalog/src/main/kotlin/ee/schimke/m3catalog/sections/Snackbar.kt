@@ -3,7 +3,6 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -36,6 +35,13 @@ import org.jetbrains.compose.resources.stringResource
 //
 // Three axes the kit documents, all foldable onto one preview: line count (the message length
 // decides it), the action, and the close affordance.
+//
+// Because the line count is the message's doing, `snackbar_long` has to be sized for the NARROWEST
+// of the cells it appears in — wide enough to wrap at the full 344dp bar, short enough to still fit
+// two lines once the action and close slots have taken their share. It used to be longer than that,
+// and got away with it only because the broken measurement below handed the message the whole bar
+// (#177); with the slots measured correctly the same copy spilled to a third line and the cell grew
+// past the kit's 68dp.
 
 @CatalogComponent(
   id = "Snackbar/Message",
@@ -61,9 +67,21 @@ fun SnackbarMessage() = Sticker {
   val undo = counted(stringResource(Res.string.action_undo))
   val dismiss = counted(stringResource(Res.string.action_dismiss))
   val long = catalogChoice("lines", "one", "one" to "One line", "two" to "Two lines") == "two"
-  Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp)) {
+  // The kit's bar width belongs to the FRAME, not to the `Snackbar` (#177). `OneRowSnackbar`
+  // measures the action and dismiss slots with the constraints it was handed and then coerces the
+  // message's width up to `constraints.minWidth`, so a tight `Modifier.width(344.dp)` measured both
+  // slots at the full bar width: the message was laid out across them, the ✕ landed at x = 0 on top
+  // of the first word, and the action was placed at a negative x — off the bar entirely, which is
+  // why `action-close` published the same bytes as `close`. A `Box` gives the same 344dp with a
+  // loose minimum, which is what the component needs in order to divide it.
+  //
+  // The height is the component's own, for the same reason `ButtonFrame` keeps the frame off the
+  // button: `SnackbarTokens.SingleLineContainerHeight` is already 48dp, and two lines of
+  // body-medium plus `SnackbarVerticalPadding` either side come to exactly the kit's 68dp. Pinning
+  // it only ever took away the layout choice the component makes when the slots do not fit on one
+  // line.
+  Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp).width(344.dp)) {
     Snackbar(
-      modifier = Modifier.width(344.dp).height(if (long) 68.dp else 48.dp),
       action =
         if (
           catalogChoice("configuration", "text", "text", "text+action").startsWith("text+action")
