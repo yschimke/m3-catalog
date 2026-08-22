@@ -129,6 +129,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark_VARIANT_m_square-399bce72.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark_VARIANT_pressed-f1891d14.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark_VARIANT_s_square-675f54c9.png" width="150" /> |
+| `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark_VARIANT_square_hovered-445cc23c.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark_VARIANT_xl-37f42339.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark_VARIANT_xl_square-e4d433ff.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Dark_VARIANT_xs-556121ff.png" width="150" /> |
@@ -144,6 +145,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light_VARIANT_m_square-29e7cf3e.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light_VARIANT_pressed-9d4f542e.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light_VARIANT_s_square-b7ae4a9b.png" width="150" /> |
+| `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light_VARIANT_square_hovered-d07b62d7.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light_VARIANT_xl-f359c2fe.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light_VARIANT_xl_square-19d1730a.png" width="150" /> |
 | `TextButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/TextButtonSticker_Light_VARIANT_xs-de961df4.png" width="150" /> |
@@ -567,6 +569,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark_VARIANT_s_square-0a539b24.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark_VARIANT_s_wide-97dce2e1.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark_VARIANT_s_wide_square-99ed30de.png" width="150" /> |
+| `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark_VARIANT_square_hovered-c4385178.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark_VARIANT_xl-b02f29f9.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark_VARIANT_xl_narrow-999cefba.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Dark_VARIANT_xl_narrow_square-02d66c15.png" width="150" /> |
@@ -602,6 +605,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light_VARIANT_s_square-fe020ec9.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light_VARIANT_s_wide-3fb4a094.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light_VARIANT_s_wide_square-89067e34.png" width="150" /> |
+| `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light_VARIANT_square_hovered-5dde37c5.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light_VARIANT_xl-a0964e6b.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light_VARIANT_xl_narrow-fa86f3e7.png" width="150" /> |
 | `StandardIconButton` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/StandardIconButton_Light_VARIANT_xl_narrow_square-6616e990.png" width="150" /> |
@@ -787,10 +791,8 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Light_VARIANT_pressed-a4a6f98e.png" width="150" /> |
 | `RadioSelected` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/RadioSelected_Light_VARIANT_unselected-1dc59f37.png" width="150" /> |
 | `AppBarWithSearchSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AppBarWithSearchSticker_Dark-c923979d.png" width="150" /> |
-| `AppBarWithSearchSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AppBarWithSearchSticker_Dark_VARIANT_avatar-fd63cb3b.png" width="150" /> |
 | `AppBarWithSearchSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AppBarWithSearchSticker_Dark_VARIANT_query-1b30b642.png" width="150" /> |
 | `AppBarWithSearchSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AppBarWithSearchSticker_Light-952743c8.png" width="150" /> |
-| `AppBarWithSearchSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AppBarWithSearchSticker_Light_VARIANT_avatar-fbd6a01e.png" width="150" /> |
 | `AppBarWithSearchSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/AppBarWithSearchSticker_Light_VARIANT_query-6d6994d3.png" width="150" /> |
 | `DockedSearchBarSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DockedSearchBarSticker_Dark-730f496a.png" width="150" /> |
 | `DockedSearchBarSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DockedSearchBarSticker_Light-4d90f4c1.png" width="150" /> |
