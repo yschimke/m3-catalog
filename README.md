@@ -37,6 +37,18 @@ including its large live-render bundles. Contributors who only need the source s
 `git clone --single-branch https://github.com/yschimke/m3-catalog.git`; consumers that need the
 published catalog should fetch `design-artifacts/m3-catalog` deliberately.
 
+That rule was broken once, deliberately, on **2026-08-27**: `design-artifacts/m3-catalog` was
+re-rooted to reclaim the 2.5 GiB of history accumulated under the old `split-mode: full` default,
+which copied `classes/app.jar` into every one of ~1,300 per-preview bundles. The reason is closed —
+[#158][158] switched the publisher to `full-shared-classpath` (789.7 MB to 50.4 MB per publish,
+measured), so the branch no longer grows at a rate that could justify doing this again. The rule
+above still stands; the exception was a one-off, the branch is append-only either side of it, and
+if size ever regresses the fix is the publisher, not another rewrite. What it cost, and the audit
+of what would otherwise have dangled, is in [#156][156].
+
+[156]: https://github.com/yschimke/m3-catalog/issues/156
+[158]: https://github.com/yschimke/m3-catalog/pull/158
+
 [kit]: https://www.figma.com/design/ocdacdEsnHipMJD3egzxKb/Material-3-Design-Kit--Community-
 
 ## Annotation-first, by design
