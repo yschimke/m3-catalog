@@ -243,30 +243,34 @@ val CatalogSize.iconButtonIconSize: Dp
  * it is held. Handing it a single shape is not possible, and picking only the resting one would
  * lose the state morph the component exists to show.
  *
+ * The morph is a **swap**, not a one-way trip to square. The kit draws a round toggle button as a
+ * pill that turns squarer when checked, and a square one as a squarer container that turns into a
+ * pill — `xl-on` is `CornerExtraLarge` where `xl-square-on` is `CornerFull`, and the tokens agree
+ * (`SelectedContainerShapeRound` is `CornerFull` at every size). So the shape knob has to reach the
+ * checked state too, or both branches land on the same picture (#157).
+ *
  * The round side defers to `shapesFor(containerHeight)`, the library's own size-to-shapes mapping,
  * rather than a `when` over the five sizes here — that keeps one source of truth for which corner
- * belongs to which height. The square side is assembled by hand because there is no
- * `squareShapesFor`, pairing the per-size square and checked-square constants with the shared
- * pressed shape.
+ * belongs to which height, and its `checkedShape` is already the square one. The square side is
+ * assembled by hand because there is no `squareShapesFor`: it pairs the per-size square constant
+ * with the shared pressed shape, and takes the ROUND shape for checked. `ToggleButtonDefaults`
+ * publishes `extraSmallCheckedSquareShape` … `extraLargeCheckedSquareShape` but no round
+ * counterpart, because upstream only models the round-resting default — and none is needed, since
+ * `ContainerShapeRound` is `CornerFull` at all five sizes, which is exactly what
+ * [ToggleButtonDefaults.roundShape] resolves to.
  */
 @Composable
 fun catalogToggleButtonShapes(size: CatalogSize): ToggleButtonShapes {
   if (CatalogShape.Axis.current() != CatalogShape.Square) {
     return ToggleButtonDefaults.shapesFor(size.containerHeight)
   }
-  val (square, checkedSquare) =
+  val square =
     when (size) {
-      CatalogSize.ExtraSmall ->
-        ToggleButtonDefaults.extraSmallSquareShape to
-          ToggleButtonDefaults.extraSmallCheckedSquareShape
-      CatalogSize.Small -> ToggleButtonDefaults.squareShape to ToggleButtonDefaults.checkedShape
-      CatalogSize.Medium ->
-        ToggleButtonDefaults.mediumSquareShape to ToggleButtonDefaults.mediumCheckedSquareShape
-      CatalogSize.Large ->
-        ToggleButtonDefaults.largeSquareShape to ToggleButtonDefaults.largeCheckedSquareShape
-      CatalogSize.ExtraLarge ->
-        ToggleButtonDefaults.extraLargeSquareShape to
-          ToggleButtonDefaults.extraLargeCheckedSquareShape
+      CatalogSize.ExtraSmall -> ToggleButtonDefaults.extraSmallSquareShape
+      CatalogSize.Small -> ToggleButtonDefaults.squareShape
+      CatalogSize.Medium -> ToggleButtonDefaults.mediumSquareShape
+      CatalogSize.Large -> ToggleButtonDefaults.largeSquareShape
+      CatalogSize.ExtraLarge -> ToggleButtonDefaults.extraLargeSquareShape
     }
   return ToggleButtonDefaults.shapes(
     shape = square,
@@ -275,7 +279,8 @@ fun catalogToggleButtonShapes(size: CatalogSize): ToggleButtonShapes {
     // the SMALL one — using it here gave an extra-large square toggle a small button's pressed
     // corner, so the two branches disagreed about a shape that is per-size on both.
     pressedShape = ToggleButtonDefaults.shapesFor(size.containerHeight).pressedShape,
-    checkedShape = checkedSquare,
+    // The other end of the swap: a square toggle button turns into a pill when checked.
+    checkedShape = ToggleButtonDefaults.roundShape,
   )
 }
 
