@@ -3,7 +3,6 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -16,10 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
+import ee.schimke.composeai.preview.CaptureGutter
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogModes366
+import ee.schimke.m3catalog.CatalogModes344
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
@@ -48,7 +48,10 @@ import org.jetbrains.compose.resources.stringResource
   reference = "figma:ocdacdEsnHipMJD3egzxKb/53977:33611",
   caption = "Brief message about a process. Two-line, action and close affordance fold in.",
 )
-@CatalogModes366
+@CatalogModes344
+// The bar's shadow falls outside its bounds; the room for it belongs to the capture, so the
+// component still measures the kit's 344dp bar and the canvas carries the gutter (#179).
+@CaptureGutter(start = 11, top = 7, end = 11, bottom = 15)
 @OverrideVariant(name = "two-line", strings = ["lines=two"])
 @OverrideVariant(name = "action", strings = ["configuration=text+action"])
 @OverrideVariant(name = "close", booleans = ["close=true"])
@@ -80,7 +83,7 @@ fun SnackbarMessage() = Sticker {
   // body-medium plus `SnackbarVerticalPadding` either side come to exactly the kit's 68dp. Pinning
   // it only ever took away the layout choice the component makes when the slots do not fit on one
   // line.
-  Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp).width(344.dp)) {
+  Box(Modifier.width(344.dp)) {
     Snackbar(
       action =
         if (
