@@ -341,8 +341,9 @@ fun catalogSelectedAxis(selectedByDefault: Boolean): CatalogVariantAxis =
   )
 
 /**
- * The three matrices the catalog actually fans out, named once so the annotations that spell them
- * out and the test that checks those annotations read from the same declaration.
+ * Every matrix the catalog fans out, named once so the generated annotations and the test that pins
+ * them read from the same declaration. `CatalogMatrixDeclarations.kt` pairs each with the
+ * annotation class it is emitted as.
  */
 object CatalogVariantMatrices {
 
@@ -381,4 +382,13 @@ object CatalogVariantMatrices {
       listOf(size, CatalogShape.Axis.declaration(), catalogSelectedAxis(selectedByDefault)),
       alongside = state,
     )
+
+  /** The type scale: fifteen roles on one axis, fourteen cells beside the base render. */
+  val TypeScale = CatalogVariantMatrix(listOf(TypeScaleRole.Axis.declaration()))
+
+  /** The corner scale: ten radius tokens on one axis, nine cells beside the base render. */
+  val CornerScale = CatalogVariantMatrix(listOf(CornerScaleToken.Axis.declaration()))
+
+  /** The colour modes: six schemes on one axis, five cells beside the base render. */
+  val ColorScheme = CatalogVariantMatrix(listOf(CatalogSchemeChoice.Axis.declaration()))
 }

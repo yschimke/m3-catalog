@@ -92,15 +92,17 @@ whose defaults depict different content.
 | `@CatalogVariant(of, state, props)` | a render folded *under* its parent sticker |
 | `@ThemeCatalog` | a named theme, offered in the viewer's theme select |
 | `@ColorCatalog` / `@TypographyCatalog` / `@ShapeCatalog` | a whole token object, given a specimen sheet |
-| `@SizeShapeMatrix` / `@IconButtonMatrix` / `@…ToggleButtonMatrix` | a whole variant matrix, in one line |
+| `@SizeShapeMatrix` / `@IconButtonMatrix` / `@…ToggleButtonMatrix` / `@TypeScaleMatrix` / … | a whole variant matrix, in one line |
 
 The matrices are the one annotation the catalog declares itself, in
 [`CatalogMatrixAnnotations.kt`](catalog/src/main/kotlin/ee/schimke/m3catalog/CatalogMatrixAnnotations.kt).
 A family's components all render the same cross product — five sizes by two shapes, by three widths
 for the icon buttons — so the cells are declared once and applied per component rather than retyped:
-250 `@OverrideVariant`s across thirteen blocks became 80 authored once. `CatalogVariantMatrixTest`
-holds each matrix to the axes in `CatalogAxes.kt`, so adding a size to `CatalogSize` fails the build
-until every matrix carries its new cells.
+250 `@OverrideVariant`s across thirteen blocks became 80 authored once. That file is **generated**
+from the axes in [`CatalogAxes.kt`](catalog/src/main/kotlin/ee/schimke/m3catalog/CatalogAxes.kt) —
+regenerate with `./gradlew :catalog:generateMatrixAnnotations`, and `CatalogVariantMatrixTest` fails
+if the committed copy is not what the declarations produce. Adding a size to `CatalogSize` is one
+line plus a regenerate; every matrix that uses it grows its cells on its own.
 
 Variants fold behind defaults rather than fanning out as top-level cards: `Button/Filled` is one
 card carrying its disabled and icon+label renders, not three components. That is what keeps a

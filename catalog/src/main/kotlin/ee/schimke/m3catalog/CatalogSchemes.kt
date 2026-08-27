@@ -75,3 +75,29 @@ val BaselineDarkMediumContrast: ColorScheme = baselineScheme(dark = true, Contra
 
 /** Dark, high contrast — the kit's `Dark High Contrast` mode. */
 val BaselineDarkHighContrast: ColorScheme = baselineScheme(dark = true, Contrast.High)
+
+/**
+ * The six colour modes the kit publishes, as one closed axis: light and dark, each at standard,
+ * medium and high contrast.
+ *
+ * The `theme` knob on the colour-role grid used to be a raw string resolved by a `when`, so the
+ * viewer offered free text for a set of exactly six (#103) and a mode added to the `when` without
+ * its `@OverrideVariant` cell rendered as `baseline-light` without saying so. The entry carries the
+ * scheme it selects, so there is one place a mode is declared and the picker lists all six.
+ *
+ * Entry names are the mode; the knob slugs are the ones the published cells already carry
+ * (`baseline-dark`, `light-medium-contrast`, …), so declaring the set moves no render.
+ */
+enum class CatalogSchemeChoice(override val knob: String, val scheme: ColorScheme) : CatalogKnob {
+  Light("baseline-light", BaselineLight),
+  Dark("baseline-dark", BaselineDark),
+  LightMediumContrast("light-medium-contrast", BaselineLightMediumContrast),
+  LightHighContrast("light-high-contrast", BaselineLightHighContrast),
+  DarkMediumContrast("dark-medium-contrast", BaselineDarkMediumContrast),
+  DarkHighContrast("dark-high-contrast", BaselineDarkHighContrast);
+
+  companion object {
+    /** The `theme` axis, defaulting to [Light] — the scheme an unseeded grid paints. */
+    val Axis = CatalogKnobAxis("theme", entries, Light)
+  }
+}
