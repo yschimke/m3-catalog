@@ -46,6 +46,50 @@ class CatalogInventoryTest {
   private val variantParents =
     idsOf(Regex("""@CatalogVariant\(\s*of = "([^"]+)"""", RegexOption.DOT_MATCHES_ALL))
 
+  /** The argument list of every `@CatalogComponent(...)`, with the file it was read from. */
+  private val componentAnnotations: List<Pair<File, String>> = sources.flatMap { (file, text) ->
+    Regex("""@CatalogComponent\((.*?)\)\s*\n""", RegexOption.DOT_MATCHES_ALL).findAll(text).map {
+      file to it.groupValues[1]
+    }
+  }
+
+  /**
+   * The floor under every other test in this class.
+   *
+   * The checks below assert set *equality* between what a regex found in the source and what the
+   * catalog should contain — and most of them compare against `emptyList()`, because the defect
+   * they name is "nothing should be uncaptioned". A scan that stops matching therefore compares two
+   * empty sets and passes: the build stays green while the inventory goes unguarded. That is not
+   * hypothetical — the patterns here are coupled to where ktfmt wraps an annotation (see the
+   * comment in [every component carries a caption]), so a formatter bump is enough to do it.
+   *
+   * So each scan is floored before anything is compared. The numbers are well under today's counts
+   * — they exist to catch a regex that fell to zero or near it, not to pin the inventory's size,
+   * which the tests below already do far more precisely. Issue #108.
+   */
+  @Test
+  fun `the source scans find the catalog before anything is compared`() {
+    assertTrue(
+      sections.size >= 30,
+      "only ${sections.size} section files under sections/ — the scan has lost the source tree",
+    )
+    assertTrue(
+      componentIds.size >= 50,
+      "only ${componentIds.size} @CatalogComponent ids matched — the id pattern has stopped " +
+        "matching, and the uniqueness and orphan-variant checks are comparing empty sets",
+    )
+    assertTrue(
+      variantParents.size >= 20,
+      "only ${variantParents.size} @CatalogVariant parents matched — `every variant names a " +
+        "component that exists` is comparing empty sets",
+    )
+    assertTrue(
+      componentAnnotations.size >= 50,
+      "only ${componentAnnotations.size} @CatalogComponent argument lists matched — the caption " +
+        "and Figma-reference checks are comparing empty sets",
+    )
+  }
+
   @Test
   fun `every section file declares its group and section`() {
     for ((file, text) in sources) {
@@ -84,16 +128,14 @@ class CatalogInventoryTest {
 
   @Test
   fun `every component carries a caption`() {
-    val uncaptioned = sources.flatMap { (file, text) ->
-      Regex("""@CatalogComponent\((.*?)\)\s*\n""", RegexOption.DOT_MATCHES_ALL)
-        .findAll(text)
-        // `caption\s*=`, not `"caption = "`: ktfmt wraps a long caption onto a continuation line
-        // (`caption =\n    "…"`), and matching the literal with its trailing space failed every
-        // component whose caption grew past the column limit — a green-to-red flip caused by
-        // formatting, with nothing wrong in the catalog.
-        .filterNot { Regex("""caption\s*=""").containsMatchIn(it.groupValues[1]) }
-        .map { "${file.name}: ${it.groupValues[1].trim()}" }
-    }
+    // `caption\s*=`, not `"caption = "`: ktfmt wraps a long caption onto a continuation line
+    // (`caption =\n    "…"`), and matching the literal with its trailing space failed every
+    // component whose caption grew past the column limit — a green-to-red flip caused by
+    // formatting, with nothing wrong in the catalog.
+    val uncaptioned =
+      componentAnnotations
+        .filterNot { (_, args) -> Regex("""caption\s*=""").containsMatchIn(args) }
+        .map { (file, args) -> "${file.name}: ${args.trim()}" }
     assertEquals(
       emptyList(),
       uncaptioned,
@@ -104,15 +146,10 @@ class CatalogInventoryTest {
 
   @Test
   fun `every component maps to Figma`() {
-    val silent = sources.flatMap { (file, text) ->
-      Regex("""@CatalogComponent\((.*?)\)\s*\n""", RegexOption.DOT_MATCHES_ALL)
-        .findAll(text)
-        .filterNot { annotation ->
-          val args = annotation.groupValues[1]
-          Regex("""reference\s*=""").containsMatchIn(args)
-        }
-        .map { "${file.name}: ${it.groupValues[1].trim()}" }
-    }
+    val silent =
+      componentAnnotations
+        .filterNot { (_, args) -> Regex("""reference\s*=""").containsMatchIn(args) }
+        .map { (file, args) -> "${file.name}: ${args.trim()}" }
     assertEquals(
       emptyList(),
       silent,
@@ -164,19 +201,19 @@ class CatalogInventoryTest {
         }
     }
 
+    assertTrue(
+      setOfNode.size >= 500,
+      "only ${setOfNode.size} kit nodes matched in figma-kit-index.json — with no node resolving " +
+        "to a set, every component below falls out of `bySet` and this test compares empty maps",
+    )
+
     val bySet = mutableMapOf<String, MutableList<String>>()
-    for ((file, text) in sources) {
-      Regex("""@CatalogComponent\((.*?)\)\s*\n""", RegexOption.DOT_MATCHES_ALL)
-        .findAll(text)
-        .forEach {
-          val args = it.groupValues[1]
-          val id = Regex("""id = "([^"]+)"""").find(args)?.groupValues?.get(1) ?: return@forEach
-          val node =
-            Regex("""reference = "figma:[^/]+/([^"]+)"""").find(args)?.groupValues?.get(1)
-              ?: return@forEach
-          val set = setOfNode[node] ?: return@forEach
-          bySet.getOrPut(set) { mutableListOf() }.add("$id (${file.name})")
-        }
+    for ((file, args) in componentAnnotations) {
+      val id = Regex("""id = "([^"]+)"""").find(args)?.groupValues?.get(1) ?: continue
+      val node =
+        Regex("""reference = "figma:[^/]+/([^"]+)"""").find(args)?.groupValues?.get(1) ?: continue
+      val set = setOfNode[node] ?: continue
+      bySet.getOrPut(set) { mutableListOf() }.add("$id (${file.name})")
     }
 
     val unexplained = bySet.filterValues { it.size > 1 }.filterKeys { it !in exempt }

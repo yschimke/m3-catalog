@@ -3,6 +3,7 @@ package ee.schimke.m3catalog
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 /** Pins the visible copy authored on the mapped Figma components' default instances. */
 class FigmaDefaultContentTest {
@@ -14,6 +15,21 @@ class FigmaDefaultContentTest {
     stringPattern
       .findAll(File("src/main/composeResources/values/strings.xml").readText())
       .associate { it.groupValues[1] to it.groupValues[2] }
+
+  /**
+   * `defaults` is read out of the XML with a regex, and the assertion below resolves each expected
+   * key against it. A pattern that stopped matching would fail that lookup rather than pass
+   * vacuously, so this class is not silently weakenable the way [CatalogInventoryTest]'s scans are
+   * — but the failure would read as thirty missing keys instead of one broken reader. Issue #108.
+   */
+  @Test
+  fun theStringScanFindsTheResources() {
+    assertTrue(
+      defaults.size >= 60,
+      "values/strings.xml yielded only ${defaults.size} strings — the <string> pattern, not the " +
+        "resource file, is what changed",
+    )
+  }
 
   @Test
   fun mappedDefaultsUseTheKitCopy() {

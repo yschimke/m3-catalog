@@ -72,6 +72,32 @@ class CatalogTranslationsTest {
     assertEquals(expectedLocales, locales.map { it.name })
   }
 
+  /**
+   * The floor under the scans. [nothingIsLeftUntranslated] and [visibleLiteralsAreDeliberate] both
+   * assert that a *found* set is empty, so a pattern that stops matching passes them while checking
+   * nothing. `values/strings.xml` was already floored in [everyLocaleCarriesEveryKey]; this covers
+   * the other two readers. Issue #108.
+   */
+  @Test
+  fun theScansFindTheSource() {
+    assertTrue(defaults.size >= 60, "values/strings.xml declares only ${defaults.size} strings")
+    for (locale in locales) {
+      assertTrue(
+        stringsOf(locale).size >= 60,
+        "${locale.name}/strings.xml yielded only ${stringsOf(locale).size} strings — the <string> " +
+          "pattern has stopped matching, and the untranslated-copy check has nothing to compare",
+      )
+    }
+    val sections =
+      File("src/main/kotlin/ee/schimke/m3catalog/sections").listFiles { f: File ->
+        f.name.endsWith(".kt")
+      }!!
+    assertTrue(
+      sections.size >= 30,
+      "only ${sections.size} section files — the visible-literal scan has lost the source tree",
+    )
+  }
+
   @Test
   fun everyLocaleCarriesEveryKey() {
     assertTrue(defaults.isNotEmpty(), "values/strings.xml declares no strings")
