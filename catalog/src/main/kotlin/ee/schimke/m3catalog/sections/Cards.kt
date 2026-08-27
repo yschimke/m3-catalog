@@ -20,10 +20,10 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ee.schimke.composeai.preview.CaptureGutter
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.m3catalog.CatalogModes360
-import ee.schimke.m3catalog.CatalogModes368
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.catalogInteractive
@@ -120,24 +120,26 @@ fun FilledCard() = Sticker {
     "Separated by shadow, with media and text by default. The kit's empty slot layout and the " +
       "action layouts fold in.",
 )
-@CatalogModes368
+@CatalogModes360
 @ee.schimke.composeai.preview.OverrideVariant(name = "slot", strings = ["layout=slot"])
 @ee.schimke.composeai.preview.OverrideVariant(name = "actions", strings = ["layout=actions"])
 @ee.schimke.composeai.preview.OverrideVariant(
   name = "media-actions",
   strings = ["layout=media+actions"],
 )
+// The Level 1 shadow falls outside the card's bounds, so it needs room in the CAPTURE — not a
+// padded `Box`, which would measure the card in a smaller frame and publish a canvas 8dp wider
+// than every other card on the sheet (#179).
+@CaptureGutter(all = 4)
 @Composable
 fun ElevatedCardSticker() = Sticker {
   val c = counted(stringResource(Res.string.card_title))
-  Box(Modifier.padding(4.dp)) {
-    if (catalogInteractive()) {
-      ElevatedCard(onClick = c.onClick, modifier = Modifier.width(360.dp).height(480.dp)) {
-        CardBody(c.label)
-      }
-    } else {
-      ElevatedCard(Modifier.width(360.dp).height(480.dp)) { CardBody(c.label) }
+  if (catalogInteractive()) {
+    ElevatedCard(onClick = c.onClick, modifier = Modifier.width(360.dp).height(480.dp)) {
+      CardBody(c.label)
     }
+  } else {
+    ElevatedCard(Modifier.width(360.dp).height(480.dp)) { CardBody(c.label) }
   }
 }
 

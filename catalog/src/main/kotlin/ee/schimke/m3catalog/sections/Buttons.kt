@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -23,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ee.schimke.composeai.preview.CaptureGutter
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -87,24 +87,18 @@ private fun FigmaButtonContent(label: String) {
 /**
  * The cell a button sticker renders in: the size's container height, content centred.
  *
- * [shadowGutter] is room for a shadow OUTSIDE the container. A sticker's render bounds are the
- * component's bounds by design (see [Sticker]), so anything drawn past them is cropped — and the
- * one emphasis that casts a shadow, `Button/Elevated`, loses its Level 1 shadow at the edge of the
- * image without it. Asymmetric because the shadow is offset downward. It is a parameter here rather
- * than a padded `Box` at the elevated call site so that all five emphases keep one frame, and
- * therefore one basis for their render bounds, at every size (#102).
+ * Identical for all five emphases, and that is the point: they publish one basis for their render
+ * bounds at every size, so the sheet can lay them side by side and have the comparison be about the
+ * design. Room for `Button/Elevated`'s Level 1 shadow is
+ * [ee.schimke.composeai.preview.CaptureGutter] on that sticker's preview, not padding in here — a
+ * gutter inside the frame would measure the button in a smaller box and grow its canvas, which is
+ * what drew the elevated arm 7% smaller than its siblings (#179, and #102 for the crop the gutter
+ * fixes).
  */
 @Composable
-private fun ButtonFrame(
-  size: CatalogSize,
-  shadowGutter: Boolean = false,
-  content: @Composable () -> Unit,
-) {
+private fun ButtonFrame(size: CatalogSize, content: @Composable () -> Unit) {
   val height = if (size == CatalogSize.Small) 48.dp else size.containerHeight
-  val gutter =
-    if (shadowGutter) Modifier.padding(start = 4.dp, top = 4.dp, end = 4.dp, bottom = 5.dp)
-    else Modifier
-  Box(modifier = gutter.height(height), contentAlignment = Alignment.Center) { content() }
+  Box(modifier = Modifier.height(height), contentAlignment = Alignment.Center) { content() }
 }
 
 @CatalogComponent(
@@ -210,11 +204,12 @@ fun OutlinedButtonSticker() = Sticker {
 @CatalogModes
 @SizeShapeMatrix
 @InteractionStates
+@CaptureGutter(all = 4, bottom = 5)
 @Composable
 fun ElevatedButtonSticker() = Sticker {
   val c = counted(stringResource(Res.string.label_elevated))
   val size = catalogButtonSize()
-  ButtonFrame(size, shadowGutter = true) {
+  ButtonFrame(size) {
     val enabled = catalogEnabled()
     val pad = size.contentPadding
     val modifier = Modifier.height(size.containerHeight)

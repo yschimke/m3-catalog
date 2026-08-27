@@ -3,18 +3,18 @@
 package ee.schimke.m3catalog
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalRippleThemeConfiguration
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MotionScheme
 import androidx.compose.material3.Shapes
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -29,8 +29,8 @@ import androidx.compose.ui.tooling.preview.Preview
  * `compose/theme` token set the renderer extracts is the **real** Material 3 system rather than a
  * bespoke palette.
  *
- * The surface is deliberately [Color.Transparent]: a component sticker reads as a silhouette on the
- * viewer's backing, and `contentColor = onSurface` keeps text and icons themed against it. The
+ * There is deliberately no surface behind a sticker: it reads as a silhouette on the viewer's
+ * backing, with `onSurface` provided as the content colour so text and icons stay themed. The
  * render itself carries no decorative padding: its bounds must be the component's bounds so a
  * resolution-free Figma reference is rasterised at the same density as the Compose candidate.
  * Catalog presentation spacing belongs to the viewer, outside the parity image.
@@ -99,8 +99,18 @@ fun StickerFrame(
     LocalRippleThemeConfiguration provides catalogFocusIndication(),
   ) {
     val themedContent: @Composable () -> Unit = {
-      Surface(color = Color.Transparent, contentColor = MaterialTheme.colorScheme.onSurface) {
-        content()
+      // Deliberately NOT a `Surface`: `Surface` clips its content to its shape, and the pixels a
+      // sticker draws OUTSIDE the component's bounds — an elevation shadow, a focus ring — are
+      // exactly the ones a `@CaptureGutter` reserves canvas for. Clipped at the component's edge,
+      // the gutter came out empty and the shadow vanished (#179). A transparent `Surface`
+      // contributes nothing else a sticker needs: no tint at `Color.Transparent`, no border, and
+      // the content colour is one composition local. `propagateMinConstraints` keeps the frame's
+      // minimum reaching the component, which is what `Surface`'s own box did.
+      Box(propagateMinConstraints = true) {
+        CompositionLocalProvider(
+          LocalContentColor provides MaterialTheme.colorScheme.onSurface,
+          content = content,
+        )
       }
     }
     when (themeStyle) {
@@ -169,15 +179,17 @@ annotation class CatalogModes560
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 354)
 annotation class CatalogModes354
 
-/** Light/dark modes for a 344dp snackbar plus its 11dp shadow gutter. */
-@Preview(name = "Light", group = "modes", widthDp = 366)
-@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 366)
-annotation class CatalogModes366
-
-/** Light/dark modes for a 360dp container with the kit's 4dp shadow gutter. */
-@Preview(name = "Light", group = "modes", widthDp = 368)
-@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 368)
-annotation class CatalogModes368
+/**
+ * Light/dark modes for the kit's 344dp snackbar bar.
+ *
+ * The bar and nothing else: a sticker that needs room for its shadow declares a `@CaptureGutter`,
+ * which grows the canvas without moving what the component measures. This used to be 366dp — the
+ * bar plus its 11dp gutter, arithmetic baked into a frame name — and the sticker paid for the
+ * gutter twice, once in the frame and once in a padded `Box` (#179).
+ */
+@Preview(name = "Light", group = "modes", widthDp = 344)
+@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 344)
+annotation class CatalogModes344
 
 /** Light/dark modes for the 404dp expressive linear-progress frame. */
 @Preview(name = "Light", group = "modes", widthDp = 404)

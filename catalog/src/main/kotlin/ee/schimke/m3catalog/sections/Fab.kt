@@ -3,8 +3,6 @@
 
 package ee.schimke.m3catalog.sections
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
@@ -18,9 +16,8 @@ import androidx.compose.material3.SmallExtendedFloatingActionButton
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import ee.schimke.composeai.preview.CaptureGutter
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -92,16 +89,18 @@ private fun catalogFabColor(): Color =
 @OverrideVariant(name = "secondary-container", strings = ["color=secondary-container"])
 @OverrideVariant(name = "tertiary-container", strings = ["color=tertiary-container"])
 @InteractionStates
+// A FAB's Level 3 shadow is deep and offset downward, and it falls outside the container's bounds.
+// Room for it belongs to the capture: as padding inside the tree it measured the FAB in a smaller
+// box and grew the canvas, which is what drew a guttered sticker smaller than its siblings (#179).
+@CaptureGutter(start = 11, top = 7, end = 11, bottom = 15)
 @Composable
 fun Fab() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
-  Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp)) {
-    FloatingActionButton(onClick = c.onClick, containerColor = catalogFabColor()) {
-      // No size modifier: `Icon` already draws at 24dp, which is what the kit's 56dp FAB frame
-      // holds and what every other FAB sticker here renders. See issue #93 — the default size is
-      // the one `FloatingActionButtonDefaults` publishes no icon constant for.
-      Icon(CatalogFilledStars, contentDescription = c.label)
-    }
+  FloatingActionButton(onClick = c.onClick, containerColor = catalogFabColor()) {
+    // No size modifier: `Icon` already draws at 24dp, which is what the kit's 56dp FAB frame
+    // holds and what every other FAB sticker here renders. See issue #93 — the default size is
+    // the one `FloatingActionButtonDefaults` publishes no icon constant for.
+    Icon(CatalogFilledStars, contentDescription = c.label)
   }
 }
 
@@ -147,24 +146,24 @@ fun FabLarge() = Sticker {
 @OverrideVariant(name = "secondary-container", strings = ["color=secondary-container"])
 @OverrideVariant(name = "tertiary-container", strings = ["color=tertiary-container"])
 @InteractionStates
+// As `Fab`: the shadow gets its room from the capture, not from padding inside the bounds (#179).
+@CaptureGutter(start = 11, top = 7, end = 11, bottom = 15)
 @Composable
 fun ExtendedFab() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
-  Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp)) {
-    // No pinned width. The kit's frame is 104x56 because that is what ITS label copy measures to;
-    // pinning ours to the same number clamped a container whose text is a different string in a
-    // different font, and the moment the icon went back to 24dp the label wrapped inside it. Let
-    // the component size itself and let parity report the delta, rather than hiding it in a clamp.
-    ExtendedFloatingActionButton(
-      onClick = c.onClick,
-      containerColor = catalogFabColor(),
-      icon = {
-        // As above: 24dp, the size the kit's 104x56 extended frame holds.
-        Icon(CatalogFilledStars, contentDescription = null)
-      },
-      text = { Text(c.label) },
-    )
-  }
+  // No pinned width. The kit's frame is 104x56 because that is what ITS label copy measures to;
+  // pinning ours to the same number clamped a container whose text is a different string in a
+  // different font, and the moment the icon went back to 24dp the label wrapped inside it. Let
+  // the component size itself and let parity report the delta, rather than hiding it in a clamp.
+  ExtendedFloatingActionButton(
+    onClick = c.onClick,
+    containerColor = catalogFabColor(),
+    icon = {
+      // As above: 24dp, the size the kit's 104x56 extended frame holds.
+      Icon(CatalogFilledStars, contentDescription = null)
+    },
+    text = { Text(c.label) },
+  )
 }
 
 @CatalogVariant(of = "Fab/Extended", props = ["size=small"])
