@@ -33,10 +33,10 @@ suffix** is the same statement said twice.
 
 The three captures below are what the specimens publish, unchanged by the refactor:
 
-- `type-scale-title-medium.png` — `Typography/Type scale` at `style=title-medium`, light.
-- `corner-scale-extra-large-increased.png` — `Shape/Corner scale` at `corner=extra-large-increased`,
+- `type-scale.png` — `Typography/Type scale` at `style=title-medium`, light.
+- `corner-scale.png` — `Shape/Corner scale` at `corner=extra-large-increased`,
   light.
-- `color-grid-dark-high-contrast.png` — `Color/Role grid` at `theme=dark-high-contrast`.
+- `color-grid.png` — `Color/Role grid` at `theme=dark-high-contrast`.
 
 ## What did change, and where to see it
 
