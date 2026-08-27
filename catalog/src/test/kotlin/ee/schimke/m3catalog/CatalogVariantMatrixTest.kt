@@ -57,24 +57,21 @@ class CatalogVariantMatrixTest {
   }
 
   /**
-   * The floor under everything below.
+   * The floor under the one scan that is left.
    *
-   * [VARIANT] is coupled to where ktfmt puts the closing parenthesis of a wrapped annotation, and
-   * [matrixByComponent] splits on a `@CatalogComponent(` that starts a line. Neither coupling is
-   * checked by the compiler, so a formatter bump can quietly reduce either scan to nothing. The
-   * comparisons below would then still be meaningful — they compare against non-empty declared
-   * matrices, so a zeroed scan fails them — but it fails as "@SizeShapeMatrix does not carry the
-   * cells of its matrix", which reads as a catalog defect and sends whoever hit it looking in the
-   * wrong file. Flooring the scan here says what actually broke. Issue #108.
+   * [matrixByComponent] splits on a `@CatalogComponent(` that starts a line, a coupling to source
+   * formatting the compiler does not check, so a formatter bump could quietly reduce the scan to
+   * nothing. The comparisons below would still fail if it did — they compare against non-empty
+   * expected maps — but they would fail as "this component does not carry its matrix", which reads
+   * as a catalog defect and sends whoever hit it looking in the wrong file. Flooring the scan here
+   * says what actually broke. Issue #108.
+   *
+   * The cell scan this test also floored is gone: `CatalogMatrixAnnotations.kt` is generated now,
+   * and the assertion above compares the committed file to the generator's output as text, so there
+   * is no pattern left to fall out of step with ktfmt (#107).
    */
   @Test
-  fun `the source scans find the matrix declarations`() {
-    val cells = VARIANT.findAll(matrixFile.readText()).count()
-    assertTrue(
-      cells >= 80,
-      "only $cells @OverrideVariant cells matched in ${matrixFile.name} — the pattern no longer " +
-        "matches how the annotations are formatted, not the annotations that are there",
-    )
+  fun `the component scan finds every file that declares one`() {
     val files = sectionsDir.listFiles { f: File -> f.name.endsWith(".kt") }!!
     assertTrue(
       files.size >= 30,
