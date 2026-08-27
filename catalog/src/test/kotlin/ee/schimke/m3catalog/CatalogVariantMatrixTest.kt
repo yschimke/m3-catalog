@@ -3,6 +3,7 @@ package ee.schimke.m3catalog
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 /**
  * Holds the matrix **annotation classes** in `CatalogMatrixAnnotations.kt` to the matrices declared
@@ -127,6 +128,46 @@ class CatalogVariantMatrixTest {
       "every component in $fileName must carry its matrix annotation — a matrix nothing " +
         "references declares cells that render nowhere, and a component carrying the wrong one " +
         "publishes another family's variants under its id",
+    )
+  }
+
+  /**
+   * The floor under everything below.
+   *
+   * [VARIANT] is coupled to where ktfmt puts the closing parenthesis of a wrapped annotation, and
+   * [matrixByComponent] splits on a `@CatalogComponent(` that starts a line. Neither coupling is
+   * checked by the compiler, so a formatter bump can quietly reduce either scan to nothing. The
+   * comparisons below would then still be meaningful — they compare against non-empty declared
+   * matrices, so a zeroed scan fails them — but it fails as "@SizeShapeMatrix does not carry the
+   * cells of its matrix", which reads as a catalog defect and sends whoever hit it looking in the
+   * wrong file. Flooring the scan here says what actually broke. Issue #108.
+   */
+  @Test
+  fun `the source scans find the matrix declarations`() {
+    val cells = VARIANT.findAll(matrixFile.readText()).count()
+    assertTrue(
+      cells >= 80,
+      "only $cells @OverrideVariant cells matched in ${matrixFile.name} — the pattern no longer " +
+        "matches how the annotations are formatted, not the annotations that are there",
+    )
+    val files = sectionsDir.listFiles { f: File -> f.name.endsWith(".kt") }!!
+    assertTrue(
+      files.size >= 30,
+      "only ${files.size} section files under ${sectionsDir.name}/ — the scan has lost the tree",
+    )
+    // Four section files carry no `@CatalogComponent` at all (their entries are the replicas
+    // `CatalogInventoryTest` keeps out of the inventory), so the floor is per file that has one:
+    // a file whose text mentions the annotation must yield a component when it is parsed.
+    val blind =
+      files
+        .filter { it.readText().contains("@CatalogComponent(") }
+        .filter { matrixByComponent(it.name).isEmpty() }
+        .map { it.name }
+    assertEquals(
+      emptyList(),
+      blind,
+      "these files declare a @CatalogComponent that the split did not find — the pattern, not " +
+        "the catalog, is what changed",
     )
   }
 

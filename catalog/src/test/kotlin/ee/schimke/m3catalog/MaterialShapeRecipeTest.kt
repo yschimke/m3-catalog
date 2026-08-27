@@ -136,6 +136,14 @@ class MaterialShapeRecipeTest {
         .findAll(source)
         .map { it.groupValues[1] }
         .toList()
+    // The comparison below is against a 34-entry set, so a pattern that stopped matching fails
+    // loudly rather than quietly — but it fails as "34 shapes have no cell", which reads as a
+    // catalog defect. Floor the scan first so the message names the reader instead. Issue #108.
+    assertTrue(
+      seeded.size >= 30,
+      "only ${seeded.size} @OverrideVariant cells matched in Shapes.kt — the pattern no longer " +
+        "matches how they are formatted, not the cells that are there",
+    )
     val keys = SHAPE_SET.map { it.first }
     assertEquals(
       keys.drop(1).toSet(),

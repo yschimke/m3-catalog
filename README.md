@@ -61,19 +61,47 @@ preview is renamed, and it fails silently (the render succeeds; the sticker just
 ```kotlin
 @file:CatalogGroup(name = "Buttons", section = "Actions")
 
-@CatalogComponent(id = "Button/Filled", caption = "Highest emphasis; the primary action.")
+@CatalogComponent(
+  id = "Button/Filled",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:2324",
+  caption = "Highest emphasis; the primary action. Five sizes x two shapes fold in as variants.",
+)
 @CatalogModes
+@SizeShapeMatrix
 @Composable
 fun FilledButton() = Sticker {
-  val c = counted("Filled")
-  Button(onClick = c.onClick) { Text(c.label) }
+  val c = counted(stringResource(Res.string.label_filled))
+  Button(onClick = c.onClick, shape = catalogButtonShape()) { Text(c.label) }
 }
-
-@CatalogVariant(of = "Button/Filled", state = "disabled")
-@CatalogModes
-@Composable
-fun FilledButtonDisabled() = Sticker { Button(onClick = {}, enabled = false) { Text("Filled") } }
 ```
+
+That is the whole declaration — one composable, and the default render plus the ten cells of its
+matrix all come out of it. Three things in it are not optional:
+
+* **`reference` is mandatory.** It names the exact kit node this component reproduces, and there is
+  no `noReference` escape hatch: a component that cannot name one does not enter the inventory.
+  `CatalogInventoryTest` fails the build without it.
+* **A variant is a cell, not a second composable.** `disabled`, `size=m`, `shape=square` and the
+  rest are `@OverrideVariant` cells on a matrix annotation, declared once in
+  `CatalogMatrixAnnotations.kt` and carried by all five button emphases:
+
+  ```kotlin
+  @OverrideVariant(name = "m", strings = ["size=m"])
+  @OverrideVariant(name = "m-square", strings = ["size=m", "shape=square"])
+  @OverrideVariant(name = "disabled", strings = ["state=disabled"])
+  // …ten cells in all
+  annotation class SizeShapeMatrix
+  ```
+
+  The sticker reads them back through knobs — `catalogButtonShape()` above, `catalogEnabled()` and
+  `catalogButtonSize()` in the real body. Fanning the same variants out as fifty near-identical
+  composables is exactly what the matrices exist to replace.
+* **User-visible copy resolves through a resource.** `stringResource(Res.string.label_filled)`, not
+  a literal — the catalog renders in English and 17 translations, and `CatalogTranslationsTest`
+  fails the build on a bare string in a text slot.
+
+A `@CatalogVariant` is still the right tool for an axis that is not a knob on an existing sticker —
+a distinct composable published under a parent's id.
 
 [`catalog.spec.json`](catalog.spec.json) carries only cover-sheet fields the code has no opinion
 about: the system slug, title, primary modes, documented breakpoints and the front-door hero.
