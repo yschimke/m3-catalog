@@ -32,6 +32,7 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.CatalogSize
 import ee.schimke.m3catalog.InteractionStates
+import ee.schimke.m3catalog.KitShadowGutter
 import ee.schimke.m3catalog.SelectedToggleButtonMatrix
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.UnselectedToggleButtonMatrix
@@ -195,7 +196,7 @@ fun OutlinedToggleButtonSticker() = Sticker {
 @CatalogModes
 @UnselectedToggleButtonMatrix
 @InteractionStates
-@CaptureGutter(all = 4, bottom = 5)
+@CaptureGutter(all = KitShadowGutter.Level1All, bottom = KitShadowGutter.Level1Bottom)
 @Composable
 fun ElevatedToggleButtonSticker() = Sticker {
   var on by toggleable(catalogToggleSelected(default = false))

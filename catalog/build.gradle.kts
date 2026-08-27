@@ -77,3 +77,26 @@ dependencies {
 // which would put `Res` somewhere no section file expects; pinning it keeps the imports in the
 // stickers (`ee.schimke.m3catalog.generated.resources.*`) stable across a module rename.
 compose.resources { packageOfResClass = "ee.schimke.m3catalog.generated.resources" }
+
+// `CatalogMatrixAnnotations.kt` is GENERATED from the matrices declared in `CatalogAxes.kt` and
+// paired with their annotation names in `CatalogMatrixDeclarations.kt` — see
+// `MatrixAnnotationsGenerator.kt` for why the cells are expanded rather than hand-typed (#107).
+//
+// The output is committed like any other source (it is what the compiler reads, and a matrix cell
+// has to be greppable), and `CatalogMatrixAnnotationsTest` fails if the committed copy is not what
+// the declarations produce — the same regenerate-and-diff contract `design-map.json` has, run in
+// the unit tests rather than as its own CI job.
+//
+// It reads the compiled main classes, which include the file it writes. That is not circular in
+// practice: the generator depends only on the axis declarations, so a stale committed copy still
+// compiles and still regenerates correctly.
+val generateMatrixAnnotations by
+  tasks.registering(JavaExec::class) {
+    group = "build"
+    description = "Regenerates CatalogMatrixAnnotations.kt from the declared variant matrices."
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass = "ee.schimke.m3catalog.MatrixAnnotationsGeneratorKt"
+    args("src/main/kotlin/ee/schimke/m3catalog/CatalogMatrixAnnotations.kt")
+    // The generated file is source, so it is written into the source tree rather than into build/.
+    outputs.upToDateWhen { false }
+  }

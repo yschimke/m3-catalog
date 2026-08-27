@@ -151,15 +151,29 @@ fun StickerFrame(
 @Preview(name = "Dark", uiMode = 32, group = "modes")
 annotation class CatalogModes
 
-/** Light/dark modes with a 360dp viewport for kit components wider than the default harness. */
+//
+// THE WIDTH-CARRYING MODE FRAMES, NAMED FOR WHAT THEY FRAME
+//
+// Each of these is `@CatalogModes` at one non-default viewport width, because the kit draws that
+// surface at a measured width the 400dp wrap-content harness does not reproduce. They are named
+// for the **surface**, never for the number: the number is a measurement of the kit, and this repo
+// moves when the kit is re-measured, so a re-measure has to be a one-line edit here rather than a
+// rename at every call site (#106). Two of them differing by a single pixel — the standard and
+// expressive linear progress frames — is why the numbers make poor names.
+//
+// Each KDoc keeps the record of where its width came from; that provenance is the part worth
+// having, and it belongs next to the value rather than in the identifier.
+//
+
+/** Light/dark modes at the kit's 360dp container width, for components wider than the harness. */
 @Preview(name = "Light", group = "modes", widthDp = 360)
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 360)
-annotation class CatalogModes360
+annotation class CatalogModesKitContainer
 
 /** US-calendar light/dark modes for the Material kit's Sunday-first date-picker examples. */
 @Preview(name = "Light", group = "modes", widthDp = 360, locale = "en-US")
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 360, locale = "en-US")
-annotation class CatalogModes360Us
+annotation class CatalogModesDatePickerUs
 
 /**
  * Light/dark modes at Material's 560dp `DialogMaxWidth`, for the landscape time-picker dialog.
@@ -172,44 +186,39 @@ annotation class CatalogModes360Us
  */
 @Preview(name = "Light", group = "modes", widthDp = 560)
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 560)
-annotation class CatalogModes560
+annotation class CatalogModesDialog
 
-/** Light/dark modes for the kit's 354dp slider track frame. */
+/** Light/dark modes for the kit's slider track frame, which it draws 354dp wide. */
 @Preview(name = "Light", group = "modes", widthDp = 354)
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 354)
-annotation class CatalogModes354
+annotation class CatalogModesSliderTrack
 
 /**
- * Light/dark modes for the kit's 344dp snackbar bar.
+ * Light/dark modes for the kit's snackbar bar, which it draws 344dp wide.
  *
  * The bar and nothing else: a sticker that needs room for its shadow declares a `@CaptureGutter`,
- * which grows the canvas without moving what the component measures. This used to be 366dp — the
- * bar plus its 11dp gutter, arithmetic baked into a frame name — and the sticker paid for the
+ * which grows the canvas without moving what the component measures. This frame used to be 366dp —
+ * the bar plus its 11dp gutter, arithmetic baked into a frame name — and the sticker paid for the
  * gutter twice, once in the frame and once in a padded `Box` (#179).
  */
 @Preview(name = "Light", group = "modes", widthDp = 344)
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 344)
-annotation class CatalogModes344
+annotation class CatalogModesSnackbar
 
-/** Light/dark modes for the 404dp expressive linear-progress frame. */
+/** Light/dark modes for the expressive linear-progress frame, which the kit draws 404dp wide. */
 @Preview(name = "Light", group = "modes", widthDp = 404)
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 404)
-annotation class CatalogModes404
+annotation class CatalogModesLinearProgressExpressive
 
-/** Light/dark modes for the 405dp standard linear-progress frame. */
+/** Light/dark modes for the standard linear-progress frame, which the kit draws 405dp wide. */
 @Preview(name = "Light", group = "modes", widthDp = 405)
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 405)
-annotation class CatalogModes405
+annotation class CatalogModesLinearProgress
 
-/** Light/dark modes with the kit's standard 412dp compact-screen width. */
+/** Light/dark modes at the kit's standard 412dp compact-screen width. */
 @Preview(name = "Light", group = "modes", widthDp = 412)
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 412)
-annotation class CatalogModes412
-
-/** Light/dark modes for the modal-sheet kit frame, including its 40dp side gutters. */
-@Preview(name = "Light", group = "modes", widthDp = 492)
-@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 492)
-annotation class CatalogModes492
+annotation class CatalogModesCompact
 
 /**
  * Window-size-class multipreview for the adaptive layouts the kit documents at three widths. The

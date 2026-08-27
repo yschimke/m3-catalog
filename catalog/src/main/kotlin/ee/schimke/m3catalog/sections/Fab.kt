@@ -25,6 +25,7 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.InteractionStates
+import ee.schimke.m3catalog.KitShadowGutter
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
@@ -92,7 +93,12 @@ private fun catalogFabColor(): Color =
 // A FAB's Level 3 shadow is deep and offset downward, and it falls outside the container's bounds.
 // Room for it belongs to the capture: as padding inside the tree it measured the FAB in a smaller
 // box and grew the canvas, which is what drew a guttered sticker smaller than its siblings (#179).
-@CaptureGutter(start = 11, top = 7, end = 11, bottom = 15)
+@CaptureGutter(
+  start = KitShadowGutter.Level3Side,
+  top = KitShadowGutter.Level3Top,
+  end = KitShadowGutter.Level3Side,
+  bottom = KitShadowGutter.Level3Bottom,
+)
 @Composable
 fun Fab() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
@@ -147,7 +153,12 @@ fun FabLarge() = Sticker {
 @OverrideVariant(name = "tertiary-container", strings = ["color=tertiary-container"])
 @InteractionStates
 // As `Fab`: the shadow gets its room from the capture, not from padding inside the bounds (#179).
-@CaptureGutter(start = 11, top = 7, end = 11, bottom = 15)
+@CaptureGutter(
+  start = KitShadowGutter.Level3Side,
+  top = KitShadowGutter.Level3Top,
+  end = KitShadowGutter.Level3Side,
+  bottom = KitShadowGutter.Level3Bottom,
+)
 @Composable
 fun ExtendedFab() = Sticker {
   val c = counted(stringResource(Res.string.label_text))

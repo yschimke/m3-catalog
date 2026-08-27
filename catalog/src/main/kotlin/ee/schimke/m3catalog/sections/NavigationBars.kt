@@ -23,7 +23,7 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.InteractionPreview
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogFilledStars
-import ee.schimke.m3catalog.CatalogModes412
+import ee.schimke.m3catalog.CatalogModesCompact
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
@@ -64,7 +64,7 @@ private val DESTINATIONS =
     "Tap between distant destinations. The selection indicator moves on Expressive's spatial " +
       "spring — watch it overshoot and settle rather than ease linearly into place.",
 )
-@CatalogModes412
+@CatalogModesCompact
 @OverrideVariant(name = "four", strings = ["count=4"])
 @OverrideVariant(name = "five", strings = ["count=5"])
 @OverrideVariant(name = "labels-none", strings = ["labels=none"])

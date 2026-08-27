@@ -17,32 +17,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
-import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.BaselineDark
-import ee.schimke.m3catalog.BaselineDarkHighContrast
-import ee.schimke.m3catalog.BaselineDarkMediumContrast
-import ee.schimke.m3catalog.BaselineLight
-import ee.schimke.m3catalog.BaselineLightHighContrast
-import ee.schimke.m3catalog.BaselineLightMediumContrast
+import ee.schimke.m3catalog.CatalogSchemeChoice
 import ee.schimke.m3catalog.CatalogShapes
 import ee.schimke.m3catalog.CatalogTypography
+import ee.schimke.m3catalog.ColorSchemeMatrix
 import ee.schimke.m3catalog.StickerFrame
 
 private data class CatalogSwatch(val name: String, val color: Color, val content: Color)
-
-@Composable
-private fun colorSchemeForVariant(): ColorScheme =
-  when (previewOverrideString("theme", "baseline-light")) {
-    "baseline-dark" -> BaselineDark
-    "light-medium-contrast" -> BaselineLightMediumContrast
-    "light-high-contrast" -> BaselineLightHighContrast
-    "dark-medium-contrast" -> BaselineDarkMediumContrast
-    "dark-high-contrast" -> BaselineDarkHighContrast
-    else -> BaselineLight
-  }
 
 private fun ColorScheme.catalogSwatches(): List<CatalogSwatch> =
   listOf(
@@ -125,14 +108,10 @@ private fun ColorGrid(scheme: ColorScheme) {
   caption = "Material color roles as a swatch grid, with all six catalog themes as variants.",
 )
 @Preview(name = "Light", group = "modes", widthDp = 720)
-@OverrideVariant(name = "baseline-dark", strings = ["theme=baseline-dark"])
-@OverrideVariant(name = "light-medium-contrast", strings = ["theme=light-medium-contrast"])
-@OverrideVariant(name = "light-high-contrast", strings = ["theme=light-high-contrast"])
-@OverrideVariant(name = "dark-medium-contrast", strings = ["theme=dark-medium-contrast"])
-@OverrideVariant(name = "dark-high-contrast", strings = ["theme=dark-high-contrast"])
+@ColorSchemeMatrix
 @Composable
 fun ColorRoleGridSticker() {
-  val scheme = colorSchemeForVariant()
+  val scheme = CatalogSchemeChoice.Axis.current().scheme
   StickerFrame(colorScheme = scheme, typography = CatalogTypography, shapes = CatalogShapes) {
     ColorGrid(scheme)
   }

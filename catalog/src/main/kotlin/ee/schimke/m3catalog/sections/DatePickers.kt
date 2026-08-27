@@ -25,7 +25,7 @@ import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogModes360Us
+import ee.schimke.m3catalog.CatalogModesDatePickerUs
 import ee.schimke.m3catalog.InlineDialogHost
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
@@ -69,7 +69,7 @@ private fun dateDisplayMode(): DisplayMode =
   kitValue = "Full-screen (range)",
   caption = "Start and end dates in one grid.",
 )
-@CatalogModes360Us
+@CatalogModesDatePickerUs
 @OverrideVariant(name = "input", strings = ["mode=input"])
 @Composable
 fun DateRangePickerSticker() = Sticker {
@@ -102,7 +102,7 @@ fun DateRangePickerSticker() = Sticker {
   reference = "figma:ocdacdEsnHipMJD3egzxKb/51954:18137",
   caption = "The picker on its own dialog surface, with confirm and dismiss actions.",
 )
-@CatalogModes360Us
+@CatalogModesDatePickerUs
 @OverrideVariant(name = "input", strings = ["mode=input"])
 @Composable
 fun DatePickerModalSticker() = Sticker {

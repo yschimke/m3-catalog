@@ -35,7 +35,7 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
-import ee.schimke.m3catalog.CatalogModes560
+import ee.schimke.m3catalog.CatalogModesDialog
 import ee.schimke.m3catalog.InlineDialogHost
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
@@ -123,7 +123,7 @@ fun TimePickerSticker() = Sticker { TimePickerDialogFrame(seedInput = false) }
  * dial — where the portrait one needs 328dp, and the default harness caps a wrap-content sticker at
  * 400dp. Seeded onto the portrait sticker the layout had no way to ask for more room, so the dial
  * overflowed the display and clipped at the dialog edge (#146). A variant is a composable of its
- * own, so it carries [CatalogModes560] and leaves the portrait cells on their own footprint. The
+ * own, so it carries [CatalogModesDialog] and leaves the portrait cells on their own footprint. The
  * `layout` knob still exists and still flips on the live lane; this sticker only starts it on the
  * other value.
  */
@@ -134,7 +134,7 @@ fun TimePickerSticker() = Sticker { TimePickerDialogFrame(seedInput = false) }
   kitValue = "Horizontal",
   caption = "The landscape dial the kit pairs with the portrait one. 12-hour folds in.",
 )
-@CatalogModes560
+@CatalogModesDialog
 @OverrideVariant(name = "12-hour", strings = ["hours=12"])
 @Composable
 fun TimePickerHorizontalSticker() = Sticker {

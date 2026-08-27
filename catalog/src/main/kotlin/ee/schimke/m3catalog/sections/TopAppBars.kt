@@ -37,7 +37,7 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogImagePlaceholder
-import ee.schimke.m3catalog.CatalogModes412
+import ee.schimke.m3catalog.CatalogModesCompact
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
@@ -115,7 +115,7 @@ private const val W = 412
   caption =
     "The app bar. Its four sizes, the centred and image layouts, nav icon and action count fold in.",
 )
-@CatalogModes412
+@CatalogModesCompact
 @OverrideVariant(name = "no-nav", booleans = ["nav=false"])
 @OverrideVariant(name = "no-actions", strings = ["actions=0"])
 @OverrideVariant(name = "two-actions", strings = ["actions=2"])
@@ -171,7 +171,7 @@ private fun catalogAppBarColors() =
   props = ["configuration=small-centered"],
   caption = "Title centred; one action at most.",
 )
-@CatalogModes412
+@CatalogModesCompact
 @OverrideVariant(name = "no-nav", booleans = ["nav=false"])
 @OverrideVariant(name = "no-actions", strings = ["actions=0"])
 @Composable
@@ -223,7 +223,7 @@ fun CenterTopAppBar() = Sticker {
   props = ["configuration=medium"],
   caption = "Two rows; title below the actions.",
 )
-@CatalogModes412
+@CatalogModesCompact
 @OverrideVariant(name = "two-actions", strings = ["actions=2"])
 @Composable
 fun MediumTopAppBarSticker() = Sticker {
@@ -245,7 +245,7 @@ fun MediumTopAppBarSticker() = Sticker {
   props = ["configuration=large"],
   caption = "The tallest form, for a prominent headline.",
 )
-@CatalogModes412
+@CatalogModesCompact
 @OverrideVariant(name = "two-actions", strings = ["actions=2"])
 @Composable
 fun LargeTopAppBarSticker() = Sticker {

@@ -23,7 +23,7 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogImagePlaceholder
-import ee.schimke.m3catalog.CatalogModes412
+import ee.schimke.m3catalog.CatalogModesCompact
 import ee.schimke.m3catalog.Sticker
 
 // Baked at rest on the first item, which is deterministic; the live lane scrolls it.
@@ -45,7 +45,7 @@ private fun CarouselItem() {
   referenceSet = "figma:ocdacdEsnHipMJD3egzxKb/53912:27480",
   caption = "Items that resize as they enter and leave the viewport. Item widths fold in.",
 )
-@CatalogModes412
+@CatalogModesCompact
 @OverrideVariant(name = "hero", strings = ["width=240"])
 @OverrideVariant(name = "full-screen", strings = ["width=320"])
 @Composable
@@ -74,7 +74,7 @@ fun MultiBrowseCarousel() = Sticker {
  * component while this one was a variant, which made the file answer one axis two ways.
  */
 @CatalogVariant(of = "Carousel/MultiBrowse", props = ["layout=center-aligned-hero"])
-@CatalogModes412
+@CatalogModesCompact
 @Composable
 fun CenteredHeroCarousel() = Sticker {
   Box(Modifier.width(412.dp).height(221.dp).padding(vertical = 8.dp)) {
@@ -94,7 +94,7 @@ fun CenteredHeroCarousel() = Sticker {
   props = ["layout=uncontained"],
   caption = "Items keep their size and scroll past the edge.",
 )
-@CatalogModes412
+@CatalogModesCompact
 @Composable
 fun UncontainedCarousel() = Sticker {
   Box(Modifier.width(412.dp).height(221.dp).padding(vertical = 8.dp)) {

@@ -96,9 +96,12 @@ Work inside your claimed `sections/*.kt`. Two shared files are contended:
 - `CatalogSizes.kt` — the shared size / shape / width resolvers. **Append only**, and only when your
   family genuinely needs a resolver that does not exist. Do not edit an existing one; another
   worker's stickers read it.
-- `CatalogMatrixAnnotations.kt` / `CatalogAxes.kt` — the shared matrices and the axes they expand
+- `CatalogAxes.kt` / `CatalogMatrixDeclarations.kt` — the shared matrices and the axes they expand
   from. **Append only**, same reasoning: every button-family sticker reads these, so editing an
   existing matrix changes another worker's published cells. Adding a new matrix is fine.
+- `CatalogMatrixAnnotations.kt` — **generated** from the two above
+  (`./gradlew :catalog:generateMatrixAnnotations`). Never hand-edit it; the unit tests fail if the
+  committed copy is not what the declarations produce.
 - `catalog.spec.json`, `CatalogTheme.kt`, `CatalogThemes.kt`, `CatalogTokens.kt` — leave alone.
 
 `design-map.json` is **generated**. Never hand-edit it; regenerate (§5).
@@ -135,8 +138,8 @@ fun FilledButton() = Sticker {
 }
 ```
 
-The matrices live in `CatalogMatrixAnnotations.kt`, one annotation each, and
-`CatalogVariantMatrixTest` holds every one of them to the axes declared in `CatalogAxes.kt`:
+The matrices are declared in `CatalogMatrixDeclarations.kt` over the axes in `CatalogAxes.kt`, and
+emitted into `CatalogMatrixAnnotations.kt`, one annotation each:
 
 | Annotation | Cells | For |
 | --- | --- | --- |
@@ -144,10 +147,15 @@ The matrices live in `CatalogMatrixAnnotations.kt`, one annotation each, and
 | `@IconButtonMatrix` | 30 | icon buttons — the above x 3 widths |
 | `@SelectedToggleButtonMatrix` | 20 | a toggle authored **selected** (its off cells are `-off`) |
 | `@UnselectedToggleButtonMatrix` | 20 | a toggle authored **unselected** (its on cells are `-on`) |
+| `@SliderSizeMatrix` | 4 | sliders — the size axis alone, based on extra small |
+| `@TypeScaleMatrix` | 14 | the type scale — one cell per `TypeScaleRole` |
+| `@CornerScaleMatrix` | 9 | the corner scale — one cell per `CornerScaleToken` |
+| `@ColorSchemeMatrix` | 5 | the colour modes — one cell per `CatalogSchemeChoice` |
 
 **If your family's matrix is one of these, apply it — do not retype the cells.** If it needs a
-matrix that does not exist yet, declare a new annotation there and add its axes to
-`CatalogVariantMatrices`; the test fails until the two agree, which is the point. Hand-written
+matrix that does not exist yet, add its axes to `CatalogVariantMatrices`, declare it in
+`CatalogMatrixDeclarations`, and regenerate; the test fails until the committed file matches, which
+is the point. Hand-written
 `@OverrideVariant`s remain right for a *one-off* axis a single component has (a badge's digit
 count, a list's line count) — anything a whole family shares belongs in a matrix.
 
