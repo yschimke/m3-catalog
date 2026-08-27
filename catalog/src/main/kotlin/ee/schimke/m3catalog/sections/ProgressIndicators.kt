@@ -22,8 +22,8 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
-import ee.schimke.m3catalog.CatalogModes404
-import ee.schimke.m3catalog.CatalogModes405
+import ee.schimke.m3catalog.CatalogModesLinearProgress
+import ee.schimke.m3catalog.CatalogModesLinearProgressExpressive
 import ee.schimke.m3catalog.Sticker
 
 // Determinate is the primary sticker on every one of these. An indeterminate indicator is an
@@ -44,7 +44,7 @@ private fun progress(): Float = previewOverrideString("progress", "0.5").toFloat
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8017",
   caption = "Determinate linear progress. Values across the range fold in.",
 )
-@CatalogModes405
+@CatalogModesLinearProgress
 @OverrideVariant(name = "empty", strings = ["progress=0.0"])
 @OverrideVariant(name = "quarter", strings = ["progress=0.25"])
 @OverrideVariant(name = "full", strings = ["progress=1.0"])
@@ -81,7 +81,7 @@ fun CircularProgress() = Sticker {
   props = ["type=wave"],
   caption = "The expressive wavy track. Values across the range fold in.",
 )
-@CatalogModes404
+@CatalogModesLinearProgressExpressive
 @OverrideVariant(name = "quarter", strings = ["progress=0.25"])
 @OverrideVariant(name = "full", strings = ["progress=1.0"])
 @Composable

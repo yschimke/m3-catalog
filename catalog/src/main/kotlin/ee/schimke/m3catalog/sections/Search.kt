@@ -47,8 +47,8 @@ import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogModes360
-import ee.schimke.m3catalog.CatalogModes412
+import ee.schimke.m3catalog.CatalogModesCompact
+import ee.schimke.m3catalog.CatalogModesKitContainer
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
@@ -143,7 +143,7 @@ private fun searchTrailing(): (@Composable () -> Unit)? =
   caption =
     "The collapsed entry point, floating over content. Query, avatar and the docked form fold in.",
 )
-@CatalogModes360
+@CatalogModesKitContainer
 @OverrideVariant(name = "query", strings = ["content=query"])
 @OverrideVariant(name = "avatar", strings = ["content=avatar"])
 @Composable
@@ -172,7 +172,7 @@ fun SearchBarSticker() = Sticker {
   caption =
     "The collapsed bar anchored in the layout rather than floating; expands into a dropdown.",
 )
-@CatalogModes360
+@CatalogModesKitContainer
 @Composable
 fun DockedSearchBarSticker() = Sticker {
   // The sibling bars own their query through `rememberTextFieldState`; this one takes the older
@@ -220,7 +220,7 @@ private fun appBarSearchContent(): String =
   caption =
     "A top app bar that carries a search field between its navigation icon and its actions.",
 )
-@CatalogModes412
+@CatalogModesCompact
 @OverrideVariant(name = "query", strings = ["content=query"])
 @Composable
 fun AppBarWithSearchSticker() = Sticker {

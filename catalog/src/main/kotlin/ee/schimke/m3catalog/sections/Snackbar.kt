@@ -19,7 +19,8 @@ import ee.schimke.composeai.preview.CaptureGutter
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogModes344
+import ee.schimke.m3catalog.CatalogModesSnackbar
+import ee.schimke.m3catalog.KitShadowGutter
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
@@ -48,10 +49,15 @@ import org.jetbrains.compose.resources.stringResource
   reference = "figma:ocdacdEsnHipMJD3egzxKb/53977:33611",
   caption = "Brief message about a process. Two-line, action and close affordance fold in.",
 )
-@CatalogModes344
+@CatalogModesSnackbar
 // The bar's shadow falls outside its bounds; the room for it belongs to the capture, so the
 // component still measures the kit's 344dp bar and the canvas carries the gutter (#179).
-@CaptureGutter(start = 11, top = 7, end = 11, bottom = 15)
+@CaptureGutter(
+  start = KitShadowGutter.Level3Side,
+  top = KitShadowGutter.Level3Top,
+  end = KitShadowGutter.Level3Side,
+  bottom = KitShadowGutter.Level3Bottom,
+)
 @OverrideVariant(name = "two-line", strings = ["lines=two"])
 @OverrideVariant(name = "action", strings = ["configuration=text+action"])
 @OverrideVariant(name = "close", booleans = ["close=true"])

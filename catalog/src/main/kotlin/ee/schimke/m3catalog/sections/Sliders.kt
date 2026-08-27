@@ -24,7 +24,7 @@ import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.composeai.preview.VariantInteraction
 import ee.schimke.m3catalog.CatalogModes
-import ee.schimke.m3catalog.CatalogModes354
+import ee.schimke.m3catalog.CatalogModesSliderTrack
 import ee.schimke.m3catalog.SliderSizeMatrix
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
@@ -73,7 +73,7 @@ private fun sliderEnabled(): Boolean =
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58008:10357",
   caption = "Select a value from a range. Discrete stops, a centered track and disabled fold in.",
 )
-@CatalogModes354
+@CatalogModesSliderTrack
 @SliderSizeMatrix
 @OverrideVariant(name = "discrete", strings = ["steps=discrete"])
 @OverrideVariant(name = "centered", strings = ["track=centered"])
@@ -127,7 +127,7 @@ fun ContinuousSlider() = Sticker {
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58008:11811",
   caption = "Two thumbs bounding a sub-range. Discrete stops and disabled fold in.",
 )
-@CatalogModes354
+@CatalogModesSliderTrack
 @SliderSizeMatrix
 @OverrideVariant(name = "discrete", strings = ["steps=discrete"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])

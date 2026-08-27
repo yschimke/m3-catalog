@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.m3catalog.CatalogOutlinedStars
+import ee.schimke.m3catalog.KitShadowGutter
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.counted
@@ -55,7 +56,18 @@ fun DropdownMenuSticker() = Sticker {
   val shortcuts = catalogChoice("trailing", "chevron", "chevron", "shortcut") == "shortcut"
   val dividers = catalogChoice("dividers", "off", "off", "on") == "on"
   val disabledLast = catalogChoice("status", "enabled", "enabled", "disabled") == "disabled"
-  Box(Modifier.padding(start = 11.dp, top = 7.dp, end = 11.dp, bottom = 15.dp)) {
+  // The container's Level 3 shadow needs room, and this composable has no `@Preview` to hang a
+  // `@CaptureGutter` on yet — a dropdown lives in a popup window a capture cannot reach
+  // (compose-ai-tools#3916). So it pads, with the same measurements the captured stickers reserve;
+  // when the popup becomes capturable this becomes a `@CaptureGutter` like the others (#105).
+  Box(
+    Modifier.padding(
+      start = KitShadowGutter.Level3Side.dp,
+      top = KitShadowGutter.Level3Top.dp,
+      end = KitShadowGutter.Level3Side.dp,
+      bottom = KitShadowGutter.Level3Bottom.dp,
+    )
+  ) {
     // A dropdown menu lives in its own platform window, so this composes the container rather
     // than capturing one — and the rule for that is to take every part of it from `MenuDefaults`,
     // never to pick numbers that look right. The three that were literals now do:

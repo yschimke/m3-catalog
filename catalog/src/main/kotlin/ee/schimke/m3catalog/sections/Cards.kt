@@ -23,7 +23,8 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CaptureGutter
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
-import ee.schimke.m3catalog.CatalogModes360
+import ee.schimke.m3catalog.CatalogModesKitContainer
+import ee.schimke.m3catalog.KitShadowGutter
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.catalogInteractive
@@ -94,7 +95,7 @@ private fun CardBody(title: String) {
     "Default container for related content, with media and text by default. The kit's empty " +
       "slot layout and the action layouts fold in.",
 )
-@CatalogModes360
+@CatalogModesKitContainer
 @ee.schimke.composeai.preview.OverrideVariant(name = "slot", strings = ["layout=slot"])
 @ee.schimke.composeai.preview.OverrideVariant(name = "actions", strings = ["layout=actions"])
 @ee.schimke.composeai.preview.OverrideVariant(
@@ -120,7 +121,7 @@ fun FilledCard() = Sticker {
     "Separated by shadow, with media and text by default. The kit's empty slot layout and the " +
       "action layouts fold in.",
 )
-@CatalogModes360
+@CatalogModesKitContainer
 @ee.schimke.composeai.preview.OverrideVariant(name = "slot", strings = ["layout=slot"])
 @ee.schimke.composeai.preview.OverrideVariant(name = "actions", strings = ["layout=actions"])
 @ee.schimke.composeai.preview.OverrideVariant(
@@ -130,7 +131,7 @@ fun FilledCard() = Sticker {
 // The Level 1 shadow falls outside the card's bounds, so it needs room in the CAPTURE — not a
 // padded `Box`, which would measure the card in a smaller frame and publish a canvas 8dp wider
 // than every other card on the sheet (#179).
-@CaptureGutter(all = 4)
+@CaptureGutter(all = KitShadowGutter.Level1All)
 @Composable
 fun ElevatedCardSticker() = Sticker {
   val c = counted(stringResource(Res.string.card_title))
@@ -150,7 +151,7 @@ fun ElevatedCardSticker() = Sticker {
     "Separated by outline, with media and text by default. The kit's empty slot layout and the " +
       "action layouts fold in.",
 )
-@CatalogModes360
+@CatalogModesKitContainer
 @ee.schimke.composeai.preview.OverrideVariant(name = "slot", strings = ["layout=slot"])
 @ee.schimke.composeai.preview.OverrideVariant(name = "actions", strings = ["layout=actions"])
 @ee.schimke.composeai.preview.OverrideVariant(
