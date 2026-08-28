@@ -23,6 +23,7 @@ import ee.schimke.m3catalog.CatalogSchemeChoice
 import ee.schimke.m3catalog.CatalogShapes
 import ee.schimke.m3catalog.CatalogTypography
 import ee.schimke.m3catalog.ColorSchemeMatrix
+import ee.schimke.m3catalog.LocalCatalogThemeStyle
 import ee.schimke.m3catalog.StickerFrame
 
 private data class CatalogSwatch(val name: String, val color: Color, val content: Color)
@@ -111,8 +112,13 @@ private fun ColorGrid(scheme: ColorScheme) {
 @ColorSchemeMatrix
 @Composable
 fun ColorRoleGridSticker() {
-  val scheme = CatalogSchemeChoice.Axis.current().scheme
-  StickerFrame(colorScheme = scheme, typography = CatalogTypography, shapes = CatalogShapes) {
+  val scheme = CatalogSchemeChoice.currentScheme()
+  StickerFrame(
+    colorScheme = scheme,
+    themeStyle = LocalCatalogThemeStyle.current,
+    typography = CatalogTypography,
+    shapes = CatalogShapes,
+  ) {
     ColorGrid(scheme)
   }
 }
