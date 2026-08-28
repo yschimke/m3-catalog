@@ -1,6 +1,7 @@
 package ee.schimke.m3catalog
 
 import androidx.compose.material3.ColorScheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.materialkolor.Contrast
 import com.materialkolor.PaletteStyle
@@ -99,5 +100,35 @@ enum class CatalogSchemeChoice(override val knob: String, val scheme: ColorSchem
   companion object {
     /** The `theme` axis, defaulting to [Light] — the scheme an unseeded grid paints. */
     val Axis = CatalogKnobAxis("theme", entries, Light)
+
+    /**
+     * The scheme a swatch grid should paint, resolving the axis **against the selected theme**
+     * rather than instead of it.
+     *
+     * Every other sticker paints [catalogColorScheme], so the viewer's **Theme** select — a
+     * `@ThemeCatalog` provider setting [LocalCatalogScheme] — re-skins it. The colour-role grid
+     * read this axis directly, which is the one knob that also names a scheme, and so was the one
+     * sticker in the catalog that ignored the theme it was rendered under: picking `Dark High
+     * Contrast` in the viewer left the grid painting baseline light, which is worse than not
+     * offering it, because the sheet documents colour (#202).
+     *
+     * The two selectors are not in conflict — an unseeded cell has nothing to say about colour, so
+     * it defers to the theme, and a seeded cell keeps the mode it names. That is what the five
+     * published `ColorSchemeMatrix` cells depend on: `theme=baseline-dark` is the grid's whole
+     * subject, not a default it inherited, so it stays dark under any selected theme. Only the base
+     * render moves, and only when a theme is selected — with none, [catalogColorScheme] resolves to
+     * the same [BaselineLight] the axis default already named, so the published capture is
+     * byte-identical.
+     *
+     * A cell that seeds the axis *at* its default is indistinguishable from an unseeded one — the
+     * knob travels as a value, not as a presence — so it follows the theme too. The matrix never
+     * emits that cell (seeding an axis with its own default is a no-op), so nothing published
+     * relies on the distinction.
+     */
+    @Composable
+    fun currentScheme(): ColorScheme {
+      val choice = Axis.current()
+      return if (choice == Axis.default) catalogColorScheme() else choice.scheme
+    }
   }
 }
