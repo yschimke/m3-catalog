@@ -58,10 +58,35 @@ import org.jetbrains.compose.resources.stringResource
 @OverrideVariant(name = "tonal", strings = ["color=tonal"])
 @OverrideVariant(name = "outlined", strings = ["color=outlined"])
 @OverrideVariant(name = "elevated", strings = ["color=elevated"])
+@OverrideVariant(
+  name = "disabled",
+  strings = ["leadingState=disabled", "trailingState=disabled"],
+  kitProps =
+    [
+      "Size=Small",
+      "Color=Filled",
+      "Leading state=Disabled",
+      "Trailing state=Disabled",
+    ],
+)
+@OverrideVariant(
+  name = "trailing-selected",
+  strings = ["trailingState=selected"],
+  kitProps =
+    [
+      "Size=Small",
+      "Color=Filled",
+      "Leading state=Enabled",
+      "Trailing state=Selected",
+    ],
+)
+@ee.schimke.m3catalog.SplitButtonExhaustiveKitCells
 @Composable
 fun SplitButton() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
-  var expanded by toggleable(false)
+  val leadingState = catalogChoice("leadingState", "enabled", "enabled", "disabled")
+  val trailingState = catalogChoice("trailingState", "enabled", "enabled", "disabled", "selected")
+  var expanded by toggleable(trailingState == "selected")
   val size = catalogButtonSize()
   val colour = catalogChoice("color", "filled", "filled", "tonal", "outlined", "elevated")
   val label: @Composable RowScope.() -> Unit = {
@@ -87,23 +112,31 @@ fun SplitButton() = Sticker {
         "tonal" ->
           SplitButtonDefaults.TonalLeadingButton(
             c.onClick,
+            enabled = leadingState != "disabled",
             contentPadding = padding,
             content = label,
           )
         "outlined" ->
           SplitButtonDefaults.OutlinedLeadingButton(
             c.onClick,
+            enabled = leadingState != "disabled",
             contentPadding = padding,
             content = label,
           )
         "elevated" ->
           SplitButtonDefaults.ElevatedLeadingButton(
             c.onClick,
+            enabled = leadingState != "disabled",
             contentPadding = padding,
             content = label,
           )
         else ->
-          SplitButtonDefaults.LeadingButton(c.onClick, contentPadding = padding, content = label)
+          SplitButtonDefaults.LeadingButton(
+            c.onClick,
+            enabled = leadingState != "disabled",
+            contentPadding = padding,
+            content = label,
+          )
       }
     },
     trailingButton = {
@@ -114,6 +147,7 @@ fun SplitButton() = Sticker {
           SplitButtonDefaults.TonalTrailingButton(
             expanded,
             onCheck,
+            enabled = trailingState != "disabled",
             contentPadding = padding,
             content = chevron,
           )
@@ -121,6 +155,7 @@ fun SplitButton() = Sticker {
           SplitButtonDefaults.OutlinedTrailingButton(
             expanded,
             onCheck,
+            enabled = trailingState != "disabled",
             contentPadding = padding,
             content = chevron,
           )
@@ -128,6 +163,7 @@ fun SplitButton() = Sticker {
           SplitButtonDefaults.ElevatedTrailingButton(
             expanded,
             onCheck,
+            enabled = trailingState != "disabled",
             contentPadding = padding,
             content = chevron,
           )
@@ -135,6 +171,7 @@ fun SplitButton() = Sticker {
           SplitButtonDefaults.TrailingButton(
             expanded,
             onCheck,
+            enabled = trailingState != "disabled",
             contentPadding = padding,
             content = chevron,
           )

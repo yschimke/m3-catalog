@@ -99,6 +99,7 @@ private fun catalogFabColor(): Color =
   end = KitShadowGutter.Level3Side,
   bottom = KitShadowGutter.Level3Bottom,
 )
+@ee.schimke.m3catalog.FabExhaustiveKitCells
 @Composable
 fun Fab() = Sticker {
   val c = counted(stringResource(Res.string.label_text))
@@ -159,6 +160,7 @@ fun FabLarge() = Sticker {
   end = KitShadowGutter.Level3Side,
   bottom = KitShadowGutter.Level3Bottom,
 )
+@ee.schimke.m3catalog.ExtendedFabExhaustiveKitCells
 @Composable
 fun ExtendedFab() = Sticker {
   val c = counted(stringResource(Res.string.label_text))

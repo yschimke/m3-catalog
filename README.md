@@ -340,6 +340,22 @@ Both used to be scripts in this repo. They are upstream now, for the same reason
 about this catalog, and a copy here drifts from the one everyone else runs. What stays local is the
 kit handle on each annotation — the only part that is genuinely this repo's.
 
+The ordinary variants prove one axis at a time, while the imported component pages count every
+cross-product cell in a Figma component set. The local exhaustive-cell generator combines only
+knobs and renderer interactions already exercised by a real sticker, then pins each result with the
+kit's exact property vector. It does not synthesize components or claim unsupported states.
+
+```sh
+node scripts/generate-exhaustive-kit-cells.mjs
+./gradlew :catalog:ktfmtFormat :catalog:composePreviewDiscover
+scripts/design-map.sh
+node scripts/import-figma-pages.mjs --relink
+```
+
+The final command is token-free: it refreshes only the cached node-to-preview join from the
+committed page walk and generated map. CI runs the equivalent `--check`, because a stale join makes
+the published `/pages.json` percentage under-report code that already exists.
+
 Dependencies update themselves via Renovate ([`renovate.json`](.github/renovate.json)). The
 compose-ai-tools CLI, Gradle plugin and annotation coordinates are grouped into one automerged PR,
 because a skew between them breaks preview discovery outright.

@@ -48,6 +48,7 @@ private fun progress(): Float = previewOverrideString("progress", "0.5").toFloat
 @OverrideVariant(name = "empty", strings = ["progress=0.0"])
 @OverrideVariant(name = "quarter", strings = ["progress=0.25"])
 @OverrideVariant(name = "full", strings = ["progress=1.0"])
+@ee.schimke.m3catalog.LinearProgressExhaustiveKitCells
 @Composable
 fun LinearProgress() = Sticker {
   // Read the knob in composition, then close over the value: `progress = {}` is a plain lambda the
@@ -70,6 +71,7 @@ fun LinearProgress() = Sticker {
 @OverrideVariant(name = "empty", strings = ["progress=0.0"])
 @OverrideVariant(name = "quarter", strings = ["progress=0.25"])
 @OverrideVariant(name = "full", strings = ["progress=1.0"])
+@ee.schimke.m3catalog.CircularProgressExhaustiveKitCells
 @Composable
 fun CircularProgress() = Sticker {
   val value = progress()

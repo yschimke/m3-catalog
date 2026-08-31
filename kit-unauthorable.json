@@ -36,9 +36,23 @@
     {
       "set": "List",
       "axis": "Type",
-      "values": ["Expandable", "Draggable", "Swipable - standard", "Swipable - segmented"],
-      "reason": "These are gestures and behaviour, not a ListItem appearance — a sticker would have to hand-build the affordance and then pose it mid-interaction.",
+      "values": ["Segmented (filled)", "Expandable", "Draggable", "Swipable - standard", "Swipable - segmented"],
+      "reason": "ListItem exposes content slots only; segmented containers and expandable, drag, or swipe behaviours are caller composition. Reproducing these kit types would require hand-building the surrounding list interaction rather than invoking another Material 3 component.",
       "evidence": "ListItem has a single overload with no type parameter; expand, drag and swipe are caller-supplied behaviour."
+    },
+    {
+      "set": "Carousel",
+      "axis": "Layout",
+      "values": ["Hero", "Multi-aspect ratio"],
+      "reason": "Compose publishes no hero or multi-aspect-ratio carousel composable; its centered hero and multi-browse APIs are different kit values.",
+      "evidence": "androidx.compose.material3.carousel exports HorizontalCenteredHeroCarousel, HorizontalMultiBrowseCarousel and HorizontalUncontainedCarousel only."
+    },
+    {
+      "set": "Suggestion chip",
+      "axis": "Selected",
+      "values": ["True"],
+      "reason": "SuggestionChip is an action chip and has no selected parameter or selected-state API.",
+      "evidence": "SuggestionChip and ElevatedSuggestionChip accept enabled and icon slots but no selected value or callback."
     },
     {
       "set": "Navigation Rail: Expanded",

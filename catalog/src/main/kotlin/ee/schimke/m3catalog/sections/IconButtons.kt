@@ -78,6 +78,7 @@ private fun IconButtonFrame(content: @Composable () -> Unit) {
 @CatalogModes
 @IconButtonMatrix
 @ContainerlessInteractionStates
+@ee.schimke.m3catalog.StandardIconButtonExhaustiveKitCells
 @Composable
 fun StandardIconButton() = Sticker {
   var on by toggleable(true)
@@ -124,6 +125,7 @@ fun StandardIconButton() = Sticker {
 @CatalogModes
 @IconButtonMatrix
 @InteractionStates
+@ee.schimke.m3catalog.FilledIconButtonStickerExhaustiveKitCells
 @Composable
 fun FilledIconButtonSticker() = Sticker {
   var on by toggleable(true)
@@ -157,6 +159,7 @@ fun FilledIconButtonSticker() = Sticker {
 @CatalogModes
 @IconButtonMatrix
 @InteractionStates
+@ee.schimke.m3catalog.TonalIconButtonExhaustiveKitCells
 @Composable
 fun TonalIconButton() = Sticker {
   var on by toggleable(true)
@@ -191,6 +194,7 @@ fun TonalIconButton() = Sticker {
 @CatalogModes
 @IconButtonMatrix
 @InteractionStates
+@ee.schimke.m3catalog.OutlinedIconButtonStickerExhaustiveKitCells
 @Composable
 fun OutlinedIconButtonSticker() = Sticker {
   var on by toggleable(true)

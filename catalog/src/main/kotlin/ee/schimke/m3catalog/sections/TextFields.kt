@@ -60,6 +60,7 @@ private class FieldSpec(
 @Composable
 private fun fieldSpec(): FieldSpec {
   val state = catalogChoice("state", "value", "value", "empty", "error", "disabled")
+  val textConfiguration = catalogChoice("text", "input", "input", "label", "placeholder")
   // Two knobs rather than one four-valued `content`, because the kit models them as two
   // independent axes — `Leading icon` and `Trailing icon`, each True/False. Seeding one of them
   // now lands on a real kit variant; `content=leading` named an axis the kit does not have and
@@ -69,13 +70,15 @@ private fun fieldSpec(): FieldSpec {
   val error = state == "error"
   return FieldSpec(
     value =
-      if (state == "empty") ""
+      if (state == "empty" || textConfiguration != "input") ""
       else if (error) "not-an-email" else stringResource(Res.string.field_placeholder),
     label =
       if (catalogChoice("label", "on", "on", "off") == "off") null
       else ({ Text(stringResource(if (error) Res.string.field_email else Res.string.field_name)) }),
     placeholder =
-      if (state == "empty") ({ Text(stringResource(Res.string.field_placeholder)) }) else null,
+      if (state == "empty" || textConfiguration == "placeholder")
+        ({ Text(stringResource(Res.string.field_placeholder)) })
+      else null,
     leading =
       if (!leadingIcon) null else ({ Icon(Icons.Filled.Search, contentDescription = null) }),
     trailing =
@@ -106,7 +109,18 @@ private fun fieldSpec(): FieldSpec {
       "label-less form fold in.",
 )
 @CatalogModes
-@OverrideVariant(name = "empty", strings = ["state=empty"])
+@OverrideVariant(
+  name = "empty",
+  strings = ["state=empty"],
+  kitAxis = "Text configurations",
+  kitValue = "Placeholder text",
+)
+@OverrideVariant(
+  name = "label-text",
+  strings = ["text=label"],
+  kitAxis = "Text configurations",
+  kitValue = "Label text",
+)
 @OverrideVariant(name = "error", strings = ["state=error"])
 @OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @OverrideVariant(name = "leading-icon", booleans = ["leading=true"])
@@ -116,6 +130,7 @@ private fun fieldSpec(): FieldSpec {
 @OverrideVariant(name = "no-label", strings = ["label=off"])
 @OverrideVariant(name = "no-label-empty", strings = ["label=off", "state=empty"])
 @OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)
+@ee.schimke.m3catalog.FilledTextFieldExhaustiveKitCells
 @Composable
 fun FilledTextField() = Sticker {
   val spec = fieldSpec()
@@ -140,7 +155,18 @@ fun FilledTextField() = Sticker {
   caption = "Outlined container; less visual weight. Carries the same matrix as the filled field.",
 )
 @CatalogModes
-@OverrideVariant(name = "empty", strings = ["state=empty"])
+@OverrideVariant(
+  name = "empty",
+  strings = ["state=empty"],
+  kitAxis = "Text configurations",
+  kitValue = "Placeholder text",
+)
+@OverrideVariant(
+  name = "label-text",
+  strings = ["text=label"],
+  kitAxis = "Text configurations",
+  kitValue = "Label text",
+)
 @OverrideVariant(name = "error", strings = ["state=error"])
 @OverrideVariant(name = "disabled", strings = ["state=disabled"])
 @OverrideVariant(name = "leading-icon", booleans = ["leading=true"])
@@ -149,6 +175,7 @@ fun FilledTextField() = Sticker {
 @OverrideVariant(name = "no-supporting", strings = ["supporting=off"])
 @OverrideVariant(name = "no-label", strings = ["label=off"])
 @OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)
+@ee.schimke.m3catalog.OutlinedTextFieldStickerExhaustiveKitCells
 @Composable
 fun OutlinedTextFieldSticker() = Sticker {
   val spec = fieldSpec()

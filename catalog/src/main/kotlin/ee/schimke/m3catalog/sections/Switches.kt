@@ -64,6 +64,7 @@ private fun switchIcon(): Boolean = catalogChoice("content", "none", "none", "ic
   strings = ["state=off", "content=icon", "status=disabled"],
 )
 @InteractionStates
+@ee.schimke.m3catalog.SwitchOnExhaustiveKitCells
 @Composable
 fun SwitchOn() = Sticker {
   val enabled = switchStatus() != "disabled"

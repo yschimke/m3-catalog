@@ -82,6 +82,7 @@ private fun checkboxColors(): CheckboxColors =
 @OverrideVariant(name = "error-unchecked", strings = ["state=unchecked", "status=error"])
 @OverrideVariant(name = "error-indeterminate", strings = ["state=indeterminate", "status=error"])
 @InteractionStates
+@ee.schimke.m3catalog.CheckboxCheckedExhaustiveKitCells
 @Composable
 fun CheckboxChecked() = Sticker {
   val enabled = checkboxStatus() != "disabled"
