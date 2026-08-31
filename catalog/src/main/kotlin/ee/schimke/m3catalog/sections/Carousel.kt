@@ -23,6 +23,7 @@ import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogImagePlaceholder
+import ee.schimke.m3catalog.CatalogModesCarouselTablet
 import ee.schimke.m3catalog.CatalogModesCompact
 import ee.schimke.m3catalog.Sticker
 
@@ -48,18 +49,16 @@ private fun CarouselItem() {
 @CatalogModesCompact
 @OverrideVariant(name = "hero", strings = ["width=240"])
 @OverrideVariant(name = "full-screen", strings = ["width=320"])
-@OverrideVariant(
-  name = "tablet",
-  strings = ["context=tablet"],
-  kitAxis = "Context",
-  kitValue = "Tablet",
-)
 @ee.schimke.m3catalog.MultiBrowseCarouselExhaustiveKitCells
 @Composable
 fun MultiBrowseCarousel() = Sticker {
   val width = previewOverrideString("width", "160").toIntOrNull() ?: 160
-  val frameWidth = if (previewOverrideString("context", "mobile") == "tablet") 905.dp else 412.dp
-  Box(Modifier.width(frameWidth).height(221.dp).padding(vertical = 8.dp)) {
+  MultiBrowseCarouselBody(width = width, frameWidth = 412)
+}
+
+@Composable
+private fun MultiBrowseCarouselBody(width: Int, frameWidth: Int) {
+  Box(Modifier.width(frameWidth.dp).height(221.dp).padding(vertical = 8.dp)) {
     HorizontalMultiBrowseCarousel(
       state = rememberCarouselState { 5 },
       preferredItemWidth = width.dp,
@@ -71,6 +70,12 @@ fun MultiBrowseCarousel() = Sticker {
     }
   }
 }
+
+/** The same component at the kit's tablet context width, which a 412dp preview cannot express. */
+@CatalogVariant(of = "Carousel/MultiBrowse", props = ["context=tablet"])
+@CatalogModesCarouselTablet
+@Composable
+fun MultiBrowseCarouselTablet() = Sticker { MultiBrowseCarouselBody(width = 160, frameWidth = 905) }
 
 /**
  * The kit's `Layout=Center-aligned hero`. Its own composable rather than a knob, because Compose

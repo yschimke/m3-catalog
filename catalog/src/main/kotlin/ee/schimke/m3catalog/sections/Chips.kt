@@ -77,11 +77,23 @@ private fun chipEnabled(): Boolean =
 @Composable
 private fun chipIcon(): (@Composable () -> Unit)? =
   when (chipLeading()) {
-    "icon",
-    "brand",
+    "icon" -> ({
+        Icon(
+          Icons.Filled.Event,
+          contentDescription = null,
+          modifier = Modifier.size(AssistChipDefaults.IconSize),
+        )
+      })
+    "brand" -> ({
+        Icon(
+          CatalogFilledStars,
+          contentDescription = null,
+          modifier = Modifier.size(AssistChipDefaults.IconSize),
+        )
+      })
     "favicon" -> ({
         Icon(
-          if (chipLeading() == "favicon") Icons.Filled.Person else Icons.Filled.Event,
+          Icons.Filled.Person,
           contentDescription = null,
           modifier = Modifier.size(AssistChipDefaults.IconSize),
         )

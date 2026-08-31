@@ -638,54 +638,63 @@ annotation class FilledButtonExhaustiveKitCells
 @OverrideVariant(
   name = "cell-type-square-size-xlarge-state-presssed-58650-10582",
   strings = ["size=xl", "shape=square"],
+  interaction = VariantInteraction.Pressed,
   kitProps = ["Type=Square", "Size=XLarge", "State=Presssed"],
   secondary = true,
 )
 @OverrideVariant(
   name = "cell-type-square-size-large-state-presssed-58650-10584",
   strings = ["size=l", "shape=square"],
+  interaction = VariantInteraction.Pressed,
   kitProps = ["Type=Square", "Size=Large", "State=Presssed"],
   secondary = true,
 )
 @OverrideVariant(
   name = "cell-type-square-size-medium-state-presssed-58650-10586",
   strings = ["size=m", "shape=square"],
+  interaction = VariantInteraction.Pressed,
   kitProps = ["Type=Square", "Size=Medium", "State=Presssed"],
   secondary = true,
 )
 @OverrideVariant(
   name = "cell-type-square-size-small-state-presssed-58650-10588",
   strings = ["shape=square"],
+  interaction = VariantInteraction.Pressed,
   kitProps = ["Type=Square", "Size=Small", "State=Presssed"],
   secondary = true,
 )
 @OverrideVariant(
   name = "cell-type-square-size-xsmall-state-presssed-58650-10590",
   strings = ["size=xs", "shape=square"],
+  interaction = VariantInteraction.Pressed,
   kitProps = ["Type=Square", "Size=XSmall", "State=Presssed"],
   secondary = true,
 )
 @OverrideVariant(
   name = "cell-type-round-size-xlarge-state-presssed-58650-10592",
   strings = ["size=xl"],
+  interaction = VariantInteraction.Pressed,
   kitProps = ["Type=Round", "Size=XLarge", "State=Presssed"],
   secondary = true,
 )
 @OverrideVariant(
   name = "cell-type-round-size-large-state-presssed-58650-10594",
   strings = ["size=l"],
+  interaction = VariantInteraction.Pressed,
   kitProps = ["Type=Round", "Size=Large", "State=Presssed"],
   secondary = true,
 )
 @OverrideVariant(
   name = "cell-type-round-size-medium-state-presssed-58650-10596",
   strings = ["size=m"],
+  interaction = VariantInteraction.Pressed,
   kitProps = ["Type=Round", "Size=Medium", "State=Presssed"],
   secondary = true,
 )
 @OverrideVariant(
   name = "cell-type-round-size-xsmall-state-presssed-58650-10600",
   strings = ["size=xs"],
+  interaction = VariantInteraction.Pressed,
   kitProps = ["Type=Round", "Size=XSmall", "State=Presssed"],
   secondary = true,
 )

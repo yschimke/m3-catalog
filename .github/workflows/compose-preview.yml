@@ -60,11 +60,12 @@ jobs:
       # carrying its sha256, so the scan is a pass over JSON rather than a
       # second hash of 1300 PNGs.
       #
-      # A variant cell that renders its sibling's picture publishes coverage the
-      # sheet does not have, and the parity number computed for it scores the
-      # wrong image (issues #157, #175, #176). The known ones are declared in
-      # duplicate-renders.json against the issue that tracks them; anything else
-      # fails here. Runs after the comment step on purpose — a reviewer still
-      # gets the visual diff for the change that tripped it.
+      # A primary variant cell that renders its sibling's picture publishes coverage
+      # the navigable sheet does not have, and the parity number computed for it scores
+      # the wrong image (issues #157, #175, #176). Secondary exhaustive cells are exact
+      # kit addresses and may legitimately repeat pixels across property vectors. Known
+      # primary collisions are declared in duplicate-renders.json against the issue that
+      # tracks them; anything else fails here. Runs after the comment step on purpose —
+      # a reviewer still gets the visual diff for the change that tripped it.
       - name: No undeclared duplicate renders
         run: node scripts/duplicate-renders.mjs

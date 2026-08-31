@@ -116,15 +116,19 @@ same word. Where Compose has no name of its own, take the kit's.
   them, and the toolbar published a container 8dp wider than Compose builds (#177). A frame gives the
   same extent with a loose minimum, so the sticker still renders at the kit node's size and the
   component still measures itself.
-- **A variant cell has to change a pixel.** A `@CatalogVariant` / `@OverrideVariant` seeds a knob;
+- **A primary variant cell has to change a pixel.** A `@CatalogVariant` / primary
+  `@OverrideVariant` seeds a knob;
   if the composable never reads that knob — an early return taken before the slot resolvers run, a
   hardcoded slot, a pinned size the component cannot lay out inside — the render is byte-identical
   to its default and the sheet publishes one picture under two names. `design-led` then scores that
   cell against a kit node it is not a picture of. `scripts/duplicate-renders.mjs` hashes every
-  render of a sticker after the PR render in `compose-preview.yml` and fails on any collision that
-  `duplicate-renders.json` does not declare against an open issue; the declarations are checked in
-  both directions, so a set that stops colliding fails until its entry is deleted. Fix the sticker
-  first — a declaration is a record of a known bug, not a way to keep one.
+  primary render of a sticker after the PR render in `compose-preview.yml` and fails on any
+  collision that `duplicate-renders.json` does not declare against an open issue; the declarations
+  are checked in both directions, so a set that stops colliding fails until its entry is deleted.
+  Fix the sticker first — a declaration is a record of a known bug, not a way to keep one.
+  Secondary exhaustive cells are exact kit comparison addresses, not navigable variant-tree
+  claims. Different kit property vectors may legitimately repeat pixels, so they are outside this
+  audit.
 - Renders must be **deterministic**: a date picker is pinned to a fixed instant, a time picker to
   10:10. An unpinned picker would open on "today" and every nightly render would differ from the
   last, which turns the delivery branch's history into noise.
