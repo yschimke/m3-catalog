@@ -51,8 +51,8 @@
       "set": "Suggestion chip",
       "axis": "Selected",
       "values": ["True"],
-      "reason": "SuggestionChip is an action chip and has no selected parameter or selected-state API.",
-      "evidence": "SuggestionChip and ElevatedSuggestionChip accept enabled and icon slots but no selected value or callback."
+      "reason": "This is a kit-only taxonomy value, not a SuggestionChip implementation requirement. Compose models SuggestionChip as an action with no selection state; using the selectable FilterChip would misname the API, while an ordinary SuggestionChip cannot depict these cells.",
+      "evidence": "The AndroidX Material 3 Chip.kt source delegates SuggestionChip and ElevatedSuggestionChip to non-selectable Chip with enabled and icon inputs; FilterChip separately takes selected and delegates to SelectableChip: https://android.googlesource.com/platform/frameworks/support/+/c62c2b9bba83ccfeeb96c0912cc86151b348e5ff/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/Chip.kt"
     },
     {
       "set": "Navigation Rail: Expanded",

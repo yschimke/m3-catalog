@@ -59,6 +59,15 @@ attempted. Leaving the
 reference off to keep an unmatched component is the posture that rule replaced — a sticker with
 nothing to compare against publishes a picture the catalog cannot defend.
 
+**Membership does not make every kit cell authorable.** A kit component set can expose an axis the
+exact named Material API cannot express. Keep that value out of the sticker and declare it in
+`kit-unauthorable.json` with evidence; never substitute a differently named Material API or map the
+value to pixels that do not depict it. The declaration is a checked gap, not component-level
+"published but unmapped" state: `scripts/kit-coverage.mjs` fails when the kit removes the value or
+the catalog later covers it. `Suggestion chip / Selected=True` is the precedent — suggestion chips
+are action chips in Compose, while selection belongs to `FilterChip`, so the kit-only selected
+cells remain explicitly uncovered.
+
 **Naming is Compose's call.** Ids follow the Compose API surface, because that is what a reader of a
 Compose catalog greps for: `NavigationBar/Short` is named for `ShortNavigationBar` even though the
 kit calls that node simply "Navigation bar". The one hard rule is not to borrow a kit word for

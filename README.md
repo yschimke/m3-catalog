@@ -345,6 +345,15 @@ cross-product cell in a Figma component set. The local exhaustive-cell generator
 knobs and renderer interactions already exercised by a real sticker, then pins each result with the
 kit's exact property vector. It does not synthesize components or claim unsupported states.
 
+That last boundary applies even when the unsupported value lives inside an otherwise mapped kit
+set. Those cells stay explicit in `kit-unauthorable.json`: each declaration carries its evidence,
+and CI rejects it if the kit removes the value or a real sticker later covers it. In particular,
+the kit's `Suggestion chip / Selected=True` cells are not catalog variants. Compose implements
+`SuggestionChip` as an action chip with no selection state; `FilterChip` is the selectable API for
+filter selections.
+Using `FilterChip` would misname the render, and mapping the selected cells to an ordinary
+`SuggestionChip` would claim pixels the catalog cannot produce.
+
 ```sh
 node scripts/generate-exhaustive-kit-cells.mjs
 ./gradlew :catalog:ktfmtFormat :catalog:composePreviewDiscover

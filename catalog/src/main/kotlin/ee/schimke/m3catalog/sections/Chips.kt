@@ -273,7 +273,9 @@ fun InputChipSticker() = Sticker {
 @CatalogComponent(
   id = "Chip/Suggestion",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:28845",
-  caption = "A dynamically generated suggestion. Elevated and disabled fold in.",
+  caption =
+    "A dynamically generated action. Elevated and disabled fold in; the kit's selected cells " +
+      "stay excluded because SuggestionChip has no selection state.",
 )
 @CatalogModes
 @OverrideVariant(name = "elevated", strings = ["style=elevated"])
