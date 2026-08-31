@@ -230,6 +230,30 @@ test("Lists keeps its public set when private construction exceeds the node cap"
   );
 });
 
+test("the committed Lists import reports public gaps, not private construction", () => {
+  const manifest = JSON.parse(
+    readFileSync(new URL("design/pages/pages.json", root), "utf8"),
+  );
+  const page = manifest.pages.find((entry) => entry.id === "lists");
+  const components = page.nodes.filter(
+    (node) =>
+      node.inventory !== false &&
+      node.type !== "COMPONENT_SET" &&
+      !(node.type === "INSTANCE" && node.link === "unlinked"),
+  );
+
+  assert.equal(page.inventory, undefined);
+  assert.equal(components.length, 12);
+  assert.equal(components.filter((node) => node.link === "manifest").length, 2);
+  assert.equal(components.filter((node) => node.link === "unlinked").length, 10);
+  assert.equal(
+    page.nodes
+      .filter((node) => node.nodeId.startsWith("51964:"))
+      .every((node) => node.inventory === false),
+    true,
+  );
+});
+
 test("refuses a pin the server would refuse", () => {
   assert.throws(() => resolvePages({ pins: [{ id: "shape.svg", nodeId: "1:1" }] }), /refuse/);
   assert.throws(() => resolvePages({ pins: [{ id: "..", nodeId: "1:1" }] }), /refuse/);
