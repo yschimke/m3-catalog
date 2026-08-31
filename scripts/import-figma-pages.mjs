@@ -111,6 +111,7 @@ function arg(name, fallback) {
 
 const configPath = arg("config", "design-pages.json");
 const designMapPath = arg("design-map", "design-map.json");
+const kitIndexPath = arg("kit-index", "figma-kit-index.json");
 const onlyPage = arg("page", null);
 const relinkOnly = process.argv.includes("--relink");
 const checkOnly = process.argv.includes("--check");
@@ -318,6 +319,27 @@ function readDesignMap(file) {
   }
 }
 
+/** The public component-set ids declared by the committed kit index. */
+function readPublicSetIds(file, fileKey) {
+  const index = JSON.parse(readFileSync(file, "utf8"));
+  if (index.fileKey !== fileKey) {
+    throw new Error(
+      `${file} indexes ${index.fileKey ?? "no file"}, but ${configPath} names ${fileKey}`,
+    );
+  }
+  return new Set(Object.keys(index.sets ?? {}).map(canonicalNodeId));
+}
+
+/** Node ids explicitly claimed by the design map for this design file. */
+function mappedNodeIds(byRef, fileKey) {
+  const prefix = `figma:${fileKey}/`;
+  return new Set(
+    [...byRef.keys()]
+      .filter((ref) => ref.startsWith(prefix))
+      .map((ref) => canonicalNodeId(ref.slice(prefix.length))),
+  );
+}
+
 /** The pages already in the cache, so a scoped refresh adds to it rather than replacing it. */
 function readCachedPages(outDir) {
   try {
@@ -333,40 +355,85 @@ function asArray(value) {
   return Array.isArray(value) ? value : [value];
 }
 
-/** Every COMPONENT / COMPONENT_SET / INSTANCE under `node`, depth-first, with its nesting depth. */
-export function collectNodes(node, depth = 0, out = []) {
-  if (out.length >= MAX_NODES) return out;
-  if (depth > 0 && PLACEABLE_TYPES.has(node.type)) {
-    out.push({
-      nodeId: canonicalNodeId(node.id),
-      name: String(node.name ?? ""),
-      depth,
-      // The node's own type, which is what lets the consumer tell a CONTAINER from the components
-      // inside it: a `COMPONENT_SET` is the box a family came in, its variants are the components,
-      // and both are listed. `DesignPage.coverageGaps` reads this, and without it falls back to
-      // inferring containment from nesting depth — an inference an unlisted frame between two
-      // components can fool, since only components are listed. A fact is cheaper than a judgement.
-      type: String(node.type ?? ""),
-    });
-    // A specimen's INSIDES are not specimens, whatever the node type says. Its children are that
-    // other component's internals: they carry ids nothing in `design-map.json` can name — a
-    // reference names a variant, never a part of one — so every last one of them publishes as "no
-    // code behind this", and the page then paints red inside a node this catalog *does* implement.
-    // The Switch sheet is the case that named this: each `Icon=True` variant carries an `Icon`
-    // instance and each `State=Focused` variant a `Focus indicator`, so four of its red boxes sat
-    // inside the enabled/disabled switches we implement, and ten more inside the states we don't.
-    //
-    // A COMPONENT_SET is the one exception, and the only one: its children ARE the variants — the
-    // things a definition sheet is a grid of, and the things a reference points at — so the walk
-    // continues through it and stops at each variant it finds.
-    //
-    // This was `node.type === "INSTANCE"` and so only held for instances, which let the walk
-    // descend through a component set's variants (`COMPONENT`) into their internals: 736 of the
-    // kit's 5,991 imported nodes were parts of a node already listed above them.
-    if (node.type !== "COMPONENT_SET") return out;
+/**
+ * Every COMPONENT / COMPONENT_SET / INSTANCE under `root`, depth-first.
+ *
+ * `publicSetIds` comes from the committed kit index. A set absent from it is one of the kit's
+ * private construction sets, unless the catalog explicitly maps one of its descendants. The tree
+ * is the only sound place to make that decision: after flattening, a variant no longer says which
+ * set it came from.
+ */
+export function collectNodes(root, { publicSetIds, mappedIds } = {}) {
+  const classifyInventory = publicSetIds != null || mappedIds != null;
+  const indexedSets = publicSetIds ?? new Set();
+  const claimedNodes = mappedIds ?? new Set();
+  const publicSets = new Set(indexedSets);
+
+  function findClaimedSets(node) {
+    let claimed = claimedNodes.has(canonicalNodeId(node.id));
+    for (const child of node.children ?? []) claimed = findClaimedSets(child) || claimed;
+    if (node.type === "COMPONENT_SET" && claimed) publicSets.add(canonicalNodeId(node.id));
+    return claimed;
   }
-  for (const child of node.children ?? []) collectNodes(child, depth + 1, out);
+  if (classifyInventory) findClaimedSets(root);
+
+  const out = [];
+  function walk(node, depth, enclosingSetPublic = null) {
+    const nodeId = canonicalNodeId(node.id);
+    const setPublic =
+      node.type === "COMPONENT_SET" ? publicSets.has(nodeId) : enclosingSetPublic;
+    if (depth > 0 && PLACEABLE_TYPES.has(node.type)) {
+      const inventory =
+        claimedNodes.has(nodeId) ||
+        setPublic === true ||
+        (!classifyInventory && setPublic == null);
+      out.push({
+        nodeId,
+        name: String(node.name ?? ""),
+        depth,
+        ...(classifyInventory && !inventory ? { inventory: false } : {}),
+        // The node's own type, which is what lets the consumer tell a CONTAINER from the components
+        // inside it: a `COMPONENT_SET` is the box a family came in, its variants are the components,
+        // and both are listed. `DesignPage.coverageGaps` reads this, and without it falls back to
+        // inferring containment from nesting depth — an inference an unlisted frame between two
+        // components can fool, since only components are listed. A fact is cheaper than a judgement.
+        type: String(node.type ?? ""),
+      });
+      // A specimen's INSIDES are not specimens, whatever the node type says. Its children are that
+      // other component's internals: they carry ids nothing in `design-map.json` can name — a
+      // reference names a variant, never a part of one — so every last one of them publishes as "no
+      // code behind this", and the page then paints red inside a node this catalog *does* implement.
+      // A COMPONENT_SET is the one exception: its children are the variants the grid publishes.
+      if (node.type !== "COMPONENT_SET") return;
+    }
+    for (const child of node.children ?? []) walk(child, depth + 1, setPublic);
+  }
+  walk(root, 0);
   return out;
+}
+
+/**
+ * Apply the server's node cap without letting private kit construction consume it first.
+ *
+ * Public definitions, containers and explicitly linked instances get the capacity they need; any
+ * remaining slots carry internal/furniture nodes. Filtering the original list at the end preserves
+ * the design file's document order.
+ */
+export function limitNodes(nodes, maxNodes = MAX_NODES) {
+  if (nodes.length <= maxNodes) return nodes;
+  const primary = nodes.filter(
+    (node) =>
+      node.inventory !== false && !(node.type === "INSTANCE" && node.link === "unlinked"),
+  );
+  const selected = primary.slice(0, maxNodes);
+  if (selected.length < maxNodes) {
+    const primarySet = new Set(primary);
+    selected.push(
+      ...nodes.filter((node) => !primarySet.has(node)).slice(0, maxNodes - selected.length),
+    );
+  }
+  const selectedSet = new Set(selected);
+  return nodes.filter((node) => selectedSet.has(node));
 }
 
 /**
@@ -397,7 +464,10 @@ function countNodeIds(svg) {
   return (svg.match(/\bdata-node-id\s*=/g) ?? []).length;
 }
 
-async function importPage(page, { fileKey, byRef, outDir, maxSvgBytes = MAX_SVG_BYTES }) {
+async function importPage(
+  page,
+  { fileKey, byRef, publicSetIds, mappedIds, outDir, maxSvgBytes = MAX_SVG_BYTES },
+) {
   const nodeId = canonicalNodeId(page.nodeId);
   const encoded = encodeURIComponent(nodeId);
 
@@ -431,18 +501,25 @@ async function importPage(page, { fileKey, byRef, outDir, maxSvgBytes = MAX_SVG_
     return null;
   }
 
-  const nodes = collectNodes(document).map((node) => linkNode(node, { fileKey, byRef }));
+  const walked = collectNodes(document, { publicSetIds, mappedIds });
+  const nodes = limitNodes(walked.map((node) => linkNode(node, { fileKey, byRef })));
 
   const id = page.id;
   writeFileSync(path.join(outDir, `${id}.svg`), svg);
-  const linked = nodes.filter((n) => n.link !== "unlinked").length;
+  const components = nodes.filter(
+    (node) =>
+      node.inventory !== false &&
+      node.type !== "COMPONENT_SET" &&
+      !(node.type === "INSTANCE" && node.link === "unlinked"),
+  );
+  const linked = components.filter((node) => node.link !== "unlinked").length;
   console.log(
     `${id}: ${(svg.length / 1024).toFixed(0)} KB SVG, ${countNodeIds(svg)} addressable nodes, ` +
-      `${linked}/${nodes.length} nodes linked` +
+      `${linked}/${components.length} public components linked, ${nodes.length} nodes recorded` +
       // The kit's biggest sheets hold thousands of components, and both this walk and the server
       // stop at 500. Say so on the page it happens to: a truncated sheet still renders whole, and
       // the missing rows are only visible as an absence otherwise.
-      (nodes.length >= MAX_NODES ? ` (truncated at the ${MAX_NODES}-node cap)` : ""),
+      (walked.length > MAX_NODES ? ` (truncated at the ${MAX_NODES}-node cap)` : ""),
   );
 
   return {
@@ -458,6 +535,7 @@ async function importPage(page, { fileKey, byRef, outDir, maxSvgBytes = MAX_SVG_
     // it — no outlines, no swap, no click-through. The first real import wrote
     // `placements` and produced exactly that.
     nodes,
+    ...(nodes.some((node) => node.inventory !== false) ? {} : { inventory: false }),
   };
 }
 
@@ -587,6 +665,8 @@ async function main() {
   }
 
   const byRef = readDesignMap(designMapPath);
+  const publicSetIds = readPublicSetIds(kitIndexPath, fileKey);
+  const mappedIds = mappedNodeIds(byRef, fileKey);
   mkdirSync(outDir, { recursive: true });
 
   const pages = [];
@@ -600,7 +680,14 @@ async function main() {
     // for at least one of them. Aborting there would mean one unrenderable sheet costs the other
     // thirty their import, which is precisely the fragility discovery exists to remove.
     try {
-      const imported = await importPage(page, { fileKey, byRef, outDir, maxSvgBytes });
+      const imported = await importPage(page, {
+        fileKey,
+        byRef,
+        publicSetIds,
+        mappedIds,
+        outDir,
+        maxSvgBytes,
+      });
       if (imported) pages.push(imported);
       else skipped.push(page.id);
     } catch (error) {

@@ -3,17 +3,20 @@
 // rather than discovering from a diff after the fact.
 
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import {
   collectNodes,
   indexDesignMap,
+  limitNodes,
   linkNode,
   resolvePages,
   slugForPage,
 } from "./import-figma-pages.mjs";
 
 const page = (nodeId, name) => ({ nodeId, name });
+const root = new URL("../", import.meta.url);
 
 test("slugs a page name into a route-safe id", () => {
   assert.equal(slugForPage("Shape", "58548:7093"), "shape");
@@ -144,6 +147,110 @@ test("finds a set however deeply the sheet nests it, and dashes its ids", () => 
   assert.deepEqual(
     collectNodes(page).map((n) => n.nodeId),
     ["2:1", "2:2"],
+  );
+});
+
+test("an indexed set is public inventory and an unindexed construction set is not", () => {
+  const page = frame([
+    set("1:1", "List item/List Item: -4 Density (baseline)", [
+      variant("1:2", "Condition=1 line"),
+    ]),
+    set("2:1", "List", [variant("2:2", "Type=Standard, Multi-line=False")]),
+  ]);
+  const nodes = collectNodes(page, {
+    publicSetIds: new Set(["2:1"]),
+    mappedIds: new Set(),
+  });
+
+  assert.deepEqual(
+    nodes.map((node) => [node.nodeId, node.inventory]),
+    [
+      ["1:1", false],
+      ["1:2", false],
+      ["2:1", undefined],
+      ["2:2", undefined],
+    ],
+  );
+});
+
+test("a mapped descendant makes its whole unindexed set public", () => {
+  const page = frame([
+    set("3:1", "Horizontal divider", [
+      variant("3:2", "Inset=False"),
+      variant("3:3", "Inset=True"),
+    ]),
+  ]);
+  const nodes = collectNodes(page, {
+    publicSetIds: new Set(),
+    mappedIds: new Set(["3:2"]),
+  });
+
+  assert.deepEqual(nodes.map((node) => node.inventory), [undefined, undefined, undefined]);
+});
+
+test("Lists keeps its public set when private construction exceeds the node cap", () => {
+  const kitIndex = JSON.parse(readFileSync(new URL("figma-kit-index.json", root), "utf8"));
+  assert.equal(kitIndex.sets["59106:13028"].name, "List");
+  assert.equal(kitIndex.sets["59106:13028"].variants.length, 12);
+  assert.equal(kitIndex.sets["51964:68562"], undefined);
+
+  const internal = set(
+    "51964:68562",
+    "List item/List Item: -4 Density (baseline)",
+    Array.from({ length: 494 }, (_, index) =>
+      variant(`51964:${69000 + index}`, `Internal=${index}`),
+    ),
+  );
+  const publicVariants = kitIndex.sets["59106:13028"].variants.map(({ id, name }) =>
+    variant(id, name),
+  );
+  const page = frame([internal, set("59106:13028", "List", publicVariants)]);
+  const mappedIds = new Set([publicVariants[0].id, publicVariants[1].id]);
+  const walked = collectNodes(page, {
+    publicSetIds: new Set(["59106:13028"]),
+    mappedIds,
+  }).map((node) => ({
+    ...node,
+    link: mappedIds.has(node.nodeId) ? "manifest" : "unlinked",
+  }));
+  const nodes = limitNodes(walked, 500);
+  const components = nodes.filter(
+    (node) => node.type === "COMPONENT" && node.inventory !== false,
+  );
+
+  assert.equal(nodes.length, 500);
+  assert.equal(components.length, 12);
+  assert.equal(components.filter((node) => node.link === "manifest").length, 2);
+  assert.equal(components.filter((node) => node.link === "unlinked").length, 10);
+  assert.equal(
+    nodes.filter((node) => node.nodeId.startsWith("51964:")).every(
+      (node) => node.inventory === false,
+    ),
+    true,
+  );
+});
+
+test("the committed Lists import reports public gaps, not private construction", () => {
+  const manifest = JSON.parse(
+    readFileSync(new URL("design/pages/pages.json", root), "utf8"),
+  );
+  const page = manifest.pages.find((entry) => entry.id === "lists");
+  const components = page.nodes.filter(
+    (node) =>
+      node.inventory !== false &&
+      node.type !== "COMPONENT_SET" &&
+      !(node.type === "INSTANCE" && node.link === "unlinked"),
+  );
+
+  assert.equal(page.inventory, undefined);
+  assert.equal(components.length, 12);
+  assert.equal(components.filter((node) => node.link === "manifest").length, 2);
+  assert.equal(components.filter((node) => node.link === "unlinked").length, 10);
+  assert.equal(
+    page.nodes
+      .filter((node) => node.nodeId.startsWith("51964:"))
+      .every((node) => node.inventory === false),
+    true,
   );
 });
 
