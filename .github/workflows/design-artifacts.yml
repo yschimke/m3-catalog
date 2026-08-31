@@ -119,14 +119,12 @@ jobs:
       # default and died as a bare "Build timed out after 600s", several steps before the publish it
       # never reached, while the job itself sat at ~12% of its 90 minutes.
       #
-      # The exhaustive sweep is now complete at ~1150 previews, and since compose-ai-tools#3548 the
-      # captures draw on a warm renderer: re-measured on CI, the render costs ~100s fixed plus
-      # ~0.39s per preview (see docs/PARALLEL_RENDER.md §9), so today's serial render is ~9 min —
-      # it was ~48 min under the old per-capture JVM fork. This budget is therefore ~4x more
-      # generous than it looks, and deliberately so: it exists to catch a hung render, not to pace
-      # a healthy one, and the sheet is expected to keep growing.
+      # The exhaustive page-cell mapping in #231 raised discovery from ~1150 to 4133 previews. Its
+      # first serial Design Artifacts run remained in `Render catalog bundle` beyond 37 minutes,
+      # leaving almost no headroom under this 40-minute bound. Four shards below bring the render
+      # back inside the budget; the timeout remains a hung-render backstop rather than a target.
       render-timeout: 2400
-      # ONE, and now for a cost reason rather than a correctness one.
+      # FOUR: the catalog has crossed the threshold where serial rendering no longer fits safely.
       #
       # The correctness blocker is gone. Sharding used to cost this catalog three quarters of its
       # renders — 267 captured of 1095 assigned, 235 merged, silently, on a green run — because
@@ -145,26 +143,26 @@ jobs:
       # shard and the ids instead of publishing a thinner catalog. Raising this now risks wall clock,
       # not silent coverage loss.
       #
-      # It is just not worth it. Re-measured on CI after compose-ai-tools#3548 moved captures onto a
-      # warm renderer (issue #3559), a single-job render is ~100s fixed + ~0.39s per preview — the
-      # marginal term fell 6.5x while the fixed term did not move, which pushes the optimal shard
-      # count DOWN, not up. A shard carries ~150s of its own fixed cost (job prefix, its own
-      # discovery, Gradle prologue, upload) plus a ~85s merge job, so at ~1150 previews:
+      # At ~1150 previews a warm serial renderer was still the economical choice. The measured
+      # model was ~100s fixed + ~0.39s per preview, while every shard added ~150s of setup/upload
+      # and the merge added ~85s:
       #
       #   N=1  ~9.1 min      N=2  ~7.6 min      N=4  ~5.8 min      N=6  ~5.2 min
       #
-      # Four shards buy ~3 min of wall clock for three extra runners and ~8 extra runner-minutes,
-      # while the serial render sits at under a quarter of the 2400s render-timeout above. The old
-      # "six, not sixteen" answer came from the pre-#3548 model and does not survive it.
+      # Four shards then bought only ~3 minutes for three extra runners. At 4133 previews the first
+      # serial run after #231 instead spent more than 37 minutes in the render step alone, against
+      # the 2400s limit above. The marginal work now dominates the fixed shard and merge costs, so
+      # four is the conservative point that restores useful timeout headroom without jumping to six
+      # runners for a relatively small further wall-clock gain (#235).
       #
-      # Raise this when the sheet does: sharding starts paying around 3000 previews and is necessary
-      # near 6000, where a serial render meets render-timeout. The machinery stays wired and tested
-      # for that. Each shard renders its own partition of the discovered ids (sorted, round-robined)
-      # by excluding the rest, then `compose-preview bundle merge` unions the shard bundles back into
-      # the one a serial render would have produced. See compose-ai-tools
+      # Each shard renders its own partition of the discovered ids (sorted, round-robined) by
+      # excluding the rest, then `compose-preview bundle merge` unions the shard bundles back into
+      # the one a serial render would have produced. The reusable workflow checks both exact plan
+      # coverage and merged completeness, so parallelism cannot silently publish a thinner sheet.
+      # See compose-ai-tools
       # docs/design/DESIGN_CATALOGS.md, "Sharding the render across parallel jobs", and
       # docs/PARALLEL_RENDER.md here.
-      render-shards: 1
+      render-shards: 4
       # Read each mapped node's STRUCTURE from the design-parity reference cache
       # (`design-parity/reference`, maintained by design-parity-import.yml) instead of asking
       # `/v1/files/:key/nodes` for it. Same JSON either way — the import wrote that branch from
