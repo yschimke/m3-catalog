@@ -14,8 +14,12 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
+import { compareCoverage, measureCoverage } from "./design-map-coverage.mjs";
+
 const designMap = JSON.parse(readFileSync("design-map.json", "utf8"));
 const kitIndex = JSON.parse(readFileSync("figma-kit-index.json", "utf8"));
+const variants = JSON.parse(readFileSync("design-map-variants.json", "utf8"));
+const coverageBaseline = JSON.parse(readFileSync("design-map-coverage.json", "utf8"));
 
 test("every mapped node exists in the checked-in kit index", () => {
   const indexed = new Set([
@@ -67,7 +71,6 @@ test("every component pairs unique references and previews slot for slot", () =>
  * reviewable diff rather than a silent re-resolution.
  */
 test("every variant declaration names a component the map carries", () => {
-  const variants = JSON.parse(readFileSync("design-map-variants.json", "utf8"));
   assert.equal(variants.schema, "compose-preview-design-map-variants/v1");
   const codes = new Set(designMap.components.map((component) => component.code));
   for (const declaration of variants.components) {
@@ -83,4 +86,35 @@ test("every variant declaration names a component the map carries", () => {
       );
     }
   }
+});
+
+test("unresolved variant coverage matches its committed ratchet", () => {
+  assert.equal(coverageBaseline.schema, "compose-preview-design-map-coverage/v1");
+  assert.match(coverageBaseline.issue, /\/issues\/101$/);
+  const current = measureCoverage(designMap, variants);
+  assert.deepEqual(
+    compareCoverage(current, coverageBaseline),
+    { changed: false, regressions: [], improvements: [] },
+    "design-map coverage changed; never raise the baseline without explaining the regression",
+  );
+});
+
+test("the coverage ratchet distinguishes regressions from improvements", () => {
+  const baseline = { declared: 10, resolved: 8, unresolved: 2 };
+  assert.deepEqual(compareCoverage({ declared: 11, resolved: 8, unresolved: 3 }, baseline), {
+    changed: true,
+    regressions: [
+      "unresolved variants rose from 2 to 3",
+      "unresolved share rose from 20.0% to 27.3%",
+    ],
+    improvements: [],
+  });
+  assert.deepEqual(compareCoverage({ declared: 10, resolved: 9, unresolved: 1 }, baseline), {
+    changed: true,
+    regressions: [],
+    improvements: [
+      "unresolved variants fell from 2 to 1",
+      "unresolved share fell from 20.0% to 10.0%",
+    ],
+  });
 });
