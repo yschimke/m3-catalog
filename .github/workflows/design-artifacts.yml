@@ -68,10 +68,10 @@ jobs:
     with:
       system: m3-catalog
       spec: catalog.spec.json
-      # 1.9.0 can discover every preview-enabled Gradle module. This repository currently has
-      # only :catalog, so the output is unchanged today; keeping discovery repository-wide means
-      # a future preview module cannot be silently omitted from the published catalog.
-      modules: all
+      # Sharding operates within one Gradle module. Every published preview in this repository is
+      # owned by :catalog; keep this explicit so the reusable workflow can partition its preview
+      # ids across the four render jobs below.
+      module: ':catalog'
       # Keep the render CLI lockstep with the applied Gradle plugin — the pin is
       # `composePreviewPlugin` in libs.versions.toml, and a CLI/plugin skew
       # breaks preview discovery outright.
