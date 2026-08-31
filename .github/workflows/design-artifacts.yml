@@ -68,10 +68,10 @@ jobs:
     with:
       system: m3-catalog
       spec: catalog.spec.json
-      # Sharding operates within one Gradle module. Every published preview in this repository is
-      # owned by :catalog; keep this explicit so the reusable workflow can partition its preview
-      # ids across the four render jobs below.
-      module: ':catalog'
+      # 1.9.0 can discover every preview-enabled Gradle module. This repository currently has
+      # only :catalog, so the output is unchanged today; keeping discovery repository-wide means
+      # a future preview module cannot be silently omitted from the published catalog.
+      modules: all
       # Keep the render CLI lockstep with the applied Gradle plugin — the pin is
       # `composePreviewPlugin` in libs.versions.toml, and a CLI/plugin skew
       # breaks preview discovery outright.
@@ -120,49 +120,16 @@ jobs:
       # never reached, while the job itself sat at ~12% of its 90 minutes.
       #
       # The exhaustive page-cell mapping in #231 raised discovery from ~1150 to 4133 previews. Its
-      # first serial Design Artifacts run remained in `Render catalog bundle` beyond 37 minutes,
-      # leaving almost no headroom under this 40-minute bound. Four shards below bring the render
-      # back inside the budget; the timeout remains a hung-render backstop rather than a target.
+      # first serial Design Artifacts run exceeded this 40-minute bound, so this timeout is now a
+      # known limit rather than useful headroom. Four-way rendering is tracked in #235, but remains
+      # disabled below until compose-ai-tools#4911 can pass a catalog-scale exclusion set without
+      # overflowing the runner's argument-size limit.
       render-timeout: 2400
-      # FOUR: the catalog has crossed the threshold where serial rendering no longer fits safely.
-      #
-      # The correctness blocker is gone. Sharding used to cost this catalog three quarters of its
-      # renders — 267 captured of 1095 assigned, 235 merged, silently, on a green run — because
-      # `--exclude-preview-id` matched by equality OR substring and a base id is a substring of its
-      # own variant ids (`…SwitchOn_Light` matches `…SwitchOn_Light_VARIANT_off`), so a shard
-      # excluding another shard's base preview deleted the variants it was itself assigned. The
-      # matchers learned an anchored `=<id>` form in compose-ai-tools#3561 and the pipeline emits it
-      # in #3570, and the reusable workflow now hard-errors up front if the resolved CLI predates
-      # that. Turning this back up is safe.
-      #
-      # And it is now OBSERVABLE, which is the half that made the original bug expensive: the
-      # partition was correct, the plan cross-check printed `6 shard(s) cover 1095 preview(s) exactly
-      # once` and was true, and the run went green with 828 renders missing, because nothing compared
-      # the merged bundle back against what the shards said they would render. compose-ai-tools#3885
-      # adds that comparison after the merge, so a shard that loses work fails the run naming the
-      # shard and the ids instead of publishing a thinner catalog. Raising this now risks wall clock,
-      # not silent coverage loss.
-      #
-      # At ~1150 previews a warm serial renderer was still the economical choice. The measured
-      # model was ~100s fixed + ~0.39s per preview, while every shard added ~150s of setup/upload
-      # and the merge added ~85s:
-      #
-      #   N=1  ~9.1 min      N=2  ~7.6 min      N=4  ~5.8 min      N=6  ~5.2 min
-      #
-      # Four shards then bought only ~3 minutes for three extra runners. At 4133 previews the first
-      # serial run after #231 instead spent more than 37 minutes in the render step alone, against
-      # the 2400s limit above. The marginal work now dominates the fixed shard and merge costs, so
-      # four is the conservative point that restores useful timeout headroom without jumping to six
-      # runners for a relatively small further wall-clock gain (#235).
-      #
-      # Each shard renders its own partition of the discovered ids (sorted, round-robined) by
-      # excluding the rest, then `compose-preview bundle merge` unions the shard bundles back into
-      # the one a serial render would have produced. The reusable workflow checks both exact plan
-      # coverage and merged completeness, so parallelism cannot silently publish a thinner sheet.
-      # See compose-ai-tools
-      # docs/design/DESIGN_CATALOGS.md, "Sharding the render across parallel jobs", and
-      # docs/PARALLEL_RENDER.md here.
-      render-shards: 4
+      # Keep the serial path functional while compose-ai-tools#4911 is open. At 4133 previews a
+      # four-way run gives each shard roughly 3100 exclusions; encoding those ids in the
+      # `--exclude-preview-id` argument exceeds Linux ARG_MAX before the renderer starts. Restore
+      # this to 4 when the reusable workflow consumes its generated exclusion file directly.
+      render-shards: 1
       # Read each mapped node's STRUCTURE from the design-parity reference cache
       # (`design-parity/reference`, maintained by design-parity-import.yml) instead of asking
       # `/v1/files/:key/nodes` for it. Same JSON either way — the import wrote that branch from
