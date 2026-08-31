@@ -24,6 +24,7 @@
 // Run it:
 //
 //   node scripts/duplicate-renders.mjs [--previews _previews.json]
+//                                      [--manifest catalog/build/compose-previews/previews.json]
 //                                      [--declarations duplicate-renders.json]
 
 import { readFileSync } from "node:fs";
@@ -33,6 +34,17 @@ const VARIANT_TAG = "_VARIANT_";
 
 /** What an unseeded render is called in a declaration, since its id carries no tag. */
 export const BASE_RENDER = "default";
+
+/** Preview ids discovery marked as secondary, independent of what the render envelope preserves. */
+export function secondaryPreviewIds(manifest) {
+  const entries = Array.isArray(manifest) ? manifest : (manifest?.previews ?? []);
+  return new Set(
+    entries
+      .filter((entry) => entry?.overrides?.secondary === true)
+      .map((entry) => String(entry?.id ?? ""))
+      .filter(Boolean),
+  );
+}
 
 /**
  * One rendered PNG, flattened out of the CLI envelope.
@@ -44,7 +56,7 @@ export const BASE_RENDER = "default";
  * refutes. The mode stays in the family rather than being stripped, so a light
  * render is never compared against a dark one.
  */
-export function previewRows(envelope) {
+export function previewRows(envelope, secondaryIds = new Set()) {
   const entries = Array.isArray(envelope) ? envelope : (envelope?.previews ?? []);
   const rows = [];
   for (const entry of entries) {
@@ -52,9 +64,12 @@ export function previewRows(envelope) {
     // out of the navigable variant tree, so the primary-cell invariant this guard enforces does
     // not apply to them. In particular, a generated exact cell can be the fully-qualified address
     // of the same pixels an independently-authored one-axis primary cell already proves.
-    if (entry?.overrides?.secondary === true) continue;
     const id = String(entry?.id ?? "");
     if (!id) continue;
+    // `compose-preview show --json` is a render result, not the discovery manifest. Some CLI
+    // versions preserve the override metadata here and some do not, so discovery is authoritative;
+    // the envelope check remains a harmless compatibility fast path.
+    if (entry?.overrides?.secondary === true || secondaryIds.has(id)) continue;
     const captures = entry?.captures?.length
       ? entry.captures
       : [{ sha256: entry?.sha256, pngPath: entry?.pngPath }];
@@ -156,9 +171,14 @@ export function audit(collisions, declarations) {
   };
 }
 
-export function loadInputs({ previews = "_previews.json", declarations = "duplicate-renders.json" }) {
+export function loadInputs({
+  previews = "_previews.json",
+  manifest = "catalog/build/compose-previews/previews.json",
+  declarations = "duplicate-renders.json",
+}) {
   return {
     envelope: JSON.parse(readFileSync(previews, "utf8")),
+    manifest: JSON.parse(readFileSync(manifest, "utf8")),
     declarations: JSON.parse(readFileSync(declarations, "utf8")),
   };
 }
@@ -166,8 +186,8 @@ export function loadInputs({ previews = "_previews.json", declarations = "duplic
 function main(argv) {
   const args = {};
   for (let i = 0; i < argv.length; i += 2) args[argv[i].replace(/^--/, "")] = argv[i + 1];
-  const { envelope, declarations } = loadInputs(args);
-  const rows = previewRows(envelope);
+  const { envelope, manifest, declarations } = loadInputs(args);
+  const rows = previewRows(envelope, secondaryPreviewIds(manifest));
   if (!rows.length) {
     // A guard that passes because it saw nothing is worse than no guard: it
     // reads as "no duplicates" on a run that never rendered.
