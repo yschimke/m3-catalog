@@ -72,9 +72,8 @@ private fun RailHeaderContent(wide: Boolean) {
   val menuClick = counted("menu")
   val fabClick = counted("new")
   Column(horizontalAlignment = Alignment.CenterHorizontally) {
-    // WideNavigationRail already reserves the kit's 48 dp top inset for its header; the standard
-    // rail does not.
-    if (!wide) Spacer(Modifier.height(48.dp))
+    // WideNavigationRail reserves its own header inset; the standard rail does not.
+    if (!wide) Spacer(Modifier.height(44.dp))
     if (menu) {
       IconButton(onClick = menuClick.onClick) {
         Icon(
