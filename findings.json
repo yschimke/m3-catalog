@@ -232,19 +232,16 @@
     "ee.schimke.m3catalog.sections.BottomAppBarsKt.BottomAppBarSticker_Light": [
       {
         "source": "figma",
-        "status": "fail",
+        "status": "warn",
         "findings": [
           {
             "kind": "token",
-            "severity": "error",
-            "message": "spacing.padding: renders 8 vs spec 4 (Δ4)",
+            "severity": "info",
+            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (2 spec tokens)",
             "detail": {
-              "token": "spacing.padding",
-              "expected": "4",
-              "actual": "8",
-              "delta": "4",
-              "via": "measured-geometry",
-              "measuredOn": "Button"
+              "token": "spacing.*",
+              "unverified": "true",
+              "specCount": "2"
             },
             "anchors": [
               {
@@ -286,21 +283,21 @@
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "four-actions: 3.5% of pixels differ from reference",
+            "message": "four-actions: 3.0% of pixels differ from reference",
             "detail": {
               "key": "four-actions",
-              "score": "0.034794",
-              "diffPixels": "7906"
+              "score": "0.029808",
+              "diffPixels": "6773"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "two-actions: 2.4% of pixels differ from reference",
+            "message": "two-actions: 1.9% of pixels differ from reference",
             "detail": {
               "key": "two-actions",
-              "score": "0.023585",
-              "diffPixels": "5359"
+              "score": "0.018612",
+              "diffPixels": "4229"
             }
           }
         ]
@@ -309,19 +306,16 @@
     "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/BottomAppBars.kt#BottomAppBarSticker": [
       {
         "source": "figma",
-        "status": "fail",
+        "status": "warn",
         "findings": [
           {
             "kind": "token",
-            "severity": "error",
-            "message": "spacing.padding: renders 8 vs spec 4 (Δ4)",
+            "severity": "info",
+            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (2 spec tokens)",
             "detail": {
-              "token": "spacing.padding",
-              "expected": "4",
-              "actual": "8",
-              "delta": "4",
-              "via": "measured-geometry",
-              "measuredOn": "Button"
+              "token": "spacing.*",
+              "unverified": "true",
+              "specCount": "2"
             },
             "anchors": [
               {
@@ -363,21 +357,21 @@
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "four-actions: 3.5% of pixels differ from reference",
+            "message": "four-actions: 3.0% of pixels differ from reference",
             "detail": {
               "key": "four-actions",
-              "score": "0.034794",
-              "diffPixels": "7906"
+              "score": "0.029808",
+              "diffPixels": "6773"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "two-actions: 2.4% of pixels differ from reference",
+            "message": "two-actions: 1.9% of pixels differ from reference",
             "detail": {
               "key": "two-actions",
-              "score": "0.023585",
-              "diffPixels": "5359"
+              "score": "0.018612",
+              "diffPixels": "4229"
             }
           }
         ]
@@ -12615,11 +12609,11 @@
           {
             "kind": "token",
             "severity": "info",
-            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (1 spec token)",
+            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (4 spec tokens)",
             "detail": {
               "token": "spacing.*",
               "unverified": "true",
-              "specCount": "1"
+              "specCount": "4"
             },
             "anchors": [
               {
@@ -12828,11 +12822,11 @@
           {
             "kind": "token",
             "severity": "info",
-            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (1 spec token)",
+            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (4 spec tokens)",
             "detail": {
               "token": "spacing.*",
               "unverified": "true",
-              "specCount": "1"
+              "specCount": "4"
             },
             "anchors": [
               {
@@ -64503,14 +64497,43 @@
           {
             "kind": "token",
             "severity": "error",
-            "message": "spacing.padding: renders 16 vs spec 44 (Δ28)",
+            "message": "spacing.paddingTop: 4 vs spec 44 (Δ40)",
             "detail": {
-              "token": "spacing.padding",
+              "token": "spacing.paddingTop",
               "expected": "44",
-              "actual": "16",
-              "delta": "28",
-              "via": "measured-geometry",
-              "measuredOn": "Button"
+              "actual": "4",
+              "delta": "40"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 96,
+                  "height": 800
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 252,
+                  "height": 2100
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 4 vs spec 56 (Δ52)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "56",
+              "actual": "4",
+              "delta": "52"
             },
             "anchors": [
               {
@@ -64612,11 +64635,11 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Label\": offset (-32, -67), size Δ(64, 0) vs candidate",
+            "message": "layout \"Label\": offset (-32, -63), size Δ(64, 0) vs candidate",
             "detail": {
               "label": "Label",
               "dx": "-32",
-              "dy": "-67",
+              "dy": "-63",
               "dw": "64",
               "dh": "0"
             },
@@ -64635,7 +64658,7 @@
                 "side": "actual",
                 "bounds": {
                   "x": 84,
-                  "y": 811,
+                  "y": 801,
                   "width": 84,
                   "height": 42
                 },
@@ -64646,11 +64669,11 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Label\": offset (-32, -59), size Δ(64, 0) vs candidate",
+            "message": "layout \"Label\": offset (-32, -55), size Δ(64, 0) vs candidate",
             "detail": {
               "label": "Label",
               "dx": "-32",
-              "dy": "-59",
+              "dy": "-55",
               "dw": "64",
               "dh": "0"
             },
@@ -64669,7 +64692,7 @@
                 "side": "actual",
                 "bounds": {
                   "x": 84,
-                  "y": 811,
+                  "y": 801,
                   "width": 84,
                   "height": 42
                 },
@@ -64680,11 +64703,11 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Label\": offset (-32, -51), size Δ(64, 0) vs candidate",
+            "message": "layout \"Label\": offset (-32, -48), size Δ(64, 0) vs candidate",
             "detail": {
               "label": "Label",
               "dx": "-32",
-              "dy": "-51",
+              "dy": "-48",
               "dw": "64",
               "dh": "0"
             },
@@ -64703,7 +64726,7 @@
                 "side": "actual",
                 "bounds": {
                   "x": 84,
-                  "y": 811,
+                  "y": 801,
                   "width": 84,
                   "height": 42
                 },
@@ -64714,64 +64737,64 @@
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "cell-alignment-middle-nav-items-4-58016-36888: 3.1% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "message": "cell-alignment-middle-nav-items-4-58016-36888: 2.8% of aligned pixels are opaque in the reference but transparent in the candidate",
             "detail": {
               "key": "cell-alignment-middle-nav-items-4-58016-36888",
-              "alphaLossRatio": "0.031345",
-              "alphaLossPixels": "16588",
+              "alphaLossRatio": "0.028399",
+              "alphaLossPixels": "15029",
               "alphaComparedPixels": "529200"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "cell-alignment-middle-nav-items-4-58016-36888: 6.3% of pixels differ from reference",
+            "message": "cell-alignment-middle-nav-items-4-58016-36888: 5.6% of pixels differ from reference",
             "detail": {
               "key": "cell-alignment-middle-nav-items-4-58016-36888",
-              "score": "0.062836",
-              "diffPixels": "33253"
+              "score": "0.056461",
+              "diffPixels": "29879"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "four: 3.0% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "message": "four: 2.7% of aligned pixels are opaque in the reference but transparent in the candidate",
             "detail": {
               "key": "four",
-              "alphaLossRatio": "0.029613",
-              "alphaLossPixels": "15671",
+              "alphaLossRatio": "0.027154",
+              "alphaLossPixels": "14370",
               "alphaComparedPixels": "529200"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "four: 6.3% of pixels differ from reference",
+            "message": "four: 5.8% of pixels differ from reference",
             "detail": {
               "key": "four",
-              "score": "0.063365",
-              "diffPixels": "33533"
+              "score": "0.057863",
+              "diffPixels": "30621"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "middle: 2.8% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "message": "middle: 2.5% of aligned pixels are opaque in the reference but transparent in the candidate",
             "detail": {
               "key": "middle",
-              "alphaLossRatio": "0.027918",
-              "alphaLossPixels": "14774",
+              "alphaLossRatio": "0.024717",
+              "alphaLossPixels": "13080",
               "alphaComparedPixels": "529200"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "middle: 6.0% of pixels differ from reference",
+            "message": "middle: 5.3% of pixels differ from reference",
             "detail": {
               "key": "middle",
-              "score": "0.059635",
-              "diffPixels": "31559"
+              "score": "0.053014",
+              "diffPixels": "28055"
             }
           }
         ]
@@ -64785,14 +64808,43 @@
           {
             "kind": "token",
             "severity": "error",
-            "message": "spacing.padding: renders 16 vs spec 44 (Δ28)",
+            "message": "spacing.paddingTop: 4 vs spec 44 (Δ40)",
             "detail": {
-              "token": "spacing.padding",
+              "token": "spacing.paddingTop",
               "expected": "44",
-              "actual": "16",
-              "delta": "28",
-              "via": "measured-geometry",
-              "measuredOn": "Button"
+              "actual": "4",
+              "delta": "40"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 96,
+                  "height": 800
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 252,
+                  "height": 2100
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 4 vs spec 56 (Δ52)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "56",
+              "actual": "4",
+              "delta": "52"
             },
             "anchors": [
               {
@@ -64894,11 +64946,11 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Label\": offset (-32, -67), size Δ(64, 0) vs candidate",
+            "message": "layout \"Label\": offset (-32, -63), size Δ(64, 0) vs candidate",
             "detail": {
               "label": "Label",
               "dx": "-32",
-              "dy": "-67",
+              "dy": "-63",
               "dw": "64",
               "dh": "0"
             },
@@ -64917,7 +64969,7 @@
                 "side": "actual",
                 "bounds": {
                   "x": 84,
-                  "y": 811,
+                  "y": 801,
                   "width": 84,
                   "height": 42
                 },
@@ -64928,11 +64980,11 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Label\": offset (-32, -59), size Δ(64, 0) vs candidate",
+            "message": "layout \"Label\": offset (-32, -55), size Δ(64, 0) vs candidate",
             "detail": {
               "label": "Label",
               "dx": "-32",
-              "dy": "-59",
+              "dy": "-55",
               "dw": "64",
               "dh": "0"
             },
@@ -64951,7 +65003,7 @@
                 "side": "actual",
                 "bounds": {
                   "x": 84,
-                  "y": 811,
+                  "y": 801,
                   "width": 84,
                   "height": 42
                 },
@@ -64962,11 +65014,11 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Label\": offset (-32, -51), size Δ(64, 0) vs candidate",
+            "message": "layout \"Label\": offset (-32, -48), size Δ(64, 0) vs candidate",
             "detail": {
               "label": "Label",
               "dx": "-32",
-              "dy": "-51",
+              "dy": "-48",
               "dw": "64",
               "dh": "0"
             },
@@ -64985,7 +65037,7 @@
                 "side": "actual",
                 "bounds": {
                   "x": 84,
-                  "y": 811,
+                  "y": 801,
                   "width": 84,
                   "height": 42
                 },
@@ -64996,64 +65048,64 @@
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "cell-alignment-middle-nav-items-4-58016-36888: 3.1% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "message": "cell-alignment-middle-nav-items-4-58016-36888: 2.8% of aligned pixels are opaque in the reference but transparent in the candidate",
             "detail": {
               "key": "cell-alignment-middle-nav-items-4-58016-36888",
-              "alphaLossRatio": "0.031345",
-              "alphaLossPixels": "16588",
+              "alphaLossRatio": "0.028399",
+              "alphaLossPixels": "15029",
               "alphaComparedPixels": "529200"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "cell-alignment-middle-nav-items-4-58016-36888: 6.3% of pixels differ from reference",
+            "message": "cell-alignment-middle-nav-items-4-58016-36888: 5.6% of pixels differ from reference",
             "detail": {
               "key": "cell-alignment-middle-nav-items-4-58016-36888",
-              "score": "0.062836",
-              "diffPixels": "33253"
+              "score": "0.056461",
+              "diffPixels": "29879"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "four: 3.0% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "message": "four: 2.7% of aligned pixels are opaque in the reference but transparent in the candidate",
             "detail": {
               "key": "four",
-              "alphaLossRatio": "0.029613",
-              "alphaLossPixels": "15671",
+              "alphaLossRatio": "0.027154",
+              "alphaLossPixels": "14370",
               "alphaComparedPixels": "529200"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "four: 6.3% of pixels differ from reference",
+            "message": "four: 5.8% of pixels differ from reference",
             "detail": {
               "key": "four",
-              "score": "0.063365",
-              "diffPixels": "33533"
+              "score": "0.057863",
+              "diffPixels": "30621"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "middle: 2.8% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "message": "middle: 2.5% of aligned pixels are opaque in the reference but transparent in the candidate",
             "detail": {
               "key": "middle",
-              "alphaLossRatio": "0.027918",
-              "alphaLossPixels": "14774",
+              "alphaLossRatio": "0.024717",
+              "alphaLossPixels": "13080",
               "alphaComparedPixels": "529200"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "middle: 6.0% of pixels differ from reference",
+            "message": "middle: 5.3% of pixels differ from reference",
             "detail": {
               "key": "middle",
-              "score": "0.059635",
-              "diffPixels": "31559"
+              "score": "0.053014",
+              "diffPixels": "28055"
             }
           }
         ]
@@ -65067,14 +65119,74 @@
           {
             "kind": "token",
             "severity": "error",
-            "message": "spacing.padding: renders 8 vs spec 20 (Δ12)",
+            "message": "spacing.paddingStart: 0 vs spec 20 (Δ20)",
             "detail": {
-              "token": "spacing.padding",
+              "token": "spacing.paddingStart",
               "expected": "20",
-              "actual": "8",
-              "delta": "12",
-              "via": "measured-geometry",
-              "measuredOn": "Button"
+              "actual": "0",
+              "delta": "20"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 220,
+                  "height": 800
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 578,
+                  "height": 2100
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingEnd: 0 vs spec 20 (Δ20)",
+            "detail": {
+              "token": "spacing.paddingEnd",
+              "expected": "20",
+              "actual": "0",
+              "delta": "20"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 220,
+                  "height": 800
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 578,
+                  "height": 2100
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 44 vs spec 20 (Δ24)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "20",
+              "actual": "44",
+              "delta": "24"
             },
             "anchors": [
               {
@@ -65374,14 +65486,74 @@
           {
             "kind": "token",
             "severity": "error",
-            "message": "spacing.padding: renders 8 vs spec 20 (Δ12)",
+            "message": "spacing.paddingStart: 0 vs spec 20 (Δ20)",
             "detail": {
-              "token": "spacing.padding",
+              "token": "spacing.paddingStart",
               "expected": "20",
-              "actual": "8",
-              "delta": "12",
-              "via": "measured-geometry",
-              "measuredOn": "Button"
+              "actual": "0",
+              "delta": "20"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 220,
+                  "height": 800
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 578,
+                  "height": 2100
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingEnd: 0 vs spec 20 (Δ20)",
+            "detail": {
+              "token": "spacing.paddingEnd",
+              "expected": "20",
+              "actual": "0",
+              "delta": "20"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 220,
+                  "height": 800
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 578,
+                  "height": 2100
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 44 vs spec 20 (Δ24)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "20",
+              "actual": "44",
+              "delta": "24"
             },
             "anchors": [
               {
@@ -65908,16 +66080,17 @@
     "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearProgress_Light": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.padding: candidate resolved no value; unverified (spec 2)",
+            "severity": "error",
+            "message": "spacing.paddingStart: 0 vs spec 2 (Δ2)",
             "detail": {
-              "token": "spacing.padding",
+              "token": "spacing.paddingStart",
               "expected": "2",
-              "unverified": "true"
+              "actual": "0",
+              "delta": "2"
             },
             "anchors": [
               {
@@ -66032,16 +66205,17 @@
     "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt#LinearProgress": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.padding: candidate resolved no value; unverified (spec 2)",
+            "severity": "error",
+            "message": "spacing.paddingStart: 0 vs spec 2 (Δ2)",
             "detail": {
-              "token": "spacing.padding",
+              "token": "spacing.paddingStart",
               "expected": "2",
-              "unverified": "true"
+              "actual": "0",
+              "delta": "2"
             },
             "anchors": [
               {
@@ -66402,8 +66576,132 @@
     "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Light": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingStart: 8 vs spec 4 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingStart",
+              "expected": "4",
+              "actual": "8",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingTop: 4 vs spec 8 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingTop",
+              "expected": "8",
+              "actual": "4",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingEnd: 8 vs spec 4 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingEnd",
+              "expected": "4",
+              "actual": "8",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 4 vs spec 8 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "8",
+              "actual": "4",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
           {
             "kind": "token",
             "severity": "info",
@@ -66486,8 +66784,132 @@
     "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Search.kt#AppBarWithSearchSticker": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingStart: 8 vs spec 4 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingStart",
+              "expected": "4",
+              "actual": "8",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingTop: 4 vs spec 8 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingTop",
+              "expected": "8",
+              "actual": "4",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingEnd: 8 vs spec 4 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingEnd",
+              "expected": "4",
+              "actual": "8",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 4 vs spec 8 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "8",
+              "actual": "4",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
           {
             "kind": "token",
             "severity": "info",
@@ -71077,11 +71499,11 @@
           {
             "kind": "token",
             "severity": "info",
-            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (1 spec token)",
+            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (4 spec tokens)",
             "detail": {
               "token": "spacing.*",
               "unverified": "true",
-              "specCount": "1"
+              "specCount": "4"
             },
             "anchors": [
               {
@@ -71336,11 +71758,11 @@
           {
             "kind": "token",
             "severity": "info",
-            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (1 spec token)",
+            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (4 spec tokens)",
             "detail": {
               "token": "spacing.*",
               "unverified": "true",
-              "specCount": "1"
+              "specCount": "4"
             },
             "anchors": [
               {
@@ -74547,11 +74969,11 @@
           {
             "kind": "token",
             "severity": "info",
-            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (1 spec token)",
+            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (4 spec tokens)",
             "detail": {
               "token": "spacing.*",
               "unverified": "true",
-              "specCount": "1"
+              "specCount": "4"
             },
             "anchors": [
               {
@@ -75193,11 +75615,11 @@
           {
             "kind": "token",
             "severity": "info",
-            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (1 spec token)",
+            "message": "spacing: candidate resolved no spacing tokens; compliance not evaluated (4 spec tokens)",
             "detail": {
               "token": "spacing.*",
               "unverified": "true",
-              "specCount": "1"
+              "specCount": "4"
             },
             "anchors": [
               {
@@ -98310,8 +98732,70 @@
     "ee.schimke.m3catalog.sections.ToolbarsKt.HorizontalFloatingToolbarSticker_Light": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingTop: 8 vs spec 12 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingTop",
+              "expected": "12",
+              "actual": "8",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 168,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 499,
+                  "height": 226
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 8 vs spec 12 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "12",
+              "actual": "8",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 168,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 499,
+                  "height": 226
+                }
+              }
+            ]
+          },
           {
             "kind": "pairing",
             "severity": "info",
@@ -98384,8 +98868,70 @@
     "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Toolbars.kt#HorizontalFloatingToolbarSticker": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingTop: 8 vs spec 12 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingTop",
+              "expected": "12",
+              "actual": "8",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 168,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 499,
+                  "height": 226
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 8 vs spec 12 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "12",
+              "actual": "8",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 168,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 499,
+                  "height": 226
+                }
+              }
+            ]
+          },
           {
             "kind": "pairing",
             "severity": "info",
@@ -98458,8 +99004,70 @@
     "ee.schimke.m3catalog.sections.TopAppBarsKt.SmallTopAppBar_Light": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingTop: 0 vs spec 8 (Δ8)",
+            "detail": {
+              "token": "spacing.paddingTop",
+              "expected": "8",
+              "actual": "0",
+              "delta": "8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 0 vs spec 8 (Δ8)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "8",
+              "actual": "0",
+              "delta": "8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
           {
             "kind": "token",
             "severity": "info",
@@ -98586,8 +99194,70 @@
     "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt#SmallTopAppBar": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingTop: 0 vs spec 8 (Δ8)",
+            "detail": {
+              "token": "spacing.paddingTop",
+              "expected": "8",
+              "actual": "0",
+              "delta": "8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 0 vs spec 8 (Δ8)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "8",
+              "actual": "0",
+              "delta": "8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
           {
             "kind": "token",
             "severity": "info",
