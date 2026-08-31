@@ -25490,19 +25490,20 @@
     "ee.schimke.m3catalog.sections.ColorsKt.ColorRoleGridSticker_Light": [
       {
         "source": "figma",
-        "status": "fail",
+        "status": "warn",
         "findings": [
           {
             "kind": "contrast",
-            "severity": "error",
-            "message": "Light-theme contrast 4.33:1 for \"outline\" fails WCAG AA (needs 4.5:1).",
+            "severity": "warn",
+            "message": "Light-theme contrast 4.33:1 for \"outline\" fails WCAG AA (needs 4.5:1). The design reference has the same contrast failure; track it as shared design debt.",
             "detail": {
               "theme": "light",
               "ratio": "4.33",
               "foreground": "#fef7ffff",
               "background": "#79747eff",
               "required": "4.5",
-              "largeText": "false"
+              "largeText": "false",
+              "sharedWithReference": "true"
             }
           },
           {
@@ -25939,19 +25940,20 @@
     "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Colors.kt#ColorRoleGridSticker": [
       {
         "source": "figma",
-        "status": "fail",
+        "status": "warn",
         "findings": [
           {
             "kind": "contrast",
-            "severity": "error",
-            "message": "Light-theme contrast 4.33:1 for \"outline\" fails WCAG AA (needs 4.5:1).",
+            "severity": "warn",
+            "message": "Light-theme contrast 4.33:1 for \"outline\" fails WCAG AA (needs 4.5:1). The design reference has the same contrast failure; track it as shared design debt.",
             "detail": {
               "theme": "light",
               "ratio": "4.33",
               "foreground": "#fef7ffff",
               "background": "#79747eff",
               "required": "4.5",
-              "largeText": "false"
+              "largeText": "false",
+              "sharedWithReference": "true"
             }
           },
           {
@@ -64492,16 +64494,17 @@
     "ee.schimke.m3catalog.sections.NavigationRailsKt.NavigationRailSticker_Light": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingTop: candidate resolved no value; unverified (spec 44)",
+            "severity": "error",
+            "message": "spacing.paddingTop: 4 vs spec 44 (Δ40)",
             "detail": {
               "token": "spacing.paddingTop",
               "expected": "44",
-              "unverified": "true"
+              "actual": "4",
+              "delta": "40"
             },
             "anchors": [
               {
@@ -64526,12 +64529,13 @@
           },
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingBottom: candidate resolved no value; unverified (spec 56)",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 4 vs spec 56 (Δ52)",
             "detail": {
               "token": "spacing.paddingBottom",
               "expected": "56",
-              "unverified": "true"
+              "actual": "4",
+              "delta": "52"
             },
             "anchors": [
               {
@@ -64801,16 +64805,17 @@
     "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/NavigationRails.kt#NavigationRailSticker": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingTop: candidate resolved no value; unverified (spec 44)",
+            "severity": "error",
+            "message": "spacing.paddingTop: 4 vs spec 44 (Δ40)",
             "detail": {
               "token": "spacing.paddingTop",
               "expected": "44",
-              "unverified": "true"
+              "actual": "4",
+              "delta": "40"
             },
             "anchors": [
               {
@@ -64835,12 +64840,13 @@
           },
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingBottom: candidate resolved no value; unverified (spec 56)",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 4 vs spec 56 (Δ52)",
             "detail": {
               "token": "spacing.paddingBottom",
               "expected": "56",
-              "unverified": "true"
+              "actual": "4",
+              "delta": "52"
             },
             "anchors": [
               {
@@ -65110,16 +65116,17 @@
     "ee.schimke.m3catalog.sections.NavigationRailsKt.WideNavigationRailSticker_Light": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingStart: candidate resolved no value; unverified (spec 20)",
+            "severity": "error",
+            "message": "spacing.paddingStart: 0 vs spec 20 (Δ20)",
             "detail": {
               "token": "spacing.paddingStart",
               "expected": "20",
-              "unverified": "true"
+              "actual": "0",
+              "delta": "20"
             },
             "anchors": [
               {
@@ -65144,12 +65151,13 @@
           },
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingEnd: candidate resolved no value; unverified (spec 20)",
+            "severity": "error",
+            "message": "spacing.paddingEnd: 0 vs spec 20 (Δ20)",
             "detail": {
               "token": "spacing.paddingEnd",
               "expected": "20",
-              "unverified": "true"
+              "actual": "0",
+              "delta": "20"
             },
             "anchors": [
               {
@@ -65174,12 +65182,13 @@
           },
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingBottom: candidate resolved no value; unverified (spec 20)",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 44 vs spec 20 (Δ24)",
             "detail": {
               "token": "spacing.paddingBottom",
               "expected": "20",
-              "unverified": "true"
+              "actual": "44",
+              "delta": "24"
             },
             "anchors": [
               {
@@ -65474,16 +65483,17 @@
     "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/NavigationRails.kt#WideNavigationRailSticker": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingStart: candidate resolved no value; unverified (spec 20)",
+            "severity": "error",
+            "message": "spacing.paddingStart: 0 vs spec 20 (Δ20)",
             "detail": {
               "token": "spacing.paddingStart",
               "expected": "20",
-              "unverified": "true"
+              "actual": "0",
+              "delta": "20"
             },
             "anchors": [
               {
@@ -65508,12 +65518,13 @@
           },
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingEnd: candidate resolved no value; unverified (spec 20)",
+            "severity": "error",
+            "message": "spacing.paddingEnd: 0 vs spec 20 (Δ20)",
             "detail": {
               "token": "spacing.paddingEnd",
               "expected": "20",
-              "unverified": "true"
+              "actual": "0",
+              "delta": "20"
             },
             "anchors": [
               {
@@ -65538,12 +65549,13 @@
           },
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingBottom: candidate resolved no value; unverified (spec 20)",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 44 vs spec 20 (Δ24)",
             "detail": {
               "token": "spacing.paddingBottom",
               "expected": "20",
-              "unverified": "true"
+              "actual": "44",
+              "delta": "24"
             },
             "anchors": [
               {
@@ -66070,16 +66082,17 @@
     "ee.schimke.m3catalog.sections.ProgressIndicatorsKt.LinearProgress_Light": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingStart: candidate resolved no value; unverified (spec 2)",
+            "severity": "error",
+            "message": "spacing.paddingStart: 0 vs spec 2 (Δ2)",
             "detail": {
               "token": "spacing.paddingStart",
               "expected": "2",
-              "unverified": "true"
+              "actual": "0",
+              "delta": "2"
             },
             "anchors": [
               {
@@ -66194,16 +66207,17 @@
     "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/ProgressIndicators.kt#LinearProgress": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingStart: candidate resolved no value; unverified (spec 2)",
+            "severity": "error",
+            "message": "spacing.paddingStart: 0 vs spec 2 (Δ2)",
             "detail": {
               "token": "spacing.paddingStart",
               "expected": "2",
-              "unverified": "true"
+              "actual": "0",
+              "delta": "2"
             },
             "anchors": [
               {
@@ -66564,8 +66578,132 @@
     "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Light": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingStart: 8 vs spec 4 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingStart",
+              "expected": "4",
+              "actual": "8",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingTop: 4 vs spec 8 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingTop",
+              "expected": "8",
+              "actual": "4",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingEnd: 8 vs spec 4 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingEnd",
+              "expected": "4",
+              "actual": "8",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 4 vs spec 8 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "8",
+              "actual": "4",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
           {
             "kind": "token",
             "severity": "info",
@@ -66648,8 +66786,132 @@
     "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Search.kt#AppBarWithSearchSticker": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingStart: 8 vs spec 4 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingStart",
+              "expected": "4",
+              "actual": "8",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingTop: 4 vs spec 8 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingTop",
+              "expected": "8",
+              "actual": "4",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingEnd: 8 vs spec 4 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingEnd",
+              "expected": "4",
+              "actual": "8",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 4 vs spec 8 (Δ4)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "8",
+              "actual": "4",
+              "delta": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 412,
+                  "height": 64
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1082,
+                  "height": 168
+                }
+              }
+            ]
+          },
           {
             "kind": "token",
             "severity": "info",
@@ -98472,16 +98734,17 @@
     "ee.schimke.m3catalog.sections.ToolbarsKt.HorizontalFloatingToolbarSticker_Light": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingTop: candidate resolved no value; unverified (spec 12)",
+            "severity": "error",
+            "message": "spacing.paddingTop: 8 vs spec 12 (Δ4)",
             "detail": {
               "token": "spacing.paddingTop",
               "expected": "12",
-              "unverified": "true"
+              "actual": "8",
+              "delta": "4"
             },
             "anchors": [
               {
@@ -98506,12 +98769,13 @@
           },
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingBottom: candidate resolved no value; unverified (spec 12)",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 8 vs spec 12 (Δ4)",
             "detail": {
               "token": "spacing.paddingBottom",
               "expected": "12",
-              "unverified": "true"
+              "actual": "8",
+              "delta": "4"
             },
             "anchors": [
               {
@@ -98606,16 +98870,17 @@
     "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Toolbars.kt#HorizontalFloatingToolbarSticker": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingTop: candidate resolved no value; unverified (spec 12)",
+            "severity": "error",
+            "message": "spacing.paddingTop: 8 vs spec 12 (Δ4)",
             "detail": {
               "token": "spacing.paddingTop",
               "expected": "12",
-              "unverified": "true"
+              "actual": "8",
+              "delta": "4"
             },
             "anchors": [
               {
@@ -98640,12 +98905,13 @@
           },
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingBottom: candidate resolved no value; unverified (spec 12)",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 8 vs spec 12 (Δ4)",
             "detail": {
               "token": "spacing.paddingBottom",
               "expected": "12",
-              "unverified": "true"
+              "actual": "8",
+              "delta": "4"
             },
             "anchors": [
               {
@@ -98740,16 +99006,17 @@
     "ee.schimke.m3catalog.sections.TopAppBarsKt.SmallTopAppBar_Light": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingTop: candidate resolved no value; unverified (spec 8)",
+            "severity": "error",
+            "message": "spacing.paddingTop: 0 vs spec 8 (Δ8)",
             "detail": {
               "token": "spacing.paddingTop",
               "expected": "8",
-              "unverified": "true"
+              "actual": "0",
+              "delta": "8"
             },
             "anchors": [
               {
@@ -98774,12 +99041,13 @@
           },
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingBottom: candidate resolved no value; unverified (spec 8)",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 0 vs spec 8 (Δ8)",
             "detail": {
               "token": "spacing.paddingBottom",
               "expected": "8",
-              "unverified": "true"
+              "actual": "0",
+              "delta": "8"
             },
             "anchors": [
               {
@@ -98928,16 +99196,17 @@
     "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/TopAppBars.kt#SmallTopAppBar": [
       {
         "source": "figma",
-        "status": "warn",
+        "status": "fail",
         "findings": [
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingTop: candidate resolved no value; unverified (spec 8)",
+            "severity": "error",
+            "message": "spacing.paddingTop: 0 vs spec 8 (Δ8)",
             "detail": {
               "token": "spacing.paddingTop",
               "expected": "8",
-              "unverified": "true"
+              "actual": "0",
+              "delta": "8"
             },
             "anchors": [
               {
@@ -98962,12 +99231,13 @@
           },
           {
             "kind": "token",
-            "severity": "info",
-            "message": "spacing.paddingBottom: candidate resolved no value; unverified (spec 8)",
+            "severity": "error",
+            "message": "spacing.paddingBottom: 0 vs spec 8 (Δ8)",
             "detail": {
               "token": "spacing.paddingBottom",
               "expected": "8",
-              "unverified": "true"
+              "actual": "0",
+              "delta": "8"
             },
             "anchors": [
               {
