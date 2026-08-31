@@ -62,6 +62,15 @@ npx --yes @design-parity/kit-index@0.1.53 resolve \
   --index figma-kit-index.json \
   --out "$WORK/design-map.json"
 
+# Resolution is deliberately allowed to leave authored cells unpaired: property-shaped variants
+# do not always have an exact configured instance in the kit. What is not allowed is for that gap
+# to grow silently (#101). Check the finished staged pair before copying either file, and require
+# the committed snapshot to move downward whenever coverage improves.
+node scripts/design-map-coverage.mjs \
+  --map "$WORK/design-map.json" \
+  --variants "$WORK/design-map-variants.json" \
+  --baseline design-map-coverage.json
+
 # A component that declares no variant axis writes no sidecar; an empty file would assert only that
 # it has nothing to say. Reconcile the absence too, so a catalog that loses its last axis does not
 # keep a stale one committed.

@@ -113,6 +113,11 @@ the kit's example pages. Property-shaped catalog variants use an exact matching 
 exists and stay explicitly unpaired when it does not; the resolver never substitutes a definition
 whose defaults depict different content.
 
+That unresolved set is a committed ratchet in [`design-map-coverage.json`](design-map-coverage.json).
+`scripts/design-map.sh` checks its freshly generated output against the snapshot: either a new gap
+or a worse unresolved share fails, while an improvement fails until the snapshot is lowered. This
+keeps an unpaired render visible in review instead of letting growth hide inside a regenerated map.
+
 | Annotation | Declares |
 | --- | --- |
 | `@file:CatalogGroup(name, section)` | the file's group, and the tab it sits under |
