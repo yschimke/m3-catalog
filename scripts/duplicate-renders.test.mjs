@@ -21,6 +21,7 @@ import {
   declaredSets,
   findCollisions,
   previewRows,
+  secondaryPreviewIds,
   setKey,
 } from "./duplicate-renders.mjs";
 
@@ -56,6 +57,13 @@ test("renders that differ are not a collision", () => {
 });
 
 test("secondary exhaustive cells are outside the primary variant-tree audit", () => {
+  const secondary = `${FAMILY}_VARIANT_cell-lines-two-state-enabled-1-2`;
+  const input = envelope([FAMILY, "aaa"], [secondary, "aaa"]);
+  const manifest = { previews: [{ id: secondary, overrides: { secondary: true } }] };
+  assert.deepEqual(findCollisions(previewRows(input, secondaryPreviewIds(manifest))), []);
+});
+
+test("render-envelope secondary metadata remains a supported fallback", () => {
   const secondary = `${FAMILY}_VARIANT_cell-lines-two-state-enabled-1-2`;
   const input = envelope([FAMILY, "aaa"], [secondary, "aaa"]);
   input.previews[1].overrides = { secondary: true };
