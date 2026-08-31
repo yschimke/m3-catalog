@@ -92,8 +92,10 @@ Kotlin member) lives in [`design/pages/pages.json`](../design/pages/pages.json).
 
 **Nodes** is how many component nodes the import recorded for the page (`500` is
 the cap — the sheet has more); **linked** is how many of them `design-map.json`
-joins to code, which is this surface's coverage number. Both come straight out
-of the last import, so they are a snapshot, not a target.
+joins to code. The viewer's coverage denominator is narrower: only public component sets from the
+committed `figma-kit-index.json` count. Private construction sets remain in the page manifest with
+`inventory: false`, so they neither lower coverage nor become selectable gaps. Both columns come
+straight out of the last import, so they are a snapshot, not a target.
 
 | Page | Node id | Page id | Nodes | Linked |
 | --- | --- | --- | --- | --- |
@@ -213,6 +215,22 @@ makes the distinction exact. The consumer's fallback, for a manifest that states
 containment from nesting depth — and only components are listed, so an unlisted frame between two of
 them lets a shallower node be followed by a deeper one that is not inside it, which the inference then
 reads as a container and drops from the count. A fact is cheaper than a judgement.
+
+### A kit construction set is not public inventory
+
+The same tree walk classifies each component set against the committed
+[`figma-kit-index.json`](../figma-kit-index.json). A set in that index is public inventory. A set
+absent from it is one of the kit's own construction pieces unless the catalog explicitly maps one
+of its descendants; the set and its variants are then recorded with `inventory: false`. The
+classification follows the enclosing set in the real tree rather than guessing from a variant's
+name or from the flattened manifest.
+
+This distinction also controls the 500-node cap. The importer walks and classifies the complete
+page first, reserves capacity for public and explicitly mapped nodes, then fills the remaining slots
+with internals and furniture while preserving document order. Lists is the regression case: its
+494-cell private density construction precedes the public 12-variant `List` set. Cutting during the
+walk reported `0/494` and omitted the implemented `ListItem`; inventory-first limiting retains the
+public set and reports its real implemented/public fraction.
 
 ### A page the file cannot export is skipped; a pinned one still fails the run
 
