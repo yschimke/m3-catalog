@@ -220,6 +220,11 @@ annotation class CatalogModesLinearProgress
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 412)
 annotation class CatalogModesCompact
 
+/** Light/dark modes at the 905dp tablet width used by the kit's carousel examples. */
+@Preview(name = "Light", group = "modes", widthDp = 905)
+@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 905)
+annotation class CatalogModesCarouselTablet
+
 /**
  * Window-size-class multipreview for the adaptive layouts the kit documents at three widths. The
  * catalog's `breakpoints` table in `catalog.spec.json` names the same three, so a component

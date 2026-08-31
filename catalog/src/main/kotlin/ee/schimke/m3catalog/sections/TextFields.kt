@@ -73,7 +73,12 @@ private fun fieldSpec(): FieldSpec {
       if (state == "empty" || textConfiguration != "input") ""
       else if (error) "not-an-email" else stringResource(Res.string.field_placeholder),
     label =
-      if (catalogChoice("label", "on", "on", "off") == "off") null
+      if (
+        catalogChoice("label", "on", "on", "off") == "off" ||
+          state == "empty" ||
+          textConfiguration == "placeholder"
+      )
+        null
       else ({ Text(stringResource(if (error) Res.string.field_email else Res.string.field_name)) }),
     placeholder =
       if (state == "empty" || textConfiguration == "placeholder")
@@ -128,7 +133,6 @@ private fun fieldSpec(): FieldSpec {
 @OverrideVariant(name = "both-icons", booleans = ["leading=true", "trailing=true"])
 @OverrideVariant(name = "no-supporting", strings = ["supporting=off"])
 @OverrideVariant(name = "no-label", strings = ["label=off"])
-@OverrideVariant(name = "no-label-empty", strings = ["label=off", "state=empty"])
 @OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)
 @ee.schimke.m3catalog.FilledTextFieldExhaustiveKitCells
 @Composable

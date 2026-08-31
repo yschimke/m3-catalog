@@ -148,7 +148,9 @@ function combineEffects(baseAxes, targetAxes, effects) {
     }
   }
 
-  const state = targetAxes.State;
+  // Preserve the kit's exact spelling in kitProps, but tolerate its one published typo when
+  // deciding how to drive the renderer: Outlined Button calls Pressed `Presssed` (three s's).
+  const state = targetAxes.State === "Presssed" ? "Pressed" : targetAxes.State;
   const interaction =
     state === "Hovered" ? "Hovered" : state === "Focused" ? "Focused" : state === "Pressed" ? "Pressed" : null;
   return { seeds: [...seeds].map(([key, raw]) => ({ key, raw, kind: seedKind(key, raw) })), interaction };

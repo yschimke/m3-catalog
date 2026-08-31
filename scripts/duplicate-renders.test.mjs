@@ -55,6 +55,13 @@ test("renders that differ are not a collision", () => {
   assert.deepEqual(findCollisions(rows), []);
 });
 
+test("secondary exhaustive cells are outside the primary variant-tree audit", () => {
+  const secondary = `${FAMILY}_VARIANT_cell-lines-two-state-enabled-1-2`;
+  const input = envelope([FAMILY, "aaa"], [secondary, "aaa"]);
+  input.previews[1].overrides = { secondary: true };
+  assert.deepEqual(findCollisions(previewRows(input)), []);
+});
+
 test("a light render is never compared against its dark twin", () => {
   // The identical sha here is impossible in practice; the point is that the
   // family key keeps the two modes apart, so a dark-mode catalog cannot be

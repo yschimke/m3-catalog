@@ -1,6 +1,6 @@
 // Renders of one sticker that are byte-identical to each other.
 //
-// Every `@OverrideVariant` cell exists to show something its default does not.
+// Every primary `@OverrideVariant` cell exists to show something its default does not.
 // When two cells of the same sticker hash the same, the sheet publishes one
 // picture under two names: `design-led` compares each of those names against
 // its own kit node, so the second cell's parity number is scoring the first
@@ -10,11 +10,12 @@
 // two are the same file.
 //
 // Three stickers shipped that way (issue #176), and #157 and #175 are the same
-// failure with a different cause. So: hash every render, group the renders that
-// differ only by their seeds, and fail on a collision that `duplicate-renders.json`
-// does not declare. The declarations are checked in BOTH directions — a declared
-// collision that stops colliding fails too, so the list cannot outlive the bugs
-// it names.
+// failure with a different cause. So: hash every PRIMARY render, group the renders
+// that differ only by their seeds, and fail on a collision that `duplicate-renders.json`
+// does not declare. Exact exhaustive kit crossings are `secondary`: they are comparison
+// addresses rather than variant-tree claims, and a kit can legitimately repeat pixels across
+// cells whose property vectors differ. The declarations are checked in BOTH directions — a
+// declared collision that stops colliding fails too, so the list cannot outlive the bugs it names.
 //
 // Nothing here hashes a PNG. `compose-preview show --json` already carries a
 // sha256 per capture, so the scan is a pass over the envelope the render leaves
@@ -47,6 +48,11 @@ export function previewRows(envelope) {
   const entries = Array.isArray(envelope) ? envelope : (envelope?.previews ?? []);
   const rows = [];
   for (const entry of entries) {
+    // `secondary` cells exhaustively address the kit's cross-product. They are deliberately left
+    // out of the navigable variant tree, so the primary-cell invariant this guard enforces does
+    // not apply to them. In particular, a generated exact cell can be the fully-qualified address
+    // of the same pixels an independently-authored one-axis primary cell already proves.
+    if (entry?.overrides?.secondary === true) continue;
     const id = String(entry?.id ?? "");
     if (!id) continue;
     const captures = entry?.captures?.length

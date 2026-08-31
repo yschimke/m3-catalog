@@ -15,6 +15,14 @@ const indexed = new Map(
   ),
 );
 
+const interactionByKitState = new Map([
+  ["Hovered", "Hovered"],
+  ["Focused", "Focused"],
+  ["Pressed", "Pressed"],
+  // Typo in the published Outlined Button set; the exact kit value remains authoritative.
+  ["Presssed", "Pressed"],
+]);
+
 test("every exhaustive cell is an exact indexed vector with a real input", () => {
   assert.equal(manifest.schema, "m3-catalog-exhaustive-kit-cells/v1");
   for (const component of manifest.components) {
@@ -23,6 +31,14 @@ test("every exhaustive cell is an exact indexed vector with a real input", () =>
     for (const cell of component.cells) {
       assert.deepEqual(cell.kitProps, indexed.get(cell.id), `${component.code} / ${cell.name}`);
       assert.ok(cell.seeds.length > 0 || cell.interaction, `${component.code} / ${cell.name}`);
+      const kitState = cell.kitProps.find((prop) => prop.startsWith("State="))?.slice(6);
+      if (interactionByKitState.has(kitState)) {
+        assert.equal(
+          cell.interaction,
+          interactionByKitState.get(kitState),
+          `${component.code} / ${cell.name}`,
+        );
+      }
     }
   }
 });
