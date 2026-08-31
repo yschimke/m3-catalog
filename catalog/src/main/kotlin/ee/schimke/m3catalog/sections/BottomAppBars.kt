@@ -3,6 +3,7 @@
 
 package ee.schimke.m3catalog.sections
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -53,6 +54,7 @@ fun BottomAppBarSticker() = Sticker {
   val count = previewOverrideString("actions", "3").toIntOrNull() ?: 3
   BottomAppBar(
     modifier = Modifier.width(412.dp),
+    contentPadding = PaddingValues(start = 4.dp, end = 16.dp),
     actions = {
       IconButton(onClick = check.onClick) {
         Icon(Icons.Filled.Search, contentDescription = check.label)
