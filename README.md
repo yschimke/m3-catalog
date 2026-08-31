@@ -564,18 +564,18 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `OutlinedCardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedCardSticker_Light_VARIANT_slot-0c242462.png" width="150" /> |
 | `CenteredHeroCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CenteredHeroCarousel_Dark-0911cb1d.png" width="150" /> |
 | `CenteredHeroCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CenteredHeroCarousel_Light-63e88c96.png" width="150" /> |
+| `MultiBrowseCarouselTablet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarouselTablet_Dark-4b5f2b4c.png" width="150" /> |
+| `MultiBrowseCarouselTablet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarouselTablet_Light-c24cb428.png" width="150" /> |
 | `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Dark-18321422.png" width="150" /> |
 | `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Dark_VARIANT_cell_context_tablet_layout_center_aligned_hero-29bc24c6.png" width="150" /> |
 | `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Dark_VARIANT_cell_context_tablet_layout_uncontained_54577_25-870cfa21.png" width="150" /> |
 | `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Dark_VARIANT_full_screen-d9b8dc5d.png" width="150" /> |
 | `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Dark_VARIANT_hero-5ac01e55.png" width="150" /> |
-| `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Dark_VARIANT_tablet-e4e34284.png" width="150" /> |
 | `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Light-34e061f1.png" width="150" /> |
 | `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Light_VARIANT_cell_context_tablet_layout_center_aligned_hero-fc3620cf.png" width="150" /> |
 | `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Light_VARIANT_cell_context_tablet_layout_uncontained_54577_2-46c43958.png" width="150" /> |
 | `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Light_VARIANT_full_screen-6aa8713d.png" width="150" /> |
 | `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Light_VARIANT_hero-8a008431.png" width="150" /> |
-| `MultiBrowseCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/MultiBrowseCarousel_Light_VARIANT_tablet-72d3b868.png" width="150" /> |
 | `UncontainedCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/UncontainedCarousel_Dark-8f95b13c.png" width="150" /> |
 | `UncontainedCarousel` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/UncontainedCarousel_Light-87e36d6c.png" width="150" /> |
 | `CheckboxChecked` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/CheckboxChecked_Dark-5511d53e.png" width="150" /> |
@@ -3120,7 +3120,6 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FilledTextField` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledTextField_Dark_VARIANT_label_text-fcdd4a6c.png" width="150" /> |
 | `FilledTextField` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledTextField_Dark_VARIANT_leading_icon-7454e536.png" width="150" /> |
 | `FilledTextField` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledTextField_Dark_VARIANT_no_label-a9c67449.png" width="150" /> |
-| `FilledTextField` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledTextField_Dark_VARIANT_no_label_empty-35a6a8ae.png" width="150" /> |
 | `FilledTextField` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledTextField_Dark_VARIANT_no_supporting-2e7ee649.png" width="150" /> |
 | `FilledTextField` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledTextField_Dark_VARIANT_trailing_icon-0f39ea58.png" width="150" /> |
 | `FilledTextField` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledTextField_Light-4497a1a1.png" width="150" /> |
@@ -3163,7 +3162,6 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `FilledTextField` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledTextField_Light_VARIANT_label_text-9f45a55b.png" width="150" /> |
 | `FilledTextField` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledTextField_Light_VARIANT_leading_icon-2701d353.png" width="150" /> |
 | `FilledTextField` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledTextField_Light_VARIANT_no_label-4697b982.png" width="150" /> |
-| `FilledTextField` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledTextField_Light_VARIANT_no_label_empty-fd23c344.png" width="150" /> |
 | `FilledTextField` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledTextField_Light_VARIANT_no_supporting-52731ac7.png" width="150" /> |
 | `FilledTextField` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/FilledTextField_Light_VARIANT_trailing_icon-92c8792d.png" width="150" /> |
 | `OutlinedTextFieldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/OutlinedTextFieldSticker_Dark-9468c542.png" width="150" /> |
