@@ -48,10 +48,18 @@ private fun CarouselItem() {
 @CatalogModesCompact
 @OverrideVariant(name = "hero", strings = ["width=240"])
 @OverrideVariant(name = "full-screen", strings = ["width=320"])
+@OverrideVariant(
+  name = "tablet",
+  strings = ["context=tablet"],
+  kitAxis = "Context",
+  kitValue = "Tablet",
+)
+@ee.schimke.m3catalog.MultiBrowseCarouselExhaustiveKitCells
 @Composable
 fun MultiBrowseCarousel() = Sticker {
   val width = previewOverrideString("width", "160").toIntOrNull() ?: 160
-  Box(Modifier.width(412.dp).height(221.dp).padding(vertical = 8.dp)) {
+  val frameWidth = if (previewOverrideString("context", "mobile") == "tablet") 905.dp else 412.dp
+  Box(Modifier.width(frameWidth).height(221.dp).padding(vertical = 8.dp)) {
     HorizontalMultiBrowseCarousel(
       state = rememberCarouselState { 5 },
       preferredItemWidth = width.dp,

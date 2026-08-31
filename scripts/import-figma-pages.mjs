@@ -112,6 +112,8 @@ function arg(name, fallback) {
 const configPath = arg("config", "design-pages.json");
 const designMapPath = arg("design-map", "design-map.json");
 const onlyPage = arg("page", null);
+const relinkOnly = process.argv.includes("--relink");
+const checkOnly = process.argv.includes("--check");
 const token = process.env.FIGMA_TOKEN;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -429,18 +431,7 @@ async function importPage(page, { fileKey, byRef, outDir, maxSvgBytes = MAX_SVG_
     return null;
   }
 
-  const nodes = collectNodes(document).map((node) => {
-    const ref = `figma:${fileKey}/${node.nodeId}`;
-    const mapped = byRef.get(ref);
-    return {
-      ...node,
-      ref,
-      link: mapped ? "manifest" : "unlinked",
-      ...(mapped?.code ? { code: mapped.code } : {}),
-      ...(mapped?.previewId ? { previewId: mapped.previewId } : {}),
-      ...(mapped ? { confidence: "high" } : {}),
-    };
-  });
+  const nodes = collectNodes(document).map((node) => linkNode(node, { fileKey, byRef }));
 
   const id = page.id;
   writeFileSync(path.join(outDir, `${id}.svg`), svg);
@@ -470,13 +461,92 @@ async function importPage(page, { fileKey, byRef, outDir, maxSvgBytes = MAX_SVG_
   };
 }
 
+/**
+ * One walked node with its `design-map.json` join attached.
+ *
+ * Split out of the import so `--relink` can recompute the join from the committed cache using the
+ * same function the import uses. The decoration is replaced rather than merged, so a node that
+ * stopped being mapped also loses the stale code and preview ids from the previous run.
+ */
+export function linkNode(node, { fileKey, byRef }) {
+  const { code: _c, previewId: _p, confidence: _f, link: _l, ref: _r, ...bare } = node;
+  const ref = `figma:${fileKey}/${bare.nodeId}`;
+  const mapped = byRef.get(ref);
+  return {
+    ...bare,
+    ref,
+    link: mapped ? "manifest" : "unlinked",
+    ...(mapped?.code ? { code: mapped.code } : {}),
+    ...(mapped?.previewId ? { previewId: mapped.previewId } : {}),
+    ...(mapped ? { confidence: "high" } : {}),
+  };
+}
+
+/** Recompute the cached page join without contacting or modifying Figma. */
+function relink({ fileKey, byRef, outDir, check = false }) {
+  const cached = readCachedPages(outDir);
+  if (cached.length === 0) {
+    console.error(`import-figma-pages: nothing cached in ${outDir} to relink`);
+    process.exit(1);
+  }
+
+  let total = 0;
+  let linked = 0;
+  let moved = 0;
+  const pages = cached.map((page) => {
+    const nodes = (page.nodes ?? []).map((node) => linkNode(node, { fileKey, byRef }));
+    const hits = nodes.filter((node) => node.link !== "unlinked").length;
+    const was = (page.nodes ?? []).filter((node) => node.link !== "unlinked").length;
+    total += nodes.length;
+    linked += hits;
+    moved += hits === was ? 0 : 1;
+    const drift = hits === was ? "" : ` (was ${was})`;
+    console.log(`${page.id}: ${hits}/${nodes.length} nodes linked${drift}`);
+    return { ...page, nodes };
+  });
+
+  const file = path.join(outDir, "pages.json");
+  const contents = `${JSON.stringify({ version: PAGES_VERSION, source: "figma", fileKey, pages }, null, 2)}\n`;
+  if (check) {
+    if (readFileSync(file, "utf8") === contents) {
+      console.log(`import-figma-pages: the page join is up to date (${linked}/${total} nodes)`);
+      return;
+    }
+    console.error(
+      `import-figma-pages: ${file} is stale — ${moved} page(s) would change, and the join would ` +
+        `be ${linked}/${total} nodes. Run \`node scripts/import-figma-pages.mjs --relink\` and ` +
+        `commit the result. No Figma token is needed.`,
+    );
+    process.exit(1);
+  }
+
+  writeFileSync(file, contents);
+  console.log(
+    `import-figma-pages: relinked ${pages.length} cached page(s) — ${linked}/${total} nodes now ` +
+      `join to code, from ${byRef.size} mapped reference(s).`,
+  );
+}
+
 async function main() {
+  const config = JSON.parse(readFileSync(configPath, "utf8"));
+
+  // The join is a pure projection of two committed files, so contributors and CI can refresh or
+  // verify it without a Figma credential. A real page import below remains read-only against Figma.
+  if (relinkOnly || checkOnly) {
+    relink({
+      fileKey: config.fileKey,
+      byRef: readDesignMap(designMapPath),
+      outDir: arg("out", config.outDir ?? "design/pages"),
+      check: checkOnly,
+    });
+    return;
+  }
+
   if (!token) {
     console.error("FIGMA_TOKEN is not set. A read-only PAT with `file_content:read` is enough.");
     process.exit(1);
   }
 
-  const config = JSON.parse(readFileSync(configPath, "utf8"));
   if (config.enabled !== true) {
     console.log(`import-figma-pages: ${configPath} is not enabled; nothing to do`);
     return;

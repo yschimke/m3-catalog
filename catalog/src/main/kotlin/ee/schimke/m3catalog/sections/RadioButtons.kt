@@ -57,6 +57,7 @@ private fun radioColors(): RadioButtonColors =
 @OverrideVariant(name = "error", strings = ["status=error"])
 @OverrideVariant(name = "error-unselected", strings = ["state=unselected", "status=error"])
 @InteractionStates
+@ee.schimke.m3catalog.RadioSelectedExhaustiveKitCells
 @Composable
 fun RadioSelected() = Sticker {
   val enabled = radioStatus() != "disabled"

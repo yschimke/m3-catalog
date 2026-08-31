@@ -8,6 +8,7 @@ import test from "node:test";
 import {
   collectNodes,
   indexDesignMap,
+  linkNode,
   resolvePages,
   slugForPage,
 } from "./import-figma-pages.mjs";
@@ -219,4 +220,40 @@ test("reads the scalar form, and lets the first component to name a node win", (
   });
   assert.equal(byRef.get(ref("3:1")).code, "A.kt#First");
   assert.equal(byRef.size, 1);
+});
+
+test("relinking replaces stale join decoration", () => {
+  const fileKey = "kit";
+  const node = {
+    nodeId: "3:1",
+    name: "Cell",
+    depth: 2,
+    ref: "figma:old/3:1",
+    link: "manifest",
+    code: "Old.kt#Old",
+    previewId: "old-preview",
+    confidence: "high",
+  };
+
+  assert.deepEqual(linkNode(node, { fileKey, byRef: new Map() }), {
+    nodeId: "3:1",
+    name: "Cell",
+    depth: 2,
+    ref: "figma:kit/3:1",
+    link: "unlinked",
+  });
+
+  const mapped = new Map([
+    ["figma:kit/3:1", { code: "New.kt#New", previewId: "new-preview" }],
+  ]);
+  assert.deepEqual(linkNode(node, { fileKey, byRef: mapped }), {
+    nodeId: "3:1",
+    name: "Cell",
+    depth: 2,
+    ref: "figma:kit/3:1",
+    link: "manifest",
+    code: "New.kt#New",
+    previewId: "new-preview",
+    confidence: "high",
+  });
 });

@@ -108,7 +108,11 @@ private fun trailing(setting: String): (@Composable () -> Unit)? {
     "The kit's list frame. Line count, leading and trailing slots all fold in as single rows.",
 )
 @CatalogModes
-@OverrideVariant(name = "one-line", strings = ["lines=1", "leading=none"])
+@OverrideVariant(
+  name = "one-line",
+  strings = ["lines=1", "leading=none"],
+  kitProps = ["Type=Standard", "Multi-line=False"],
+)
 @OverrideVariant(name = "three-line", strings = ["lines=3"])
 @OverrideVariant(name = "trailing-text", strings = ["trailing=text"])
 @OverrideVariant(name = "trailing-icon", strings = ["trailing=icon"])

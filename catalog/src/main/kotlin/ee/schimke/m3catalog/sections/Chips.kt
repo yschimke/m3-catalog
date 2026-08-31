@@ -67,7 +67,8 @@ private fun chipElevated(): Boolean =
   catalogChoice("style", "outlined", "outlined", "elevated") == "elevated"
 
 @Composable
-private fun chipLeading(): String = catalogChoice("leading", "none", "none", "icon", "avatar")
+private fun chipLeading(): String =
+  catalogChoice("leading", "none", "none", "icon", "avatar", "brand", "favicon")
 
 @Composable
 private fun chipEnabled(): Boolean =
@@ -76,9 +77,11 @@ private fun chipEnabled(): Boolean =
 @Composable
 private fun chipIcon(): (@Composable () -> Unit)? =
   when (chipLeading()) {
-    "icon" -> ({
+    "icon",
+    "brand",
+    "favicon" -> ({
         Icon(
-          Icons.Filled.Event,
+          if (chipLeading() == "favicon") Icons.Filled.Person else Icons.Filled.Event,
           contentDescription = null,
           modifier = Modifier.size(AssistChipDefaults.IconSize),
         )
@@ -101,12 +104,30 @@ private fun chipIcon(): (@Composable () -> Unit)? =
   caption = "A smart action related to the content. Elevated, leading icon and disabled fold in.",
 )
 @CatalogModes
-@OverrideVariant(name = "icon", strings = ["leading=icon"])
+@OverrideVariant(
+  name = "icon",
+  strings = ["leading=icon"],
+  kitAxis = "Configuration",
+  kitValue = "Label & icon",
+)
+@OverrideVariant(
+  name = "brand-icon",
+  strings = ["leading=brand"],
+  kitAxis = "Configuration",
+  kitValue = "Label & brand icon",
+)
+@OverrideVariant(
+  name = "favicon",
+  strings = ["leading=favicon"],
+  kitAxis = "Configuration",
+  kitValue = "Label & favicon",
+)
 @OverrideVariant(name = "elevated", strings = ["style=elevated"])
 @OverrideVariant(name = "elevated-icon", strings = ["style=elevated", "leading=icon"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @OverrideVariant(name = "disabled-icon", strings = ["leading=icon", "status=disabled"])
 @InteractionStates
+@ee.schimke.m3catalog.AssistChipStickerExhaustiveKitCells
 @Composable
 fun AssistChipSticker() = Sticker {
   val c = counted(stringResource(Res.string.chip_add_to_calendar))
@@ -137,20 +158,28 @@ fun AssistChipSticker() = Sticker {
 )
 @CatalogModes
 @OverrideVariant(name = "unselected", strings = ["state=unselected"])
+@OverrideVariant(
+  name = "label-only",
+  strings = ["configuration=label"],
+  kitAxis = "Configuration",
+  kitValue = "Label only",
+)
 @OverrideVariant(name = "elevated", strings = ["style=elevated"])
 @OverrideVariant(name = "elevated-unselected", strings = ["style=elevated", "state=unselected"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @OverrideVariant(name = "disabled-unselected", strings = ["state=unselected", "status=disabled"])
 @OverrideVariant(name = "trailing-icon", booleans = ["trailing=true"])
 @InteractionStates
+@ee.schimke.m3catalog.FilterChipStickerExhaustiveKitCells
 @Composable
 fun FilterChipSticker() = Sticker {
   var selected by
     toggleable(catalogChoice("state", "selected", "selected", "unselected") == "selected")
   val enabled = chipEnabled()
   val label: @Composable () -> Unit = { Text(stringResource(Res.string.chip_unread)) }
+  val showLeading = catalogChoice("configuration", "icon", "icon", "label") == "icon"
   val check: (@Composable () -> Unit)? =
-    if (!selected) null
+    if (!selected || !showLeading) null
     else
       ({
         Icon(
@@ -199,13 +228,25 @@ fun FilterChipSticker() = Sticker {
     "A discrete piece of user input, removable. Leading icon, avatar, selected and disabled fold in.",
 )
 @CatalogModes
-@OverrideVariant(name = "icon", strings = ["leading=icon"])
+@OverrideVariant(
+  name = "icon",
+  strings = ["leading=icon"],
+  kitAxis = "Configuration",
+  kitValue = "Label & leading icon",
+)
 @OverrideVariant(name = "avatar", strings = ["leading=avatar"])
 @OverrideVariant(name = "selected", strings = ["state=selected"])
 @OverrideVariant(name = "selected-avatar", strings = ["state=selected", "leading=avatar"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @OverrideVariant(name = "disabled-avatar", strings = ["leading=avatar", "status=disabled"])
+@OverrideVariant(
+  name = "no-closing-icon",
+  booleans = ["closing=false"],
+  kitAxis = "Show closing icon",
+  kitValue = "false",
+)
 @HoverFocusStates
+@ee.schimke.m3catalog.InputChipStickerExhaustiveKitCells
 @Composable
 fun InputChipSticker() = Sticker {
   var selected by
@@ -216,13 +257,16 @@ fun InputChipSticker() = Sticker {
     label = { Text(stringResource(Res.string.chip_unread)) },
     enabled = chipEnabled(),
     avatar = chipIcon(),
-    trailingIcon = {
-      Icon(
-        Icons.Filled.Close,
-        contentDescription = stringResource(Res.string.action_remove),
-        modifier = Modifier.size(InputChipDefaults.IconSize),
-      )
-    },
+    trailingIcon =
+      if (!previewOverrideBoolean("closing", true)) null
+      else
+        ({
+          Icon(
+            Icons.Filled.Close,
+            contentDescription = stringResource(Res.string.action_remove),
+            modifier = Modifier.size(InputChipDefaults.IconSize),
+          )
+        }),
   )
 }
 
@@ -236,6 +280,7 @@ fun InputChipSticker() = Sticker {
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @OverrideVariant(name = "icon", booleans = ["icon=true"])
 @InteractionStates
+@ee.schimke.m3catalog.SuggestionChipStickerExhaustiveKitCells
 @Composable
 fun SuggestionChipSticker() = Sticker {
   val c = counted(stringResource(Res.string.chip_sounds_good))

@@ -78,6 +78,7 @@ private fun tabIcon(icon: ImageVector): (@Composable () -> Unit)? =
 @CatalogModes
 @OverrideVariant(name = "icon", strings = ["content=icon"])
 @OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
+@ee.schimke.m3catalog.PrimaryTabsExhaustiveKitCells
 @Composable
 fun PrimaryTabs() = Sticker {
   var selected by selectable(0)

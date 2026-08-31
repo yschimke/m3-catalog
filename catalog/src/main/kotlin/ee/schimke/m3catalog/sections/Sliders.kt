@@ -81,6 +81,7 @@ private fun sliderEnabled(): Boolean =
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @OverrideVariant(name = "disabled-discrete", strings = ["steps=discrete", "status=disabled"])
 @OverrideVariant(name = "pressed", interaction = VariantInteraction.Pressed)
+@ee.schimke.m3catalog.ContinuousSliderExhaustiveKitCells
 @Composable
 fun ContinuousSlider() = Sticker {
   val steps = sliderSteps()
@@ -132,6 +133,7 @@ fun ContinuousSlider() = Sticker {
 @OverrideVariant(name = "discrete", strings = ["steps=discrete"])
 @OverrideVariant(name = "disabled", strings = ["status=disabled"])
 @OverrideVariant(name = "pressed", interaction = VariantInteraction.Pressed)
+@ee.schimke.m3catalog.RangeSliderStickerExhaustiveKitCells
 @Composable
 fun RangeSliderSticker() = Sticker {
   val steps = sliderSteps()

@@ -125,6 +125,7 @@ private fun RailHeaderContent(wide: Boolean) {
 @OverrideVariant(name = "no-menu-fab", booleans = ["menu=false", "fab=false"])
 @OverrideVariant(name = "labels-none", strings = ["labels=none"])
 @OverrideVariant(name = "middle", strings = ["alignment=middle"])
+@ee.schimke.m3catalog.NavigationRailStickerExhaustiveKitCells
 @Composable
 fun NavigationRailSticker() = Sticker {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
@@ -180,6 +181,7 @@ fun NavigationRailSticker() = Sticker {
 @CatalogModes
 @OverrideVariant(name = "four", strings = ["count=4"])
 @OverrideVariant(name = "middle", strings = ["alignment=middle"])
+@ee.schimke.m3catalog.WideNavigationRailStickerExhaustiveKitCells
 @Composable
 fun WideNavigationRailSticker() = Sticker {
   val count = previewOverrideString("count", "3").toIntOrNull() ?: 3

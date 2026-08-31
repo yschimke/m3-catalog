@@ -104,6 +104,7 @@ private fun ToggleButtonFrame(size: CatalogSize, content: @Composable () -> Unit
 @CatalogModes
 @SelectedToggleButtonMatrix
 @InteractionStates
+@ee.schimke.m3catalog.ToggleButtonStickerExhaustiveKitCells
 @Composable
 fun ToggleButtonSticker() = Sticker {
   var on by toggleable(catalogToggleSelected(default = true))
@@ -133,6 +134,7 @@ fun ToggleButtonSticker() = Sticker {
 @CatalogModes
 @SelectedToggleButtonMatrix
 @InteractionStates
+@ee.schimke.m3catalog.TonalToggleButtonStickerExhaustiveKitCells
 @Composable
 fun TonalToggleButtonSticker() = Sticker {
   var on by toggleable(catalogToggleSelected(default = true))
@@ -167,6 +169,7 @@ fun TonalToggleButtonSticker() = Sticker {
 @CatalogModes
 @UnselectedToggleButtonMatrix
 @InteractionStates
+@ee.schimke.m3catalog.OutlinedToggleButtonStickerExhaustiveKitCells
 @Composable
 fun OutlinedToggleButtonSticker() = Sticker {
   var on by toggleable(catalogToggleSelected(default = false))
@@ -197,6 +200,7 @@ fun OutlinedToggleButtonSticker() = Sticker {
 @UnselectedToggleButtonMatrix
 @InteractionStates
 @CaptureGutter(all = KitShadowGutter.Level1All, bottom = KitShadowGutter.Level1Bottom)
+@ee.schimke.m3catalog.ElevatedToggleButtonStickerExhaustiveKitCells
 @Composable
 fun ElevatedToggleButtonSticker() = Sticker {
   var on by toggleable(catalogToggleSelected(default = false))
