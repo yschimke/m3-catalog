@@ -179,10 +179,6 @@ class CatalogInventoryTest {
         "Stacked card" to "emphasis: Card / OutlinedCard / ElevatedCard",
         "Text field" to "emphasis: TextField / OutlinedTextField",
         "Tabs" to "emphasis: PrimaryTabRow / SecondaryTabRow",
-        // Not emphasis, and not settled: `Search/AppBar` is the `Configuration=Search` cell of the
-        // app-bar set, but it lives in the Search group with the other entry points. Folding it
-        // would move it across groups. Tracked in issue #128.
-        "App bar" to "open: Search/AppBar's group placement, issue #128",
       )
 
     val index = File("../figma-kit-index.json").readText()

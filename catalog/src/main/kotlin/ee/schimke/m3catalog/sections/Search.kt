@@ -74,8 +74,9 @@ import org.jetbrains.compose.resources.stringResource
 // collapsed composables — ONE collapsed bar: the `Search bar` set varies `State` x `Show avatar`
 // and carries no floating/docked axis, so `SearchBar` and `DockedSearchBar` name the same node.
 // They were two components against one reference, so the docked form folds onto the bar as a
-// variant. `AppBarWithSearch` stays its own component: it names a different node, the
-// `Configuration=Search` variant of the kit's `App bar` set.
+// variant. `AppBarWithSearch` is likewise folded under `TopAppBar/Small`: it names the
+// `Configuration=Search` variant of the kit's `App bar` set, so the set boundary outweighs this
+// file's task-shaped Search grouping (issue #139).
 //
 // The foldable axis inside a collapsed bar is the input field's CONTENT: an empty placeholder, a
 // typed query with a clear affordance, or an account avatar in the trailing slot. The docked
@@ -221,9 +222,9 @@ fun DockedSearchBarSticker() = Sticker {
 private fun appBarSearchContent(): String =
   catalogChoice("content", "placeholder", "placeholder", "query")
 
-@CatalogComponent(
-  id = "Search/AppBar",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20571",
+@CatalogVariant(
+  of = "TopAppBar/Small",
+  props = ["configuration=search"],
   caption =
     "A top app bar that carries a search field between its navigation icon and its actions.",
 )
