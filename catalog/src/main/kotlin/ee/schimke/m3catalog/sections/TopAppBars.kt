@@ -61,9 +61,9 @@ import org.jetbrains.compose.resources.stringResource
 // count fold in as knob cells on top, and they cross with the size: an `@OverrideVariant` on a
 // `@CatalogVariant` projects since compose-ai-tools#4081, so a folded bar keeps its own matrix.
 //
-// `Search/AppBar` is the `Configuration=Search` cell of this same set but lives in the Search group
-// with the other search entry points; folding it would move it across groups, which is a separate
-// decision and not made here. See issue #128.
+// `AppBarWithSearchSticker` stays implemented in `Search.kt` beside the search entry points, but
+// its `Configuration=Search` render folds onto this card: the kit set decides inventory taxonomy,
+// while the source file keeps related search implementations together (issue #139).
 
 /**
  * Whether the bar draws a navigation icon — the `nav` knob the `no-nav` cells seed.
@@ -113,7 +113,7 @@ private const val W = 412
   id = "TopAppBar/Small",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20585",
   caption =
-    "The app bar. Its four sizes, the centred and image layouts, nav icon and action count fold in.",
+    "The app bar. Its four sizes, centred, image and search layouts, nav icon and actions fold in.",
 )
 @CatalogModesCompact
 @OverrideVariant(name = "no-nav", booleans = ["nav=false"])

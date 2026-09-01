@@ -30662,24 +30662,6 @@
       ]
     },
     {
-      "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Search.kt#AppBarWithSearchSticker",
-      "componentId": "Search/AppBar",
-      "reference": "figma:ocdacdEsnHipMJD3egzxKb/58114:20571",
-      "basePreviewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Light",
-      "renders": [
-        {
-          "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Light_VARIANT_query",
-          "name": "query",
-          "seeds": [
-            {
-              "key": "content",
-              "raw": "query"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "code": "catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Search.kt#SearchBarSticker",
       "componentId": "Search/Bar",
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/52977:33948",
@@ -47555,6 +47537,30 @@
       "reference": "figma:ocdacdEsnHipMJD3egzxKb/58114:20585",
       "basePreviewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.SmallTopAppBar_Light",
       "renders": [
+        {
+          "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Light",
+          "name": "search",
+          "seeds": [
+            {
+              "key": "configuration",
+              "raw": "search"
+            }
+          ]
+        },
+        {
+          "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Light_VARIANT_query",
+          "name": "search-query",
+          "seeds": [
+            {
+              "key": "configuration",
+              "raw": "search"
+            },
+            {
+              "key": "content",
+              "raw": "query"
+            }
+          ]
+        },
         {
           "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.SmallTopAppBar_Light_VARIANT_no-actions",
           "name": "no-actions",
