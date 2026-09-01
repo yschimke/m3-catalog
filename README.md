@@ -181,6 +181,12 @@ that reshapes something the library no longer draws.
 
 Every sticker is rendered on two surfaces that want opposite things from a pointer.
 
+The live lane also publishes the same named override surface as the Wear catalog. Closed sets are
+pickers, booleans are switches, numeric and dp values are typed number controls, and visible text
+slots are editable fields. For example, `Button/Filled` exposes `label` with the localized kit copy
+`Label` as its default; changing it re-renders the real `Button` without adding another catalog
+variant or changing the baked comparison.
+
 | Lane | Signal | A click must |
 | --- | --- | --- |
 | Baked snapshot / the published sheet | `LocalInspectionMode = true` | do **nothing** — a published PNG can't depend on whether something tapped it |

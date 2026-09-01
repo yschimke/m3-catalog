@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_compose
 import ee.schimke.m3catalog.generated.resources.action_delete
@@ -67,7 +68,7 @@ private fun SheetBody() {
     }
     if (previewOverrideBoolean("header", false)) {
       Text(
-        stringResource(Res.string.sheet_share_to),
+        catalogText("title", stringResource(Res.string.sheet_share_to)),
         Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
         style = MaterialTheme.typography.titleLarge,
       )
@@ -81,9 +82,9 @@ private fun SheetBody() {
           Res.string.label_add_to_favourites,
           Res.string.label_report,
         )
-        .forEach { label ->
+        .forEachIndexed { index, label ->
           ListItem(
-            headlineContent = { Text(stringResource(label)) },
+            headlineContent = { Text(catalogText("item", stringResource(label), index = index)) },
             leadingContent = { Icon(Icons.Filled.Share, contentDescription = null) },
           )
         }

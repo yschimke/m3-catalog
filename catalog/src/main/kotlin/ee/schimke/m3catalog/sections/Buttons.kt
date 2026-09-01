@@ -39,6 +39,7 @@ import ee.schimke.m3catalog.catalogButtonShapes
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.catalogEnabled
 import ee.schimke.m3catalog.catalogExpressive
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.label_elevated
@@ -113,7 +114,7 @@ private fun ButtonFrame(size: CatalogSize, content: @Composable () -> Unit) {
 @ee.schimke.m3catalog.FilledButtonExhaustiveKitCells
 @Composable
 fun FilledButton() = Sticker {
-  val c = counted(stringResource(Res.string.label_filled))
+  val c = counted(catalogText("label", stringResource(Res.string.label_filled)))
   val size = catalogButtonSize()
   ButtonFrame(size) {
     val enabled = catalogEnabled()
@@ -141,7 +142,7 @@ fun FilledButton() = Sticker {
 @ee.schimke.m3catalog.TonalButtonExhaustiveKitCells
 @Composable
 fun TonalButton() = Sticker {
-  val c = counted(stringResource(Res.string.label_tonal))
+  val c = counted(catalogText("label", stringResource(Res.string.label_tonal)))
   val size = catalogButtonSize()
   ButtonFrame(size) {
     val enabled = catalogEnabled()
@@ -183,7 +184,7 @@ fun TonalButton() = Sticker {
 @ee.schimke.m3catalog.OutlinedButtonStickerExhaustiveKitCells
 @Composable
 fun OutlinedButtonSticker() = Sticker {
-  val c = counted(stringResource(Res.string.label_outlined))
+  val c = counted(catalogText("label", stringResource(Res.string.label_outlined)))
   val size = catalogButtonSize()
   ButtonFrame(size) {
     val enabled = catalogEnabled()
@@ -212,7 +213,7 @@ fun OutlinedButtonSticker() = Sticker {
 @ee.schimke.m3catalog.ElevatedButtonStickerExhaustiveKitCells
 @Composable
 fun ElevatedButtonSticker() = Sticker {
-  val c = counted(stringResource(Res.string.label_elevated))
+  val c = counted(catalogText("label", stringResource(Res.string.label_elevated)))
   val size = catalogButtonSize()
   ButtonFrame(size) {
     val enabled = catalogEnabled()
@@ -243,7 +244,7 @@ fun ElevatedButtonSticker() = Sticker {
 @ee.schimke.m3catalog.TextButtonStickerExhaustiveKitCells
 @Composable
 fun TextButtonSticker() = Sticker {
-  val c = counted(stringResource(Res.string.label_text))
+  val c = counted(catalogText("label", stringResource(Res.string.label_text)))
   val size = catalogButtonSize()
   ButtonFrame(size) {
     val enabled = catalogEnabled()
@@ -270,6 +271,6 @@ fun TextButtonSticker() = Sticker {
 @CatalogModes
 @Composable
 fun FilledButtonLabelOnly() = Sticker {
-  val c = counted(stringResource(Res.string.label_filled))
+  val c = counted(catalogText("label", stringResource(Res.string.label_filled)))
   Button(onClick = c.onClick) { Text(c.label) }
 }

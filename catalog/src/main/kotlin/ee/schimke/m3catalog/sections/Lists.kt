@@ -35,6 +35,7 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_more
 import ee.schimke.m3catalog.generated.resources.list_item
@@ -149,20 +150,26 @@ fun ListItemSticker() = Sticker {
   val lines = lineSetting.toIntOrNull() ?: 2
   Column(Modifier.width(340.dp)) {
     ListItem(
-      headlineContent = { Text(stringResource(Res.string.list_item)) },
+      headlineContent = { Text(catalogText("headline", stringResource(Res.string.list_item))) },
       supportingContent =
         if (lines >= 2) {
           {
             Text(
-              stringResource(
-                if (lines >= 3) Res.string.list_supporting_long else Res.string.list_supporting
+              catalogText(
+                "supportingText",
+                stringResource(
+                  if (lines >= 3) Res.string.list_supporting_long else Res.string.list_supporting
+                ),
               )
             )
-            if (lines >= 3) Text(stringResource(Res.string.list_last_seen))
+            if (lines >= 3)
+              Text(catalogText("supportingText2", stringResource(Res.string.list_last_seen)))
           }
         } else null,
       overlineContent =
-        if (lines >= 3) ({ Text(stringResource(Res.string.list_overline)) }) else null,
+        if (lines >= 3)
+          ({ Text(catalogText("overline", stringResource(Res.string.list_overline))) })
+        else null,
       leadingContent = leading(leadingSetting),
       trailingContent = trailing(trailingSetting),
     )
@@ -176,12 +183,19 @@ private fun FigmaList() {
       Box(Modifier.fillMaxWidth().height(64.dp)) {
         ListItem(
           headlineContent = {
-            Text(stringResource(Res.string.list_item), modifier = Modifier.offset(x = (-6).dp))
+            Text(
+              catalogText("headline", stringResource(Res.string.list_item), index),
+              modifier = Modifier.offset(x = (-6).dp),
+            )
           },
           supportingContent = {
             Text(
-              stringResource(
-                if (index == 3) Res.string.list_supporting_long else Res.string.list_supporting
+              catalogText(
+                "supportingText",
+                stringResource(
+                  if (index == 3) Res.string.list_supporting_long else Res.string.list_supporting
+                ),
+                index,
               ),
               modifier = Modifier.offset(x = (-6).dp),
               maxLines = 1,

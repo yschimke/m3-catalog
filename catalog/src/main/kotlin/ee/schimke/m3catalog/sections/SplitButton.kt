@@ -27,6 +27,7 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_more_options
@@ -83,7 +84,7 @@ import org.jetbrains.compose.resources.stringResource
 @ee.schimke.m3catalog.SplitButtonExhaustiveKitCells
 @Composable
 fun SplitButton() = Sticker {
-  val c = counted(stringResource(Res.string.label_text))
+  val c = counted(catalogText("label", stringResource(Res.string.label_text)))
   val leadingState = catalogChoice("leadingState", "enabled", "enabled", "disabled")
   val trailingState = catalogChoice("trailingState", "enabled", "enabled", "disabled", "selected")
   var expanded by toggleable(trailingState == "selected")

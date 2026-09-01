@@ -39,6 +39,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberSearchBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,6 +52,7 @@ import ee.schimke.m3catalog.CatalogModesCompact
 import ee.schimke.m3catalog.CatalogModesKitContainer
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.editable
 import ee.schimke.m3catalog.generated.resources.Res
@@ -101,11 +103,13 @@ private fun searchContent(): String =
 private const val SEARCH_QUERY_TEXT = "material"
 
 @Composable
-private fun searchQuery(): String = if (searchContent() == "query") SEARCH_QUERY_TEXT else ""
+private fun searchQuery(): String =
+  catalogText("query", if (searchContent() == "query") SEARCH_QUERY_TEXT else "")
 
 @Composable
 private fun searchPlaceholder(): (@Composable () -> Unit)? =
-  if (searchContent() == "query") null else ({ Text(stringResource(Res.string.search_hint)) })
+  if (searchContent() == "query") null
+  else ({ Text(catalogText("placeholder", stringResource(Res.string.search_hint))) })
 
 @Composable
 private fun searchLeading(): @Composable () -> Unit = {
@@ -149,21 +153,24 @@ private fun searchTrailing(): (@Composable () -> Unit)? =
 @Composable
 fun SearchBarSticker() = Sticker {
   val state = rememberSearchBarState(SearchBarValue.Collapsed)
-  val text = rememberTextFieldState(searchQuery())
-  SearchBar(
-    state = state,
-    inputField = {
-      SearchBarDefaults.InputField(
-        textFieldState = text,
-        searchBarState = state,
-        onSearch = {},
-        placeholder = searchPlaceholder(),
-        leadingIcon = searchLeading(),
-        trailingIcon = searchTrailing(),
-      )
-    },
-    modifier = Modifier.width(360.dp),
-  )
+  val query = searchQuery()
+  key(query) {
+    val text = rememberTextFieldState(query)
+    SearchBar(
+      state = state,
+      inputField = {
+        SearchBarDefaults.InputField(
+          textFieldState = text,
+          searchBarState = state,
+          onSearch = {},
+          placeholder = searchPlaceholder(),
+          leadingIcon = searchLeading(),
+          trailingIcon = searchTrailing(),
+        )
+      },
+      modifier = Modifier.width(360.dp),
+    )
+  }
 }
 
 @CatalogVariant(
@@ -225,37 +232,45 @@ private fun appBarSearchContent(): String =
 @Composable
 fun AppBarWithSearchSticker() = Sticker {
   val state = rememberSearchBarState(SearchBarValue.Collapsed)
-  val query = if (appBarSearchContent() == "query") SEARCH_QUERY_TEXT else ""
-  val text = rememberTextFieldState(query)
+  val query =
+    catalogText(
+      "query",
+      if (appBarSearchContent() == "query") SEARCH_QUERY_TEXT else "",
+    )
   val menu = counted("menu")
-  AppBarWithSearch(
-    state = state,
-    inputField = {
-      SearchBarDefaults.InputField(
-        textFieldState = text,
-        searchBarState = state,
-        onSearch = {},
-        placeholder = { Text(stringResource(Res.string.search_app_hint)) },
-        leadingIcon = null,
-        trailingIcon = null,
-      )
-    },
-    modifier = Modifier.width(412.dp).height(64.dp),
-    navigationIcon = {
-      IconButton(onClick = menu.onClick) {
-        Icon(Icons.Filled.Menu, contentDescription = stringResource(Res.string.action_menu))
-      }
-    },
-    actions = {
-      Surface(color = MaterialTheme.colorScheme.primaryContainer, shape = CircleShape) {
-        Icon(
-          Icons.Filled.Interests,
-          contentDescription = stringResource(Res.string.label_account),
-          modifier = Modifier.padding(4.dp).size(22.dp),
+  key(query) {
+    val text = rememberTextFieldState(query)
+    AppBarWithSearch(
+      state = state,
+      inputField = {
+        SearchBarDefaults.InputField(
+          textFieldState = text,
+          searchBarState = state,
+          onSearch = {},
+          placeholder = {
+            Text(catalogText("placeholder", stringResource(Res.string.search_app_hint)))
+          },
+          leadingIcon = null,
+          trailingIcon = null,
         )
-      }
-    },
-  )
+      },
+      modifier = Modifier.width(412.dp).height(64.dp),
+      navigationIcon = {
+        IconButton(onClick = menu.onClick) {
+          Icon(Icons.Filled.Menu, contentDescription = stringResource(Res.string.action_menu))
+        }
+      },
+      actions = {
+        Surface(color = MaterialTheme.colorScheme.primaryContainer, shape = CircleShape) {
+          Icon(
+            Icons.Filled.Interests,
+            contentDescription = stringResource(Res.string.label_account),
+            modifier = Modifier.padding(4.dp).size(22.dp),
+          )
+        }
+      },
+    )
+  }
 }
 
 // Not catalog comparisons until popup/dialog surfaces can be captured (compose-ai-tools#3916).
@@ -308,7 +323,7 @@ fun ExpandedFullScreenSearchBarSticker() = Sticker {
  */
 @Composable
 private fun ExpandedInputField(fullScreen: Boolean) {
-  var query by editable(stringResource(Res.string.search_input_text))
+  var query by editable(catalogText("query", stringResource(Res.string.search_input_text)))
   val back = counted("back")
   val clear = counted("clear")
   val microphone = counted("microphone")
@@ -350,8 +365,8 @@ private fun ExpandedInputField(fullScreen: Boolean) {
 
 @Composable
 private fun SuggestionRows(avatars: Boolean = false) {
-  for (suggestion in SUGGESTIONS) {
-    val row = counted(stringResource(suggestion))
+  for ((index, suggestion) in SUGGESTIONS.withIndex()) {
+    val row = counted(catalogText("suggestion", stringResource(suggestion), index))
     Row(
       modifier =
         Modifier.fillMaxWidth()
@@ -385,7 +400,7 @@ private fun SuggestionRows(avatars: Boolean = false) {
       Column {
         Text(row.label, style = MaterialTheme.typography.bodyLarge)
         Text(
-          stringResource(Res.string.list_supporting),
+          catalogText("supportingText", stringResource(Res.string.list_supporting), index),
           style = MaterialTheme.typography.bodyMedium,
         )
       }

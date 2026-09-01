@@ -19,7 +19,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideFloat
 import ee.schimke.composeai.overrides.previewOverrideInt
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -30,6 +29,7 @@ import ee.schimke.m3catalog.MaterialShapeRecipe
 import ee.schimke.m3catalog.MaterialShapeRecipes
 import ee.schimke.m3catalog.ShapeTweaks
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 
 // The kit's `Shape` page is a specimen sheet, not a component sheet: 35 named shapes drawn as
 // filled silhouettes, plus the corner-radius scale above them. Compose ships the same set as
@@ -169,7 +169,7 @@ internal val SHAPE_SET: List<Pair<String, MaterialShapeRecipe>> =
 
 @Composable
 private fun catalogShape(): MaterialShapeRecipe {
-  val key = previewOverrideString("shape", "circle")
+  val key = catalogChoice("shape", "circle", *SHAPE_SET.map { it.first }.toTypedArray())
   return SHAPE_SET.firstOrNull { it.first == key }?.second ?: MaterialShapeRecipes.Circle
 }
 

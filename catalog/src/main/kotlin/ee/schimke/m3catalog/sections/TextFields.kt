@@ -28,6 +28,7 @@ import ee.schimke.composeai.preview.VariantInteraction
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.editable
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_clear
@@ -68,10 +69,22 @@ private fun fieldSpec(): FieldSpec {
   val leadingIcon = previewOverrideBoolean("leading", false)
   val trailingIcon = previewOverrideBoolean("trailing", false)
   val error = state == "error"
+  val defaultValue =
+    if (state == "empty" || textConfiguration != "input") ""
+    else if (error) "not-an-email" else stringResource(Res.string.field_placeholder)
+  val labelText =
+    catalogText(
+      "labelText",
+      stringResource(if (error) Res.string.field_email else Res.string.field_name),
+    )
+  val placeholderText = catalogText("placeholder", stringResource(Res.string.field_placeholder))
+  val supportingText =
+    catalogText(
+      "supportingText",
+      stringResource(if (error) Res.string.field_error else Res.string.field_supporting),
+    )
   return FieldSpec(
-    value =
-      if (state == "empty" || textConfiguration != "input") ""
-      else if (error) "not-an-email" else stringResource(Res.string.field_placeholder),
+    value = catalogText("value", defaultValue),
     label =
       if (
         catalogChoice("label", "on", "on", "off") == "off" ||
@@ -79,10 +92,9 @@ private fun fieldSpec(): FieldSpec {
           textConfiguration == "placeholder"
       )
         null
-      else ({ Text(stringResource(if (error) Res.string.field_email else Res.string.field_name)) }),
+      else ({ Text(labelText) }),
     placeholder =
-      if (state == "empty" || textConfiguration == "placeholder")
-        ({ Text(stringResource(Res.string.field_placeholder)) })
+      if (state == "empty" || textConfiguration == "placeholder") ({ Text(placeholderText) })
       else null,
     leading =
       if (!leadingIcon) null else ({ Icon(Icons.Filled.Search, contentDescription = null) }),
@@ -93,9 +105,8 @@ private fun fieldSpec(): FieldSpec {
           Icon(Icons.Filled.Cancel, contentDescription = stringResource(Res.string.action_clear))
         }),
     supporting =
-      if (error) ({ Text(stringResource(Res.string.field_error)) })
-      else if (catalogChoice("supporting", "on", "on", "off") == "on")
-        ({ Text(stringResource(Res.string.field_supporting)) })
+      if (error) ({ Text(supportingText) })
+      else if (catalogChoice("supporting", "on", "on", "off") == "on") ({ Text(supportingText) })
       else null,
     isError = error,
     enabled = state != "disabled",

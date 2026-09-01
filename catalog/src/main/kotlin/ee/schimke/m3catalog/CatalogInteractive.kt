@@ -78,12 +78,12 @@ fun counted(label: String): Counted {
  */
 @Composable
 fun toggleable(initial: Boolean): MutableState<Boolean> =
-  if (catalogInteractive()) remember { mutableStateOf(initial) } else frozen(initial)
+  if (catalogInteractive()) remember(initial) { mutableStateOf(initial) } else frozen(initial)
 
 /** Owned index state, for single-select families (segmented buttons, tabs, navigation bars). */
 @Composable
 fun selectable(initial: Int): MutableState<Int> =
-  if (catalogInteractive()) remember { mutableIntStateOf(initial) } else frozen(initial)
+  if (catalogInteractive()) remember(initial) { mutableIntStateOf(initial) } else frozen(initial)
 
 /**
  * Owned multi-select state, for families where any number of cells may be on at once.
@@ -93,17 +93,17 @@ fun selectable(initial: Int): MutableState<Int> =
  */
 @Composable
 fun multiSelectable(initial: Set<Int>): MutableState<Set<Int>> =
-  if (catalogInteractive()) remember { mutableStateOf(initial) } else frozen(initial)
+  if (catalogInteractive()) remember(initial) { mutableStateOf(initial) } else frozen(initial)
 
 /** Owned float state, for continuous controls (sliders). */
 @Composable
 fun draggable(initial: Float): MutableState<Float> =
-  if (catalogInteractive()) remember { mutableFloatStateOf(initial) } else frozen(initial)
+  if (catalogInteractive()) remember(initial) { mutableFloatStateOf(initial) } else frozen(initial)
 
 /** Owned text state, for text fields. */
 @Composable
 fun editable(initial: String): MutableState<String> =
-  if (catalogInteractive()) remember { mutableStateOf(initial) } else frozen(initial)
+  if (catalogInteractive()) remember(initial) { mutableStateOf(initial) } else frozen(initial)
 
 /**
  * A [MutableState] that reports [value] and silently drops writes — the baked lane's contract.

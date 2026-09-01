@@ -17,7 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
+import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.InteractionPreview
@@ -27,6 +27,7 @@ import ee.schimke.m3catalog.CatalogModesCompact
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.nav_home
 import ee.schimke.m3catalog.generated.resources.nav_saved
@@ -65,12 +66,12 @@ private val DESTINATIONS =
       "spring — watch it overshoot and settle rather than ease linearly into place.",
 )
 @CatalogModesCompact
-@OverrideVariant(name = "four", strings = ["count=4"])
-@OverrideVariant(name = "five", strings = ["count=5"])
+@OverrideVariant(name = "four", ints = ["count=4"])
+@OverrideVariant(name = "five", ints = ["count=5"])
 @OverrideVariant(name = "labels-none", strings = ["labels=none"])
 @Composable
 fun ShortNavigationBarSticker() = Sticker {
-  val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
+  val count = previewOverrideInt("count", 3)
   val labels = catalogChoice("labels", "always", "always", "none")
   var selected by selectable(0)
   ShortNavigationBar(Modifier.width(412.dp).height(64.dp)) {
@@ -87,7 +88,9 @@ fun ShortNavigationBarSticker() = Sticker {
               contentDescription = null,
             )
           },
-          label = if (labels == "none") null else ({ Text(stringResource(label)) }),
+          label =
+            if (labels == "none") null
+            else ({ Text(catalogText("label", stringResource(label), index)) }),
           modifier = Modifier.weight(1f),
         )
       }

@@ -31,7 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
-import ee.schimke.composeai.overrides.previewOverrideString
+import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -40,6 +40,7 @@ import ee.schimke.m3catalog.CatalogImagePlaceholder
 import ee.schimke.m3catalog.CatalogModesCompact
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_back
@@ -74,8 +75,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable private fun navEnabled(): Boolean = previewOverrideBoolean("nav", true)
 
 /** How many trailing actions the bar draws — the `actions` knob the action cells seed. */
-@Composable
-private fun actionCount(): Int = previewOverrideString("actions", "1").toIntOrNull() ?: 1
+@Composable private fun actionCount(): Int = previewOverrideInt("actions", 1)
 
 @Composable
 private fun NavIcon(): (@Composable () -> Unit)? {
@@ -117,8 +117,8 @@ private const val W = 412
 )
 @CatalogModesCompact
 @OverrideVariant(name = "no-nav", booleans = ["nav=false"])
-@OverrideVariant(name = "no-actions", strings = ["actions=0"])
-@OverrideVariant(name = "two-actions", strings = ["actions=2"])
+@OverrideVariant(name = "no-actions", ints = ["actions=0"])
+@OverrideVariant(name = "two-actions", ints = ["actions=2"])
 @OverrideVariant(name = "on-scroll", strings = ["elevation=on-scroll"])
 @OverrideVariant(name = "small-image", strings = ["content=small-image"])
 @Composable
@@ -137,7 +137,7 @@ fun SmallTopAppBar() = Sticker {
           scaleBasis = 122f,
         )
       } else {
-        Text(stringResource(Res.string.appbar_title))
+        Text(catalogText("title", stringResource(Res.string.appbar_title)))
       }
     },
     navigationIcon = nav ?: {},
@@ -173,7 +173,7 @@ private fun catalogAppBarColors() =
 )
 @CatalogModesCompact
 @OverrideVariant(name = "no-nav", booleans = ["nav=false"])
-@OverrideVariant(name = "no-actions", strings = ["actions=0"])
+@OverrideVariant(name = "no-actions", ints = ["actions=0"])
 @Composable
 fun CenterTopAppBar() = Sticker {
   val menu = counted(stringResource(Res.string.action_menu))
@@ -184,7 +184,7 @@ fun CenterTopAppBar() = Sticker {
   val nav = navEnabled()
   val actions = actionCount()
   CenterAlignedTopAppBar(
-    title = { Text(stringResource(Res.string.appbar_title)) },
+    title = { Text(catalogText("title", stringResource(Res.string.appbar_title))) },
     navigationIcon = {
       if (nav) {
         IconButton(onClick = menu.onClick) {
@@ -224,12 +224,12 @@ fun CenterTopAppBar() = Sticker {
   caption = "Two rows; title below the actions.",
 )
 @CatalogModesCompact
-@OverrideVariant(name = "two-actions", strings = ["actions=2"])
+@OverrideVariant(name = "two-actions", ints = ["actions=2"])
 @Composable
 fun MediumTopAppBarSticker() = Sticker {
   val nav = NavIcon()
   MediumTopAppBar(
-    title = { Text(stringResource(Res.string.appbar_title)) },
+    title = { Text(catalogText("title", stringResource(Res.string.appbar_title))) },
     navigationIcon = nav ?: {},
     actions = Actions(),
     colors =
@@ -246,12 +246,12 @@ fun MediumTopAppBarSticker() = Sticker {
   caption = "The tallest form, for a prominent headline.",
 )
 @CatalogModesCompact
-@OverrideVariant(name = "two-actions", strings = ["actions=2"])
+@OverrideVariant(name = "two-actions", ints = ["actions=2"])
 @Composable
 fun LargeTopAppBarSticker() = Sticker {
   val nav = NavIcon()
   LargeTopAppBar(
-    title = { Text(stringResource(Res.string.appbar_title)) },
+    title = { Text(catalogText("title", stringResource(Res.string.appbar_title))) },
     navigationIcon = nav ?: {},
     actions = Actions(),
     colors =

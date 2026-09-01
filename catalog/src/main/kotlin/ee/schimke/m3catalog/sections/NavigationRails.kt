@@ -35,7 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
-import ee.schimke.composeai.overrides.previewOverrideString
+import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.InteractionPreview
@@ -45,6 +45,7 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_menu
@@ -98,7 +99,7 @@ private fun RailHeaderContent(wide: Boolean) {
           icon = {
             Icon(Icons.Filled.Edit, contentDescription = stringResource(Res.string.action_new))
           },
-          text = { Text(stringResource(Res.string.label_text)) },
+          text = { Text(catalogText("fabLabel", stringResource(Res.string.label_text))) },
         )
       } else {
         FloatingActionButton(onClick = fabClick.onClick, elevation = elevation) {
@@ -118,7 +119,7 @@ private fun RailHeaderContent(wide: Boolean) {
   caption = "Destinations along the side. Count, menu, FAB and labels fold in.",
 )
 @CatalogModes
-@OverrideVariant(name = "four", strings = ["count=4"])
+@OverrideVariant(name = "four", ints = ["count=4"])
 @OverrideVariant(name = "no-menu", booleans = ["menu=false"])
 @OverrideVariant(name = "no-fab", booleans = ["fab=false"])
 @OverrideVariant(name = "no-menu-fab", booleans = ["menu=false", "fab=false"])
@@ -127,7 +128,7 @@ private fun RailHeaderContent(wide: Boolean) {
 @ee.schimke.m3catalog.NavigationRailStickerExhaustiveKitCells
 @Composable
 fun NavigationRailSticker() = Sticker {
-  val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
+  val count = previewOverrideInt("count", 3)
   val labels = catalogChoice("labels", "always", "always", "none")
   // The kit's `Alignment` axis. `NavigationRail` stacks its header and items from the top and
   // offers no arrangement parameter, so TOP is what an unseeded rail draws — the reference above
@@ -153,7 +154,9 @@ fun NavigationRailSticker() = Sticker {
               contentDescription = null,
             )
           },
-          label = if (labels == "none") null else ({ Text(stringResource(label)) }),
+          label =
+            if (labels == "none") null
+            else ({ Text(catalogText("label", stringResource(label), index)) }),
         )
       }
       if (middleAligned) Column(Modifier.weight(1f)) {}
@@ -178,12 +181,12 @@ fun NavigationRailSticker() = Sticker {
       "two run on different specs, which is only visible when they move together.",
 )
 @CatalogModes
-@OverrideVariant(name = "four", strings = ["count=4"])
+@OverrideVariant(name = "four", ints = ["count=4"])
 @OverrideVariant(name = "middle", strings = ["alignment=middle"])
 @ee.schimke.m3catalog.WideNavigationRailStickerExhaustiveKitCells
 @Composable
 fun WideNavigationRailSticker() = Sticker {
-  val count = previewOverrideString("count", "3").toIntOrNull() ?: 3
+  val count = previewOverrideInt("count", 3)
   var selected by selectable(0)
   // `WideNavigationRail` takes a state object, not an `expanded` flag — the expansion is animated
   // and the rail owns it. Seeded Expanded so the baked capture shows the form this component is
@@ -209,7 +212,7 @@ fun WideNavigationRailSticker() = Sticker {
             contentDescription = null,
           )
         },
-        label = { Text(stringResource(label)) },
+        label = { Text(catalogText("label", stringResource(label), index)) },
       )
     }
   }

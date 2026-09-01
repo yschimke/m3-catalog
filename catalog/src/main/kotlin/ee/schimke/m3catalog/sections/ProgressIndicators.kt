@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
+import ee.schimke.composeai.overrides.previewOverrideFloat
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -36,8 +36,7 @@ import ee.schimke.m3catalog.Sticker
 // component. The kit-index resolver reads `type=wave` back to the set's `Type=Wave` variant, so
 // the wavy node is still compared; it is now compared as a cell of the indicator it varies.
 
-@Composable
-private fun progress(): Float = previewOverrideString("progress", "0.5").toFloatOrNull() ?: 0.5f
+@Composable private fun progress(): Float = previewOverrideFloat("progress", 0.5f)
 
 @CatalogComponent(
   id = "Progress/Linear",
@@ -45,9 +44,9 @@ private fun progress(): Float = previewOverrideString("progress", "0.5").toFloat
   caption = "Determinate linear progress. Values across the range fold in.",
 )
 @CatalogModesLinearProgress
-@OverrideVariant(name = "empty", strings = ["progress=0.0"])
-@OverrideVariant(name = "quarter", strings = ["progress=0.25"])
-@OverrideVariant(name = "full", strings = ["progress=1.0"])
+@OverrideVariant(name = "empty", floats = ["progress=0.0"])
+@OverrideVariant(name = "quarter", floats = ["progress=0.25"])
+@OverrideVariant(name = "full", floats = ["progress=1.0"])
 @ee.schimke.m3catalog.LinearProgressExhaustiveKitCells
 @Composable
 fun LinearProgress() = Sticker {
@@ -68,9 +67,9 @@ fun LinearProgress() = Sticker {
   caption = "Determinate circular progress. Values across the range fold in.",
 )
 @CatalogModes
-@OverrideVariant(name = "empty", strings = ["progress=0.0"])
-@OverrideVariant(name = "quarter", strings = ["progress=0.25"])
-@OverrideVariant(name = "full", strings = ["progress=1.0"])
+@OverrideVariant(name = "empty", floats = ["progress=0.0"])
+@OverrideVariant(name = "quarter", floats = ["progress=0.25"])
+@OverrideVariant(name = "full", floats = ["progress=1.0"])
 @ee.schimke.m3catalog.CircularProgressExhaustiveKitCells
 @Composable
 fun CircularProgress() = Sticker {
@@ -84,8 +83,8 @@ fun CircularProgress() = Sticker {
   caption = "The expressive wavy track. Values across the range fold in.",
 )
 @CatalogModesLinearProgressExpressive
-@OverrideVariant(name = "quarter", strings = ["progress=0.25"])
-@OverrideVariant(name = "full", strings = ["progress=1.0"])
+@OverrideVariant(name = "quarter", floats = ["progress=0.25"])
+@OverrideVariant(name = "full", floats = ["progress=1.0"])
 @Composable
 fun LinearWavyProgress() = Sticker {
   val value = progress()
@@ -103,8 +102,8 @@ fun LinearWavyProgress() = Sticker {
   caption = "The expressive wavy circular track. Values across the range fold in.",
 )
 @CatalogModes
-@OverrideVariant(name = "quarter", strings = ["progress=0.25"])
-@OverrideVariant(name = "full", strings = ["progress=1.0"])
+@OverrideVariant(name = "quarter", floats = ["progress=0.25"])
+@OverrideVariant(name = "full", floats = ["progress=1.0"])
 @Composable
 fun CircularWavyProgress() = Sticker {
   val value = progress()

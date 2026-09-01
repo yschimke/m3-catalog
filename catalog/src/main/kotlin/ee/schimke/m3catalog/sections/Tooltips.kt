@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_action
@@ -49,7 +50,7 @@ fun PlainTooltipSticker() = Sticker {
   ) {
     Box(Modifier.width(104.dp).height(24.dp).padding(horizontal = 8.dp, vertical = 4.dp)) {
       Text(
-        stringResource(Res.string.label_add_to_favourites),
+        catalogText("text", stringResource(Res.string.label_add_to_favourites)),
         style = MaterialTheme.typography.bodySmall,
       )
     }
@@ -58,8 +59,8 @@ fun PlainTooltipSticker() = Sticker {
 
 @Composable
 fun RichTooltipSticker() = Sticker {
-  val primary = counted(stringResource(Res.string.action_action))
-  val secondary = counted(stringResource(Res.string.action_action))
+  val primary = counted(catalogText("action", stringResource(Res.string.action_action)))
+  val secondary = counted(catalogText("secondaryAction", stringResource(Res.string.action_action)))
   val colors = TooltipDefaults.richTooltipColors()
   Box(Modifier.padding(start = 8.dp, top = 6.dp, end = 8.dp, bottom = 10.dp)) {
     Surface(
@@ -72,20 +73,21 @@ fun RichTooltipSticker() = Sticker {
       Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
         if (catalogChoice("title", "on", "on", "off") != "off") {
           Text(
-            stringResource(Res.string.tooltip_title),
+            catalogText("titleText", stringResource(Res.string.tooltip_title)),
             color = colors.titleContentColor,
             style = MaterialTheme.typography.titleSmall,
           )
         }
         Text(
-          stringResource(Res.string.tooltip_body),
+          catalogText("text", stringResource(Res.string.tooltip_body)),
           modifier = Modifier.padding(top = 4.dp),
           style = MaterialTheme.typography.bodyMedium,
         )
         if (catalogChoice("action", "on", "on", "off", "legacy") != "off") {
           Row(Modifier.padding(top = 4.dp)) {
             if (catalogChoice("action", "on", "on", "off", "legacy") == "legacy") {
-              val learn = counted(stringResource(Res.string.action_learn_more))
+              val learn =
+                counted(catalogText("action", stringResource(Res.string.action_learn_more)))
               TextButton(onClick = learn.onClick) { Text(learn.label) }
             } else {
               TextButton(onClick = primary.onClick) { Text(primary.label) }

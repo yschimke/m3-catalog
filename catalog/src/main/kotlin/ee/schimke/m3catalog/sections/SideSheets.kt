@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_back
@@ -50,8 +51,8 @@ import org.jetbrains.compose.resources.stringResource
 fun StandardSideSheet() = Sticker {
   val close = counted(stringResource(Res.string.action_close))
   val back = counted(stringResource(Res.string.action_back))
-  val cancel = counted(stringResource(Res.string.action_cancel))
-  val save = counted(stringResource(Res.string.action_save))
+  val cancel = counted(catalogText("dismissButton", stringResource(Res.string.action_cancel)))
+  val save = counted(catalogText("confirmButton", stringResource(Res.string.action_save)))
   Surface(
     modifier = Modifier.width(320.dp).height(700.dp),
     color = MaterialTheme.colorScheme.surface,
@@ -71,7 +72,7 @@ fun StandardSideSheet() = Sticker {
             }
           }
           Text(
-            stringResource(Res.string.sheet_details),
+            catalogText("title", stringResource(Res.string.sheet_details)),
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
           )
@@ -83,7 +84,7 @@ fun StandardSideSheet() = Sticker {
       }
       if (previewOverrideBoolean("content", false)) {
         Text(
-          stringResource(Res.string.sheet_supporting),
+          catalogText("content", stringResource(Res.string.sheet_supporting)),
           modifier = Modifier.weight(1f).padding(horizontal = 24.dp),
           style = MaterialTheme.typography.bodyMedium,
         )
