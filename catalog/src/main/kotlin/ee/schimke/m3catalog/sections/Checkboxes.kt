@@ -32,15 +32,11 @@ import ee.schimke.m3catalog.toggleable
 // Compose has no `error` flag on `Checkbox`; the kit's error checkbox is expressed by driving the
 // container and outline from the error role, which is what `errorCheckboxColors` does.
 //
-// The `spacing.padding: 2 vs spec 4` finding this file used to cite (#87) came off the board at
-// `6672b7a`, which was stale: design-parity discarded every run it made between 2026-08-10 and the
-// fix in design-parity#330. On the first board published after that fix the checkbox carries no
-// token findings at all, so the kit half of the claim is retired until a run reproduces it.
-//
-// The code half stands either way, and is why the sticker would not move even if it came back: the
-// 2dp is `CheckboxDefaultPadding`, private inside material3's own `Checkbox` and reachable from no
-// parameter, so matching a 4 would mean hand-drawing a checkbox rather than rendering the
-// component.
+// The kit specifies 4dp around its checkbox drawing; Compose's actual Checkbox node reports and
+// renders 2dp (`CheckboxDefaultPadding`). That constant is private inside material3 and reachable
+// from no parameter, so matching 4dp here would mean hand-drawing a checkbox rather than rendering
+// the component. Issue #87 tracks the upstream gap, and `.design-parity.json` accepts only this
+// exact component/token/4-vs-2 tuple: any changed value becomes blocking again.
 
 @Composable
 private fun checkboxSelection(): String =
