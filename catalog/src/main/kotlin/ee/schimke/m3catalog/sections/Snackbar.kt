@@ -23,6 +23,7 @@ import ee.schimke.m3catalog.CatalogModesSnackbar
 import ee.schimke.m3catalog.KitShadowGutter
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_dismiss
@@ -73,7 +74,7 @@ import org.jetbrains.compose.resources.stringResource
 )
 @Composable
 fun SnackbarMessage() = Sticker {
-  val undo = counted(stringResource(Res.string.action_undo))
+  val undo = counted(catalogText("action", stringResource(Res.string.action_undo)))
   val dismiss = counted(stringResource(Res.string.action_dismiss))
   val long = catalogChoice("lines", "one", "one" to "One line", "two" to "Two lines") == "two"
   // The kit's bar width belongs to the FRAME, not to the `Snackbar` (#177). `OneRowSnackbar`
@@ -106,7 +107,12 @@ fun SnackbarMessage() = Sticker {
           }
         } else null,
     ) {
-      Text(stringResource(if (long) Res.string.snackbar_long else Res.string.snackbar_short))
+      Text(
+        catalogText(
+          "text",
+          stringResource(if (long) Res.string.snackbar_long else Res.string.snackbar_short),
+        )
+      )
     }
   }
 }

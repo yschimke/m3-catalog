@@ -28,6 +28,7 @@ import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.KitShadowGutter
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.label_text
@@ -163,7 +164,7 @@ fun FabLarge() = Sticker {
 @ee.schimke.m3catalog.ExtendedFabExhaustiveKitCells
 @Composable
 fun ExtendedFab() = Sticker {
-  val c = counted(stringResource(Res.string.label_text))
+  val c = counted(catalogText("label", stringResource(Res.string.label_text)))
   // No pinned width. The kit's frame is 104x56 because that is what ITS label copy measures to;
   // pinning ours to the same number clamped a container whose text is a different string in a
   // different font, and the moment the icon went back to 24dp the label wrapped inside it. Let
@@ -183,7 +184,7 @@ fun ExtendedFab() = Sticker {
 @CatalogModes
 @Composable
 fun ExtendedFabSmall() = Sticker {
-  val c = counted(stringResource(Res.string.label_text))
+  val c = counted(catalogText("label", stringResource(Res.string.label_text)))
   SmallExtendedFloatingActionButton(
     onClick = c.onClick,
     icon = { Icon(CatalogFilledStars, contentDescription = null) },
@@ -195,7 +196,7 @@ fun ExtendedFabSmall() = Sticker {
 @CatalogModes
 @Composable
 fun ExtendedFabMedium() = Sticker {
-  val c = counted(stringResource(Res.string.label_text))
+  val c = counted(catalogText("label", stringResource(Res.string.label_text)))
   MediumExtendedFloatingActionButton(
     onClick = c.onClick,
     icon = { Icon(CatalogFilledStars, contentDescription = null) },
@@ -207,7 +208,7 @@ fun ExtendedFabMedium() = Sticker {
 @CatalogModes
 @Composable
 fun ExtendedFabLarge() = Sticker {
-  val c = counted(stringResource(Res.string.label_text))
+  val c = counted(catalogText("label", stringResource(Res.string.label_text)))
   LargeExtendedFloatingActionButton(
     onClick = c.onClick,
     icon = { Icon(CatalogFilledStars, contentDescription = null) },

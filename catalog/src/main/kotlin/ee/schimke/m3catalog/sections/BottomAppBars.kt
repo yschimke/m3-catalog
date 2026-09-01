@@ -19,7 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
-import ee.schimke.composeai.overrides.previewOverrideString
+import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -42,16 +42,16 @@ import org.jetbrains.compose.resources.stringResource
 )
 @CatalogModesCompact
 @OverrideVariant(name = "no-fab", booleans = ["fab=false"])
-@OverrideVariant(name = "two-actions", strings = ["actions=2"])
-@OverrideVariant(name = "four-actions", strings = ["actions=4"])
-@OverrideVariant(name = "four-actions-no-fab", strings = ["actions=4"], booleans = ["fab=false"])
+@OverrideVariant(name = "two-actions", ints = ["actions=2"])
+@OverrideVariant(name = "four-actions", ints = ["actions=4"])
+@OverrideVariant(name = "four-actions-no-fab", ints = ["actions=4"], booleans = ["fab=false"])
 @Composable
 fun BottomAppBarSticker() = Sticker {
   val check = counted(stringResource(Res.string.action_check))
   val edit = counted(stringResource(Res.string.action_edit))
   val more = counted(stringResource(Res.string.action_more))
   val add = counted(stringResource(Res.string.action_add))
-  val count = previewOverrideString("actions", "3").toIntOrNull() ?: 3
+  val count = previewOverrideInt("actions", 3)
   BottomAppBar(
     modifier = Modifier.width(412.dp),
     contentPadding = PaddingValues(start = 4.dp, end = 16.dp),

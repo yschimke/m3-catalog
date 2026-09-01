@@ -29,7 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
+import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -39,6 +39,7 @@ import ee.schimke.m3catalog.CatalogModesDialog
 import ee.schimke.m3catalog.InlineDialogHost
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_cancel
@@ -70,8 +71,8 @@ private fun timeIs24Hour(): Boolean =
 
 @Composable
 private fun initialTime(): Pair<Int, Int> {
-  val hour = previewOverrideString("hour", "20").toIntOrNull()?.takeIf { it in 0..23 } ?: 20
-  val minute = previewOverrideString("minute", "0").toIntOrNull()?.takeIf { it in 0..59 } ?: 0
+  val hour = previewOverrideInt("hour", 20).takeIf { it in 0..23 } ?: 20
+  val minute = previewOverrideInt("minute", 0).takeIf { it in 0..59 } ?: 0
   return hour to minute
 }
 
@@ -84,13 +85,14 @@ private fun TimePickerFrame(
   modifier: Modifier,
   content: @Composable () -> Unit,
 ) {
-  val cancel = counted(stringResource(Res.string.action_cancel))
-  val ok = counted(stringResource(Res.string.action_ok))
+  val cancel = counted(catalogText("dismissButton", stringResource(Res.string.action_cancel)))
+  val ok = counted(catalogText("confirmButton", stringResource(Res.string.action_ok)))
+  val title = catalogText("title", headline)
   InlineDialogHost {
     AlertDialog(
       onDismissRequest = {},
       modifier = modifier,
-      title = { Text(headline) },
+      title = { Text(title) },
       text = { Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { content() } },
       dismissButton = {
         Row(verticalAlignment = Alignment.CenterVertically) {

@@ -38,6 +38,7 @@ import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.UnselectedToggleButtonMatrix
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.catalogEnabled
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.catalogToggleButtonShapes
 import ee.schimke.m3catalog.catalogToggleSelected
 import ee.schimke.m3catalog.generated.resources.Res
@@ -120,7 +121,11 @@ fun ToggleButtonSticker() = Sticker {
     ) {
       FigmaToggleButtonContent(
         selected = on,
-        label = stringResource(if (on) Res.string.label_on else Res.string.label_filled),
+        label =
+          catalogText(
+            "label",
+            stringResource(if (on) Res.string.label_on else Res.string.label_filled),
+          ),
       )
     }
   }
@@ -150,7 +155,11 @@ fun TonalToggleButtonSticker() = Sticker {
     ) {
       FigmaToggleButtonContent(
         selected = on,
-        label = stringResource(if (on) Res.string.label_on else Res.string.label_tonal),
+        label =
+          catalogText(
+            "label",
+            stringResource(if (on) Res.string.label_on else Res.string.label_tonal),
+          ),
       )
     }
   }
@@ -185,7 +194,11 @@ fun OutlinedToggleButtonSticker() = Sticker {
     ) {
       FigmaToggleButtonContent(
         selected = on,
-        label = stringResource(if (on) Res.string.label_on else Res.string.label_outlined),
+        label =
+          catalogText(
+            "label",
+            stringResource(if (on) Res.string.label_on else Res.string.label_outlined),
+          ),
       )
     }
   }
@@ -216,7 +229,11 @@ fun ElevatedToggleButtonSticker() = Sticker {
     ) {
       FigmaToggleButtonContent(
         selected = on,
-        label = stringResource(if (on) Res.string.label_on else Res.string.label_elevated),
+        label =
+          catalogText(
+            "label",
+            stringResource(if (on) Res.string.label_on else Res.string.label_elevated),
+          ),
       )
     }
   }
@@ -237,6 +254,6 @@ fun ElevatedToggleButtonSticker() = Sticker {
 fun ToggleButtonLabelOnly() = Sticker {
   var on by toggleable(true)
   ToggleButton(checked = on, onCheckedChange = { on = it }) {
-    Text(stringResource(Res.string.label_favourite))
+    Text(catalogText("label", stringResource(Res.string.label_favourite)))
   }
 }

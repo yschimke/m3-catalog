@@ -28,6 +28,7 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.tab_overview
 import ee.schimke.m3catalog.generated.resources.tab_related
@@ -87,7 +88,7 @@ fun PrimaryTabs() = Sticker {
       Tab(
         selected = index == selected,
         onClick = { selected = index },
-        text = tabText(stringResource(title)),
+        text = tabText(catalogText("text", stringResource(title), index)),
         icon = tabIcon(icon),
       )
     }
@@ -110,7 +111,7 @@ fun SecondaryTabs() = Sticker {
       Tab(
         selected = index == selected,
         onClick = { selected = index },
-        text = tabText(stringResource(title)),
+        text = tabText(catalogText("text", stringResource(title), index)),
         icon = tabIcon(icon),
       )
     }
@@ -132,7 +133,7 @@ fun PrimaryScrollableTabs() = Sticker {
       Tab(
         selected = index == selected,
         onClick = { selected = index },
-        text = tabText(stringResource(title)),
+        text = tabText(catalogText("text", stringResource(title), index)),
         icon = tabIcon(icon),
       )
     }
@@ -154,7 +155,7 @@ fun SecondaryScrollableTabs() = Sticker {
       Tab(
         selected = index == selected,
         onClick = { selected = index },
-        text = tabText(stringResource(title)),
+        text = tabText(catalogText("text", stringResource(title), index)),
         icon = tabIcon(icon),
       )
     }

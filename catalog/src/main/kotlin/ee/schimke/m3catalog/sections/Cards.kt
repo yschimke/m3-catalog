@@ -28,6 +28,7 @@ import ee.schimke.m3catalog.KitShadowGutter
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.catalogInteractive
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_action
@@ -60,8 +61,8 @@ import org.jetbrains.compose.resources.stringResource
 private fun CardBody(title: String) {
   val layout = catalogChoice("layout", "media", "slot", "media", "actions", "media+actions")
   if (layout == "slot") return
-  val action = counted(stringResource(Res.string.action_action))
-  val cancel = counted(stringResource(Res.string.action_cancel))
+  val action = counted(catalogText("action", stringResource(Res.string.action_action)))
+  val cancel = counted(catalogText("dismissAction", stringResource(Res.string.action_cancel)))
   Column {
     if (layout == "media" || layout == "media+actions") {
       // surfaceContainerHigh, not surfaceVariant: the kit's media placeholder binds
@@ -77,7 +78,10 @@ private fun CardBody(title: String) {
     Column(Modifier.padding(16.dp)) {
       Text(title, style = MaterialTheme.typography.titleMedium)
       Spacer(Modifier.height(4.dp))
-      Text(stringResource(Res.string.card_supporting), style = MaterialTheme.typography.bodyMedium)
+      Text(
+        catalogText("supportingText", stringResource(Res.string.card_supporting)),
+        style = MaterialTheme.typography.bodyMedium,
+      )
     }
     if (layout == "actions" || layout == "media+actions") {
       Row(Modifier.padding(start = 8.dp, end = 8.dp, bottom = 8.dp)) {
@@ -104,7 +108,7 @@ private fun CardBody(title: String) {
 )
 @Composable
 fun FilledCard() = Sticker {
-  val c = counted(stringResource(Res.string.card_title))
+  val c = counted(catalogText("title", stringResource(Res.string.card_title)))
   if (catalogInteractive()) {
     Card(onClick = c.onClick, modifier = Modifier.width(360.dp).height(480.dp)) {
       CardBody(c.label)
@@ -134,7 +138,7 @@ fun FilledCard() = Sticker {
 @CaptureGutter(all = KitShadowGutter.Level1All)
 @Composable
 fun ElevatedCardSticker() = Sticker {
-  val c = counted(stringResource(Res.string.card_title))
+  val c = counted(catalogText("title", stringResource(Res.string.card_title)))
   if (catalogInteractive()) {
     ElevatedCard(onClick = c.onClick, modifier = Modifier.width(360.dp).height(480.dp)) {
       CardBody(c.label)
@@ -160,7 +164,7 @@ fun ElevatedCardSticker() = Sticker {
 )
 @Composable
 fun OutlinedCardSticker() = Sticker {
-  val c = counted(stringResource(Res.string.card_title))
+  val c = counted(catalogText("title", stringResource(Res.string.card_title)))
   if (catalogInteractive()) {
     OutlinedCard(onClick = c.onClick, modifier = Modifier.width(360.dp).height(480.dp)) {
       CardBody(c.label)

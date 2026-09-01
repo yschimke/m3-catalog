@@ -114,6 +114,14 @@ same word. Where Compose has no name of its own, take the kit's.
   `(n)` tally is the `clickCount` knob, off by default — reach for it when the question really is
   "did the handler run?", never as a sticker's standing answer to a press
   ([wear-m3-catalog#32](https://github.com/yschimke/wear-m3-catalog/issues/32)).
+- **Expose the scalar parameters a reader can use.** The live preview server builds its Overrides
+  panel from the `previewOverride*` calls a sticker makes, so a pinned value is invisible there.
+  Name a knob after the Compose parameter or content slot it feeds (`label`, `value`,
+  `supportingText`, `preferredItemWidth`), use `catalogChoice` for a closed set, and use the typed
+  boolean / int / float / dp override instead of parsing a string. User-visible copy goes through
+  `catalogText(key, stringResource(...))`: the baked default stays translated and design-led, while
+  the held live render gets an editable text field. Keep state keyed on its override-derived
+  initial value; otherwise the panel changes while the remembered component does not.
 - **A kit BOUND goes on a frame; a kit SIZE goes on the component.** The two look the same in a
   diff and are not the same thing. A size the kit specifies and a caller would really pass —
   `Card`'s 360x480, a nav bar's 412dp, a text field's 210dp — belongs on the component: that is the

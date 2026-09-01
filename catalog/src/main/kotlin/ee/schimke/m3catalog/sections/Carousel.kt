@@ -16,8 +16,9 @@ import androidx.compose.material3.carousel.HorizontalUncontainedCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
+import ee.schimke.composeai.overrides.previewOverrideDp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -47,21 +48,21 @@ private fun CarouselItem() {
   caption = "Items that resize as they enter and leave the viewport. Item widths fold in.",
 )
 @CatalogModesCompact
-@OverrideVariant(name = "hero", strings = ["width=240"])
-@OverrideVariant(name = "full-screen", strings = ["width=320"])
+@OverrideVariant(name = "hero", floats = ["preferredItemWidth=240"])
+@OverrideVariant(name = "full-screen", floats = ["preferredItemWidth=320"])
 @ee.schimke.m3catalog.MultiBrowseCarouselExhaustiveKitCells
 @Composable
 fun MultiBrowseCarousel() = Sticker {
-  val width = previewOverrideString("width", "160").toIntOrNull() ?: 160
+  val width = previewOverrideDp("preferredItemWidth", 160.dp)
   MultiBrowseCarouselBody(width = width, frameWidth = 412)
 }
 
 @Composable
-private fun MultiBrowseCarouselBody(width: Int, frameWidth: Int) {
+private fun MultiBrowseCarouselBody(width: Dp, frameWidth: Int) {
   Box(Modifier.width(frameWidth.dp).height(221.dp).padding(vertical = 8.dp)) {
     HorizontalMultiBrowseCarousel(
       state = rememberCarouselState { 5 },
-      preferredItemWidth = width.dp,
+      preferredItemWidth = width,
       modifier = Modifier.fillMaxSize(),
       itemSpacing = 8.dp,
       contentPadding = PaddingValues(horizontal = 16.dp),
@@ -75,7 +76,9 @@ private fun MultiBrowseCarouselBody(width: Int, frameWidth: Int) {
 @CatalogVariant(of = "Carousel/MultiBrowse", props = ["context=tablet"])
 @CatalogModesCarouselTablet
 @Composable
-fun MultiBrowseCarouselTablet() = Sticker { MultiBrowseCarouselBody(width = 160, frameWidth = 905) }
+fun MultiBrowseCarouselTablet() = Sticker {
+  MultiBrowseCarouselBody(width = 160.dp, frameWidth = 905)
+}
 
 /**
  * The kit's `Layout=Center-aligned hero`. Its own composable rather than a knob, because Compose

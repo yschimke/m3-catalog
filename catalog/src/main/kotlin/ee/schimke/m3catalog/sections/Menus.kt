@@ -27,6 +27,7 @@ import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.KitShadowGutter
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.label_text
@@ -99,7 +100,7 @@ fun DropdownMenuSticker() = Sticker {
           // The kit groups destructive actions behind a divider, so the divider lands before the
           // last row rather than between every pair.
           if (dividers && index == MENU_ROWS.lastIndex) HorizontalDivider()
-          val c = counted(stringResource(row.label))
+          val c = counted(catalogText("label", stringResource(row.label), index))
           val enabled = !(disabledLast && index == MENU_ROWS.lastIndex)
           DropdownMenuItem(
             text = { Text(c.label) },

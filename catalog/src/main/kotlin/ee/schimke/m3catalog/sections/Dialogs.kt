@@ -34,6 +34,7 @@ import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.InlineDialogHost
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.dialog_action_1
@@ -60,8 +61,10 @@ import org.jetbrains.compose.resources.stringResource
 @OverrideVariant(name = "icon", booleans = ["icon=true"])
 @Composable
 fun BasicDialog() = Sticker {
-  val confirm = counted(stringResource(Res.string.dialog_action_1))
-  val dismiss = counted(stringResource(Res.string.dialog_action_2))
+  val confirm = counted(catalogText("confirmButton", stringResource(Res.string.dialog_action_1)))
+  val dismiss = counted(catalogText("dismissButton", stringResource(Res.string.dialog_action_2)))
+  val title = catalogText("title", stringResource(Res.string.dialog_delete_title))
+  val text = catalogText("text", stringResource(Res.string.dialog_delete_body))
   val showIcon = previewOverrideBoolean("icon", false)
   InlineDialogHost {
     AlertDialog(
@@ -77,8 +80,8 @@ fun BasicDialog() = Sticker {
             )
           }
         } else null,
-      title = { Text(stringResource(Res.string.dialog_delete_title)) },
-      text = { Text(stringResource(Res.string.dialog_delete_body)) },
+      title = { Text(title) },
+      text = { Text(text) },
       confirmButton = { TextButton(onClick = confirm.onClick) { Text(confirm.label) } },
       dismissButton = { TextButton(onClick = dismiss.onClick) { Text(dismiss.label) } },
     )
@@ -95,8 +98,11 @@ fun BasicDialog() = Sticker {
 @Composable
 fun ListDialog() = Sticker {
   val showIcon = previewOverrideBoolean("icon", false)
-  val confirm = counted(stringResource(Res.string.dialog_action_1))
-  val dismiss = counted(stringResource(Res.string.dialog_action_2))
+  val confirm = counted(catalogText("confirmButton", stringResource(Res.string.dialog_action_1)))
+  val dismiss = counted(catalogText("dismissButton", stringResource(Res.string.dialog_action_2)))
+  val title = catalogText("title", stringResource(Res.string.dialog_backup_title))
+  val text = catalogText("text", stringResource(Res.string.dialog_delete_body))
+  val item = catalogText("item", stringResource(Res.string.dialog_add_account))
   InlineDialogHost {
     AlertDialog(
       onDismissRequest = {},
@@ -111,14 +117,14 @@ fun ListDialog() = Sticker {
             )
           }
         } else null,
-      title = { Text(stringResource(Res.string.dialog_backup_title)) },
+      title = { Text(title) },
       text = {
         Column {
-          Text(stringResource(Res.string.dialog_delete_body))
+          Text(text)
           repeat(3) { index ->
             var checked by toggleable(true)
             ListItem(
-              headlineContent = { Text(stringResource(Res.string.dialog_add_account)) },
+              headlineContent = { Text(item) },
               leadingContent = {
                 Surface(
                   modifier = Modifier.size(40.dp),

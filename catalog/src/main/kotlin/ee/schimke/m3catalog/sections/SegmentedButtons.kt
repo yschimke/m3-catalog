@@ -21,7 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideString
+import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -29,6 +29,7 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.segment_all
 import ee.schimke.m3catalog.generated.resources.segment_day
@@ -63,7 +64,7 @@ private val LABELS =
     Res.string.segment_all,
   )
 
-@Composable private fun segmentCount(): Int = previewOverrideString("count", "3").toIntOrNull() ?: 3
+@Composable private fun segmentCount(): Int = previewOverrideInt("count", 3)
 
 @Composable
 private fun segmentContent(): String =
@@ -89,12 +90,16 @@ private fun SegmentContent(label: String, checked: Boolean) {
   caption = "Two to five related options. Count, content and multi-select fold in.",
 )
 @CatalogModes
-@OverrideVariant(name = "count-2", strings = ["count=2"])
-@OverrideVariant(name = "count-4", strings = ["count=4"])
-@OverrideVariant(name = "count-5", strings = ["count=5"])
+@OverrideVariant(name = "count-2", ints = ["count=2"])
+@OverrideVariant(name = "count-4", ints = ["count=4"])
+@OverrideVariant(name = "count-5", ints = ["count=5"])
 @OverrideVariant(name = "icon", strings = ["content=icon"])
 @OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
-@OverrideVariant(name = "count-5-icon-label", strings = ["count=5", "content=icon+label"])
+@OverrideVariant(
+  name = "count-5-icon-label",
+  ints = ["count=5"],
+  strings = ["content=icon+label"],
+)
 @Composable
 fun SegmentedButtons() = Sticker {
   val count = segmentCount()
@@ -107,7 +112,7 @@ fun SegmentedButtons() = Sticker {
         shape = SegmentedButtonDefaults.itemShape(index = index, count = count),
         modifier = Modifier.weight(1f),
       ) {
-        SegmentContent(stringResource(label), index == selected)
+        SegmentContent(catalogText("label", stringResource(label), index), index == selected)
       }
     }
   }
@@ -137,7 +142,7 @@ fun MultiChoiceSegmentedButtons() = Sticker {
         shape = SegmentedButtonDefaults.itemShape(index = index, count = count),
         modifier = Modifier.weight(1f),
       ) {
-        SegmentContent(stringResource(label), checked)
+        SegmentContent(catalogText("label", stringResource(label), index), checked)
       }
     }
   }

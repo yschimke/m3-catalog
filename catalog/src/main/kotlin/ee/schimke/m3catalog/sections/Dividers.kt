@@ -15,12 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideBoolean
-import ee.schimke.composeai.overrides.previewOverrideString
+import ee.schimke.composeai.overrides.previewOverrideDp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.divider_above
 import ee.schimke.m3catalog.generated.resources.divider_below
@@ -40,27 +41,33 @@ import org.jetbrains.compose.resources.stringResource
   caption = "Separates content in a vertical list. Inset and subhead fold in.",
 )
 @CatalogModes
-@OverrideVariant(name = "inset", strings = ["inset=16"])
+@OverrideVariant(name = "inset", floats = ["inset=16"])
 @OverrideVariant(name = "context", booleans = ["context=true"])
 @OverrideVariant(name = "subhead", booleans = ["subhead=true"])
 @Composable
 fun HorizontalDividerSticker() = Sticker {
-  val inset = previewOverrideString("inset", "0").toIntOrNull() ?: 0
+  val inset = previewOverrideDp("inset", 0.dp)
   Column(Modifier.width(280.dp)) {
     if (previewOverrideBoolean("context", false)) {
-      Text(stringResource(Res.string.divider_above), Modifier.padding(vertical = 8.dp))
+      Text(
+        catalogText("beforeText", stringResource(Res.string.divider_above)),
+        Modifier.padding(vertical = 8.dp),
+      )
     }
     if (previewOverrideBoolean("subhead", false)) {
       Text(
-        stringResource(Res.string.divider_section),
-        Modifier.padding(start = inset.dp, top = 8.dp, bottom = 4.dp),
+        catalogText("subhead", stringResource(Res.string.divider_section)),
+        Modifier.padding(start = inset, top = 8.dp, bottom = 4.dp),
         style = MaterialTheme.typography.titleSmall,
         color = MaterialTheme.colorScheme.primary,
       )
     }
-    HorizontalDivider(Modifier.padding(start = inset.dp))
+    HorizontalDivider(Modifier.padding(start = inset))
     if (previewOverrideBoolean("context", false)) {
-      Text(stringResource(Res.string.divider_below), Modifier.padding(vertical = 8.dp))
+      Text(
+        catalogText("afterText", stringResource(Res.string.divider_below)),
+        Modifier.padding(vertical = 8.dp),
+      )
     }
   }
 }
@@ -76,11 +83,17 @@ fun HorizontalDividerSticker() = Sticker {
 fun VerticalDividerSticker() = Sticker {
   Row(Modifier.height(120.dp)) {
     if (previewOverrideBoolean("context", false)) {
-      Text(stringResource(Res.string.divider_left), Modifier.padding(horizontal = 8.dp))
+      Text(
+        catalogText("beforeText", stringResource(Res.string.divider_left)),
+        Modifier.padding(horizontal = 8.dp),
+      )
     }
     VerticalDivider()
     if (previewOverrideBoolean("context", false)) {
-      Text(stringResource(Res.string.divider_right), Modifier.padding(horizontal = 8.dp))
+      Text(
+        catalogText("afterText", stringResource(Res.string.divider_right)),
+        Modifier.padding(horizontal = 8.dp),
+      )
     }
   }
 }

@@ -29,6 +29,7 @@ import ee.schimke.m3catalog.CatalogModesDatePickerUs
 import ee.schimke.m3catalog.InlineDialogHost
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_cancel
@@ -118,11 +119,11 @@ fun DatePickerModalSticker() = Sticker {
         initialDisplayMode = displayMode,
       )
     }
-  val confirm = counted(stringResource(Res.string.action_ok))
-  val dismiss = counted(stringResource(Res.string.action_cancel))
+  val confirm = counted(catalogText("confirmButton", stringResource(Res.string.action_ok)))
+  val dismiss = counted(catalogText("dismissButton", stringResource(Res.string.action_cancel)))
   // Clear owns the picker's selection rather than taking the `counted` tally: the state is right
   // here, so the live lane empties the grid and the headline for real.
-  val clear = stringResource(Res.string.action_clear)
+  val clear = catalogText("clearButton", stringResource(Res.string.action_clear))
   InlineDialogHost {
     DatePickerDialog(
       onDismissRequest = {},

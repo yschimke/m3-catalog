@@ -44,6 +44,7 @@ import ee.schimke.m3catalog.HoverFocusStates
 import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_remove
@@ -142,7 +143,7 @@ private fun chipIcon(): (@Composable () -> Unit)? =
 @ee.schimke.m3catalog.AssistChipStickerExhaustiveKitCells
 @Composable
 fun AssistChipSticker() = Sticker {
-  val c = counted(stringResource(Res.string.chip_add_to_calendar))
+  val c = counted(catalogText("label", stringResource(Res.string.chip_add_to_calendar)))
   val enabled = chipEnabled()
   if (chipElevated()) {
     ElevatedAssistChip(
@@ -188,7 +189,8 @@ fun FilterChipSticker() = Sticker {
   var selected by
     toggleable(catalogChoice("state", "selected", "selected", "unselected") == "selected")
   val enabled = chipEnabled()
-  val label: @Composable () -> Unit = { Text(stringResource(Res.string.chip_unread)) }
+  val labelText = catalogText("label", stringResource(Res.string.chip_unread))
+  val label: @Composable () -> Unit = { Text(labelText) }
   val showLeading = catalogChoice("configuration", "icon", "icon", "label") == "icon"
   val check: (@Composable () -> Unit)? =
     if (!selected || !showLeading) null
@@ -266,7 +268,7 @@ fun InputChipSticker() = Sticker {
   InputChip(
     selected = selected,
     onClick = { selected = !selected },
-    label = { Text(stringResource(Res.string.chip_unread)) },
+    label = { Text(catalogText("label", stringResource(Res.string.chip_unread))) },
     enabled = chipEnabled(),
     avatar = chipIcon(),
     trailingIcon =
@@ -297,7 +299,7 @@ fun InputChipSticker() = Sticker {
 @ee.schimke.m3catalog.SuggestionChipStickerExhaustiveKitCells
 @Composable
 fun SuggestionChipSticker() = Sticker {
-  val c = counted(stringResource(Res.string.chip_sounds_good))
+  val c = counted(catalogText("label", stringResource(Res.string.chip_sounds_good)))
   val enabled = chipEnabled()
   // The kit's `Show icon` axis. Decorative beside its own label, so no contentDescription.
   val icon: (@Composable () -> Unit)? =
