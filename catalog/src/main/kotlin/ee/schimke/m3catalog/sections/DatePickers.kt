@@ -25,6 +25,7 @@ import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
+import ee.schimke.composeai.preview.SettledPreview
 import ee.schimke.m3catalog.CatalogModesDatePickerUs
 import ee.schimke.m3catalog.InlineDialogHost
 import ee.schimke.m3catalog.Sticker
@@ -63,6 +64,22 @@ private fun dateDisplayMode(): DisplayMode =
   if (catalogChoice("mode", "calendar", "calendar", "input") == "input") DisplayMode.Input
   else DisplayMode.Picker
 
+// Both stickers below PIN their capture to 600ms of virtual time rather than to the first frame.
+// It is the input mode that needs it; the calendar cells settle before the first frame and come
+// back byte-identical either way.
+//
+// `DateInputTextField` starts its `OutlinedTextField` empty and writes the seeded date in a
+// `LaunchedEffect(initialDateMillis)`, and `DatePickerDialog` focuses that field after
+// `DurationMedium2`. Both land after the first frame, so the label's `updateTransition` is still
+// at its unfocused-empty coordinate when a first-frame capture is taken: the resting "Date" label
+// published on top of the "08/17/2025" it should have floated above (#269). Nothing the sticker
+// passes can move that — the tween is internal to the Material composable.
+//
+// `afterMs` rather than the auto walk because the focused field carries a BLINKING CURSOR, which
+// never quiesces: auto would spend the whole budget and record the capture as unsettled, which is
+// the diagnostic a genuinely broken reveal needs to keep for itself. 600ms is past the text, the
+// focus request and both tweens, and inside the cursor's first on-phase, so the still is
+// deterministic — the same requirement the pinned instant above exists for.
 @CatalogVariant(
   of = "DatePicker/Modal",
   props = ["type=range"],
@@ -71,6 +88,7 @@ private fun dateDisplayMode(): DisplayMode =
   caption = "Start and end dates in one grid.",
 )
 @CatalogModesDatePickerUs
+@SettledPreview(afterMs = 600)
 @OverrideVariant(name = "input", strings = ["mode=input"])
 @Composable
 fun DateRangePickerSticker() = Sticker {
@@ -104,6 +122,8 @@ fun DateRangePickerSticker() = Sticker {
   caption = "The picker on its own dialog surface, with confirm and dismiss actions.",
 )
 @CatalogModesDatePickerUs
+// Pinned for the reason recorded above the range sticker.
+@SettledPreview(afterMs = 600)
 @OverrideVariant(name = "input", strings = ["mode=input"])
 @Composable
 fun DatePickerModalSticker() = Sticker {
