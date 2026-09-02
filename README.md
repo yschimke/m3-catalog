@@ -41,7 +41,8 @@ That rule was broken once, deliberately, on **2026-08-27**: `design-artifacts/m3
 re-rooted to reclaim the 2.5 GiB of history accumulated under the old `split-mode: full` default,
 which copied `classes/app.jar` into every one of ~1,300 per-preview bundles. The reason is closed —
 [#158][158] switched the publisher to `full-shared-classpath` (789.7 MB to 50.4 MB per publish,
-measured), so the branch no longer grows at a rate that could justify doing this again. The rule
+measured), and the publisher has since dropped the per-preview split altogether, so the branch no
+longer grows at a rate that could justify doing this again. The rule
 above still stands; the exception was a one-off, the branch is append-only either side of it, and
 if size ever regresses the fix is the publisher, not another rewrite. What it cost, and the audit
 of what would otherwise have dangled, is in [#156][156].

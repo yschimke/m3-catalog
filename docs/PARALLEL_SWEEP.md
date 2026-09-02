@@ -266,8 +266,9 @@ Two independent timeouts: `timeout-minutes: 90` on the job, and `render-timeout:
 **If the full sweep is heading past ~700 previews, raising the timeout is the wrong lever.** Use
 spec-side render priority instead — `modePriority` in `catalog.spec.json` defers non-primary modes
 to the live server, and deferring the four contrast themes would roughly halve the baked set. It
-requires a live path, which this catalog already publishes (`publish-live-bundle` +
-`split-per-preview`). Coordinate that change; it is not a per-group edit.
+requires a live path, which this catalog already publishes (`publish-live-bundle` — the module-level
+bundle the trusted serve host hydrates; the per-preview split is off). Coordinate that change; it is
+not a per-group edit.
 
 **The ceiling is now essentially spent, with 30 of 38 groups still to go.** Toggle buttons alone
 came to 80 cells / 162 previews once its selected axis was counted, because the kit ships it as four
