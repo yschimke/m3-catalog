@@ -37,17 +37,33 @@ including its large live-render bundles. Contributors who only need the source s
 `git clone --single-branch https://github.com/yschimke/m3-catalog.git`; consumers that need the
 published catalog should fetch `design-artifacts/m3-catalog` deliberately.
 
-That rule was broken once, deliberately, on **2026-08-27**: `design-artifacts/m3-catalog` was
-re-rooted to reclaim the 2.5 GiB of history accumulated under the old `split-mode: full` default,
-which copied `classes/app.jar` into every one of ~1,300 per-preview bundles. The reason is closed —
-[#158][158] switched the publisher to `full-shared-classpath` (789.7 MB to 50.4 MB per publish,
-measured), and the publisher has since dropped the per-preview split altogether, so the branch no
-longer grows at a rate that could justify doing this again. The rule
-above still stands; the exception was a one-off, the branch is append-only either side of it, and
-if size ever regresses the fix is the publisher, not another rewrite. What it cost, and the audit
-of what would otherwise have dangled, is in [#156][156].
+That rule has been broken twice, both times deliberately.
+
+**2026-08-27.** `design-artifacts/m3-catalog` was re-rooted to reclaim the 2.5 GiB of history
+accumulated under the old `split-mode: full` default, which copied `classes/app.jar` into every one
+of ~1,300 per-preview bundles. [#158][158] then switched the publisher to `full-shared-classpath`
+(789.7 MB to 50.4 MB per publish, measured). What it cost, and the audit of what would otherwise
+have dangled, is in [#156][156].
+
+**2026-09-02.** Re-rooted again, as one part of a fleet-wide reset taken against a hard
+"no repository over 500 MB per checkout" budget. [#266][266] had just removed the per-preview split
+entirely — the pooled split was still writing ~1,300 addressable copies per publish and rewriting
+all of them on any catalog change — so the accumulated history was the last of that cost still
+being paid. The new root carries a **byte-identical tree** to the previous tip, so the served
+catalog did not change; only the snapshot history is gone. A full clone went from ~1.3 GiB to
+**430 MiB**.
+
+Note what this means for the first entry's closing claim that a regression should be fixed in the
+publisher rather than by another rewrite: that is still the right order, and it is what happened —
+the publisher was fixed first, in [#266][266], and the rewrite only reclaimed history the fixed
+publisher will not re-accumulate. A rewrite without a publisher fix in front of it just buys time.
+
+The rule above still stands for ordinary growth. Two data points on what to expect: the publishers
+that append forever reached 1.3–3.9 GiB, while cadence — whose publisher re-roots its delivery
+branch on every run — sits at 62 MiB.
 
 [156]: https://github.com/yschimke/m3-catalog/issues/156
+[266]: https://github.com/yschimke/m3-catalog/pull/266
 [158]: https://github.com/yschimke/m3-catalog/pull/158
 
 [kit]: https://www.figma.com/design/ocdacdEsnHipMJD3egzxKb/Material-3-Design-Kit--Community-
