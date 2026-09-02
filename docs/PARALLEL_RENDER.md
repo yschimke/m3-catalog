@@ -208,8 +208,8 @@ does not declare, failing the run before any job starts.
 - **Live-bundle interaction.** No designated shard is needed. Every shard packs the same module at
   the same commit, so `classes/app.jar` + `libs/` + `android/` are identical in all of them; the
   merge **inherits** the base shard's rather than merging them, along with the manifests and the
-  cover. `publish-live-bundle: true` + `split-per-preview: true` therefore see exactly the bundle
-  they would have seen unsharded.
+  cover. `publish-live-bundle: true` therefore sees exactly the bundle it would have seen
+  unsharded. (The same held for `split-per-preview`, which the publisher no longer sets.)
 - **Cache contention.** Not a factor: this pipeline has **no Actions-level Gradle cache** to contend
   on — no `setup-gradle` cache step, no `actions/cache` over `~/.gradle`. The only shared caches are
   the downloadable-font cache (small; the save key now carries the shard index, because Actions
