@@ -194,6 +194,26 @@ rebuilding all 35 shapes at the default knobs and comparing them to `MaterialSha
 cubic** — so a Material release that re-authors a shape fails the build instead of leaving a knob
 that reshapes something the library no longer draws.
 
+## Focus: two treatments, two cells
+
+M3 draws focus two different ways, so `focus` is an axis rather than a constant, and every
+focus-bearing component folds in **both** pictures of it:
+
+* `focused` is the **opacity** treatment — the resting container under a 10% state layer and
+  nothing else. It is Compose's default, it is what the kit's `State=Focused` variant draws, and it
+  is the cell design parity diffs against that node.
+* `focus-ring` is the **keyboard focus indicator** — Material's own
+  `RippleDefaults.InsetFocusRingRippleThemeConfiguration`, a 2dp `secondary` stroke over a 3dp
+  `onSecondary` one. It seeds `focus=ring`, which is a kit *property* (`Show focus indicator`,
+  defaulting to false) rather than a variant, so it adds no reference to the design map.
+
+There is deliberately no `focus-opacity` cell: it would render byte-identical pixels to `focused`
+on all 44 cells, which is the duplication [`duplicate-renders.json`](duplicate-renders.json) exists
+to track. The axis is also live on the preview server — the `Focus` select offers *Opacity* and
+*Ring* on any component that can take focus. Why the ring stays Material's rather than being tuned
+to the kit's own 3dp utility node is recorded in
+[`CatalogFocus`](catalog/src/main/kotlin/ee/schimke/m3catalog/CatalogFocus.kt).
+
 ## Two lanes: what a click does
 
 Every sticker is rendered on two surfaces that want opposite things from a pointer.
