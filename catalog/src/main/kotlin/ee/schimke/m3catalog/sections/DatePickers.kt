@@ -24,6 +24,8 @@ import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
+import ee.schimke.composeai.preview.FocusDirection
+import ee.schimke.composeai.preview.FocusedPreview
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.composeai.preview.SettledPreview
 import ee.schimke.m3catalog.CatalogModesDatePickerUs
@@ -126,17 +128,29 @@ fun DateRangePickerSticker() = Sticker {
 // Pinned for the reason recorded above the range sticker.
 @SettledPreview(afterMs = 600)
 @OverrideVariant(name = "input", strings = ["mode=input"])
+// Four `moveFocus(Next)` steps. The base capture is the calendar, so the walk lands on the
+// component's own chrome — the text-input-mode toggle, the month dropdown, then the previous and
+// next month chevrons — and the `input` variant walks its form. Both are captured; neither reaches
+// Clear/Cancel/OK in four steps, which is the picker's own focus order and not a capture artefact.
+//
+// This sticker is why compose-ai-tools#5088 exists. Its dialog composes a second semantics root —
+// measured, "Expected exactly '1' node but found '2' nodes that satisfy: (isRoot)", the second one
+// always the full 945x2100 canvas — and the capture used to resolve the root by asking for exactly
+// one node, so every capture of the preview failed, the undriven ones included and no PNG published
+// at all. The renderer now picks the richest root instead, which is what lets the walk come back.
+@FocusedPreview(
+  traverse =
+    [
+      FocusDirection.Next,
+      FocusDirection.Next,
+      FocusDirection.Next,
+      FocusDirection.Next,
+    ]
+)
 @Composable
 fun DatePickerModalSticker() = Sticker {
   // Its input mode is a form — the entry field, the mode toggle, dismiss and confirm — so it takes
   // the keyboard-navigation knob. See [KeyboardNavigable]; off by default.
-  //
-  // It carries no BAKED walk, though, and neither does the range picker beside it: under
-  // `@FocusedPreview` both compose a second root — measured, "Expected exactly '1' node but found
-  // '2' nodes that satisfy: (isRoot)", the second one always the full 945x2100 canvas — and the
-  // capture resolves the root to exactly one node, so every capture of the preview fails, the
-  // undriven ones included. `TimeInputSticker` is the same form and does not do it, so the baked
-  // walk lives there and this sticker keeps the live knob only.
   KeyboardNavigable {
     val initialDateMillis = dateMillisOverride("dateMillis", PINNED_DATE_MILLIS)
     val displayMode = dateDisplayMode()
