@@ -173,6 +173,25 @@ mirroring the kit's own information architecture.
 | Text inputs | Text fields |
 | Styles | Color, Typography, Shape, Elevation |
 
+## Adaptive layouts: previews, not inventory
+
+`NavigationSuiteScaffold`, `ListDetailPaneScaffold` and `SupportingPaneScaffold` are published from
+[`adaptive/`](catalog/src/main/kotlin/ee/schimke/m3catalog/adaptive/) as plain `@Preview`s —
+rendered, browsable and live on the preview server, but **not** `@CatalogComponent`s and not part of
+the sections above.
+
+That is the membership rule doing its job rather than an oversight. The kit publishes no node for
+any of them, `reference` is mandatory and there is no `noReference` escape hatch, so a sticker for
+one of these would be a picture with nothing to compare against. They therefore add nothing to
+`design-map.json` and appear in no parity comparison.
+
+What they are for is the axis the sticker sheet has nowhere else to show. Every component in the
+inventory is a picture of one thing at one size; an adaptive layout *is* the relationship between
+the window and the layout, so each renders at all three widths `catalog.spec.json` documents —
+compact 412, medium 700, expanded 960 — and the three renders together are the component. The
+window size class is measured from the preview's own frame rather than read from the host window,
+which is what keeps a compact capture compact on any machine.
+
 ## Shapes: Material's own by default, adjustable when you ask
 
 The 35 shape specimens draw `MaterialShapes.Circle`, `MaterialShapes.Heart` and the rest —

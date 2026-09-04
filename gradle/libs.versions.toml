@@ -57,6 +57,13 @@ compose-multiplatform-material3 = "1.12.0-alpha03"
 # material3 pulls in itself — tracks the main version.
 compose-material-icons = "1.7.3"
 
+# Compose Multiplatform Adaptive — `ListDetailPaneScaffold`, `SupportingPaneScaffold` and the
+# window-size-class plumbing behind them. Versioned independently of BOTH the Compose Multiplatform
+# BOM and material3: the 1.3 line is the one built against the 1.9 Compose runtime the 1.12
+# Multiplatform line ships, so it moves on its own cadence. `material3-adaptive-navigation-suite`
+# below is the exception — it lives in the material3 group and tracks material3's version.
+compose-adaptive = "1.3.0-beta02"
+
 # compose-ai-tools: the `ee.schimke.composeai.preview` Gradle plugin, the
 # `preview-annotations` artifact the catalog annotations come from, and the
 # reusable CI actions/workflows are one release — keep all three pinned
@@ -69,6 +76,15 @@ composePreviewAnnotations = "1.72.0"
 [libraries]
 compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "compose-multiplatform-material3" }
 compose-material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "compose-material-icons" }
+# The adaptive layout surfaces. `adaptive` carries `WindowAdaptiveInfo` and the scaffold directives,
+# `adaptive-layout` the pane scaffolds themselves, and `adaptive-navigation` the three-pane
+# navigators (`rememberListDetailPaneScaffoldNavigator`) the scaffolds are driven by.
+compose-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "compose-adaptive" }
+compose-adaptive-layout = { module = "org.jetbrains.compose.material3.adaptive:adaptive-layout", version.ref = "compose-adaptive" }
+compose-adaptive-navigation = { module = "org.jetbrains.compose.material3.adaptive:adaptive-navigation", version.ref = "compose-adaptive" }
+# `NavigationSuiteScaffold`. In the material3 group, so it tracks material3's own version rather
+# than the adaptive line's.
+compose-material3-adaptive-navigation-suite = { module = "org.jetbrains.compose.material3:material3-adaptive-navigation-suite", version.ref = "compose-multiplatform-material3" }
 compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose-multiplatform" }
 compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose-multiplatform" }
 compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose-multiplatform" }

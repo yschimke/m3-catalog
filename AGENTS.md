@@ -68,6 +68,15 @@ the catalog later covers it. `Suggestion chip / Selected=True` is the precedent 
 are action chips in Compose, while selection belongs to `FilterChip`, so the kit-only selected
 cells remain explicitly uncovered.
 
+**A component the kit does not publish can still be a preview.** Membership decides what enters the
+*inventory*, not what the module may render. The adaptive layouts — `NavigationSuiteScaffold`,
+`ListDetailPaneScaffold`, `SupportingPaneScaffold` — live under
+`catalog/src/main/kotlin/ee/schimke/m3catalog/adaptive/` as plain `@Preview`s for exactly that
+reason: the kit has no node for them, so they carry no `@CatalogComponent`, add nothing to the
+design map and are compared against nothing. Do not "fix" that by moving them into `sections/` and
+inventing a reference. Anything published there needs the same treatment: outside `sections/`,
+no `@CatalogComponent`, and a comment saying which kit node was looked for and not found.
+
 **Naming is Compose's call.** Ids follow the Compose API surface, because that is what a reader of a
 Compose catalog greps for: `NavigationBar/Short` is named for `ShortNavigationBar` even though the
 kit calls that node simply "Navigation bar". The one hard rule is not to borrow a kit word for
