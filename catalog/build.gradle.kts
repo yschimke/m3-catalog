@@ -24,6 +24,17 @@ dependencies {
   implementation(compose.desktop.currentOs)
   implementation(libs.compose.material3)
   implementation(libs.compose.material.icons.extended)
+
+  // The adaptive layout surfaces — `NavigationSuiteScaffold`, `ListDetailPaneScaffold` and
+  // `SupportingPaneScaffold`. These are NOT part of the kit-mapped component inventory: the
+  // Material 3 Design Kit publishes no node for any of them, and `AGENTS.md` makes a kit reference
+  // a condition of membership. They are published as plain `@Preview`s under
+  // `ee.schimke.m3catalog.adaptive` instead, so the catalog can show what Compose draws at each
+  // documented breakpoint without claiming a comparison it has nothing to compare against.
+  implementation(libs.compose.adaptive)
+  implementation(libs.compose.adaptive.layout)
+  implementation(libs.compose.adaptive.navigation)
+  implementation(libs.compose.material3.adaptive.navigation.suite)
   implementation(libs.compose.foundation)
   implementation(libs.compose.runtime)
   implementation(libs.compose.ui)
