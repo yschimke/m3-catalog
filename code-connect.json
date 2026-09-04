@@ -7,7 +7,7 @@
     "ref": "main",
     "module": ":catalog"
   },
-  "generatedAt": "2026-09-04T20:32:54.686Z",
+  "generatedAt": "2026-09-04T23:39:10.218Z",
   "mappings": [
     {
       "componentId": "Badge/Number",
@@ -412,11 +412,15 @@
     {
       "componentId": "Color/Role grid",
       "figmaLayerName": "Color/Role grid",
-      "componentName": "ColorRoleGridSticker",
-      "source": "https://github.com/yschimke/m3-catalog/blob/main/catalog/src/main/kotlin/ee/schimke/m3catalog/sections/Colors.kt",
+      "componentName": "currentScheme",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/catalog/src/main/kotlin/ee/schimke/m3catalog/CatalogSchemes.kt",
       "label": "Compose",
-      "confidence": "preview-fallback",
+      "confidence": "LOW",
       "previewName": "ColorRoleGridSticker",
+      "codeSnippet": "currentScheme()",
+      "imports": [
+        "import ee.schimke.m3catalog.currentScheme"
+      ],
       "figmaSvg": "https://preview.coo.ee/m3-catalog/render/color-role-grid__ideal__default__light__medium.svg"
     },
     {
