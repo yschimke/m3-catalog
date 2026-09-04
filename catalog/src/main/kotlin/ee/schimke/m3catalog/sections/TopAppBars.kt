@@ -30,8 +30,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideBoolean
-import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -72,15 +70,12 @@ import org.jetbrains.compose.resources.stringResource
  * same way. `CenterTopAppBar` used to hardcode both slots while still declaring `no-nav` and
  * `no-actions`, so those two cells published the default render under their own names (issue #176).
  */
-@Composable private fun navEnabled(): Boolean = previewOverrideBoolean("nav", true)
 
 /** How many trailing actions the bar draws — the `actions` knob the action cells seed. */
-@Composable private fun actionCount(): Int = previewOverrideInt("actions", 1)
-
 @Composable
-private fun NavIcon(): (@Composable () -> Unit)? {
+private fun NavIcon(nav: Boolean): (@Composable () -> Unit)? {
   val c = counted(stringResource(Res.string.action_back))
-  if (!navEnabled()) return null
+  if (!nav) return null
   return {
     IconButton(onClick = c.onClick) {
       Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = c.label)
@@ -89,10 +84,11 @@ private fun NavIcon(): (@Composable () -> Unit)? {
 }
 
 @Composable
-private fun Actions(): @Composable androidx.compose.foundation.layout.RowScope.() -> Unit {
+private fun Actions(
+  count: Int
+): @Composable androidx.compose.foundation.layout.RowScope.() -> Unit {
   val more = counted(stringResource(Res.string.action_more))
   val search = counted(stringResource(Res.string.action_search))
-  val count = actionCount()
   return {
     if (count >= 1) {
       IconButton(onClick = search.onClick) {
@@ -122,8 +118,8 @@ private const val W = 412
 @OverrideVariant(name = "on-scroll", strings = ["elevation=on-scroll"])
 @OverrideVariant(name = "small-image", strings = ["content=small-image"])
 @Composable
-fun SmallTopAppBar() = Sticker {
-  val nav = NavIcon()
+fun SmallTopAppBar(nav: Boolean = true, actions: Int = 1) = Sticker {
+  val navSlot = NavIcon(nav)
   TopAppBar(
     // The kit's `Configuration=Small-image` puts an image where the title goes. What that node
     // actually shows is Figma's placeholder graphic, which this catalog already draws from
@@ -140,8 +136,8 @@ fun SmallTopAppBar() = Sticker {
         Text(catalogText("title", stringResource(Res.string.appbar_title)))
       }
     },
-    navigationIcon = nav ?: {},
-    actions = Actions(),
+    navigationIcon = navSlot ?: {},
+    actions = Actions(actions),
     // The kit's `Elevation` axis is not a shadow on this component — it is the container colour a
     // bar takes once content has scrolled under it. A `TopAppBarScrollBehavior` seeded with an
     // offset was the first attempt and rendered nothing: the colour transition is driven by a
@@ -175,14 +171,12 @@ private fun catalogAppBarColors() =
 @OverrideVariant(name = "no-nav", booleans = ["nav=false"])
 @OverrideVariant(name = "no-actions", ints = ["actions=0"])
 @Composable
-fun CenterTopAppBar() = Sticker {
+fun CenterTopAppBar(nav: Boolean = true, actions: Int = 1) = Sticker {
   val menu = counted(stringResource(Res.string.action_menu))
   val account = counted(stringResource(Res.string.label_account))
   // The centred bar keeps its own slot CONTENT — the kit draws it with a menu icon and an avatar
   // rather than the parent's back arrow and search — but reads the same two knobs, so `no-nav` and
   // `no-actions` mean here what they mean on every other bar in the file.
-  val nav = navEnabled()
-  val actions = actionCount()
   CenterAlignedTopAppBar(
     title = { Text(catalogText("title", stringResource(Res.string.appbar_title))) },
     navigationIcon = {
@@ -226,12 +220,12 @@ fun CenterTopAppBar() = Sticker {
 @CatalogModesCompact
 @OverrideVariant(name = "two-actions", ints = ["actions=2"])
 @Composable
-fun MediumTopAppBarSticker() = Sticker {
-  val nav = NavIcon()
+fun MediumTopAppBarSticker(nav: Boolean = true, actions: Int = 1) = Sticker {
+  val navSlot = NavIcon(nav)
   MediumTopAppBar(
     title = { Text(catalogText("title", stringResource(Res.string.appbar_title))) },
-    navigationIcon = nav ?: {},
-    actions = Actions(),
+    navigationIcon = navSlot ?: {},
+    actions = Actions(actions),
     colors =
       TopAppBarDefaults.topAppBarColors(
         containerColor = androidx.compose.ui.graphics.Color.Transparent
@@ -248,12 +242,12 @@ fun MediumTopAppBarSticker() = Sticker {
 @CatalogModesCompact
 @OverrideVariant(name = "two-actions", ints = ["actions=2"])
 @Composable
-fun LargeTopAppBarSticker() = Sticker {
-  val nav = NavIcon()
+fun LargeTopAppBarSticker(nav: Boolean = true, actions: Int = 1) = Sticker {
+  val navSlot = NavIcon(nav)
   LargeTopAppBar(
     title = { Text(catalogText("title", stringResource(Res.string.appbar_title))) },
-    navigationIcon = nav ?: {},
-    actions = Actions(),
+    navigationIcon = navSlot ?: {},
+    actions = Actions(actions),
     colors =
       TopAppBarDefaults.topAppBarColors(
         containerColor = androidx.compose.ui.graphics.Color.Transparent

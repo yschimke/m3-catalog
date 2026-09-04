@@ -1,9 +1,9 @@
 # Parameter knobs in this catalog
 
 Compose-ai-tools carries two ways to declare a preview's editable knobs, and this catalog now uses
-both. This file records which of its knobs have moved to the newer format, which cannot, and the one
-release-shaped reason the largest group is still waiting. It is written so the question does not
-have to be re-investigated from the source the next time it comes up — the upstream half of the
+both. This file records which of its knobs have moved to the newer format, which cannot and why,
+and how the move was verified not to change a pixel or a control. It is written so the question does
+not have to be re-investigated from the source the next time it comes up — the upstream half of the
 story is
 [`compose-ai-tools/docs/design/PARAMETER_KNOB_MIGRATION.md`](https://github.com/yschimke/compose-ai-tools/blob/main/docs/design/PARAMETER_KNOB_MIGRATION.md),
 and this file does not restate it.
@@ -18,66 +18,59 @@ The two formats, in one line each:
 
 ## What has moved
 
-Eight knobs, across four stickers. All of them share one property that made them safe to move
-today: **no `@OverrideVariant`, no generated matrix cell and no exhaustive kit cell seeds any of
-them**, so no baked render depends on a seed reaching them.
+Every knob the format supports: a literal default, a seedable kind (`String` / `Boolean` / `Int` /
+`Long` / `Float` / `Double`), and a reading site the preview can own. Sixty-one knobs across
+twenty-seven stickers, declaring on 618 of the module's 4149 captures.
 
-| Sticker | Knobs | Shape |
-| --- | --- | --- |
-| `sections/SideSheets.kt` → `StandardSideSheet` | `header`, `back`, `content`, `footer` | all four read directly in the preview's own body |
-| `sections/BottomSheets.kt` → `ModalBottomSheetSticker` | `handle`, `header`, `content` | read in `SheetBody`, which has exactly one caller, so they thread through as arguments |
-| `adaptive/AdaptiveLayouts.kt` → `ListDetailPaneScaffoldSticker`, `SupportingPaneScaffoldSticker` | `twoPanesOnMedium` | read in `paneDirective`, called by both scaffolds; each declares it on its own signature |
+| Sticker(s) | Knobs |
+| --- | --- |
+| `ProgressIndicators.kt` — linear, circular and both wavy | `progress` |
+| `Chips.kt` — filter, input, suggestion | `trailing`, `closing`, `icon` |
+| `TextFields.kt` — filled, outlined | `leading`, `trailing` |
+| `TopAppBars.kt` — small, centre, medium, large | `nav`, `actions` |
+| `BottomAppBars.kt` | `actions`, `fab` |
+| `NavigationBars.kt`, `NavigationRails.kt` — rail and wide rail | `count`, `menu`, `fab` |
+| `SegmentedButtons.kt` — single and multi choice | `count` |
+| `Dialogs.kt` — basic, list | `icon` |
+| `Dividers.kt` — horizontal, vertical | `context`, `subhead` (`inset` stays: `Dp`) |
+| `Snackbar.kt` | `close` |
+| `Badges.kt` | `label` |
+| `SideSheets.kt`, `BottomSheets.kt`, `AdaptiveLayouts.kt` | the pilot's eight |
 
-The adaptive pair is the half of the pilot that renders: 12 captures across the
-`@CatalogBreakpoints` multipreview, **byte-identical before and after** (`composePreviewRender
---preview=PaneScaffoldSticker`, md5 of all twelve PNGs unchanged). The two sheets are replicas that
-the inventory deliberately does not publish — `StandardSideSheet` because Compose Material 3 has no
-side-sheet API, `ModalBottomSheetSticker` because popup surfaces cannot be captured yet
-(compose-ai-tools#3916) — so neither is a discovered preview and neither renders at all.
+Where a knob was read in a private helper with more than one caller — `fieldSpec()`,
+`RailHeaderContent()`, `NavIcon()` / `Actions()`, `SheetBody()`, `paneDirective()` — the helper takes
+it as an ordinary parameter and each preview declares its own. That is the format's shape: a knob
+belongs to the preview whose signature names it.
 
-## What is blocked, and on what
+### How this was verified
 
-Most of the catalog's remaining scalar knobs would move cleanly on the format's own terms — a
-literal default, a seedable kind, read inside the sticker. They are held by the render lane instead.
+The migration must be invisible: the same pixels, and the same controls on the preview server. Both
+were checked whole rather than sampled, base against head:
 
-**This catalog renders on the desktop backend** (`desktop-render: true` in
-[`design-artifacts.yml`](../.github/workflows/design-artifacts.yml); the module is CMP desktop, not
-Android). The desktop bake's binding of an `@OverrideVariant` seed onto a parameter knob's argument
-list is compose-ai-tools#5103, which landed upstream **after** v1.73.0 and is not in a release yet.
-Until it is, a seed naming a parameter knob is silently dropped and every variant renders the
-default.
+* **Renders.** All 618 affected captures rendered before and after. **Every one byte-identical (md5).**
+* **Preview-server control surface.** Every capture's `renders/<stem>.overrides.json` compared on
+  key, type, default, current, index and options. **Identical across all 618** — including seeded
+  cells, where `LinearProgress_VARIANT_full` still reports `progress` with default `0.5` and current
+  `1.0`, which is what draws the control at the variant's value.
+* **Inventory.** `previews.json`: 4149 previews both sides, ids identical *including order*, and no
+  `targets` changed. What changed is `knobs` (0 → 618, the point) and `componentTargets` (richer,
+  because the walk can now see into a capturing lambda).
+* **Figma mappings.** `design-map.json` and `design-map-variants.json` regenerate byte-identically
+  from the annotations, and all six mapping suites pass — `design-map`, `interaction-coverage`,
+  `kit-coverage`, `duplicate-renders`, `import-figma-pages`, `exhaustive-kit-cells`.
 
-That is not a subtle failure, and it reproduces in one command. Migrating `LinearProgress`'s
-`progress` knob to a `progress: Float = 0.5f` parameter and running
-`./gradlew :catalog:composePreviewRender --preview=LinearProgress` on compose-ai-tools 1.73.0:
+### What that verification caught
 
-| Capture | Unmigrated | Migrated |
-| --- | --- | --- |
-| `LinearProgress_Light` | `77b940e5…` | `77b940e5…` |
-| `…_VARIANT_empty` | `e511728e…` | `77b940e5…` |
-| `…_VARIANT_quarter` | `19b80f19…` | `77b940e5…` |
-| `…_VARIANT_full` | `b8cd98dd…` | `77b940e5…` |
+Rendering the whole affected set is not ceremony. The first run produced **396 PNGs and 222
+`.error.json` sidecars** — while the manifest still reported success. The parameter-knob format had
+only reached the ordinary bake path; the **focus, motion and scroll** lanes could not resolve a
+defaulted-parameter preview, did not bind its seed, could not invoke it with a partial seed, and did
+not record its declarations into the sidecar. Every interaction-state cell of a migrated sticker was
+affected, and those cells are the kit comparison addresses.
 
-Four distinct progress values collapse into one picture. `scripts/duplicate-renders.mjs` would fail
-the build on exactly that collision, which is the gate doing its job rather than a reason to declare
-the collision — the fix is upstream, not here.
-
-**Nothing needs writing upstream either: #5103 already does it, it is only unreleased.** Verified
-against compose-ai-tools at HEAD by putting an `@OverrideVariant(name = "seven-rows", ints =
-["itemCount=7"])` on its own parameter-knob sample (`samples/cmp/.../ParameterKnobPreviews.kt`) and
-baking it on the same desktop lane. The variant PNG differs from the default, and its
-`.overrides.json` sidecar reads `"key":"itemCount"` with `default` 3 and `current` 7 — the seed
-reaching the argument list, and the declaration reaching the sidecar `compose-preview serve` reads.
-The chain is `@OverrideVariant` → the plugin's `composeai.preview.knobs` system property (and worker
-protocol v2 frame) → `PreviewKnobBake.seedArgs` in the desktop renderer, and all of it is on
-compose-ai-tools `main`.
-
-So the next step for the rest of this migration is a compose-ai-tools release carrying #5103, which
-Renovate then lands here on its own. No code in this repository is waiting on anything else.
-
-So the rule for the next pass: **a knob that any `@OverrideVariant`, matrix cell or exhaustive kit
-cell seeds stays on `previewOverride*` until the desktop lane ships #5103.** Grep for `"<key>=` under
-`catalog/src/main` before moving one.
+Fixed upstream in compose-ai-tools#5115; the four stages and their capture counts are in that PR.
+**This migration needs the release that carries it.** Until then the module renders correctly only
+against a patched renderer, which is why the version bump here moves in the same change.
 
 ## What cannot move at all
 
@@ -90,6 +83,14 @@ These are structural, not release-shaped, and are upstream gaps rather than defe
 | `CatalogFocus.kt`'s `focusOverlayColour`, `focusRingOuterColour`, `focusRingInnerColour` | `Color` is not a seedable parameter kind, and they are read in a wrapper on behalf of every sticker |
 | `Dividers.kt`'s `inset`, `Carousel.kt`'s `preferredItemWidth` | `Dp` is not a seedable parameter kind |
 | `CatalogSizes.kt`'s `catalogToggleSelected`, `CatalogInteractive.kt`'s `clickCount` | declared in a shared helper or wrapper, with the default supplied by the caller |
+| `TimePickers.kt`'s `hour` / `minute` | read in the dialog frame three pickers share, so moving them would copy both onto all three |
+| `DatePickers.kt`'s date knobs | the default is an expression (`default.toString()`), which cannot be recovered and so cannot be declared |
+
+`Shapes.kt` **could** move — four literal-defaulted `Float` / `Int` knobs in one preview — and
+deliberately does not. It is the in-repo reference for what the lookup format reads like, the same
+way compose-ai-tools keeps `OverridablePreviews.kt` beside `ParameterKnobPreviews.kt`; keeping it
+also keeps a live `previewOverrideFloat` and `previewOverrideInt` in the sources, which is what
+`CatalogOverrideSurfaceTest` asserts.
 
 `CatalogOverrideSurfaceTest` keeps one live call of each of the six `previewOverride*` kinds in the
 sources, so the control contract the preview server reads stays exercised whatever else migrates.

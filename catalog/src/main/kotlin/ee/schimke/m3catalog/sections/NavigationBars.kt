@@ -17,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.InteractionPreview
@@ -70,8 +69,7 @@ private val DESTINATIONS =
 @OverrideVariant(name = "five", ints = ["count=5"])
 @OverrideVariant(name = "labels-none", strings = ["labels=none"])
 @Composable
-fun ShortNavigationBarSticker() = Sticker {
-  val count = previewOverrideInt("count", 3)
+fun ShortNavigationBarSticker(count: Int = 3) = Sticker {
   val labels = catalogChoice("labels", "always", "always", "none")
   var selected by selectable(0)
   ShortNavigationBar(Modifier.width(412.dp).height(64.dp)) {

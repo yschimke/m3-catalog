@@ -18,8 +18,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideBoolean
-import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -46,12 +44,12 @@ import org.jetbrains.compose.resources.stringResource
 @OverrideVariant(name = "four-actions", ints = ["actions=4"])
 @OverrideVariant(name = "four-actions-no-fab", ints = ["actions=4"], booleans = ["fab=false"])
 @Composable
-fun BottomAppBarSticker() = Sticker {
+fun BottomAppBarSticker(actions: Int = 3, fab: Boolean = true) = Sticker {
   val check = counted(stringResource(Res.string.action_check))
   val edit = counted(stringResource(Res.string.action_edit))
   val more = counted(stringResource(Res.string.action_more))
   val add = counted(stringResource(Res.string.action_add))
-  val count = previewOverrideInt("actions", 3)
+  val count = actions
   BottomAppBar(
     modifier = Modifier.width(412.dp),
     contentPadding = PaddingValues(start = 4.dp, end = 16.dp),
@@ -74,7 +72,7 @@ fun BottomAppBarSticker() = Sticker {
       }
     },
     floatingActionButton =
-      if (previewOverrideBoolean("fab", true)) {
+      if (fab) {
         {
           FloatingActionButton(onClick = add.onClick) {
             Icon(Icons.Filled.Add, contentDescription = add.label)

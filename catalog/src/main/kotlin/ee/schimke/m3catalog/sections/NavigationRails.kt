@@ -34,8 +34,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideBoolean
-import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.InteractionPreview
@@ -65,9 +63,7 @@ private val RAIL =
   listOf(Res.string.nav_home, Res.string.nav_search, Res.string.nav_you, Res.string.nav_saved)
 
 @Composable
-private fun RailHeaderContent(wide: Boolean) {
-  val menu = previewOverrideBoolean("menu", true)
-  val fab = previewOverrideBoolean("fab", true)
+private fun RailHeaderContent(wide: Boolean, menu: Boolean, fab: Boolean) {
   // Both tallies are read before the early return so the call sequence does not depend on the
   // knobs — the same reason `TopAppBars.NavIcon` resolves its tally ahead of the `nav` check.
   val menuClick = counted("menu")
@@ -127,8 +123,7 @@ private fun RailHeaderContent(wide: Boolean) {
 @OverrideVariant(name = "middle", strings = ["alignment=middle"])
 @ee.schimke.m3catalog.NavigationRailStickerExhaustiveKitCells
 @Composable
-fun NavigationRailSticker() = Sticker {
-  val count = previewOverrideInt("count", 3)
+fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = true) = Sticker {
   val labels = catalogChoice("labels", "always", "always", "none")
   // The kit's `Alignment` axis. `NavigationRail` stacks its header and items from the top and
   // offers no arrangement parameter, so TOP is what an unseeded rail draws — the reference above
@@ -141,7 +136,7 @@ fun NavigationRailSticker() = Sticker {
     NavigationRail(
       modifier = Modifier.height(800.dp),
       containerColor = Color.Transparent,
-      header = { RailHeaderContent(wide = false) },
+      header = { RailHeaderContent(wide = false, menu = menu, fab = fab) },
     ) {
       if (middleAligned) Column(Modifier.weight(1f)) {}
       RAIL.take(count).forEachIndexed { index, label ->
@@ -185,8 +180,7 @@ fun NavigationRailSticker() = Sticker {
 @OverrideVariant(name = "middle", strings = ["alignment=middle"])
 @ee.schimke.m3catalog.WideNavigationRailStickerExhaustiveKitCells
 @Composable
-fun WideNavigationRailSticker() = Sticker {
-  val count = previewOverrideInt("count", 3)
+fun WideNavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = true) = Sticker {
   var selected by selectable(0)
   // `WideNavigationRail` takes a state object, not an `expanded` flag — the expansion is animated
   // and the rail owns it. Seeded Expanded so the baked capture shows the form this component is
@@ -199,7 +193,7 @@ fun WideNavigationRailSticker() = Sticker {
     arrangement = if (middle) Arrangement.Center else Arrangement.Top,
     state = rememberWideNavigationRailState(WideNavigationRailValue.Expanded),
     colors = WideNavigationRailDefaults.colors(containerColor = Color.Transparent),
-    header = { RailHeaderContent(wide = true) },
+    header = { RailHeaderContent(wide = true, menu = menu, fab = fab) },
   ) {
     RAIL.take(count).forEachIndexed { index, label ->
       WideNavigationRailItem(

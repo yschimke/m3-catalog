@@ -14,7 +14,6 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.overrides.previewOverrideDp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
@@ -45,16 +44,16 @@ import org.jetbrains.compose.resources.stringResource
 @OverrideVariant(name = "context", booleans = ["context=true"])
 @OverrideVariant(name = "subhead", booleans = ["subhead=true"])
 @Composable
-fun HorizontalDividerSticker() = Sticker {
+fun HorizontalDividerSticker(context: Boolean = false, subhead: Boolean = false) = Sticker {
   val inset = previewOverrideDp("inset", 0.dp)
   Column(Modifier.width(280.dp)) {
-    if (previewOverrideBoolean("context", false)) {
+    if (context) {
       Text(
         catalogText("beforeText", stringResource(Res.string.divider_above)),
         Modifier.padding(vertical = 8.dp),
       )
     }
-    if (previewOverrideBoolean("subhead", false)) {
+    if (subhead) {
       Text(
         catalogText("subhead", stringResource(Res.string.divider_section)),
         Modifier.padding(start = inset, top = 8.dp, bottom = 4.dp),
@@ -63,7 +62,7 @@ fun HorizontalDividerSticker() = Sticker {
       )
     }
     HorizontalDivider(Modifier.padding(start = inset))
-    if (previewOverrideBoolean("context", false)) {
+    if (context) {
       Text(
         catalogText("afterText", stringResource(Res.string.divider_below)),
         Modifier.padding(vertical = 8.dp),
@@ -80,16 +79,16 @@ fun HorizontalDividerSticker() = Sticker {
 @CatalogModes
 @OverrideVariant(name = "context", booleans = ["context=true"])
 @Composable
-fun VerticalDividerSticker() = Sticker {
+fun VerticalDividerSticker(context: Boolean = false) = Sticker {
   Row(Modifier.height(120.dp)) {
-    if (previewOverrideBoolean("context", false)) {
+    if (context) {
       Text(
         catalogText("beforeText", stringResource(Res.string.divider_left)),
         Modifier.padding(horizontal = 8.dp),
       )
     }
     VerticalDivider()
-    if (previewOverrideBoolean("context", false)) {
+    if (context) {
       Text(
         catalogText("afterText", stringResource(Res.string.divider_right)),
         Modifier.padding(horizontal = 8.dp),

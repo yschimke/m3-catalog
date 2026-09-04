@@ -14,7 +14,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CaptureGutter
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
@@ -73,7 +72,7 @@ import org.jetbrains.compose.resources.stringResource
   booleans = ["close=true"],
 )
 @Composable
-fun SnackbarMessage() = Sticker {
+fun SnackbarMessage(close: Boolean = false) = Sticker {
   val undo = counted(catalogText("action", stringResource(Res.string.action_undo)))
   val dismiss = counted(stringResource(Res.string.action_dismiss))
   val long = catalogChoice("lines", "one", "one" to "One line", "two" to "Two lines") == "two"
@@ -99,7 +98,7 @@ fun SnackbarMessage() = Sticker {
           { TextButton(onClick = undo.onClick) { Text(undo.label) } }
         } else null,
       dismissAction =
-        if (previewOverrideBoolean("close", false)) {
+        if (close) {
           {
             IconButton(onClick = dismiss.onClick) {
               Icon(Icons.Filled.Close, contentDescription = dismiss.label)
