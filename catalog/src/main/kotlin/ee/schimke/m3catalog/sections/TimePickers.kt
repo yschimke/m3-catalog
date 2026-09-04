@@ -33,8 +33,6 @@ import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
-import ee.schimke.composeai.preview.FocusDirection
-import ee.schimke.composeai.preview.FocusedPreview
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogModesDialog
@@ -208,20 +206,6 @@ private fun TimePickerDialogFrame(seedInput: Boolean, seedHorizontal: Boolean = 
 )
 @CatalogModes
 @OverrideVariant(name = "12-hour", strings = ["hours=12"])
-// The keyboard walk, baked. Four Tabs from the top of the dialog: hour field, minute field, the
-// dial/keyboard toggle, then the dismiss and confirm actions — one PNG per stop, so a reviewer sees
-// which control each Tab lands on and what the focus treatment looks like when it gets there. This
-// is the *baked* half of the same question `KeyboardNavigable` answers live; the annotation flips
-// the input mode for its own captures, so the knob is not what drives these.
-@FocusedPreview(
-  traverse =
-    [
-      FocusDirection.Next,
-      FocusDirection.Next,
-      FocusDirection.Next,
-      FocusDirection.Next,
-    ]
-)
 @Composable
 fun TimeInputSticker() = Sticker {
   // The catalog's clearest keyboard walk: two entry fields, the dial/keyboard toggle, then the

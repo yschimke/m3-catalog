@@ -6,8 +6,10 @@ light scheme, native pixels.
 ## `focus-walk.png`
 
 `TimePicker/Input`, the four steps of `@FocusedPreview(traverse = [Next, Next, Next, Next])` left to
-right. Each frame is a real `FocusManager.moveFocus(Next)` against the composition — the same walk a
-Tab key performs — captured after it lands:
+right, captured while investigating what a baked walk would look like. **The annotation is not in
+this PR** — see "Why the walk is not baked" below. Each frame is a real
+`FocusManager.moveFocus(Next)` against the composition — the same walk a Tab key performs —
+captured after it lands:
 
 1. the **hour** entry field, focused;
 2. **OK**;
@@ -31,11 +33,26 @@ the form with a keyboard is the one offered a colour to see where it landed, and
 PNG here is byte-identical to what it published before, because both knobs default to off and
 unspecified.
 
-Only `TimePicker/Input` carries a baked walk. Under `@FocusedPreview` both date pickers compose a
-second root — `Expected exactly '1' node but found '2' nodes that satisfy: (isRoot)`, the second
-always the full 945x2100 canvas — and the capture resolves the root to exactly one node, so every
-capture of those previews fails, the undriven ones included. They keep the live `keyboardNav` knob,
-which touches no capture.
+## Why the walk is not baked
+
+Two findings, both measured, and together they are why this PR ships the live knob and not the
+annotation.
+
+`@FocusedPreview` **replaces** a preview's captures rather than adding to them. After annotating
+`TimeInputSticker`, `previews.json` listed exactly four captures for it — the focus steps — and no
+undriven still. So the catalog would publish a focused hour field as `TimePicker/Input`'s picture,
+and the parity lane would diff that against the kit's resting `State=Input` node. A design catalog
+cannot spend its component sticker on a state.
+
+And both date pickers cannot carry it at all: under the annotation they compose a second root —
+`Expected exactly '1' node but found '2' nodes that satisfy: (isRoot)`, the second always the full
+945x2100 canvas — and the capture resolves the root to exactly one node, so *every* capture of those
+previews fails, the undriven ones included. `DatePicker/Modal` published no PNG at all on the first
+push of this PR. Moving the walk to `DateRangePicker`, which composes inline rather than in a
+dialog, reproduced it exactly, so the dialog is not the cause.
+
+Both wants a change where the annotation is defined rather than a workaround here: a focus walk
+that keeps the resting capture beside its steps.
 
 The `focus-ring` cells carry the same idea for the other treatment — `focusRingOuterColour` and
 `focusRingInnerColour`, scoped by the `focus=ring` seed those cells already carry.
