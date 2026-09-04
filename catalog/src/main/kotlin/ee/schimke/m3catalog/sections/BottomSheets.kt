@@ -24,7 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogText
@@ -59,21 +58,21 @@ private fun SheetSurface(content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun SheetBody() {
+private fun SheetBody(handle: Boolean, header: Boolean, content: Boolean) {
   Column(Modifier.fillMaxWidth().padding(bottom = 16.dp)) {
-    if (previewOverrideBoolean("handle", true)) {
+    if (handle) {
       Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         BottomSheetDefaults.DragHandle()
       }
     }
-    if (previewOverrideBoolean("header", false)) {
+    if (header) {
       Text(
         catalogText("title", stringResource(Res.string.sheet_share_to)),
         Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
         style = MaterialTheme.typography.titleLarge,
       )
     }
-    if (previewOverrideBoolean("content", false)) {
+    if (content) {
       listOf(
           Res.string.action_share,
           Res.string.action_compose,
@@ -93,4 +92,9 @@ private fun SheetBody() {
 }
 
 // Not a catalog comparison until popup surfaces can be captured (compose-ai-tools#3916).
-@Composable fun ModalBottomSheetSticker() = Sticker { SheetSurface { SheetBody() } }
+@Composable
+fun ModalBottomSheetSticker(
+  handle: Boolean = true,
+  header: Boolean = false,
+  content: Boolean = false,
+) = Sticker { SheetSurface { SheetBody(handle, header, content) } }

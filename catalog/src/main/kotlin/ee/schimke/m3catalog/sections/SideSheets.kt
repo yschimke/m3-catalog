@@ -25,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogText
@@ -44,13 +43,20 @@ import org.jetbrains.compose.resources.stringResource
 // under design-led that is the honest form of "the code cannot express this", rather than silently
 // rendering a lookalike and letting parity call it a match.
 //
-// The kit's axes are the header and the footer action row.
+// The kit's axes are the header and the footer action row. Both are parameter knobs — declared on
+// this preview's own signature rather than looked up from its body — so the sticker carries no
+// override-harness call. See docs/PARAMETER_KNOBS.md.
 
 // There is no named Material 3 Compose side-sheet API, so this cannot be a parity comparison.
 @Composable
-fun StandardSideSheet() = Sticker {
+fun StandardSideSheet(
+  header: Boolean = true,
+  back: Boolean = false,
+  content: Boolean = false,
+  footer: Boolean = true,
+) = Sticker {
   val close = counted(stringResource(Res.string.action_close))
-  val back = counted(stringResource(Res.string.action_back))
+  val backAction = counted(stringResource(Res.string.action_back))
   val cancel = counted(catalogText("dismissButton", stringResource(Res.string.action_cancel)))
   val save = counted(catalogText("confirmButton", stringResource(Res.string.action_save)))
   Surface(
@@ -59,16 +65,16 @@ fun StandardSideSheet() = Sticker {
     shape = RectangleShape,
   ) {
     Column {
-      if (previewOverrideBoolean("header", true)) {
+      if (header) {
         Row(
           Modifier.fillMaxWidth().padding(start = 24.dp, top = 12.dp, end = 12.dp, bottom = 16.dp),
           verticalAlignment = Alignment.CenterVertically,
         ) {
           // The kit's `Show back` axis: a back affordance ahead of the title, for a sheet
           // reached from somewhere rather than opened in place.
-          if (previewOverrideBoolean("back", false)) {
-            IconButton(onClick = back.onClick) {
-              Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = back.label)
+          if (back) {
+            IconButton(onClick = backAction.onClick) {
+              Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = backAction.label)
             }
           }
           Text(
@@ -82,7 +88,7 @@ fun StandardSideSheet() = Sticker {
           }
         }
       }
-      if (previewOverrideBoolean("content", false)) {
+      if (content) {
         Text(
           catalogText("content", stringResource(Res.string.sheet_supporting)),
           modifier = Modifier.weight(1f).padding(horizontal = 24.dp),
@@ -91,7 +97,7 @@ fun StandardSideSheet() = Sticker {
       } else {
         Column(Modifier.weight(1f)) {}
       }
-      if (previewOverrideBoolean("footer", true)) {
+      if (footer) {
         HorizontalDivider()
         Row(
           Modifier.fillMaxWidth().padding(start = 24.dp, top = 12.dp, end = 24.dp, bottom = 20.dp),
