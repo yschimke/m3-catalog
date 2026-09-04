@@ -128,8 +128,10 @@ fun DateRangePickerSticker() = Sticker {
 // Pinned for the reason recorded above the range sticker.
 @SettledPreview(afterMs = 600)
 @OverrideVariant(name = "input", strings = ["mode=input"])
-// Walks its input mode the way `TimeInputSticker` walks the time form: entry field, mode toggle,
-// dismiss, confirm.
+// Four `moveFocus(Next)` steps. The base capture is the calendar, so the walk lands on the
+// component's own chrome — the text-input-mode toggle, the month dropdown, then the previous and
+// next month chevrons — and the `input` variant walks its form. Both are captured; neither reaches
+// Clear/Cancel/OK in four steps, which is the picker's own focus order and not a capture artefact.
 //
 // This sticker is why compose-ai-tools#5088 exists. Its dialog composes a second semantics root —
 // measured, "Expected exactly '1' node but found '2' nodes that satisfy: (isRoot)", the second one
