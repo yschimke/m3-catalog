@@ -31,5 +31,11 @@ the form with a keyboard is the one offered a colour to see where it landed, and
 PNG here is byte-identical to what it published before, because both knobs default to off and
 unspecified.
 
+Only `TimePicker/Input` carries a baked walk. Under `@FocusedPreview` both date pickers compose a
+second root — `Expected exactly '1' node but found '2' nodes that satisfy: (isRoot)`, the second
+always the full 945x2100 canvas — and the capture resolves the root to exactly one node, so every
+capture of those previews fails, the undriven ones included. They keep the live `keyboardNav` knob,
+which touches no capture.
+
 The `focus-ring` cells carry the same idea for the other treatment — `focusRingOuterColour` and
 `focusRingInnerColour`, scoped by the `focus=ring` seed those cells already carry.

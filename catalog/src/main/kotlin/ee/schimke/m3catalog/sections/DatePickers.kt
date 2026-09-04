@@ -24,8 +24,6 @@ import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
-import ee.schimke.composeai.preview.FocusDirection
-import ee.schimke.composeai.preview.FocusedPreview
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.composeai.preview.SettledPreview
 import ee.schimke.m3catalog.CatalogModesDatePickerUs
@@ -128,16 +126,17 @@ fun DateRangePickerSticker() = Sticker {
 // Pinned for the reason recorded above the range sticker.
 @SettledPreview(afterMs = 600)
 @OverrideVariant(name = "input", strings = ["mode=input"])
-// The keyboard walk, baked — and it fans out over the variant above, so the `input` cell publishes
-// the walk across its entry field while the base cell publishes it across the calendar. See
-// `TimeInputSticker` for the other half of this, and [KeyboardNavigable] for the live half.
-@FocusedPreview(
-  traverse = [FocusDirection.Next, FocusDirection.Next, FocusDirection.Next, FocusDirection.Next]
-)
 @Composable
 fun DatePickerModalSticker() = Sticker {
-  // Its input mode is a form — the entry field, the mode toggle, dismiss and confirm — so it is one
-  // of the two stickers that offer a keyboard walk. See [KeyboardNavigable]; off by default.
+  // Its input mode is a form — the entry field, the mode toggle, dismiss and confirm — so it takes
+  // the keyboard-navigation knob. See [KeyboardNavigable]; off by default.
+  //
+  // It carries no BAKED walk, though, and neither does the range picker beside it: under
+  // `@FocusedPreview` both compose a second root — measured, "Expected exactly '1' node but found
+  // '2' nodes that satisfy: (isRoot)", the second one always the full 945x2100 canvas — and the
+  // capture resolves the root to exactly one node, so every capture of the preview fails, the
+  // undriven ones included. `TimeInputSticker` is the same form and does not do it, so the baked
+  // walk lives there and this sticker keeps the live knob only.
   KeyboardNavigable {
     val initialDateMillis = dateMillisOverride("dateMillis", PINNED_DATE_MILLIS)
     val displayMode = dateDisplayMode()
