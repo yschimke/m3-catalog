@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.LocalRippleThemeConfiguration
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MaterialTheme
@@ -89,6 +90,7 @@ fun StickerFrame(
   shapes: Shapes = CatalogShapes,
   content: @Composable () -> Unit,
 ) {
+  val focus = catalogFocusChoice()
   CompositionLocalProvider(
     LocalGenericFonts provides CatalogGenericFonts,
     // The focus axis, provided once for the whole catalog: `LocalRippleThemeConfiguration` is what
@@ -96,7 +98,14 @@ fun StickerFrame(
     // focus indicator's inset ring, so one line here is what "throughout" means. Its default value
     // is `RippleDefaults.ThemeConfiguration`, which is the opacity branch — so providing it does
     // not move a render until a cell seeds `focus=ring`. See [CatalogFocus].
-    LocalRippleThemeConfiguration provides catalogFocusIndication(),
+    LocalRippleThemeConfiguration provides focus.indication,
+    // ...and, on the two focus cells only, the colours to draw that treatment in. Null everywhere
+    // else — including on those two until a reader actually sets a colour — and providing the
+    // local's own default value is the same as not providing it, so no baked render moves.
+    LocalRippleConfiguration provides (focus.ripple ?: LocalRippleConfiguration.current),
+    // The resolved treatment, so `KeyboardNavigable` can offer the colours for the branch this
+    // render is actually drawing without reading the axis a second time.
+    LocalCatalogFocus provides focus.treatment,
   ) {
     val themedContent: @Composable () -> Unit = {
       // Deliberately NOT a `Surface`: `Surface` clips its content to its shape, and the pixels a

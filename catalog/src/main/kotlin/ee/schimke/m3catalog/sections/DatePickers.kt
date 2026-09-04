@@ -24,10 +24,13 @@ import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
+import ee.schimke.composeai.preview.FocusDirection
+import ee.schimke.composeai.preview.FocusedPreview
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.composeai.preview.SettledPreview
 import ee.schimke.m3catalog.CatalogModesDatePickerUs
 import ee.schimke.m3catalog.InlineDialogHost
+import ee.schimke.m3catalog.KeyboardNavigable
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.catalogText
@@ -125,40 +128,51 @@ fun DateRangePickerSticker() = Sticker {
 // Pinned for the reason recorded above the range sticker.
 @SettledPreview(afterMs = 600)
 @OverrideVariant(name = "input", strings = ["mode=input"])
+// The keyboard walk, baked — and it fans out over the variant above, so the `input` cell publishes
+// the walk across its entry field while the base cell publishes it across the calendar. See
+// `TimeInputSticker` for the other half of this, and [KeyboardNavigable] for the live half.
+@FocusedPreview(
+  traverse = [FocusDirection.Next, FocusDirection.Next, FocusDirection.Next, FocusDirection.Next]
+)
 @Composable
 fun DatePickerModalSticker() = Sticker {
-  val initialDateMillis = dateMillisOverride("dateMillis", PINNED_DATE_MILLIS)
-  val displayMode = dateDisplayMode()
-  // Keyed for the same reason the time picker is: `rememberDatePickerState` saves through a keyless
-  // `rememberSaveable`, so a knob that moves under a live re-render never reaches the state.
-  val state =
-    key(initialDateMillis, displayMode) {
-      rememberDatePickerState(
-        initialSelectedDateMillis = initialDateMillis,
-        initialDisplayedMonthMillis = initialDateMillis,
-        initialDisplayMode = displayMode,
-      )
-    }
-  val confirm = counted(catalogText("confirmButton", stringResource(Res.string.action_ok)))
-  val dismiss = counted(catalogText("dismissButton", stringResource(Res.string.action_cancel)))
-  // Clear owns the picker's selection rather than taking the `counted` tally: the state is right
-  // here, so the live lane empties the grid and the headline for real.
-  val clear = catalogText("clearButton", stringResource(Res.string.action_clear))
-  InlineDialogHost {
-    DatePickerDialog(
-      onDismissRequest = {},
-      confirmButton = { TextButton(onClick = confirm.onClick) { Text(confirm.label) } },
-      dismissButton = {
-        Row {
-          TextButton(onClick = { state.selectedDateMillis = null }) { Text(clear) }
-          TextButton(onClick = dismiss.onClick) { Text(dismiss.label) }
-        }
-      },
-    ) {
-      DatePicker(
-        state = state,
-        showModeToggle = true,
-      )
+  // Its input mode is a form — the entry field, the mode toggle, dismiss and confirm — so it is one
+  // of the two stickers that offer a keyboard walk. See [KeyboardNavigable]; off by default.
+  KeyboardNavigable {
+    val initialDateMillis = dateMillisOverride("dateMillis", PINNED_DATE_MILLIS)
+    val displayMode = dateDisplayMode()
+    // Keyed for the same reason the time picker is: `rememberDatePickerState` saves through a
+    // keyless
+    // `rememberSaveable`, so a knob that moves under a live re-render never reaches the state.
+    val state =
+      key(initialDateMillis, displayMode) {
+        rememberDatePickerState(
+          initialSelectedDateMillis = initialDateMillis,
+          initialDisplayedMonthMillis = initialDateMillis,
+          initialDisplayMode = displayMode,
+        )
+      }
+    val confirm = counted(catalogText("confirmButton", stringResource(Res.string.action_ok)))
+    val dismiss = counted(catalogText("dismissButton", stringResource(Res.string.action_cancel)))
+    // Clear owns the picker's selection rather than taking the `counted` tally: the state is right
+    // here, so the live lane empties the grid and the headline for real.
+    val clear = catalogText("clearButton", stringResource(Res.string.action_clear))
+    InlineDialogHost {
+      DatePickerDialog(
+        onDismissRequest = {},
+        confirmButton = { TextButton(onClick = confirm.onClick) { Text(confirm.label) } },
+        dismissButton = {
+          Row {
+            TextButton(onClick = { state.selectedDateMillis = null }) { Text(clear) }
+            TextButton(onClick = dismiss.onClick) { Text(dismiss.label) }
+          }
+        },
+      ) {
+        DatePicker(
+          state = state,
+          showModeToggle = true,
+        )
+      }
     }
   }
 }
