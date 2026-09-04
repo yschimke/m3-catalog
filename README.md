@@ -6,6 +6,24 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 
 | Preview | Image |
 |---------|-------|
+| `ListDetailPaneScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ListDetailPaneScaffoldSticker_Compact_Dark-05021a95.png" width="150" /> |
+| `ListDetailPaneScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ListDetailPaneScaffoldSticker_Compact_Light-c8ab44df.png" width="150" /> |
+| `ListDetailPaneScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ListDetailPaneScaffoldSticker_Expanded_Dark-83068d0d.png" width="150" /> |
+| `ListDetailPaneScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ListDetailPaneScaffoldSticker_Expanded_Light-ec22ba94.png" width="150" /> |
+| `ListDetailPaneScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ListDetailPaneScaffoldSticker_Medium_Dark-df9860e7.png" width="150" /> |
+| `ListDetailPaneScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/ListDetailPaneScaffoldSticker_Medium_Light-03a56fde.png" width="150" /> |
+| `NavigationSuiteScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationSuiteScaffoldSticker_Compact_Dark-1d904924.png" width="150" /> |
+| `NavigationSuiteScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationSuiteScaffoldSticker_Compact_Light-3c9d4b14.png" width="150" /> |
+| `NavigationSuiteScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationSuiteScaffoldSticker_Expanded_Dark-532d67aa.png" width="150" /> |
+| `NavigationSuiteScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationSuiteScaffoldSticker_Expanded_Light-babac68d.png" width="150" /> |
+| `NavigationSuiteScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationSuiteScaffoldSticker_Medium_Dark-e5293b26.png" width="150" /> |
+| `NavigationSuiteScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NavigationSuiteScaffoldSticker_Medium_Light-e40ff281.png" width="150" /> |
+| `SupportingPaneScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SupportingPaneScaffoldSticker_Compact_Dark-4ce18659.png" width="150" /> |
+| `SupportingPaneScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SupportingPaneScaffoldSticker_Compact_Light-7ef6663a.png" width="150" /> |
+| `SupportingPaneScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SupportingPaneScaffoldSticker_Expanded_Dark-44ea6606.png" width="150" /> |
+| `SupportingPaneScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SupportingPaneScaffoldSticker_Expanded_Light-1b3a8fbc.png" width="150" /> |
+| `SupportingPaneScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SupportingPaneScaffoldSticker_Medium_Dark-6c3027e9.png" width="150" /> |
+| `SupportingPaneScaffoldSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/SupportingPaneScaffoldSticker_Medium_Light-533d1f3a.png" width="150" /> |
 | `DotBadge` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DotBadge_Dark-2a25416d.png" width="150" /> |
 | `DotBadge` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/DotBadge_Light-22da0edb.png" width="150" /> |
 | `NumberBadge` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/catalog/NumberBadge_Dark-564306e9.png" width="150" /> |
