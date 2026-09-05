@@ -26,7 +26,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -60,12 +59,12 @@ import org.jetbrains.compose.resources.stringResource
 @CatalogModes
 @OverrideVariant(name = "icon", booleans = ["icon=true"])
 @Composable
-fun BasicDialog() = Sticker {
+fun BasicDialog(icon: Boolean = false) = Sticker {
   val confirm = counted(catalogText("confirmButton", stringResource(Res.string.dialog_action_1)))
   val dismiss = counted(catalogText("dismissButton", stringResource(Res.string.dialog_action_2)))
   val title = catalogText("title", stringResource(Res.string.dialog_delete_title))
   val text = catalogText("text", stringResource(Res.string.dialog_delete_body))
-  val showIcon = previewOverrideBoolean("icon", false)
+  val showIcon = icon
   InlineDialogHost {
     AlertDialog(
       onDismissRequest = {},
@@ -96,8 +95,8 @@ fun BasicDialog() = Sticker {
 @CatalogModes
 @OverrideVariant(name = "icon", booleans = ["icon=true"])
 @Composable
-fun ListDialog() = Sticker {
-  val showIcon = previewOverrideBoolean("icon", false)
+fun ListDialog(icon: Boolean = false) = Sticker {
+  val showIcon = icon
   val confirm = counted(catalogText("confirmButton", stringResource(Res.string.dialog_action_1)))
   val dismiss = counted(catalogText("dismissButton", stringResource(Res.string.dialog_action_2)))
   val title = catalogText("title", stringResource(Res.string.dialog_backup_title))

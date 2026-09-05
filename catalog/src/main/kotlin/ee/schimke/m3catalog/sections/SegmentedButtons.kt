@@ -21,7 +21,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -64,8 +63,6 @@ private val LABELS =
     Res.string.segment_all,
   )
 
-@Composable private fun segmentCount(): Int = previewOverrideInt("count", 3)
-
 @Composable
 private fun segmentContent(): String =
   catalogChoice("content", "label", "label", "icon", "icon+label")
@@ -101,8 +98,7 @@ private fun SegmentContent(label: String, checked: Boolean) {
   strings = ["content=icon+label"],
 )
 @Composable
-fun SegmentedButtons() = Sticker {
-  val count = segmentCount()
+fun SegmentedButtons(count: Int = 3) = Sticker {
   var selected by selectable(0)
   SingleChoiceSegmentedButtonRow(Modifier.width(310.dp).height(40.dp)) {
     LABELS.take(count).forEachIndexed { index, label ->
@@ -125,8 +121,7 @@ fun SegmentedButtons() = Sticker {
 )
 @CatalogModes
 @Composable
-fun MultiChoiceSegmentedButtons() = Sticker {
-  val count = segmentCount()
+fun MultiChoiceSegmentedButtons(count: Int = 3) = Sticker {
   // Every segment carries its own checked state — a fixed pair of booleans pinned the third and
   // later segments to `false` behind a handler that dropped the click, so the `count-4` / `count-5`
   // variants published segments the live lane could not move.

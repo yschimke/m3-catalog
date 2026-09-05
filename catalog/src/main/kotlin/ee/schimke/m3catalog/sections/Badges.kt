@@ -5,7 +5,6 @@ package ee.schimke.m3catalog.sections
 import androidx.compose.material3.Badge
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import ee.schimke.composeai.overrides.previewOverrideString
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -34,7 +33,7 @@ import ee.schimke.m3catalog.localizedDigits
 @OverrideVariant(name = "digits-3", strings = ["label=147"])
 @OverrideVariant(name = "overflow", strings = ["label=999+"])
 @Composable
-fun NumberBadge() = Sticker { Badge { Text(localizedDigits(previewOverrideString("label", "3"))) } }
+fun NumberBadge(label: String = "3") = Sticker { Badge { Text(localizedDigits(label)) } }
 
 @CatalogVariant(
   of = "Badge/Number",

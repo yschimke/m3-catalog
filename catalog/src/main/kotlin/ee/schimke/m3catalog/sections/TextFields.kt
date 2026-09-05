@@ -20,7 +20,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -59,15 +58,15 @@ private class FieldSpec(
 )
 
 @Composable
-private fun fieldSpec(): FieldSpec {
+private fun fieldSpec(leading: Boolean, trailing: Boolean): FieldSpec {
   val state = catalogChoice("state", "value", "value", "empty", "error", "disabled")
   val textConfiguration = catalogChoice("text", "input", "input", "label", "placeholder")
   // Two knobs rather than one four-valued `content`, because the kit models them as two
   // independent axes — `Leading icon` and `Trailing icon`, each True/False. Seeding one of them
   // now lands on a real kit variant; `content=leading` named an axis the kit does not have and
   // resolved to nothing. The variant NAMES are unchanged, so no published URL moves.
-  val leadingIcon = previewOverrideBoolean("leading", false)
-  val trailingIcon = previewOverrideBoolean("trailing", false)
+  val leadingIcon = leading
+  val trailingIcon = trailing
   val error = state == "error"
   val defaultValue =
     if (state == "empty" || textConfiguration != "input") ""
@@ -147,8 +146,8 @@ private fun fieldSpec(): FieldSpec {
 @OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)
 @ee.schimke.m3catalog.FilledTextFieldExhaustiveKitCells
 @Composable
-fun FilledTextField() = Sticker {
-  val spec = fieldSpec()
+fun FilledTextField(leading: Boolean = false, trailing: Boolean = false) = Sticker {
+  val spec = fieldSpec(leading, trailing)
   var text by editable(spec.value)
   TextField(
     value = text,
@@ -192,8 +191,8 @@ fun FilledTextField() = Sticker {
 @OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)
 @ee.schimke.m3catalog.OutlinedTextFieldStickerExhaustiveKitCells
 @Composable
-fun OutlinedTextFieldSticker() = Sticker {
-  val spec = fieldSpec()
+fun OutlinedTextFieldSticker(leading: Boolean = false, trailing: Boolean = false) = Sticker {
+  val spec = fieldSpec(leading, trailing)
   var text by editable(spec.value)
   Box(Modifier.padding(top = 8.dp)) {
     OutlinedTextField(

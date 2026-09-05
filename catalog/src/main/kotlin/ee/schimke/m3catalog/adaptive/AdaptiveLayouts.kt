@@ -39,7 +39,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.window.core.layout.WindowSizeClass
-import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.Sticker
@@ -118,7 +117,7 @@ private fun Pane(content: @Composable ColumnScope.() -> Unit) {
 }
 
 /**
- * The pane scaffolds' layout policy, as a knob.
+ * The pane scaffolds' layout policy, as a parameter knob.
  *
  * Material's default splits into two panes at the **expanded** width and keeps one pane at medium,
  * which is why the medium render below shows a single pane and is not a bug. The library publishes
@@ -131,11 +130,15 @@ private fun Pane(content: @Composable ColumnScope.() -> Unit) {
  * changes a pixel at ONE of the three widths — compact is single-pane under either and expanded is
  * two-pane under either — so baking it would publish eight renders byte-identical to their defaults
  * to gain four that differ. `AGENTS.md` calls that out as the thing a variant cell must not be.
+ *
+ * Each scaffold declares it on its own signature — the parameter format — so the value arrives by
+ * ordinary argument passing and this helper reads no override harness at all. Which knobs use which
+ * format, and why the rest are waiting on a compose-ai-tools release, is in
+ * `docs/PARAMETER_KNOBS.md`.
  */
 @Composable
-private fun paneDirective(info: WindowAdaptiveInfo) =
-  if (previewOverrideBoolean("twoPanesOnMedium", false))
-    calculatePaneScaffoldDirectiveWithTwoPanesOnMediumWidth(info)
+private fun paneDirective(info: WindowAdaptiveInfo, twoPanesOnMedium: Boolean) =
+  if (twoPanesOnMedium) calculatePaneScaffoldDirectiveWithTwoPanesOnMediumWidth(info)
   else calculatePaneScaffoldDirective(info)
 
 /**
@@ -194,9 +197,11 @@ fun NavigationSuiteScaffoldSticker() = AdaptiveSticker { info ->
  */
 @CatalogBreakpoints
 @Composable
-fun ListDetailPaneScaffoldSticker() = AdaptiveSticker { info ->
+fun ListDetailPaneScaffoldSticker(twoPanesOnMedium: Boolean = false) = AdaptiveSticker { info ->
   val navigator =
-    rememberListDetailPaneScaffoldNavigator<Int>(scaffoldDirective = paneDirective(info))
+    rememberListDetailPaneScaffoldNavigator<Int>(
+      scaffoldDirective = paneDirective(info, twoPanesOnMedium)
+    )
   val scope = rememberCoroutineScope()
   var selected by selectable(0)
   ListDetailPaneScaffold(
@@ -245,9 +250,11 @@ fun ListDetailPaneScaffoldSticker() = AdaptiveSticker { info ->
  */
 @CatalogBreakpoints
 @Composable
-fun SupportingPaneScaffoldSticker() = AdaptiveSticker { info ->
+fun SupportingPaneScaffoldSticker(twoPanesOnMedium: Boolean = false) = AdaptiveSticker { info ->
   val navigator =
-    rememberSupportingPaneScaffoldNavigator<Unit>(scaffoldDirective = paneDirective(info))
+    rememberSupportingPaneScaffoldNavigator<Unit>(
+      scaffoldDirective = paneDirective(info, twoPanesOnMedium)
+    )
   val scope = rememberCoroutineScope()
   val more = counted(stringResource(Res.string.action_more))
   SupportingPaneScaffold(

@@ -120,6 +120,11 @@ matrix all come out of it. Three things in it are not optional:
 A `@CatalogVariant` is still the right tool for an axis that is not a knob on an existing sticker —
 a distinct composable published under a parent's id.
 
+A knob is declared one of two ways: a `previewOverride*` lookup in the sticker's body, or — for a
+self-contained sticker whose editable values are its own arguments — a defaulted parameter on the
+preview's signature. [`docs/PARAMETER_KNOBS.md`](docs/PARAMETER_KNOBS.md) says which knobs use which,
+which cannot move, and why the rest wait on a compose-ai-tools release.
+
 [`catalog.spec.json`](catalog.spec.json) carries only cover-sheet fields the code has no opinion
 about: the system slug, title, primary modes, documented breakpoints and the front-door hero.
 

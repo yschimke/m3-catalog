@@ -34,7 +34,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideBoolean
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -185,7 +184,7 @@ fun AssistChipSticker() = Sticker {
 @InteractionStates
 @ee.schimke.m3catalog.FilterChipStickerExhaustiveKitCells
 @Composable
-fun FilterChipSticker() = Sticker {
+fun FilterChipSticker(trailing: Boolean = false) = Sticker {
   var selected by
     toggleable(catalogChoice("state", "selected", "selected", "unselected") == "selected")
   val enabled = chipEnabled()
@@ -205,7 +204,7 @@ fun FilterChipSticker() = Sticker {
   // The kit's `Show trailing icon` axis — the caret that says this chip opens a menu. Decorative
   // beside its own label, so no contentDescription.
   val caret: (@Composable () -> Unit)? =
-    if (!previewOverrideBoolean("trailing", false)) null
+    if (!trailing) null
     else
       ({
         Icon(
@@ -262,7 +261,7 @@ fun FilterChipSticker() = Sticker {
 @HoverFocusStates
 @ee.schimke.m3catalog.InputChipStickerExhaustiveKitCells
 @Composable
-fun InputChipSticker() = Sticker {
+fun InputChipSticker(closing: Boolean = true) = Sticker {
   var selected by
     toggleable(catalogChoice("state", "unselected", "selected", "unselected") == "selected")
   InputChip(
@@ -272,7 +271,7 @@ fun InputChipSticker() = Sticker {
     enabled = chipEnabled(),
     avatar = chipIcon(),
     trailingIcon =
-      if (!previewOverrideBoolean("closing", true)) null
+      if (!closing) null
       else
         ({
           Icon(
@@ -298,12 +297,12 @@ fun InputChipSticker() = Sticker {
 @InteractionStates
 @ee.schimke.m3catalog.SuggestionChipStickerExhaustiveKitCells
 @Composable
-fun SuggestionChipSticker() = Sticker {
+fun SuggestionChipSticker(icon: Boolean = false) = Sticker {
   val c = counted(catalogText("label", stringResource(Res.string.chip_sounds_good)))
   val enabled = chipEnabled()
   // The kit's `Show icon` axis. Decorative beside its own label, so no contentDescription.
-  val icon: (@Composable () -> Unit)? =
-    if (!previewOverrideBoolean("icon", false)) null
+  val iconSlot: (@Composable () -> Unit)? =
+    if (!icon) null
     else
       ({
         Icon(
@@ -317,9 +316,14 @@ fun SuggestionChipSticker() = Sticker {
       onClick = c.onClick,
       label = { Text(c.label) },
       enabled = enabled,
-      icon = icon,
+      icon = iconSlot,
     )
   } else {
-    SuggestionChip(onClick = c.onClick, label = { Text(c.label) }, enabled = enabled, icon = icon)
+    SuggestionChip(
+      onClick = c.onClick,
+      label = { Text(c.label) },
+      enabled = enabled,
+      icon = iconSlot,
+    )
   }
 }

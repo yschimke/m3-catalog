@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ee.schimke.composeai.overrides.previewOverrideFloat
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -36,7 +35,9 @@ import ee.schimke.m3catalog.Sticker
 // component. The kit-index resolver reads `type=wave` back to the set's `Type=Wave` variant, so
 // the wavy node is still compared; it is now compared as a cell of the indicator it varies.
 
-@Composable private fun progress(): Float = previewOverrideFloat("progress", 0.5f)
+// `progress` is a parameter knob: declared by the signature, seeded by ordinary argument
+// passing. The `@OverrideVariant` cells below seed it by name exactly as they did the
+// `previewOverrideFloat` lookup this replaced, and the body carries no harness call at all.
 
 @CatalogComponent(
   id = "Progress/Linear",
@@ -49,10 +50,10 @@ import ee.schimke.m3catalog.Sticker
 @OverrideVariant(name = "full", floats = ["progress=1.0"])
 @ee.schimke.m3catalog.LinearProgressExhaustiveKitCells
 @Composable
-fun LinearProgress() = Sticker {
-  // Read the knob in composition, then close over the value: `progress = {}` is a plain lambda the
-  // indicator samples on each draw, not a @Composable scope.
-  val value = progress()
+fun LinearProgress(progress: Float = 0.5f) = Sticker {
+  // Close over the argument: `progress = {}` is a plain lambda the indicator samples on each
+  // draw, not a @Composable scope.
+  val value = progress
   Box(Modifier.width(405.dp).height(12.dp)) {
     LinearProgressIndicator(
       progress = { value },
@@ -72,8 +73,8 @@ fun LinearProgress() = Sticker {
 @OverrideVariant(name = "full", floats = ["progress=1.0"])
 @ee.schimke.m3catalog.CircularProgressExhaustiveKitCells
 @Composable
-fun CircularProgress() = Sticker {
-  val value = progress()
+fun CircularProgress(progress: Float = 0.5f) = Sticker {
+  val value = progress
   CircularProgressIndicator(progress = { value })
 }
 
@@ -86,8 +87,8 @@ fun CircularProgress() = Sticker {
 @OverrideVariant(name = "quarter", floats = ["progress=0.25"])
 @OverrideVariant(name = "full", floats = ["progress=1.0"])
 @Composable
-fun LinearWavyProgress() = Sticker {
-  val value = progress()
+fun LinearWavyProgress(progress: Float = 0.5f) = Sticker {
+  val value = progress
   Box(Modifier.width(404.dp).height(12.dp)) {
     LinearWavyProgressIndicator(
       progress = { value },
@@ -105,7 +106,7 @@ fun LinearWavyProgress() = Sticker {
 @OverrideVariant(name = "quarter", floats = ["progress=0.25"])
 @OverrideVariant(name = "full", floats = ["progress=1.0"])
 @Composable
-fun CircularWavyProgress() = Sticker {
-  val value = progress()
+fun CircularWavyProgress(progress: Float = 0.5f) = Sticker {
+  val value = progress
   CircularWavyProgressIndicator(progress = { value })
 }
