@@ -128,6 +128,18 @@ which cannot move, and why the rest wait on a compose-ai-tools release.
 [`catalog.spec.json`](catalog.spec.json) carries only cover-sheet fields the code has no opinion
 about: the system slug, title, primary modes, documented breakpoints and the front-door hero.
 
+[`ui-builder.policy.json`](ui-builder.policy.json) is its sibling for the **UI builder**: the
+platform word, the screen frame, the shelf order and the theme roles a design may name — what a
+drawing tool needs and what no component owns. Per-component builder policy is not in it either; it
+is `@BuilderComponent` beside `@CatalogComponent` on the sticker, so a component is never renamed in
+two places. Both are read by the design-artifacts pipeline, which generates `ui-builder.json` onto
+the delivery branch beside `components.json`. It replaces a hand-written Kotlin catalog that lived
+in the preview server and borrowed this repository's name; the
+[contract](https://github.com/yschimke/compose-preview-server/blob/main/docs/design/UI_BUILDER_CATALOG_CONTRACT.md)
+explains why, and the file's own `$comment` fields explain each decision in it. **Nothing reads it
+yet** — it is authored so the catalog it generates can be diffed against the packaged one before
+anything switches over.
+
 Figma has two kinds of variation. Variant axes produce sibling component nodes and map directly.
 Boolean, text, instance-swap and slot properties do not: a definition node always renders at their
 defaults. The checked-in kit index therefore also records visible instances already configured on
