@@ -41,13 +41,12 @@ jobs:
           cli-version: catalog
           catalog-key: composePreviewPlugin
           only: compose
-          # The action defaults to 600s, which was never resized as the sweep grew. At 1095
-          # previews the measured fit in docs/PARALLEL_RENDER.md (~3.7 min fixed + ~2.15s/preview)
-          # puts the render near 43 min, so every run has been dying at 10 min with the baseline
-          # unrefreshed — including runs whose only change was documentation.
+          # The action defaults to 600s, which is far under what this sheet costs — every run died
+          # at 10 min with the baseline left unrefreshed, including documentation-only ones.
           #
-          # 4800 matches design-artifacts.yml, which renders the same sheet. Past roughly 2400
-          # previews the job timeout binds instead and sharding is the answer, not a bigger number.
+          # 4800 matches design-artifacts.yml, which renders the same sheet. See
+          # docs/PARALLEL_RENDER.md for the measured cost model; past the point where a serial
+          # render meets this timeout, sharding is the answer, not a bigger number.
           timeout: '4800'
 
       - uses: actions/setup-node@v7.0.0

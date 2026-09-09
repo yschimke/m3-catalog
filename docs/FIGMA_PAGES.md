@@ -17,11 +17,10 @@ FIGMA_TOKEN=figd_... npx --yes -p @design-parity/page-backdrop@0.1.51 design-par
 ```
 
 That returns every page's id and name from `GET /v1/files/:key?depth=1`. The
-importer now makes the same call itself (`"discover": true`), so the tables
-below are no longer hand-assembled: every page name and id in them came out of
+importer makes the same call itself (`"discover": true`), so the tables below
+are not hand-assembled: every page name and id in them came out of
 [`design/pages/pages.json`](../design/pages/pages.json), which the import
-writes. The fourteen pages this file used to list as bare numbers are named in
-[Component pages](#component-pages).
+writes.
 
 ## The one structural fact that matters
 
@@ -124,13 +123,8 @@ straight out of the last import, so they are a snapshot, not a target.
 | Toolbars | `58295:22726` | `toolbars` | 173 | 4 |
 | Tooltips | `55141:14261` | `tooltips` | 7 | 2 |
 
-The fourteen ids this file used to list as unidentified are in that table:
-`14176` is Dialogs, `14177` Dividers, `14249` Lists, `14250` Menu, `14251`
-Navigation, `14252` Loading & progress, `14253` Radio button, `14254` Search,
-`14255` Sliders, `14256` Snackbar, `14257` Switch, `14258` Tabs, `14259` Text
-fields, `14261` Tooltips, and `58295:22726` Toolbars. They were never in
-alphabetical order, which is why guessing them from the Table of contents would
-have been wrong — the import read them off the file.
+The page ids are not in alphabetical order, so guessing one from the Table of
+contents gets it wrong — the import reads them off the file.
 
 ### The three pages not imported
 

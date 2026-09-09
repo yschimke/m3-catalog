@@ -30,18 +30,17 @@ This document is the whole briefing. Read [`AGENTS.md`](../AGENTS.md) for conven
 ## 1. The two rules that decide what "correct" means
 
 **Design-led.** `.design-parity.json` says `design-led`: the kit is the source of truth and a
-divergence is a defect in *this code*. When the render and the kit disagree, **the code moves**. Do
-not record the divergence and carry on — that is the code-led posture and it is not this repo's.
-
-The live example: `ButtonDefaults.shape` renders corner radius 20 where the kit specs 16, and 8
-where it specs 16. Under design-led those are bugs to fix, not observations to file. Where Compose
-genuinely cannot express what the kit specifies, say so in the component's caption or KDoc rather
-than silently rendering something else.
+divergence is a defect in *this code*. When the render and the kit disagree, **the code moves** —
+`ButtonDefaults.shape` rendering corner radius 20 where the kit specs 16 is a bug to fix, not an
+observation to file. Where Compose genuinely cannot express what the kit specifies, say so in the
+component's caption or KDoc rather than silently rendering something else.
 
 **Never write to Figma.** Every kit interaction is read-only — REST for node ids and reference
 images, MCP for variables and metadata. No `use_figma`, `create_new_file`, `upload_assets`,
-`add_code_connect_map`, `send_code_connect_mappings`. Do not enable design-parity's Code-to-Canvas
-push-back; `design-led` already gates it off, and the config and the convention must keep agreeing.
+`add_code_connect_map`, `send_code_connect_mappings`, and do not enable design-parity's
+Code-to-Canvas push-back.
+
+Both are stated in full in [`AGENTS.md`](../AGENTS.md).
 
 ---
 
@@ -246,43 +245,27 @@ silently.
 
 ---
 
-## 6. The render budget — read this before adding hundreds of cells
+## 6. The render budget
 
-Measured, not estimated:
+Costs and timeouts live in [`PARALLEL_RENDER.md`](PARALLEL_RENDER.md) §1, which has the measured
+model. Two things a sweep worker needs from it:
 
-| Previews | Render step | Note |
-| --- | --- | --- |
-| 287 | **13.6 min** | the 600s default killed this; `render-timeout` now 2400 |
-| 519 | ~25 min (projected) | buttons + icon buttons |
-| 607 | ~29 min (projected) | toggle / FAB / split, first pass |
-| 689 | ~33 min (projected) | **current** — toggle buttons' selected axis + icon |
-| ~700 | ~31 min | remaining button families, still inside 2400s |
-| 1500+ | 70 min+ | **past the job timeout, not just the render timeout** |
+- **Two independent timeouts** — `timeout-minutes: 90` on the job and `render-timeout` on
+  `bundle pack`. The inner one binds first on a growing sheet, and it fails as a bare
+  `Build timed out after Ns` several steps before the publish it never reached.
+- **Raising a timeout is not the lever.** Sharding is (`render-shards`), and it gives up nothing.
+  `modePriority` is the other one, but it is smaller than it looks here and it costs published
+  coverage — this catalog's per-preview mode axis is light/dark only, so the most it can defer is
+  every baked dark sticker. `PARALLEL_RENDER.md` §5 has the arithmetic. Either change is
+  repo-wide, not a per-group edit; coordinate it.
 
-Two independent timeouts: `timeout-minutes: 90` on the job, and `render-timeout: 2400` on
-`bundle pack`. The inner one is the one a growing sheet hits first, and it fails as a bare
-`Build timed out after 600s` several steps before the publish it never reached.
+**Land in small pushes** — one group per push rather than accumulating. Every push triggers a full
+render, so a broken group is cheaper to find alone.
 
-**If the full sweep is heading past ~700 previews, raising the timeout is the wrong lever.** Use
-spec-side render priority instead — `modePriority` in `catalog.spec.json` defers non-primary modes
-to the live server, and deferring the four contrast themes would roughly halve the baked set. It
-requires a live path, which this catalog already publishes (`publish-live-bundle` — the module-level
-bundle the trusted serve host hydrates; the per-preview split is off). Coordinate that change; it is
-not a per-group edit.
-
-**The ceiling is now essentially spent, with 30 of 38 groups still to go.** Toggle buttons alone
-came to 80 cells / 162 previews once its selected axis was counted, because the kit ships it as four
-component sets and each carries the full matrix. The groups left of that shape — segmented buttons,
-chips, text fields, tabs — will each cost something similar, so the next worker to take one should
-expect to hit the render timeout rather than squeak under it. Pull the `modePriority` lever **before**
-the next multi-set group, not after a red run.
-
-A note for whoever writes the next axis table: two of this group's five axes were missing from its
-row (`selected`, and the optional leading icon), and both are stated outright in the kit's own
-component description. Read the description, not just the component name — §4 means it literally.
-
-Parallel workers should **land in small pushes** (one group per push) rather than accumulating.
-Every push triggers a full render, so a broken group is cheaper to find alone.
+A note for whoever writes the next axis table: two of the toggle-button group's five axes were
+missing from its row (`selected`, and the optional leading icon), and both are stated outright in
+the kit's own component description. Read the description, not just the component name — §4 means it
+literally.
 
 ---
 

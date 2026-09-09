@@ -12,13 +12,9 @@ kit uses it for differently. [`AGENTS.md`](AGENTS.md) states both halves.
 
 **The Figma kit is the source of truth.** A divergence between the two is a bug in this code, and
 the code is what changes — that is what `direction: "design-led"` in
-[`.design-parity.json`](.design-parity.json) says.
-
-That is the opposite of the component-system catalogs in compose-ai-tools, and deliberately so:
-those publish a system whose own render is authoritative, whereas this one exists to *reproduce* a
-published kit. The direction also has teeth beyond reporting — design-parity's Code-to-Canvas
-push-back is gated on `code-led`, so `design-led` makes writing back to the Figma file structurally
-impossible rather than merely forbidden by convention.
+[`.design-parity.json`](.design-parity.json) says. It has teeth beyond reporting: design-parity's
+Code-to-Canvas push-back is gated on `code-led`, so `design-led` makes writing back to the Figma
+file structurally impossible rather than merely forbidden by convention.
 
 **Nothing in this repo writes to Figma.** Every Figma interaction is read-only: the REST API for
 node ids and reference images, and the MCP server for variables and metadata. No `use_figma`, no
@@ -37,34 +33,12 @@ including its large live-render bundles. Contributors who only need the source s
 `git clone --single-branch https://github.com/yschimke/m3-catalog.git`; consumers that need the
 published catalog should fetch `design-artifacts/m3-catalog` deliberately.
 
-That rule has been broken twice, both times deliberately.
-
-**2026-08-27.** `design-artifacts/m3-catalog` was re-rooted to reclaim the 2.5 GiB of history
-accumulated under the old `split-mode: full` default, which copied `classes/app.jar` into every one
-of ~1,300 per-preview bundles. [#158][158] then switched the publisher to `full-shared-classpath`
-(789.7 MB to 50.4 MB per publish, measured). What it cost, and the audit of what would otherwise
-have dangled, is in [#156][156].
-
-**2026-09-02.** Re-rooted again, as one part of a fleet-wide reset taken against a hard
-"no repository over 500 MB per checkout" budget. [#266][266] had just removed the per-preview split
-entirely — the pooled split was still writing ~1,300 addressable copies per publish and rewriting
-all of them on any catalog change — so the accumulated history was the last of that cost still
-being paid. The new root carries a **byte-identical tree** to the previous tip, so the served
-catalog did not change; only the snapshot history is gone. A full clone went from ~1.3 GiB to
-**430 MiB**.
-
-Note what this means for the first entry's closing claim that a regression should be fixed in the
-publisher rather than by another rewrite: that is still the right order, and it is what happened —
-the publisher was fixed first, in [#266][266], and the rewrite only reclaimed history the fixed
-publisher will not re-accumulate. A rewrite without a publisher fix in front of it just buys time.
-
-The rule above still stands for ordinary growth. Two data points on what to expect: the publishers
-that append forever reached 1.3–3.9 GiB, while cadence — whose publisher re-roots its delivery
-branch on every run — sits at 62 MiB.
-
-[156]: https://github.com/yschimke/m3-catalog/issues/156
-[266]: https://github.com/yschimke/m3-catalog/pull/266
-[158]: https://github.com/yschimke/m3-catalog/pull/158
+It has been re-rooted twice, both times deliberately and both times against a repository-size
+budget rather than ordinary growth. **The order matters: fix the publisher first, then reclaim the
+history the fixed publisher will not re-accumulate.** A rewrite without a publisher fix in front of
+it just buys time. Two data points on what to expect: publishers that append forever reached
+1.3-3.9 GiB, while cadence — whose publisher re-roots its delivery branch on every run — sits at
+62 MiB.
 
 [kit]: https://www.figma.com/design/ocdacdEsnHipMJD3egzxKb/Material-3-Design-Kit--Community-
 
@@ -130,15 +104,14 @@ about: the system slug, title, primary modes, documented breakpoints and the fro
 
 [`ui-builder.policy.json`](ui-builder.policy.json) is its sibling for the **UI builder**: the
 platform word, the screen frame, the shelf order and the theme roles a design may name — what a
-drawing tool needs and what no component owns. Per-component builder policy is not in it either; it
-is `@BuilderComponent` beside `@CatalogComponent` on the sticker, so a component is never renamed in
-two places. Both are read by the design-artifacts pipeline, which generates `ui-builder.json` onto
-the delivery branch beside `components.json`. It replaces a hand-written Kotlin catalog that lived
-in the preview server and borrowed this repository's name; the
+drawing tool needs and what no component owns. Per-component builder policy is `@BuilderComponent`
+beside `@CatalogComponent` on the sticker, so a component is never renamed in two places. Both are
+read by the design-artifacts pipeline, which generates `ui-builder.json` onto the delivery branch
+beside `components.json`. The
 [contract](https://github.com/yschimke/compose-preview-server/blob/main/docs/design/UI_BUILDER_CATALOG_CONTRACT.md)
-explains why, and the file's own `$comment` fields explain each decision in it. **Nothing reads it
-yet** — it is authored so the catalog it generates can be diffed against the packaged one before
-anything switches over.
+explains the split, and the file's own `$comment` fields explain each decision in it. **Nothing
+reads it yet** — it is authored so the catalog it generates can be diffed against the packaged one
+before anything switches over.
 
 Figma has two kinds of variation. Variant axes produce sibling component nodes and map directly.
 Boolean, text, instance-swap and slot properties do not: a definition node always renders at their
@@ -270,10 +243,8 @@ sticker body serves both. **No sticker ships a dead handler**: stateful componen
 (`toggleable` / `selectable` / `draggable` / `editable`), and everything else takes `counted` — the
 label it was given, and a handler that is real on the live lane and a no-op on the baked one. What
 a live click *shows* is the component's own press feedback: the ripple, the state layer, the
-pressed shape. `counted` used to append `(n)` to the label so a sticker could be seen to respond;
-that is `clickCount` now, a knob every sticker exposes and nothing turns on by default, because a
-growing label is not what the component does when you press it — and reading it as proof hid the
-fact that the ripple was missing on the live lane at all
+pressed shape. The `(n)` tally is the `clickCount` knob, off by default — a growing label is not
+what the component does when you press it, and reading it as proof of life hides a missing ripple
 ([wear-m3-catalog#32](https://github.com/yschimke/wear-m3-catalog/issues/32)). The deliberate
 exceptions are disabled stickers, which stay inert because unresponsiveness is the state they
 document.
@@ -419,24 +390,18 @@ FIGMA_TOKEN=figd_... npx --yes -p @design-parity/page-backdrop@0.1.51 design-par
   --file ocdacdEsnHipMJD3egzxKb --slug Material-3-Design-Kit--Community-
 ```
 
-Both used to be scripts in this repo. They are upstream now, for the same reason
-`design-map.json` is projected rather than hand-maintained: the logic is about **design kits**, not
-about this catalog, and a copy here drifts from the one everyone else runs. What stays local is the
-kit handle on each annotation — the only part that is genuinely this repo's.
+Both live upstream, for the same reason `design-map.json` is projected rather than hand-maintained:
+the logic is about **design kits**, not about this catalog, and a copy here would drift from the one
+everyone else runs. What stays local is the kit handle on each annotation.
 
 The ordinary variants prove one axis at a time, while the imported component pages count every
 cross-product cell in a Figma component set. The local exhaustive-cell generator combines only
 knobs and renderer interactions already exercised by a real sticker, then pins each result with the
 kit's exact property vector. It does not synthesize components or claim unsupported states.
 
-That last boundary applies even when the unsupported value lives inside an otherwise mapped kit
-set. Those cells stay explicit in `kit-unauthorable.json`: each declaration carries its evidence,
-and CI rejects it if the kit removes the value or a real sticker later covers it. In particular,
-the kit's `Suggestion chip / Selected=True` cells are not catalog variants. Compose implements
-`SuggestionChip` as an action chip with no selection state; `FilterChip` is the selectable API for
-filter selections.
-Using `FilterChip` would misname the render, and mapping the selected cells to an ordinary
-`SuggestionChip` would claim pixels the catalog cannot produce.
+That boundary applies even when the unsupported value lives inside an otherwise mapped kit set.
+Those cells stay explicit in `kit-unauthorable.json`, each declaration carrying its evidence, and CI
+rejects it if the kit removes the value or a real sticker later covers it.
 
 ```sh
 node scripts/generate-exhaustive-kit-cells.mjs
