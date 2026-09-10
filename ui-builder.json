@@ -30,16 +30,46 @@
         },
         "componentMenu": {
             "groupOrder": [
-                "Navigation",
-                "Actions",
-                "Selection",
-                "Text inputs",
-                "Containment",
-                "Communication",
-                "Styles"
+                "Bottom app bar",
+                "Navigation bar",
+                "Navigation rail",
+                "Search",
+                "Tabs",
+                "Top app bar",
+                "Buttons",
+                "FAB",
+                "Icon buttons",
+                "Segmented buttons",
+                "Split button",
+                "Toggle buttons",
+                "Toolbars",
+                "Checkbox",
+                "Chips",
+                "Date pickers",
+                "Menus",
+                "Radio button",
+                "Sliders",
+                "Switch",
+                "Time pickers",
+                "Text fields",
+                "Bottom sheets",
+                "Cards",
+                "Carousel",
+                "Dialogs",
+                "Divider",
+                "Lists",
+                "Side sheets",
+                "Badges",
+                "Loading indicator",
+                "Progress indicators",
+                "Snackbar",
+                "Tooltips",
+                "Color",
+                "Shapes",
+                "Typography"
             ],
             "components": {
-                "m3/basic": {
+                "m3/dialog": {
                     "group": "Dialogs"
                 },
                 "m3/standard": {
@@ -61,7 +91,7 @@
                     "group": "Buttons"
                 },
                 "m3/text": {
-                    "group": "Buttons"
+                    "group": "Typography"
                 },
                 "m3/checked": {
                     "group": "Checkbox"
@@ -93,13 +123,13 @@
                 "m3/circular": {
                     "group": "Progress indicators"
                 },
-                "m3/linear": {
+                "m3/progress-indicator": {
                     "group": "Progress indicators"
                 },
                 "m3/selected": {
                     "group": "Radio button"
                 },
-                "m3/bar": {
+                "m3/search-input-field": {
                     "group": "Search"
                 },
                 "m3/short": {
@@ -159,7 +189,486 @@
         },
         "assetRegistry": null,
         "builtins": {},
-        "components": {}
+        "components": {
+            "m3/dialog": {
+                "record": "catalog/androidx.compose.material3.AlertDialog_skikoKt.AlertDialog",
+                "catalogId": "Dialog/Basic",
+                "displayName": "Dialog",
+                "canvas": null,
+                "nativeOnly": false,
+                "traits": [
+                    "DialogContent",
+                    "OverlayContent"
+                ],
+                "slots": {},
+                "stateCallbacks": {},
+                "starter": {},
+                "variantProperty": null,
+                "variants": {},
+                "excluded": null,
+                "propertyCapabilities": [
+                    {
+                        "name": "containerColor",
+                        "jsonType": "string",
+                        "required": false,
+                        "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+                    },
+                    {
+                        "name": "tonalElevationDp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "shapeDp",
+                        "jsonType": "number",
+                        "required": false
+                    }
+                ],
+                "slotCapabilities": [
+                    {
+                        "name": "icon",
+                        "cardinality": {
+                            "min": 0,
+                            "max": 1
+                        },
+                        "ordered": false,
+                        "acceptedRoles": [
+                            "Leaf"
+                        ],
+                        "acceptedTraits": [
+                            "IconContent"
+                        ]
+                    },
+                    {
+                        "name": "title",
+                        "cardinality": {
+                            "min": 0,
+                            "max": 1
+                        },
+                        "ordered": false,
+                        "acceptedRoles": [
+                            "Leaf"
+                        ],
+                        "acceptedTraits": [
+                            "TextContent"
+                        ]
+                    },
+                    {
+                        "name": "text",
+                        "cardinality": {
+                            "min": 0
+                        },
+                        "ordered": true,
+                        "acceptedRoles": [
+                            "Container",
+                            "Leaf"
+                        ],
+                        "acceptedTraits": [
+                            "AnyContent"
+                        ]
+                    },
+                    {
+                        "name": "dismissButton",
+                        "cardinality": {
+                            "min": 0,
+                            "max": 1
+                        },
+                        "ordered": false,
+                        "acceptedRoles": [
+                            "Container"
+                        ],
+                        "acceptedTraits": [
+                            "Action"
+                        ]
+                    },
+                    {
+                        "name": "confirmButton",
+                        "cardinality": {
+                            "min": 1,
+                            "max": 1
+                        },
+                        "ordered": false,
+                        "acceptedRoles": [
+                            "Container"
+                        ],
+                        "acceptedTraits": [
+                            "Action"
+                        ]
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxWidth",
+                    "padding",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "background",
+                    "border",
+                    "shadow",
+                    "wrapContentSize",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ]
+            },
+            "m3/text": {
+                "record": "catalog/androidx.compose.material3.TextKt.Text",
+                "catalogId": null,
+                "displayName": "Text",
+                "canvas": null,
+                "nativeOnly": false,
+                "traits": [
+                    "TextContent",
+                    "RemoteAuthorable"
+                ],
+                "slots": {},
+                "stateCallbacks": {},
+                "starter": {},
+                "variantProperty": null,
+                "variants": {},
+                "excluded": null,
+                "propertyCapabilities": [
+                    {
+                        "name": "text",
+                        "jsonType": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "style",
+                        "jsonType": "string",
+                        "required": false,
+                        "allowedValues": [
+                            "displayLarge",
+                            "displayMedium",
+                            "displaySmall",
+                            "headlineLarge",
+                            "headlineMedium",
+                            "headlineSmall",
+                            "titleLarge",
+                            "titleMedium",
+                            "titleSmall",
+                            "bodyLarge",
+                            "bodyMedium",
+                            "bodySmall",
+                            "labelLarge",
+                            "labelMedium",
+                            "labelSmall"
+                        ]
+                    },
+                    {
+                        "name": "fontWeight",
+                        "jsonType": "string",
+                        "required": false,
+                        "allowedValues": [
+                            "normal",
+                            "medium",
+                            "semiBold",
+                            "bold"
+                        ]
+                    },
+                    {
+                        "name": "fontStyle",
+                        "jsonType": "string",
+                        "required": false,
+                        "allowedValues": [
+                            "normal",
+                            "italic"
+                        ]
+                    },
+                    {
+                        "name": "color",
+                        "jsonType": "string",
+                        "required": false,
+                        "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+                    },
+                    {
+                        "name": "fontSizeSp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "lineHeightSp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "letterSpacingSp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "minLines",
+                        "jsonType": "integer",
+                        "required": false
+                    },
+                    {
+                        "name": "maxLines",
+                        "jsonType": "integer",
+                        "required": false
+                    },
+                    {
+                        "name": "softWrap",
+                        "jsonType": "boolean",
+                        "required": false
+                    },
+                    {
+                        "name": "overflow",
+                        "jsonType": "string",
+                        "required": false,
+                        "allowedValues": [
+                            "clip",
+                            "ellipsis",
+                            "visible"
+                        ]
+                    },
+                    {
+                        "name": "textAlign",
+                        "jsonType": "string",
+                        "required": false,
+                        "allowedValues": [
+                            "start",
+                            "center",
+                            "end",
+                            "justify"
+                        ]
+                    },
+                    {
+                        "name": "textDecoration",
+                        "jsonType": "string",
+                        "required": false,
+                        "allowedValues": [
+                            "none",
+                            "underline",
+                            "lineThrough"
+                        ]
+                    },
+                    {
+                        "name": "alignment",
+                        "jsonType": "string",
+                        "required": false,
+                        "allowedValues": [
+                            "topStart",
+                            "topCenter",
+                            "topEnd",
+                            "centerStart",
+                            "center",
+                            "centerEnd",
+                            "bottomStart",
+                            "bottomCenter",
+                            "bottomEnd"
+                        ]
+                    },
+                    {
+                        "name": "weight",
+                        "jsonType": "number",
+                        "required": false
+                    }
+                ],
+                "slotCapabilities": [],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxWidth",
+                    "padding",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ]
+            },
+            "m3/progress-indicator": {
+                "record": "catalog/androidx.compose.material3.ProgressIndicatorKt.LinearProgressIndicator",
+                "catalogId": "Progress/Linear",
+                "displayName": "Progress indicator",
+                "canvas": null,
+                "nativeOnly": false,
+                "traits": [
+                    "Feedback",
+                    "Decoration"
+                ],
+                "slots": {},
+                "stateCallbacks": {},
+                "starter": {},
+                "variantProperty": null,
+                "variants": {},
+                "excluded": null,
+                "propertyCapabilities": [
+                    {
+                        "name": "variant",
+                        "jsonType": "string",
+                        "required": true,
+                        "allowedValues": [
+                            "linear",
+                            "circular"
+                        ],
+                        "notes": "Two Material composables that take the same arguments and differ in shape, spelled as one component the way `m3/text-field` spells its two."
+                    },
+                    {
+                        "name": "progress",
+                        "jsonType": [
+                            "number",
+                            "object"
+                        ],
+                        "required": false,
+                        "notes": "0..1, a literal or a `state` read. Absent means the indeterminate indicator — Material's own distinction between a progress you know and one you do not."
+                    },
+                    {
+                        "name": "indeterminate",
+                        "jsonType": "boolean",
+                        "required": false,
+                        "notes": "Draws the running animation rather than a value. Pinned to its first frame on the canvas, because a render that animates is a render that cannot be diffed."
+                    }
+                ],
+                "slotCapabilities": [],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxWidth",
+                    "padding",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ]
+            },
+            "m3/search-input-field": {
+                "record": "catalog/androidx.compose.material3.SearchBarDefaults.InputField",
+                "catalogId": "Search/Bar",
+                "displayName": "Search input field",
+                "canvas": null,
+                "nativeOnly": false,
+                "traits": [
+                    "SearchInput",
+                    "TextInput"
+                ],
+                "slots": {},
+                "stateCallbacks": {},
+                "starter": {},
+                "variantProperty": null,
+                "variants": {},
+                "excluded": null,
+                "propertyCapabilities": [
+                    {
+                        "name": "value",
+                        "jsonType": "object",
+                        "required": true
+                    },
+                    {
+                        "name": "enabled",
+                        "jsonType": "boolean",
+                        "required": false
+                    },
+                    {
+                        "name": "readOnly",
+                        "jsonType": "boolean",
+                        "required": false
+                    },
+                    {
+                        "name": "onQueryChangeAction",
+                        "jsonType": [
+                            "object",
+                            "null"
+                        ],
+                        "required": false
+                    },
+                    {
+                        "name": "onSearchAction",
+                        "jsonType": [
+                            "object",
+                            "null"
+                        ],
+                        "required": false
+                    }
+                ],
+                "slotCapabilities": [
+                    {
+                        "name": "placeholder",
+                        "cardinality": {
+                            "min": 0,
+                            "max": 1
+                        },
+                        "ordered": false,
+                        "acceptedRoles": [
+                            "Leaf"
+                        ],
+                        "acceptedTraits": [
+                            "TextContent"
+                        ]
+                    },
+                    {
+                        "name": "leadingIcon",
+                        "cardinality": {
+                            "min": 0,
+                            "max": 1
+                        },
+                        "ordered": false,
+                        "acceptedRoles": [
+                            "Container",
+                            "Leaf"
+                        ],
+                        "acceptedTraits": [
+                            "IconContent",
+                            "Action"
+                        ]
+                    },
+                    {
+                        "name": "trailingIcon",
+                        "cardinality": {
+                            "min": 0,
+                            "max": 1
+                        },
+                        "ordered": false,
+                        "acceptedRoles": [
+                            "Container",
+                            "Leaf"
+                        ],
+                        "acceptedTraits": [
+                            "IconContent",
+                            "Action"
+                        ]
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxWidth",
+                    "padding",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ]
+            }
+        }
     },
     "diagnostics": [
         {
@@ -315,12 +824,7 @@
         {
             "code": "component.id.collision",
             "subject": "m3/bar",
-            "message": "'m3/bar' is claimed by both catalog/androidx.compose.material3.SearchBarDefaults.InputField and catalog/androidx.compose.material3.SearchBarKt.DockedSearchBar. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
-        },
-        {
-            "code": "component.id.collision",
-            "subject": "m3/bar",
-            "message": "'m3/bar' is claimed by both catalog/androidx.compose.material3.SearchBarDefaults.InputField and catalog/androidx.compose.material3.SearchBarKt.SearchBar. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
+            "message": "'m3/bar' is claimed by both catalog/androidx.compose.material3.SearchBarKt.DockedSearchBar and catalog/androidx.compose.material3.SearchBarKt.SearchBar. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
         },
         {
             "code": "component.id.collision",
@@ -469,11 +973,6 @@
         },
         {
             "code": "component.id.collision",
-            "subject": "m3/linear",
-            "message": "'m3/linear' is claimed by both catalog/androidx.compose.material3.ProgressIndicatorKt.LinearProgressIndicator and catalog/androidx.compose.material3.WavyProgressIndicatorKt.LinearWavyProgressIndicator. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
-        },
-        {
-            "code": "component.id.collision",
             "subject": "m3/wide",
             "message": "'m3/wide' is claimed by both catalog/androidx.compose.material3.WideNavigationRailKt.WideNavigationRail and catalog/androidx.compose.material3.WideNavigationRailKt.WideNavigationRailItem. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
         },
@@ -494,7 +993,7 @@
         },
         {
             "code": "component.canvas.unclaimed",
-            "subject": "m3/basic",
+            "subject": "m3/dialog",
             "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
         },
         {
@@ -599,12 +1098,17 @@
         },
         {
             "code": "component.canvas.unclaimed",
-            "subject": "m3/linear",
+            "subject": "m3/progress-indicator",
             "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
         },
         {
             "code": "component.canvas.unclaimed",
             "subject": "m3/selected",
+            "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
+        },
+        {
+            "code": "component.canvas.unclaimed",
+            "subject": "m3/search-input-field",
             "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
         },
         {
@@ -659,6 +1163,11 @@
         },
         {
             "code": "component.canvas.unclaimed",
+            "subject": "m3/linear",
+            "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
+        },
+        {
+            "code": "component.canvas.unclaimed",
             "subject": "m3/wide",
             "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
         },
@@ -701,6 +1210,116 @@
             "code": "component.canvas.unclaimed",
             "subject": "m3/adaptive-sticker",
             "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/button",
+            "message": "ui-builder.policy.json states a policy for \"m3/button\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/card",
+            "message": "ui-builder.policy.json states a policy for \"m3/card\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/center-aligned-top-app-bar",
+            "message": "ui-builder.policy.json states a policy for \"m3/center-aligned-top-app-bar\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/checkbox",
+            "message": "ui-builder.policy.json states a policy for \"m3/checkbox\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/date-picker",
+            "message": "ui-builder.policy.json states a policy for \"m3/date-picker\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/filter-chip",
+            "message": "ui-builder.policy.json states a policy for \"m3/filter-chip\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/floating-action-button",
+            "message": "ui-builder.policy.json states a policy for \"m3/floating-action-button\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/horizontal-divider",
+            "message": "ui-builder.policy.json states a policy for \"m3/horizontal-divider\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/horizontal-floating-toolbar",
+            "message": "ui-builder.policy.json states a policy for \"m3/horizontal-floating-toolbar\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/icon",
+            "message": "ui-builder.policy.json states a policy for \"m3/icon\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/icon-button",
+            "message": "ui-builder.policy.json states a policy for \"m3/icon-button\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/list-item",
+            "message": "ui-builder.policy.json states a policy for \"m3/list-item\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/primary-tab-row",
+            "message": "ui-builder.policy.json states a policy for \"m3/primary-tab-row\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/provide-text-style",
+            "message": "ui-builder.policy.json states a policy for \"m3/provide-text-style\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/radio-button",
+            "message": "ui-builder.policy.json states a policy for \"m3/radio-button\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/search-bar",
+            "message": "ui-builder.policy.json states a policy for \"m3/search-bar\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/slider",
+            "message": "ui-builder.policy.json states a policy for \"m3/slider\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/surface",
+            "message": "ui-builder.policy.json states a policy for \"m3/surface\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/switch",
+            "message": "ui-builder.policy.json states a policy for \"m3/switch\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/tab",
+            "message": "ui-builder.policy.json states a policy for \"m3/tab\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/text-field",
+            "message": "ui-builder.policy.json states a policy for \"m3/text-field\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
+        },
+        {
+            "code": "component.policy.orphaned",
+            "subject": "m3/time-picker",
+            "message": "ui-builder.policy.json states a policy for \"m3/time-picker\", which no component in this record derives, so every field in it does nothing. The ids this catalog publishes are derived from componentIdPrefix \"m3/\"; check the spelling against components.json."
         }
     ]
 }
