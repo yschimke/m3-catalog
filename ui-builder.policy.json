@@ -35,6 +35,7 @@
       "Buttons",
       "FAB",
       "Icon buttons",
+      "Icons",
       "Segmented buttons",
       "Split button",
       "Toggle buttons",
@@ -49,6 +50,7 @@
       "Time pickers",
       "Text fields",
       "Bottom sheets",
+      "Surfaces",
       "Cards",
       "Carousel",
       "Dialogs",
@@ -91,6 +93,7 @@
     "m3/button": {
       "record": "catalog/androidx.compose.material3.ButtonKt.Button",
       "displayName": "Button",
+      "canvas": "material3/Button",
       "traits": [
         "Action",
         "ToolbarItem"
@@ -177,6 +180,7 @@
     "m3/card": {
       "record": "catalog/androidx.compose.material3.CardKt.Card",
       "displayName": "Card",
+      "canvas": "material3/Card",
       "traits": [
         "GridItem",
         "CarouselItem",
@@ -269,6 +273,7 @@
     "m3/center-aligned-top-app-bar": {
       "record": "catalog/androidx.compose.material3.AppBarKt.CenterAlignedTopAppBar",
       "displayName": "Top app bar",
+      "canvas": "material3/CenterAlignedTopAppBar",
       "traits": [
         "TopBar",
         "ScreenContent"
@@ -337,6 +342,7 @@
     "m3/checkbox": {
       "record": "catalog/androidx.compose.material3.CheckboxKt.Checkbox",
       "displayName": "Checkbox",
+      "canvas": "material3/Checkbox",
       "traits": [
         "SelectionControl",
         "Action"
@@ -371,6 +377,7 @@
     "m3/date-picker": {
       "record": "catalog/androidx.compose.material3.DatePickerKt.DatePicker",
       "displayName": "Date picker",
+      "canvas": "material3/DatePicker",
       "traits": [
         "PickerContent",
         "DateContent"
@@ -423,6 +430,7 @@
     "m3/dialog": {
       "record": "catalog/androidx.compose.material3.AlertDialog_skikoKt.AlertDialog",
       "displayName": "Dialog",
+      "canvas": "material3/AlertDialog",
       "traits": [
         "DialogContent",
         "OverlayContent"
@@ -545,6 +553,7 @@
     "m3/filter-chip": {
       "record": "catalog/androidx.compose.material3.ChipKt.FilterChip",
       "displayName": "Filter chip",
+      "canvas": "material3/FilterChip",
       "traits": [
         "SelectionControl",
         "ListItem"
@@ -637,6 +646,7 @@
       "record": "catalog/androidx.compose.material3.DividerKt.HorizontalDivider",
       "group": "Divider",
       "displayName": "Horizontal divider",
+      "canvas": "material3/HorizontalDivider",
       "traits": [
         "DividerContent"
       ],
@@ -678,6 +688,7 @@
     "m3/horizontal-floating-toolbar": {
       "record": "catalog/androidx.compose.material3.FloatingToolbarKt.HorizontalFloatingToolbar",
       "displayName": "Horizontal floating toolbar",
+      "canvas": "material3/HorizontalFloatingToolbar",
       "traits": [
         "ToolbarContent",
         "OverlayContent"
@@ -744,6 +755,7 @@
     "m3/icon": {
       "record": "catalog/androidx.compose.material3.IconKt.Icon",
       "displayName": "Icon",
+      "canvas": "material3/Icon",
       "traits": [
         "IconContent"
       ],
@@ -840,12 +852,14 @@
         "alignHorizontal",
         "alignVertical",
         "weight"
-      ]
+      ],
+      "group": "Icons"
     },
     "m3/icon-button": {
       "record": "catalog/androidx.compose.material3.IconButtonKt.IconButton",
       "group": "Icon buttons",
       "displayName": "Icon button",
+      "canvas": "material3/IconButton",
       "traits": [
         "Action",
         "OverlayControl",
@@ -940,6 +954,7 @@
       "record": "catalog/androidx.compose.material3.ListItemKt.ListItem",
       "group": "Lists",
       "displayName": "List item",
+      "canvas": "material3/ListItem",
       "traits": [
         "ListItem",
         "GridItem"
@@ -1021,6 +1036,7 @@
     "m3/primary-tab-row": {
       "record": "catalog/androidx.compose.material3.TabRowKt.PrimaryTabRow",
       "displayName": "Tab row",
+      "canvas": "material3/PrimaryTabRow",
       "traits": [
         "TabBar",
         "OrderedContent"
@@ -1074,6 +1090,7 @@
     "m3/progress-indicator": {
       "record": "catalog/androidx.compose.material3.ProgressIndicatorKt.LinearProgressIndicator",
       "displayName": "Progress indicator",
+      "canvas": "material3/LinearProgressIndicator",
       "traits": [
         "Feedback",
         "Decoration"
@@ -1123,6 +1140,7 @@
     "m3/radio-button": {
       "record": "catalog/androidx.compose.material3.RadioButtonKt.RadioButton",
       "displayName": "Radio button",
+      "canvas": "material3/RadioButton",
       "traits": [
         "SelectionControl",
         "Action"
@@ -1157,6 +1175,7 @@
     "m3/search-bar": {
       "record": "catalog/androidx.compose.material3.SearchBarKt.SearchBar",
       "displayName": "Search bar",
+      "canvas": "material3/SearchBar",
       "traits": [
         "TopBar",
         "SearchContent"
@@ -1232,6 +1251,7 @@
     "m3/search-input-field": {
       "record": "catalog/androidx.compose.material3.SearchBarDefaults.InputField",
       "displayName": "Search input field",
+      "canvas": "material3/InputField",
       "traits": [
         "SearchInput",
         "TextInput"
@@ -1341,6 +1361,7 @@
     "m3/slider": {
       "record": "catalog/androidx.compose.material3.SliderKt.Slider",
       "displayName": "Slider",
+      "canvas": "material3/Slider",
       "traits": [
         "SelectionControl",
         "FormField"
@@ -1391,6 +1412,7 @@
     "m3/surface": {
       "record": "catalog/androidx.compose.material3.SurfaceKt.Surface",
       "displayName": "Surface",
+      "canvas": "material3/Surface",
       "traits": [
         "ScreenContent",
         "PaneContent",
@@ -1500,12 +1522,14 @@
         "alignHorizontal",
         "alignVertical",
         "weight"
-      ]
+      ],
+      "group": "Surfaces"
     },
     "m3/switch": {
       "record": "catalog/androidx.compose.material3.SwitchKt.Switch",
       "group": "Switch",
       "displayName": "Switch",
+      "canvas": "material3/Switch",
       "traits": [
         "SelectionControl",
         "Action"
@@ -1540,6 +1564,7 @@
     "m3/tab": {
       "record": "catalog/androidx.compose.material3.TabKt.Tab",
       "displayName": "Tab",
+      "canvas": "material3/Tab",
       "traits": [
         "TabItem",
         "SelectionControl"
@@ -1595,6 +1620,7 @@
       "record": "catalog/androidx.compose.material3.TextKt.Text",
       "group": "Typography",
       "displayName": "Text",
+      "canvas": "material3/Text",
       "traits": [
         "TextContent",
         "RemoteAuthorable"
@@ -1761,6 +1787,7 @@
     "m3/text-field": {
       "record": "catalog/androidx.compose.material3.TextFieldKt.TextField",
       "displayName": "Text field",
+      "canvas": "material3/TextField",
       "traits": [
         "TextInput",
         "FormField"
@@ -1895,6 +1922,7 @@
     "m3/time-picker": {
       "record": "catalog/androidx.compose.material3.TimePickerKt.TimePicker",
       "displayName": "Time picker",
+      "canvas": "material3/TimePicker",
       "traits": [
         "PickerContent",
         "TimeContent"
@@ -1948,6 +1976,14 @@
         "alignVertical",
         "weight"
       ]
+    },
+    "m3/sticker": {
+      "record": "catalog/ee.schimke.m3catalog.CatalogThemeKt.Sticker",
+      "excluded": "the catalog's own preview frame, not a Material component: every sticker is drawn inside one, the Design Kit publishes no node for it, and nobody places one in a design."
+    },
+    "m3/material-expressive-theme": {
+      "record": "catalog/androidx.compose.material3.MaterialThemeKt.MaterialExpressiveTheme",
+      "excluded": "the theme scope every preview is wrapped in, not a component a design places. A design's theme is the document's, not a node's."
     }
   }
 }
