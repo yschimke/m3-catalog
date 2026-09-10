@@ -11,7 +11,7 @@
     "record": {
         "file": "components.json",
         "schemaVersion": 2,
-        "components": 104
+        "components": 108
     },
     "statusSemantics": {
         "platform": "mobile",
@@ -114,11 +114,14 @@
                 "m3/message": {
                     "group": "Snackbar"
                 },
-                "m3/on": {
-                    "group": "Switch"
+                "m3/item": {
+                    "group": "Lists"
                 },
                 "m3/primary": {
                     "group": "Tabs"
+                },
+                "m3/dial": {
+                    "group": "Time pickers"
                 },
                 "m3/wide": {
                     "group": "Navigation rail"
@@ -286,6 +289,11 @@
         },
         {
             "code": "component.id.collision",
+            "subject": "m3/number",
+            "message": "'m3/number' is claimed by both catalog/androidx.compose.material3.BadgeKt.Badge and catalog/androidx.compose.material3.MaterialThemeKt.MaterialExpressiveTheme. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
+        },
+        {
+            "code": "component.id.collision",
             "subject": "m3/standard",
             "message": "'m3/standard' is claimed by both catalog/androidx.compose.material3.AppBarKt.BottomAppBar and catalog/androidx.compose.material3.NavigationRailKt.NavigationRail. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
         },
@@ -396,8 +404,8 @@
         },
         {
             "code": "component.id.collision",
-            "subject": "m3/list",
-            "message": "'m3/list' is claimed by both catalog/androidx.compose.material3.DividerKt.HorizontalDivider and catalog/androidx.compose.material3.SurfaceKt.Surface. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
+            "subject": "m3/assist",
+            "message": "'m3/assist' is claimed by both catalog/androidx.compose.material3.ChipKt.AssistChip and catalog/androidx.compose.material3.SurfaceKt.Surface. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
         },
         {
             "code": "component.id.collision",
@@ -421,13 +429,18 @@
         },
         {
             "code": "component.id.collision",
-            "subject": "m3/filled",
-            "message": "'m3/filled' is claimed by both catalog/androidx.compose.material3.ButtonKt.Button and catalog/androidx.compose.material3.TextKt.ProvideTextStyle. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
+            "subject": "m3/elevated",
+            "message": "'m3/elevated' is claimed by both catalog/androidx.compose.material3.ButtonKt.ElevatedButton and catalog/androidx.compose.material3.TextKt.ProvideTextStyle. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
         },
         {
             "code": "component.id.collision",
             "subject": "m3/number",
             "message": "'m3/number' is claimed by both catalog/androidx.compose.material3.BadgeKt.Badge and catalog/androidx.compose.material3.TextKt.Text. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
+        },
+        {
+            "code": "component.id.collision",
+            "subject": "m3/dial",
+            "message": "'m3/dial' is claimed by both catalog/androidx.compose.material3.TimePickerKt.TimeInput and catalog/androidx.compose.material3.TimePickerKt.TimePicker. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
         },
         {
             "code": "component.id.collision",
@@ -463,6 +476,11 @@
             "code": "component.id.collision",
             "subject": "m3/wide",
             "message": "'m3/wide' is claimed by both catalog/androidx.compose.material3.WideNavigationRailKt.WideNavigationRail and catalog/androidx.compose.material3.WideNavigationRailKt.WideNavigationRailItem. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
+        },
+        {
+            "code": "component.id.collision",
+            "subject": "m3/multi-browse",
+            "message": "'m3/multi-browse' is claimed by both catalog/androidx.compose.material3.carousel.CarouselKt.HorizontalCenteredHeroCarousel and catalog/androidx.compose.material3.carousel.CarouselKt.HorizontalMultiBrowseCarousel. The first wins; give one of them an explicit @BuilderComponent(id = …), because a saved design stores this string and cannot be told which component it meant."
         },
         {
             "code": "component.id.collision",
@@ -621,7 +639,7 @@
         },
         {
             "code": "component.canvas.unclaimed",
-            "subject": "m3/on",
+            "subject": "m3/item",
             "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
         },
         {
@@ -632,6 +650,11 @@
         {
             "code": "component.canvas.unclaimed",
             "subject": "m3/secondary",
+            "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
+        },
+        {
+            "code": "component.canvas.unclaimed",
+            "subject": "m3/dial",
             "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
         },
         {
