@@ -8,7 +8,8 @@
             "componentIds": [
                 "Dialog/Basic",
                 "Dialog/List",
-                "TimePicker/Dial"
+                "TimePicker/Dial",
+                "TimePicker/Input"
             ],
             "symbol": {
                 "jvmOwner": "androidx.compose.material3.AlertDialog_skikoKt",
@@ -272,6 +273,26 @@
                     "previewId": "ee.schimke.m3catalog.sections.DialogsKt.ListDialog_Light_VARIANT_icon",
                     "componentId": "Dialog/List",
                     "group": "Dialogs"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
                 },
                 {
                     "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerHorizontalSticker_Dark",
@@ -4312,10 +4333,12 @@
                 "Card/Elevated",
                 "Card/Filled",
                 "Card/Outlined",
+                "DatePicker/Modal",
                 "Dialog/Basic",
                 "Dialog/List",
                 "Snackbar/Message",
-                "TimePicker/Dial"
+                "TimePicker/Dial",
+                "TimePicker/Input"
             ],
             "symbol": {
                 "jvmOwner": "androidx.compose.material3.ButtonKt",
@@ -5099,6 +5122,26 @@
                     "group": "Cards"
                 },
                 {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Dark",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Dark_VARIANT_input",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light_VARIANT_input",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
                     "previewId": "ee.schimke.m3catalog.sections.DialogsKt.BasicDialog_Dark",
                     "componentId": "Dialog/Basic",
                     "group": "Dialogs"
@@ -5197,6 +5240,26 @@
                     "previewId": "ee.schimke.m3catalog.sections.SnackbarKt.SnackbarMessage_Light_VARIANT_two-line-action-close",
                     "componentId": "Snackbar/Message",
                     "group": "Snackbar"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
                 },
                 {
                     "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerHorizontalSticker_Dark",
@@ -11592,6 +11655,377 @@
                 "call": "SuggestionChip(onClick = {}, label = {})",
                 "imports": [
                     "androidx.compose.material3.SuggestionChip"
+                ],
+                "refusedReason": null,
+                "requiredOptIns": [],
+                "androidxOptIns": []
+            },
+            "signatureKnown": true,
+            "callableFromAnotherFile": true,
+            "hasTypeParameters": false,
+            "hasContextReceivers": false,
+            "overloadsCollided": false,
+            "builder": null,
+            "requiredOptIns": [],
+            "androidxOptIns": []
+        },
+        {
+            "canonicalId": "catalog/androidx.compose.material3.DatePickerDialog_skikoKt.DatePickerDialog",
+            "componentIds": [
+                "DatePicker/Modal"
+            ],
+            "symbol": {
+                "jvmOwner": "androidx.compose.material3.DatePickerDialog_skikoKt",
+                "callable": "androidx.compose.material3.DatePickerDialog",
+                "name": "DatePickerDialog",
+                "origin": "LIBRARY",
+                "jvmName": "DatePickerDialog-GmEhDVc",
+                "descriptor": "(Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/graphics/Shape;FLandroidx/compose/material3/DatePickerColors;Landroidx/compose/ui/window/DialogProperties;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V",
+                "sourceFile": null,
+                "docs": "unavailable",
+                "receiver": null
+            },
+            "parameters": [
+                {
+                    "name": "onDismissRequest",
+                    "type": "() -> Unit",
+                    "typeFqn": "kotlin.Function0",
+                    "hasDefault": false,
+                    "composableSlot": false,
+                    "composableSlotReceiver": null,
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": "kotlin.Unit"
+                },
+                {
+                    "name": "confirmButton",
+                    "type": "() -> Unit",
+                    "typeFqn": "kotlin.Function0",
+                    "hasDefault": false,
+                    "composableSlot": true,
+                    "composableSlotReceiver": null,
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": "kotlin.Unit"
+                },
+                {
+                    "name": "modifier",
+                    "type": "Modifier",
+                    "typeFqn": "androidx.compose.ui.Modifier",
+                    "hasDefault": true,
+                    "composableSlot": false,
+                    "composableSlotReceiver": null,
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": null
+                },
+                {
+                    "name": "dismissButton",
+                    "type": "(() -> Unit)?",
+                    "typeFqn": "kotlin.Function0",
+                    "hasDefault": true,
+                    "composableSlot": true,
+                    "composableSlotReceiver": null,
+                    "nullable": true,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": "kotlin.Unit"
+                },
+                {
+                    "name": "shape",
+                    "type": "Shape",
+                    "typeFqn": "androidx.compose.ui.graphics.Shape",
+                    "hasDefault": true,
+                    "composableSlot": false,
+                    "composableSlotReceiver": null,
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": null
+                },
+                {
+                    "name": "tonalElevation",
+                    "type": "Dp",
+                    "typeFqn": "androidx.compose.ui.unit.Dp",
+                    "hasDefault": true,
+                    "composableSlot": false,
+                    "composableSlotReceiver": null,
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": null
+                },
+                {
+                    "name": "colors",
+                    "type": "DatePickerColors",
+                    "typeFqn": "androidx.compose.material3.DatePickerColors",
+                    "hasDefault": true,
+                    "composableSlot": false,
+                    "composableSlotReceiver": null,
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": null
+                },
+                {
+                    "name": "properties",
+                    "type": "DialogProperties",
+                    "typeFqn": "androidx.compose.ui.window.DialogProperties",
+                    "hasDefault": true,
+                    "composableSlot": false,
+                    "composableSlotReceiver": null,
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": null
+                },
+                {
+                    "name": "content",
+                    "type": "ColumnScope.() -> Unit",
+                    "typeFqn": "kotlin.Function1",
+                    "hasDefault": false,
+                    "composableSlot": true,
+                    "composableSlotReceiver": "androidx.compose.foundation.layout.ColumnScope",
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": "kotlin.Unit"
+                }
+            ],
+            "slots": [
+                {
+                    "name": "confirmButton",
+                    "required": true,
+                    "receiverScope": null
+                },
+                {
+                    "name": "dismissButton",
+                    "required": false,
+                    "receiverScope": null
+                },
+                {
+                    "name": "content",
+                    "required": true,
+                    "receiverScope": "androidx.compose.foundation.layout.ColumnScope"
+                }
+            ],
+            "bindings": [
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Dark",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Dark_VARIANT_input",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light_VARIANT_input",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                }
+            ],
+            "code": {
+                "call": "DatePickerDialog(onDismissRequest = {}, confirmButton = {}, content = {})",
+                "imports": [
+                    "androidx.compose.material3.DatePickerDialog"
+                ],
+                "refusedReason": null,
+                "requiredOptIns": [
+                    "androidx.compose.material3.ExperimentalMaterial3Api"
+                ],
+                "androidxOptIns": []
+            },
+            "signatureKnown": true,
+            "callableFromAnotherFile": true,
+            "hasTypeParameters": false,
+            "hasContextReceivers": false,
+            "overloadsCollided": false,
+            "builder": null,
+            "requiredOptIns": [
+                "androidx.compose.material3.ExperimentalMaterial3Api"
+            ],
+            "androidxOptIns": []
+        },
+        {
+            "canonicalId": "catalog/androidx.compose.material3.DatePickerKt.DatePicker",
+            "componentIds": [
+                "DatePicker/Modal"
+            ],
+            "symbol": {
+                "jvmOwner": "androidx.compose.material3.DatePickerKt",
+                "callable": "androidx.compose.material3.DatePicker",
+                "name": "DatePicker",
+                "origin": "LIBRARY",
+                "jvmName": "DatePicker",
+                "descriptor": "(Landroidx/compose/material3/DatePickerState;Landroidx/compose/ui/Modifier;Landroidx/compose/material3/DatePickerFormatter;Landroidx/compose/material3/DatePickerColors;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;ZLandroidx/compose/ui/focus/FocusRequester;Landroidx/compose/runtime/Composer;II)V",
+                "sourceFile": null,
+                "docs": "unavailable",
+                "receiver": null
+            },
+            "parameters": [
+                {
+                    "name": "state",
+                    "type": "DatePickerState",
+                    "typeFqn": "androidx.compose.material3.DatePickerState",
+                    "hasDefault": false,
+                    "composableSlot": false,
+                    "composableSlotReceiver": null,
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": "androidx.compose.material3.rememberDatePickerState",
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": null
+                },
+                {
+                    "name": "modifier",
+                    "type": "Modifier",
+                    "typeFqn": "androidx.compose.ui.Modifier",
+                    "hasDefault": true,
+                    "composableSlot": false,
+                    "composableSlotReceiver": null,
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": null
+                },
+                {
+                    "name": "dateFormatter",
+                    "type": "DatePickerFormatter",
+                    "typeFqn": "androidx.compose.material3.DatePickerFormatter",
+                    "hasDefault": true,
+                    "composableSlot": false,
+                    "composableSlotReceiver": null,
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": null
+                },
+                {
+                    "name": "colors",
+                    "type": "DatePickerColors",
+                    "typeFqn": "androidx.compose.material3.DatePickerColors",
+                    "hasDefault": true,
+                    "composableSlot": false,
+                    "composableSlotReceiver": null,
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": null
+                },
+                {
+                    "name": "title",
+                    "type": "(() -> Unit)?",
+                    "typeFqn": "kotlin.Function0",
+                    "hasDefault": true,
+                    "composableSlot": true,
+                    "composableSlotReceiver": null,
+                    "nullable": true,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": "kotlin.Unit"
+                },
+                {
+                    "name": "headline",
+                    "type": "(() -> Unit)?",
+                    "typeFqn": "kotlin.Function0",
+                    "hasDefault": true,
+                    "composableSlot": true,
+                    "composableSlotReceiver": null,
+                    "nullable": true,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": "kotlin.Unit"
+                },
+                {
+                    "name": "showModeToggle",
+                    "type": "Boolean",
+                    "typeFqn": "kotlin.Boolean",
+                    "hasDefault": true,
+                    "composableSlot": false,
+                    "composableSlotReceiver": null,
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": null
+                },
+                {
+                    "name": "focusRequester",
+                    "type": "FocusRequester?",
+                    "typeFqn": "androidx.compose.ui.focus.FocusRequester",
+                    "hasDefault": true,
+                    "composableSlot": false,
+                    "composableSlotReceiver": null,
+                    "nullable": true,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": null
+                }
+            ],
+            "slots": [
+                {
+                    "name": "title",
+                    "required": false,
+                    "receiverScope": null
+                },
+                {
+                    "name": "headline",
+                    "required": false,
+                    "receiverScope": null
+                }
+            ],
+            "bindings": [
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Dark",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Dark_VARIANT_input",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light_VARIANT_input",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                }
+            ],
+            "code": {
+                "call": "DatePicker(state = rememberDatePickerState())",
+                "imports": [
+                    "androidx.compose.material3.DatePicker",
+                    "androidx.compose.material3.rememberDatePickerState"
                 ],
                 "refusedReason": null,
                 "requiredOptIns": [],
@@ -18847,6 +19281,8 @@
                 "Search/Bar",
                 "Snackbar/Message",
                 "TimePicker/Dial",
+                "TimePicker/Input",
+                "Toolbar/HorizontalFloating",
                 "TopAppBar/Small"
             ],
             "symbol": {
@@ -20749,6 +21185,26 @@
                     "group": "Snackbar"
                 },
                 {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
                     "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerHorizontalSticker_Dark",
                     "componentId": "TimePicker/Dial",
                     "group": null
@@ -20787,6 +21243,46 @@
                     "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerSticker_Light_VARIANT_12-hour",
                     "componentId": "TimePicker/Dial",
                     "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.HorizontalFloatingToolbarSticker_Dark",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": "Toolbars"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.HorizontalFloatingToolbarSticker_Dark_VARIANT_vibrant",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": "Toolbars"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.HorizontalFloatingToolbarSticker_Light",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": "Toolbars"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.HorizontalFloatingToolbarSticker_Light_VARIANT_vibrant",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": "Toolbars"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Dark",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Dark_VARIANT_vibrant",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light_VARIANT_vibrant",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": null
                 },
                 {
                     "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.CenterTopAppBar_Dark",
@@ -22611,6 +23107,7 @@
                 "Chip/Suggestion",
                 "Dialog/Basic",
                 "Dialog/List",
+                "Fab/Extended",
                 "Fab/Standard",
                 "IconButton/Filled",
                 "IconButton/Outlined",
@@ -22630,10 +23127,12 @@
                 "TextField/Filled",
                 "TextField/Outlined",
                 "TimePicker/Dial",
+                "TimePicker/Input",
                 "ToggleButton/Elevated",
                 "ToggleButton/Filled",
                 "ToggleButton/Outlined",
                 "ToggleButton/Tonal",
+                "Toolbar/HorizontalFloating",
                 "TopAppBar/Small"
             ],
             "symbol": {
@@ -27212,6 +27711,746 @@
                     "previewId": "ee.schimke.m3catalog.sections.DialogsKt.ListDialog_Light_VARIANT_icon",
                     "componentId": "Dialog/List",
                     "group": "Dialogs"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFabLarge_Dark",
+                    "componentId": "Fab/Extended",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFabLarge_Light",
+                    "componentId": "Fab/Extended",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFabMedium_Dark",
+                    "componentId": "Fab/Extended",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFabMedium_Light",
+                    "componentId": "Fab/Extended",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFabSmall_Dark",
+                    "componentId": "Fab/Extended",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFabSmall_Light",
+                    "componentId": "Fab/Extended",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-primary-container-state-focused-57998-43186",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-primary-container-state-hovered-57998-43190",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-primary-container-state-pressed-57998-43181",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-primary-state-enabled-57998-43143",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-primary-state-focused-57998-43135",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-primary-state-hovered-57998-43139",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-primary-state-pressed-57998-43130",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-secondary-container-state-enabled-57998-43177",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-secondary-container-state-focused-57998-43169",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-secondary-container-state-hovered-57998-43173",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-secondary-container-state-pressed-57998-43164",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-secondary-state-enabled-57998-43126",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-secondary-state-focused-57998-43118",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-secondary-state-hovered-57998-43122",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-secondary-state-pressed-57998-43113",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-tertiary-container-state-enabled-57998-43160",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-tertiary-container-state-focused-57998-43152",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-tertiary-container-state-hovered-57998-43156",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-tertiary-container-state-pressed-57998-43147",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-tertiary-state-enabled-57998-43109",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-tertiary-state-focused-57998-43101",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-tertiary-state-hovered-57998-43105",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-large-color-tertiary-state-pressed-57998-43096",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-primary-container-state-focused-57998-43288",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-primary-container-state-hovered-57998-43292",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-primary-container-state-pressed-57998-43283",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-primary-state-enabled-57998-43245",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-primary-state-focused-57998-43237",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-primary-state-hovered-57998-43241",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-primary-state-pressed-57998-43232",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-secondary-container-state-enabled-57998-43279",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-secondary-container-state-focused-57998-43271",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-secondary-container-state-hovered-57998-43275",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-secondary-container-state-pressed-57998-43266",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-secondary-state-enabled-57998-43228",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-secondary-state-focused-57998-43220",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-secondary-state-hovered-57998-43224",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-secondary-state-pressed-57998-43215",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-tertiary-container-state-enabled-57998-43262",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-tertiary-container-state-focused-57998-43254",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-tertiary-container-state-hovered-57998-43258",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-tertiary-container-state-pressed-57998-43249",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-tertiary-state-enabled-57998-43211",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-tertiary-state-focused-57998-43203",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-tertiary-state-hovered-57998-43207",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-medium-color-tertiary-state-pressed-57998-43198",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-primary-state-focused-57998-43339",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-primary-state-hovered-57998-43343",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-primary-state-pressed-57998-43334",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-secondary-container-state-focused-57998-43373",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-secondary-container-state-hovered-57998-43377",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-secondary-container-state-pressed-57998-43368",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-secondary-state-focused-57998-43322",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-secondary-state-hovered-57998-43326",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-secondary-state-pressed-57998-43317",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-tertiary-container-state-focused-57998-43356",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-tertiary-container-state-hovered-57998-43360",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-tertiary-container-state-pressed-57998-43351",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-tertiary-state-focused-57998-43305",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-tertiary-state-hovered-57998-43309",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_cell-size-small-color-tertiary-state-pressed-57998-43300",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_focus-ring",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_focused",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_hovered",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_pressed",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_primary",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_secondary",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_secondary-container",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_tertiary",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Dark_VARIANT_tertiary-container",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-primary-container-state-focused-57998-43186",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-primary-container-state-hovered-57998-43190",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-primary-container-state-pressed-57998-43181",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-primary-state-enabled-57998-43143",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-primary-state-focused-57998-43135",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-primary-state-hovered-57998-43139",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-primary-state-pressed-57998-43130",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-secondary-container-state-enabled-57998-43177",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-secondary-container-state-focused-57998-43169",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-secondary-container-state-hovered-57998-43173",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-secondary-container-state-pressed-57998-43164",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-secondary-state-enabled-57998-43126",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-secondary-state-focused-57998-43118",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-secondary-state-hovered-57998-43122",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-secondary-state-pressed-57998-43113",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-tertiary-container-state-enabled-57998-43160",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-tertiary-container-state-focused-57998-43152",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-tertiary-container-state-hovered-57998-43156",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-tertiary-container-state-pressed-57998-43147",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-tertiary-state-enabled-57998-43109",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-tertiary-state-focused-57998-43101",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-tertiary-state-hovered-57998-43105",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-large-color-tertiary-state-pressed-57998-43096",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-primary-container-state-focused-57998-43288",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-primary-container-state-hovered-57998-43292",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-primary-container-state-pressed-57998-43283",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-primary-state-enabled-57998-43245",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-primary-state-focused-57998-43237",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-primary-state-hovered-57998-43241",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-primary-state-pressed-57998-43232",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-secondary-container-state-enabled-57998-43279",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-secondary-container-state-focused-57998-43271",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-secondary-container-state-hovered-57998-43275",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-secondary-container-state-pressed-57998-43266",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-secondary-state-enabled-57998-43228",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-secondary-state-focused-57998-43220",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-secondary-state-hovered-57998-43224",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-secondary-state-pressed-57998-43215",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-tertiary-container-state-enabled-57998-43262",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-tertiary-container-state-focused-57998-43254",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-tertiary-container-state-hovered-57998-43258",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-tertiary-container-state-pressed-57998-43249",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-tertiary-state-enabled-57998-43211",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-tertiary-state-focused-57998-43203",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-tertiary-state-hovered-57998-43207",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-medium-color-tertiary-state-pressed-57998-43198",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-primary-state-focused-57998-43339",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-primary-state-hovered-57998-43343",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-primary-state-pressed-57998-43334",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-secondary-container-state-focused-57998-43373",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-secondary-container-state-hovered-57998-43377",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-secondary-container-state-pressed-57998-43368",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-secondary-state-focused-57998-43322",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-secondary-state-hovered-57998-43326",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-secondary-state-pressed-57998-43317",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-tertiary-container-state-focused-57998-43356",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-tertiary-container-state-hovered-57998-43360",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-tertiary-container-state-pressed-57998-43351",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-tertiary-state-focused-57998-43305",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-tertiary-state-hovered-57998-43309",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_cell-size-small-color-tertiary-state-pressed-57998-43300",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_focus-ring",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_focused",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_hovered",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_pressed",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_primary",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_secondary",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_secondary-container",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_tertiary",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.FabKt.ExtendedFab_Light_VARIANT_tertiary-container",
+                    "componentId": "Fab/Extended",
+                    "group": "FAB"
                 },
                 {
                     "previewId": "ee.schimke.m3catalog.sections.FabKt.FabLarge_Dark",
@@ -34244,6 +35483,26 @@
                     "group": "Navigation rail"
                 },
                 {
+                    "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Dark",
+                    "componentId": "TopAppBar/Small",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Dark_VARIANT_query",
+                    "componentId": "TopAppBar/Small",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Light",
+                    "componentId": "TopAppBar/Small",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Light_VARIANT_query",
+                    "componentId": "TopAppBar/Small",
+                    "group": null
+                },
+                {
                     "previewId": "ee.schimke.m3catalog.sections.SearchKt.DockedSearchBarSticker_Dark",
                     "componentId": "Search/Bar",
                     "group": null
@@ -36182,6 +37441,26 @@
                     "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.OutlinedTextFieldSticker_Light_VARIANT_trailing-icon",
                     "componentId": "TextField/Outlined",
                     "group": "Text fields"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
                 },
                 {
                     "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerHorizontalSticker_Dark",
@@ -40262,6 +41541,46 @@
                     "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.TonalToggleButtonSticker_Light_VARIANT_xs-square-off",
                     "componentId": "ToggleButton/Tonal",
                     "group": "Toggle buttons"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.HorizontalFloatingToolbarSticker_Dark",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": "Toolbars"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.HorizontalFloatingToolbarSticker_Dark_VARIANT_vibrant",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": "Toolbars"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.HorizontalFloatingToolbarSticker_Light",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": "Toolbars"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.HorizontalFloatingToolbarSticker_Light_VARIANT_vibrant",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": "Toolbars"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Dark",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Dark_VARIANT_vibrant",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.VerticalFloatingToolbarSticker_Light_VARIANT_vibrant",
+                    "componentId": "Toolbar/HorizontalFloating",
+                    "group": null
                 },
                 {
                     "previewId": "ee.schimke.m3catalog.sections.TopAppBarsKt.CenterTopAppBar_Dark",
@@ -76373,6 +77692,26 @@
                     "group": "Dialogs"
                 },
                 {
+                    "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Dark",
+                    "componentId": "TopAppBar/Small",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Dark_VARIANT_query",
+                    "componentId": "TopAppBar/Small",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Light",
+                    "componentId": "TopAppBar/Small",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Light_VARIANT_query",
+                    "componentId": "TopAppBar/Small",
+                    "group": null
+                },
+                {
                     "previewId": "ee.schimke.m3catalog.sections.SearchKt.DockedSearchBarSticker_Dark",
                     "componentId": "Search/Bar",
                     "group": null
@@ -86057,6 +87396,7 @@
                 "Chip/Input",
                 "Chip/Suggestion",
                 "Color/Role grid",
+                "DatePicker/Modal",
                 "Dialog/Basic",
                 "Dialog/List",
                 "Divider/Horizontal",
@@ -86076,6 +87416,7 @@
                 "TextField/Filled",
                 "TextField/Outlined",
                 "TimePicker/Dial",
+                "TimePicker/Input",
                 "ToggleButton/Elevated",
                 "ToggleButton/Filled",
                 "ToggleButton/Outlined",
@@ -91013,6 +92354,26 @@
                     "group": "Color"
                 },
                 {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Dark",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Dark_VARIANT_input",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light_VARIANT_input",
+                    "componentId": "DatePicker/Modal",
+                    "group": "Date pickers"
+                },
+                {
                     "previewId": "ee.schimke.m3catalog.sections.DialogsKt.BasicDialog_Dark",
                     "componentId": "Dialog/Basic",
                     "group": "Dialogs"
@@ -92101,6 +93462,26 @@
                     "previewId": "ee.schimke.m3catalog.sections.NavigationRailsKt.WideNavigationRailSticker_Light_VARIANT_middle",
                     "componentId": "NavigationRail/Wide",
                     "group": "Navigation rail"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Dark",
+                    "componentId": "TopAppBar/Small",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Dark_VARIANT_query",
+                    "componentId": "TopAppBar/Small",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Light",
+                    "componentId": "TopAppBar/Small",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.SearchKt.AppBarWithSearchSticker_Light_VARIANT_query",
+                    "componentId": "TopAppBar/Small",
+                    "group": null
                 },
                 {
                     "previewId": "ee.schimke.m3catalog.sections.SearchKt.DockedSearchBarSticker_Dark",
@@ -93931,6 +95312,26 @@
                     "previewId": "ee.schimke.m3catalog.sections.TextFieldsKt.OutlinedTextFieldSticker_Light_VARIANT_trailing-icon",
                     "componentId": "TextField/Outlined",
                     "group": "Text fields"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
                 },
                 {
                     "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerHorizontalSticker_Dark",
@@ -95991,6 +97392,16 @@
                     "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.OutlinedToggleButtonSticker_Light_VARIANT_xs-square-on",
                     "componentId": "ToggleButton/Outlined",
                     "group": "Toggle buttons"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.ToggleButtonLabelOnly_Dark",
+                    "componentId": "ToggleButton/Filled",
+                    "group": null
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.ToggleButtonLabelOnly_Light",
+                    "componentId": "ToggleButton/Filled",
+                    "group": null
                 },
                 {
                     "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.ToggleButtonSticker_Dark",
@@ -98314,7 +99725,8 @@
         {
             "canonicalId": "catalog/androidx.compose.material3.TimePickerKt.TimeInput",
             "componentIds": [
-                "TimePicker/Dial"
+                "TimePicker/Dial",
+                "TimePicker/Input"
             ],
             "symbol": {
                 "jvmOwner": "androidx.compose.material3.TimePickerKt",
@@ -98370,6 +99782,26 @@
             ],
             "slots": [],
             "bindings": [
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
                 {
                     "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerHorizontalSticker_Dark",
                     "componentId": "TimePicker/Dial",
@@ -98433,7 +99865,8 @@
         {
             "canonicalId": "catalog/androidx.compose.material3.TimePickerKt.TimePicker",
             "componentIds": [
-                "TimePicker/Dial"
+                "TimePicker/Dial",
+                "TimePicker/Input"
             ],
             "symbol": {
                 "jvmOwner": "androidx.compose.material3.TimePickerKt",
@@ -98502,6 +99935,26 @@
             ],
             "slots": [],
             "bindings": [
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Dark_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
+                {
+                    "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimeInputSticker_Light_VARIANT_12-hour",
+                    "componentId": "TimePicker/Input",
+                    "group": "Time pickers"
+                },
                 {
                     "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerHorizontalSticker_Dark",
                     "componentId": "TimePicker/Dial",
@@ -105901,7 +107354,6 @@
                 "TextField/Outlined",
                 "TimePicker/Dial",
                 "TimePicker/Input",
-                "ToggleButton/Filled",
                 "Toolbar/HorizontalFloating",
                 "TopAppBar/Small"
             ],
@@ -107808,26 +109260,6 @@
                     "previewId": "ee.schimke.m3catalog.sections.ChipsKt.SuggestionChipSticker_Light_VARIANT_pressed",
                     "componentId": "Chip/Suggestion",
                     "group": "Chips"
-                },
-                {
-                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Dark",
-                    "componentId": "DatePicker/Modal",
-                    "group": "Date pickers"
-                },
-                {
-                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Dark_VARIANT_input",
-                    "componentId": "DatePicker/Modal",
-                    "group": "Date pickers"
-                },
-                {
-                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light",
-                    "componentId": "DatePicker/Modal",
-                    "group": "Date pickers"
-                },
-                {
-                    "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DatePickerModalSticker_Light_VARIANT_input",
-                    "componentId": "DatePicker/Modal",
-                    "group": "Date pickers"
                 },
                 {
                     "previewId": "ee.schimke.m3catalog.sections.DatePickersKt.DateRangePickerSticker_Dark",
@@ -110728,16 +112160,6 @@
                     "previewId": "ee.schimke.m3catalog.sections.TimePickersKt.TimePickerSticker_Light_VARIANT_12-hour",
                     "componentId": "TimePicker/Dial",
                     "group": "Time pickers"
-                },
-                {
-                    "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.ToggleButtonLabelOnly_Dark",
-                    "componentId": "ToggleButton/Filled",
-                    "group": null
-                },
-                {
-                    "previewId": "ee.schimke.m3catalog.sections.ToggleButtonsKt.ToggleButtonLabelOnly_Light",
-                    "componentId": "ToggleButton/Filled",
-                    "group": null
                 },
                 {
                     "previewId": "ee.schimke.m3catalog.sections.ToolbarsKt.HorizontalFloatingToolbarSticker_Dark",
