@@ -24,15 +24,45 @@
     "seedDevice": "id:pixel_6"
   },
   "menu": {
-    "$comment": "This catalog's own @file:CatalogGroup(section = …) vocabulary, ordered as a person building a screen reaches for it: structure, then navigation, then the controls that go inside. A group a component names that this list omits sorts after the ones it lists, so adding a section in code does not make its components vanish from the panel. The order deliberately echoes the packaged catalog's, minus the shelves that are builder builtins rather than anything this catalog publishes — Layout, Content, Embedded and Scaffolds hold `layout/*`, `asset/*`, `shape/*` and `remote-compose/*`, none of which is a component of this repository.",
+    "$comment": "This catalog's own `@file:CatalogGroup(name = …)` shelves, in the order a person building a screen reaches for them: navigation, then the controls, then what holds them, then what reports back, then styles. Grouped by the `section` each file declares and alphabetical within a section, so adding a file puts its shelf in one obvious place.\n\nIt lists NAMES, not sections, and that distinction is the whole content of this list. `@file:CatalogGroup(name = \"Buttons\", section = \"Actions\")` files a component under `Buttons`; `section` is how this repository's own cover sheet is organised and nothing the builder ever sees. An earlier version of this list held the seven section words, so all twenty-nine shelves the catalog actually uses were unnamed by it — and an unnamed group sorts alphabetically after every named one, which means the stated order governed nothing and the panel a person saw was A-to-Z. Measured by PublishedGeneratedM3CatalogEquivalenceTest in yschimke/compose-preview-server, which now fails if a shelf goes unnamed again.\n\nEight of these have no component today (Bottom sheets, Date pickers, Menus, Shapes, Side sheets, Switch, Tooltips, Typography) — either the section renders through a wrapper the record does not follow, or its symbol collapsed onto a shelf a sibling sticker named first. They stay listed so the day one composes it lands where it belongs rather than at the end.",
     "groupOrder": [
-      "Navigation",
-      "Actions",
-      "Selection",
-      "Text inputs",
-      "Containment",
-      "Communication",
-      "Styles"
+      "Bottom app bar",
+      "Navigation bar",
+      "Navigation rail",
+      "Search",
+      "Tabs",
+      "Top app bar",
+      "Buttons",
+      "FAB",
+      "Icon buttons",
+      "Segmented buttons",
+      "Split button",
+      "Toggle buttons",
+      "Toolbars",
+      "Checkbox",
+      "Chips",
+      "Date pickers",
+      "Menus",
+      "Radio button",
+      "Sliders",
+      "Switch",
+      "Time pickers",
+      "Text fields",
+      "Bottom sheets",
+      "Cards",
+      "Carousel",
+      "Dialogs",
+      "Divider",
+      "Lists",
+      "Side sheets",
+      "Badges",
+      "Loading indicator",
+      "Progress indicators",
+      "Snackbar",
+      "Tooltips",
+      "Color",
+      "Shapes",
+      "Typography"
     ]
   },
   "colorTokens": {
@@ -56,7 +86,7 @@
   },
   "$comment_builtins": "None, and that is a claim worth making explicitly. Every component this catalog publishes is a real composable with a real call site, so it is in the component record and its policy belongs on its sticker. The builtins the packaged catalog carries — `layout/*`, `shape/*`, `asset/image`, `remote-compose/*` — are components OF THE BUILDER: a column is not a Material 3 component and this repository does not render one. Declaring them here would be this catalog claiming to own the builder's own vocabulary.",
   "$comment_code": "No `code` block, so the export stays `record`: a call site printed per node from the component record, which is all a catalog of leaf components needs and all this one has to say. The structural templates exist for a catalog whose screens have shape no signature carries — the Wear scaffold and its shared scroll state — and this one does not.",
-  "$comment_components": "The per-component vocabulary a design is authored against: which properties this component takes, what each one accepts, which slots it has, which modifiers apply to it. Everything else about a component - its id, its record, its group, its display name - is DERIVED from the annotations beside the preview, and restating it here would be a second place to rename it. Only what no annotation can express lives here. Twenty-two components carry a vocabulary because those are the twenty-two a saved design names today; the other eighty-six are shelved straight from the record with no override, which is the correct and much smaller thing to publish. The contract: https://github.com/yschimke/compose-preview-server/blob/main/docs/design/UI_BUILDER_CATALOG_CONTRACT.md",
+  "$comment_components": "The per-component vocabulary a design is authored against: which properties this component takes, what each one accepts, which slots it has, which modifiers apply to it. Everything else about a component - its id, its record, its display name - is DERIVED from the annotations beside the preview, and restating it here would be a second place to rename it. Only what no annotation can express lives here, plus `group` where the derivation reaches the wrong shelf: one component is one SYMBOL, and a symbol several stickers draw is filed under whichever catalog id sorts first. That put `Text` on Badges, `Switch` on Lists, `IconButton` and `FloatingActionButton` on Bottom app bar, `HorizontalDivider` and `ListItem` on Dialogs. Seven entries here say the shelf instead; the generator reads this before the annotation for exactly that reason. Twenty-three components carry a vocabulary: the twenty-two a saved design names today, plus `m3/time-picker`, which a saved design also names and which only became reachable when the scan classpath started resolving dependencies by coordinate (yschimke/compose-ai-tools#5354). The other eighty-five are shelved straight from the record with no override, which is the correct and much smaller thing to publish. The contract: https://github.com/yschimke/compose-preview-server/blob/main/docs/design/UI_BUILDER_CATALOG_CONTRACT.md",
   "components": {
     "m3/button": {
       "record": "catalog/androidx.compose.material3.ButtonKt.Button",
@@ -547,8 +577,13 @@
         "weight"
       ]
     },
+    "m3/floating-action-button": {
+      "record": "catalog/androidx.compose.material3.FloatingActionButtonKt.FloatingActionButton",
+      "group": "FAB"
+    },
     "m3/horizontal-divider": {
       "record": "catalog/androidx.compose.material3.DividerKt.HorizontalDivider",
+      "group": "Divider",
       "displayName": "Horizontal divider",
       "traits": [
         "DividerContent"
@@ -757,6 +792,7 @@
     },
     "m3/icon-button": {
       "record": "catalog/androidx.compose.material3.IconButtonKt.IconButton",
+      "group": "Icon buttons",
       "displayName": "Icon button",
       "traits": [
         "Action",
@@ -850,6 +886,7 @@
     },
     "m3/list-item": {
       "record": "catalog/androidx.compose.material3.ListItemKt.ListItem",
+      "group": "Lists",
       "displayName": "List item",
       "traits": [
         "ListItem",
@@ -1026,6 +1063,10 @@
         "alignVertical",
         "weight"
       ]
+    },
+    "m3/provide-text-style": {
+      "record": "catalog/androidx.compose.material3.TextKt.ProvideTextStyle",
+      "group": "Typography"
     },
     "m3/radio-button": {
       "record": "catalog/androidx.compose.material3.RadioButtonKt.RadioButton",
@@ -1411,6 +1452,7 @@
     },
     "m3/switch": {
       "record": "catalog/androidx.compose.material3.SwitchKt.Switch",
+      "group": "Switch",
       "displayName": "Switch",
       "traits": [
         "SelectionControl",
@@ -1499,6 +1541,7 @@
     },
     "m3/text": {
       "record": "catalog/androidx.compose.material3.TextKt.Text",
+      "group": "Typography",
       "displayName": "Text",
       "traits": [
         "TextContent",
@@ -1791,6 +1834,63 @@
         "size",
         "fillMaxWidth",
         "padding",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/time-picker": {
+      "record": "catalog/androidx.compose.material3.TimePickerKt.TimePicker",
+      "displayName": "Time picker",
+      "traits": [
+        "PickerContent",
+        "TimeContent"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "mode",
+          "jsonType": "string",
+          "required": true,
+          "allowedValues": [
+            "dial",
+            "input"
+          ],
+          "notes": "The clock face, or the two typed fields Material calls TimeInput — two composables over one state, spelled as one component the way `m3/progress-indicator` spells linear and circular."
+        },
+        {
+          "name": "hour",
+          "jsonType": "integer",
+          "required": true,
+          "notes": "0..23 whatever `is24Hour` says: the state holds a 24-hour clock and renders it in the chosen one."
+        },
+        {
+          "name": "minute",
+          "jsonType": "integer",
+          "required": true
+        },
+        {
+          "name": "is24Hour",
+          "jsonType": "boolean",
+          "required": false
+        }
+      ],
+      "slotCapabilities": [],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
         "align",
         "alignHorizontal",
         "alignVertical",
