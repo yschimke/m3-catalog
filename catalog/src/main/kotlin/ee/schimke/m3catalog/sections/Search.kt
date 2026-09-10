@@ -44,6 +44,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ee.schimke.composeai.preview.BuilderComponent
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -149,6 +150,10 @@ private fun searchTrailing(): (@Composable () -> Unit)? =
     "The collapsed entry point, floating over content. Query, avatar and the docked form fold in.",
 )
 @CatalogModesKitContainer
+// `SearchBarDefaults.InputField` derives `m3/input-field` from its own simple name, which says
+// nothing about the search bar it belongs to. The builder qualifies it, and that qualified string
+// is what designs store. `SearchBar` itself needs no entry — it derives `m3/search-bar`.
+@BuilderComponent(component = "InputField", id = "m3/search-input-field")
 @OverrideVariant(name = "query", strings = ["content=query"])
 @OverrideVariant(name = "avatar", strings = ["content=avatar"])
 @Composable
