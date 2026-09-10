@@ -86,7 +86,7 @@
   },
   "$comment_builtins": "None, and that is a claim worth making explicitly. Every component this catalog publishes is a real composable with a real call site, so it is in the component record and its policy belongs on its sticker. The builtins the packaged catalog carries — `layout/*`, `shape/*`, `asset/image`, `remote-compose/*` — are components OF THE BUILDER: a column is not a Material 3 component and this repository does not render one. Declaring them here would be this catalog claiming to own the builder's own vocabulary.",
   "$comment_code": "No `code` block, so the export stays `record`: a call site printed per node from the component record, which is all a catalog of leaf components needs and all this one has to say. The structural templates exist for a catalog whose screens have shape no signature carries — the Wear scaffold and its shared scroll state — and this one does not.",
-  "$comment_components": "The per-component vocabulary a design is authored against: which properties this component takes, what each one accepts, which slots it has, which modifiers apply to it. Everything else about a component - its id, its record, its display name - is DERIVED from the annotations beside the preview, and restating it here would be a second place to rename it. Only what no annotation can express lives here, plus `group` where the derivation reaches the wrong shelf: one component is one SYMBOL, and a symbol several stickers draw is filed under whichever catalog id sorts first. That put `Text` on Badges, `Switch` on Lists, `IconButton` and `FloatingActionButton` on Bottom app bar, `HorizontalDivider` and `ListItem` on Dialogs. Seven entries here say the shelf instead; the generator reads this before the annotation for exactly that reason. Twenty-three components carry a vocabulary: the twenty-two a saved design names today, plus `m3/time-picker`, which a saved design also names and which only became reachable when the scan classpath started resolving dependencies by coordinate (yschimke/compose-ai-tools#5354). The other eighty-five are shelved straight from the record with no override, which is the correct and much smaller thing to publish. The contract: https://github.com/yschimke/compose-preview-server/blob/main/docs/design/UI_BUILDER_CATALOG_CONTRACT.md",
+  "$comment_components": "The per-component vocabulary a design is authored against: which properties this component takes, what each one accepts, which slots it has, which modifiers apply to it. Everything else about a component - its id, its record, its display name - is DERIVED from the annotations beside the preview, and restating it here would be a second place to rename it. Only what no annotation can express lives here, plus `group` where the derivation reaches the wrong shelf: one component is one SYMBOL, and a symbol several stickers draw is filed under whichever catalog id sorts first. That put `Text` on Badges, `Switch` on Lists, `IconButton` and `FloatingActionButton` on Bottom app bar, `HorizontalDivider` and `ListItem` on Dialogs. Seven entries here say the shelf instead; the generator reads this before the annotation for exactly that reason. Twenty-four components carry a vocabulary: the twenty-two a saved design names today, plus `m3/time-picker` and `m3/date-picker`, which a saved design also names and which only became reachable when discovery learned to resolve dependencies by coordinate and to follow a singleton lambda held by another singleton lambda (yschimke/compose-ai-tools#5354). Two more entries (`m3/floating-action-button`, `m3/provide-text-style`) carry a `group` and nothing else, because the derivation put them on a sibling's shelf. The other eighty-four are shelved straight from the record with no override, which is the correct and much smaller thing to publish. The contract: https://github.com/yschimke/compose-preview-server/blob/main/docs/design/UI_BUILDER_CATALOG_CONTRACT.md",
   "components": {
     "m3/button": {
       "record": "catalog/androidx.compose.material3.ButtonKt.Button",
@@ -362,6 +362,58 @@
       "modifierCapabilities": [
         "size",
         "padding",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/date-picker": {
+      "record": "catalog/androidx.compose.material3.DatePickerKt.DatePicker",
+      "displayName": "Date picker",
+      "traits": [
+        "PickerContent",
+        "DateContent"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "mode",
+          "jsonType": "string",
+          "required": true,
+          "allowedValues": [
+            "picker",
+            "input"
+          ],
+          "notes": "Material's own DisplayMode: the calendar, or the typed date field."
+        },
+        {
+          "name": "selectedDate",
+          "jsonType": "string",
+          "required": true,
+          "notes": "ISO-8601 `YYYY-MM-DD`. Pinned rather than read from the clock so a render is the same picture on every day."
+        },
+        {
+          "name": "showModeToggle",
+          "jsonType": "boolean",
+          "required": false
+        }
+      ],
+      "slotCapabilities": [],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
         "align",
         "alignHorizontal",
         "alignVertical",
