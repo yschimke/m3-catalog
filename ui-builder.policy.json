@@ -1,17 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/yschimke/compose-ai-tools/main/scripts/design-artifacts/ui-builder.policy.schema.json",
   "$comment": "Catalog-level UI builder policy, beside the cover sheet. PER-COMPONENT policy is NOT here — it is @BuilderComponent beside @CatalogComponent on the sticker, so a component is never renamed in two places; this file carries only what belongs to no component. The contract: https://github.com/yschimke/compose-preview-server/blob/main/docs/design/UI_BUILDER_CATALOG_CONTRACT.md — what the pipeline does with it: https://github.com/yschimke/compose-ai-tools/blob/main/docs/design/UI_BUILDER_CATALOG_POLICY.md. Nothing reads this file yet: it is authored so the catalog it generates can be diffed against the one the preview server packages today, BEFORE the server changes a reader.",
-
   "schema": "compose-ui-builder-policy/v1",
-
   "$comment_twoCatalogsOneName": "READ THIS BEFORE COMPARING THE GENERATED FILE TO THE PACKAGED ONE. The preview server ships `m3-catalog-capabilities-v1.json`, a hand-transcribed catalog of the twenty-five components a Jetcaster screen uses, and it has never had anything to do with this repository — it borrowed the name. What this catalog publishes describes the components it actually renders, which is a different and larger set. So the diff between the two is expected to be large, and reviewing it is the point of the exercise rather than a step towards making it empty. The packaged file stays as the standalone builder's fallback under its own compatibility name.",
-
   "$comment_componentIdPrefix": "`m3/button`, not `m3-catalog/button`. The catalog is named for the repository and its components for the library, and every design ever saved in the builder stores the component form. Declared rather than defaulted from the catalog id, because the default would silently invalidate every one of them.",
   "componentIdPrefix": "m3/",
-
   "platform": "mobile",
   "platformLabel": "Mobile",
-
   "previewSurfaces": {
     "wasm": {
       "fidelity": "approximate",
@@ -23,13 +18,11 @@
       "reason": "The generated Kotlin compiled against this module's own classpath and rendered under Robolectric — the same lane that produces this catalog's stickers."
     }
   },
-
   "frame": {
     "$comment": "A rectangle, and no geometry block: a phone screen's frame is its device size, which the builder already reads from the device preset, so there is nothing measured for this catalog to publish. The Wear catalog needs one because a round screen's content insets are computed by the library rather than implied by the size.",
     "adapter": "frame/rect",
     "seedDevice": "id:pixel_6"
   },
-
   "menu": {
     "$comment": "This catalog's own @file:CatalogGroup(section = …) vocabulary, ordered as a person building a screen reaches for it: structure, then navigation, then the controls that go inside. A group a component names that this list omits sorts after the ones it lists, so adding a section in code does not make its components vanish from the panel. The order deliberately echoes the packaged catalog's, minus the shelves that are builder builtins rather than anything this catalog publishes — Layout, Content, Embedded and Scaffolds hold `layout/*`, `asset/*`, `shape/*` and `remote-compose/*`, none of which is a component of this repository.",
     "groupOrder": [
@@ -42,7 +35,6 @@
       "Styles"
     ]
   },
-
   "colorTokens": {
     "$comment": "The theme roles a colour property or a background modifier may name — the roles a canvas drawing this catalog can resolve. Anything else is a #RRGGBB or #AARRGGBB literal. This is Material 3's own vocabulary, which is why this catalog is the one entitled to state it.",
     "roles": [
@@ -62,8 +54,1748 @@
       "transparent"
     ]
   },
-
   "$comment_builtins": "None, and that is a claim worth making explicitly. Every component this catalog publishes is a real composable with a real call site, so it is in the component record and its policy belongs on its sticker. The builtins the packaged catalog carries — `layout/*`, `shape/*`, `asset/image`, `remote-compose/*` — are components OF THE BUILDER: a column is not a Material 3 component and this repository does not render one. Declaring them here would be this catalog claiming to own the builder's own vocabulary.",
-
-  "$comment_code": "No `code` block, so the export stays `record`: a call site printed per node from the component record, which is all a catalog of leaf components needs and all this one has to say. The structural templates exist for a catalog whose screens have shape no signature carries — the Wear scaffold and its shared scroll state — and this one does not."
+  "$comment_code": "No `code` block, so the export stays `record`: a call site printed per node from the component record, which is all a catalog of leaf components needs and all this one has to say. The structural templates exist for a catalog whose screens have shape no signature carries — the Wear scaffold and its shared scroll state — and this one does not.",
+  "$comment_components": "The per-component vocabulary a design is authored against: which properties this component takes, what each one accepts, which slots it has, which modifiers apply to it. Everything else about a component - its id, its record, its group, its display name - is DERIVED from the annotations beside the preview, and restating it here would be a second place to rename it. Only what no annotation can express lives here. Twenty-two components carry a vocabulary because those are the twenty-two a saved design names today; the other eighty-six are shelved straight from the record with no override, which is the correct and much smaller thing to publish. The contract: https://github.com/yschimke/compose-preview-server/blob/main/docs/design/UI_BUILDER_CATALOG_CONTRACT.md",
+  "components": {
+    "m3/button": {
+      "record": "catalog/androidx.compose.material3.ButtonKt.Button",
+      "displayName": "Button",
+      "traits": [
+        "Action",
+        "ToolbarItem"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "style",
+          "jsonType": "string",
+          "required": true,
+          "allowedValues": [
+            "filled",
+            "filledTonal",
+            "text",
+            "fab"
+          ]
+        },
+        {
+          "name": "enabled",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "selected",
+          "jsonType": [
+            "boolean",
+            "string",
+            "object"
+          ],
+          "required": false,
+          "notes": "A flag, or a `stateEquals` read of a declared state variable — which is an object, and why `object` is one of the accepted types."
+        },
+        {
+          "name": "containerColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "onClickAction",
+          "jsonType": [
+            "object",
+            "null"
+          ],
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 1
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Leaf",
+            "Container"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/card": {
+      "record": "catalog/androidx.compose.material3.CardKt.Card",
+      "displayName": "Card",
+      "traits": [
+        "GridItem",
+        "CarouselItem",
+        "ListItem",
+        "OverlayContent"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "variant",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "filled",
+            "elevated",
+            "outlined"
+          ]
+        },
+        {
+          "name": "containerColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "shape",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "stableKey",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "elevationDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "onClickAction",
+          "jsonType": [
+            "object",
+            "null"
+          ],
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 1
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "clip",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "background",
+        "border",
+        "shadow",
+        "wrapContentSize",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/center-aligned-top-app-bar": {
+      "record": "catalog/androidx.compose.material3.AppBarKt.CenterAlignedTopAppBar",
+      "displayName": "Top app bar",
+      "traits": [
+        "TopBar",
+        "ScreenContent"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "containerColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "scrolledContainerColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "scrollBehavior",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "pinned",
+            "enterAlways",
+            "exitUntilCollapsed"
+          ],
+          "notes": "Reaches the generated Kotlin as the matching TopAppBarDefaults behavior. The canvas draws the bar pinned whatever this says: a scroll behavior is driven by a nested-scroll connection the document has no scaffold to carry."
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "title",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "TextContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/checkbox": {
+      "record": "catalog/androidx.compose.material3.CheckboxKt.Checkbox",
+      "displayName": "Checkbox",
+      "traits": [
+        "SelectionControl",
+        "Action"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "checked",
+          "jsonType": [
+            "boolean",
+            "string",
+            "object"
+          ],
+          "required": false,
+          "notes": "A flag, or a `stateEquals` read of a declared state variable — the same shape a filter chip's `selected` takes."
+        },
+        {
+          "name": "enabled",
+          "jsonType": "boolean",
+          "required": false
+        }
+      ],
+      "slotCapabilities": [],
+      "modifierCapabilities": [
+        "size",
+        "padding",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/dialog": {
+      "record": "catalog/androidx.compose.material3.AlertDialog_skikoKt.AlertDialog",
+      "displayName": "Dialog",
+      "traits": [
+        "DialogContent",
+        "OverlayContent"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "containerColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "tonalElevationDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "shapeDp",
+          "jsonType": "number",
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "icon",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "IconContent"
+          ]
+        },
+        {
+          "name": "title",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "TextContent"
+          ]
+        },
+        {
+          "name": "text",
+          "cardinality": {
+            "min": 0
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        },
+        {
+          "name": "dismissButton",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container"
+          ],
+          "acceptedTraits": [
+            "Action"
+          ]
+        },
+        {
+          "name": "confirmButton",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container"
+          ],
+          "acceptedTraits": [
+            "Action"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "background",
+        "border",
+        "shadow",
+        "wrapContentSize",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/filter-chip": {
+      "record": "catalog/androidx.compose.material3.ChipKt.FilterChip",
+      "displayName": "Filter chip",
+      "traits": [
+        "SelectionControl",
+        "ListItem"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "selected",
+          "jsonType": [
+            "boolean",
+            "string",
+            "object"
+          ],
+          "required": true,
+          "notes": "A flag, or a `stateEquals` read of a declared state variable — which is an object, and why `object` is one of the accepted types."
+        },
+        {
+          "name": "enabled",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "shape",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "onClickAction",
+          "jsonType": [
+            "object",
+            "null"
+          ],
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "label",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "TextContent"
+          ]
+        },
+        {
+          "name": "leadingIcon",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/horizontal-divider": {
+      "record": "catalog/androidx.compose.material3.DividerKt.HorizontalDivider",
+      "displayName": "Horizontal divider",
+      "traits": [
+        "DividerContent"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "thicknessDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "color",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        }
+      ],
+      "slotCapabilities": [],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/horizontal-floating-toolbar": {
+      "record": "catalog/androidx.compose.material3.FloatingToolbarKt.HorizontalFloatingToolbar",
+      "displayName": "Horizontal floating toolbar",
+      "traits": [
+        "ToolbarContent",
+        "OverlayContent"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "expanded",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "containerColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "contentPadding",
+          "jsonType": "object",
+          "required": false
+        },
+        {
+          "name": "alignment",
+          "jsonType": "string",
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 1
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "ToolbarItem"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/icon": {
+      "record": "catalog/androidx.compose.material3.IconKt.Icon",
+      "displayName": "Icon",
+      "traits": [
+        "IconContent"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "iconKey",
+          "jsonType": "string",
+          "required": true,
+          "allowedValues": [
+            "accessTime",
+            "accountCircle",
+            "add",
+            "addCircle",
+            "arrowBack",
+            "arrowForward",
+            "bookmark",
+            "bookmarkBorder",
+            "calendarMonth",
+            "cameraAlt",
+            "check",
+            "checkCircle",
+            "chevronRight",
+            "close",
+            "coffee",
+            "delete",
+            "download",
+            "edit",
+            "email",
+            "expandMore",
+            "favorite",
+            "genres",
+            "home",
+            "image",
+            "info",
+            "locationOn",
+            "lock",
+            "menu",
+            "moreVert",
+            "notifications",
+            "pauseCircle",
+            "person",
+            "phone",
+            "playCircle",
+            "playlistAdd",
+            "refresh",
+            "remove",
+            "search",
+            "settings",
+            "share",
+            "star",
+            "stopCircle",
+            "upload",
+            "videoLibrary",
+            "visibility",
+            "warning"
+          ]
+        },
+        {
+          "name": "contentDescription",
+          "jsonType": [
+            "string",
+            "null"
+          ],
+          "required": false
+        },
+        {
+          "name": "sizeDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "color",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        }
+      ],
+      "slotCapabilities": [],
+      "modifierCapabilities": [
+        "size",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/icon-button": {
+      "record": "catalog/androidx.compose.material3.IconButtonKt.IconButton",
+      "displayName": "Icon button",
+      "traits": [
+        "Action",
+        "OverlayControl",
+        "ToolbarItem"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "variant",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "standard",
+            "filled",
+            "tonal",
+            "outlined"
+          ]
+        },
+        {
+          "name": "enabled",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "selected",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "alignment",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "contentDescription",
+          "jsonType": [
+            "string",
+            "null"
+          ],
+          "required": false
+        },
+        {
+          "name": "sizeDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "onClickAction",
+          "jsonType": [
+            "object",
+            "null"
+          ],
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "IconContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/list-item": {
+      "record": "catalog/androidx.compose.material3.ListItemKt.ListItem",
+      "displayName": "List item",
+      "traits": [
+        "ListItem",
+        "GridItem"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "startAccentColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A 3dp bar down the leading edge, drawn behind the item. Empty draws none. A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "headline",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "TextContent"
+          ]
+        },
+        {
+          "name": "supporting",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        },
+        {
+          "name": "trailing",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/primary-tab-row": {
+      "record": "catalog/androidx.compose.material3.TabRowKt.PrimaryTabRow",
+      "displayName": "Tab row",
+      "traits": [
+        "TabBar",
+        "OrderedContent"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "selectedIndex",
+          "jsonType": [
+            "integer",
+            "object"
+          ],
+          "required": true,
+          "notes": "An index, or a `state` read of a declared `int` variable — which is an object, and why `object` is one of the accepted types. It is the variable the tabs write."
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "tabs",
+          "cardinality": {
+            "min": 1
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container"
+          ],
+          "acceptedTraits": [
+            "TabItem"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/progress-indicator": {
+      "record": "catalog/androidx.compose.material3.ProgressIndicatorKt.LinearProgressIndicator",
+      "displayName": "Progress indicator",
+      "traits": [
+        "Feedback",
+        "Decoration"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "variant",
+          "jsonType": "string",
+          "required": true,
+          "allowedValues": [
+            "linear",
+            "circular"
+          ],
+          "notes": "Two Material composables that take the same arguments and differ in shape, spelled as one component the way `m3/text-field` spells its two."
+        },
+        {
+          "name": "progress",
+          "jsonType": [
+            "number",
+            "object"
+          ],
+          "required": false,
+          "notes": "0..1, a literal or a `state` read. Absent means the indeterminate indicator — Material's own distinction between a progress you know and one you do not."
+        },
+        {
+          "name": "indeterminate",
+          "jsonType": "boolean",
+          "required": false,
+          "notes": "Draws the running animation rather than a value. Pinned to its first frame on the canvas, because a render that animates is a render that cannot be diffed."
+        }
+      ],
+      "slotCapabilities": [],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/radio-button": {
+      "record": "catalog/androidx.compose.material3.RadioButtonKt.RadioButton",
+      "displayName": "Radio button",
+      "traits": [
+        "SelectionControl",
+        "Action"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "selected",
+          "jsonType": [
+            "boolean",
+            "string",
+            "object"
+          ],
+          "required": false,
+          "notes": "A flag, or a `stateEquals` read of a declared state variable — which is what makes a group of them pick one option between them."
+        },
+        {
+          "name": "enabled",
+          "jsonType": "boolean",
+          "required": false
+        }
+      ],
+      "slotCapabilities": [],
+      "modifierCapabilities": [
+        "size",
+        "padding",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/search-bar": {
+      "record": "catalog/androidx.compose.material3.SearchBarKt.SearchBar",
+      "displayName": "Search bar",
+      "traits": [
+        "TopBar",
+        "SearchContent"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "expanded",
+          "jsonType": "boolean",
+          "required": true
+        },
+        {
+          "name": "shapeDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "tonalElevationDp",
+          "jsonType": "number",
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "inputField",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container"
+          ],
+          "acceptedTraits": [
+            "SearchInput"
+          ]
+        },
+        {
+          "name": "expandedContent",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/search-input-field": {
+      "record": "catalog/androidx.compose.material3.SearchBarDefaults.InputField",
+      "displayName": "Search input field",
+      "traits": [
+        "SearchInput",
+        "TextInput"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "value",
+          "jsonType": "object",
+          "required": true
+        },
+        {
+          "name": "enabled",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "readOnly",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "onQueryChangeAction",
+          "jsonType": [
+            "object",
+            "null"
+          ],
+          "required": false
+        },
+        {
+          "name": "onSearchAction",
+          "jsonType": [
+            "object",
+            "null"
+          ],
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "placeholder",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "TextContent"
+          ]
+        },
+        {
+          "name": "leadingIcon",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "IconContent",
+            "Action"
+          ]
+        },
+        {
+          "name": "trailingIcon",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "IconContent",
+            "Action"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/slider": {
+      "record": "catalog/androidx.compose.material3.SliderKt.Slider",
+      "displayName": "Slider",
+      "traits": [
+        "SelectionControl",
+        "FormField"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "value",
+          "jsonType": [
+            "number",
+            "object"
+          ],
+          "required": true,
+          "notes": "A literal, or a `state` read of a declared decimal variable — which is what makes dragging the canvas change the design's state rather than the slider's own memory."
+        },
+        {
+          "name": "valueFrom",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "valueTo",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "steps",
+          "jsonType": "integer",
+          "required": false,
+          "notes": "Discrete stops between the ends, as Material counts them: 0 is a continuous slider."
+        },
+        {
+          "name": "enabled",
+          "jsonType": "boolean",
+          "required": false
+        }
+      ],
+      "slotCapabilities": [],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/surface": {
+      "record": "catalog/androidx.compose.material3.SurfaceKt.Surface",
+      "displayName": "Surface",
+      "traits": [
+        "ScreenContent",
+        "PaneContent",
+        "GridItem",
+        "ListItem",
+        "RemoteAuthorable"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "containerColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit. Painted across the area the surface is measured to, and no further. A root surface with no size modifier wraps its content, so its containerColor is the frame's ground only when the root fills the frame (fillMaxSize); the ground outside it comes from environment.theme. The export reports ROOT_SURFACE_DOES_NOT_FILL_FRAME when a coloured root does not."
+        },
+        {
+          "name": "contentColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "shapeDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "tonalElevationDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "themePrimaryColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "themeBackgroundColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "themeSurfaceColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "themeContentColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "themeTypeScale",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "themeCornerRadiusDp",
+          "jsonType": "number",
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 0
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Scaffold",
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "fillMaxWidth",
+        "padding",
+        "clip",
+        "matchParentSize",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "background",
+        "border",
+        "shadow",
+        "wrapContentSize",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/switch": {
+      "record": "catalog/androidx.compose.material3.SwitchKt.Switch",
+      "displayName": "Switch",
+      "traits": [
+        "SelectionControl",
+        "Action"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "checked",
+          "jsonType": [
+            "boolean",
+            "string",
+            "object"
+          ],
+          "required": false,
+          "notes": "A flag, or a `stateEquals` read of a declared state variable — which is an object, and why `object` is one of the accepted types."
+        },
+        {
+          "name": "enabled",
+          "jsonType": "boolean",
+          "required": false
+        }
+      ],
+      "slotCapabilities": [],
+      "modifierCapabilities": [
+        "size",
+        "padding",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/tab": {
+      "record": "catalog/androidx.compose.material3.TabKt.Tab",
+      "displayName": "Tab",
+      "traits": [
+        "TabItem",
+        "SelectionControl"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "selected",
+          "jsonType": [
+            "boolean",
+            "string",
+            "object"
+          ],
+          "required": true,
+          "notes": "A flag, or a `stateEquals` read of a declared state variable — the same shapes `m3/filter-chip` accepts, and for the same reason: a tab whose selection cannot be read from state is a tab that cannot be selected."
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "text",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "TextContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/text": {
+      "record": "catalog/androidx.compose.material3.TextKt.Text",
+      "displayName": "Text",
+      "traits": [
+        "TextContent",
+        "RemoteAuthorable"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "text",
+          "jsonType": "string",
+          "required": true
+        },
+        {
+          "name": "style",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "displayLarge",
+            "displayMedium",
+            "displaySmall",
+            "headlineLarge",
+            "headlineMedium",
+            "headlineSmall",
+            "titleLarge",
+            "titleMedium",
+            "titleSmall",
+            "bodyLarge",
+            "bodyMedium",
+            "bodySmall",
+            "labelLarge",
+            "labelMedium",
+            "labelSmall"
+          ]
+        },
+        {
+          "name": "fontWeight",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "normal",
+            "medium",
+            "semiBold",
+            "bold"
+          ]
+        },
+        {
+          "name": "fontStyle",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "normal",
+            "italic"
+          ]
+        },
+        {
+          "name": "color",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "fontSizeSp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "lineHeightSp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "letterSpacingSp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "minLines",
+          "jsonType": "integer",
+          "required": false
+        },
+        {
+          "name": "maxLines",
+          "jsonType": "integer",
+          "required": false
+        },
+        {
+          "name": "softWrap",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "overflow",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "clip",
+            "ellipsis",
+            "visible"
+          ]
+        },
+        {
+          "name": "textAlign",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "start",
+            "center",
+            "end",
+            "justify"
+          ]
+        },
+        {
+          "name": "textDecoration",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "none",
+            "underline",
+            "lineThrough"
+          ]
+        },
+        {
+          "name": "alignment",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "topStart",
+            "topCenter",
+            "topEnd",
+            "centerStart",
+            "center",
+            "centerEnd",
+            "bottomStart",
+            "bottomCenter",
+            "bottomEnd"
+          ]
+        },
+        {
+          "name": "weight",
+          "jsonType": "number",
+          "required": false
+        }
+      ],
+      "slotCapabilities": [],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/text-field": {
+      "record": "catalog/androidx.compose.material3.TextFieldKt.TextField",
+      "displayName": "Text field",
+      "traits": [
+        "TextInput",
+        "FormField"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "variant",
+          "jsonType": "string",
+          "required": true,
+          "allowedValues": [
+            "filled",
+            "outlined"
+          ],
+          "notes": "Two composables, one component: `TextField` and `OutlinedTextField` differ in nothing a design authors, which is how `m3/card` already spells its three."
+        },
+        {
+          "name": "value",
+          "jsonType": [
+            "string",
+            "object"
+          ],
+          "required": false,
+          "notes": "A literal, or a `state` read of a declared variable — the same shape a search input's `value` takes, and what makes typing in the canvas change the design's state rather than a field's own memory."
+        },
+        {
+          "name": "enabled",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "readOnly",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "singleLine",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "isError",
+          "jsonType": "boolean",
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "label",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "TextContent"
+          ]
+        },
+        {
+          "name": "placeholder",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "TextContent"
+          ]
+        },
+        {
+          "name": "supportingText",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "TextContent"
+          ]
+        },
+        {
+          "name": "leadingIcon",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "IconContent",
+            "Action"
+          ]
+        },
+        {
+          "name": "trailingIcon",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "IconContent",
+            "Action"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    }
+  }
 }
