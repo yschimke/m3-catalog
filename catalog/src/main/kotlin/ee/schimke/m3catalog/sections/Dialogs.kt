@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ee.schimke.composeai.preview.BuilderComponent
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -57,6 +58,10 @@ import org.jetbrains.compose.resources.stringResource
   caption = "Headline, supporting text and two actions. The hero icon folds in.",
 )
 @CatalogModes
+// The builder has always shelved this as `m3/dialog`, and a saved design stores that string. The
+// derived id would be `m3/alert-dialog` after the component's own symbol, so the rename is stated
+// here rather than letting the derivation quietly re-key every design that references it.
+@BuilderComponent(component = "AlertDialog", id = "m3/dialog")
 @OverrideVariant(name = "icon", booleans = ["icon=true"])
 @Composable
 fun BasicDialog(icon: Boolean = false) = Sticker {

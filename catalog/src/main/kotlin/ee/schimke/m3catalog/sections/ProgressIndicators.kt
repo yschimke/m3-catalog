@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ee.schimke.composeai.preview.BuilderComponent
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
@@ -45,6 +46,10 @@ import ee.schimke.m3catalog.Sticker
   caption = "Determinate linear progress. Values across the range fold in.",
 )
 @CatalogModesLinearProgress
+// `m3/progress-indicator`, not `m3/linear-progress-indicator`: the builder offers ONE progress
+// component with the shape as a property, which is a coarser cut than this catalog's, and it is
+// the id every saved design already stores.
+@BuilderComponent(component = "LinearProgressIndicator", id = "m3/progress-indicator")
 @OverrideVariant(name = "empty", floats = ["progress=0.0"])
 @OverrideVariant(name = "quarter", floats = ["progress=0.25"])
 @OverrideVariant(name = "full", floats = ["progress=1.0"])
