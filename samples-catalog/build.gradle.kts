@@ -63,6 +63,11 @@ dependencies {
   implementation(libs.compose.adaptive.layout)
   // `ViewModel` / `viewModelScope`, which the pull-to-refresh samples build their state on.
   implementation(libs.jb.lifecycle.viewmodel.compose)
+  // `viewModelScope` dispatches on `Dispatchers.Main`, which the desktop JVM only has when a
+  // provider is on the classpath. Without it `PullToRefreshViewModelSample` renders as
+  // "Module with the Main dispatcher is missing" -- and since a failed preview fails the render
+  // job, that one sample took the whole sheet down with it.
+  implementation(libs.kotlinx.coroutines.swing)
 
   implementation(libs.composeai.preview.annotations)
 }

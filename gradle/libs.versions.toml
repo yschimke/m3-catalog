@@ -47,6 +47,9 @@ androidx-annotation = "1.9.1"
 # `ViewModel` / `viewModelScope`, which two vendored AndroidX samples use. The JetBrains multiplatform
 # port, so it resolves on the desktop JVM target `:samples-catalog` builds for.
 jb-lifecycle = "2.9.4"
+# `Dispatchers.Main` on the desktop JVM, backed by the Swing event thread. `viewModelScope` dispatches
+# there, so without this the ViewModel-backed samples render as a missing-dispatcher crash.
+kotlinx-coroutines = "1.10.2"
 # Material 3 is versioned independently of the Compose Multiplatform BOM; the
 # 1.12 line matches `compose-multiplatform = 1.12.0-alpha02`.
 #
@@ -85,6 +88,7 @@ composePreviewAnnotations = "3.3.0"
 [libraries]
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
 jb-lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "jb-lifecycle" }
+kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "compose-multiplatform-material3" }
 compose-material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "compose-material-icons" }
 # The adaptive layout surfaces. `adaptive` carries `WindowAdaptiveInfo` and the scaffold directives,
