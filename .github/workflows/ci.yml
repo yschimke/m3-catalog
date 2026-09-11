@@ -149,6 +149,19 @@ jobs:
       - name: Test Figma page resolution
         run: node --test scripts/import-figma-pages.test.mjs
 
+      # The KDoc reader behind sample-map.json. A line-based reader mis-attributes about 12% of the
+      # blocks that carry a `@sample` -- an annotation with line-spanning arguments between the KDoc
+      # and the declaration is the confirmed cause -- so the scanner that replaces it is worth
+      # holding still. See docs/design/ANDROIDX_SAMPLES.md.
+      - name: Test the @sample KDoc reader
+        run: node --test scripts/sample-map.test.mjs
+
+      # The vendoring importer. The load-bearing behaviour is that a patch which no longer applies
+      # FAILS the import rather than silently dropping the fix it carries, and that a quarantined
+      # sample is a declared, checked gap rather than a permanent exclusion.
+      - name: Test the samples importer
+        run: node --test scripts/import-samples.test.mjs
+
       # design-map.json is GENERATED from the @CatalogComponent(reference = …) annotations, but it
       # is also COMMITTED, because design-artifacts.yml reads the committed copy to publish design
       # references onto the delivery branch. That combination can drift: add a reference in Kotlin,
