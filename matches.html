@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Material 3 Samples ↔ Material 3 Design Kit — component matches</title>
+<style>
+  :root { color-scheme: light dark; --bg:#0f0f10; --panel:#1b1b1d; --fg:#e8e8ea; --muted:#9b9ba1; --line:#2a2a2d;
+    --accent:#7dd87d; --warn:#e0c060; --link:#8ab4f8; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--fg); }
+  header.top { padding:24px clamp(16px,4vw,40px); border-bottom:1px solid var(--line); }
+  header.top h1 { margin:0 0 6px; font-size:22px; }
+  header.top .subtitle { color:var(--muted); font-size:13px; display:flex; gap:16px; flex-wrap:wrap; }
+  header.top .arrow { color:var(--accent); }
+  header.top .note { margin-top:10px; color:var(--muted); font-size:12px; max-width:78ch; }
+  header.top code { background:var(--panel); padding:1px 6px; border-radius:5px; }
+  main { padding:8px clamp(16px,4vw,40px) 64px; }
+  table { border-collapse:collapse; width:100%; }
+  /* line-height is pinned, not inherited: the row offset below is arithmetic on these
+     exact numbers, and a heading whose height nobody can compute is a header rows hide
+     under. */
+  thead th { position:sticky; top:0; background:var(--bg); text-align:left; font-size:12px; color:var(--muted);
+    line-height:1.35; padding:10px 12px; border-bottom:1px solid var(--line); z-index:1; }
+  tbody tr.crow { border-bottom:1px solid var(--line); }
+  th.rowhead { text-align:left; font-weight:600; padding:12px; vertical-align:middle; width:22%; }
+  th.rowhead .cid { display:block; word-break:break-word; }
+  /* scroll-margin-top because thead th is sticky: without it a row jumped to from
+     its #c-slug anchor lands underneath the header and reads as the wrong row.
+
+     Derived, not guessed. It used to be a flat 44px — the height of a ONE-LINE
+     heading — and a heading wraps: the design-reference column's "M3 Wear OS Apps
+     Design Kit" does it at a narrow viewport, and the row then lands back under the
+     header, which is the failure this margin exists to prevent. So the reserve is
+     three heading lines, spelled as the arithmetic that produces it:
+     3 lines x 1.35 x 12px, + 10px padding top and bottom, + the 1px border.
+
+     Overshooting is free and undershooting is not — too much margin leaves a little
+     empty space above the row, too little hides the row — so this reserves more than
+     any current heading needs, on purpose. The page carries no script -- the
+     "fully static" test pins that -- so measuring the header at view time is not on
+     the table; keep these numbers in step with thead th above if either moves. */
+  tr.crow { scroll-margin-top:calc(3 * 1.35 * 12px + 21px); }
+  a.anchor { color:inherit; text-decoration:none; }
+  a.anchor:hover, a.anchor:focus-visible { text-decoration:underline; }
+  a.anchor::after { content:" #"; color:var(--muted); opacity:0; }
+  tr.crow:hover a.anchor::after, a.anchor:focus-visible::after { opacity:1; }
+  tr.crow:target { outline:2px solid var(--accent); outline-offset:-2px; }
+  th.rowhead .grp { display:block; margin-top:3px; font-weight:400; font-size:11px; color:var(--muted); }
+  td { padding:10px 12px; vertical-align:middle; }
+
+  .pv-embed { position:relative; display:inline-flex; flex-direction:column; gap:6px; text-decoration:none; color:inherit; }
+  .pv-frame { position:relative; display:inline-grid; place-items:center; min-width:120px; min-height:80px;
+    padding:10px; border-radius:10px; background-color:#161617; }
+  .pv-frame--checker { background-image:
+      linear-gradient(45deg,#202022 25%,transparent 25%),
+      linear-gradient(-45deg,#202022 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,#202022 75%),
+      linear-gradient(-45deg,transparent 75%,#202022 75%);
+    background-size:16px 16px; background-position:0 0,0 8px,8px -8px,-8px 0; }
+  .pv-frame--solid { background-color:#1b1b1d; }
+  .pv-frame--bare { background:none; padding:0; }
+  .pv-img { max-width:var(--pv-max-w,260px); max-height:var(--pv-max-h,200px); height:auto; display:block; }
+  .pv-missing { color:var(--muted); font-style:italic; font-size:12px; text-align:center; padding:0 8px; }
+  .pv-label { font-size:12px; color:var(--muted); }
+  .pv-live { position:absolute; top:6px; right:8px; font-size:11px; color:var(--link);
+    background:rgba(10,10,12,0.72); border-radius:6px; padding:1px 6px; opacity:0; transition:opacity .12s; pointer-events:none; }
+  a.pv-embed:hover .pv-live, a.pv-embed:focus-visible .pv-live { opacity:1; }
+  a.pv-embed:hover .pv-frame, a.pv-embed:focus-visible .pv-frame { outline:1px solid var(--link); outline-offset:1px; }
+  @media (max-width:640px){ .pv-img { max-width:min(var(--pv-max-w,260px),150px); } .pv-live { opacity:1; } }
+
+  .pv-missing code { background:var(--panel); padding:0 4px; border-radius:4px; font-style:normal; }
+  a.pv-open { font-size:11px; color:var(--link); text-decoration:none; }
+  a.pv-open:hover { text-decoration:underline; }
+  .rel code { font-size:12px; }
+  .badge { display:inline-block; margin-left:6px; font-size:10px; padding:0 6px; border-radius:999px;
+    background:rgba(224,192,96,0.12); color:var(--warn); border:1px solid var(--warn); }
+  section.solo { margin-top:36px; }
+  section.solo h2 { font-size:15px; border-bottom:1px solid var(--line); padding-bottom:6px; }
+  section.solo h2 span { color:var(--muted); font-weight:400; }
+  section.solo ul { list-style:none; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:6px 20px; }
+  section.solo li { padding:6px 0; border-bottom:1px solid var(--line); }
+  section.solo .cid { font-weight:600; }
+  section.solo .grp { color:var(--muted); font-size:11px; margin-left:8px; }
+  section.solo .cap { display:block; color:var(--muted); font-size:12px; }
+  @media (max-width:640px){ th.rowhead { width:auto; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Material 3 Samples ↔ Material 3 Design Kit</h1>
+  <div class="subtitle"><span>Material 3 Samples <span class="arrow">↔</span> Material 3 Design Kit</span><span>0 paired</span><span>0 rendered both sides</span></div>
+  <p class="note">Each row pairs a <strong>m3-samples</strong> component with its declared
+  <strong>m3-catalog</strong> parallel (the <code>parallel</code> field in the catalog spec). Both
+  renders are static thumbnails — the left from this branch, the right baked from the
+  <code>design-artifacts/m3-catalog</code> branch — and each <strong>links to the live preview server</strong> on
+  click, where the component re-renders under other themes / locales / devices. A parallel that isn't
+  catalogued in m3-catalog yet is flagged <span class="badge">unpaired</span>. Components with
+  no parallel on either side are listed below the table.</p>
+</header>
+<main>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Component</th>
+        <th scope="col">Material 3 Samples</th>
+        <th scope="col">Material 3 Design Kit</th>
+        <th scope="col">Parallel</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <section class="solo"><h2>Only in m3-samples <span>240</span></h2>
+       <ul><li><span class="cid">AlertDialog/AlertDialogSample</span><span class="grp">AlertDialog</span><span class="cap">AlertDialogSample — the sample `AlertDialog`&#39;s KDoc points at.</span></li>
+<li><span class="cid">AlertDialog/AlertDialogWithIconSample</span><span class="grp">AlertDialog</span><span class="cap">AlertDialogWithIconSample — the sample `AlertDialog`&#39;s KDoc points at.</span></li>
+<li><span class="cid">AlertDialog/BasicAlertDialogSample</span><span class="grp">AlertDialog</span><span class="cap">BasicAlertDialogSample — the sample `AlertDialog`&#39;s KDoc points at.</span></li>
+<li><span class="cid">animateFloatingActionButton/AnimatedFloatingActionButtonSample</span><span class="grp">animateFloatingActionButton</span><span class="cap">AnimatedFloatingActionButtonSample — the sample `animateFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">animateWidth/ButtonGroupWithCustomItemSample</span><span class="grp">animateWidth</span><span class="cap">ButtonGroupWithCustomItemSample — the sample `animateWidth`&#39;s KDoc points at.</span></li>
+<li><span class="cid">AppBarWithSearch/DockedSearchBarScaffoldSample</span><span class="grp">AppBarWithSearch</span><span class="cap">DockedSearchBarScaffoldSample — the sample `AppBarWithSearch`&#39;s KDoc points at.</span></li>
+<li><span class="cid">AppBarWithSearch/FullScreenSearchBarScaffoldSample</span><span class="grp">AppBarWithSearch</span><span class="cap">FullScreenSearchBarScaffoldSample — the sample `AppBarWithSearch`&#39;s KDoc points at.</span></li>
+<li><span class="cid">AssistChip/AssistChipSample</span><span class="grp">AssistChip</span><span class="cap">AssistChipSample — the sample `AssistChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">BadgedBox/NavigationBarItemWithBadge</span><span class="grp">BadgedBox</span><span class="cap">NavigationBarItemWithBadge — the sample `BadgedBox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">BottomAppBar/BottomAppBarWithFAB</span><span class="grp">BottomAppBar</span><span class="cap">BottomAppBarWithFAB — the sample `BottomAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">BottomAppBar/ExitAlwaysBottomAppBar</span><span class="grp">BottomAppBar</span><span class="cap">ExitAlwaysBottomAppBar — the sample `BottomAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">BottomAppBar/SimpleBottomAppBar</span><span class="grp">BottomAppBar</span><span class="cap">SimpleBottomAppBar — the sample `BottomAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">BottomSheet/ManualModalBottomSheetSample</span><span class="grp">BottomSheet</span><span class="cap">ManualModalBottomSheetSample — the sample `BottomSheet`&#39;s KDoc points at.</span></li>
+<li><span class="cid">BottomSheetScaffold/SimpleBottomSheetScaffoldSample</span><span class="grp">BottomSheetScaffold</span><span class="cap">SimpleBottomSheetScaffoldSample — the sample `BottomSheetScaffold`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Button/ButtonSample</span><span class="grp">Button</span><span class="cap">ButtonSample — the sample `Button`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Button/ButtonWithAnimatedShapeSample</span><span class="grp">Button</span><span class="cap">ButtonWithAnimatedShapeSample — the sample `Button`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Button/ButtonWithIconSample</span><span class="grp">Button</span><span class="cap">ButtonWithIconSample — the sample `Button`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Button/LargeButtonWithIconSample</span><span class="grp">Button</span><span class="cap">LargeButtonWithIconSample — the sample `Button`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Button/MediumButtonWithIconSample</span><span class="grp">Button</span><span class="cap">MediumButtonWithIconSample — the sample `Button`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Button/SmallButtonSample</span><span class="grp">Button</span><span class="cap">SmallButtonSample — the sample `Button`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Button/SquareButtonSample</span><span class="grp">Button</span><span class="cap">SquareButtonSample — the sample `Button`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Button/XLargeButtonWithIconSample</span><span class="grp">Button</span><span class="cap">XLargeButtonWithIconSample — the sample `Button`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Button/XSmallButtonWithIconSample</span><span class="grp">Button</span><span class="cap">XSmallButtonWithIconSample — the sample `Button`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ButtonGroup/ButtonGroupSample</span><span class="grp">ButtonGroup</span><span class="cap">ButtonGroupSample — the sample `ButtonGroup`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ButtonGroup/VerticalButtonGroupSample</span><span class="grp">ButtonGroup</span><span class="cap">VerticalButtonGroupSample — the sample `ButtonGroup`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Card/CardSample</span><span class="grp">Card</span><span class="cap">CardSample — the sample `Card`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Card/ClickableCardSample</span><span class="grp">Card</span><span class="cap">ClickableCardSample — the sample `Card`&#39;s KDoc points at.</span></li>
+<li><span class="cid">CenterAlignedTopAppBar/SimpleCenterAlignedTopAppBar</span><span class="grp">CenterAlignedTopAppBar</span><span class="cap">SimpleCenterAlignedTopAppBar — the sample `CenterAlignedTopAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Checkbox/CheckboxRoundedStrokesSample</span><span class="grp">Checkbox</span><span class="cap">CheckboxRoundedStrokesSample — the sample `Checkbox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Checkbox/CheckboxSample</span><span class="grp">Checkbox</span><span class="cap">CheckboxSample — the sample `Checkbox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Checkbox/CheckboxWithTextSample</span><span class="grp">Checkbox</span><span class="cap">CheckboxWithTextSample — the sample `Checkbox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">CircularProgressIndicator/CircularProgressIndicatorSample</span><span class="grp">CircularProgressIndicator</span><span class="cap">CircularProgressIndicatorSample — the sample `CircularProgressIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">CircularProgressIndicator/IndeterminateCircularProgressIndicatorSample</span><span class="grp">CircularProgressIndicator</span><span class="cap">IndeterminateCircularProgressIndicatorSample — the sample `CircularProgressIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">CircularWavyProgressIndicator/CircularThickWavyProgressIndicatorSample</span><span class="grp">CircularWavyProgressIndicator</span><span class="cap">CircularThickWavyProgressIndicatorSample — the sample `CircularWavyProgressIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">CircularWavyProgressIndicator/CircularWavyProgressIndicatorSample</span><span class="grp">CircularWavyProgressIndicator</span><span class="cap">CircularWavyProgressIndicatorSample — the sample `CircularWavyProgressIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">CircularWavyProgressIndicator/IndeterminateCircularWavyProgressIndicatorSample</span><span class="grp">CircularWavyProgressIndicator</span><span class="cap">IndeterminateCircularWavyProgressIndicatorSample — the sample `CircularWavyProgressIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ContainedLoadingIndicator/ContainedLoadingIndicatorSample</span><span class="grp">ContainedLoadingIndicator</span><span class="cap">ContainedLoadingIndicatorSample — the sample `ContainedLoadingIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ContainedLoadingIndicator/DeterminateContainedLoadingIndicatorSample</span><span class="grp">ContainedLoadingIndicator</span><span class="cap">DeterminateContainedLoadingIndicatorSample — the sample `ContainedLoadingIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ContainedLoadingIndicator/LoadingIndicatorPullToRefreshSample</span><span class="grp">ContainedLoadingIndicator</span><span class="cap">LoadingIndicatorPullToRefreshSample — the sample `ContainedLoadingIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">DismissibleNavigationDrawer/DismissibleNavigationDrawerSample</span><span class="grp">DismissibleNavigationDrawer</span><span class="cap">DismissibleNavigationDrawerSample — the sample `DismissibleNavigationDrawer`&#39;s KDoc points at.</span></li>
+<li><span class="cid">DropdownMenuItem/ExposedDropdownMenuSample</span><span class="grp">DropdownMenuItem</span><span class="cap">ExposedDropdownMenuSample — the sample `DropdownMenuItem`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ElevatedAssistChip/ElevatedAssistChipSample</span><span class="grp">ElevatedAssistChip</span><span class="cap">ElevatedAssistChipSample — the sample `ElevatedAssistChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ElevatedButton/ElevatedButtonSample</span><span class="grp">ElevatedButton</span><span class="cap">ElevatedButtonSample — the sample `ElevatedButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ElevatedButton/ElevatedButtonWithAnimatedShapeSample</span><span class="grp">ElevatedButton</span><span class="cap">ElevatedButtonWithAnimatedShapeSample — the sample `ElevatedButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ElevatedCard/ClickableElevatedCardSample</span><span class="grp">ElevatedCard</span><span class="cap">ClickableElevatedCardSample — the sample `ElevatedCard`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ElevatedCard/ElevatedCardSample</span><span class="grp">ElevatedCard</span><span class="cap">ElevatedCardSample — the sample `ElevatedCard`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ElevatedFilterChip/ElevatedFilterChipSample</span><span class="grp">ElevatedFilterChip</span><span class="cap">ElevatedFilterChipSample — the sample `ElevatedFilterChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ElevatedFilterChip/ElevatedFilterChipWithCornerMorphingSample</span><span class="grp">ElevatedFilterChip</span><span class="cap">ElevatedFilterChipWithCornerMorphingSample — the sample `ElevatedFilterChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ElevatedSuggestionChip/ElevatedSuggestionChipSample</span><span class="grp">ElevatedSuggestionChip</span><span class="cap">ElevatedSuggestionChipSample — the sample `ElevatedSuggestionChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ElevatedToggleButton/ElevatedToggleButtonSample</span><span class="grp">ElevatedToggleButton</span><span class="cap">ElevatedToggleButtonSample — the sample `ElevatedToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">enterAlwaysScrollBehavior/EnterAlwaysTopAppBarWithReverseScrolling</span><span class="grp">enterAlwaysScrollBehavior</span><span class="cap">EnterAlwaysTopAppBarWithReverseScrolling — the sample `enterAlwaysScrollBehavior`&#39;s KDoc points at.</span></li>
+<li><span class="cid">exitAlwaysScrollBehavior/ScrollableHorizontalFloatingToolbarSample</span><span class="grp">exitAlwaysScrollBehavior</span><span class="cap">ScrollableHorizontalFloatingToolbarSample — the sample `exitAlwaysScrollBehavior`&#39;s KDoc points at.</span></li>
+<li><span class="cid">exitUntilCollapsedScrollBehavior/ExitUntilCollapsedMediumTopAppBar</span><span class="grp">exitUntilCollapsedScrollBehavior</span><span class="cap">ExitUntilCollapsedMediumTopAppBar — the sample `exitUntilCollapsedScrollBehavior`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ExposedDropdownMenuBox/EditableExposedDropdownMenuSample</span><span class="grp">ExposedDropdownMenuBox</span><span class="cap">EditableExposedDropdownMenuSample — the sample `ExposedDropdownMenuBox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ExposedDropdownMenuBox/MultiAutocompleteExposedDropdownMenuSample</span><span class="grp">ExposedDropdownMenuBox</span><span class="cap">MultiAutocompleteExposedDropdownMenuSample — the sample `ExposedDropdownMenuBox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ExtendedFloatingActionButton/AnimatedExtendedFloatingActionButtonSample</span><span class="grp">ExtendedFloatingActionButton</span><span class="cap">AnimatedExtendedFloatingActionButtonSample — the sample `ExtendedFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ExtendedFloatingActionButton/ExtendedFloatingActionButtonSample</span><span class="grp">ExtendedFloatingActionButton</span><span class="cap">ExtendedFloatingActionButtonSample — the sample `ExtendedFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ExtendedFloatingActionButton/ExtendedFloatingActionButtonTextSample</span><span class="grp">ExtendedFloatingActionButton</span><span class="cap">ExtendedFloatingActionButtonTextSample — the sample `ExtendedFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilledIconButton/FilledIconButtonSample</span><span class="grp">FilledIconButton</span><span class="cap">FilledIconButtonSample — the sample `FilledIconButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilledIconButton/FilledIconButtonWithAnimatedShapeSample</span><span class="grp">FilledIconButton</span><span class="cap">FilledIconButtonWithAnimatedShapeSample — the sample `FilledIconButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilledIconToggleButton/FilledIconToggleButtonSample</span><span class="grp">FilledIconToggleButton</span><span class="cap">FilledIconToggleButtonSample — the sample `FilledIconToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilledIconToggleButton/FilledIconToggleButtonWithAnimatedShapeSample</span><span class="grp">FilledIconToggleButton</span><span class="cap">FilledIconToggleButtonWithAnimatedShapeSample — the sample `FilledIconToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilledTonalButton/FilledTonalButtonSample</span><span class="grp">FilledTonalButton</span><span class="cap">FilledTonalButtonSample — the sample `FilledTonalButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilledTonalButton/FilledTonalButtonWithAnimatedShapeSample</span><span class="grp">FilledTonalButton</span><span class="cap">FilledTonalButtonWithAnimatedShapeSample — the sample `FilledTonalButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilledTonalIconButton/FilledTonalIconButtonSample</span><span class="grp">FilledTonalIconButton</span><span class="cap">FilledTonalIconButtonSample — the sample `FilledTonalIconButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilledTonalIconButton/FilledTonalIconButtonWithAnimatedShapeSample</span><span class="grp">FilledTonalIconButton</span><span class="cap">FilledTonalIconButtonWithAnimatedShapeSample — the sample `FilledTonalIconButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilledTonalIconToggleButton/FilledTonalIconToggleButtonSample</span><span class="grp">FilledTonalIconToggleButton</span><span class="cap">FilledTonalIconToggleButtonSample — the sample `FilledTonalIconToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilledTonalIconToggleButton/FilledTonalIconToggleButtonWithAnimatedShapeSample</span><span class="grp">FilledTonalIconToggleButton</span><span class="cap">FilledTonalIconToggleButtonWithAnimatedShapeSample — the sample `FilledTonalIconToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilterChip/FilterChipSample</span><span class="grp">FilterChip</span><span class="cap">FilterChipSample — the sample `FilterChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilterChip/FilterChipWithCornerMorphingSample</span><span class="grp">FilterChip</span><span class="cap">FilterChipWithCornerMorphingSample — the sample `FilterChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilterChip/FilterChipWithCustomSpacingSample</span><span class="grp">FilterChip</span><span class="cap">FilterChipWithCustomSpacingSample — the sample `FilterChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilterChip/FilterChipWithLeadingIconSample</span><span class="grp">FilterChip</span><span class="cap">FilterChipWithLeadingIconSample — the sample `FilterChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FilterChip/FilterChipWithTrailingIconSample</span><span class="grp">FilterChip</span><span class="cap">FilterChipWithTrailingIconSample — the sample `FilterChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FlexibleBottomAppBar/BottomAppBarWithOverflow</span><span class="grp">FlexibleBottomAppBar</span><span class="cap">BottomAppBarWithOverflow — the sample `FlexibleBottomAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FlexibleBottomAppBar/ExitAlwaysBottomAppBarFixed</span><span class="grp">FlexibleBottomAppBar</span><span class="cap">ExitAlwaysBottomAppBarFixed — the sample `FlexibleBottomAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FlexibleBottomAppBar/ExitAlwaysBottomAppBarFixedVibrant</span><span class="grp">FlexibleBottomAppBar</span><span class="cap">ExitAlwaysBottomAppBarFixedVibrant — the sample `FlexibleBottomAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FlexibleBottomAppBar/ExitAlwaysBottomAppBarSpacedAround</span><span class="grp">FlexibleBottomAppBar</span><span class="cap">ExitAlwaysBottomAppBarSpacedAround — the sample `FlexibleBottomAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FlexibleBottomAppBar/ExitAlwaysBottomAppBarSpacedBetween</span><span class="grp">FlexibleBottomAppBar</span><span class="cap">ExitAlwaysBottomAppBarSpacedBetween — the sample `FlexibleBottomAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FlexibleBottomAppBar/ExitAlwaysBottomAppBarSpacedEvenly</span><span class="grp">FlexibleBottomAppBar</span><span class="cap">ExitAlwaysBottomAppBarSpacedEvenly — the sample `FlexibleBottomAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">FloatingActionButton/FloatingActionButtonSample</span><span class="grp">FloatingActionButton</span><span class="cap">FloatingActionButtonSample — the sample `FloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">HorizontalFloatingToolbar/CenteredHorizontalFloatingToolbarWithFabSample</span><span class="grp">HorizontalFloatingToolbar</span><span class="cap">CenteredHorizontalFloatingToolbarWithFabSample — the sample `HorizontalFloatingToolbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">HorizontalFloatingToolbar/ExpandableHorizontalFloatingToolbarSample</span><span class="grp">HorizontalFloatingToolbar</span><span class="cap">ExpandableHorizontalFloatingToolbarSample — the sample `HorizontalFloatingToolbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">HorizontalFloatingToolbar/HorizontalFloatingToolbarAsScaffoldFabSample</span><span class="grp">HorizontalFloatingToolbar</span><span class="cap">HorizontalFloatingToolbarAsScaffoldFabSample — the sample `HorizontalFloatingToolbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">HorizontalFloatingToolbar/HorizontalFloatingToolbarWithFabSample</span><span class="grp">HorizontalFloatingToolbar</span><span class="cap">HorizontalFloatingToolbarWithFabSample — the sample `HorizontalFloatingToolbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">HorizontalFloatingToolbar/OverflowingHorizontalFloatingToolbarSample</span><span class="grp">HorizontalFloatingToolbar</span><span class="cap">OverflowingHorizontalFloatingToolbarSample — the sample `HorizontalFloatingToolbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">IconButton/ExtraSmallNarrowSquareIconButtonsSample</span><span class="grp">IconButton</span><span class="cap">ExtraSmallNarrowSquareIconButtonsSample — the sample `IconButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">IconButton/IconButtonSample</span><span class="grp">IconButton</span><span class="cap">IconButtonSample — the sample `IconButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">IconButton/IconButtonWithAnimatedShapeSample</span><span class="grp">IconButton</span><span class="cap">IconButtonWithAnimatedShapeSample — the sample `IconButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">IconButton/MediumRoundWideIconButtonSample</span><span class="grp">IconButton</span><span class="cap">MediumRoundWideIconButtonSample — the sample `IconButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">IconButton/TintedIconButtonSample</span><span class="grp">IconButton</span><span class="cap">TintedIconButtonSample — the sample `IconButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">IconToggleButton/IconToggleButtonSample</span><span class="grp">IconToggleButton</span><span class="cap">IconToggleButtonSample — the sample `IconToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">IconToggleButton/IconToggleButtonWithAnimatedShapeSample</span><span class="grp">IconToggleButton</span><span class="cap">IconToggleButtonWithAnimatedShapeSample — the sample `IconToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">InputChip/ChipGroupReflowSample</span><span class="grp">InputChip</span><span class="cap">ChipGroupReflowSample — the sample `InputChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">InputChip/ChipGroupSingleLineSample</span><span class="grp">InputChip</span><span class="cap">ChipGroupSingleLineSample — the sample `InputChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">InputChip/InputChipSample</span><span class="grp">InputChip</span><span class="cap">InputChipSample — the sample `InputChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">InputChip/InputChipWithAvatarSample</span><span class="grp">InputChip</span><span class="cap">InputChipWithAvatarSample — the sample `InputChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">InputChip/InputChipWithCornerMorphingSample</span><span class="grp">InputChip</span><span class="cap">InputChipWithCornerMorphingSample — the sample `InputChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Label/RangeSliderWithCustomComponents</span><span class="grp">Label</span><span class="cap">RangeSliderWithCustomComponents — the sample `Label`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Label/SliderWithCustomThumbSample</span><span class="grp">Label</span><span class="cap">SliderWithCustomThumbSample — the sample `Label`&#39;s KDoc points at.</span></li>
+<li><span class="cid">LargeExtendedFloatingActionButton/LargeAnimatedExtendedFloatingActionButtonSample</span><span class="grp">LargeExtendedFloatingActionButton</span><span class="cap">LargeAnimatedExtendedFloatingActionButtonSample — the sample `LargeExtendedFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">LargeExtendedFloatingActionButton/LargeExtendedFloatingActionButtonSample</span><span class="grp">LargeExtendedFloatingActionButton</span><span class="cap">LargeExtendedFloatingActionButtonSample — the sample `LargeExtendedFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">LargeExtendedFloatingActionButton/LargeExtendedFloatingActionButtonTextSample</span><span class="grp">LargeExtendedFloatingActionButton</span><span class="cap">LargeExtendedFloatingActionButtonTextSample — the sample `LargeExtendedFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">LargeFlexibleTopAppBar/ExitUntilCollapsedCenterAlignedLargeFlexibleTopAppBar</span><span class="grp">LargeFlexibleTopAppBar</span><span class="cap">ExitUntilCollapsedCenterAlignedLargeFlexibleTopAppBar — the sample `LargeFlexibleTopAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">LargeFloatingActionButton/LargeFloatingActionButtonSample</span><span class="grp">LargeFloatingActionButton</span><span class="cap">LargeFloatingActionButtonSample — the sample `LargeFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">LargeTopAppBar/ExitUntilCollapsedLargeTopAppBar</span><span class="grp">LargeTopAppBar</span><span class="cap">ExitUntilCollapsedLargeTopAppBar — the sample `LargeTopAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">LinearProgressIndicator/IndeterminateLinearProgressIndicatorSample</span><span class="grp">LinearProgressIndicator</span><span class="cap">IndeterminateLinearProgressIndicatorSample — the sample `LinearProgressIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">LinearProgressIndicator/LinearProgressIndicatorSample</span><span class="grp">LinearProgressIndicator</span><span class="cap">LinearProgressIndicatorSample — the sample `LinearProgressIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">LinearWavyProgressIndicator/IndeterminateLinearWavyProgressIndicatorSample</span><span class="grp">LinearWavyProgressIndicator</span><span class="cap">IndeterminateLinearWavyProgressIndicatorSample — the sample `LinearWavyProgressIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">LinearWavyProgressIndicator/LinearThickWavyProgressIndicatorSample</span><span class="grp">LinearWavyProgressIndicator</span><span class="cap">LinearThickWavyProgressIndicatorSample — the sample `LinearWavyProgressIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">LinearWavyProgressIndicator/LinearWavyProgressIndicatorSample</span><span class="grp">LinearWavyProgressIndicator</span><span class="cap">LinearWavyProgressIndicatorSample — the sample `LinearWavyProgressIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ListItem/ClickableListItemSample</span><span class="grp">ListItem</span><span class="cap">ClickableListItemSample — the sample `ListItem`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ListItem/ClickableListItemWithClickableChildSample</span><span class="grp">ListItem</span><span class="cap">ClickableListItemWithClickableChildSample — the sample `ListItem`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ListItem/ListItemWithModeChangeOnLongClickSample</span><span class="grp">ListItem</span><span class="cap">ListItemWithModeChangeOnLongClickSample — the sample `ListItem`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ListItem/MultiSelectionListItemSample</span><span class="grp">ListItem</span><span class="cap">MultiSelectionListItemSample — the sample `ListItem`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ListItem/OneLineListItem</span><span class="grp">ListItem</span><span class="cap">OneLineListItem — the sample `ListItem`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ListItem/SingleSelectionListItemSample</span><span class="grp">ListItem</span><span class="cap">SingleSelectionListItemSample — the sample `ListItem`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ListItem/ThreeLineListItemWithExtendedSupporting</span><span class="grp">ListItem</span><span class="cap">ThreeLineListItemWithExtendedSupporting — the sample `ListItem`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ListItem/ThreeLineListItemWithOverlineAndSupporting</span><span class="grp">ListItem</span><span class="cap">ThreeLineListItemWithOverlineAndSupporting — the sample `ListItem`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ListItem/TwoLineListItem</span><span class="grp">ListItem</span><span class="cap">TwoLineListItem — the sample `ListItem`&#39;s KDoc points at.</span></li>
+<li><span class="cid">LoadingIndicator/DeterminateLoadingIndicatorSample</span><span class="grp">LoadingIndicator</span><span class="cap">DeterminateLoadingIndicatorSample — the sample `LoadingIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">LoadingIndicator/LoadingIndicatorSample</span><span class="grp">LoadingIndicator</span><span class="cap">LoadingIndicatorSample — the sample `LoadingIndicator`&#39;s KDoc points at.</span></li>
+<li><span class="cid">MediumExtendedFloatingActionButton/MediumAnimatedExtendedFloatingActionButtonSample</span><span class="grp">MediumExtendedFloatingActionButton</span><span class="cap">MediumAnimatedExtendedFloatingActionButtonSample — the sample `MediumExtendedFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">MediumExtendedFloatingActionButton/MediumExtendedFloatingActionButtonSample</span><span class="grp">MediumExtendedFloatingActionButton</span><span class="cap">MediumExtendedFloatingActionButtonSample — the sample `MediumExtendedFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">MediumExtendedFloatingActionButton/MediumExtendedFloatingActionButtonTextSample</span><span class="grp">MediumExtendedFloatingActionButton</span><span class="cap">MediumExtendedFloatingActionButtonTextSample — the sample `MediumExtendedFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">MediumFlexibleTopAppBar/ExitUntilCollapsedCenterAlignedMediumFlexibleTopAppBar</span><span class="grp">MediumFlexibleTopAppBar</span><span class="cap">ExitUntilCollapsedCenterAlignedMediumFlexibleTopAppBar — the sample `MediumFlexibleTopAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">MediumFloatingActionButton/MediumFloatingActionButtonSample</span><span class="grp">MediumFloatingActionButton</span><span class="cap">MediumFloatingActionButtonSample — the sample `MediumFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">minimumInteractiveComponentSize/MinimumInteractiveComponentSizeCheckboxRowSample</span><span class="grp">minimumInteractiveComponentSize</span><span class="cap">MinimumInteractiveComponentSizeCheckboxRowSample — the sample `minimumInteractiveComponentSize`&#39;s KDoc points at.</span></li>
+<li><span class="cid">minimumInteractiveComponentSize/MinimumInteractiveComponentSizeSample</span><span class="grp">minimumInteractiveComponentSize</span><span class="cap">MinimumInteractiveComponentSizeSample — the sample `minimumInteractiveComponentSize`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ModalBottomSheet/ModalBottomSheetSample</span><span class="grp">ModalBottomSheet</span><span class="cap">ModalBottomSheetSample — the sample `ModalBottomSheet`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ModalNavigationDrawer/ModalNavigationDrawerSample</span><span class="grp">ModalNavigationDrawer</span><span class="cap">ModalNavigationDrawerSample — the sample `ModalNavigationDrawer`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ModalWideNavigationRail/DismissibleModalWideNavigationRailSample</span><span class="grp">ModalWideNavigationRail</span><span class="cap">DismissibleModalWideNavigationRailSample — the sample `ModalWideNavigationRail`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ModalWideNavigationRail/ModalWideNavigationRailSample</span><span class="grp">ModalWideNavigationRail</span><span class="cap">ModalWideNavigationRailSample — the sample `ModalWideNavigationRail`&#39;s KDoc points at.</span></li>
+<li><span class="cid">MultiChoiceSegmentedButtonRow/SegmentedButtonMultiSelectSample</span><span class="grp">MultiChoiceSegmentedButtonRow</span><span class="cap">SegmentedButtonMultiSelectSample — the sample `MultiChoiceSegmentedButtonRow`&#39;s KDoc points at.</span></li>
+<li><span class="cid">NavigationBar/NavigationBarSample</span><span class="grp">NavigationBar</span><span class="cap">NavigationBarSample — the sample `NavigationBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">NavigationRail/NavigationRailSample</span><span class="grp">NavigationRail</span><span class="cap">NavigationRailSample — the sample `NavigationRail`&#39;s KDoc points at.</span></li>
+<li><span class="cid">OutlinedButton/OutlinedButtonSample</span><span class="grp">OutlinedButton</span><span class="cap">OutlinedButtonSample — the sample `OutlinedButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">OutlinedButton/OutlinedButtonWithAnimatedShapeSample</span><span class="grp">OutlinedButton</span><span class="cap">OutlinedButtonWithAnimatedShapeSample — the sample `OutlinedButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">OutlinedCard/ClickableOutlinedCardSample</span><span class="grp">OutlinedCard</span><span class="cap">ClickableOutlinedCardSample — the sample `OutlinedCard`&#39;s KDoc points at.</span></li>
+<li><span class="cid">OutlinedCard/OutlinedCardSample</span><span class="grp">OutlinedCard</span><span class="cap">OutlinedCardSample — the sample `OutlinedCard`&#39;s KDoc points at.</span></li>
+<li><span class="cid">OutlinedIconButton/LargeRoundUniformOutlinedIconButtonSample</span><span class="grp">OutlinedIconButton</span><span class="cap">LargeRoundUniformOutlinedIconButtonSample — the sample `OutlinedIconButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">OutlinedIconButton/OutlinedIconButtonSample</span><span class="grp">OutlinedIconButton</span><span class="cap">OutlinedIconButtonSample — the sample `OutlinedIconButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">OutlinedIconButton/OutlinedIconButtonWithAnimatedShapeSample</span><span class="grp">OutlinedIconButton</span><span class="cap">OutlinedIconButtonWithAnimatedShapeSample — the sample `OutlinedIconButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">OutlinedIconToggleButton/OutlinedIconToggleButtonSample</span><span class="grp">OutlinedIconToggleButton</span><span class="cap">OutlinedIconToggleButtonSample — the sample `OutlinedIconToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">OutlinedIconToggleButton/OutlinedIconToggleButtonWithAnimatedShapeSample</span><span class="grp">OutlinedIconToggleButton</span><span class="cap">OutlinedIconToggleButtonWithAnimatedShapeSample — the sample `OutlinedIconToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">OutlinedToggleButton/OutlinedToggleButtonSample</span><span class="grp">OutlinedToggleButton</span><span class="cap">OutlinedToggleButtonSample — the sample `OutlinedToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">PermanentNavigationDrawer/PermanentNavigationDrawerSample</span><span class="grp">PermanentNavigationDrawer</span><span class="cap">PermanentNavigationDrawerSample — the sample `PermanentNavigationDrawer`&#39;s KDoc points at.</span></li>
+<li><span class="cid">pinnedScrollBehavior/PinnedTopAppBarWithPreScrolledLazyColumn</span><span class="grp">pinnedScrollBehavior</span><span class="cap">PinnedTopAppBarWithPreScrolledLazyColumn — the sample `pinnedScrollBehavior`&#39;s KDoc points at.</span></li>
+<li><span class="cid">pinnedScrollBehavior/PinnedTopAppBarWithReversedLazyGrid</span><span class="grp">pinnedScrollBehavior</span><span class="cap">PinnedTopAppBarWithReversedLazyGrid — the sample `pinnedScrollBehavior`&#39;s KDoc points at.</span></li>
+<li><span class="cid">PrimaryTabRow/FancyIndicatorContainerTabs</span><span class="grp">PrimaryTabRow</span><span class="cap">FancyIndicatorContainerTabs — the sample `PrimaryTabRow`&#39;s KDoc points at.</span></li>
+<li><span class="cid">PrimaryTabRow/FancyIndicatorTabs</span><span class="grp">PrimaryTabRow</span><span class="cap">FancyIndicatorTabs — the sample `PrimaryTabRow`&#39;s KDoc points at.</span></li>
+<li><span class="cid">PrimaryTabRow/FancyTabs</span><span class="grp">PrimaryTabRow</span><span class="cap">FancyTabs — the sample `PrimaryTabRow`&#39;s KDoc points at.</span></li>
+<li><span class="cid">PrimaryTabRow/PrimaryTextTabs</span><span class="grp">PrimaryTabRow</span><span class="cap">PrimaryTextTabs — the sample `PrimaryTabRow`&#39;s KDoc points at.</span></li>
+<li><span class="cid">PullToRefreshBox/PullToRefreshCustomIndicatorWithDefaultTransform</span><span class="grp">PullToRefreshBox</span><span class="cap">PullToRefreshCustomIndicatorWithDefaultTransform — the sample `PullToRefreshBox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">PullToRefreshBox/PullToRefreshSample</span><span class="grp">PullToRefreshBox</span><span class="cap">PullToRefreshSample — the sample `PullToRefreshBox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">PullToRefreshBox/PullToRefreshSampleCustomState</span><span class="grp">PullToRefreshBox</span><span class="cap">PullToRefreshSampleCustomState — the sample `PullToRefreshBox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">PullToRefreshBox/PullToRefreshScalingSample</span><span class="grp">PullToRefreshBox</span><span class="cap">PullToRefreshScalingSample — the sample `PullToRefreshBox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">PullToRefreshBox/PullToRefreshViewModelSample</span><span class="grp">PullToRefreshBox</span><span class="cap">PullToRefreshViewModelSample — the sample `PullToRefreshBox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">PullToRefreshBox/PullToRefreshWithLoadingIndicatorSample</span><span class="grp">PullToRefreshBox</span><span class="cap">PullToRefreshWithLoadingIndicatorSample — the sample `PullToRefreshBox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">PullToRefreshState/PullToRefreshLinearProgressIndicatorSample</span><span class="grp">PullToRefreshState</span><span class="cap">PullToRefreshLinearProgressIndicatorSample — the sample `PullToRefreshState`&#39;s KDoc points at.</span></li>
+<li><span class="cid">RadioButton/RadioButtonSample</span><span class="grp">RadioButton</span><span class="cap">RadioButtonSample — the sample `RadioButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">RadioButton/RadioGroupSample</span><span class="grp">RadioButton</span><span class="cap">RadioGroupSample — the sample `RadioButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">RangeSlider/RangeSliderSample</span><span class="grp">RangeSlider</span><span class="cap">RangeSliderSample — the sample `RangeSlider`&#39;s KDoc points at.</span></li>
+<li><span class="cid">RangeSlider/StepRangeSliderSample</span><span class="grp">RangeSlider</span><span class="cap">StepRangeSliderSample — the sample `RangeSlider`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Scaffold/ScaffoldWithSimpleSnackbar</span><span class="grp">Scaffold</span><span class="cap">ScaffoldWithSimpleSnackbar — the sample `Scaffold`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Scaffold/SimpleScaffoldWithTopBar</span><span class="grp">Scaffold</span><span class="cap">SimpleScaffoldWithTopBar — the sample `Scaffold`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ScrollField/ScrollFieldSample</span><span class="grp">ScrollField</span><span class="cap">ScrollFieldSample — the sample `ScrollField`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ScrollField/TimeScrollFieldSample</span><span class="grp">ScrollField</span><span class="cap">TimeScrollFieldSample — the sample `ScrollField`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SearchBar/SimpleSearchBarSample</span><span class="grp">SearchBar</span><span class="cap">SimpleSearchBarSample — the sample `SearchBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SecondaryTabRow/SecondaryTextTabs</span><span class="grp">SecondaryTabRow</span><span class="cap">SecondaryTextTabs — the sample `SecondaryTabRow`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SegmentedButton/SegmentedButtonSingleSelectSample</span><span class="grp">SegmentedButton</span><span class="cap">SegmentedButtonSingleSelectSample — the sample `SegmentedButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SegmentedListItem/MultiSelectionSegmentedListItemSample</span><span class="grp">SegmentedListItem</span><span class="cap">MultiSelectionSegmentedListItemSample — the sample `SegmentedListItem`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SegmentedListItem/SegmentedListItemWithExpansionSample</span><span class="grp">SegmentedListItem</span><span class="cap">SegmentedListItemWithExpansionSample — the sample `SegmentedListItem`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SegmentedListItem/SingleSelectionSegmentedListItemSample</span><span class="grp">SegmentedListItem</span><span class="cap">SingleSelectionSegmentedListItemSample — the sample `SegmentedListItem`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ShortNavigationBar/ShortNavigationBarSample</span><span class="grp">ShortNavigationBar</span><span class="cap">ShortNavigationBarSample — the sample `ShortNavigationBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ShortNavigationBar/ShortNavigationBarWithHorizontalItemsSample</span><span class="grp">ShortNavigationBar</span><span class="cap">ShortNavigationBarWithHorizontalItemsSample — the sample `ShortNavigationBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">showSnackbar/ScaffoldWithCoroutinesSnackbar</span><span class="grp">showSnackbar</span><span class="cap">ScaffoldWithCoroutinesSnackbar — the sample `showSnackbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">showSnackbar/ScaffoldWithCustomSnackbar</span><span class="grp">showSnackbar</span><span class="cap">ScaffoldWithCustomSnackbar — the sample `showSnackbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Slider/CenteredSliderSample</span><span class="grp">Slider</span><span class="cap">CenteredSliderSample — the sample `Slider`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Slider/SliderSample</span><span class="grp">Slider</span><span class="cap">SliderSample — the sample `Slider`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Slider/SliderWithCustomTrackAndThumbSample</span><span class="grp">Slider</span><span class="cap">SliderWithCustomTrackAndThumbSample — the sample `Slider`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Slider/SliderWithTrackIconsSample</span><span class="grp">Slider</span><span class="cap">SliderWithTrackIconsSample — the sample `Slider`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Slider/StepsSliderSample</span><span class="grp">Slider</span><span class="cap">StepsSliderSample — the sample `Slider`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SmallExtendedFloatingActionButton/SmallAnimatedExtendedFloatingActionButtonSample</span><span class="grp">SmallExtendedFloatingActionButton</span><span class="cap">SmallAnimatedExtendedFloatingActionButtonSample — the sample `SmallExtendedFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SmallExtendedFloatingActionButton/SmallExtendedFloatingActionButtonSample</span><span class="grp">SmallExtendedFloatingActionButton</span><span class="cap">SmallExtendedFloatingActionButtonSample — the sample `SmallExtendedFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SmallExtendedFloatingActionButton/SmallExtendedFloatingActionButtonTextSample</span><span class="grp">SmallExtendedFloatingActionButton</span><span class="cap">SmallExtendedFloatingActionButtonTextSample — the sample `SmallExtendedFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SmallFloatingActionButton/SmallFloatingActionButtonSample</span><span class="grp">SmallFloatingActionButton</span><span class="cap">SmallFloatingActionButtonSample — the sample `SmallFloatingActionButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Snackbar/ScaffoldWithIndefiniteSnackbar</span><span class="grp">Snackbar</span><span class="cap">ScaffoldWithIndefiniteSnackbar — the sample `Snackbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Snackbar/ScaffoldWithMultilineSnackbar</span><span class="grp">Snackbar</span><span class="cap">ScaffoldWithMultilineSnackbar — the sample `Snackbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SplitButtonLayout/ElevatedSplitButtonSample</span><span class="grp">SplitButtonLayout</span><span class="cap">ElevatedSplitButtonSample — the sample `SplitButtonLayout`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SplitButtonLayout/ExtraLargeFilledSplitButtonSample</span><span class="grp">SplitButtonLayout</span><span class="cap">ExtraLargeFilledSplitButtonSample — the sample `SplitButtonLayout`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SplitButtonLayout/FilledSplitButtonSample</span><span class="grp">SplitButtonLayout</span><span class="cap">FilledSplitButtonSample — the sample `SplitButtonLayout`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SplitButtonLayout/LargeFilledSplitButtonSample</span><span class="grp">SplitButtonLayout</span><span class="cap">LargeFilledSplitButtonSample — the sample `SplitButtonLayout`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SplitButtonLayout/MediumFilledSplitButtonSample</span><span class="grp">SplitButtonLayout</span><span class="cap">MediumFilledSplitButtonSample — the sample `SplitButtonLayout`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SplitButtonLayout/OutlinedSplitButtonSample</span><span class="grp">SplitButtonLayout</span><span class="cap">OutlinedSplitButtonSample — the sample `SplitButtonLayout`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SplitButtonLayout/SplitButtonWithDropdownMenuSample</span><span class="grp">SplitButtonLayout</span><span class="cap">SplitButtonWithDropdownMenuSample — the sample `SplitButtonLayout`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SplitButtonLayout/SplitButtonWithIconSample</span><span class="grp">SplitButtonLayout</span><span class="cap">SplitButtonWithIconSample — the sample `SplitButtonLayout`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SplitButtonLayout/SplitButtonWithTextSample</span><span class="grp">SplitButtonLayout</span><span class="cap">SplitButtonWithTextSample — the sample `SplitButtonLayout`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SplitButtonLayout/SplitButtonWithUnCheckableTrailingButtonSample</span><span class="grp">SplitButtonLayout</span><span class="cap">SplitButtonWithUnCheckableTrailingButtonSample — the sample `SplitButtonLayout`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SplitButtonLayout/TonalSplitButtonSample</span><span class="grp">SplitButtonLayout</span><span class="cap">TonalSplitButtonSample — the sample `SplitButtonLayout`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SplitButtonLayout/XSmallFilledSplitButtonSample</span><span class="grp">SplitButtonLayout</span><span class="cap">XSmallFilledSplitButtonSample — the sample `SplitButtonLayout`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SuggestionChip/SuggestionChipSample</span><span class="grp">SuggestionChip</span><span class="cap">SuggestionChipSample — the sample `SuggestionChip`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Surface/ClickableSurfaceSample</span><span class="grp">Surface</span><span class="cap">ClickableSurfaceSample — the sample `Surface`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Surface/SelectableSurfaceSample</span><span class="grp">Surface</span><span class="cap">SelectableSurfaceSample — the sample `Surface`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Surface/SurfaceSample</span><span class="grp">Surface</span><span class="cap">SurfaceSample — the sample `Surface`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Surface/ToggleableSurfaceSample</span><span class="grp">Surface</span><span class="cap">ToggleableSurfaceSample — the sample `Surface`&#39;s KDoc points at.</span></li>
+<li><span class="cid">SwipeToDismissBox/SwipeToDismissListItems</span><span class="grp">SwipeToDismissBox</span><span class="cap">SwipeToDismissListItems — the sample `SwipeToDismissBox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Switch/SwitchSample</span><span class="grp">Switch</span><span class="cap">SwitchSample — the sample `Switch`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Switch/SwitchWithThumbIconSample</span><span class="grp">Switch</span><span class="cap">SwitchWithThumbIconSample — the sample `Switch`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TabRow/TextTabs</span><span class="grp">TabRow</span><span class="cap">TextTabs — the sample `TabRow`&#39;s KDoc points at.</span></li>
+<li><span class="cid">Text/TextWithLinks</span><span class="grp">Text</span><span class="cap">TextWithLinks — the sample `Text`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TextButton/TextButtonSample</span><span class="grp">TextButton</span><span class="cap">TextButtonSample — the sample `TextButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TextButton/TextButtonWithAnimatedShapeSample</span><span class="grp">TextButton</span><span class="cap">TextButtonWithAnimatedShapeSample — the sample `TextButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ToggleButton/LargeToggleButtonWithIconSample</span><span class="grp">ToggleButton</span><span class="cap">LargeToggleButtonWithIconSample — the sample `ToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ToggleButton/MediumToggleButtonWithIconSample</span><span class="grp">ToggleButton</span><span class="cap">MediumToggleButtonWithIconSample — the sample `ToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ToggleButton/SquareToggleButtonSample</span><span class="grp">ToggleButton</span><span class="cap">SquareToggleButtonSample — the sample `ToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ToggleButton/ToggleButtonSample</span><span class="grp">ToggleButton</span><span class="cap">ToggleButtonSample — the sample `ToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ToggleButton/ToggleButtonWithIconSample</span><span class="grp">ToggleButton</span><span class="cap">ToggleButtonWithIconSample — the sample `ToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ToggleButton/XLargeToggleButtonWithIconSample</span><span class="grp">ToggleButton</span><span class="cap">XLargeToggleButtonWithIconSample — the sample `ToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">ToggleButton/XSmallToggleButtonWithIconSample</span><span class="grp">ToggleButton</span><span class="cap">XSmallToggleButtonWithIconSample — the sample `ToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TonalToggleButton/TonalToggleButtonSample</span><span class="grp">TonalToggleButton</span><span class="cap">TonalToggleButtonSample — the sample `TonalToggleButton`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TooltipBox/PlainTooltipSample</span><span class="grp">TooltipBox</span><span class="cap">PlainTooltipSample — the sample `TooltipBox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TooltipBox/PlainTooltipWithManualInvocationSample</span><span class="grp">TooltipBox</span><span class="cap">PlainTooltipWithManualInvocationSample — the sample `TooltipBox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TopAppBar/EnterAlwaysTopAppBar</span><span class="grp">TopAppBar</span><span class="cap">EnterAlwaysTopAppBar — the sample `TopAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TopAppBar/PinnedTopAppBar</span><span class="grp">TopAppBar</span><span class="cap">PinnedTopAppBar — the sample `TopAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TopAppBar/SimpleCenterAlignedTopAppBarWithSubtitle</span><span class="grp">TopAppBar</span><span class="cap">SimpleCenterAlignedTopAppBarWithSubtitle — the sample `TopAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TopAppBar/SimpleTopAppBar</span><span class="grp">TopAppBar</span><span class="cap">SimpleTopAppBar — the sample `TopAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TopAppBar/SimpleTopAppBarWithSubtitle</span><span class="grp">TopAppBar</span><span class="cap">SimpleTopAppBarWithSubtitle — the sample `TopAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TriStateCheckbox/TriStateCheckboxRoundedStrokesSample</span><span class="grp">TriStateCheckbox</span><span class="cap">TriStateCheckboxRoundedStrokesSample — the sample `TriStateCheckbox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TriStateCheckbox/TriStateCheckboxSample</span><span class="grp">TriStateCheckbox</span><span class="cap">TriStateCheckboxSample — the sample `TriStateCheckbox`&#39;s KDoc points at.</span></li>
+<li><span class="cid">TwoRowsTopAppBar/CustomTwoRowsTopAppBar</span><span class="grp">TwoRowsTopAppBar</span><span class="cap">CustomTwoRowsTopAppBar — the sample `TwoRowsTopAppBar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">VerticalFloatingToolbar/CenteredVerticalFloatingToolbarWithFabSample</span><span class="grp">VerticalFloatingToolbar</span><span class="cap">CenteredVerticalFloatingToolbarWithFabSample — the sample `VerticalFloatingToolbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">VerticalFloatingToolbar/ExpandableVerticalFloatingToolbarSample</span><span class="grp">VerticalFloatingToolbar</span><span class="cap">ExpandableVerticalFloatingToolbarSample — the sample `VerticalFloatingToolbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">VerticalFloatingToolbar/OverflowingVerticalFloatingToolbarSample</span><span class="grp">VerticalFloatingToolbar</span><span class="cap">OverflowingVerticalFloatingToolbarSample — the sample `VerticalFloatingToolbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">VerticalFloatingToolbar/ScrollableVerticalFloatingToolbarSample</span><span class="grp">VerticalFloatingToolbar</span><span class="cap">ScrollableVerticalFloatingToolbarSample — the sample `VerticalFloatingToolbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">VerticalFloatingToolbar/VerticalFloatingToolbarWithFabSample</span><span class="grp">VerticalFloatingToolbar</span><span class="cap">VerticalFloatingToolbarWithFabSample — the sample `VerticalFloatingToolbar`&#39;s KDoc points at.</span></li>
+<li><span class="cid">VerticalSlider/VerticalCenteredSliderSample</span><span class="grp">VerticalSlider</span><span class="cap">VerticalCenteredSliderSample — the sample `VerticalSlider`&#39;s KDoc points at.</span></li>
+<li><span class="cid">VerticalSlider/VerticalSliderSample</span><span class="grp">VerticalSlider</span><span class="cap">VerticalSliderSample — the sample `VerticalSlider`&#39;s KDoc points at.</span></li>
+<li><span class="cid">WideNavigationRail/WideNavigationRailCollapsedSample</span><span class="grp">WideNavigationRail</span><span class="cap">WideNavigationRailCollapsedSample — the sample `WideNavigationRail`&#39;s KDoc points at.</span></li>
+<li><span class="cid">WideNavigationRail/WideNavigationRailExpandedSample</span><span class="grp">WideNavigationRail</span><span class="cap">WideNavigationRailExpandedSample — the sample `WideNavigationRail`&#39;s KDoc points at.</span></li>
+<li><span class="cid">WideNavigationRail/WideNavigationRailResponsiveSample</span><span class="grp">WideNavigationRail</span><span class="cap">WideNavigationRailResponsiveSample — the sample `WideNavigationRail`&#39;s KDoc points at.</span></li></ul></section>
+  <section class="solo"><h2>Only in m3-catalog <span>58</span></h2>
+       <ul><li><span class="cid">Badge/Number</span><span class="grp">Badges</span><span class="cap">Unread count badge. One to three digits and overflow fold in.</span></li>
+<li><span class="cid">BottomAppBar/Standard</span><span class="grp">Bottom app bar</span><span class="cap">Screen-level actions along the bottom. FAB and action count fold in.</span></li>
+<li><span class="cid">Button/Filled</span><span class="grp">Buttons</span><span class="cap">Highest emphasis; the primary action. Five sizes x two shapes fold in as variants.</span></li>
+<li><span class="cid">Button/Tonal</span><span class="grp">Buttons</span><span class="cap">Secondary, still prominent. Five sizes x two shapes fold in as variants.</span></li>
+<li><span class="cid">Button/Outlined</span><span class="grp">Buttons</span><span class="cap">Medium emphasis on a busy surface. Five sizes x two shapes fold in as variants.</span></li>
+<li><span class="cid">Button/Elevated</span><span class="grp">Buttons</span><span class="cap">Outlined alternative needing separation. Five sizes x two shapes fold in as variants.</span></li>
+<li><span class="cid">Button/Text</span><span class="grp">Buttons</span><span class="cap">Lowest emphasis; inline actions. Five sizes x two shapes fold in as variants. The container is transparent, so the shape axis is invisible at rest — the kit draws its square nodes the same way, and `square-hovered` is the cell where it shows.</span></li>
+<li><span class="cid">Card/Filled</span><span class="grp">Cards</span><span class="cap">Default container for related content, with media and text by default. The kit&#39;s empty slot layout and the action layouts fold in.</span></li>
+<li><span class="cid">Card/Elevated</span><span class="grp">Cards</span><span class="cap">Separated by shadow, with media and text by default. The kit&#39;s empty slot layout and the action layouts fold in.</span></li>
+<li><span class="cid">Card/Outlined</span><span class="grp">Cards</span><span class="cap">Separated by outline, with media and text by default. The kit&#39;s empty slot layout and the action layouts fold in.</span></li>
+<li><span class="cid">Carousel/MultiBrowse</span><span class="grp">Carousel</span><span class="cap">Items that resize as they enter and leave the viewport. Item widths fold in.</span></li>
+<li><span class="cid">Checkbox/Checked</span><span class="grp">Checkbox</span><span class="cap">Select one or more items from a set. Unchecked, indeterminate, disabled and error fold in.</span></li>
+<li><span class="cid">Chip/Assist</span><span class="grp">Chips</span><span class="cap">A smart action related to the content. Elevated, leading icon and disabled fold in.</span></li>
+<li><span class="cid">Chip/Filter</span><span class="grp">Chips</span><span class="cap">Filters content; carries a selected state. Unselected, elevated and disabled fold in. The check mark is the selected state&#39;s leading icon, so it follows selection rather than a knob.</span></li>
+<li><span class="cid">Chip/Input</span><span class="grp">Chips</span><span class="cap">A discrete piece of user input, removable. Leading icon, avatar, selected and disabled fold in.</span></li>
+<li><span class="cid">Chip/Suggestion</span><span class="grp">Chips</span><span class="cap">A dynamically generated action. Elevated and disabled fold in; the kit&#39;s selected cells stay excluded because SuggestionChip has no selection state.</span></li>
+<li><span class="cid">Color/Role grid</span><span class="grp">Color</span><span class="cap">Material color roles in the kit&#39;s schematic layout — accent families, fixed colors and surfaces — with all six catalog themes as variants.</span></li>
+<li><span class="cid">DatePicker/Modal</span><span class="grp">Date pickers</span><span class="cap">The picker on its own dialog surface, with confirm and dismiss actions.</span></li>
+<li><span class="cid">Dialog/Basic</span><span class="grp">Dialogs</span><span class="cap">Headline, supporting text and two actions. The hero icon folds in.</span></li>
+<li><span class="cid">Dialog/List</span><span class="grp">Dialogs</span><span class="cap">A choice list in place of supporting text.</span></li>
+<li><span class="cid">Divider/Horizontal</span><span class="grp">Divider</span><span class="cap">Separates content in a vertical list. Inset and subhead fold in.</span></li>
+<li><span class="cid">Divider/Vertical</span><span class="grp">Divider</span><span class="cap">Separates content in a horizontal row.</span></li>
+<li><span class="cid">Fab/Standard</span><span class="grp">FAB</span><span class="cap">The screen&#39;s single primary action. Six container roles fold in as variants.</span></li>
+<li><span class="cid">Fab/Extended</span><span class="grp">FAB</span><span class="cap">FAB with a label; the action is named. Six container roles fold in as variants.</span></li>
+<li><span class="cid">IconButton/Standard</span><span class="grp">Icon buttons</span><span class="cap">Lowest emphasis; inline on a surface. Five sizes x three widths x two shapes fold in as variants. The container is transparent, so the shape axis is invisible at rest — the kit draws its square nodes the same way, and `square-hovered` is the cell where it shows.</span></li>
+<li><span class="cid">IconButton/Filled</span><span class="grp">Icon buttons</span><span class="cap">Highest emphasis icon-only action. Five sizes x three widths x two shapes fold in as variants.</span></li>
+<li><span class="cid">IconButton/Tonal</span><span class="grp">Icon buttons</span><span class="cap">Secondary emphasis. Five sizes x three widths x two shapes fold in as variants.</span></li>
+<li><span class="cid">IconButton/Outlined</span><span class="grp">Icon buttons</span><span class="cap">Medium emphasis on a busy surface. Five sizes x three widths x two shapes fold in as variants.</span></li>
+<li><span class="cid">List/Item</span><span class="grp">Lists</span><span class="cap">The kit&#39;s list frame. Line count, leading and trailing slots all fold in as single rows.</span></li>
+<li><span class="cid">LoadingIndicator/Uncontained</span><span class="grp">Loading indicator</span><span class="cap">The shape-morph indicator on its own.</span></li>
+<li><span class="cid">NavigationBar/Short</span><span class="grp">Navigation bar</span><span class="cap">The expressive compact bar. Count and labels fold in.</span></li>
+<li><span class="cid">NavigationRail/Standard</span><span class="grp">Navigation rail</span><span class="cap">Destinations along the side. Count, menu, FAB and labels fold in.</span></li>
+<li><span class="cid">NavigationRail/Wide</span><span class="grp">Navigation rail</span><span class="cap">The expanded form, labels beside the icons. Count folds in.</span></li>
+<li><span class="cid">Progress/Linear</span><span class="grp">Progress indicators</span><span class="cap">Determinate linear progress. Values across the range fold in.</span></li>
+<li><span class="cid">Progress/Circular</span><span class="grp">Progress indicators</span><span class="cap">Determinate circular progress. Values across the range fold in.</span></li>
+<li><span class="cid">RadioButton/Selected</span><span class="grp">Radio button</span><span class="cap">Select exactly one option from a set. Unselected, disabled and error fold in.</span></li>
+<li><span class="cid">Search/Bar</span><span class="grp">Search</span><span class="cap">The collapsed entry point, floating over content. Query, avatar and the docked form fold in.</span></li>
+<li><span class="cid">SegmentedButton/SingleChoice</span><span class="grp">Segmented buttons</span><span class="cap">Two to five related options. Count, content and multi-select fold in.</span></li>
+<li><span class="cid">Shape/Corner scale</span><span class="grp">Shapes</span><span class="cap">The Material corner scale, with each of its ten radius tokens folded in as a variant.</span></li>
+<li><span class="cid">Shape/MaterialShapes</span><span class="grp">Shapes</span><span class="cap">The expressive shape library. All 35 of `MaterialShapes` fold in as variants.</span></li>
+<li><span class="cid">Slider/Continuous</span><span class="grp">Sliders</span><span class="cap">Select a value from a range. Discrete stops, a centered track and disabled fold in.</span></li>
+<li><span class="cid">Slider/Range</span><span class="grp">Sliders</span><span class="cap">Two thumbs bounding a sub-range. Discrete stops and disabled fold in.</span></li>
+<li><span class="cid">Snackbar/Message</span><span class="grp">Snackbar</span><span class="cap">Brief message about a process. Two-line, action and close affordance fold in.</span></li>
+<li><span class="cid">SplitButton/Filled</span><span class="grp">Split button</span><span class="cap">Primary action plus a related-choices affordance. Five sizes and four colours fold in.</span></li>
+<li><span class="cid">Switch/On</span><span class="grp">Switch</span><span class="cap">Toggle a single setting on or off. Off, thumb icon and disabled fold in.</span></li>
+<li><span class="cid">Tabs/Primary</span><span class="grp">Tabs</span><span class="cap">Top-level content categories under an app bar. Icon and icon+label fold in.</span></li>
+<li><span class="cid">Tabs/Secondary</span><span class="grp">Tabs</span><span class="cap">Nested categories within a primary tab. Icon and icon+label fold in.</span></li>
+<li><span class="cid">TextField/Filled</span><span class="grp">Text fields</span><span class="cap">The default; a filled container. Empty, error, disabled, icons, supporting text and the label-less form fold in.</span></li>
+<li><span class="cid">TextField/Outlined</span><span class="grp">Text fields</span><span class="cap">Outlined container; less visual weight. Carries the same matrix as the filled field.</span></li>
+<li><span class="cid">TimePicker/Dial</span><span class="grp">Time pickers</span><span class="cap">Clock dial for picking an hour and minute. 12-hour and the landscape layout fold in.</span></li>
+<li><span class="cid">TimePicker/Input</span><span class="grp">Time pickers</span><span class="cap">Keyboard entry instead of the dial. 12-hour folds in.</span></li>
+<li><span class="cid">ToggleButton/Filled</span><span class="grp">Toggle buttons</span><span class="cap">A button whose selection persists. Five sizes x two shapes fold in as variants.</span></li>
+<li><span class="cid">ToggleButton/Tonal</span><span class="grp">Toggle buttons</span><span class="cap">Secondary emphasis toggle. Five sizes x two shapes fold in as variants.</span></li>
+<li><span class="cid">ToggleButton/Outlined</span><span class="grp">Toggle buttons</span><span class="cap">Medium emphasis on a busy surface. Five sizes x two shapes fold in as variants.</span></li>
+<li><span class="cid">ToggleButton/Elevated</span><span class="grp">Toggle buttons</span><span class="cap">Separated by shadow. Five sizes x two shapes fold in as variants.</span></li>
+<li><span class="cid">Toolbar/HorizontalFloating</span><span class="grp">Toolbars</span><span class="cap">A floating cluster of related actions over the content. Vibrant folds in.</span></li>
+<li><span class="cid">TopAppBar/Small</span><span class="grp">Top app bar</span><span class="cap">The app bar. Its four sizes, centred, image and search layouts, nav icon and actions fold in.</span></li>
+<li><span class="cid">Typography/Type scale</span><span class="grp">Typography</span><span class="cap">The Material 3 type scale, with each of its fifteen roles folded in as a variant.</span></li></ul></section>
+</main>
+</body>
+</html>
