@@ -1,8 +1,19 @@
 name: Design Artifacts
 
-# Render the Material 3 catalog and publish its importable bundle to the
-# `design-artifacts/m3-catalog` branch, which the public preview server
-# (preview.coo.ee) serves at /m3-catalog/.
+# Render this repo's catalogs and publish their importable bundles to the
+# `design-artifacts/<system>` branches, which the public preview server
+# (preview.coo.ee) serves at /<system>/:
+#
+#   :catalog         -> design-artifacts/m3-catalog   the kit rendition (Material 3)
+#   :samples-catalog -> design-artifacts/m3-samples   the AndroidX samples, vendored
+#
+# Two catalogs, one pipeline, and a `changes` job so a push that moves one of them does not spend a
+# runner re-rendering the other. That job is new with the samples sheet: with a single catalog
+# there was nothing to scope, and the `paths:` filter below was the whole of the answer.
+#
+# The samples sheet's caller is deliberately the shorter of the two: it reproduces no Figma kit, so
+# every input the kit rendition spends on the design-reference lane is absent rather than merely
+# unset. See `docs/design/ANDROIDX_SAMPLES.md`.
 #
 # The whole pipeline — install CLI -> validate spec -> render -> generate ->
 # publish — is the shared reusable workflow in compose-ai-tools. This repo has
@@ -26,6 +37,15 @@ on:
     paths:
       - 'catalog/**'
       - 'catalog.spec.json'
+      # The samples sheet's render inputs. `samples-catalog/**` is the vendored tree and the
+      # generated spec; `samples/**` is the import manifest, the patches and the quarantine list,
+      # which decide what is in that tree at all; `sample-map.json` is the @sample KDoc map the
+      # spec's groups are built from. The generator is listed because a change to it moves the
+      # published inventory with no input change at all.
+      - 'samples-catalog/**'
+      - 'samples/**'
+      - 'sample-map.json'
+      - 'scripts/samples-spec.mjs'
       # The page-backdrop opt-in and its page list. Changing which screens are
       # published — or turning the surface on or off — changes what the delivery
       # branch carries, so it belongs in the same set as the spec.
@@ -58,10 +78,57 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # WHICH delivery branches does this push dirty?
+  #
+  # The `paths:` filter above decides whether the workflow runs at all; this decides which catalogs
+  # inside it do. A render is 15-30 minutes, so a `catalog/**`-only push must not drag the samples
+  # sheet through one for a change it cannot see, and vice versa. Shared inputs — the version
+  # catalog, the settings/build files, this workflow — dirty both, and so does anything that is not
+  # a `push` (a schedule or a dispatch means "republish everything").
+  #
+  # It fails SAFE: no resolvable change set means both. Publishing a fresh bundle is never wrong;
+  # skipping a stale one is. Same job, same reasoning and same shape as the sibling repo's.
+  changes:
+    name: Scope
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      kit: ${{ steps.scope.outputs.kit }}
+      samples: ${{ steps.scope.outputs.samples }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - id: scope
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" != 'push' ] ||
+             [ -z "$BEFORE" ] ||
+             [ "$BEFORE" = '0000000000000000000000000000000000000000' ] ||
+             ! files="$(git diff --name-only "$BEFORE" "$GITHUB_SHA")"; then
+            echo 'kit=true' >> "$GITHUB_OUTPUT"
+            echo 'samples=true' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          shared='^(gradle/|settings\.gradle\.kts$|build\.gradle\.kts$|\.github/workflows/design-artifacts\.yml$)'
+          if grep -qE "$shared" <<<"$files"; then
+            echo 'kit=true' >> "$GITHUB_OUTPUT"
+            echo 'samples=true' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          grep -qE '^(catalog/|catalog\.spec\.json$|design-pages\.json$|design/pages/)' <<<"$files" &&
+            echo 'kit=true' >> "$GITHUB_OUTPUT" || echo 'kit=false' >> "$GITHUB_OUTPUT"
+          grep -qE '^(samples-catalog/|samples/|sample-map\.json$|scripts/samples-)' <<<"$files" &&
+            echo 'samples=true' >> "$GITHUB_OUTPUT" || echo 'samples=false' >> "$GITHUB_OUTPUT"
+
   publish:
     name: m3-catalog
+    needs: changes
     # Don't let forks push to the delivery branch.
-    if: ${{ github.repository == 'yschimke/m3-catalog' }}
+    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.kit == 'true' }}
     permissions:
       contents: write
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
@@ -199,3 +266,76 @@ jobs:
       # declare, and the run fails to parse before any job starts — so keep that in mind if the
       # `@main` pin ever moves to a ref without the declaration.
       figma_token: ${{ secrets.FIGMA_TOKEN }}
+
+  samples:
+    name: m3-samples
+    needs: changes
+    # Don't let forks push to the delivery branch.
+    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.samples == 'true' }}
+    permissions:
+      contents: write
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
+    with:
+      system: m3-samples
+      spec: samples-catalog/catalog.spec.json
+      module: ':samples-catalog'
+
+      # NO DESIGN REFERENCES, AND THAT IS WHY THIS COMMAND EXISTS.
+      #
+      # The `publish` job above passes no `design-map-command` at all, which is right for it: the
+      # committed map IS `:catalog`'s, and a single-catalog repo wants it used as-is. That default
+      # stops being right the moment a second system publishes from the same checkout — an empty
+      # input would hand `:catalog`'s Figma mappings to this sheet under its own name, every handle
+      # naming a `catalog/src/...` file this module does not contain. That is the shape of
+      # compose-ai-tools#4841, and the reusable workflow deletes the map before running this command
+      # precisely so a caller cannot pass the check by accident.
+      #
+      # An empty map is the truthful answer rather than a placeholder. These are AndroidX's sample
+      # call sites, not a reproduction of a published kit, so there is no node for any of them to be
+      # scored against — which is also why this caller carries no `figma_token` and no
+      # `reference-cache-branch`. The workflow warns that the system "will publish 0% coverage"; 0%
+      # is correct here, and a warning that says so beats a number borrowed from the sheet next door.
+      #
+      # It runs no Gradle, unlike the job above: with zero `@CatalogComponent` annotations in the
+      # module, a discover-then-project round trip is several minutes spent deriving this same empty
+      # map. The inventory lives in the generated `catalog.spec.json` instead — see
+      # `docs/design/ANDROIDX_SAMPLES.md` for why an imported project's inventory cannot be
+      # annotated.
+      design-map-command: printf '{"components":[]}\n' > design-map.json
+      # Same CLI/plugin lockstep as the job above: the pin is `composePreviewPlugin` in
+      # libs.versions.toml, and a CLI/plugin skew breaks preview discovery outright.
+      cli-version: catalog
+      catalog-key: composePreviewPlugin
+      # Compose Multiplatform desktop, like `:catalog` and for the same reason — no AGP, so the
+      # plugin routes it to the Skiko renderer under xvfb. It is also what keeps both sides of the
+      # compare page on ONE rasteriser, so a sample beside its kit sticker shows an API-usage
+      # difference and not a renderer difference. The Wear repo's samples module is the opposite
+      # case: `androidx.wear.compose` ships Android-only and renders through Robolectric.
+      desktop-render: true
+      # BAKED STICKERS ONLY, deliberately, and the one input here worth revisiting later.
+      #
+      # This repo's `design-artifacts/*` branches are already trusted by the preview server's
+      # `producers.json`, and on that box trust is eligibility for server-side execution under
+      # `SERVE_ALLOW_RENDER_TRUSTED=1`. A live bundle for THIS sheet therefore means the server
+      # executing vendored third-party Compose on request — which may well be fine, but it is a
+      # decision about what that host runs, not a detail of how this catalog publishes. Turning it
+      # on is its own deliberate change with its own reasoning; it does not ride in on the commit
+      # that first publishes the sheet.
+      publish-live-bundle: false
+      # No per-preview split, matching the job above: it writes an addressable copy of every preview
+      # onto an append-only branch on every publish, and 240 of them would grow this repository's
+      # checkout for a lane nothing reads.
+      split-per-preview: false
+      commit-user-name: Yuri Schimke
+      commit-user-email: yuri@schimke.ee
+      timeout-minutes: 60
+      render-timeout: 1800
+      # ONE, where `:catalog` above takes four. Sharding pays on that sheet because its previews
+      # multiply across mode and device axes; these 240 are one capture each, measured rather than
+      # projected, and a shard's own discovery, upload and merge cost would exceed what it saves.
+      render-shards: 1
+      # NO `preview-annotations`. The build-free spec pre-flight scans sources for `@Preview` and
+      # needs telling about multipreviews declared in another module. This module has none: every
+      # published preview is the plain `androidx.compose.ui.tooling.preview.Preview`, carried by
+      # upstream's own sources — verified against the vendored tree rather than assumed.
+      allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}

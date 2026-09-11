@@ -40,9 +40,18 @@ where measurement has since changed them. What exists in the tree today:
 | `samples/patches/`, `samples/quarantine.json` | the fix and gap mechanisms, both checked |
 | `scripts/sample-map.mjs`, `sample-map.json` | the `@sample` reader and its output — 153 APIs, 308 samples |
 | `scripts/samples-drift.mjs` | the pin's fingerprint check, passing `308 / 0 / 0` |
+| `scripts/samples-spec.mjs`, `samples-catalog/catalog.spec.json` | the generated inventory — **240 components in 102 groups** |
+| `:samples-catalog` | the module that compiles and renders them: 47 files vendored, 8 quarantined, 0 patches |
+| `design-artifacts.yml` → `m3-samples` | the publish job, plus the `changes`/Scope job it made necessary |
 
-Not built yet: the `:samples-catalog` Gradle module and its generated `@Preview` wrappers, the
-design-artifacts job, the `catalogs.json` registration, and the server's "Samples" affordance.
+**No `@Preview` wrappers here, and that is a difference from the Wear repo rather than an omission.**
+298 of the 317 `@Sampled` functions in `androidx.compose.material3.samples` already carry `@Preview`
+upstream, so discovery finds them directly. `androidx.wear.compose.material3.samples` carries it on
+34 of 170, which is why that repo generates 115 wrappers and this one generates none. The difference
+is the two teams' annotation habits, not anything about the platforms.
+
+Not built yet: the `catalogs.json` registration on preview.coo.ee, the server's "Samples"
+affordance, and the weekly `samples-refresh.yml`.
 
 ## Acquisition: vendor a pinned subtree
 
@@ -278,20 +287,42 @@ argument for building it after `:samples-catalog` rather than against a fixture.
 
 ## The CI job
 
-A second `uses:` block against `design-artifacts-reusable.yml`. No forked pipeline; everything needed
-is a generic input:
+**Built.** A second `uses:` block against `design-artifacts-reusable.yml`. No forked pipeline;
+everything it needs was already a generic input:
 
 - `system: m3-samples`, `spec: samples-catalog/catalog.spec.json`, `module: ':samples-catalog'`
 - `cli-version: catalog` + `catalog-key: composePreviewPlugin`, as the existing job does
 - `desktop-render: true` here; `false` in the Wear repo
 - `split-per-preview: false`, for the reasons the existing job's comment already sets out
-- no `render-shards` to begin with — ~308 base previews is nowhere near the 4133 that forced four
-  shards on the main sheet, and a shard is only worth its ~150s of setup once the marginal work
-  dominates
+- `render-shards: 1`, where the kit sheet takes four. **240** base previews, not the ~308 this
+  section first projected — the gap is the 68 mapped samples carrying no `@Preview` upstream, which
+  nothing can render. Sharding pays on the kit sheet because its previews multiply across mode and
+  device axes; these are one capture each.
 
-Plus the `changes` / `Scope` job, ported from `wear-m3-catalog`, so a `catalog/**` push does not drag
-the samples sheet through a render it cannot see, and vice versa. It must fail safe the same way: no
-resolvable change set means render both.
+Plus the `changes` / `Scope` job, ported from `wear-m3-catalog`. That job is *new* with the samples
+sheet: with a single catalog there was nothing to scope and the `paths:` filter was the whole
+answer. It fails safe the same way — no resolvable change set means render both.
+
+**One input is load-bearing and not obvious: `design-map-command`.** The kit job passes none, which
+is correct for a single-catalog repo — the committed `design-map.json` *is* `:catalog`'s. That
+default stops being right the moment a second system publishes from the same checkout: an empty
+input would publish `:catalog`'s Figma mappings under the samples sheet's name, every handle naming
+a `catalog/src/…` file that module does not contain. So the samples job passes a command that
+projects an **empty** map. That is the truthful answer, not a placeholder — these are AndroidX's
+call sites, not a reproduction of a published kit, so no sample has a node to be scored against.
+Same reason the job carries no `figma_token`, no `reference-cache-branch` and no
+`reference-backdrop`: **the samples sheet has no design-parity lane at all.** The reusable workflow
+warns that the system "will publish 0% coverage"; 0% is correct, and a warning saying so beats a
+number borrowed from the sheet next door.
+
+`ci.yml` runs the build-free spec pre-flight over this spec too, beside the existing one. It reports
+**258 `@Preview` functions discovered against 240 in the catalog**, and that gap is expected: the 18
+are upstream previews that are not `@Sampled` — `AllShapes`, `LeadingIconTabs`, `LegacySliderSample`,
+the scrolling-tab demos — demo previews living in the sample files that no `@sample` KDoc points at.
+`@Sampled` is what makes a function a sample rather than something a sample sits beside, which is
+the same rule that keeps `FancyIndicator` out while `FancyIndicatorTabs` is in. They still render;
+they land as bundle orphans rather than as catalog cards. Worth revisiting only with a reason to
+widen what "a sample" means, not as a fix.
 
 A weekly `samples-refresh.yml` re-runs the importer and the drift check and opens a PR when the
 vendored tree or `sample-map.json` moves — the cadence `figma-pages.yml` and `design-parity-import.yml`
