@@ -1,8 +1,8 @@
 {
   "$comment": "The AndroidX samples pin for :samples-catalog. See docs/design/ANDROIDX_SAMPLES.md. `ref` is a COMMIT SHA and never a branch, so a render is reproducible and an upstream bump is a reviewable diff. `artifactVersion` is the AndroidX material3 version whose @sample set matches the Compose Multiplatform artifact this repo compiles against — derived, not guessed, and re-derived by scripts/samples-drift.mjs on every run: when CMP moves, the check fails and names the version to bump to. `paths` are subtrees of the upstream repository, fetched with a blobless sparse clone (13 MB, not the multi-GB whole tree).",
   "repo": "https://github.com/androidx/androidx",
-  "ref": "c718623c641bf711ac7677ead69e96e727d055b6",
-  "refDescription": "androidx-main at the time of the import",
+  "ref": "06c47f5a8f008ff3a3ebb8f3ad2b887e46db6956",
+  "refDescription": "androidx-main as of 2026-06-17, the day material3 1.5.0-alpha22 was published — the version whose @sample set matches the Compose Multiplatform artifact this repo compiles against. Derived, not chosen: the androidx GitHub mirror publishes no tags, so the commit is resolved by date from the artifact POM's Last-Modified, and scripts/samples-drift.mjs re-derives the VERSION half on every run.",
   "paths": [
     "compose/material3/material3/samples/src/main/java/androidx/compose/material3/samples"
   ],
