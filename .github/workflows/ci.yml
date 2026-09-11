@@ -100,8 +100,15 @@ jobs:
           node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
             --spec catalog.spec.json --module-dir catalog
 
-      # The samples sheet's spec is GENERATED, and `samples-spec.mjs --check` already proves it
-      # matches the generator. That is a different question from whether it is CORRECT: the
+      # The samples sheet's spec is GENERATED, so the first question is whether the committed file
+      # still matches its generator. The step below asserted that this ran and it did not: the
+      # regenerate-and-diff contract was described in this comment and enforced nowhere, which left
+      # the spec free to drift from `sample-map.json`, from the vendored tree, and now from the kit
+      # ids its back-links name. The sibling repository has always run it.
+      - name: samples spec is current
+        run: node scripts/samples-spec.mjs --check
+
+      # `--check` above proves it matches the generator. That is a different question from whether it is CORRECT: the
       # generator reads the vendored tree for renderable samples, so a spec entry naming a preview
       # that does not exist would be a bug the regenerate-and-diff reproduces faithfully. This is
       # the check that every `preview` it names resolves to a real `@Preview`, before
@@ -174,6 +181,16 @@ jobs:
       # holding still. See docs/design/ANDROIDX_SAMPLES.md.
       - name: Test the @sample KDoc reader
         run: node --test scripts/sample-map.test.mjs
+
+      # The samples sheet's spec, and with it the BACK-LINK each sample carries to the kit component
+      # it is a call site for. The link names the kit family's first-declared cell, which is a
+      # convention rather than an accident -- so what is worth holding is that "first" is
+      # deterministic (sorted paths, then file order) and that a sample whose API this catalog
+      # publishes no component for carries no link at all rather than an empty one. The spec's own
+      # `--check` gate is the other half: reordering a kit section re-points every sample of that
+      # family and shows up as a diff to review instead of drifting silently.
+      - name: Test the samples spec and its kit back-links
+        run: node --test scripts/samples-spec.test.mjs
 
       # The vendoring importer. The load-bearing behaviour is that a patch which no longer applies
       # FAILS the import rather than silently dropping the fix it carries, and that a quarantined

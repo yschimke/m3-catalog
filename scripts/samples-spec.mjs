@@ -33,12 +33,27 @@
  *     node scripts/samples-spec.mjs --check    # fail if the committed spec is stale
  */
 
-import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const SAMPLE_MAP = "sample-map.json";
 const VENDORED = "samples-catalog/src/main/kotlin/upstream";
 const SPEC = "samples-catalog/catalog.spec.json";
+/** The kit catalog these samples are call sites for: the system name, and where its ids live. */
+const KIT_SYSTEM = "m3-catalog";
+const KIT_SOURCES = ["catalog/src/main/kotlin"];
+
+/**
+ * Compose APIs whose samples belong to a kit family spelled differently.
+ *
+ * Deliberately EMPTY, and deliberately present. The join below is exact — a sample of `Button`
+ * links to the `Button/…` family — and the APIs it does not reach are two kinds. Most are ones
+ * this catalog publishes no component for at all, which is the ordinary case. The rest are real
+ * one-to-many relationships where the kit's taxonomy is its author's call and not this script's to
+ * guess. `run` reports every unjoined API so those can be added deliberately, with the reasoning,
+ * rather than inferred by string distance.
+ */
+export const API_TO_KIT_FAMILY = new Map([]);
 
 /**
  * Every function in the vendored sources that is BOTH `@Sampled` and `@Preview`, mapped to the file
@@ -66,6 +81,58 @@ export function renderableSamples(dir = VENDORED) {
   return found;
 }
 
+/**
+ * `family -> the kit component id declared FIRST in it`, read off `@CatalogComponent(id = …)`.
+ *
+ * A sample is about an API (`Button`); the kit splits an API into cells (`Button/Filled`,
+ * `Button/Outlined`, …). A link has to name one, and the family's first-declared cell is the one a
+ * catalog author reaches for first — it is the cell the section opens on.
+ *
+ * "First" is DETERMINISTIC rather than incidental: files in sorted path order, declarations in file
+ * order. That makes it a convention rather than an accident, and the regenerate-and-diff `--check`
+ * gate is what keeps it honest — reordering a section's components changes the committed spec and
+ * shows up as a diff to review, instead of silently re-pointing every sample of that family.
+ */
+export function kitFirstCellByFamily(dirs = KIT_SOURCES) {
+  const byFamily = new Map();
+  const walk = (d) => {
+    if (!existsSync(d)) return;
+    for (const entry of readdirSync(d, { withFileTypes: true }).sort((a, b) =>
+      a.name.localeCompare(b.name),
+    )) {
+      const path = join(d, entry.name);
+      if (entry.isDirectory()) {
+        walk(path);
+        continue;
+      }
+      if (!entry.name.endsWith(".kt")) continue;
+      const text = readFileSync(path, "utf8");
+      for (const match of text.matchAll(/@CatalogComponent\s*\(([\s\S]*?)\)/g)) {
+        const id = /\bid\s*=\s*"([^"]+)"/.exec(match[1])?.[1];
+        // A family is the id's first segment. An id with no `/` is its own family and its own
+        // first cell, which is the single-cell component's ordinary shape.
+        if (!id) continue;
+        const family = id.split("/")[0];
+        if (!byFamily.has(family)) byFamily.set(family, id);
+      }
+    }
+  };
+  for (const dir of dirs) walk(dir);
+  return byFamily;
+}
+
+/**
+ * The kit component a sample of [api] is a call site for, or null when the kit has none.
+ *
+ * Null is the common answer and not a failure: most of the map's APIs are ones this catalog
+ * publishes no component for, and a sample of one is still worth publishing — it just has nothing
+ * to link back to.
+ */
+export function kitComponentFor(api, firstCellByFamily) {
+  const family = API_TO_KIT_FAMILY.get(api) ?? api;
+  return firstCellByFamily.get(family) ?? null;
+}
+
 /** `sampleFunctionName -> api`, inverted from the map's `api -> samples[]`. */
 export function apiBySample(map) {
   const byFunction = new Map();
@@ -82,10 +149,11 @@ export function apiBySample(map) {
 }
 
 /** Build the `groups` array: one group per API, one component per renderable sample. */
-export function buildGroups(map, renderable) {
+export function buildGroups(map, renderable, firstCellByFamily = new Map()) {
   const byApi = apiBySample(map);
   const groups = new Map();
   const unmapped = [];
+  const unjoined = new Set();
 
   for (const [fn] of [...renderable].sort((a, b) => a[0].localeCompare(b[0]))) {
     const api = byApi.get(fn);
@@ -97,10 +165,23 @@ export function buildGroups(map, renderable) {
     }
     const group = api ?? "Other";
     if (!groups.has(group)) groups.set(group, []);
+    // The kit component this sample is a call site for. Declared HERE, on the generated side,
+    // rather than on the kit component pointing back: this file is rewritten from `sample-map.json`
+    // on every import, so the link cannot go stale, while the same statement written into the kit's
+    // `@CatalogComponent` would be a hand-kept second copy of a map that moves whenever upstream
+    // renames a sample. The server derives the other direction at read time.
+    //
+    // No `label`: the destination catalog's own name for the component is better than one invented
+    // here, and an absent label is what tells the server to use it.
+    const kitComponentId = api ? kitComponentFor(api, firstCellByFamily) : null;
+    if (api && !kitComponentId) unjoined.add(api);
     groups.get(group).push({
       componentId: `${group}/${fn}`,
       preview: fn,
       caption: `${fn} — the sample \`${api ?? "upstream"}\`'s KDoc points at.`,
+      ...(kitComponentId
+        ? { related: [{ system: KIT_SYSTEM, componentId: kitComponentId }] }
+        : {}),
     });
   }
 
@@ -109,11 +190,12 @@ export function buildGroups(map, renderable) {
       .sort((a, b) => a[0].localeCompare(b[0]))
       .map(([name, components]) => ({ name, components })),
     unmapped,
+    unjoined: [...unjoined].sort(),
   };
 }
 
-export function buildSpec(map, renderable) {
-  const { groups, unmapped } = buildGroups(map, renderable);
+export function buildSpec(map, renderable, firstCellByFamily = new Map()) {
+  const { groups, unmapped, unjoined } = buildGroups(map, renderable, firstCellByFamily);
   return {
     spec: {
       $schema:
@@ -145,13 +227,14 @@ export function buildSpec(map, renderable) {
       groups,
     },
     unmapped,
+    unjoined,
   };
 }
 
 function main(argv) {
   const map = JSON.parse(readFileSync(SAMPLE_MAP, "utf8"));
   const renderable = renderableSamples();
-  const { spec, unmapped } = buildSpec(map, renderable);
+  const { spec, unmapped, unjoined } = buildSpec(map, renderable, kitFirstCellByFamily());
   const json = `${JSON.stringify(spec, null, 2)}\n`;
 
   const components = spec.groups.reduce((n, g) => n + g.components.length, 0);
@@ -169,6 +252,20 @@ function main(argv) {
 
   writeFileSync(SPEC, json);
   console.log(`${SPEC}: ${components} component(s) in ${spec.groups.length} group(s).`);
+  const linked = spec.groups.reduce(
+    (n, g) => n + g.components.filter((c) => c.related).length,
+    0,
+  );
+  console.log(`  ${linked} component(s) link back to a ${KIT_SYSTEM} component.`);
+  if (unjoined.length > 0) {
+    // Reported every run, never inferred. Most of these are APIs this catalog publishes no
+    // component for, which is the ordinary case; the few that are a kit family under another name
+    // belong in `API_TO_KIT_FAMILY`, added by someone who knows the taxonomy.
+    console.log(
+      `  ${unjoined.length} API(s) reach no kit family: ` +
+        `${unjoined.slice(0, 8).join(", ")}${unjoined.length > 8 ? " …" : ""}`,
+    );
+  }
   if (unmapped.length > 0) {
     console.log(`  ${unmapped.length} renderable sample(s) no @sample tag points at, filed under Other.`);
   }
