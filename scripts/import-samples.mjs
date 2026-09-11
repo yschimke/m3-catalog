@@ -114,25 +114,83 @@ export function quarantined(path = QUARANTINE) {
   );
 }
 
-/** Copy every `.kt` file under the manifest's paths into [out], skipping quarantined ones. */
+/**
+ * Copy every `.kt` file under the manifest's paths into [out], skipping quarantined ones.
+ *
+ * RECURSIVE, and that is not incidental. This copy was flat until the Wear import proved it a bug:
+ * `androidx.wear.compose.material3.samples` keeps its shared glyphs in a `samples/icons/`
+ * subpackage, and a flat copy left it behind in silence — 24 compile errors pointing at a
+ * directory nobody had noticed was missing. A sample tree is a PACKAGE, not a directory of files,
+ * so the whole package travels.
+ *
+ * `androidx.compose.material3.samples` is flat today, so this changes nothing here right now —
+ * verified against the pinned tree rather than assumed. It is ported so that the day upstream adds
+ * a subpackage, this import does not quietly thin the catalog instead of failing.
+ *
+ * Quarantine matches on the file's name, not its path, because that is the unit a reader names in
+ * `samples/quarantine.json` and sample file names are unique within a corpus.
+ */
 export function vendor(cache, manifest, out, skip = new Map()) {
   rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });
   const copied = [];
   const skipped = [];
-  for (const path of manifest.paths) {
-    const from = join(cache, path);
+  const walk = (from, relative) => {
     for (const entry of readdirSync(from, { withFileTypes: true })) {
+      const source = join(from, entry.name);
+      const target = relative ? `${relative}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) {
+        walk(source, target);
+        continue;
+      }
       if (!entry.isFile() || !entry.name.endsWith(".kt")) continue;
       if (skip.has(entry.name)) {
         skipped.push(entry.name);
         continue;
       }
-      cpSync(join(from, entry.name), join(out, entry.name));
-      copied.push(entry.name);
+      mkdirSync(dirname(join(out, target)), { recursive: true });
+      cpSync(source, join(out, target));
+      copied.push(target);
     }
-  }
+  };
+  for (const path of manifest.paths) walk(join(cache, path), "");
   return { copied: copied.sort(), skipped: skipped.sort() };
+}
+
+/**
+ * Copy the manifest's `resourcePaths` verbatim into [out] — the Android resource directory the
+ * samples resolve `R.drawable.*` against.
+ *
+ * Only meaningful for an ANDROID samples module, which THIS repo's is not: `:samples-catalog`
+ * renders through Compose Multiplatform desktop, where no `R` class is generated for any resources
+ * at all. `material3/samples` does carry a `res/` (five carousel JPEGs and a `strings.xml`), and
+ * vendoring it would still not compile `CarouselSamples.kt` — which is why that file is
+ * quarantined rather than fixed by copying them, and why `resourcePaths` is absent from this
+ * repo's manifest.
+ *
+ * The code is carried anyway so the two repos' importers stay one script with one behaviour; an
+ * absent `resourcePaths` is a no-op.
+ *
+ * Returns the number of files copied; absent `resourcePaths` is a no-op, so the phone repo's
+ * manifest shape stays valid against this same script.
+ */
+export function vendorResources(cache, manifest, out) {
+  const paths = manifest.resourcePaths ?? [];
+  if (paths.length === 0) return 0;
+  rmSync(out, { recursive: true, force: true });
+  let copied = 0;
+  for (const path of paths) {
+    const from = join(cache, path);
+    if (!existsSync(from)) continue;
+    cpSync(from, out, { recursive: true });
+    const count = (dir) =>
+      readdirSync(dir, { withFileTypes: true }).reduce(
+        (n, e) => n + (e.isDirectory() ? count(join(dir, e.name)) : 1),
+        0,
+      );
+    copied += count(from);
+  }
+  return copied;
 }
 
 /**
@@ -196,6 +254,8 @@ function main(argv) {
   const skip = quarantined();
   const out = check ? mkdtempSync(join(tmpdir(), "samples-import-")) : committed;
   const result = vendor(cache, manifest, out, skip);
+  const resourcesOut = args.get("res") ?? "samples-catalog/src/main/res";
+  const resources = check ? 0 : vendorResources(cache, manifest, resourcesOut);
   let patches;
   try {
     patches = applyPatches(out);
@@ -210,7 +270,8 @@ function main(argv) {
 
   console.log(
     `  ${result.copied.length} file(s) vendored, ${result.skipped.length} quarantined, ` +
-      `${patches.length} patch(es) applied.`,
+      `${patches.length} patch(es) applied` +
+      (resources > 0 ? `, ${resources} resource(s) copied.` : "."),
   );
   for (const name of result.skipped) console.log(`    quarantined: ${name} — ${skip.get(name)}`);
 
