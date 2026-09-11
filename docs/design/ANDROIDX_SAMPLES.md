@@ -28,6 +28,22 @@ Two catalogs from one repository is not new ground: `wear-m3-catalog` already pu
 does not spend a runner re-rendering the other. This repository has only the single `publish` job
 and needs that scoping job added.
 
+## What is built
+
+This document was written as a strategy and is kept as the record of one, with the decisions marked
+where measurement has since changed them. What exists in the tree today:
+
+| | |
+| --- | --- |
+| `samples/import.json` | the pin — repo, **commit SHA**, subtree paths, the AndroidX version the pin tracks |
+| `scripts/import-samples.mjs` | the vendoring importer (blobless sparse clone), `--check` to re-import and diff |
+| `samples/patches/`, `samples/quarantine.json` | the fix and gap mechanisms, both checked |
+| `scripts/sample-map.mjs`, `sample-map.json` | the `@sample` reader and its output — 153 APIs, 308 samples |
+| `scripts/samples-drift.mjs` | the pin's fingerprint check, passing `308 / 0 / 0` |
+
+Not built yet: the `:samples-catalog` Gradle module and its generated `@Preview` wrappers, the
+design-artifacts job, the `catalogs.json` registration, and the server's "Samples" affordance.
+
 ## Acquisition: vendor a pinned subtree
 
 **The samples are not published as artifacts.** Checked against Google Maven directly — every
@@ -54,10 +70,22 @@ paths, and the library version the module compiles against. `scripts/import-samp
 subtree into `samples-catalog/src/main/kotlin/…/upstream/`, preserving the Apache-2.0 headers
 verbatim, and writes a provenance file recording repo / SHA / paths / date beside a `NOTICE`.
 
-One thing to verify at implementation time: `android.googlesource.com` was unreachable from the
-sandbox this strategy was researched in (egress policy), so the `+archive` subtree-tarball endpoint
-could not be exercised. It is the cleanest option if a CI runner can reach it; the GitHub mirror at a
-tag is the fallback. Either way the pin is a SHA, so the choice of transport is not load-bearing.
+**Settled, and not by the transport this section first guessed at.** Neither
+`android.googlesource.com`'s `+archive` endpoint nor a codeload tarball is used: the first is
+unreachable behind some egress policies and the second 403s behind a proxy, and both need a
+directory listing to know what to fetch. What `scripts/import-samples.mjs` actually does is a
+**blobless sparse clone**:
+
+```
+git clone --filter=blob:none --no-checkout --depth 1 <repo> <cache>
+git sparse-checkout set <paths…>
+git checkout <ref>
+```
+
+Only the trees, and only the blobs under the sparse paths, are ever transferred — **13 MB** for the
+two sample subtrees, measured, against a multi-gigabyte whole-tree clone. It needs no API token and
+no directory listing, which is what makes it behave identically on a CI runner and a laptop, and it
+takes the pinned SHA directly.
 
 ## Which version — the question, settled
 
@@ -168,13 +196,25 @@ needed (`material3-desktop-1.12.0-alpha03-sources.jar`, 1.0 MB, 418 tag sites;
 Committed and regenerate-and-diff tested, the same contract `design-map.json` and
 `CatalogMatrixAnnotations.kt` already have here.
 
-**One parsing caveat, found while prototyping.** A naive "KDoc block, then the next line" scan
-mis-attributes about 12% of blocks — 31 of the 260 that carry a `@sample` in material3 1.5.0-alpha27.
-Two causes: a `@sample` on a *parameter* KDoc (the next line is the parameter, not the declaration),
-and `@Deprecated(…)`-annotated overloads (the next line is `message = …`). The parser needs a
-balanced-paren skip over annotation entries, and must attribute a parameter-level `@sample` to its
-enclosing declaration. Worth naming here because the naive version looks like it works — it resolves
-178 declarations and only lies about a tenth of them.
+**Why it is a scanner and not a regex.** A naive "KDoc block, then the next line" scan
+mis-attributes about 12% of blocks — 31 of the 260 that carry a `@sample` in material3
+1.5.0-alpha27. The confirmed cause is an **annotated declaration**: `@Deprecated(message = "Use
+overload with \`shape\`", level = DeprecationLevel.WARNING)` sits between the KDoc and the `fun`,
+spans lines, and contains both parentheses and a string, so "the next line" is `message = …`. So the
+parser tracks strings (raw `"""` included), comments and paren depth, and skips modifiers and
+annotations with balanced parens.
+
+**Correction to this document's first draft.** It also named "a `@sample` on a *parameter* KDoc" as
+a second cause, citing `DatePicker`'s `locale: CalendarLocale,` line. That was wrong. The block in
+question documents the `DatePickerState` factory and its `@sample` is at block level — the
+line-based prototype simply mis-landed on a `@param` line further down, and `DatePickerState` is the
+correct owner. Across material3 1.5.0-alpha27, the CMP artifact and wear-compose 1.7.0-beta02,
+**zero** blocks resolve through the parameter path. `sample-map.mjs` still handles it, and is tested
+for it, as defence rather than as a fix for anything observed.
+
+**Measured coverage**, which is what the claim rests on rather than a prototype: 260 of 260 blocks
+attributed and 319 of 319 unique samples reached on material3 1.5.0-alpha27; 308 of 308 on the CMP
+artifact; 170 of 170 on wear-compose. Nothing dropped anywhere.
 
 ### Joining a sample to a catalog component
 
@@ -205,16 +245,36 @@ is exactly the right reading: the kit cell beside how you call it. The server al
 rather than pretending the sibling drew the cell, so nothing needs to change for this to read
 honestly.
 
-**3. The back-link is the one piece that needs upstream work.** The component record carries
-`sourceFile` / `sourceModule` / `bodyLine` for the source link and `parallel` for the one sibling;
-there is no per-component "related catalog" surface. A link *from* `m3-catalog` *into* `m3-samples`
-therefore needs a small addition in compose-ai-tools, not configuration here.
+**3. The back-link needed upstream work, and it has landed.** The component record carried
+`sourceFile` / `sourceModule` / `bodyLine` for the source link and `parallel` for the one sibling,
+and nothing for a second relationship — so a link *from* `m3-catalog` *into* `m3-samples` was not
+expressible at all.
 
-Recommendation: a generic `related: [{ system, componentId, label }]` on the component record, plus a
-"Samples" affordance in the server's component view. A **list**, not a second `compareWith`, and the
-reason is `remote-m3`: it has already spent its single `compareWith` on `wear-m3-catalog`, so a
-pairwise mechanism cannot also point it at `wear-m3-samples`. Per this repo's AGENTS.md, a capability
-any catalog could want belongs upstream as a generic input — never as a forked pipeline here.
+It is now. `related: [{ system, componentId, label }]` is a generic list on the component record, a
+**list** and not a second `compareWith` precisely because `remote-m3` has already spent its single
+`compareWith` on `wear-m3-catalog` and no pairwise handle could also reach the samples. It carries no
+parity semantics: `parallel` says two renders are pictures of one cell and should be diffed, `related`
+says only that another catalog is worth looking at from here, so a samples catalog is never dragged
+into a comparison that scores it.
+
+Three pieces, all merged, tracked by
+[compose-ai-tools#5398](https://github.com/yschimke/compose-ai-tools/issues/5398):
+
+| Piece | Where |
+| --- | --- |
+| The spec field, validation, and the stamp onto `catalog.json` | compose-ai-tools#5399 |
+| `@CatalogComponent(related = […])` | compose-preview-daemon#62 |
+| Discovery reads it; the export's inventory parses it | compose-ai-tools#5401 |
+
+Two consequences for this repo. A component can declare its links in `catalog.spec.json` **today**;
+the annotation spelling waits on the `composeai-preview-daemon` pin moving to a release that carries
+it. And the entry form is `"<system>=<componentId>=<label>"`, where an empty `<componentId>` means
+"the same id as mine" — so `related = ["m3-samples==Samples"]` is the ordinary spelling for the
+id-parity case above, doubled `=` and all.
+
+What is still missing is the **server affordance**: the "Samples" link in the component view. Until a
+catalog actually publishes a `related` link there is nothing real for it to render, which is an
+argument for building it after `:samples-catalog` rather than against a fixture.
 
 ## The CI job
 
@@ -290,4 +350,4 @@ comm -23 cmp.txt ax.txt | wc -l   # only in CMP
 comm -13 cmp.txt ax.txt | wc -l   # only in AndroidX
 ```
 
-That last triple is what `scripts/samples-drift.mjs` should assert is `308 / 0 / 0`.
+That last triple is what `scripts/samples-drift.mjs` asserts is `308 / 0 / 0`, and does today.

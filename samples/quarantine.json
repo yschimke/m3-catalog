@@ -1,4 +1,37 @@
 {
-  "$comment": "AndroidX sample FILES this catalog cannot import, each with the reason. A declared, CHECKED gap -- scripts/import-samples.mjs skips these and a test fails when one becomes importable again -- so an exclusion cannot rot into a permanent one nobody revisits. Same contract kit-unauthorable.json carries for kit cells. EMPTY on purpose today: the quarantine is only honest once the :samples-catalog module exists and a compile says which samples genuinely cannot build, so entries are added from a real failure rather than guessed ahead of one.",
-  "samples": []
+  "$comment": "AndroidX sample FILES this catalog cannot compile, each with the reason and the evidence. A declared, CHECKED gap -- scripts/import-samples.mjs skips these and re-running the import without an entry is what says whether it is still needed -- so an exclusion cannot rot into a permanent one nobody revisits. Same contract kit-unauthorable.json carries for kit cells. Every entry below comes from a real compile failure against the pinned artifact, never from a guess ahead of one. Quarantine is per FILE, which is the unit the importer copies: a file listed here takes its whole sample set out of the catalog, including samples that would have compiled. That is a real cost, and the reason to prefer a patch wherever one is small enough to state.",
+  "samples": [
+    {
+      "file": "CarouselSamples.kt",
+      "reason": "90 errors, all Android resources: `R.drawable.*`, `stringResource`, `painterResource`. The carousel samples draw bundled artwork, which has no desktop equivalent -- there is no resource table to resolve against. Not version skew and not fixable by a small patch; it would mean substituting different images, which would publish a picture the catalog cannot defend as AndroidX's sample."
+    },
+    {
+      "file": "DatePickerSamples.kt",
+      "reason": "25 errors: `android.os.Build` version gates and `LocalContext` for locale-aware formatting. The samples branch on API level, which is meaningless on the desktop renderer."
+    },
+    {
+      "file": "ThemeSamples.kt",
+      "reason": "16 errors: `LocalContext`, for dynamic colour extracted from the Android system wallpaper. Dynamic colour does not exist off Android, so this sample has nothing to demonstrate here."
+    },
+    {
+      "file": "TimePickerSamples.kt",
+      "reason": "4 errors: `LocalConfiguration`, read to choose the 12- or 24-hour layout from the device setting. Android-only composition local."
+    },
+    {
+      "file": "TextFieldSamples.kt",
+      "reason": "2 errors: `androidx.core.text.isDigitsOnly`, an Android `core-ktx` extension used to validate input."
+    },
+    {
+      "file": "FloatingActionButtonMenuSamples.kt",
+      "reason": "2 errors: `androidx.activity.compose.BackHandler`, which needs an Android Activity to intercept the back gesture."
+    },
+    {
+      "file": "DragHandleSamples.kt",
+      "reason": "2 errors: `Modifier.systemGestureExclusion`, an Android-only modifier reserving screen edges from system gestures."
+    },
+    {
+      "file": "MenuSamples.kt",
+      "reason": "2 errors: `DropdownMenuGroupLabel`, which AndroidX material3 added after the version Compose Multiplatform ships. The ONLY residual version skew once the pin was corrected to the commit matching 1.5.0-alpha22, and the one entry here expected to disappear on its own: when the CMP pin moves, samples-drift.mjs fails first and re-running the import without this entry is the check."
+    }
+  ]
 }
