@@ -423,7 +423,21 @@ jobs:
       catalog-key: composePreviewPlugin
       # FALSE, unlike every other caller in this file: no AGP would mean no Glimmer at all.
       desktop-render: false
-      publish-live-bundle: false
+      # TRUE, and the Robolectric lane above is not an obstacle to it: `publish-live-bundle` carries
+      # the executable bundle for whichever daemon matches, and preview.coo.ee's image bakes the
+      # ANDROID one (`/opt/lib-daemon-android`, `android.jar` at ANDROID_HOME, and Robolectric's
+      # `android-all-instrumented` jar) precisely so an Android-backed catalog re-renders live
+      # rather than replaying baked PNGs. Without this the viewer's device, theme and knob controls
+      # have nothing to redraw with, and it says so on the sheet.
+      #
+      # No `embed-deps`: that is for coordinates the serve box cannot resolve, and Glimmer is not
+      # one — `CoordinateResolver` fetches from `repo1.maven.org` AND `dl.google.com/dl/android/maven2`,
+      # which is where `androidx.xr.glimmer` lives. Turning it on anyway would only make the bundle
+      # bigger.
+      #
+      # The third-party-execution caution the two samples jobs carry does NOT apply here: this
+      # module is first-party code in this repository, not upstream's bytes vendored at a pin.
+      publish-live-bundle: true
       split-per-preview: false
       commit-user-name: Yuri Schimke
       commit-user-email: yuri@schimke.ee
