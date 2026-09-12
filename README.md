@@ -1,0 +1,110 @@
+# Compose Glimmer Samples — design artifacts
+
+Importable sticker-sheet for **`androidx.xr.glimmer:glimmer`**, rendered from the committed
+`@Preview` catalog in [`yschimke/m3-catalog`](https://github.com/yschimke/m3-catalog). This branch is a
+**generated delivery artifact** — browse it in the page below, or pull it into
+Figma / Stitch / Claude Design.
+
+## 🔎 Browse the catalog
+
+**[▶ Open the rendered catalog (htmlpreview)](https://htmlpreview.github.io/?https://github.com/yschimke/m3-catalog/blob/design-artifacts/glimmer-samples/index.html)**
+
+A self-contained gallery — one card per component with its rendered PNG,
+dimensions, accessibility greenlines, and a link to an editable SVG wireframe.
+
+## 🔬 Compare SVG vs PNG
+
+**[▶ Open the SVG↔PNG comparison (htmlpreview)](https://htmlpreview.github.io/?https://github.com/yschimke/m3-catalog/blob/design-artifacts/glimmer-samples/compare.html)**
+
+Every component on one row: its editable **figma-svg** re-rasterized by the
+browser beside the rendered **PNG** it is measured against — the design vector on
+the left, the render on the right, as everywhere else the two are shown together
+— plus a live **structural-similarity (SSIM)** match
+score — so you can eyeball vector fidelity across the whole system at once and
+spot which stickers drift. The score is pre-blurred and downscaled, so a
+half-pixel rasterizer offset doesn't read as a mismatch.
+
+## ↔ Compare across systems
+
+**[▶ Open the Compose Glimmer Samples ↔ Compose Glimmer matches (htmlpreview)](https://htmlpreview.github.io/?https://github.com/yschimke/m3-catalog/blob/design-artifacts/glimmer-samples/matches.html)**
+
+Every component paired with its counterpart in **Compose Glimmer**, side by side — the
+authored `parallel` mapping in the catalog spec, rendered as a cross-system contact sheet. Both
+sides are static thumbnails — this branch's baked render on the left, the glimmer-catalog
+render baked from its own `design-artifacts/glimmer-catalog` branch on the right — and each
+links to the live preview server on click.
+
+## 🎛 Customise live
+
+**[▶ Open this catalog in the live preview server](https://preview.coo.ee/glimmer-samples/)**
+
+The same rendered components, served live by `compose-preview serve --catalogs glimmer-samples` —
+open one, then change the theme, locale, font scale, or device and watch it
+re-render. Every entry in `catalog.json` carries a per-variant `livePreview`
+deep link to its exact preview on the same server, so browsing this branch and
+customising the live render are two ends of one workflow.
+
+## At a glance
+
+| | |
+| --- | --- |
+| Components | **50** |
+| Rendered images (PNG) | **50** |
+| Editable wireframes (SVG) | **50** |
+| Editable design vectors (figma-svg) | **50** |
+| Components with a11y greenlines | **17** |
+| Library | `androidx.xr.glimmer:glimmer` |
+| Renderer | compose-preview 2.11.1 |
+| Schema | `design-parity-catalog/v1` |
+| Generated | 2026-09-12 |
+
+## Components by group
+
+| Group | Count |
+| --- | ---: |
+| Card | 10 |
+| ListItem | 9 |
+| Button | 8 |
+| ToggleButton | 4 |
+| Surface | 3 |
+| TitleChip | 3 |
+| GlimmerLazyList | 2 |
+| ButtonGroup | 1 |
+| Colors | 1 |
+| DepthEffectLevels | 1 |
+| GlimmerPager | 1 |
+| Icon | 1 |
+| IconButton | 1 |
+| IconToggleButton | 1 |
+| IndirectPointerGesture | 1 |
+| Shapes | 1 |
+| Stack | 1 |
+| Typography | 1 |
+
+## What's in this branch
+
+| Path | What it is |
+| --- | --- |
+| `index.html` | Self-contained gallery — [open via htmlpreview](https://htmlpreview.github.io/?https://github.com/yschimke/m3-catalog/blob/design-artifacts/glimmer-samples/index.html) |
+| `compare.html` | SVG↔PNG comparison with a live structural-similarity score — [open via htmlpreview](https://htmlpreview.github.io/?https://github.com/yschimke/m3-catalog/blob/design-artifacts/glimmer-samples/compare.html) |
+| `matches.html` | Cross-system component pairing vs `glimmer-catalog` — [open via htmlpreview](https://htmlpreview.github.io/?https://github.com/yschimke/m3-catalog/blob/design-artifacts/glimmer-samples/matches.html) |
+| `catalog.json` | Machine-readable catalog (`design-parity-catalog/v1`): components, variants, design tokens, greenlines, and per-variant `livePreview` deep links |
+| `images/` | Rendered PNGs — the source of truth for each variant |
+| `wireframes/` | One editable SVG per component (layout-inspector tree → token-styled shapes) |
+
+## Using it
+
+- **Figma / Stitch / Claude Design** — import `catalog.json` + `images/` as a sticker sheet.
+- **Browse** — open `index.html` through htmlpreview (link above), or clone the branch and open it locally.
+- **Customise** — open the [live preview server](https://preview.coo.ee/glimmer-samples/) (or any image's `livePreview` link in `catalog.json`) to re-render a component under different themes / locales / devices.
+- **Adopt structure** — the `wireframes/*.svg` are plain vector files; drop one into any editor to start from the real layout instead of tracing a screenshot.
+
+## Provenance
+
+Generated by the [`Design Artifacts`](https://github.com/yschimke/m3-catalog/actions/workflows/design-artifacts.yml)
+workflow: `compose-preview bundle pack` → catalog-export driver → force-push to
+this branch. The render is the source of truth.
+
+> ⚠️ **This branch is regenerated (force-pushed) from `main`** — weekly and after
+> catalog/renderer changes. Don't commit work here by hand; it will be
+> overwritten on the next run.

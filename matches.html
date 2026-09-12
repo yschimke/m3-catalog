@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Compose Glimmer Samples ↔ Compose Glimmer — component matches</title>
+<style>
+  :root { color-scheme: light dark; --bg:#0f0f10; --panel:#1b1b1d; --fg:#e8e8ea; --muted:#9b9ba1; --line:#2a2a2d;
+    --accent:#7dd87d; --warn:#e0c060; --link:#8ab4f8; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--fg); }
+  header.top { padding:24px clamp(16px,4vw,40px); border-bottom:1px solid var(--line); }
+  header.top h1 { margin:0 0 6px; font-size:22px; }
+  header.top .subtitle { color:var(--muted); font-size:13px; display:flex; gap:16px; flex-wrap:wrap; }
+  header.top .arrow { color:var(--accent); }
+  header.top .note { margin-top:10px; color:var(--muted); font-size:12px; max-width:78ch; }
+  header.top code { background:var(--panel); padding:1px 6px; border-radius:5px; }
+  main { padding:8px clamp(16px,4vw,40px) 64px; }
+  table { border-collapse:collapse; width:100%; }
+  /* line-height is pinned, not inherited: the row offset below is arithmetic on these
+     exact numbers, and a heading whose height nobody can compute is a header rows hide
+     under. */
+  thead th { position:sticky; top:0; background:var(--bg); text-align:left; font-size:12px; color:var(--muted);
+    line-height:1.35; padding:10px 12px; border-bottom:1px solid var(--line); z-index:1; }
+  tbody tr.crow { border-bottom:1px solid var(--line); }
+  th.rowhead { text-align:left; font-weight:600; padding:12px; vertical-align:middle; width:22%; }
+  th.rowhead .cid { display:block; word-break:break-word; }
+  /* scroll-margin-top because thead th is sticky: without it a row jumped to from
+     its #c-slug anchor lands underneath the header and reads as the wrong row.
+
+     Derived, not guessed. It used to be a flat 44px — the height of a ONE-LINE
+     heading — and a heading wraps: the design-reference column's "M3 Wear OS Apps
+     Design Kit" does it at a narrow viewport, and the row then lands back under the
+     header, which is the failure this margin exists to prevent. So the reserve is
+     three heading lines, spelled as the arithmetic that produces it:
+     3 lines x 1.35 x 12px, + 10px padding top and bottom, + the 1px border.
+
+     Overshooting is free and undershooting is not — too much margin leaves a little
+     empty space above the row, too little hides the row — so this reserves more than
+     any current heading needs, on purpose. The page carries no script -- the
+     "fully static" test pins that -- so measuring the header at view time is not on
+     the table; keep these numbers in step with thead th above if either moves. */
+  tr.crow { scroll-margin-top:calc(3 * 1.35 * 12px + 21px); }
+  a.anchor { color:inherit; text-decoration:none; }
+  a.anchor:hover, a.anchor:focus-visible { text-decoration:underline; }
+  a.anchor::after { content:" #"; color:var(--muted); opacity:0; }
+  tr.crow:hover a.anchor::after, a.anchor:focus-visible::after { opacity:1; }
+  tr.crow:target { outline:2px solid var(--accent); outline-offset:-2px; }
+  th.rowhead .grp { display:block; margin-top:3px; font-weight:400; font-size:11px; color:var(--muted); }
+  td { padding:10px 12px; vertical-align:middle; }
+
+  .pv-embed { position:relative; display:inline-flex; flex-direction:column; gap:6px; text-decoration:none; color:inherit; }
+  .pv-frame { position:relative; display:inline-grid; place-items:center; min-width:120px; min-height:80px;
+    padding:10px; border-radius:10px; background-color:#161617; }
+  .pv-frame--checker { background-image:
+      linear-gradient(45deg,#202022 25%,transparent 25%),
+      linear-gradient(-45deg,#202022 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,#202022 75%),
+      linear-gradient(-45deg,transparent 75%,#202022 75%);
+    background-size:16px 16px; background-position:0 0,0 8px,8px -8px,-8px 0; }
+  .pv-frame--solid { background-color:#1b1b1d; }
+  .pv-frame--bare { background:none; padding:0; }
+  .pv-img { max-width:var(--pv-max-w,260px); max-height:var(--pv-max-h,200px); height:auto; display:block; }
+  .pv-missing { color:var(--muted); font-style:italic; font-size:12px; text-align:center; padding:0 8px; }
+  .pv-label { font-size:12px; color:var(--muted); }
+  .pv-live { position:absolute; top:6px; right:8px; font-size:11px; color:var(--link);
+    background:rgba(10,10,12,0.72); border-radius:6px; padding:1px 6px; opacity:0; transition:opacity .12s; pointer-events:none; }
+  a.pv-embed:hover .pv-live, a.pv-embed:focus-visible .pv-live { opacity:1; }
+  a.pv-embed:hover .pv-frame, a.pv-embed:focus-visible .pv-frame { outline:1px solid var(--link); outline-offset:1px; }
+  @media (max-width:640px){ .pv-img { max-width:min(var(--pv-max-w,260px),150px); } .pv-live { opacity:1; } }
+
+  .pv-missing code { background:var(--panel); padding:0 4px; border-radius:4px; font-style:normal; }
+  a.pv-open { font-size:11px; color:var(--link); text-decoration:none; }
+  a.pv-open:hover { text-decoration:underline; }
+  .rel code { font-size:12px; }
+  .badge { display:inline-block; margin-left:6px; font-size:10px; padding:0 6px; border-radius:999px;
+    background:rgba(224,192,96,0.12); color:var(--warn); border:1px solid var(--warn); }
+  section.solo { margin-top:36px; }
+  section.solo h2 { font-size:15px; border-bottom:1px solid var(--line); padding-bottom:6px; }
+  section.solo h2 span { color:var(--muted); font-weight:400; }
+  section.solo ul { list-style:none; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:6px 20px; }
+  section.solo li { padding:6px 0; border-bottom:1px solid var(--line); }
+  section.solo .cid { font-weight:600; }
+  section.solo .grp { color:var(--muted); font-size:11px; margin-left:8px; }
+  section.solo .cap { display:block; color:var(--muted); font-size:12px; }
+  @media (max-width:640px){ th.rowhead { width:auto; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Compose Glimmer Samples ↔ Compose Glimmer</h1>
+  <div class="subtitle"><span>Compose Glimmer Samples <span class="arrow">↔</span> Compose Glimmer</span><span>0 paired</span><span>0 rendered both sides</span></div>
+  <p class="note">Each row pairs a <strong>glimmer-samples</strong> component with its declared
+  <strong>glimmer-catalog</strong> parallel (the <code>parallel</code> field in the catalog spec). Both
+  renders are static thumbnails — the left from this branch, the right baked from the
+  <code>design-artifacts/glimmer-catalog</code> branch — and each <strong>links to the live preview server</strong> on
+  click, where the component re-renders under other themes / locales / devices. A parallel that isn't
+  catalogued in glimmer-catalog yet is flagged <span class="badge">unpaired</span>. Components with
+  no parallel on either side are listed below the table.</p>
+</header>
+<main>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Component</th>
+        <th scope="col">Compose Glimmer Samples</th>
+        <th scope="col">Compose Glimmer</th>
+        <th scope="col">Parallel</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <section class="solo"><h2>Only in glimmer-samples <span>50</span></h2>
+       <ul><li><span class="cid">Button/ButtonSample</span><span class="grp">Button</span><span class="cap">`ButtonSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Button/ButtonWithLeadingIconSample</span><span class="grp">Button</span><span class="cap">`ButtonWithLeadingIconSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Button/ButtonWithTrailingIconSample</span><span class="grp">Button</span><span class="cap">`ButtonWithTrailingIconSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Button/ButtonWithLeadingAndTrailingIconSample</span><span class="grp">Button</span><span class="cap">`ButtonWithLeadingAndTrailingIconSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Button/LargeButtonSample</span><span class="grp">Button</span><span class="cap">`LargeButtonSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Button/LargeButtonWithLeadingIconSample</span><span class="grp">Button</span><span class="cap">`LargeButtonWithLeadingIconSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Button/LargeButtonWithTrailingIconSample</span><span class="grp">Button</span><span class="cap">`LargeButtonWithTrailingIconSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Button/LargeButtonWithLeadingAndTrailingIconSample</span><span class="grp">Button</span><span class="cap">`LargeButtonWithLeadingAndTrailingIconSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ButtonGroup/ButtonGroupSample</span><span class="grp">ButtonGroup</span><span class="cap">`ButtonGroupSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Card/CardSample</span><span class="grp">Card</span><span class="cap">`CardSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Card/CardWithTrailingIconSample</span><span class="grp">Card</span><span class="cap">`CardWithTrailingIconSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Card/CardWithTitleAndSubtitleAndLeadingIconSample</span><span class="grp">Card</span><span class="cap">`CardWithTitleAndSubtitleAndLeadingIconSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Card/CardWithTitleAndHeaderSample</span><span class="grp">Card</span><span class="cap">`CardWithTitleAndHeaderSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Card/ActionCardWithTitleSample</span><span class="grp">Card</span><span class="cap">`ActionCardWithTitleSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Card/CardWithTitleAndLeadingIconAndHeader</span><span class="grp">Card</span><span class="cap">`CardWithTitleAndLeadingIconAndHeader` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Card/ActionCardWithTitleAndLeadingIconAndHeader</span><span class="grp">Card</span><span class="cap">`ActionCardWithTitleAndLeadingIconAndHeader` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Card/CardWithLongText</span><span class="grp">Card</span><span class="cap">`CardWithLongText` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Card/CardWithTitleAndSubtitleAndLeadingIconLongText</span><span class="grp">Card</span><span class="cap">`CardWithTitleAndSubtitleAndLeadingIconLongText` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Card/CardWithTitleAndSubtitleAndLeadingIconAndTrailingIconLongText</span><span class="grp">Card</span><span class="cap">`CardWithTitleAndSubtitleAndLeadingIconAndTrailingIconLongText` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Colors/ColorsSample</span><span class="grp">Colors</span><span class="cap">`ColorsSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">DepthEffectLevels/DepthEffectLevelsSample</span><span class="grp">DepthEffectLevels</span><span class="cap">`DepthEffectLevelsSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">GlimmerLazyList/GlimmerLazyColumnSample</span><span class="grp">GlimmerLazyList</span><span class="cap">`GlimmerLazyColumnSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">GlimmerLazyList/GlimmerLazyColumnWithTitleChipSample</span><span class="grp">GlimmerLazyList</span><span class="cap">`GlimmerLazyColumnWithTitleChipSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">GlimmerPager/GlimmerHorizontalPagerSample</span><span class="grp">GlimmerPager</span><span class="cap">`GlimmerHorizontalPagerSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Icon/IconSampleUsage</span><span class="grp">Icon</span><span class="cap">`IconSampleUsage` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">IconButton/IconButtonSample</span><span class="grp">IconButton</span><span class="cap">`IconButtonSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">IconToggleButton/IconToggleButtonSample</span><span class="grp">IconToggleButton</span><span class="cap">`IconToggleButtonSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">IndirectPointerGesture/OnIndirectPointerGestureSampleUsage</span><span class="grp">IndirectPointerGesture</span><span class="cap">`OnIndirectPointerGestureSampleUsage` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ListItem/ListItemSample</span><span class="grp">ListItem</span><span class="cap">`ListItemSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ListItem/ListItemWithSupportingLabelSample</span><span class="grp">ListItem</span><span class="cap">`ListItemWithSupportingLabelSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ListItem/ListItemWithSupportingLabelAndLeadingIconSample</span><span class="grp">ListItem</span><span class="cap">`ListItemWithSupportingLabelAndLeadingIconSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ListItem/ClickableListItemSample</span><span class="grp">ListItem</span><span class="cap">`ClickableListItemSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ListItem/ClickableListItemWithSupportingLabelSample</span><span class="grp">ListItem</span><span class="cap">`ClickableListItemWithSupportingLabelSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ListItem/ClickableListItemWithSupportingLabelAndLeadingIconSample</span><span class="grp">ListItem</span><span class="cap">`ClickableListItemWithSupportingLabelAndLeadingIconSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ListItem/ListItemWithSupportingLabelAndIcons</span><span class="grp">ListItem</span><span class="cap">`ListItemWithSupportingLabelAndIcons` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ListItem/ListItemWithLeadingIconLongText</span><span class="grp">ListItem</span><span class="cap">`ListItemWithLeadingIconLongText` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ListItem/ListItemWithSupportingLabelAndLeadingIconLongText</span><span class="grp">ListItem</span><span class="cap">`ListItemWithSupportingLabelAndLeadingIconLongText` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Shapes/ShapesSample</span><span class="grp">Shapes</span><span class="cap">`ShapesSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Stack/VerticalStackSample</span><span class="grp">Stack</span><span class="cap">`VerticalStackSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Surface/SurfaceSample</span><span class="grp">Surface</span><span class="cap">`SurfaceSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Surface/FocusableSurfaceSample</span><span class="grp">Surface</span><span class="cap">`FocusableSurfaceSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Surface/ClickableSurfaceSample</span><span class="grp">Surface</span><span class="cap">`ClickableSurfaceSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">TitleChip/TitleChipSample</span><span class="grp">TitleChip</span><span class="cap">`TitleChipSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">TitleChip/TitleChipWithLeadingIconSample</span><span class="grp">TitleChip</span><span class="cap">`TitleChipWithLeadingIconSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">TitleChip/TitleChipWithCardSample</span><span class="grp">TitleChip</span><span class="cap">`TitleChipWithCardSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ToggleButton/ToggleButtonSample</span><span class="grp">ToggleButton</span><span class="cap">`ToggleButtonSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ToggleButton/LargeToggleButtonSample</span><span class="grp">ToggleButton</span><span class="cap">`LargeToggleButtonSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ToggleButton/ToggleButtonWithLeadingIconSample</span><span class="grp">ToggleButton</span><span class="cap">`ToggleButtonWithLeadingIconSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">ToggleButton/ToggleButtonWithTrailingIconSample</span><span class="grp">ToggleButton</span><span class="cap">`ToggleButtonWithTrailingIconSample` — the sample upstream&#39;s own `@Preview` renders.</span></li>
+<li><span class="cid">Typography/TypographyDefaultUsage</span><span class="grp">Typography</span><span class="cap">`TypographyDefaultUsage` — the sample upstream&#39;s own `@Preview` renders.</span></li></ul></section>
+  <section class="solo"><h2>Only in glimmer-catalog <span>8</span></h2>
+       <ul><li><span class="cid">Button</span><span class="grp">Button</span><span class="cap">The primary action. Two sizes and the leading / trailing icon slots fold in.</span></li>
+<li><span class="cid">ToggleButton</span><span class="grp">Button</span><span class="cap">A button that holds its state. The corner morphs between checked and unchecked.</span></li>
+<li><span class="cid">Card</span><span class="grp">Card</span><span class="cap">A surface for a unit of content. Title, subtitle and the icon slots fold in.</span></li>
+<li><span class="cid">TitleChip</span><span class="grp">Card</span><span class="cap">Labels the content it sits above. Carries its own leading-icon slot.</span></li>
+<li><span class="cid">IconButton</span><span class="grp">Icon button</span><span class="cap">An action carried by its icon alone.</span></li>
+<li><span class="cid">IconToggleButton</span><span class="grp">Icon button</span><span class="cap">An icon button that holds its checked state.</span></li>
+<li><span class="cid">ListItem</span><span class="grp">List item</span><span class="cap">One row of a list. The supporting label and icon slots fold in.</span></li>
+<li><span class="cid">VoiceInputIndicator</span><span class="grp">Voice input</span><span class="cap">Shows that the glasses are listening, and how loudly. Level pinned at 0.6.</span></li></ul></section>
+</main>
+</body>
+</html>
