@@ -72,7 +72,8 @@
       "description": "`preview-annotations` and `data-preview-overrides-runtime` are published from yschimke/compose-preview-daemon since its 3.0.0 (compose-ai-tools#5336), on a version line of their own that is already ahead of compose-ai-tools', so they must not share the tools group above: one group means one shared version ref, and a ref spanning two release lines is a version lie whichever way it points. `composePreviewAnnotations` in gradle/libs.versions.toml is that line's ref; the plugin marker and the CI action refs stay on the compose-ai-tools group. Same reasoning as the contracts rule above, and placed after it so the last match wins.",
       "matchPackageNames": [
         "ee.schimke.composeai:preview-annotations",
-        "ee.schimke.composeai:data-preview-overrides-runtime"
+        "ee.schimke.composeai:data-preview-overrides-runtime",
+        "ee.schimke.composeai:data-remotecompose-connector"
       ],
       "groupName": "compose-preview-daemon",
       "schedule": ["at any time"],
