@@ -226,6 +226,17 @@ export function buildSpec(map, renderable, firstCellByFamily = new Map()) {
       library: ["org.jetbrains.compose.material3:material3"],
       module: ":samples-catalog",
       modes: ["light", "dark"],
+      // WHAT KIND of catalog this is, which the preview server reads to shape the pages: a catalog
+      // of CALL SITES drops every comparison lane — a sample is not a rendition of a reference, so
+      // a difference between the two is not a defect and offering the lane would invite a reader to
+      // read it as one — and stands the source beside the render instead of behind a chip, because
+      // here the code is what the page is for. It also names this catalog in the kit's back-links,
+      // so a component points at "Samples" rather than at this sheet's title.
+      //
+      // Declared, because only the catalog knows. The server may not infer it from a system name:
+      // which catalogs exist is a deployment's business, and `ui-builder-catalog-literals.sh` there
+      // exists to keep that knowledge out of its Kotlin.
+      display: { role: "samples" },
       // The one thing an imported project cannot declare for itself. Without it every sample
       // renders on Compose's fallback palette rather than the Material system the catalog beside it
       // is drawn in, and the two would not be comparable.
