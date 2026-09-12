@@ -312,16 +312,29 @@ jobs:
       # difference and not a renderer difference. The Wear repo's samples module is the opposite
       # case: `androidx.wear.compose` ships Android-only and renders through Robolectric.
       desktop-render: true
-      # BAKED STICKERS ONLY, deliberately, and the one input here worth revisiting later.
+      # LIVE — and this is the change the previous comment said would have to make its own case.
       #
-      # This repo's `design-artifacts/*` branches are already trusted by the preview server's
-      # `producers.json`, and on that box trust is eligibility for server-side execution under
-      # `SERVE_ALLOW_RENDER_TRUSTED=1`. A live bundle for THIS sheet therefore means the server
-      # executing vendored third-party Compose on request — which may well be fine, but it is a
-      # decision about what that host runs, not a detail of how this catalog publishes. Turning it
-      # on is its own deliberate change with its own reasoning; it does not ride in on the commit
-      # that first publishes the sheet.
-      publish-live-bundle: false
+      # What is granted, stated plainly: this repo's `design-artifacts/*` branches are trusted by the
+      # preview server's `producers.json`, and on a box running `SERVE_ALLOW_RENDER_TRUSTED=1` (the
+      # image default) trust is eligibility for SERVER-SIDE EXECUTION. Publishing a live bundle here
+      # therefore means preview.coo.ee running vendored third-party Compose on request, where every
+      # other trusted producer is first-party code reviewed in its own repository.
+      #
+      # Granted on three specifics rather than on "it is probably fine":
+      #  - it is the same sandbox `:catalog`'s own code already runs in on that box, so this widens
+      #    WHAT executes, not how — here the desktop/Skiko lane rather than the Wear repo's
+      #    Robolectric one, since these samples compile against Compose Multiplatform;
+      #  - the samples are public AndroidX source, vendored from a commit SHA this repo pins and
+      #    re-fetched byte-identically on every import, so what runs is auditable and cannot drift
+      #    under us between publishes;
+      #  - without it a samples page is baked PNGs with no device, theme or knob control, and those
+      #    are most of what makes a call site worth opening rather than reading on GitHub.
+      #
+      # The line this does NOT cross: `producers.json`'s own note about `compose-preview-imports`,
+      # where trust means the import review and the pipeline rather than the upstream projects. That
+      # registry still publishes no executable payload. This is the narrower grant — one pinned
+      # upstream, imported into this repository under review — and it should stay one.
+      publish-live-bundle: true
       # No per-preview split, matching the job above: it writes an addressable copy of every preview
       # onto an append-only branch on every publish, and 240 of them would grow this repository's
       # checkout for a lane nothing reads.
