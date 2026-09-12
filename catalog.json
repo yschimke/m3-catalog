@@ -1,0 +1,894 @@
+{
+  "schema": "design-parity-catalog/v1",
+  "system": "glimmer-catalog",
+  "title": "Compose Glimmer",
+  "components": [
+    {
+      "componentId": "Button",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/button/ideal__default__expanded.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/button__ideal__default__expanded",
+          "previewId": "ee.schimke.m3catalog.glimmer.ButtonsKt.ButtonSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        },
+        {
+          "variant": "ideal",
+          "path": "images/button/ideal__default__expanded__size-large.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "props": {
+            "size": "Large"
+          },
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/button__ideal__default__expanded__size-large",
+          "previewId": "ee.schimke.m3catalog.glimmer.ButtonsKt.ButtonLargeSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        },
+        {
+          "variant": "ideal",
+          "path": "images/button/ideal__default__expanded__content-leading-icon.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "props": {
+            "content": "leading-icon"
+          },
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/button__ideal__default__expanded__content-leading-icon",
+          "previewId": "ee.schimke.m3catalog.glimmer.ButtonsKt.ButtonLeadingIconSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        },
+        {
+          "variant": "ideal",
+          "path": "images/button/ideal__default__expanded__content-trailing-icon.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "props": {
+            "content": "trailing-icon"
+          },
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/button__ideal__default__expanded__content-trailing-icon",
+          "previewId": "ee.schimke.m3catalog.glimmer.ButtonsKt.ButtonTrailingIconSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 442,
+              "y": 336,
+              "width": 77,
+              "height": 48
+            }
+          },
+          "bounds": {
+            "x": 442,
+            "y": 336,
+            "width": 77,
+            "height": 48
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 442,
+            "y": 336,
+            "width": 77,
+            "height": 48
+          },
+          "padding": {
+            "start": 24,
+            "top": 24,
+            "end": 24,
+            "bottom": 24
+          }
+        },
+        {
+          "bounds": {
+            "x": 442,
+            "y": 336,
+            "width": 77,
+            "height": 48
+          },
+          "role": "Button",
+          "padding": {
+            "start": 16,
+            "top": 8,
+            "end": 16,
+            "bottom": 8
+          },
+          "cornerRadius": 24
+        }
+      ],
+      "section": "Actions",
+      "group": "Button",
+      "caption": "The primary action. Two sizes and the leading / trailing icon slots fold in.",
+      "noReference": "Glimmer publishes no Figma kit. There is nothing to compare against, and no kit node exists to name — this is an audited absence, not a mapping nobody has done yet.",
+      "wireframe": "wireframes/button.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/Buttons.kt",
+      "sourceModule": ":glimmer-catalog",
+      "bodyLine": 37,
+      "sourceDirectory": "glimmer-catalog",
+      "sourceFunction": "ButtonSticker",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "composableSlot": true
+        }
+      ]
+    },
+    {
+      "componentId": "ToggleButton",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/togglebutton/ideal__default__expanded.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/togglebutton__ideal__default__expanded",
+          "previewId": "ee.schimke.m3catalog.glimmer.ButtonsKt.ToggleButtonSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        },
+        {
+          "variant": "ideal",
+          "path": "images/togglebutton/ideal__checked__expanded.png",
+          "state": "checked",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/togglebutton__ideal__checked__expanded",
+          "previewId": "ee.schimke.m3catalog.glimmer.ButtonsKt.ToggleButtonCheckedSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "checkbox",
+          "detail": {
+            "role": "checkbox",
+            "bounds": {
+              "x": 420,
+              "y": 336,
+              "width": 121,
+              "height": 48
+            }
+          },
+          "bounds": {
+            "x": 420,
+            "y": 336,
+            "width": 121,
+            "height": 48
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 420,
+            "y": 336,
+            "width": 121,
+            "height": 48
+          },
+          "padding": {
+            "start": 24,
+            "top": 24,
+            "end": 24,
+            "bottom": 24
+          }
+        },
+        {
+          "bounds": {
+            "x": 420,
+            "y": 336,
+            "width": 121,
+            "height": 48
+          },
+          "role": "Checkbox",
+          "padding": {
+            "start": 16,
+            "top": 8,
+            "end": 16,
+            "bottom": 8
+          }
+        }
+      ],
+      "section": "Actions",
+      "group": "Button",
+      "caption": "A button that holds its state. The corner morphs between checked and unchecked.",
+      "noReference": "Glimmer publishes no Figma kit; see Button.",
+      "wireframe": "wireframes/togglebutton.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/Buttons.kt",
+      "sourceModule": ":glimmer-catalog",
+      "bodyLine": 101,
+      "sourceDirectory": "glimmer-catalog",
+      "sourceFunction": "ToggleButtonSticker",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "composableSlot": true
+        }
+      ]
+    },
+    {
+      "componentId": "Card",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/card/ideal__default__expanded.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/card__ideal__default__expanded",
+          "previewId": "ee.schimke.m3catalog.glimmer.CardsKt.CardSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        },
+        {
+          "variant": "ideal",
+          "path": "images/card/ideal__default__expanded__content-trailing-icon.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "props": {
+            "content": "trailing-icon"
+          },
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/card__ideal__default__expanded__content-trailing-icon",
+          "previewId": "ee.schimke.m3catalog.glimmer.CardsKt.CardTrailingIconSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        },
+        {
+          "variant": "ideal",
+          "path": "images/card/ideal__default__expanded__content-title-subtitle-icon.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "props": {
+            "content": "title-subtitle-icon"
+          },
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/card__ideal__default__expanded__content-title-subtitle-icon",
+          "previewId": "ee.schimke.m3catalog.glimmer.CardsKt.CardTitleSubtitleSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 24,
+            "y": 320,
+            "width": 912,
+            "height": 80
+          },
+          "padding": {
+            "start": 24,
+            "top": 24,
+            "end": 24,
+            "bottom": 24
+          }
+        },
+        {
+          "bounds": {
+            "x": 24,
+            "y": 320,
+            "width": 912,
+            "height": 80
+          },
+          "padding": {
+            "start": 12,
+            "top": 12,
+            "end": 12,
+            "bottom": 12
+          },
+          "cornerRadius": 36
+        }
+      ],
+      "section": "Containment",
+      "group": "Card",
+      "caption": "A surface for a unit of content. Title, subtitle and the icon slots fold in.",
+      "noReference": "Glimmer publishes no Figma kit; see Button.",
+      "wireframe": "wireframes/card.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/Cards.kt",
+      "sourceModule": ":glimmer-catalog",
+      "bodyLine": 29,
+      "sourceDirectory": "glimmer-catalog",
+      "sourceFunction": "CardSticker",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "composableSlot": true
+        }
+      ]
+    },
+    {
+      "componentId": "TitleChip",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/titlechip/ideal__default__expanded.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/titlechip__ideal__default__expanded",
+          "previewId": "ee.schimke.m3catalog.glimmer.CardsKt.TitleChipSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        },
+        {
+          "variant": "ideal",
+          "path": "images/titlechip/ideal__default__expanded__content-leading-icon.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "props": {
+            "content": "leading-icon"
+          },
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/titlechip__ideal__default__expanded__content-leading-icon",
+          "previewId": "ee.schimke.m3catalog.glimmer.CardsKt.TitleChipLeadingIconSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 427,
+            "y": 338,
+            "width": 107,
+            "height": 44
+          },
+          "padding": {
+            "start": 24,
+            "top": 24,
+            "end": 24,
+            "bottom": 24
+          }
+        },
+        {
+          "bounds": {
+            "x": 433,
+            "y": 344,
+            "width": 95,
+            "height": 32
+          },
+          "padding": {
+            "start": 6,
+            "top": 6,
+            "end": 6,
+            "bottom": 6
+          },
+          "cornerRadius": 16
+        }
+      ],
+      "section": "Containment",
+      "group": "Card",
+      "caption": "Labels the content it sits above. Carries its own leading-icon slot.",
+      "noReference": "Glimmer publishes no Figma kit; see Button.",
+      "wireframe": "wireframes/titlechip.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/Cards.kt",
+      "sourceModule": ":glimmer-catalog",
+      "bodyLine": 82,
+      "sourceDirectory": "glimmer-catalog",
+      "sourceFunction": "TitleChipSticker",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "composableSlot": true
+        }
+      ]
+    },
+    {
+      "componentId": "IconButton",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/iconbutton/ideal__default__expanded.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/iconbutton__ideal__default__expanded",
+          "previewId": "ee.schimke.m3catalog.glimmer.IconButtonsKt.IconButtonSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "button",
+          "detail": {
+            "role": "button",
+            "bounds": {
+              "x": 456,
+              "y": 336,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "bounds": {
+            "x": 456,
+            "y": 336,
+            "width": 48,
+            "height": 48
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 456,
+            "y": 336,
+            "width": 48,
+            "height": 48
+          },
+          "padding": {
+            "start": 24,
+            "top": 24,
+            "end": 24,
+            "bottom": 24
+          }
+        },
+        {
+          "bounds": {
+            "x": 456,
+            "y": 336,
+            "width": 48,
+            "height": 48
+          },
+          "role": "Button",
+          "padding": {
+            "start": 8,
+            "top": 8,
+            "end": 8,
+            "bottom": 8
+          },
+          "cornerRadius": 24
+        }
+      ],
+      "section": "Actions",
+      "group": "Icon button",
+      "caption": "An action carried by its icon alone.",
+      "noReference": "Glimmer publishes no Figma kit; see Button.",
+      "wireframe": "wireframes/iconbutton.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/IconButtons.kt",
+      "sourceModule": ":glimmer-catalog",
+      "bodyLine": 29,
+      "sourceDirectory": "glimmer-catalog",
+      "sourceFunction": "IconButtonSticker",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "composableSlot": true
+        }
+      ]
+    },
+    {
+      "componentId": "IconToggleButton",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/icontogglebutton/ideal__default__expanded.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/icontogglebutton__ideal__default__expanded",
+          "previewId": "ee.schimke.m3catalog.glimmer.IconButtonsKt.IconToggleButtonSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        },
+        {
+          "variant": "ideal",
+          "path": "images/icontogglebutton/ideal__checked__expanded.png",
+          "state": "checked",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/icontogglebutton__ideal__checked__expanded",
+          "previewId": "ee.schimke.m3catalog.glimmer.IconButtonsKt.IconToggleButtonCheckedSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        }
+      ],
+      "greenlines": [
+        {
+          "kind": "a11y",
+          "severity": "info",
+          "message": "checkbox",
+          "detail": {
+            "role": "checkbox",
+            "bounds": {
+              "x": 456,
+              "y": 336,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "bounds": {
+            "x": 456,
+            "y": 336,
+            "width": 48,
+            "height": 48
+          }
+        }
+      ],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 456,
+            "y": 336,
+            "width": 48,
+            "height": 48
+          },
+          "padding": {
+            "start": 24,
+            "top": 24,
+            "end": 24,
+            "bottom": 24
+          }
+        },
+        {
+          "bounds": {
+            "x": 456,
+            "y": 336,
+            "width": 48,
+            "height": 48
+          },
+          "role": "Checkbox",
+          "padding": {
+            "start": 8,
+            "top": 8,
+            "end": 8,
+            "bottom": 8
+          }
+        }
+      ],
+      "section": "Actions",
+      "group": "Icon button",
+      "caption": "An icon button that holds its checked state.",
+      "noReference": "Glimmer publishes no Figma kit; see Button.",
+      "wireframe": "wireframes/icontogglebutton.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/IconButtons.kt",
+      "sourceModule": ":glimmer-catalog",
+      "bodyLine": 47,
+      "sourceDirectory": "glimmer-catalog",
+      "sourceFunction": "IconToggleButtonSticker",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "composableSlot": true
+        }
+      ]
+    },
+    {
+      "componentId": "ListItem",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/listitem/ideal__default__expanded.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/listitem__ideal__default__expanded",
+          "previewId": "ee.schimke.m3catalog.glimmer.ListsKt.ListItemSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        },
+        {
+          "variant": "ideal",
+          "path": "images/listitem/ideal__default__expanded__content-supporting-label.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "props": {
+            "content": "supporting-label"
+          },
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/listitem__ideal__default__expanded__content-supporting-label",
+          "previewId": "ee.schimke.m3catalog.glimmer.ListsKt.ListItemSupportingSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        },
+        {
+          "variant": "ideal",
+          "path": "images/listitem/ideal__default__expanded__content-supporting-label-leading-icon.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "props": {
+            "content": "supporting-label-leading-icon"
+          },
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/listitem__ideal__default__expanded__content-supporting-label-leading-icon",
+          "previewId": "ee.schimke.m3catalog.glimmer.ListsKt.ListItemSupportingIconSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 24,
+            "y": 320,
+            "width": 912,
+            "height": 80
+          },
+          "padding": {
+            "start": 24,
+            "top": 24,
+            "end": 24,
+            "bottom": 24
+          }
+        },
+        {
+          "bounds": {
+            "x": 24,
+            "y": 320,
+            "width": 912,
+            "height": 80
+          },
+          "padding": {
+            "start": 16,
+            "top": 16,
+            "end": 16,
+            "bottom": 16
+          },
+          "cornerRadius": 36
+        }
+      ],
+      "section": "Containment",
+      "group": "List item",
+      "caption": "One row of a list. The supporting label and icon slots fold in.",
+      "noReference": "Glimmer publishes no Figma kit; see Button.",
+      "wireframe": "wireframes/listitem.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/Lists.kt",
+      "sourceModule": ":glimmer-catalog",
+      "bodyLine": 25,
+      "sourceDirectory": "glimmer-catalog",
+      "sourceFunction": "ListItemSticker",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "composableSlot": true
+        }
+      ]
+    },
+    {
+      "componentId": "VoiceInputIndicator",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/voiceinputindicator/ideal__default__expanded.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/voiceinputindicator__ideal__default__expanded",
+          "previewId": "ee.schimke.m3catalog.glimmer.VoiceInputKt.VoiceInputIndicatorSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        },
+        {
+          "variant": "ideal",
+          "path": "images/voiceinputindicator/ideal__default__expanded__container-contained.png",
+          "state": "default",
+          "width": 960,
+          "height": 720,
+          "size": "expanded",
+          "props": {
+            "container": "contained"
+          },
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/voiceinputindicator__ideal__default__expanded__container-contained",
+          "previewId": "ee.schimke.m3catalog.glimmer.VoiceInputKt.ContainedVoiceInputIndicatorSticker_width_960_height_720_dpi_160",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080,
+            "device": "spec:width=960,height=720,dpi=160",
+            "widthDp": 960,
+            "heightDp": 720
+          },
+          "density": 1
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 464,
+            "y": 344,
+            "width": 32,
+            "height": 32
+          },
+          "padding": {
+            "start": 24,
+            "top": 24,
+            "end": 24,
+            "bottom": 24
+          }
+        }
+      ],
+      "section": "Communication",
+      "group": "Voice input",
+      "caption": "Shows that the glasses are listening, and how loudly. Level pinned at 0.6.",
+      "noReference": "Glimmer publishes no Figma kit; see Button.",
+      "wireframe": "wireframes/voiceinputindicator.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/VoiceInput.kt",
+      "sourceModule": ":glimmer-catalog",
+      "bodyLine": 28,
+      "sourceDirectory": "glimmer-catalog",
+      "sourceFunction": "VoiceInputIndicatorSticker",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "composableSlot": true
+        }
+      ]
+    }
+  ],
+  "library": [
+    "androidx.xr.glimmer:glimmer"
+  ],
+  "renderer": "compose-preview 2.11.1",
+  "generatedAt": "2026-09-12T09:45:59.522Z",
+  "display": {
+    "surface": "dark",
+    "hero": "Button"
+  },
+  "componentsFile": "components.json",
+  "source": {
+    "repo": "yschimke/m3-catalog",
+    "ref": "main",
+    "module": ":glimmer-catalog"
+  }
+}
