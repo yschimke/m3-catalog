@@ -29,6 +29,24 @@ jobs:
       contents: write
     with:
       design-parity-ref: ${{ inputs.design_parity_ref || '' }}
+
+      # THE CACHE BANKS. Stated explicitly even though `false` is the default,
+      # because every other property of this branch depends on it and it is one
+      # word away from not being true.
+      #
+      # The import checks the branch out with its `.git` intact and commits onto
+      # it, so each run adds what moved and CARRIES the rest — a node already
+      # cached at the kit's current version costs no Figma request. Pruning would
+      # make the cache a mirror of whatever `design-map.json` names on the day it
+      # runs, so a reference retargeted (as #373 retargeted six of Glimmer's) or
+      # a map that regenerated short would delete imports this repository cannot
+      # cheaply re-fetch — `api.figma.com` needs a token and is rate-limited.
+      #
+      # The cost is that superseded nodes accumulate. That is the right trade at
+      # this size, and `prune: true` on a one-off dispatch is how to collect them
+      # deliberately, against a map you have just seen regenerate correctly.
+      prune: false
+
       design-map-command: >
         ./gradlew :catalog:composePreviewDiscover --stacktrace &&
         scripts/design-map.sh
@@ -59,6 +77,15 @@ jobs:
     with:
       design-parity-ref: ${{ inputs.design_parity_ref || '' }}
       cache-branch: design-parity/glimmer-reference
+
+      # Banked, for the reasons the job above sets out.
+      #
+      # Separate branches are also what make this setting safe to change later.
+      # On a SHARED branch, pruning would be actively destructive rather than
+      # merely lossy: each import would prune against its own map, so the
+      # Material 3 run would delete every Glimmer node for not appearing in the
+      # Material 3 map, and the next Glimmer run would delete them right back.
+      prune: false
 
       # No Gradle: the map is committed and CI keeps it current (#372), and the
       # import needs only the refs, not the code. The copy puts it under the one
