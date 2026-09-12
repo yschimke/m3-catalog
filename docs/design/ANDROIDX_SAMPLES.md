@@ -35,13 +35,13 @@ where measurement has since changed them. What exists in the tree today:
 
 | | |
 | --- | --- |
-| `samples/import.json` | the pin — repo, **commit SHA**, subtree paths, the AndroidX version the pin tracks |
+| `samples/import.json` | the pins — repo, and per library a **commit SHA**, subtree paths and the AndroidX version it tracks |
 | `scripts/import-samples.mjs` | the vendoring importer (blobless sparse clone), `--check` to re-import and diff |
 | `samples/patches/`, `samples/quarantine.json` | the fix and gap mechanisms, both checked |
-| `scripts/sample-map.mjs`, `sample-map.json` | the `@sample` reader and its output — 153 APIs, 308 samples |
-| `scripts/samples-drift.mjs` | the pin's fingerprint check, passing `308 / 0 / 0` |
-| `scripts/samples-spec.mjs`, `samples-catalog/catalog.spec.json` | the generated inventory — **240 components in 102 groups** |
-| `:samples-catalog` | the module that compiles and renders them: 47 files vendored, 8 quarantined, 0 patches |
+| `scripts/sample-map.mjs`, `sample-map.json` | the `@sample` reader and its output — 166 APIs, 320 samples |
+| `scripts/samples-drift.mjs` | the pins' fingerprint check, passing `308 / 0 / 0` and `12 / 0 / 0` |
+| `scripts/samples-spec.mjs`, `samples-catalog/catalog.spec.json` | the generated inventory — **245 components in 104 groups** |
+| `:samples-catalog` | the module that compiles and renders them: 40 files vendored, 8 quarantined, 2 patches |
 | `design-artifacts.yml` → `m3-samples` | the publish job, plus the `changes`/Scope job it made necessary |
 
 **No `@Preview` wrappers here, and that is a difference from the Wear repo rather than an omission.**
@@ -52,6 +52,83 @@ is the two teams' annotation habits, not anything about the platforms.
 
 Not built yet: the `catalogs.json` registration on preview.coo.ee, the server's "Samples"
 affordance, and the weekly `samples-refresh.yml`.
+
+## A second library: material3-adaptive
+
+The manifest started as one pin and is now a **list, one entry per library**, because a sample tree
+belongs to the artifact whose KDoc points at it and those artifacts move on their own cadences.
+
+`compose/material3/adaptive/samples` is a single file, `ThreePaneScaffoldSample.kt`, carrying 13
+`@Sampled` functions of which 11 are `@Preview` upstream. CMP `adaptive-layout:1.3.0-beta02` — the
+artifact `:catalog` and `:samples-catalog` already compile against — references 12 of them, and
+AndroidX `adaptive-layout:1.3.0-beta02` references exactly the same 12: `12 / 0 / 0`, the same clean
+match material3 got.
+
+**The ref had to be its own, and that is the finding that shaped the schema.** adaptive-layout
+1.3.0-beta02 was published on 2026-05-19; material3 1.5.0-alpha22 on 2026-06-17. Vendoring the
+adaptive tree at material3's commit compiles it against three weeks of newer adaptive API: the
+measured failure is `AnimatedPane(shape = …)`, an overload CMP 1.3.0-beta02 does not have. So each
+library carries its own `ref`, resolved by the same Last-Modified rule, and its own
+`composeMultiplatformVersionRef` naming the `libs.versions.toml` key holding the CMP version to
+compare against.
+
+### What the file cost
+
+Two patches, and they are the first this repo has needed:
+
+- **`NavItemData` implements `android.os.Parcelable`.** It is the content-key type nearly every
+  sample in the file uses, so it cannot be quarantined away — and quarantine is per FILE, which for
+  this library means all 13 samples or none. Upstream makes it `Parcelable` to survive process
+  death; a preview renders one frame and never saves.
+- **The two navigation samples do not compile.** `ListDetailWithNavigation2Sample` calls
+  `NavigableListDetailPaneScaffold`, which is **absent from CMP's `adaptive-navigation`
+  1.3.0-beta02** — that artifact ships `ThreePaneScaffoldNavigator.kt` and `BackNavigationBehavior.kt`
+  and nothing else, so this is a missing API rather than a missing dependency, and adding
+  `navigation-compose` would not fix it. `ListDetailWithNavigation3Sample` fails on a nav3 signature
+  difference (`rememberNavBackStack`'s first parameter). The first IS named by the CMP artifact's
+  KDoc, so it stays in `sample-map.json` as a mapped-but-not-rendered sample, which the spec
+  generator already reports and skips.
+
+`adaptive-navigation` joins the module's dependencies for the navigator every sample drives.
+`adaptive-navigation3` was tried and removed: after the second patch nothing referenced it.
+
+### Two things the import exposed in this repo's own scripts
+
+Both were latent bugs that material3 alone never triggered, and both are now covered by tests:
+
+1. **`enum class` attribution.** `sample-map.mjs` read the identifier after a declaration keyword,
+   so `enum class DockedEdge` produced an API named literally `class` — and a catalog group called
+   "class". material3 has no `@sample` on an enum; adaptive-layout's `DockedEdge` does.
+2. **What counts as renderable.** `samples-spec.mjs` matched `fun name(`, which missed the generic
+   and extension samples. Widening it surfaced the real rule, which is narrower than `@Sampled` +
+   `@Preview`: **discovery can only invoke a zero-arg, non-extension, Unit-returning composable.**
+   - `PaneExpansionDragHandleSample` is an extension with a parameter: discovery does not find it
+     and rendering produces no PNG at all.
+   - `levitateAsDialogSample`, `levitateAsBottomSheetSample` and `reflowAdaptStrategySample` return
+     a `ThreePaneScaffoldNavigator<T>`. A composable that returns a value is a state factory and
+     draws nothing — each renders as a **1x1 blank**. Upstream annotating them `@Preview` is
+     reasonable there and indefensible here, so they are discovered, rendered and left as bundle
+     orphans rather than published as cards claiming a picture they never had.
+
+   Applying that rule changed the material3 count by **zero**, which is the evidence that it is a
+   rule and not a workaround.
+
+So of 13 adaptive samples: 2 patched out, 3 blank state factories, 1 unreachable extension, and
+**5 published**.
+
+### Known, and not fixed here
+
+Those 5 render as only **2 distinct images**: the three `ListDetailPaneScaffold*` samples are
+byte-identical to each other, as are the two `SupportingPaneScaffold*` ones. Upstream's `@Preview`
+carries no `widthDp`, so every one of them renders at the default width, where the scaffold collapses
+to a single pane and the extra/levitated pane that distinguishes the sample never appears. An
+adaptive layout rendered at one width is a picture of the thing the sample is not about.
+
+This is NOT the case `duplicate-renders.json` covers — that is about variant cells of one kit
+sticker publishing one picture under two names, and its audit runs against `:catalog`'s render, not
+this module's. Fixing it needs a width axis these previews do not carry, which means a generated
+wrapper preview — the machinery this repo deliberately does not have, and the deliverable of the
+`:ui-samples-catalog` work. Recorded here rather than worked around.
 
 ## Acquisition: vendor a pinned subtree
 
@@ -294,8 +371,8 @@ everything it needs was already a generic input:
 - `cli-version: catalog` + `catalog-key: composePreviewPlugin`, as the existing job does
 - `desktop-render: true` here; `false` in the Wear repo
 - `split-per-preview: false`, for the reasons the existing job's comment already sets out
-- `render-shards: 1`, where the kit sheet takes four. **240** base previews, not the ~308 this
-  section first projected — the gap is the 68 mapped samples carrying no `@Preview` upstream, which
+- `render-shards: 1`, where the kit sheet takes four. **245** base previews, not the ~308 this
+  section first projected — the gap is the mapped samples carrying no `@Preview` upstream, which
   nothing can render. Sharding pays on the kit sheet because its previews multiply across mode and
   device axes; these are one capture each.
 
@@ -316,13 +393,15 @@ warns that the system "will publish 0% coverage"; 0% is correct, and a warning s
 number borrowed from the sheet next door.
 
 `ci.yml` runs the build-free spec pre-flight over this spec too, beside the existing one. It reports
-**258 `@Preview` functions discovered against 240 in the catalog**, and that gap is expected: the 18
-are upstream previews that are not `@Sampled` — `AllShapes`, `LeadingIconTabs`, `LegacySliderSample`,
-the scrolling-tab demos — demo previews living in the sample files that no `@sample` KDoc points at.
-`@Sampled` is what makes a function a sample rather than something a sample sits beside, which is
-the same rule that keeps `FancyIndicator` out while `FancyIndicatorTabs` is in. They still render;
-they land as bundle orphans rather than as catalog cards. Worth revisiting only with a reason to
-widen what "a sample" means, not as a fix.
+**266 `@Preview` functions discovered against 245 in the catalog**, and that gap of 21 is expected
+and of two kinds. Eighteen are upstream previews that are not `@Sampled` — `AllShapes`,
+`LeadingIconTabs`, `LegacySliderSample`, the scrolling-tab demos — demo previews living in the sample
+files that no `@sample` KDoc points at. `@Sampled` is what makes a function a sample rather than
+something a sample sits beside, which is the same rule that keeps `FancyIndicator` out while
+`FancyIndicatorTabs` is in. The other three are the adaptive state factories described above, which
+are `@Sampled` and `@Preview` and still draw nothing. They all render; they land as bundle orphans
+rather than as catalog cards. Worth revisiting only with a reason to widen what "a sample" means,
+not as a fix.
 
 A weekly `samples-refresh.yml` re-runs the importer and the drift check and opens a PR when the
 vendored tree or `sample-map.json` moves — the cadence `figma-pages.yml` and `design-parity-import.yml`
