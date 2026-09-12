@@ -397,10 +397,16 @@ jobs:
   # (`minCompileSdk=37`) with no Compose Multiplatform port, so a desktop module cannot resolve it
   # — see `docs/design/GLIMMER.md` for why that decides everything else here.
   #
-  # Neither carries a design map, a `figma_token` or a `reference-cache-branch`: Glimmer publishes
-  # no Figma kit, so there is no node for any component to be scored against and 0% parity coverage
-  # is the truthful number. Same empty-map command the samples job above explains at length; the
-  # reason it cannot simply be omitted is the same too.
+  # They differ on references. `glimmer-catalog` carries the Glimmer kit's, projected from its own
+  # annotations — the premise that Glimmer publishes no Figma kit was wrong, and its eight
+  # components now name exact nodes (see the `design-map-command` on that job). `glimmer-samples`
+  # still carries none: those are AndroidX's own sample call sites, not a reproduction of a
+  # published kit, so 0% parity coverage is the truthful number there and the empty-map command the
+  # m3-samples job explains at length is what states it.
+  #
+  # Neither carries a `figma_token` or a `reference-cache-branch`, and that is unchanged: scoring
+  # those references against the kit is `design-parity.yml`'s job, on the `design-parity/glimmer`
+  # board. This workflow publishes the sheets.
   glimmer-catalog:
     name: glimmer-catalog
     needs: changes
