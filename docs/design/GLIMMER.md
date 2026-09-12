@@ -98,10 +98,14 @@ job copies it into place. It replaced a `design-map-command` that projected an e
   secret.
 - **No parity lane.** The job still carries no `figma_token` and no `reference-cache-branch`, so
   nothing fetches reference artwork or scores the comparison yet.
-- **The direction is unsettled.** `.design-parity.json` says `design-led` repo-wide, which means a
-  divergence is a defect in this code. That reasoning rests on the Material kit being Google's own
-  published source of truth. This is a *community* file, and whether it gets the same authority is a
-  decision worth making explicitly rather than inheriting.
+- **The direction is settled, by precedent.** An earlier draft of this section treated the kit's
+  "(Community)" suffix as weaker authority than a first-party file, and asked whether
+  `.design-parity.json`'s repo-wide `design-led` should apply. That was a misreading: **the Figma
+  Community is how Google publishes its design kits publicly**, and the file this whole repository
+  is built to reproduce — `Material-3-Design-Kit--Community-` — carries exactly the same suffix. The
+  Glimmer kit is the public edition of Android's own, not a third-party redraw, so it inherits the
+  same authority the Material kit has: the kit is authoritative and a divergence is a bug in this
+  code.
 - **The taxonomy has not been re-checked against the kit.** These seven components and their variant
   folds were derived from the API surface alone. `AGENTS.md` says membership is the kit's call, and
   that rule now has something to say here — the kit also publishes Button groups, a Progress
