@@ -35,3 +35,35 @@ jobs:
       timeout-minutes: 90
     secrets:
       figma-token: ${{ secrets.FIGMA_TOKEN }}
+
+  # The Glimmer kit, into a cache of its own.
+  #
+  # Two jobs rather than two entries in one, because these are two FILES:
+  # `ocdacdEsnHipMJD3egzxKb` above, `HKfLClZDLRyMhf4IQQLna8` here. The importer
+  # takes its node list from whatever `design-map.json` the checkout holds, so
+  # one job can only ever fill one kit's worth of references.
+  #
+  # They do not share `design-parity/reference`, and the reason is the push
+  # rather than the contents: an import ends in a plain non-fast-forward push
+  # with no retry, and the `concurrency` group above serialises RUNS, not the
+  # jobs within one. Two importers on one branch would race and the loser would
+  # fail having already paid for its Figma traffic. Separate branches make that
+  # structurally impossible, and mean a Material 3 import that fails does not
+  # withhold Glimmer's refs.
+  glimmer:
+    name: Glimmer Design Kit
+    if: ${{ github.repository == 'yschimke/m3-catalog' }}
+    uses: yschimke/design-parity/.github/workflows/design-parity-import-reusable.yml@main
+    permissions:
+      contents: write
+    with:
+      design-parity-ref: ${{ inputs.design_parity_ref || '' }}
+      cache-branch: design-parity/glimmer-reference
+
+      # No Gradle: the map is committed and CI keeps it current (#372), and the
+      # import needs only the refs, not the code. The copy puts it under the one
+      # name the importer reads.
+      design-map-command: cp glimmer-design-map.json design-map.json
+      timeout-minutes: 60
+    secrets:
+      figma-token: ${{ secrets.FIGMA_TOKEN }}

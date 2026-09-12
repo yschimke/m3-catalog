@@ -133,3 +133,105 @@ jobs:
       timeout-minutes: 90
     secrets:
       figma-token: ${{ secrets.FIGMA_TOKEN }}
+
+  # ── The Glimmer sheet ───────────────────────────────────────────────────────
+  #
+  # A SECOND board, on the shape wear-m3-catalog established for its Remote
+  # rendition: one more job calling the same reusable workflow, given its own
+  # `artifact-branch` so the two boards cannot be mistaken for one going stale.
+  #
+  # Where this repo differs from that precedent, and it is the whole reason this
+  # job is not a copy: wear's two lanes reproduce the SAME kit, so one reference
+  # cache and one import job serve both. These two reproduce DIFFERENT Figma
+  # files — `ocdacdEsnHipMJD3egzxKb` for the Material 3 kit above,
+  # `HKfLClZDLRyMhf4IQQLna8` for the Glimmer one — with no node in common, so
+  # this lane gets a cache of its own (see `reference-cache-branch` below) and
+  # `design-parity-import.yml` gets a second job to fill it.
+  glimmer:
+    name: Design parity (glimmer)
+    if: ${{ github.repository == 'yschimke/m3-catalog' }}
+    uses: yschimke/design-parity/.github/workflows/design-parity-reusable.yml@main
+    permissions:
+      contents: write # publish the regenerated artifacts to design-parity/glimmer
+    with:
+      module: ':glimmer-catalog'
+
+      # A branch of its own. The job above publishes `design-parity/main`; two
+      # boards on one branch would each look like the other had gone stale.
+      artifact-branch: design-parity/glimmer
+
+      # A CACHE of its own, and this is the input that does not carry over from
+      # wear-m3-catalog. Sharing one branch between two kits would be safe on
+      # content — the cache is keyed by file id and `prune` defaults off, so
+      # neither import can delete the other's nodes — but not on WRITES: the
+      # import job ends in a plain non-fast-forward `git push` with no retry, and
+      # the workflow-level concurrency group does not serialise jobs inside one
+      # run. Two importers on one branch means the second one loses its push.
+      # Separate branches remove the race instead of scheduling around it, and
+      # they keep a failed Material 3 import from withholding Glimmer's refs.
+      reference-cache-branch: design-parity/glimmer-reference
+
+      # Scoped to what this board is drawn from. `glimmer-design-map.json` is in
+      # the list because the gate hashes `design-map.json` — the COMMITTED one,
+      # which belongs to `:catalog` — before `design-map-command` has copied
+      # ours into place. Without this entry the Glimmer lane's cache key would
+      # track the Material 3 map: edit a Glimmer reference and the run would skip
+      # on a key that never moved. Same reason wear's Remote job puts its
+      # snapshot pin on the list.
+      cache-paths: >-
+        glimmer-catalog gradle build.gradle.kts settings.gradle.kts
+        glimmer-design-map.json glimmer-figma-kit-index.json
+
+      force-refresh: ${{ github.event_name == 'schedule' }}
+      design-parity-ref: ${{ inputs.design_parity_ref || '' }}
+
+      # FALSE, unlike the job above, and the same value `design-artifacts.yml`
+      # gives this module. `androidx.xr.glimmer:glimmer` ships only as an AAR
+      # with no Compose Multiplatform port, so this sheet renders through
+      # Robolectric and AGP. The input DEFAULTS TO TRUE — inheriting it would
+      # install Mesa and run the render under xvfb for a Skiko daemon that is
+      # not the one drawing here.
+      desktop-render: false
+
+      # RED HERE WOULD MEAN "the catalog still diverges", which is not news.
+      #
+      # This is a design-led comparison of eight components against a kit they
+      # are new to, and the lane gates nothing — there is no PR for a blocking
+      # verdict to hold back. Blocking would paint main red on every run for the
+      # steady state, and a signal that is always red cannot report a render
+      # crash, a lost reference cache or an expired token, which is how
+      # wear-m3-catalog#145 went unnoticed. The verdict still reaches the job
+      # summary, a warning annotation and the reusable workflow's `blocked`
+      # output.
+      #
+      # Revisit once the board has a baseline worth holding to: the honest
+      # setting for a lane that gates a PR is the default `true`.
+      block-on-verdict: false
+
+      # No Gradle, unlike the job above. The map this board compares against is
+      # generated and COMMITTED by `scripts/glimmer-design-map.sh`, and CI keeps
+      # it current (#372) — so a discovery pass here would spend minutes
+      # re-deriving a file the checkout already holds. The copy is the same
+      # idiom `design-artifacts.yml` uses for this module: design-parity reads
+      # `<repoRoot>/design-map.json` and nothing else, and this job's workspace
+      # is its own, so overwriting `:catalog`'s map here reaches nothing.
+      #
+      # The SDK install is here because this is the only hook that runs before
+      # the render, and `:glimmer-catalog` is the repo's one AGP module: it sets
+      # `compileSdk = 37` and the package is `platforms;android-37.0` — NOT
+      # `android-37`. Idempotent, and a no-op once a runner image ships it.
+      # Identical to the step `ci.yml` carries for the same module.
+      design-map-command: >
+        sdkmanager="${ANDROID_HOME:-${ANDROID_SDK_ROOT:?no Android SDK on this runner}}/cmdline-tools/latest/bin/sdkmanager" &&
+        { yes | "$sdkmanager" --licenses > /dev/null 2>&1 || true; } &&
+        "$sdkmanager" 'platforms;android-37.0' &&
+        cp glimmer-design-map.json design-map.json
+
+      # ONE, and not a number to revisit soon: this sheet draws 19 previews
+      # against 8 references. A shard's own setup would cost more than its slice.
+      shards: 1
+
+      render-timeout: 1800
+      timeout-minutes: 60
+    secrets:
+      figma-token: ${{ secrets.FIGMA_TOKEN }}
