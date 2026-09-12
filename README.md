@@ -31,6 +31,10 @@ node ids and reference images, and the MCP server for variables and metadata. No
   code on every change, and appended as a commit rather than force-pushed, so the branch is
   diffable over time.
 
+That is the kit catalog. Three further sheets are published alongside it from the same workflow —
+the AndroidX Material 3 samples, and two for `androidx.xr.glimmer` — each on its own delivery
+branch; see [**Published systems**](#published-systems).
+
 The delivery branch's history is intentional: do not rewrite it into a fresh root commit as a
 repository-size workaround. A normal `git clone` fetches that generated branch as well as `main`,
 including its large live-render bundles. Contributors who only need the source should use
@@ -347,11 +351,41 @@ Two long-lived branches carry rendered output, and they are **not** the same thi
 So light/dark and states being flat on `compose-preview/main` is expected; the grouping is on
 `design-artifacts/m3-catalog` and in the served viewer.
 
+### Published systems
+
+`design-artifacts.yml` no longer publishes one sheet. It runs four jobs, each rendering its own
+module against its own spec and appending to its own delivery branch:
+
+| System | Module | Renderer | Delivery branch | Paired with |
+| --- | --- | --- | --- | --- |
+| `m3-catalog` | `:catalog` | Skiko (desktop) | [`design-artifacts/m3-catalog`](../../tree/design-artifacts/m3-catalog) | — |
+| `m3-samples` | `:samples-catalog` | Skiko (desktop) | [`design-artifacts/m3-samples`](../../tree/design-artifacts/m3-samples) | `m3-catalog` |
+| `glimmer-catalog` | `:glimmer-catalog` | Robolectric (Android) | [`design-artifacts/glimmer-catalog`](../../tree/design-artifacts/glimmer-catalog) | — |
+| `glimmer-samples` | `:glimmer-samples` | Robolectric (Android) | [`design-artifacts/glimmer-samples`](../../tree/design-artifacts/glimmer-samples) | `glimmer-catalog` |
+
+The two Glimmer sheets are the repository's only Android modules, and the renderer column is why:
+`androidx.xr.glimmer` ships an AAR with no Compose Multiplatform port, so a desktop JVM module
+cannot put it on the classpath at all. That split has a consequence worth reading off the table —
+each sheet is only ever paired with one rasterised the same way, because a Robolectric capture
+beside a Skiko one would put a *renderer* difference into a comparison meant to be about design.
+[`docs/design/GLIMMER.md`](docs/design/GLIMMER.md) has the full reasoning, including why these
+sheets are captured on black.
+
+**The badge above is workflow-scoped, and there is only one of it.** GitHub publishes status per
+workflow, not per job, so a green *Design Artifacts* badge means "the workflow's last run did not
+fail" — not "all four systems published". The per-system evidence is the delivery branch: a system
+whose job failed simply appends nothing, and its branch silently goes stale or never appears.
+
+That is not hypothetical. `glimmer-samples` failed at its spec-validation step on every run from the
+day the module landed, and the badge never showed it — the gap was only found by noticing that three
+branches had moved and a fourth had never existed. `ci.yml` now validates all four specs on the pull
+request, where a rejection is visible before the merge rather than after it.
+
 | Workflow | Does |
 | --- | --- |
 | [`ci.yml`](.github/workflows/ci.yml) | compile, run preview discovery, unit tests, `ktfmtCheck`, and the build-free catalog-spec pre-flight |
 | [`compose-preview.yml`](.github/workflows/compose-preview.yml) | renders the previews and posts a before/after visual diff on every PR |
-| [`design-artifacts.yml`](.github/workflows/design-artifacts.yml) | renders and publishes the importable bundle to `design-artifacts/m3-catalog` |
+| [`design-artifacts.yml`](.github/workflows/design-artifacts.yml) | renders and publishes the four importable bundles, one delivery branch each (see **Published systems**) |
 | [`design-parity.yml`](.github/workflows/design-parity.yml) | compares the render against the Figma kit and publishes the report to `design-parity/main` |
 
 design-parity is wired but **inert** until two things exist, and it skips with a notice rather than
