@@ -390,7 +390,13 @@ jobs:
       system: glimmer-catalog
       spec: glimmer-catalog/catalog.spec.json
       module: ':glimmer-catalog'
-      design-map-command: printf '{"components":[]}\n' > design-map.json
+      # The Glimmer kit's references, projected from this module's own annotations. NOT the empty
+      # map this job shipped with: that was written on the premise that Glimmer publishes no Figma
+      # kit, which was wrong — there is a community kit, and the eight components now name exact
+      # nodes in it. The command copies the committed map into place under the name the reusable
+      # workflow reads, the same shape `:catalog` relies on; it runs no Gradle because the map is
+      # generated and committed by `scripts/glimmer-design-map.sh`.
+      design-map-command: cp glimmer-design-map.json design-map.json
       cli-version: catalog
       catalog-key: composePreviewPlugin
       # FALSE, unlike every other caller in this file: no AGP would mean no Glimmer at all.

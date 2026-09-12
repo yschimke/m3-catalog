@@ -57,16 +57,55 @@ this becomes a one-line swap rather than a re-authoring.
 capture over a passthrough scene, which is what a wearer actually sees. It is not applied yet — see
 **Still to do**.
 
-## The inventory has no kit, and says so
+## The kit: found late, and the components now name it
 
-`AGENTS.md` makes membership the kit's call and fails the build for a `@CatalogComponent` with no
-`reference`. That rule is about the **Material 3 Design Kit**, which is `m3-catalog`'s subject.
-Glimmer publishes no Figma kit at all, so every component here carries `noReference` with the reason
-instead — the schema's own field for "the absence is a finding, not a gap nobody has looked at".
+**This document originally said Glimmer publishes no Figma kit. That was wrong**, and the error is
+worth keeping visible rather than editing away: the claim was made from the absence of a kit in
+`androidx.xr.glimmer`'s own publishing, and a community kit was never looked for. There is one:
 
-Consequently both Glimmer jobs in `design-artifacts.yml` publish an **empty design map** and carry
-no `figma_token` and no `reference-cache-branch`. 0% parity coverage is the truthful number, not a
-missing integration.
+> [Jetpack Compose Glimmer UI (Community)](https://www.figma.com/design/HKfLClZDLRyMhf4IQQLna8/Jetpack-Compose-Glimmer-UI--Community-)
+
+Every component shipped with `noReference` and a reason that read "no kit node exists to name". That
+is worse than a missing reference — it is an *audited* absence that was never audited, which is
+exactly the distinction the schema's own wording draws. All eight now carry a real `reference`, each
+with the evidence for it in a comment beside the annotation:
+
+| Component | Kit node | What identifies it |
+| --- | --- | --- |
+| `Button` | `40:655` | `State=` x `Size=Default \| Large` — the size axis this component folds in |
+| `ToggleButton` | `40000113:3966` | adds `Toggle=False \| True`, the checked state |
+| `IconButton` | `5315:4650` | under the kit's `icon buttons` frame; `State=` only |
+| `IconToggleButton` | `40000113:4149` | also under `icon buttons`, but `Toggle=` x `State=` |
+| `Card` | `416:2700` | the `Card` component — title chip, image slot, title, subtitle, content |
+| `TitleChip` | `5315:4722` | the `Title chip` component, leading-icon slot included |
+| `ListItem` | `384:4197` | `Type=1-line \| 2-line \| Card` x `State=` |
+| `VoiceInputIndicator` | `40000116:9337` | `Mic Indicators`: `Volume=` x `Contained=Yes \| No` |
+
+The ids are the kit's own component sets, read from the file's `🧩 Components` page. `Card` and
+`TitleChip` were confirmed by rendering the node rather than by name alone — the others are
+identified by their variant axes, which is stronger evidence than a name.
+
+`scripts/glimmer-design-map.sh` projects those eight into `glimmer-design-map.json`, and the publish
+job copies it into place. It replaced a `design-map-command` that projected an empty map.
+
+### What is still missing
+
+- **No kit index, so the variants are unresolved.** `design-map.sh` runs a second step —
+  `@design-parity/kit-index resolve` — that turns a variant's props (`size=Large`) into the kit's own
+  variant values by looking them up in a committed index. There is no such index for this kit, so
+  the eleven `@CatalogVariant` renders are reported as "awaiting a kit resolver". They ARE
+  resolvable: the kit publishes every axis they declare. Indexing needs a Figma token, which is a CI
+  secret.
+- **No parity lane.** The job still carries no `figma_token` and no `reference-cache-branch`, so
+  nothing fetches reference artwork or scores the comparison yet.
+- **The direction is unsettled.** `.design-parity.json` says `design-led` repo-wide, which means a
+  divergence is a defect in this code. That reasoning rests on the Material kit being Google's own
+  published source of truth. This is a *community* file, and whether it gets the same authority is a
+  decision worth making explicitly rather than inheriting.
+- **The taxonomy has not been re-checked against the kit.** These seven components and their variant
+  folds were derived from the API surface alone. `AGENTS.md` says membership is the kit's call, and
+  that rule now has something to say here — the kit also publishes Button groups, a Progress
+  indicator, Entity (avatars, monograms, app icons) and Stacks, none of which this catalog draws.
 
 ## Pinning the samples: the publish date, then the compiler
 
@@ -105,6 +144,7 @@ the import without the entry is the check.
 | `:glimmer-samples` | 19 files vendored, 1 quarantined, 0 patches; 50 previews, all rendering, none blank |
 | `androidx.annotation.Sampled` | a second local shim, beside `:samples-catalog`'s, because no published artifact provides it |
 | `design-artifacts.yml` | two more `uses:` blocks and a `glimmer` output on the Scope job |
+| `glimmer-design-map.json` | the eight kit references, projected from the annotations |
 
 ## Still to do
 

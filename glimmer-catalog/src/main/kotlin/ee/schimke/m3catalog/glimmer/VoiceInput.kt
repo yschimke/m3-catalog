@@ -16,7 +16,9 @@ import ee.schimke.composeai.preview.CatalogVariant
 
 @CatalogComponent(
   id = "VoiceInputIndicator",
-  noReference = "Glimmer publishes no Figma kit; see Button.",
+  // The kit's `Mic Indicators` set: `Volume=Loud | Quiet` x `Contained=Yes | No`,
+  // the second of which is this component's `container=contained` variant.
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000116:9337",
   caption = "Shows that the glasses are listening, and how loudly. Level pinned at 0.6.",
 )
 @Preview(

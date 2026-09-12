@@ -23,9 +23,9 @@ import ee.schimke.composeai.preview.CatalogVariant
 
 @CatalogComponent(
   id = "Button",
-  noReference =
-    "Glimmer publishes no Figma kit. There is nothing to compare against, and no kit node exists " +
-      "to name — this is an audited absence, not a mapping nobody has done yet.",
+  // The kit's `Button` set: `State=` x `Size=Default | Large`, the size axis this
+  // component folds in as a variant.
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/40:655",
   caption = "The primary action. Two sizes and the leading / trailing icon slots fold in.",
 )
 @Preview(
@@ -89,7 +89,9 @@ fun ButtonTrailingIconSticker() = Sticker {
 
 @CatalogComponent(
   id = "ToggleButton",
-  noReference = "Glimmer publishes no Figma kit; see Button.",
+  // The kit's `Toggle Button` set, whose `Toggle=False | True` axis is the checked
+  // state folded in here.
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000113:3966",
   caption = "A button that holds its state. The corner morphs between checked and unchecked.",
 )
 @Preview(
