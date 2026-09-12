@@ -258,3 +258,31 @@ jobs:
             echo "::error::design-map.json is stale. Run: ./gradlew :catalog:composePreviewDiscover && scripts/design-map.sh"
             exit 1
           fi
+
+      # `glimmer-design-map.json` is generated and committed exactly as `design-map.json` is, and
+      # until now nothing regenerated it here — the same unenforced `--check` the catalog specs had
+      # before #364. It matters more since the map gained a second step: `scripts/glimmer-design-map.sh`
+      # now runs `@design-parity/kit-index resolve` against `glimmer-figma-kit-index.json`, so a
+      # stale map can misreport the kit as well as the annotations.
+      #
+      # This needs the Android SDK, unlike everything above it: `:glimmer-catalog` is the repo's
+      # only AGP module on this lane. The package is `platforms;android-37.0` — the module sets
+      # `compileSdk = 37` and the platform directory is `android-37.0`, NOT `android-37`, which is
+      # the sort of thing that only fails in CI. Idempotent, and a no-op once a runner image ships
+      # it.
+      - name: Install the Android platform :glimmer-catalog compiles against
+        run: |
+          set -euo pipefail
+          sdkmanager="${ANDROID_HOME:-${ANDROID_SDK_ROOT:?no Android SDK on this runner}}/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$sdkmanager" --licenses > /dev/null 2>&1 || true
+          "$sdkmanager" 'platforms;android-37.0'
+
+      - name: Regenerate and compare (glimmer)
+        run: |
+          set -euo pipefail
+          ./gradlew :glimmer-catalog:composePreviewDiscover --stacktrace
+          scripts/glimmer-design-map.sh
+          if ! git diff --exit-code --stat -- glimmer-design-map.json glimmer-design-map-variants.json; then
+            echo "::error::glimmer-design-map.json is stale. Run: ./gradlew :glimmer-catalog:composePreviewDiscover && scripts/glimmer-design-map.sh"
+            exit 1
+          fi
