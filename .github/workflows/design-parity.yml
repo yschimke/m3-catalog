@@ -181,6 +181,7 @@ jobs:
       cache-paths: >-
         glimmer-catalog gradle build.gradle.kts settings.gradle.kts
         glimmer-design-map.json glimmer-figma-kit-index.json
+        scripts/glimmer-parity-prepare.sh
 
       force-refresh: ${{ github.event_name == 'schedule' }}
       design-parity-ref: ${{ inputs.design_parity_ref || '' }}
@@ -208,24 +209,25 @@ jobs:
       # setting for a lane that gates a PR is the default `true`.
       block-on-verdict: false
 
-      # No Gradle, unlike the job above. The map this board compares against is
-      # generated and COMMITTED by `scripts/glimmer-design-map.sh`, and CI keeps
-      # it current (#372) — so a discovery pass here would spend minutes
-      # re-deriving a file the checkout already holds. The copy is the same
-      # idiom `design-artifacts.yml` uses for this module: design-parity reads
-      # `<repoRoot>/design-map.json` and nothing else, and this job's workspace
-      # is its own, so overwriting `:catalog`'s map here reaches nothing.
+      # A SCRIPT, and it must stay one: NO `$` may appear in this string.
       #
-      # The SDK install is here because this is the only hook that runs before
-      # the render, and `:glimmer-catalog` is the repo's one AGP module: it sets
-      # `compileSdk = 37` and the package is `platforms;android-37.0` — NOT
-      # `android-37`. Idempotent, and a no-op once a runner image ships it.
-      # Identical to the step `ci.yml` carries for the same module.
-      design-map-command: >
-        sdkmanager="${ANDROID_HOME:-${ANDROID_SDK_ROOT:?no Android SDK on this runner}}/cmdline-tools/latest/bin/sdkmanager" &&
-        { yes | "$sdkmanager" --licenses > /dev/null 2>&1 || true; } &&
-        "$sdkmanager" 'platforms;android-37.0' &&
-        cp glimmer-design-map.json design-map.json
+      # The reusable workflow interpolates this value into two shells. The shard
+      # job runs it, as expected — but the GATE job splices its literal text into
+      # the program that computes the cache key, under `set -euo pipefail`:
+      #
+      #     parts+=(--part "map-command=${{ inputs.design-map-command }}")
+      #
+      # So a variable written here is expanded by the GATE, against the gate's
+      # environment. The first version of this job assigned `sdkmanager=...` and
+      # used it, and run 354's gate died with `sdkmanager: unbound variable`
+      # while the parity job beside it rendered and published a correct board —
+      # a red workflow with nothing wrong in the work it did.
+      #
+      # A bare path has no `$`, survives both shells, and keeps the key stable
+      # across runner images. What the script does — install the Android
+      # platform this module compiles against, then put the Glimmer map where
+      # design-parity reads it — is documented in the file.
+      design-map-command: scripts/glimmer-parity-prepare.sh
 
       # ONE, and not a number to revisit soon: this sheet draws 19 previews
       # against 8 references. A shard's own setup would cost more than its slice.
