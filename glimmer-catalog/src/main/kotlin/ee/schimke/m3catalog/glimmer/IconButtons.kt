@@ -17,7 +17,9 @@ import ee.schimke.composeai.preview.CatalogVariant
 
 @CatalogComponent(
   id = "IconButton",
-  noReference = "Glimmer publishes no Figma kit; see Button.",
+  // The `Icon button` set under the kit's `icon buttons` frame — `State=` only,
+  // matching a component with no size or checked axis.
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/5315:4650",
   caption = "An action carried by its icon alone.",
 )
 @Preview(
@@ -35,7 +37,9 @@ fun IconButtonSticker() = Sticker {
 
 @CatalogComponent(
   id = "IconToggleButton",
-  noReference = "Glimmer publishes no Figma kit; see Button.",
+  // The `Toggle` set, also under `icon buttons`: `Toggle=False | True` x `State=`,
+  // which is what makes it the icon-toggle rather than a second plain icon button.
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000113:4149",
   caption = "An icon button that holds its checked state.",
 )
 @Preview(

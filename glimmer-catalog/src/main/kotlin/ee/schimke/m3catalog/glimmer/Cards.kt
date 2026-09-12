@@ -17,7 +17,9 @@ import ee.schimke.composeai.preview.CatalogVariant
 
 @CatalogComponent(
   id = "Card",
-  noReference = "Glimmer publishes no Figma kit; see Button.",
+  // The kit's `Card` component — title chip, image slot, title, subtitle and content
+  // area, every slot this component exposes.
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/416:2700",
   caption = "A surface for a unit of content. Title, subtitle and the icon slots fold in.",
 )
 @Preview(
@@ -70,7 +72,8 @@ fun CardTitleSubtitleSticker() = Sticker {
 
 @CatalogComponent(
   id = "TitleChip",
-  noReference = "Glimmer publishes no Figma kit; see Button.",
+  // The kit's `Title chip` component, leading-icon slot included.
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/5315:4722",
   caption = "Labels the content it sits above. Carries its own leading-icon slot.",
 )
 @Preview(

@@ -13,7 +13,9 @@ import ee.schimke.composeai.preview.CatalogVariant
 
 @CatalogComponent(
   id = "ListItem",
-  noReference = "Glimmer publishes no Figma kit; see Button.",
+  // The kit's `List Item` set: `Type=1-line | 2-line | Card` x `State=`. The
+  // supporting-label variant here is the kit's `2-line`.
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/384:4197",
   caption = "One row of a list. The supporting label and icon slots fold in.",
 )
 @Preview(
