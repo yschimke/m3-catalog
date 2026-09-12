@@ -20,7 +20,18 @@ override and exists for cover-sheet fields only.
 If you find yourself writing a lot of mapping config to express something, that is a signal the
 upstream libraries are missing an annotation — **raise it in
 [compose-ai-tools](https://github.com/yschimke/compose-ai-tools) and add the annotation there**
-rather than growing a JSON file here. Same for CI: a capability any catalog could want belongs as a
+rather than growing a JSON file here.
+
+**The one exception, and it is about ownership rather than convenience: a catalog of VENDORED
+sources declares its inventory in `groups`.** `:samples-catalog` and `:glimmer-samples` hold
+upstream's bytes under upstream's package, re-fetched byte-identically from a pinned commit on every
+import — an `@CatalogComponent` written into one would be destroyed by the next
+`scripts/import-samples.mjs` run, or would have to become a patch per sample, which is hundreds of
+patches carrying no fix. No annotation added upstream fixes that; the file is not ours to annotate.
+So those two specs carry a `groups` block, GENERATED from the sources and committed with a
+`--check` gate (`scripts/samples-spec.mjs`, `scripts/glimmer-samples-spec.mjs`), and the schema
+makes `groups` optional for exactly this case. The rule above is unchanged for every catalog whose
+composables this repository writes. Same for CI: a capability any catalog could want belongs as a
 generic input on the reusable `design-artifacts-reusable.yml` workflow, never as a forked copy of the
 pipeline in this repo.
 
