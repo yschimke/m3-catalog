@@ -37,6 +37,14 @@ on:
     paths:
       - 'catalog/**'
       - 'catalog.spec.json'
+      # What this catalog declares about itself to the UI builder: the shelf a component is
+      # filed under, the record an id binds to, the frame, the platform word. It is as much a
+      # render input as the spec — `composePreviewDiscover` reads it and its overrides reach
+      # the published `ui-builder.json` — and it was missing here, so a policy-only change
+      # edited the published catalog without republishing it. Caught in the Wear sibling,
+      # where two shelf corrections merged and triggered no run at all; this repository's
+      # policy carries 28 such overrides and had the same gap.
+      - 'ui-builder.policy.json'
       # The samples sheet's render inputs. `samples-catalog/**` is the vendored tree and the
       # generated spec; `samples/**` is the import manifest, the patches and the quarantine list,
       # which decide what is in that tree at all; `sample-map.json` is the @sample KDoc map the
@@ -129,7 +137,11 @@ jobs:
             echo 'glimmer=true' >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          grep -qE '^(catalog/|catalog\.spec\.json$|design-pages\.json$|design/pages/)' <<<"$files" &&
+          # `ui-builder.policy.json` belongs here as well as in `push.paths` above: the paths list
+          # only decides whether the workflow STARTS, and this predicate decides whether the m3
+          # lane publishes. Listing it in one and not the other starts a run that skips the job it
+          # was started for.
+          grep -qE '^(catalog/|catalog\.spec\.json$|ui-builder\.policy\.json$|design-pages\.json$|design/pages/)' <<<"$files" &&
             echo 'kit=true' >> "$GITHUB_OUTPUT" || echo 'kit=false' >> "$GITHUB_OUTPUT"
           grep -qE '^(samples-catalog/|samples/|sample-map\.json$|scripts/samples-)' <<<"$files" &&
             echo 'samples=true' >> "$GITHUB_OUTPUT" || echo 'samples=false' >> "$GITHUB_OUTPUT"
