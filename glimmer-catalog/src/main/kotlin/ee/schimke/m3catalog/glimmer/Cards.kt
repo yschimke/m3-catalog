@@ -22,11 +22,7 @@ import ee.schimke.composeai.preview.CatalogVariant
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/416:2700",
   caption = "A surface for a unit of content. Title, subtitle and the icon slots fold in.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun CardSticker() = Sticker { Card { Text("This is a card") } }
 
@@ -35,11 +31,7 @@ fun CardSticker() = Sticker { Card { Text("This is a card") } }
   props = ["content=trailing-icon"],
   caption = "Icon after the content.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun CardTrailingIconSticker() = Sticker {
   Card(trailingIcon = { Icon(StarIcon, "Favourite") }) { Text("Card with an icon") }
@@ -50,11 +42,7 @@ fun CardTrailingIconSticker() = Sticker {
   props = ["content=title-subtitle-icon"],
   caption = "The fullest form: title, subtitle and a leading icon above the content.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun CardTitleSubtitleSticker() = Sticker {
   Card(
@@ -76,11 +64,7 @@ fun CardTitleSubtitleSticker() = Sticker {
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/5315:4722",
   caption = "Labels the content it sits above. Carries its own leading-icon slot.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun TitleChipSticker() = Sticker { TitleChip { Text("Messages") } }
 
@@ -89,11 +73,7 @@ fun TitleChipSticker() = Sticker { TitleChip { Text("Messages") } }
   props = ["content=leading-icon"],
   caption = "Icon before the label.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun TitleChipLeadingIconSticker() = Sticker {
   TitleChip(leadingIcon = { Icon(StarIcon, "Favourite") }) { Text("Messages") }
