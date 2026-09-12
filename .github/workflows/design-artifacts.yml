@@ -65,6 +65,16 @@ on:
       # schedule or a manual dispatch.
       - 'glimmer-catalog/**'
       - 'glimmer-samples/**'
+      # `glimmer-design-map.json` is the committed kit-reference map the glimmer-catalog job copies
+      # into place, and the script is what projects it. Both are listed for the same reason
+      # `sample-map.json` and `scripts/samples-spec.mjs` are above: a change to either moves what
+      # the sheet publishes with no change to the module at all. A reference edit touches
+      # `glimmer-catalog/**` too and would have fired anyway — a regeneration-only change (a bumped
+      # emitter version, a fix to the script) would not have, and the published map would go stale
+      # in silence.
+      - 'glimmer-design-map.json'
+      - 'glimmer-design-map-variants.json'
+      - 'scripts/glimmer-design-map.sh'
       - 'gradle/libs.versions.toml'
       - 'gradle/wrapper/gradle-wrapper.properties'
       - 'settings.gradle.kts'
@@ -136,7 +146,7 @@ jobs:
           # Both Glimmer sheets move together: they share the `glimmer` version ref, the Robolectric
           # pin and the AGP setup, so a change to one is nearly always a change to both, and the two
           # renders together cost less than the runner minutes a finer split would save.
-          grep -qE '^(glimmer-catalog/|glimmer-samples/)' <<<"$files" &&
+          grep -qE '^(glimmer-catalog/|glimmer-samples/|glimmer-design-map|scripts/glimmer-)' <<<"$files" &&
             echo 'glimmer=true' >> "$GITHUB_OUTPUT" || echo 'glimmer=false' >> "$GITHUB_OUTPUT"
 
   publish:
