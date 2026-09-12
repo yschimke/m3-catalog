@@ -29,11 +29,7 @@ import ee.schimke.composeai.preview.CatalogVariant
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/40:660",
   caption = "The primary action. Two sizes and the leading / trailing icon slots fold in.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ButtonSticker() = Sticker {
   val c = counted("Send")
@@ -41,11 +37,7 @@ fun ButtonSticker() = Sticker {
 }
 
 @CatalogVariant(of = "Button", props = ["size=Large"], caption = "The larger of the two sizes.")
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ButtonLargeSticker() = Sticker {
   val c = counted("Send")
@@ -57,11 +49,7 @@ fun ButtonLargeSticker() = Sticker {
   props = ["content=leading-icon"],
   caption = "Icon before the label.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ButtonLeadingIconSticker() = Sticker {
   val c = counted("Send")
@@ -73,11 +61,7 @@ fun ButtonLeadingIconSticker() = Sticker {
   props = ["content=trailing-icon"],
   caption = "Icon after the label.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ButtonTrailingIconSticker() = Sticker {
   val c = counted("Send")
@@ -96,11 +80,7 @@ fun ButtonTrailingIconSticker() = Sticker {
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000113:3991",
   caption = "A button that holds its state. The corner morphs between checked and unchecked.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ToggleButtonSticker() = Sticker {
   // Stateful on purpose: a live click on the preview server has to answer with the component's
@@ -116,11 +96,7 @@ fun ToggleButtonSticker() = Sticker {
   state = "checked",
   caption = "Checked, where the corner size differs from the unchecked default.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ToggleButtonCheckedSticker() = Sticker {
   var checked by remember { mutableStateOf(true) }

@@ -22,11 +22,7 @@ import ee.schimke.composeai.preview.CatalogVariant
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/5315:4651",
   caption = "An action carried by its icon alone.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun IconButtonSticker() = Sticker {
   // `counted`'s label is unused here — an icon button has none — but its handler is the point: a
@@ -43,11 +39,7 @@ fun IconButtonSticker() = Sticker {
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000113:4150",
   caption = "An icon button that holds its checked state.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun IconToggleButtonSticker() = Sticker {
   var checked by remember { mutableStateOf(false) }
@@ -61,11 +53,7 @@ fun IconToggleButtonSticker() = Sticker {
   state = "checked",
   caption = "Checked, where the container reads as lit rather than outlined.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun IconToggleButtonCheckedSticker() = Sticker {
   var checked by remember { mutableStateOf(true) }

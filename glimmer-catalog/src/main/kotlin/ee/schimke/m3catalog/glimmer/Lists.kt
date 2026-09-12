@@ -20,11 +20,7 @@ import ee.schimke.composeai.preview.CatalogVariant
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/384:4195",
   caption = "One row of a list. The supporting label and icon slots fold in.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ListItemSticker() = Sticker { ListItem { Text("Primary label") } }
 
@@ -33,11 +29,7 @@ fun ListItemSticker() = Sticker { ListItem { Text("Primary label") } }
   props = ["content=supporting-label"],
   caption = "A second line under the primary label.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ListItemSupportingSticker() = Sticker {
   ListItem(supportingLabel = { Text("Supporting label") }) { Text("Primary label") }
@@ -48,11 +40,7 @@ fun ListItemSupportingSticker() = Sticker {
   props = ["content=supporting-label-leading-icon"],
   caption = "Supporting label and a leading icon.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ListItemSupportingIconSticker() = Sticker {
   ListItem(

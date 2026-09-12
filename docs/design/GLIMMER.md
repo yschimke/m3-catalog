@@ -42,16 +42,44 @@ emits nothing and reads as fully transparent through the lens. That is not a dar
 the library's colour tokens are calibrated against, and it decides the capture.
 
 Every sticker here is therefore captured with `showBackground = true` and
-`backgroundColor = 0xFF000000` on a 960x720 dpi-160 device spec (so 1dp is 1px and a token's
-declared size is its size in the PNG). What the published PNG shows as black is exactly what the
-glasses leave unlit; everything else is light the UI adds. A sheet that composited Glimmer onto
-white would be a picture of something the hardware cannot produce — which is also why
-`catalog.spec.json` declares a single `dark` mode and a dark display surface rather than the
-light/dark pair every other system here carries.
+`backgroundColor = 0xFF000000`. What the published PNG shows as black is exactly what the glasses
+leave unlit; everything else is light the UI adds. A sheet that composited Glimmer onto white would
+be a picture of something the hardware cannot produce — which is also why `catalog.spec.json`
+declares a single `dark` mode and a dark display surface rather than the light/dark pair every other
+system here carries.
 
-The constants and the `Sticker` wrapper are deliberately the same shape as the `GlimmerSurface`
-helper in compose-ai-tools' `:samples:xr-glimmer`, so when that is published from a runtime artifact
-this becomes a one-line swap rather than a re-authoring.
+### The glasses display is a measuring bound, not a frame
+
+Nothing in this module names a device. The stickers are device-less `@Preview`s, and
+`PreviewDiscovery.retargetGlimmerStickers` — added upstream in compose-ai-tools#5435 — gives a
+module that compiles against `androidx.xr.glimmer` the AI-glasses display as its **wrap sandbox**:
+960x720 at **density 1.0**. So 1dp is still 1px and a token's declared size is still its size in the
+PNG, but each sticker crops to its own measured bounds instead of sitting in a screen it does not
+fill.
+
+The distinction is the whole of #367. This module used to write
+`device = "spec:width=960,height=720,dpi=160"` on all 19 previews, and a device PINS the frame — the
+intrinsic crop never runs. A 118x48 toggle button shipped adrift in a 691,200-pixel black frame, and
+the sheet averaged **4.1%** content coverage. It is 96% now, with 18 of the 19 at exactly 100%; the
+odd one out is `VoiceInputIndicator`, whose 24x10 bars sit in the component's own 32dp box.
+
+Density is the half worth not losing. Glimmer sizes UI in **visual angle**, not dp: at ~30 pixels
+per degree the library's type and targets land on the angular sizes it is calibrated for (18dp text
+-> 18px -> 0.6 degrees), and that identity holds only at density 1.0. Dropping the device spec
+without the retarget would have handed these stickers the renderer's 2.625 phone default — further
+from calibration than the dpi=240 that `samples/xr-glimmer` had already rejected for reading
+contrast and legibility optimistically.
+
+It also fixes what `fillMaxWidth` resolves against. `Card` and `ListItem` measure to 960dp — the
+display — rather than to a 400dp phone bound they have no relationship to.
+
+The `Sticker` wrapper is now one line, `GlimmerTheme(content = content)`. The
+`fillMaxSize().background(Color.Black).padding(24.dp)` it used to carry was the capture's job in the
+tree: the ground belongs on `showBackground`, and in-tree padding is the mistake
+`CatalogCaptureGutters.kt` already names (#179) — it measures the component in a smaller box and
+grows the canvas. It stays a function rather than being inlined at 19 call sites because it is still
+the seam that swaps to compose-ai-tools' `GlimmerSurface` when that is published from a runtime
+artifact.
 
 `@GlimmerEnvironmentPreview` (Light / Dark / Busy / VeniceCanalCats) composites the same additive
 capture over a passthrough scene, which is what a wearer actually sees. It is not applied yet — see

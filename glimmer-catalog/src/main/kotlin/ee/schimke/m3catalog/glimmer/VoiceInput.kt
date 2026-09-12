@@ -25,11 +25,7 @@ import ee.schimke.composeai.preview.CatalogVariant
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000116:9346",
   caption = "Shows that the glasses are listening, and how loudly. Level pinned at 0.6.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun VoiceInputIndicatorSticker() = Sticker { VoiceInputIndicator(level = { 0.6f }) }
 
@@ -38,11 +34,7 @@ fun VoiceInputIndicatorSticker() = Sticker { VoiceInputIndicator(level = { 0.6f 
   props = ["container=contained"],
   caption = "The contained form, which carries its own surface.",
 )
-@Preview(
-  device = AI_GLASSES_DEVICE_SPEC,
-  showBackground = true,
-  backgroundColor = ADDITIVE_ZERO_BACKGROUND,
-)
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ContainedVoiceInputIndicatorSticker() = Sticker {
   ContainedVoiceInputIndicator(level = { 0.6f })
