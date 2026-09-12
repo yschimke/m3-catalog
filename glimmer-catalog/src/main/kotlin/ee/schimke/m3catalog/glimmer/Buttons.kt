@@ -34,7 +34,10 @@ import ee.schimke.composeai.preview.CatalogVariant
   backgroundColor = ADDITIVE_ZERO_BACKGROUND,
 )
 @Composable
-fun ButtonSticker() = Sticker { Button(onClick = {}) { Text("Send") } }
+fun ButtonSticker() = Sticker {
+  val c = counted("Send")
+  Button(onClick = c.onClick) { Text(c.label) }
+}
 
 @CatalogVariant(of = "Button", props = ["size=Large"], caption = "The larger of the two sizes.")
 @Preview(
@@ -44,7 +47,8 @@ fun ButtonSticker() = Sticker { Button(onClick = {}) { Text("Send") } }
 )
 @Composable
 fun ButtonLargeSticker() = Sticker {
-  Button(onClick = {}, buttonSize = ButtonSize.Large) { Text("Send") }
+  val c = counted("Send")
+  Button(onClick = c.onClick, buttonSize = ButtonSize.Large) { Text(c.label) }
 }
 
 @CatalogVariant(
@@ -59,7 +63,8 @@ fun ButtonLargeSticker() = Sticker {
 )
 @Composable
 fun ButtonLeadingIconSticker() = Sticker {
-  Button(onClick = {}, leadingIcon = { Icon(StarIcon, "Favourite") }) { Text("Send") }
+  val c = counted("Send")
+  Button(onClick = c.onClick, leadingIcon = { Icon(StarIcon, "Favourite") }) { Text(c.label) }
 }
 
 @CatalogVariant(
@@ -74,7 +79,8 @@ fun ButtonLeadingIconSticker() = Sticker {
 )
 @Composable
 fun ButtonTrailingIconSticker() = Sticker {
-  Button(onClick = {}, trailingIcon = { Icon(StarIcon, "Favourite") }) { Text("Send") }
+  val c = counted("Send")
+  Button(onClick = c.onClick, trailingIcon = { Icon(StarIcon, "Favourite") }) { Text(c.label) }
 }
 
 // The toggle is its own component rather than a Button variant: it carries checked state, its own

@@ -58,6 +58,13 @@ on:
       # of it committed. A refreshed SVG is a changed published page, so it is
       # as much a render input as the spec.
       - 'design/pages/**'
+      # The two Glimmer sheets' render inputs: the sticker sources and spec on one side, the
+      # vendored tree with its import manifest, patches and quarantine list on the other. Without
+      # these the `changes` job's `glimmer` output is unreachable on a push that touches only them —
+      # the workflow would never start, and both published sheets would sit stale until the weekly
+      # schedule or a manual dispatch.
+      - 'glimmer-catalog/**'
+      - 'glimmer-samples/**'
       - 'gradle/libs.versions.toml'
       - 'gradle/wrapper/gradle-wrapper.properties'
       - 'settings.gradle.kts'

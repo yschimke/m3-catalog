@@ -26,7 +26,12 @@ import ee.schimke.composeai.preview.CatalogVariant
   backgroundColor = ADDITIVE_ZERO_BACKGROUND,
 )
 @Composable
-fun IconButtonSticker() = Sticker { IconButton(onClick = {}) { Icon(StarIcon, "Favourite") } }
+fun IconButtonSticker() = Sticker {
+  // `counted`'s label is unused here — an icon button has none — but its handler is the point: a
+  // live click has to reach the component rather than a dead lambda.
+  val c = counted("")
+  IconButton(onClick = c.onClick) { Icon(StarIcon, "Favourite") }
+}
 
 @CatalogComponent(
   id = "IconToggleButton",

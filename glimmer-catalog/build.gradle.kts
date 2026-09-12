@@ -57,5 +57,8 @@ dependencies {
   implementation(libs.androidx.compose.ui.tooling.preview)
   implementation(libs.androidx.compose.ui.tooling)
   implementation(libs.composeai.preview.annotations)
+  // `previewOverrideBoolean`, which backs the `clickCount` knob `counted` exposes — the same
+  // live-lane contract `:catalog` carries. See GlimmerInteractive.kt.
+  implementation(libs.composeai.preview.overrides)
   testImplementation(libs.robolectric)
 }
