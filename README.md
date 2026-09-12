@@ -1,5 +1,9 @@
 # Material 3 Design Kit — as code
 
+[![CI](https://github.com/yschimke/m3-catalog/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/yschimke/m3-catalog/actions/workflows/ci.yml)
+[![Design Artifacts](https://github.com/yschimke/m3-catalog/actions/workflows/design-artifacts.yml/badge.svg?branch=main)](https://github.com/yschimke/m3-catalog/actions/workflows/design-artifacts.yml)
+[![Design parity](https://github.com/yschimke/m3-catalog/actions/workflows/design-parity.yml/badge.svg?branch=main)](https://github.com/yschimke/m3-catalog/actions/workflows/design-parity.yml)
+
 The [Material 3 Design Kit][kit] rebuilt as **Jetpack Compose `@Preview`s**, published as an
 importable design catalog.
 
