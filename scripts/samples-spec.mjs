@@ -66,18 +66,32 @@ export const API_TO_KIT_FAMILY = new Map([]);
  */
 export function renderableSamples(dir = VENDORED) {
   const found = new Map();
-  for (const name of readdirSync(dir).sort()) {
-    if (!name.endsWith(".kt")) continue;
-    const text = readFileSync(join(dir, name), "utf8");
-    // Annotations immediately preceding a `fun` — the compiler's own rule, so no KDoc scanning is
-    // needed here and a commented-out sample cannot slip in.
-    for (const match of text.matchAll(/((?:@\w+(?:\([^)]*\))?\s*)+)fun\s+(\w+)\s*\(/g)) {
-      const [, annotations, fn] = match;
-      if (!annotations.includes("@Sampled")) continue;
-      if (!annotations.includes("@Preview")) continue;
-      if (!found.has(fn)) found.set(fn, name);
+  // RECURSIVE, and it has to be: the vendored tree mirrors the samples' own package, so every file
+  // sits under `androidx/compose/material3/samples/` rather than at the root. A flat scan finds
+  // nothing there and reports it as "no sample carries @Preview upstream" — an empty spec that
+  // looks like an upstream fact rather than a walk that never descended.
+  const walk = (d) => {
+    for (const entry of readdirSync(d, { withFileTypes: true }).sort((a, b) =>
+      a.name.localeCompare(b.name),
+    )) {
+      const path = join(d, entry.name);
+      if (entry.isDirectory()) {
+        walk(path);
+        continue;
+      }
+      if (!entry.name.endsWith(".kt")) continue;
+      const text = readFileSync(path, "utf8");
+      // Annotations immediately preceding a `fun` — the compiler's own rule, so no KDoc scanning is
+      // needed here and a commented-out sample cannot slip in.
+      for (const match of text.matchAll(/((?:@\w+(?:\([^)]*\))?\s*)+)fun\s+(\w+)\s*\(/g)) {
+        const [, annotations, fn] = match;
+        if (!annotations.includes("@Sampled")) continue;
+        if (!annotations.includes("@Preview")) continue;
+        if (!found.has(fn)) found.set(fn, entry.name);
+      }
     }
-  }
+  };
+  walk(dir);
   return found;
 }
 

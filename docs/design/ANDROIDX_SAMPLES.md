@@ -76,8 +76,18 @@ get it, and only one of them is right:
 
 `samples/import.json` pins the upstream repository, the **commit SHA** (never a branch), the subtree
 paths, and the library version the module compiles against. `scripts/import-samples.mjs` fetches that
-subtree into `samples-catalog/src/main/kotlin/…/upstream/`, preserving the Apache-2.0 headers
+subtree into `samples-catalog/src/main/kotlin/upstream/`, preserving the Apache-2.0 headers
 verbatim, and writes a provenance file recording repo / SHA / paths / date beside a `NOTICE`.
+
+**Under the directories the samples' own `package` names** — `upstream/androidx/compose/material3/
+samples/…`, the ordinary Kotlin layout, derived from the manifest path by splitting it at the
+module's source root. Not cosmetic: discovery resolves a preview back to its file by asking which of
+the module's sources *ends with* the package-qualified path it reads off the compiled class.
+Vendored flat, none did, so every sample's `sourceFile` fell back to that package path — a string
+naming no file in this repository. Nothing failed; two surfaces just went quiet. The usage panel
+answered `no-usage`, and the page's "source" link 404'd on GitHub. For a catalog whose entire
+subject is *the code*, that is the defect that matters most and the one least likely to be caught by
+a build.
 
 **Settled, and not by the transport this section first guessed at.** Neither
 `android.googlesource.com`'s `+archive` endpoint nor a codeload tarball is used: the first is

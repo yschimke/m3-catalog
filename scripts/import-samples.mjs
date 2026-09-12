@@ -114,6 +114,26 @@ export function quarantined(path = QUARANTINE) {
   );
 }
 
+/** The source roots a Kotlin/Java module can declare, longest-first so the match is unambiguous. */
+const SOURCE_ROOTS = ["/src/main/kotlin/", "/src/main/java/"];
+
+/**
+ * The package-shaped path a manifest subtree occupies inside its own module's source root.
+ *
+ * `compose/material3/material3/samples/src/main/java/androidx/compose/material3/samples` becomes
+ * `androidx/compose/material3/samples` — exactly the directories the files' `package` declaration
+ * names. A subtree that declares no source root keeps the flat shape, so a manifest pointing
+ * somewhere else still vendors.
+ */
+export function packageDirOf(path) {
+  const normalised = path.replace(/\\/g, "/");
+  for (const root of SOURCE_ROOTS) {
+    const at = normalised.indexOf(root);
+    if (at >= 0) return normalised.slice(at + root.length).replace(/\/+$/, "");
+  }
+  return "";
+}
+
 /**
  * Copy every `.kt` file under the manifest's paths into [out], skipping quarantined ones.
  *
@@ -126,6 +146,15 @@ export function quarantined(path = QUARANTINE) {
  * `androidx.compose.material3.samples` is flat today, so this changes nothing here right now —
  * verified against the pinned tree rather than assumed. It is ported so that the day upstream adds
  * a subpackage, this import does not quietly thin the catalog instead of failing.
+ *
+ * PACKAGE-SHAPED, and that is not cosmetic either. Discovery resolves a preview back to its file by
+ * asking which of the module's sources ends with the package-qualified path it reads off the class
+ * — `androidx/compose/material3/samples/ButtonSamples.kt`. Vendored flat, nothing ended with that,
+ * so every sample's `sourceFile` fell back to the package path itself: a string naming no file in
+ * this repository. Downstream that is two dead surfaces — the usage panel answers `no-usage` and the
+ * page's "source" link 404s on GitHub — and neither fails a build, which is why it survived the
+ * first import. Mirroring the package is the ordinary Kotlin layout; here it is also what makes the
+ * published catalog able to show a sample's code, which is the whole point of a sample.
  *
  * Quarantine matches on the file's name, not its path, because that is the unit a reader names in
  * `samples/quarantine.json` and sample file names are unique within a corpus.
@@ -153,7 +182,7 @@ export function vendor(cache, manifest, out, skip = new Map()) {
       copied.push(target);
     }
   };
-  for (const path of manifest.paths) walk(join(cache, path), "");
+  for (const path of manifest.paths) walk(join(cache, path), packageDirOf(path));
   return { copied: copied.sort(), skipped: skipped.sort() };
 }
 
