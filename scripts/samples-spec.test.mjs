@@ -9,6 +9,7 @@ import {
   buildSpec,
   kitComponentFor,
   kitFirstCellByFamily,
+  renderableSamples,
 } from "./samples-spec.mjs";
 
 /** A throwaway kit source tree: `<root>/<name>` for each entry. */
@@ -121,4 +122,48 @@ test("no label is emitted, so the destination names the component", () => {
   );
   const link = groups.flatMap((g) => g.components)[0].related[0];
   assert.equal("label" in link, false);
+});
+
+test("renderable means what discovery can invoke, not merely @Sampled + @Preview", () => {
+  // Discovery calls a preview with no arguments and no receiver, and a composable that RETURNS a
+  // value draws nothing. The adaptive samples supply all three shapes: publishing them produced one
+  // card with no PNG at all and three cards whose render is a 1x1 blank.
+  const dir = mkdtempSync(join(tmpdir(), "renderable-"));
+  try {
+    writeFileSync(
+      join(dir, "ThreePaneScaffoldSample.kt"),
+      `
+@Preview
+@Sampled
+@Composable
+fun ListDetailPaneScaffoldSample() {}
+
+@Preview
+@Sampled
+@Composable
+fun <T> genericButDrawsSample() {}
+
+@Preview
+@Sampled
+@Composable
+fun <T> levitateAsDialogSample(): ThreePaneScaffoldNavigator<T> {}
+
+@Preview
+@Sampled
+@Composable
+fun ThreePaneScaffoldScope.PaneExpansionDragHandleSample(state: PaneExpansionState) {}
+
+@Sampled
+@Composable
+fun NotPreviewed() {}
+`,
+    );
+    assert.deepEqual(
+      [...renderableSamples(dir).keys()].sort(),
+      // The generic one stays: `<T>` says nothing about whether the function draws.
+      ["ListDetailPaneScaffoldSample", "genericButDrawsSample"],
+    );
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });

@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { sampleBlocks } from "./sample-map.mjs";
+import { mergeSampleMaps, sampleBlocks } from "./sample-map.mjs";
 
 const only = (text) => sampleBlocks(text);
 
@@ -147,4 +147,54 @@ test("does not trip on an unterminated string literal", () => {
     fun Thing() {}
   `;
   assert.equal(only(src).length, 1);
+});
+
+test("attributes a block on an `enum class` to the enum, not to the word `class`", () => {
+  // adaptive-layout's `DockedEdge` is the live case. `enum` and `annotation` are declaration
+  // keywords whose declaration word is two words long, so reading "the identifier after the
+  // keyword" yields `class` — an API name no Kotlin declaration can have, which would publish the
+  // sample against a group called "class".
+  const blocks = sampleBlocks(`
+/**
+ * Which edge is docked.
+ *
+ * @sample androidx.compose.material3.adaptive.samples.SupportingPaneScaffoldSample
+ */
+@ExperimentalMaterial3AdaptiveApi
+enum class DockedEdge {
+    Top,
+    Bottom,
+}
+`);
+  assert.deepEqual(
+    blocks.map((b) => b.decl),
+    ["DockedEdge"],
+  );
+});
+
+test("attributes a block on an `annotation class` to the annotation", () => {
+  const blocks = sampleBlocks(`
+/** @sample com.example.Sample */
+annotation class Marker
+`);
+  assert.deepEqual(
+    blocks.map((b) => b.decl),
+    ["Marker"],
+  );
+});
+
+test("merges the maps of several artifacts, keeping the union of an API's samples", () => {
+  // `:samples-catalog` compiles against material3 AND the adaptive line, so the committed map is
+  // the union of both sources jars rather than whichever was read last.
+  const merged = mergeSampleMaps([
+    [{ api: "Button", samples: ["a.ButtonSample"] }],
+    [
+      { api: "Button", samples: ["a.ButtonWithIconSample"] },
+      { api: "ListDetailPaneScaffold", samples: ["b.ListDetailPaneScaffoldSample"] },
+    ],
+  ]);
+  assert.deepEqual(merged, [
+    { api: "Button", samples: ["a.ButtonSample", "a.ButtonWithIconSample"] },
+    { api: "ListDetailPaneScaffold", samples: ["b.ListDetailPaneScaffoldSample"] },
+  ]);
 });

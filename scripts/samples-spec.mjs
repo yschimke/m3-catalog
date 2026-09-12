@@ -70,11 +70,27 @@ export function renderableSamples(dir = VENDORED) {
     if (!name.endsWith(".kt")) continue;
     const text = readFileSync(join(dir, name), "utf8");
     // Annotations immediately preceding a `fun` — the compiler's own rule, so no KDoc scanning is
-    // needed here and a commented-out sample cannot slip in.
-    for (const match of text.matchAll(/((?:@\w+(?:\([^)]*\))?\s*)+)fun\s+(\w+)\s*\(/g)) {
-      const [, annotations, fn] = match;
+    // needed here and a commented-out sample cannot slip in. The signature is matched as narrowly
+    // as what discovery can actually INVOKE, which is less than `@Sampled` + `@Preview`:
+    //
+    //   * no extension receiver — there is nothing to call it on. `PaneExpansionDragHandleSample`
+    //     is `fun ThreePaneScaffoldScope.…(state)`, carries `@Preview` upstream, and draws nothing
+    //     here: rendering it produced no PNG at all.
+    //   * no parameters — same reason.
+    //   * no return type. A composable that returns a value is a state factory, not a call site
+    //     that draws: `fun <T> levitateAsDialogSample(): ThreePaneScaffoldNavigator<T>` renders as
+    //     a 1x1 blank. Upstream annotates these `@Preview` anyway, which is reasonable there and
+    //     indefensible here — a blank card claims a picture the sample never had.
+    //
+    // A type-parameter list is fine and is NOT a reason to skip: `<T>` says nothing about whether
+    // the function draws.
+    for (const match of text.matchAll(
+      /((?:@\w+(?:\([^)]*\))?\s*)+)fun\s+(?:<[^>]*>\s*)?(\w+)\s*\(\s*\)\s*(:)?/g,
+    )) {
+      const [, annotations, fn, returnType] = match;
       if (!annotations.includes("@Sampled")) continue;
       if (!annotations.includes("@Preview")) continue;
+      if (returnType) continue;
       if (!found.has(fn)) found.set(fn, name);
     }
   }

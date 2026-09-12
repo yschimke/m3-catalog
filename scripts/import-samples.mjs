@@ -20,9 +20,19 @@
  * the two sample subtrees, measured. It needs no API token and no directory listing, which is what
  * makes it work identically on a CI runner and a laptop.
  *
- * `ref` in the manifest is a **commit SHA**, never a branch. A branch would make the published
- * catalog irreproducible and turn an upstream bump into an invisible event rather than a reviewable
- * diff.
+ * `ref` is a **commit SHA**, never a branch. A branch would make the published catalog
+ * irreproducible and turn an upstream bump into an invisible event rather than a reviewable diff.
+ *
+ * ## One manifest, several libraries
+ *
+ * `samples/import.json` holds a LIST of libraries, each with its own `ref`, `paths` and artifact
+ * version. That is not tidiness: a sample tree belongs to the artifact whose KDoc points at it, and
+ * those artifacts move independently — adaptive-layout 1.3.0-beta02 was published three weeks
+ * before material3 1.5.0-alpha22. Vendoring the adaptive samples at material3's commit compiled
+ * them against an `AnimatedPane(shape = …)` overload Compose Multiplatform does not ship.
+ *
+ * The libraries' files land in ONE flat directory, so a file name may not repeat across them — the
+ * vendor step fails rather than letting one overwrite the other.
  *
  * ## Small fixes are patches, never edits
  *
@@ -56,7 +66,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { basename, dirname, join } from "node:path";
+import { basename, dirname, join, resolve } from "node:path";
 
 const MANIFEST = "samples/import.json";
 const PATCH_DIR = "samples/patches";
@@ -66,15 +76,21 @@ const run = (cmd, args, opts = {}) =>
   execFileSync(cmd, args, { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], ...opts });
 
 /**
- * Fetch the manifest's subtrees at its pinned ref into [cache], reusing an existing checkout when
- * it already sits on that exact commit — an import is then a no-op rather than a re-download.
+ * Fetch one library's subtrees at ITS pinned ref into [cache], reusing an existing checkout when it
+ * already sits on that exact commit — an import is then a no-op rather than a re-download.
+ *
+ * Per library, not per manifest, because each library pins the commit matching the artifact version
+ * it is compared against, and those cadences are independent: adaptive-layout 1.3.0-beta02 and
+ * material3 1.5.0-alpha22 were published three weeks apart. Each ref gets its own cache directory,
+ * so two libraries sharing a ref share one checkout — which is why the sparse paths are re-applied
+ * on every call rather than only after a clone.
  */
-export function fetchUpstream(manifest, cache) {
+export function fetchUpstream(repo, library, cache) {
   const atRef =
     existsSync(join(cache, ".git")) &&
     (() => {
       try {
-        return run("git", ["-C", cache, "rev-parse", "HEAD"]).trim() === manifest.ref;
+        return run("git", ["-C", cache, "rev-parse", "HEAD"]).trim() === library.ref;
       } catch {
         return false;
       }
@@ -83,24 +99,24 @@ export function fetchUpstream(manifest, cache) {
   if (!atRef) {
     rmSync(cache, { recursive: true, force: true });
     mkdirSync(dirname(cache), { recursive: true });
-    run("git", [
-      "clone",
-      "--filter=blob:none",
-      "--no-checkout",
-      "--depth",
-      "1",
-      manifest.repo,
-      cache,
-    ]);
+    run("git", ["clone", "--filter=blob:none", "--no-checkout", "--depth", "1", repo, cache]);
     run("git", ["-C", cache, "sparse-checkout", "init", "--cone"]);
-    run("git", ["-C", cache, "sparse-checkout", "set", ...manifest.paths]);
+  }
+
+  // Set the sparse paths on EVERY call, not only after a fresh clone. Two libraries sharing a ref
+  // share this checkout, and the second one's subtree is not in the first one's sparse set — so
+  // reusing the cache without this leaves its paths absent from the working tree and `vendor`
+  // walks a directory that is not there. Cheap when it changes nothing.
+  run("git", ["-C", cache, "sparse-checkout", "set", ...library.paths]);
+
+  if (!atRef) {
     // The pinned commit may not be the shallow tip, so fetch it by id before checking it out.
     try {
-      run("git", ["-C", cache, "fetch", "--depth", "1", "origin", manifest.ref]);
+      run("git", ["-C", cache, "fetch", "--depth", "1", "origin", library.ref]);
     } catch {
       // A ref already present in the shallow pack needs no fetch; checkout below is the real test.
     }
-    run("git", ["-C", cache, "checkout", manifest.ref]);
+    run("git", ["-C", cache, "checkout", library.ref]);
   }
   return cache;
 }
@@ -130,8 +146,8 @@ export function quarantined(path = QUARANTINE) {
  * Quarantine matches on the file's name, not its path, because that is the unit a reader names in
  * `samples/quarantine.json` and sample file names are unique within a corpus.
  */
-export function vendor(cache, manifest, out, skip = new Map()) {
-  rmSync(out, { recursive: true, force: true });
+export function vendor(cache, library, out, skip = new Map(), clear = true) {
+  if (clear) rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });
   const copied = [];
   const skipped = [];
@@ -148,12 +164,21 @@ export function vendor(cache, manifest, out, skip = new Map()) {
         skipped.push(entry.name);
         continue;
       }
+      // Two libraries' trees land in ONE flat vendored directory, so a shared file name would have
+      // one silently overwrite the other — and `samples/quarantine.json` keys on the bare name,
+      // which assumes the same uniqueness. Fail instead of picking a winner.
+      if (!clear && existsSync(join(out, target))) {
+        throw new Error(
+          `${target} is vendored by more than one library in samples/import.json. File names must ` +
+            `be unique across the corpus: quarantine keys on the name, and the vendored tree is flat.`,
+        );
+      }
       mkdirSync(dirname(join(out, target)), { recursive: true });
       cpSync(source, join(out, target));
       copied.push(target);
     }
   };
-  for (const path of manifest.paths) walk(join(cache, path), "");
+  for (const path of library.paths) walk(join(cache, path), "");
   return { copied: copied.sort(), skipped: skipped.sort() };
 }
 
@@ -174,10 +199,10 @@ export function vendor(cache, manifest, out, skip = new Map()) {
  * Returns the number of files copied; absent `resourcePaths` is a no-op, so the phone repo's
  * manifest shape stays valid against this same script.
  */
-export function vendorResources(cache, manifest, out) {
-  const paths = manifest.resourcePaths ?? [];
+export function vendorResources(cache, library, out, clear = true) {
+  const paths = library.resourcePaths ?? [];
   if (paths.length === 0) return 0;
-  rmSync(out, { recursive: true, force: true });
+  if (clear) rmSync(out, { recursive: true, force: true });
   let copied = 0;
   for (const path of paths) {
     const from = join(cache, path);
@@ -207,7 +232,10 @@ export function applyPatches(out, dir = PATCH_DIR) {
     .sort();
   for (const patch of patches) {
     try {
-      run("git", ["apply", "--directory", out, join(dir, patch)]);
+      // Applied with `out` as the working directory rather than via `--directory`, because `out` is
+      // a temp directory under `--check` and git refuses a `--directory` path outside the work tree
+      // ("invalid path"). The patch paths are therefore repo-relative to the vendored tree itself.
+      run("git", ["apply", "-p1", resolve(dir, patch)], { cwd: out });
     } catch (error) {
       const detail = error.stderr?.toString().trim() || error.message;
       throw new Error(
@@ -221,16 +249,27 @@ export function applyPatches(out, dir = PATCH_DIR) {
   return patches;
 }
 
-/** Record where the bytes came from, beside them. */
+/**
+ * Record where the bytes came from, beside them.
+ *
+ * One entry per library rather than one ref for the tree, because the libraries are pinned
+ * independently: a reader tracing a render back to a commit needs to know WHICH commit that
+ * particular sample came from, and "the import's ref" stopped being a single answer when the
+ * manifest grew a second library.
+ */
 export function writeProvenance(out, manifest, result, patches) {
   const provenance = {
     $comment:
       "GENERATED by scripts/import-samples.mjs — do not edit. Records exactly which upstream " +
       "commit these vendored sources came from, so a published render can be traced back to it.",
     repo: manifest.repo,
-    ref: manifest.ref,
-    paths: manifest.paths,
-    artifact: `${manifest.artifactCoordinates}:${manifest.artifactVersion}`,
+    libraries: manifest.libraries.map((library) => ({
+      name: library.name,
+      ref: library.ref,
+      paths: library.paths,
+      artifact: `${library.artifactCoordinates}:${library.artifactVersion}`,
+      files: (result.byLibrary?.[library.name] ?? []).length,
+    })),
     files: result.copied.length,
     quarantined: result.skipped,
     patches,
@@ -246,16 +285,27 @@ function main(argv) {
   const manifest = JSON.parse(readFileSync(MANIFEST, "utf8"));
   const check = argv.includes("--check");
   const committed = args.get("out") ?? "samples-catalog/src/main/kotlin/upstream";
-  const cache = args.get("cache") ?? join(tmpdir(), `androidx-samples-${basename(manifest.ref)}`);
-
-  console.log(`Fetching ${manifest.repo} at ${manifest.ref.slice(0, 12)} …`);
-  fetchUpstream(manifest, cache);
+  const cacheBase = args.get("cache") ?? join(tmpdir(), "androidx-samples");
 
   const skip = quarantined();
   const out = check ? mkdtempSync(join(tmpdir(), "samples-import-")) : committed;
-  const result = vendor(cache, manifest, out, skip);
   const resourcesOut = args.get("res") ?? "samples-catalog/src/main/res";
-  const resources = check ? 0 : vendorResources(cache, manifest, resourcesOut);
+  const result = { copied: [], skipped: [], byLibrary: {} };
+  let resources = 0;
+  // The destination is cleared by the FIRST library and appended to by the rest, so a sample
+  // deleted upstream still disappears here rather than lingering.
+  manifest.libraries.forEach((library, index) => {
+    const cache = join(cacheBase, basename(library.ref));
+    console.log(`Fetching ${manifest.repo} at ${library.ref.slice(0, 12)} for ${library.name} …`);
+    fetchUpstream(manifest.repo, library, cache);
+    const vendored = vendor(cache, library, out, skip, index === 0);
+    result.copied.push(...vendored.copied);
+    result.skipped.push(...vendored.skipped);
+    result.byLibrary[library.name] = vendored.copied;
+    if (!check) resources += vendorResources(cache, library, resourcesOut, index === 0);
+  });
+  result.copied.sort();
+  result.skipped.sort();
   let patches;
   try {
     patches = applyPatches(out);
