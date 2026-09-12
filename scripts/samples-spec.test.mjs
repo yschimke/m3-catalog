@@ -124,6 +124,23 @@ test("no label is emitted, so the destination names the component", () => {
   assert.equal("label" in link, false);
 });
 
+test("samples are found under the package directories they are vendored into", () => {
+  // The vendored tree mirrors the samples' own package, so nothing sits at its root. A flat scan
+  // finds no sample at all and reports it as "none carries @Preview upstream" — an empty spec that
+  // reads as an upstream fact rather than as a walk that never descended. Caught exactly that way.
+  const root = kitSources({
+    "androidx/compose/material3/samples/ButtonSamples.kt":
+      "@Sampled\n@Preview\n@Composable\nfun ButtonSample() {}\n" +
+      "@Composable\nfun FancyHelper() {}\n",
+  });
+  try {
+    const found = renderableSamples(root);
+    assert.deepEqual([...found.keys()], ["ButtonSample"]);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test("renderable means what discovery can invoke, not merely @Sampled + @Preview", () => {
   // Discovery calls a preview with no arguments and no receiver, and a composable that RETURNS a
   // value draws nothing. The adaptive samples supply all three shapes: publishing them produced one

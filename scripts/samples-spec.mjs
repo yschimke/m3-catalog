@@ -66,34 +66,49 @@ export const API_TO_KIT_FAMILY = new Map([]);
  */
 export function renderableSamples(dir = VENDORED) {
   const found = new Map();
-  for (const name of readdirSync(dir).sort()) {
-    if (!name.endsWith(".kt")) continue;
-    const text = readFileSync(join(dir, name), "utf8");
-    // Annotations immediately preceding a `fun` — the compiler's own rule, so no KDoc scanning is
-    // needed here and a commented-out sample cannot slip in. The signature is matched as narrowly
-    // as what discovery can actually INVOKE, which is less than `@Sampled` + `@Preview`:
-    //
-    //   * no extension receiver — there is nothing to call it on. `PaneExpansionDragHandleSample`
-    //     is `fun ThreePaneScaffoldScope.…(state)`, carries `@Preview` upstream, and draws nothing
-    //     here: rendering it produced no PNG at all.
-    //   * no parameters — same reason.
-    //   * no return type. A composable that returns a value is a state factory, not a call site
-    //     that draws: `fun <T> levitateAsDialogSample(): ThreePaneScaffoldNavigator<T>` renders as
-    //     a 1x1 blank. Upstream annotates these `@Preview` anyway, which is reasonable there and
-    //     indefensible here — a blank card claims a picture the sample never had.
-    //
-    // A type-parameter list is fine and is NOT a reason to skip: `<T>` says nothing about whether
-    // the function draws.
-    for (const match of text.matchAll(
-      /((?:@\w+(?:\([^)]*\))?\s*)+)fun\s+(?:<[^>]*>\s*)?(\w+)\s*\(\s*\)\s*(:)?/g,
+  // RECURSIVE, and it has to be: the vendored tree mirrors the samples' own package, so every file
+  // sits under `androidx/compose/material3/samples/` (and the adaptive library's own package)
+  // rather than at the root. A flat scan finds nothing there and reports it as "no sample carries
+  // @Preview upstream" — an empty spec that reads as a fact about upstream rather than as a walk
+  // that never descended.
+  const walk = (d) => {
+    for (const entry of readdirSync(d, { withFileTypes: true }).sort((a, b) =>
+      a.name.localeCompare(b.name),
     )) {
-      const [, annotations, fn, returnType] = match;
-      if (!annotations.includes("@Sampled")) continue;
-      if (!annotations.includes("@Preview")) continue;
-      if (returnType) continue;
-      if (!found.has(fn)) found.set(fn, name);
+      const path = join(d, entry.name);
+      if (entry.isDirectory()) {
+        walk(path);
+        continue;
+      }
+      if (!entry.name.endsWith(".kt")) continue;
+      const text = readFileSync(path, "utf8");
+      // Annotations immediately preceding a `fun` — the compiler's own rule, so no KDoc scanning is
+      // needed here and a commented-out sample cannot slip in. The signature is matched as narrowly
+      // as what discovery can actually INVOKE, which is less than `@Sampled` + `@Preview`:
+      //
+      //   * no extension receiver — there is nothing to call it on. `PaneExpansionDragHandleSample`
+      //     is `fun ThreePaneScaffoldScope.…(state)`, carries `@Preview` upstream, and draws nothing
+      //     here: rendering it produced no PNG at all.
+      //   * no parameters — same reason.
+      //   * no return type. A composable that returns a value is a state factory, not a call site
+      //     that draws: `fun <T> levitateAsDialogSample(): ThreePaneScaffoldNavigator<T>` renders as
+      //     a 1x1 blank. Upstream annotates these `@Preview` anyway, which is reasonable there and
+      //     indefensible here — a blank card claims a picture the sample never had.
+      //
+      // A type-parameter list is fine and is NOT a reason to skip: `<T>` says nothing about whether
+      // the function draws.
+      for (const match of text.matchAll(
+        /((?:@\w+(?:\([^)]*\))?\s*)+)fun\s+(?:<[^>]*>\s*)?(\w+)\s*\(\s*\)\s*(:)?/g,
+      )) {
+        const [, annotations, fn, returnType] = match;
+        if (!annotations.includes("@Sampled")) continue;
+        if (!annotations.includes("@Preview")) continue;
+        if (returnType) continue;
+        if (!found.has(fn)) found.set(fn, entry.name);
+      }
     }
-  }
+  };
+  walk(dir);
   return found;
 }
 

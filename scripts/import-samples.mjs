@@ -130,6 +130,26 @@ export function quarantined(path = QUARANTINE) {
   );
 }
 
+/** The source roots a Kotlin/Java module can declare, longest-first so the match is unambiguous. */
+const SOURCE_ROOTS = ["/src/main/kotlin/", "/src/main/java/"];
+
+/**
+ * The package-shaped path a manifest subtree occupies inside its own module's source root.
+ *
+ * `compose/material3/material3/samples/src/main/java/androidx/compose/material3/samples` becomes
+ * `androidx/compose/material3/samples` — exactly the directories the files' `package` declaration
+ * names. A subtree that declares no source root keeps the flat shape, so a manifest pointing
+ * somewhere else still vendors.
+ */
+export function packageDirOf(path) {
+  const normalised = path.replace(/\\/g, "/");
+  for (const root of SOURCE_ROOTS) {
+    const at = normalised.indexOf(root);
+    if (at >= 0) return normalised.slice(at + root.length).replace(/\/+$/, "");
+  }
+  return "";
+}
+
 /**
  * Copy every `.kt` file under the manifest's paths into [out], skipping quarantined ones.
  *
@@ -143,6 +163,15 @@ export function quarantined(path = QUARANTINE) {
  * verified against the pinned tree rather than assumed. It is ported so that the day upstream adds
  * a subpackage, this import does not quietly thin the catalog instead of failing.
  *
+ * PACKAGE-SHAPED, and that is not cosmetic either. Discovery resolves a preview back to its file by
+ * asking which of the module's sources ends with the package-qualified path it reads off the class
+ * — `androidx/compose/material3/samples/ButtonSamples.kt`. Vendored flat, nothing ended with that,
+ * so every sample's `sourceFile` fell back to the package path itself: a string naming no file in
+ * this repository. Downstream that is two dead surfaces — the usage panel answers `no-usage` and the
+ * page's "source" link 404s on GitHub — and neither fails a build, which is why it survived the
+ * first import. Mirroring the package is the ordinary Kotlin layout; here it is also what makes the
+ * published catalog able to show a sample's code, which is the whole point of a sample.
+ *
  * Quarantine matches on the file's name, not its path, because that is the unit a reader names in
  * `samples/quarantine.json` and sample file names are unique within a corpus.
  */
@@ -151,6 +180,20 @@ export function vendor(cache, library, out, skip = new Map(), clear = true) {
   mkdirSync(out, { recursive: true });
   const copied = [];
   const skipped = [];
+  // Bare file names already vendored by an earlier library, for the uniqueness check below. By NAME
+  // and not by path: the package directories now keep two libraries' trees from overwriting each
+  // other, so a path check would pass exactly where the invariant that matters — quarantine keys on
+  // the bare name — has already broken.
+  const existingNames = new Set();
+  if (!clear && existsSync(out)) {
+    const collect = (d) => {
+      for (const entry of readdirSync(d, { withFileTypes: true })) {
+        if (entry.isDirectory()) collect(join(d, entry.name));
+        else if (entry.name.endsWith(".kt")) existingNames.add(entry.name);
+      }
+    };
+    collect(out);
+  }
   const walk = (from, relative) => {
     for (const entry of readdirSync(from, { withFileTypes: true })) {
       const source = join(from, entry.name);
@@ -164,13 +207,16 @@ export function vendor(cache, library, out, skip = new Map(), clear = true) {
         skipped.push(entry.name);
         continue;
       }
-      // Two libraries' trees land in ONE flat vendored directory, so a shared file name would have
-      // one silently overwrite the other — and `samples/quarantine.json` keys on the bare name,
-      // which assumes the same uniqueness. Fail instead of picking a winner.
-      if (!clear && existsSync(join(out, target))) {
+      // `samples/quarantine.json` keys on the bare file name, so one name vendored by two libraries
+      // makes every quarantine entry for it ambiguous — it would silently exclude both, or the
+      // wrong one. The package directories stop the two from overwriting each other on disk, which
+      // is precisely why this has to ask about the name rather than the path. Fail instead of
+      // picking a winner.
+      if (existingNames.has(entry.name)) {
         throw new Error(
-          `${target} is vendored by more than one library in samples/import.json. File names must ` +
-            `be unique across the corpus: quarantine keys on the name, and the vendored tree is flat.`,
+          `${entry.name} is vendored by more than one library in samples/import.json. File names ` +
+            `must be unique across the corpus: quarantine keys on the bare name, whatever package ` +
+            `directory the file lands in.`,
         );
       }
       mkdirSync(dirname(join(out, target)), { recursive: true });
@@ -178,7 +224,7 @@ export function vendor(cache, library, out, skip = new Map(), clear = true) {
       copied.push(target);
     }
   };
-  for (const path of library.paths) walk(join(cache, path), "");
+  for (const path of library.paths) walk(join(cache, path), packageDirOf(path));
   return { copied: copied.sort(), skipped: skipped.sort() };
 }
 
