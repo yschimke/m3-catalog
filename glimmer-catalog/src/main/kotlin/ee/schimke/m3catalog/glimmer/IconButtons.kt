@@ -17,9 +17,9 @@ import ee.schimke.composeai.preview.CatalogVariant
 
 @CatalogComponent(
   id = "IconButton",
-  // The `Icon button` set under the kit's `icon buttons` frame — `State=` only,
-  // matching a component with no size or checked axis.
-  reference = "figma:HKfLClZDLRyMhf4IQQLna8/5315:4650",
+  // `State=Enabled` in the `Icon button` set (`5315:4650`) under the kit's `icon buttons`
+  // frame. `State=` is its only axis, matching a component with no size or checked axis.
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/5315:4651",
   caption = "An action carried by its icon alone.",
 )
 @Preview(
@@ -37,9 +37,10 @@ fun IconButtonSticker() = Sticker {
 
 @CatalogComponent(
   id = "IconToggleButton",
-  // The `Toggle` set, also under `icon buttons`: `Toggle=False | True` x `State=`,
-  // which is what makes it the icon-toggle rather than a second plain icon button.
-  reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000113:4149",
+  // `Toggle=False, State=Enabled` in the `Toggle` set (`40000113:4149`), also under
+  // `icon buttons`. That the set carries `Toggle=` at all is what makes it the icon-toggle
+  // rather than a second plain icon button.
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000113:4150",
   caption = "An icon button that holds its checked state.",
 )
 @Preview(

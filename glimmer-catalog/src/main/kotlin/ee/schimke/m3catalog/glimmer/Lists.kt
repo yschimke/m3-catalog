@@ -13,9 +13,11 @@ import ee.schimke.composeai.preview.CatalogVariant
 
 @CatalogComponent(
   id = "ListItem",
-  // The kit's `List Item` set: `Type=1-line | 2-line | Card` x `State=`. The
-  // supporting-label variant here is the kit's `2-line`.
-  reference = "figma:HKfLClZDLRyMhf4IQQLna8/384:4197",
+  // `Type=1-line, State=Enabled` in the kit's `List Item` set (`384:4197`), whose axes are
+  // `Type=1-line | 2-line | Card` x `State=`. One line is the base because this sticker
+  // draws `ListItem { Text(…) }` and nothing else; the supporting-label variant below is a
+  // rendition of the kit's `2-line` (`384:4191`).
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/384:4195",
   caption = "One row of a list. The supporting label and icon slots fold in.",
 )
 @Preview(
