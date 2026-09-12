@@ -1,8 +1,14 @@
 name: Parity Issues
 
-# Publish this repository's parity issues to `design-artifacts/m3-catalog` as
+# Publish this repository's parity issues to each catalog's delivery branch as
 # `parity/issues.json`, so the preview server can show a component's open issues
 # on the page where the difference is visible.
+#
+# ONE JOB PER SYSTEM, because the index is per delivery branch and an issue
+# reaches exactly the system its locator names. The producer reads every issue in
+# `repositories` and keeps the rows whose locator says `system: <this system>`,
+# so the `m3-catalog` job below cannot carry a Glimmer report however the issue is
+# written — which is why #381-#383 were filed, published, and appeared nowhere.
 #
 # The pipeline — read issues -> parse each body's `compose-parity-locator/v1`
 # block -> commit the one path — is the shared reusable workflow in
@@ -65,3 +71,26 @@ jobs:
       # array only alongside a credential that can read its issues, since an
       # unreadable repo is indistinguishable from one with no parity issues.
       repositories: '["yschimke/m3-catalog"]'
+
+  glimmer:
+    name: glimmer-catalog
+    if: ${{ github.repository == 'yschimke/m3-catalog' }}
+    permissions:
+      contents: write
+      issues: read
+    uses: yschimke/compose-ai-tools/.github/workflows/parity-issues-reusable.yml@main
+    with:
+      # `design-artifacts/glimmer-catalog`, the branch `design-artifacts.yml`
+      # publishes this sheet to. Before this job that branch carried a
+      # `parity/activity.json` and no `parity/issues.json` at all, so the Glimmer
+      # components had no issue lane to appear in.
+      system: glimmer-catalog
+      # Same single repository: Glimmer's stickers are declared here too, so a
+      # difference in them is reported here.
+      repositories: '["yschimke/m3-catalog"]'
+      # No `ISSUES_TOKEN`, matching the job above — the default `github.token`
+      # reads this repository's own issues, which is the whole list.
+
+  # The two jobs run concurrently and never race: the reusable workflow's
+  # concurrency group keys on `<repository>-<system>-parity-issues`, so each
+  # system serialises against itself and writes only its own delivery branch.
