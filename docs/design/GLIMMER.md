@@ -90,12 +90,35 @@ job copies it into place. It replaced a `design-map-command` that projected an e
 
 ### What is still missing
 
-- **No kit index, so the variants are unresolved.** `design-map.sh` runs a second step —
-  `@design-parity/kit-index resolve` — that turns a variant's props (`size=Large`) into the kit's own
-  variant values by looking them up in a committed index. There is no such index for this kit, so
-  the eleven `@CatalogVariant` renders are reported as "awaiting a kit resolver". They ARE
-  resolvable: the kit publishes every axis they declare. Indexing needs a Figma token, which is a CI
-  secret.
+- **The kit index exists now, and it did not do what was expected.**
+  `glimmer-figma-kit-index.json` holds the kit's 6 component sets, their 55 variants and 2
+  standalone components, so `scripts/glimmer-design-map.sh` runs the
+  `@design-parity/kit-index resolve` step `design-map.sh` always had.
+
+  It needed no Figma token. `@design-parity/kit-index` builds an index by calling api.figma.com,
+  which this repository holds no secret for and which is outside this environment's egress
+  allowlist besides; the **Figma MCP server's read-only `get_metadata`** returns the same node ids
+  and variant names, one call per component set, and read-only is what `AGENTS.md` requires of
+  every Figma interaction here.
+
+  **It resolves nothing, and that is the finding rather than a failure.** The claim above — that
+  the eleven are resolvable because the kit publishes every axis they declare — was wrong twice:
+
+  - The kit's variant names are MULTI-AXIS (`State=Enabled, Size=Large`), never the single axis a
+    `props = ["size=Large"]` declaration matches. m3-catalog's 1885-of-2005 does not come from
+    matching either: `scripts/generate-exhaustive-kit-cells.mjs` emits one declaration per kit cell,
+    naming every axis and the node id.
+  - Most of the eleven have no counterpart to find. `content=leading-icon` is a Compose slot, and
+    the kit's Button set publishes `State=` x `Size=` with no content axis at all. `Card` and
+    `Title chip` are single symbols whose content differences are hidden LAYERS — which is why both
+    sit in the index's `standalone` rather than `sets`, with no variants to resolve against.
+
+  Five of the eleven do have a counterpart and would resolve if declared as kit cells rather than
+  Compose props: Button `size=Large` -> `40000113:3576`, ToggleButton `state=checked` ->
+  `40000113:4138`, IconToggleButton `state=checked` -> `40000113:4181`, VoiceInputIndicator
+  `container=contained` -> `40000116:9338`, and ListItem `content=supporting-label`, which is the
+  kit's `Type=2-line` (`384:4191`) under a Compose name. That is a taxonomy change to the
+  annotations, and it belongs with the re-check below rather than ahead of it.
 - **No parity lane.** The job still carries no `figma_token` and no `reference-cache-branch`, so
   nothing fetches reference artwork or scores the comparison yet.
 - **The direction is settled, by precedent.** An earlier draft of this section treated the kit's
