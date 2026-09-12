@@ -16,9 +16,13 @@ import ee.schimke.composeai.preview.CatalogVariant
 
 @CatalogComponent(
   id = "VoiceInputIndicator",
-  // The kit's `Mic Indicators` set: `Volume=Loud | Quiet` x `Contained=Yes | No`,
-  // the second of which is this component's `container=contained` variant.
-  reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000116:9337",
+  // `Volume=Loud, Contained=No` in the kit's `Mic Indicators` set (`40000116:9337`), whose
+  // axes are `Volume=Loud | Quiet` x `Contained=Yes | No`. `Contained=No` is settled — this
+  // sticker draws the uncontained form and `container=contained` below is the other. The
+  // VOLUME half is a judgement rather than a fact: the sticker pins `level = 0.6f`, above the
+  // midpoint, so `Loud` is the closer of two cells the kit gives no third option between.
+  // Nothing resolves against it either way, because the catalog declares no volume axis.
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000116:9346",
   caption = "Shows that the glasses are listening, and how loudly. Level pinned at 0.6.",
 )
 @Preview(

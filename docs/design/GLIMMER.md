@@ -104,17 +104,28 @@ job copies it into place. It replaced a `design-map-command` that projected an e
   **It resolves nothing, and that is the finding rather than a failure.** The claim above — that
   the eleven are resolvable because the kit publishes every axis they declare — was wrong twice:
 
-  - The kit's variant names are MULTI-AXIS (`State=Enabled, Size=Large`), never the single axis a
-    `props = ["size=Large"]` declaration matches. m3-catalog's 1885-of-2005 does not come from
-    matching either: `scripts/generate-exhaustive-kit-cells.mjs` emits one declaration per kit cell,
-    naming every axis and the node id.
+  - **The references named component SETS rather than cells**, and a set has no axes to diff a
+    declaration against. That was the larger half and it is fixed: all six set references now name
+    the base cell the sticker actually draws (`Button` -> `State=Enabled, Size=Default`, and so on),
+    which is what `m3-catalog` has always done and what the emitter reports on — it now says "0
+    naming their component set" where it used to count six. `size=Large` resolves against
+    `State=Enabled, Size=Large` as soon as there is a base cell to diff from, so the resolver
+    handles multi-axis names perfectly well; the earlier reading here, that multi-axis never
+    matches, was wrong.
+  - **The prop vocabulary is Compose's, not the kit's.** The four that still miss are
+    `state=checked` against the kit's `Toggle=True`, `container=contained` against `Contained=Yes`,
+    and `content=supporting-label` against `Type=2-line`. Renaming the declarations would resolve
+    them and would be the wrong trade: `checked` is what a reader of this catalog wants to see, and
+    `True` is what the kit calls it. `m3-catalog` keeps both by generating a SECOND view —
+    `scripts/generate-exhaustive-kit-cells.mjs` emits one declaration per kit cell with `kitProps`
+    pinning the exact vector, leaving the authored variants readable. That port is the next step.
   - Most of the eleven have no counterpart to find. `content=leading-icon` is a Compose slot, and
     the kit's Button set publishes `State=` x `Size=` with no content axis at all. `Card` and
     `Title chip` are single symbols whose content differences are hidden LAYERS — which is why both
     sit in the index's `standalone` rather than `sets`, with no variants to resolve against.
 
-  Five of the eleven do have a counterpart and would resolve if declared as kit cells rather than
-  Compose props: Button `size=Large` -> `40000113:3576`, ToggleButton `state=checked` ->
+  One resolves today (Button `size=Large`). Four more have a counterpart and are waiting on that
+  generated view rather than on anything unknown: Button `size=Large` -> `40000113:3576`, ToggleButton `state=checked` ->
   `40000113:4138`, IconToggleButton `state=checked` -> `40000113:4181`, VoiceInputIndicator
   `container=contained` -> `40000116:9338`, and ListItem `content=supporting-label`, which is the
   kit's `Type=2-line` (`384:4191`) under a Compose name. That is a taxonomy change to the

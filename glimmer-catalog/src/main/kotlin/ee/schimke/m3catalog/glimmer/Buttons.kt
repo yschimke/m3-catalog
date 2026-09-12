@@ -23,9 +23,10 @@ import ee.schimke.composeai.preview.CatalogVariant
 
 @CatalogComponent(
   id = "Button",
-  // The kit's `Button` set: `State=` x `Size=Default | Large`, the size axis this
-  // component folds in as a variant.
-  reference = "figma:HKfLClZDLRyMhf4IQQLna8/40:655",
+  // `State=Enabled, Size=Default` in the kit's `Button` set (`40:655`), whose axes are
+  // `State=` x `Size=Default | Large`. The CELL rather than the set: a reference is the
+  // node this sticker is a rendition OF, and the set is a family, not a drawing.
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/40:660",
   caption = "The primary action. Two sizes and the leading / trailing icon slots fold in.",
 )
 @Preview(
@@ -89,9 +90,10 @@ fun ButtonTrailingIconSticker() = Sticker {
 
 @CatalogComponent(
   id = "ToggleButton",
-  // The kit's `Toggle Button` set, whose `Toggle=False | True` axis is the checked
-  // state folded in here.
-  reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000113:3966",
+  // `State=Enabled, Size=Default, Toggle=False` in the `Toggle Button` set
+  // (`40000113:3966`). Unchecked is the base because this sticker draws unchecked; the
+  // `Toggle=True` cell is what `state = "checked"` below is a rendition of.
+  reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000113:3991",
   caption = "A button that holds its state. The corner morphs between checked and unchecked.",
 )
 @Preview(
