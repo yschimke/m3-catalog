@@ -48,11 +48,11 @@ customising the live render are two ends of one workflow.
 
 | | |
 | --- | --- |
-| Components | **240** |
-| Rendered images (PNG) | **240** |
-| Editable wireframes (SVG) | **240** |
-| Editable design vectors (figma-svg) | **240** |
-| Components with a11y greenlines | **185** |
+| Components | **245** |
+| Rendered images (PNG) | **245** |
+| Editable wireframes (SVG) | **245** |
+| Editable design vectors (figma-svg) | **245** |
+| Components with a11y greenlines | **187** |
 | Library | `org.jetbrains.compose.material3:material3` |
 | Renderer | compose-preview 2.11.1 |
 | Schema | `design-parity-catalog/v1` |
@@ -75,6 +75,7 @@ customising the live render are two ends of one workflow.
 | Slider | 5 |
 | TopAppBar | 5 |
 | VerticalFloatingToolbar | 5 |
+| ExtendedPaneScaffoldPaneScope | 4 |
 | PrimaryTabRow | 4 |
 | Surface | 4 |
 | AlertDialog | 3 |
@@ -133,6 +134,7 @@ customising the live render are two ends of one workflow.
 | BottomSheetScaffold | 1 |
 | CenterAlignedTopAppBar | 1 |
 | DismissibleNavigationDrawer | 1 |
+| DockedEdge | 1 |
 | DropdownMenuItem | 1 |
 | ElevatedAssistChip | 1 |
 | ElevatedSuggestionChip | 1 |
