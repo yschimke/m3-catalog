@@ -124,12 +124,34 @@ job copies it into place. It replaced a `design-map-command` that projected an e
     `Title chip` are single symbols whose content differences are hidden LAYERS — which is why both
     sit in the index's `standalone` rather than `sets`, with no variants to resolve against.
 
-  One resolves today (Button `size=Large`). Four more have a counterpart and are waiting on that
-  generated view rather than on anything unknown: Button `size=Large` -> `40000113:3576`, ToggleButton `state=checked` ->
-  `40000113:4138`, IconToggleButton `state=checked` -> `40000113:4181`, VoiceInputIndicator
-  `container=contained` -> `40000116:9338`, and ListItem `content=supporting-label`, which is the
-  kit's `Type=2-line` (`384:4191`) under a Compose name. That is a taxonomy change to the
-  annotations, and it belongs with the re-check below rather than ahead of it.
+  One resolves today (Button `size=Large`). Four more have a counterpart and are waiting on the
+  generated view rather than on anything unknown: ToggleButton `state=checked` -> `40000113:4138`,
+  IconToggleButton `state=checked` -> `40000113:4181`, VoiceInputIndicator `container=contained` ->
+  `40000116:9338`, and ListItem `content=supporting-label`, which is the kit's `Type=2-line`
+  (`384:4191`) under a Compose name.
+
+- **34 of the kit's 50 cells are MISSING from this catalog, and the reason is that it never draws
+  them.** Audited rather than assumed — [#374](https://github.com/yschimke/m3-catalog/issues/374)
+  has the working. `m3-catalog`'s generated kit cells look like the answer here, and running that
+  generator against these inputs with only the paths swapped writes `0 annotations with 0 exact kit
+  cells`. A cell is only emitted when every kit axis it changes is backed by an authored variant
+  that already resolves, and 970 of m3's own 1384 generated cells (70%) are backed by a
+  renderer-driven Hovered / Focused / Pressed. This module draws no interaction states at all, so
+  the `State` axis has nothing behind it:
+
+  | set | cells | reachable without State coverage | blocked on it |
+  | --- | --- | --- | --- |
+  | `Button` | 10 | 1 | 8 |
+  | `Toggle Button` | 16 | 3 | 12 |
+  | `Toggle` (icon) | 8 | 1 | 6 |
+  | `List Item` | 12 | 2 | 9 |
+  | `Mic Indicators` | 4 | 3 | 0 |
+  | **total** | **50** | **10** | **34** |
+
+  `Mic Indicators` is the set with no `State` axis, which is why every one of its non-base cells is
+  reachable — and a check on the arithmetic rather than a coincidence. So the generator is the LAST
+  step of that work, not the first: the interaction states come before it, and even with the four
+  vocabulary fixes above the ceiling is ten cells.
 - **No parity lane.** The job still carries no `figma_token` and no `reference-cache-branch`, so
   nothing fetches reference artwork or scores the comparison yet.
 - **The direction is settled, by precedent.** An earlier draft of this section treated the kit's
@@ -140,6 +162,10 @@ job copies it into place. It replaced a `design-map-command` that projected an e
   Glimmer kit is the public edition of Android's own, not a third-party redraw, so it inherits the
   same authority the Material kit has: the kit is authoritative and a divergence is a bug in this
   code.
+- **The interaction states, which are the unlock for everything above.** Focused / pressed /
+  disabled per component, roughly doubling this module's 19 previews. Tracked in
+  [#374](https://github.com/yschimke/m3-catalog/issues/374); it is listed here too because it is the
+  single thing standing between this catalog and the kit-cell coverage `m3-catalog` has.
 - **The taxonomy has not been re-checked against the kit.** These seven components and their variant
   folds were derived from the API surface alone. `AGENTS.md` says membership is the kit's call, and
   that rule now has something to say here — the kit also publishes Button groups, a Progress
