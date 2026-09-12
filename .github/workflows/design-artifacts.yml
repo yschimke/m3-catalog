@@ -404,9 +404,17 @@ jobs:
   # published kit, so 0% parity coverage is the truthful number there and the empty-map command the
   # m3-samples job explains at length is what states it.
   #
-  # Neither carries a `figma_token` or a `reference-cache-branch`, and that is unchanged: scoring
-  # those references against the kit is `design-parity.yml`'s job, on the `design-parity/glimmer`
-  # board. This workflow publishes the sheets.
+  # `glimmer-catalog` also carries a `figma_token` and a `reference-cache-branch`; `glimmer-samples`
+  # carries neither, because it maps nothing.
+  #
+  # An earlier revision of this comment said both could go without them because "scoring those
+  # references against the kit is design-parity.yml's job". That conflated two surfaces this repo
+  # keeps apart, and the `figma_token` comment on the `:catalog` job above states the distinction:
+  # design-parity scores the catalog against the kit on its OWN board, which the preview server does
+  # not serve; this workflow publishes the `references/` the SHEET uses. Without the token the nine
+  # `figma:` entries in the map were skipped with a warning and no `references/` was written at all,
+  # so every Glimmer page lost its Figma link and its side-by-side — with the mapping done and
+  # nothing on the page to show for it.
   glimmer-catalog:
     name: glimmer-catalog
     needs: changes
@@ -425,6 +433,17 @@ jobs:
       # workflow reads, the same shape `:catalog` relies on; it runs no Gradle because the map is
       # generated and committed by `scripts/glimmer-design-map.sh`.
       design-map-command: cp glimmer-design-map.json design-map.json
+
+      # The Glimmer kit's own cache, built by `design-parity-import.yml`'s second job (#378) and
+      # already holding the nine referenced cells plus the six component sets they sit in. A miss
+      # falls through to the API rather than failing, so this only removes requests — but with the
+      # whole map already cached it removes nearly all of them.
+      #
+      # NOT `design-parity/reference`: that one holds the Material 3 file
+      # (`ocdacdEsnHipMJD3egzxKb`) and knows nothing about `HKfLClZDLRyMhf4IQQLna8`. The caches are
+      # separate because the kits are, which is the same reason the two parity boards are.
+      reference-cache-branch: design-parity/glimmer-reference
+
       cli-version: catalog
       catalog-key: composePreviewPlugin
       # FALSE, unlike every other caller in this file: no AGP would mean no Glimmer at all.
@@ -451,6 +470,19 @@ jobs:
       render-timeout: 1800
       render-shards: 1
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
+    secrets:
+      # What this buys, concretely: the reference render beside each sticker and the Figma deep link
+      # on its page. The server gates both on an imported reference for THAT preview rather than on
+      # the map's `reference` field — `badge-number__ideal__default__light` carries one and shows the
+      # link, `…__dark` carries none and shows nothing, from the same component with the same field.
+      #
+      # Glimmer draws a single capture per sticker with no theme axis at all — it is an additive
+      # glasses surface, dark-only like Wear — and that is fine here: 1857 of the 1937 references
+      # this repo already publishes carry no theme suffix either. The light-capture assumption that
+      # once broke Wear lived in the map PROJECTOR, not in this publisher, and was fixed upstream in
+      # `@yschimke/compose-design-map` v1.16.0; our map pairs `ButtonSticker` with its sole capture
+      # and resolves.
+      figma_token: ${{ secrets.FIGMA_TOKEN }}
 
   glimmer-samples:
     name: glimmer-samples
