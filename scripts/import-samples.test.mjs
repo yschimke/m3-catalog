@@ -4,7 +4,15 @@ import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "nod
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { applyPatches, quarantined, vendor, writeProvenance } from "./import-samples.mjs";
+import { execFileSync } from "node:child_process";
+
+import {
+  applyPatches,
+  fetchUpstream,
+  quarantined,
+  vendor,
+  writeProvenance,
+} from "./import-samples.mjs";
 
 /** A throwaway upstream checkout: `<root>/<path>/*.kt`. */
 function fakeUpstream(files) {
@@ -183,5 +191,42 @@ test("a file name vendored by two libraries fails the import rather than picking
   } finally {
     rmSync(root, { recursive: true, force: true });
     rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("two libraries sharing a ref each get their own subtree checked out", () => {
+  // The cache is keyed by REF, so libraries pinned to the same commit share one checkout. A sparse
+  // set applied only after a fresh clone leaves the second library's subtree absent from the
+  // working tree, and `vendor` then walks a directory that is not there (ENOENT) — a silent
+  // dependency on the two pins differing, which they are free to stop doing after any bump.
+  const upstream = mkdtempSync(join(tmpdir(), "upstream-"));
+  const cache = join(mkdtempSync(join(tmpdir(), "cache-")), "checkout");
+  const git = (args, cwd) => execFileSync("git", args, { cwd, stdio: "pipe" });
+  try {
+    const a = "compose/material3/material3/samples/src/main/java/androidx/compose/material3/samples";
+    const b =
+      "compose/material3/adaptive/samples/src/main/java/androidx/compose/material3/adaptive/samples";
+    git(["init", "--quiet", "-b", "main", upstream]);
+    git(["config", "user.email", "t@example.com"], upstream);
+    git(["config", "user.name", "t"], upstream);
+    for (const [dir, file] of [
+      [a, "ButtonSamples.kt"],
+      [b, "ThreePaneScaffoldSample.kt"],
+    ]) {
+      mkdirSync(join(upstream, dir), { recursive: true });
+      writeFileSync(join(upstream, dir, file), "fun x() {}");
+    }
+    git(["add", "-A"], upstream);
+    git(["commit", "--quiet", "-m", "seed"], upstream);
+    const ref = execFileSync("git", ["rev-parse", "HEAD"], { cwd: upstream, encoding: "utf8" }).trim();
+
+    fetchUpstream(upstream, { name: "material3", ref, paths: [a] }, cache);
+    fetchUpstream(upstream, { name: "material3-adaptive", ref, paths: [b] }, cache);
+
+    // The second library's subtree is what the reused cache used to be missing.
+    assert.equal(readFileSync(join(cache, b, "ThreePaneScaffoldSample.kt"), "utf8"), "fun x() {}");
+  } finally {
+    rmSync(upstream, { recursive: true, force: true });
+    rmSync(cache, { recursive: true, force: true });
   }
 });

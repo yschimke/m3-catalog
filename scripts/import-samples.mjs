@@ -81,8 +81,9 @@ const run = (cmd, args, opts = {}) =>
  *
  * Per library, not per manifest, because each library pins the commit matching the artifact version
  * it is compared against, and those cadences are independent: adaptive-layout 1.3.0-beta02 and
- * material3 1.5.0-alpha22 were published three weeks apart. Each ref therefore gets its own cache
- * directory; two libraries sharing a ref share the checkout.
+ * material3 1.5.0-alpha22 were published three weeks apart. Each ref gets its own cache directory,
+ * so two libraries sharing a ref share one checkout — which is why the sparse paths are re-applied
+ * on every call rather than only after a clone.
  */
 export function fetchUpstream(repo, library, cache) {
   const atRef =
@@ -100,7 +101,15 @@ export function fetchUpstream(repo, library, cache) {
     mkdirSync(dirname(cache), { recursive: true });
     run("git", ["clone", "--filter=blob:none", "--no-checkout", "--depth", "1", repo, cache]);
     run("git", ["-C", cache, "sparse-checkout", "init", "--cone"]);
-    run("git", ["-C", cache, "sparse-checkout", "set", ...library.paths]);
+  }
+
+  // Set the sparse paths on EVERY call, not only after a fresh clone. Two libraries sharing a ref
+  // share this checkout, and the second one's subtree is not in the first one's sparse set — so
+  // reusing the cache without this leaves its paths absent from the working tree and `vendor`
+  // walks a directory that is not there. Cheap when it changes nothing.
+  run("git", ["-C", cache, "sparse-checkout", "set", ...library.paths]);
+
+  if (!atRef) {
     // The pinned commit may not be the shallow tip, so fetch it by id before checking it out.
     try {
       run("git", ["-C", cache, "fetch", "--depth", "1", "origin", library.ref]);
