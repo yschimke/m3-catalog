@@ -44,16 +44,109 @@ const KIT_SYSTEM = "m3-catalog";
 const KIT_SOURCES = ["catalog/src/main/kotlin"];
 
 /**
- * Compose APIs whose samples belong to a kit family spelled differently.
+ * Compose APIs whose samples belong to a kit component this catalog spells differently.
  *
- * Deliberately EMPTY, and deliberately present. The join below is exact — a sample of `Button`
- * links to the `Button/…` family — and the APIs it does not reach are two kinds. Most are ones
- * this catalog publishes no component for at all, which is the ordinary case. The rest are real
- * one-to-many relationships where the kit's taxonomy is its author's call and not this script's to
- * guess. `run` reports every unjoined API so those can be added deliberately, with the reasoning,
- * rather than inferred by string distance.
+ * A value is a **kit lookup key** in the sense [kitCellIndex] defines: a full cell id
+ * (`Chip/Assist`) links that cell, a bare family name (`TopAppBar`) links the family's
+ * first-declared cell. Both shapes are in use below and neither is a fallback for the other.
+ *
+ * This map is LONG here and short in the Wear repo, for a reason worth knowing before editing it:
+ * this kit names its sections after the Material spec (`Fab/Standard`, `Chip/Assist`,
+ * `Dialog/Basic`) while AndroidX names its APIs after the functions
+ * (`FloatingActionButton`, `AssistChip`, `AlertDialog`). Almost nothing joins by string equality,
+ * so almost every join is a deliberate entry rather than a lucky one.
+ *
+ * Prefer the CELL shape wherever the API names a variant the kit models as a cell:
+ * `OutlinedButton -> Button/Outlined`, not `-> Button`, which would resolve to `Button/Filled` and
+ * point a reader at the wrong swatch. The family shape is for an API whose subject is the section
+ * rather than one cell of it — the four `TopAppBar` sizes against a kit that publishes one
+ * `TopAppBar/Small`, or a scroll-behaviour factory that belongs to the whole app bar.
+ *
+ * A mapped value that resolves to no cell THROWS rather than falling through to null. An unmapped
+ * API reaching nothing is the ordinary case; a hand-written override reaching nothing is a typo or
+ * a cell someone renamed, and the two must not fail the same way.
+ *
+ * What is deliberately NOT here, and stays reported by `run` on every regeneration: APIs the kit
+ * publishes no cell for in any spelling (every navigation drawer, `BottomSheet`, `PullToRefreshBox`,
+ * `TooltipBox`, the dropdown menus, `ButtonGroup`, `SwipeToDismissBox`), primitives that are not
+ * components (`Surface`, `Text`, `Label`, `minimumInteractiveComponentSize`, `animateWidth`), and
+ * the ones where the honest answer is a cell that does not exist — `IconToggleButton` and its
+ * filled/tonal/outlined variants, which this kit has no icon-toggle cell for and which must NOT be
+ * pointed at a plain `IconButton`.
  */
-export const API_TO_KIT_FAMILY = new Map([]);
+export const API_TO_KIT_COMPONENT = new Map([
+  // Chips: the kit groups by role, AndroidX by function name. Elevated is a presentation of the
+  // same role rather than a role of its own, so it shares its cell.
+  ["AssistChip", "Chip/Assist"],
+  ["ElevatedAssistChip", "Chip/Assist"],
+  ["FilterChip", "Chip/Filter"],
+  ["ElevatedFilterChip", "Chip/Filter"],
+  ["InputChip", "Chip/Input"],
+  ["SuggestionChip", "Chip/Suggestion"],
+  ["ElevatedSuggestionChip", "Chip/Suggestion"],
+  // Buttons and cards: one kit cell per emphasis level.
+  ["ElevatedButton", "Button/Elevated"],
+  ["OutlinedButton", "Button/Outlined"],
+  ["FilledTonalButton", "Button/Tonal"],
+  ["TextButton", "Button/Text"],
+  ["ElevatedCard", "Card/Elevated"],
+  ["OutlinedCard", "Card/Outlined"],
+  ["FilledIconButton", "IconButton/Filled"],
+  ["FilledTonalIconButton", "IconButton/Tonal"],
+  ["OutlinedIconButton", "IconButton/Outlined"],
+  ["ElevatedToggleButton", "ToggleButton/Elevated"],
+  ["OutlinedToggleButton", "ToggleButton/Outlined"],
+  ["TonalToggleButton", "ToggleButton/Tonal"],
+  ["SplitButtonLayout", "SplitButton/Filled"],
+  // FABs: the kit has two cells — standard and extended — and AndroidX has eight names, which are
+  // sizes of those two rather than distinct components.
+  ["FloatingActionButton", "Fab/Standard"],
+  ["SmallFloatingActionButton", "Fab/Standard"],
+  ["MediumFloatingActionButton", "Fab/Standard"],
+  ["LargeFloatingActionButton", "Fab/Standard"],
+  ["animateFloatingActionButton", "Fab/Standard"],
+  ["ExtendedFloatingActionButton", "Fab/Extended"],
+  ["SmallExtendedFloatingActionButton", "Fab/Extended"],
+  ["MediumExtendedFloatingActionButton", "Fab/Extended"],
+  ["LargeExtendedFloatingActionButton", "Fab/Extended"],
+  // Progress: wavy is a shape of the same indicator.
+  ["CircularProgressIndicator", "Progress/Circular"],
+  ["CircularWavyProgressIndicator", "Progress/Circular"],
+  ["LinearProgressIndicator", "Progress/Linear"],
+  ["LinearWavyProgressIndicator", "Progress/Linear"],
+  ["ContainedLoadingIndicator", "LoadingIndicator"],
+  // Navigation and structure.
+  ["ListItem", "List/Item"],
+  ["SearchBar", "Search/Bar"],
+  ["ShortNavigationBar", "NavigationBar/Short"],
+  ["WideNavigationRail", "NavigationRail/Wide"],
+  ["ModalWideNavigationRail", "NavigationRail/Wide"],
+  ["PrimaryTabRow", "Tabs/Primary"],
+  ["SecondaryTabRow", "Tabs/Secondary"],
+  ["TabRow", "Tabs"],
+  ["FlexibleBottomAppBar", "BottomAppBar/Standard"],
+  ["HorizontalFloatingToolbar", "Toolbar/HorizontalFloating"],
+  ["VerticalFloatingToolbar", "Toolbar"],
+  // Selection and input.
+  ["AlertDialog", "Dialog/Basic"],
+  ["TriStateCheckbox", "Checkbox"],
+  ["RangeSlider", "Slider/Range"],
+  ["VerticalSlider", "Slider"],
+  ["MultiChoiceSegmentedButtonRow", "SegmentedButton"],
+  ["BadgedBox", "Badge"],
+  ["showSnackbar", "Snackbar/Message"],
+  // The top app bar: four AndroidX sizes and four scroll-behaviour factories against one kit cell,
+  // so the family shape says "open the app bar section" rather than claiming the small one.
+  ["CenterAlignedTopAppBar", "TopAppBar"],
+  ["LargeTopAppBar", "TopAppBar"],
+  ["LargeFlexibleTopAppBar", "TopAppBar"],
+  ["MediumFlexibleTopAppBar", "TopAppBar"],
+  ["TwoRowsTopAppBar", "TopAppBar"],
+  ["enterAlwaysScrollBehavior", "TopAppBar"],
+  ["exitAlwaysScrollBehavior", "TopAppBar"],
+  ["exitUntilCollapsedScrollBehavior", "TopAppBar"],
+  ["pinnedScrollBehavior", "TopAppBar"],
+]);
 
 /**
  * Every function in the vendored sources that is BOTH `@Sampled` and `@Preview`, mapped to the file
@@ -113,19 +206,29 @@ export function renderableSamples(dir = VENDORED) {
 }
 
 /**
- * `family -> the kit component id declared FIRST in it`, read off `@CatalogComponent(id = …)`.
+ * `kit lookup key -> the cell id it names`, read off `@CatalogComponent(id = …)`.
  *
- * A sample is about an API (`Button`); the kit splits an API into cells (`Button/Filled`,
- * `Button/Outlined`, …). A link has to name one, and the family's first-declared cell is the one a
- * catalog author reaches for first — it is the cell the section opens on.
+ * TWO kinds of key, because a link wants to name either granularity:
+ *
+ *  - a **family** (`Button`) maps to the cell declared FIRST in it (`Button/Filled`) — the cell the
+ *    section opens on, and the right destination for a sample about the API in general;
+ *  - a **full cell id** (`Button/Outlined`) maps to itself — the right destination for a sample
+ *    about that one variant, which the family shape cannot express.
+ *
+ * A single-cell component is both keys at once and resolves identically either way, so the two
+ * shapes never disagree.
  *
  * "First" is DETERMINISTIC rather than incidental: files in sorted path order, declarations in file
  * order. That makes it a convention rather than an accident, and the regenerate-and-diff `--check`
  * gate is what keeps it honest — reordering a section's components changes the committed spec and
  * shows up as a diff to review, instead of silently re-pointing every sample of that family.
  */
-export function kitFirstCellByFamily(dirs = KIT_SOURCES) {
-  const byFamily = new Map();
+export function kitCellIndex(dirs = KIT_SOURCES) {
+  const index = new Map();
+  // Which families have already taken their first cell. A separate set rather than `index.has`,
+  // because a single-cell component writes its id and its family name as the SAME key — so asking
+  // the index "is this family assigned?" cannot tell that apart from the cell key it just wrote.
+  const familyAssigned = new Set();
   const walk = (d) => {
     if (!existsSync(d)) return;
     for (const entry of readdirSync(d, { withFileTypes: true }).sort((a, b) =>
@@ -144,12 +247,19 @@ export function kitFirstCellByFamily(dirs = KIT_SOURCES) {
         // first cell, which is the single-cell component's ordinary shape.
         if (!id) continue;
         const family = id.split("/")[0];
-        if (!byFamily.has(family)) byFamily.set(family, id);
+        if (!familyAssigned.has(family)) {
+          familyAssigned.add(family);
+          index.set(family, id);
+        }
+        // The cell under its own id too, so a `Button/Outlined` override resolves without a second
+        // structure to keep in step with this one. After the family, so a bare id that IS its
+        // family ends up mapped to itself either way.
+        index.set(id, id);
       }
     }
   };
   for (const dir of dirs) walk(dir);
-  return byFamily;
+  return index;
 }
 
 /**
@@ -158,10 +268,26 @@ export function kitFirstCellByFamily(dirs = KIT_SOURCES) {
  * Null is the common answer and not a failure: most of the map's APIs are ones this catalog
  * publishes no component for, and a sample of one is still worth publishing — it just has nothing
  * to link back to.
+ *
+ * An override from [API_TO_KIT_COMPONENT] that resolves to nothing THROWS instead. Someone wrote
+ * that key by hand against a cell they had read; if it no longer resolves, the cell was renamed or
+ * mistyped, and degrading to "this sample has no kit component" would hide a broken link behind
+ * the same silence as the ordinary case.
  */
-export function kitComponentFor(api, firstCellByFamily) {
-  const family = API_TO_KIT_FAMILY.get(api) ?? api;
-  return firstCellByFamily.get(family) ?? null;
+export function kitComponentFor(api, cellIndex) {
+  const override = API_TO_KIT_COMPONENT.get(api);
+  if (override !== undefined) {
+    const resolved = cellIndex.get(override);
+    if (!resolved) {
+      throw new Error(
+        `API_TO_KIT_COMPONENT maps ${api} to "${override}", which this kit declares no cell for. ` +
+          `A value is either a full @CatalogComponent id or a family name; check the id in ` +
+          `${KIT_SOURCES.join(", ")} and fix the entry rather than dropping it.`,
+      );
+    }
+    return resolved;
+  }
+  return cellIndex.get(api) ?? null;
 }
 
 /** `sampleFunctionName -> api`, inverted from the map's `api -> samples[]`. */
@@ -180,7 +306,7 @@ export function apiBySample(map) {
 }
 
 /** Build the `groups` array: one group per API, one component per renderable sample. */
-export function buildGroups(map, renderable, firstCellByFamily = new Map()) {
+export function buildGroups(map, renderable, cellIndex = new Map()) {
   const byApi = apiBySample(map);
   const groups = new Map();
   const unmapped = [];
@@ -204,7 +330,7 @@ export function buildGroups(map, renderable, firstCellByFamily = new Map()) {
     //
     // No `label`: the destination catalog's own name for the component is better than one invented
     // here, and an absent label is what tells the server to use it.
-    const kitComponentId = api ? kitComponentFor(api, firstCellByFamily) : null;
+    const kitComponentId = api ? kitComponentFor(api, cellIndex) : null;
     if (api && !kitComponentId) unjoined.add(api);
     groups.get(group).push({
       componentId: `${group}/${fn}`,
@@ -225,8 +351,8 @@ export function buildGroups(map, renderable, firstCellByFamily = new Map()) {
   };
 }
 
-export function buildSpec(map, renderable, firstCellByFamily = new Map()) {
-  const { groups, unmapped, unjoined } = buildGroups(map, renderable, firstCellByFamily);
+export function buildSpec(map, renderable, cellIndex = new Map()) {
+  const { groups, unmapped, unjoined } = buildGroups(map, renderable, cellIndex);
   return {
     spec: {
       $schema:
@@ -276,7 +402,7 @@ export function buildSpec(map, renderable, firstCellByFamily = new Map()) {
 function main(argv) {
   const map = JSON.parse(readFileSync(SAMPLE_MAP, "utf8"));
   const renderable = renderableSamples();
-  const { spec, unmapped, unjoined } = buildSpec(map, renderable, kitFirstCellByFamily());
+  const { spec, unmapped, unjoined } = buildSpec(map, renderable, kitCellIndex());
   const json = `${JSON.stringify(spec, null, 2)}\n`;
 
   const components = spec.groups.reduce((n, g) => n + g.components.length, 0);
@@ -302,7 +428,7 @@ function main(argv) {
   if (unjoined.length > 0) {
     // Reported every run, never inferred. Most of these are APIs this catalog publishes no
     // component for, which is the ordinary case; the few that are a kit family under another name
-    // belong in `API_TO_KIT_FAMILY`, added by someone who knows the taxonomy.
+    // belong in `API_TO_KIT_COMPONENT`, added by someone who knows the taxonomy.
     console.log(
       `  ${unjoined.length} API(s) reach no kit family: ` +
         `${unjoined.slice(0, 8).join(", ")}${unjoined.length > 8 ? " …" : ""}`,
