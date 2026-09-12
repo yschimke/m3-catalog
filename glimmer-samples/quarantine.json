@@ -1,0 +1,9 @@
+{
+  "$comment": "AndroidX Glimmer sample FILES this catalog cannot compile, each with the reason and the evidence. Same declared-and-checked-gap contract samples/quarantine.json carries: the importer skips these and re-running the import without an entry is what says whether it is still needed. Empty is a real state and the one to aim for — every entry below, if any, comes from a real compile failure against the pinned artifact, never from a guess ahead of one.",
+  "samples": [
+    {
+      "file": "IconMarkerSamples.kt",
+      "reason": "4 errors, all `IconMarker`: the API landed in androidx-main on 2026-09-07 (`Introduce IconMarker API in Glimmer`) and is NOT in the published 1.0.0-alpha19 AAR — checked against the artifact's own classes.jar, which contains no `IconMarker*` class. Pure version skew, and the one entry here expected to disappear on its own: when the glimmer pin moves to a release that ships it, re-running the import without this entry is the check. Backing the ref up further to avoid it is the wrong trade — it would take the whole corpus back past two other APIs alpha19 does ship."
+    }
+  ]
+}
