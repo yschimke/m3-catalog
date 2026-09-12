@@ -133,6 +133,32 @@ jobs:
           node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
             --spec samples-catalog/catalog.spec.json --module-dir samples-catalog
 
+      # Neither Glimmer spec was validated here, and that gap had already cost a publish: the
+      # `glimmer-samples` job in design-artifacts.yml failed on `main` at its own "Validate catalog
+      # spec" step, so `design-artifacts/glimmer-samples` was never published while its three
+      # sibling systems were. The spec omitted `groups` on the reading that discovery's inventory
+      # would serve, and it does not — a catalog declares its inventory with `@CatalogComponent` or
+      # with `groups`, and vendored upstream bytes can carry neither annotation.
+      #
+      # The lesson is the placement rather than the bug. design-artifacts.yml runs on `main` AFTER
+      # the merge, so a spec it rejects is a sheet that silently stops publishing; this job runs on
+      # the pull request, needs no build, and takes seconds.
+      - name: glimmer-samples spec is current
+        run: node scripts/glimmer-samples-spec.mjs --check
+
+      - name: validate-catalog-spec (glimmer-catalog)
+        run: |
+          node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
+            --spec glimmer-catalog/catalog.spec.json --module-dir glimmer-catalog
+
+      # Warnings are expected to be none here, unlike the m3 samples above: upstream's Glimmer
+      # samples carry their own `@Preview` functions, and the generator emits one component per
+      # `@Preview` it finds, so the inventory and discovery are the same 50 by construction.
+      - name: validate-catalog-spec (glimmer-samples)
+        run: |
+          node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
+            --spec glimmer-samples/catalog.spec.json --module-dir glimmer-samples
+
   design-map:
     name: design-map.json is current
     runs-on: ubuntu-latest
@@ -198,6 +224,16 @@ jobs:
       # family and shows up as a diff to review instead of drifting silently.
       - name: Test the samples spec and its kit back-links
         run: node --test scripts/samples-spec.test.mjs
+
+      # The Glimmer samples spec, generated from the vendored SOURCES rather than from a map — there
+      # is no map, because glimmer's AAR publishes no sources jar. Two behaviours carry the weight,
+      # and both are about not losing a component quietly: a `@Preview` the generator cannot
+      # describe FAILS the run instead of falling out of the sheet (a dropped one still publishes,
+      # and still looks complete), and the rendered function is identified as the one the file
+      # DECLARES rather than by its name — half of upstream's `CardSamples.kt` renders functions
+      # with no `Sample` in the name at all.
+      - name: Test the glimmer samples spec
+        run: node --test scripts/glimmer-samples-spec.test.mjs
 
       # The vendoring importer. The load-bearing behaviour is that a patch which no longer applies
       # FAILS the import rather than silently dropping the fix it carries, and that a quarantined
