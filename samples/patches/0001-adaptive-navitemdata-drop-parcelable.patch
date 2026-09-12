@@ -1,0 +1,49 @@
+# 0001 — `NavItemData` implements `android.os.Parcelable`, which the desktop renderer has no
+# `android.os` to implement against (2 unresolved imports, 9 unresolved references).
+#
+# It is the content-key type every ThreePaneScaffold sample here hands to its navigator, so it
+# cannot be quarantined away: `ThreePaneScaffoldSample.kt` is a SINGLE file carrying all 13 adaptive
+# samples, and quarantine is per file. Upstream makes it `Parcelable` so Android can save and
+# restore the selected item across process death; a preview renders one frame and never saves, and
+# `rememberSaveable` validates only when it does, so dropping the implementation changes nothing
+# the sticker can show.
+#
+# Not a version skew and not expected to resolve itself: `android.os` will not appear on a Compose
+# Multiplatform desktop classpath. Re-cut it if upstream restructures the class.
+diff --git a/androidx/compose/material3/adaptive/samples/ThreePaneScaffoldSample.kt b/androidx/compose/material3/adaptive/samples/ThreePaneScaffoldSample.kt
+index 78f9bfd..159a6b3 100644
+--- a/androidx/compose/material3/adaptive/samples/ThreePaneScaffoldSample.kt
++++ b/androidx/compose/material3/adaptive/samples/ThreePaneScaffoldSample.kt
+@@ -16,8 +16,6 @@
+ 
+ package androidx.compose.material3.adaptive.samples
+ 
+-import android.os.Parcel
+-import android.os.Parcelable
+ import androidx.annotation.FloatRange
+ import androidx.annotation.Sampled
+ import androidx.compose.animation.AnimatedVisibility
+@@ -732,22 +730,7 @@ fun ListDetailWithNavigation3Sample() {
+ private fun ThreePaneScaffoldNavigator<*>.isExpanded(role: ThreePaneScaffoldRole) =
+     scaffoldValue[role] == PaneAdaptedValue.Expanded
+ 
+-private data class NavItemData(val index: Int, val showExtra: Boolean = false) : Parcelable {
+-    constructor(parcel: Parcel) : this(parcel.readInt(), parcel.readBoolean())
+-
+-    override fun describeContents(): Int = 0
+-
+-    override fun writeToParcel(dest: Parcel, flags: Int) {
+-        dest.writeInt(index)
+-        dest.writeBoolean(showExtra)
+-    }
+-
+-    companion object CREATOR : Parcelable.Creator<NavItemData?> {
+-        override fun createFromParcel(source: Parcel) = NavItemData(source)
+-
+-        override fun newArray(size: Int): Array<NavItemData?> = arrayOfNulls(size)
+-    }
+-}
++private data class NavItemData(val index: Int, val showExtra: Boolean = false)
+ 
+ @Serializable private data object HomeKey : NavKey
+ 

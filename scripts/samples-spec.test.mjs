@@ -140,3 +140,47 @@ test("samples are found under the package directories they are vendored into", (
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test("renderable means what discovery can invoke, not merely @Sampled + @Preview", () => {
+  // Discovery calls a preview with no arguments and no receiver, and a composable that RETURNS a
+  // value draws nothing. The adaptive samples supply all three shapes: publishing them produced one
+  // card with no PNG at all and three cards whose render is a 1x1 blank.
+  const dir = mkdtempSync(join(tmpdir(), "renderable-"));
+  try {
+    writeFileSync(
+      join(dir, "ThreePaneScaffoldSample.kt"),
+      `
+@Preview
+@Sampled
+@Composable
+fun ListDetailPaneScaffoldSample() {}
+
+@Preview
+@Sampled
+@Composable
+fun <T> genericButDrawsSample() {}
+
+@Preview
+@Sampled
+@Composable
+fun <T> levitateAsDialogSample(): ThreePaneScaffoldNavigator<T> {}
+
+@Preview
+@Sampled
+@Composable
+fun ThreePaneScaffoldScope.PaneExpansionDragHandleSample(state: PaneExpansionState) {}
+
+@Sampled
+@Composable
+fun NotPreviewed() {}
+`,
+    );
+    assert.deepEqual(
+      [...renderableSamples(dir).keys()].sort(),
+      // The generic one stays: `<T>` says nothing about whether the function draws.
+      ["ListDetailPaneScaffoldSample", "genericButDrawsSample"],
+    );
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});

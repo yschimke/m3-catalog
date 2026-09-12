@@ -115,12 +115,19 @@ jobs:
       # design-artifacts.yml spends a runner discovering the same thing.
       #
       # It warns rather than fails on the reverse direction, and here that warning is expected and
-      # correct: 258 `@Preview` functions are discovered against 240 in the catalog. The 18 are
-      # upstream previews that are NOT `@Sampled` — `AllShapes`, `LeadingIconTabs`,
-      # `LegacySliderSample`, the scrolling-tab demos — demo previews living in the sample files
-      # that no `@sample` KDoc points at. `@Sampled` is what makes a function a sample rather than
-      # something a sample sits beside, so they are outside the inventory by the generator's own
-      # rule. They still render; they land as bundle orphans rather than as catalog cards.
+      # correct: 266 `@Preview` functions are discovered against 245 in the catalog. The 21 are two
+      # kinds, both outside the inventory by the generator's own rule:
+      #
+      #   * 18 upstream previews that are NOT `@Sampled` — `AllShapes`, `LeadingIconTabs`,
+      #     `LegacySliderSample`, the scrolling-tab demos — demo previews living in the sample files
+      #     that no `@sample` KDoc points at. `@Sampled` is what makes a function a sample rather
+      #     than something a sample sits beside.
+      #   * 3 adaptive samples that are `@Sampled` and `@Preview` but RETURN a value
+      #     (`fun <T> levitateAsDialogSample(): ThreePaneScaffoldNavigator<T>`). A composable that
+      #     returns a value is a state factory and draws nothing: rendering them produces a 1x1
+      #     blank, so publishing them would be a card claiming a picture the sample never had.
+      #
+      # They still render; they land as bundle orphans rather than as catalog cards.
       - name: validate-catalog-spec (samples)
         run: |
           node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \

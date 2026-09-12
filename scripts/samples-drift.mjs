@@ -101,60 +101,90 @@ export function compare(left, right) {
 
 function main(argv) {
   const pin = JSON.parse(readFileSync("samples/import.json", "utf8"));
-  const cmpVersion = cmpVersionFromCatalog();
+  const stale = [];
 
-  console.log(
-    `Comparing ${pin.composeMultiplatformCoordinates}:${cmpVersion} against ` +
-      `${pin.artifactCoordinates}:${pin.artifactVersion} …`,
-  );
-  const cmp = sampleSet(MAVEN_CENTRAL, pin.composeMultiplatformCoordinates, cmpVersion);
-  const androidx = sampleSet(GOOGLE_MAVEN, pin.artifactCoordinates, pin.artifactVersion);
-  const { shared, onlyLeft, onlyRight } = compare(cmp, androidx);
+  // Each library is its own comparison: `material3` tracks the CMP material3 artifact and
+  // `material3-adaptive` the CMP adaptive line, which move on independent cadences. Every library
+  // is checked before anything fails, so one stale pin does not hide another.
+  for (const library of pin.libraries) {
+    const cmpVersion = cmpVersionFromCatalog(
+      "gradle/libs.versions.toml",
+      library.composeMultiplatformVersionRef,
+    );
+    console.log(
+      `Comparing ${library.composeMultiplatformCoordinates}:${cmpVersion} against ` +
+        `${library.artifactCoordinates}:${library.artifactVersion} …`,
+    );
+    const cmp = sampleSet(MAVEN_CENTRAL, library.composeMultiplatformCoordinates, cmpVersion);
+    const androidx = sampleSet(GOOGLE_MAVEN, library.artifactCoordinates, library.artifactVersion);
+    const { shared, onlyLeft, onlyRight } = compare(cmp, androidx);
 
-  console.log(
-    `  shared ${shared}, only in CMP ${onlyLeft.length}, only in AndroidX ${onlyRight.length}`,
-  );
-  if (onlyLeft.length === 0 && onlyRight.length === 0) {
-    console.log(`The pin matches: ${pin.artifactVersion} is the AndroidX version CMP ships.`);
+    console.log(
+      `  shared ${shared}, only in CMP ${onlyLeft.length}, only in AndroidX ${onlyRight.length}`,
+    );
+    if (onlyLeft.length === 0 && onlyRight.length === 0) {
+      console.log(`  ${library.name}: ${library.artifactVersion} is the AndroidX version CMP ships.`);
+      continue;
+    }
+    stale.push({ library, cmp, onlyLeft, onlyRight });
+  }
+
+  if (stale.length === 0) {
+    console.log(`The pin matches: ${pin.libraries.length} library(ies), no drift.`);
     return;
   }
 
   console.error("");
-  console.error("The samples pin no longer matches the Compose Multiplatform artifact.");
+  console.error("The samples pin no longer matches the Compose Multiplatform artifacts.");
   console.error("This means CMP has moved — AndroidX moving on its own never fails this check.");
-  if (onlyLeft.length > 0) console.error(`  only in CMP:     ${onlyLeft.join(", ")}`);
-  if (onlyRight.length > 0) console.error(`  only in AndroidX: ${onlyRight.join(", ")}`);
+  for (const { library, onlyLeft, onlyRight } of stale) {
+    console.error(`  ${library.name} (${library.artifactCoordinates}:${library.artifactVersion})`);
+    if (onlyLeft.length > 0) console.error(`    only in CMP:      ${onlyLeft.join(", ")}`);
+    if (onlyRight.length > 0) console.error(`    only in AndroidX: ${onlyRight.join(", ")}`);
+  }
 
   if (argv.includes("--search")) {
-    console.error("");
-    console.error("Searching the AndroidX line for a version that matches …");
-    const candidates = publishedVersions(GOOGLE_MAVEN, pin.artifactCoordinates).reverse();
-    for (const version of candidates.slice(0, 30)) {
-      let set;
-      try {
-        set = sampleSet(GOOGLE_MAVEN, pin.artifactCoordinates, version);
-      } catch {
-        continue; // no sources jar published for that version
+    for (const { library, cmp } of stale) {
+      console.error("");
+      console.error(`Searching the ${library.artifactCoordinates} line for a version that matches …`);
+      const candidates = publishedVersions(GOOGLE_MAVEN, library.artifactCoordinates).reverse();
+      let found = false;
+      for (const version of candidates.slice(0, 30)) {
+        let set;
+        try {
+          set = sampleSet(GOOGLE_MAVEN, library.artifactCoordinates, version);
+        } catch {
+          continue; // no sources jar published for that version
+        }
+        const result = compare(cmp, set);
+        if (result.onlyLeft.length === 0 && result.onlyRight.length === 0) {
+          console.error(
+            `  MATCH: ${version} — set \`artifactVersion\` on \`${library.name}\` to it, move its ` +
+              `\`ref\` to the commit of that version's publish date, and re-run the import.`,
+          );
+          found = true;
+          break;
+        }
       }
-      const result = compare(cmp, set);
-      if (result.onlyLeft.length === 0 && result.onlyRight.length === 0) {
-        console.error(`  MATCH: ${version} — set \`artifactVersion\` to it and re-run the import.`);
-        process.exit(1);
+      if (!found) {
+        console.error("  no exact match on the published line; pick the nearest and record why.");
       }
     }
-    console.error("  no exact match on the published line; pick the nearest and record why.");
   } else {
     console.error("");
-    console.error("Re-run with --search to find the AndroidX version that does match.");
+    console.error("Re-run with --search to find the AndroidX versions that do match.");
   }
   process.exit(1);
 }
 
-/** The CMP material3 version this repo compiles against, read from the version catalog. */
-export function cmpVersionFromCatalog(
-  path = "gradle/libs.versions.toml",
-  key = "compose-multiplatform-material3",
-) {
+/**
+ * A CMP version this repo compiles against, read from the version catalog.
+ *
+ * The key is the library's own `composeMultiplatformVersionRef`, because "the CMP version" stopped
+ * being one number when the manifest grew a second library: material3 tracks
+ * `compose-multiplatform-material3` and the adaptive samples track `compose-adaptive`.
+ */
+export function cmpVersionFromCatalog(path = "gradle/libs.versions.toml", key) {
   const toml = readFileSync(path, "utf8");
   const match = toml.match(new RegExp(`^\\s*${key}\\s*=\\s*"([^"]+)"`, "m"));
   if (!match) throw new Error(`no \`${key}\` in ${path}`);

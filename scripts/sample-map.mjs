@@ -294,6 +294,18 @@ function identifierAfter(text, from) {
     }
     while (i < text.length && /\s/.test(text[i])) i += 1;
   }
+  // `enum class DockedEdge` / `annotation class Foo` — the keyword is two words, so the identifier
+  // is one further on. Without this the declaration reads as literally `class`, which is not a
+  // name any Kotlin declaration can have and would publish a sample against an API called "class".
+  // adaptive-layout's `DockedEdge` is the live case; material3 has no `@sample` on an enum, which
+  // is why this went unnoticed until a second library was imported.
+  if (text.startsWith("class", i) && !/[\w]/.test(text[i + 5] ?? "")) {
+    i += 5;
+    while (i < text.length && /\s/.test(text[i])) i += 1;
+  } else if (text.startsWith("interface", i) && !/[\w]/.test(text[i + 9] ?? "")) {
+    i += 9;
+    while (i < text.length && /\s/.test(text[i])) i += 1;
+  }
   let j = i;
   while (j < text.length && /[\w.`]/.test(text[j])) j += 1;
   const raw = text.slice(i, j);
@@ -340,6 +352,27 @@ export function buildSampleMap(dir) {
     .sort((a, b) => a.api.localeCompare(b.api));
 }
 
+/**
+ * Merge the maps of several artifacts into one.
+ *
+ * `:samples-catalog` compiles against more than one library — material3 and the adaptive line — and
+ * each publishes its own sources jar, so the committed map is the union. An API appearing in two
+ * artifacts (none does today) keeps the union of its samples rather than the last one read.
+ */
+export function mergeSampleMaps(maps) {
+  const byApi = new Map();
+  for (const map of maps) {
+    for (const { api, samples } of map) {
+      const existing = byApi.get(api) ?? new Set();
+      for (const sample of samples) existing.add(sample);
+      byApi.set(api, existing);
+    }
+  }
+  return [...byApi.entries()]
+    .map(([api, samples]) => ({ api, samples: [...samples].sort() }))
+    .sort((a, b) => a.api.localeCompare(b.api));
+}
+
 /** Unzip a sources jar into a temp directory and return its path. */
 function extractJar(jar) {
   const dir = mkdtempSync(join(tmpdir(), "sample-map-"));
@@ -349,28 +382,34 @@ function extractJar(jar) {
 
 function main(argv) {
   const args = new Map();
+  const sources = [];
   for (let i = 0; i < argv.length; i += 1) {
-    if (argv[i].startsWith("--")) args.set(argv[i].slice(2), argv[i + 1]);
+    if (!argv[i].startsWith("--")) continue;
+    // `--sources` is repeatable — one per artifact the module compiles against — while every other
+    // flag takes a single value.
+    if (argv[i].slice(2) === "sources") sources.push(argv[i + 1]);
+    else args.set(argv[i].slice(2), argv[i + 1]);
   }
-  const sources = args.get("sources");
   const out = args.get("out") ?? "sample-map.json";
   const check = argv.includes("--check");
-  if (!sources) {
+  if (sources.length === 0) {
     console.error(
-      "usage: sample-map.mjs --sources <sources.jar|dir> [--out sample-map.json] [--check]",
+      "usage: sample-map.mjs --sources <sources.jar|dir> [--sources …] [--out sample-map.json] [--check]",
     );
     process.exit(2);
   }
 
-  const dir = statSync(sources).isDirectory() ? sources : extractJar(sources);
-  const map = buildSampleMap(dir);
+  const map = mergeSampleMaps(
+    sources.map((source) => buildSampleMap(statSync(source).isDirectory() ? source : extractJar(source))),
+  );
   const json = `${JSON.stringify(map, null, 2)}\n`;
 
   if (check) {
     const committed = readFileSync(out, "utf8");
     if (committed !== json) {
       console.error(
-        `${out} is stale: regenerate it with \`node scripts/sample-map.mjs --sources <jar> --out ${out}\`.`,
+        `${out} is stale: regenerate it with ` +
+          `\`node scripts/sample-map.mjs --sources <jar> [--sources <jar>] --out ${out}\`.`,
       );
       process.exit(1);
     }

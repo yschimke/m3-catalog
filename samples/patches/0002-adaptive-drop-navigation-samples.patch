@@ -1,0 +1,295 @@
+# 0002 — `ListDetailWithNavigation2Sample` and `ListDetailWithNavigation3Sample` call APIs Compose
+# Multiplatform does not ship at the version this module compiles against.
+#
+#   * Navigation 2: `NavigableListDetailPaneScaffold` is absent from
+#     `org.jetbrains.compose.material3.adaptive:adaptive-navigation:1.3.0-beta02` — that artifact
+#     ships `ThreePaneScaffoldNavigator.kt` and `BackNavigationBehavior.kt` and nothing else, so
+#     this is a missing API rather than a missing dependency, and adding `navigation-compose`
+#     (which the sample also needs) would not make it compile.
+#   * Navigation 3: `rememberNavBackStack(HomeKey)` does not type-check against the nav3 the
+#     adaptive artifacts pull in here, whose first parameter is a `SavedStateConfiguration`.
+#
+# The other ELEVEN samples in this file compile, which is the whole reason this is a patch: the
+# file is the unit `samples/quarantine.json` excludes, so quarantining it to fix two samples would
+# take the other eleven — and the pane scaffolds themselves — out of the catalog.
+#
+# The Navigation 2 sample IS named by the CMP artifact's `@sample` KDoc, so `sample-map.json`
+# carries it while the catalog cannot render it. That is the ordinary "mapped but not rendered"
+# case `scripts/samples-spec.mjs` reports and skips, not a silent gap. The Navigation 3 sample is
+# not referenced by the CMP artifact at all.
+#
+# The imports and the four `NavKey` declarations go with them because nothing else in the file
+# uses them. Expect this to be re-cut, not kept forever: it should shrink when CMP's
+# adaptive-navigation grows `NavigableListDetailPaneScaffold`.
+diff --git a/androidx/compose/material3/adaptive/samples/ThreePaneScaffoldSample.kt b/androidx/compose/material3/adaptive/samples/ThreePaneScaffoldSample.kt
+index 159a6b3..c935efc 100644
+--- a/androidx/compose/material3/adaptive/samples/ThreePaneScaffoldSample.kt
++++ b/androidx/compose/material3/adaptive/samples/ThreePaneScaffoldSample.kt
+@@ -83,13 +83,9 @@ import androidx.compose.material3.adaptive.layout.calculatePaneScaffoldDirective
+ import androidx.compose.material3.adaptive.layout.rememberDragToResizeState
+ import androidx.compose.material3.adaptive.layout.rememberPaneExpansionState
+ import androidx.compose.material3.adaptive.navigation.BackNavigationBehavior
+-import androidx.compose.material3.adaptive.navigation.NavigableListDetailPaneScaffold
+ import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator
+ import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
+ import androidx.compose.material3.adaptive.navigation.rememberSupportingPaneScaffoldNavigator
+-import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
+-import androidx.compose.material3.adaptive.navigation3.LocalListDetailSceneScope
+-import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneStrategy
+ import androidx.compose.runtime.Composable
+ import androidx.compose.runtime.getValue
+ import androidx.compose.runtime.mutableIntStateOf
+@@ -108,16 +104,8 @@ import androidx.compose.ui.semantics.semantics
+ import androidx.compose.ui.tooling.preview.Preview
+ import androidx.compose.ui.unit.Dp
+ import androidx.compose.ui.unit.dp
+-import androidx.navigation.compose.NavHost
+-import androidx.navigation.compose.composable
+-import androidx.navigation.compose.rememberNavController
+-import androidx.navigation3.runtime.NavKey
+-import androidx.navigation3.runtime.entryProvider
+-import androidx.navigation3.runtime.rememberNavBackStack
+-import androidx.navigation3.ui.NavDisplay
+ import kotlinx.coroutines.CoroutineScope
+ import kotlinx.coroutines.launch
+-import kotlinx.serialization.Serializable
+ 
+ @OptIn(ExperimentalMaterial3AdaptiveApi::class)
+ @Preview
+@@ -510,236 +498,12 @@ fun <T> levitateAsBottomSheetSample(): ThreePaneScaffoldNavigator<T> {
+     return navigator
+ }
+ 
+-@OptIn(ExperimentalMaterial3AdaptiveApi::class, ExperimentalMaterial3Api::class)
+-@Preview
+-@Sampled
+-@Composable
+-fun ListDetailWithNavigation2Sample() {
+-    val welcomeRoute = "welcome"
+-    val listDetailRoute = "listdetail"
+-
+-    val coroutineScope = rememberCoroutineScope()
+-
+-    // `navController` handles navigation outside the ListDetailPaneScaffold,
+-    // and `scaffoldNavigator` handles navigation within it. The "content" of
+-    // the scaffold uses a custom type which tracks the index of the selected item,
+-    // which is passed as a type argument to `rememberListDetailPaneScaffoldNavigator`.
+-    val navController = rememberNavController()
+-    val scaffoldNavigator = rememberListDetailPaneScaffoldNavigator<NavItemData>()
+-
+-    // Back behavior can be customized based on the needs of the app.
+-    var backBehaviorIndex by rememberSaveable { mutableStateOf(0) }
+-    val backBehaviors =
+-        listOf(
+-            BackNavigationBehavior.PopUntilScaffoldValueChange,
+-            BackNavigationBehavior.PopUntilCurrentDestinationChange,
+-            BackNavigationBehavior.PopUntilContentChange,
+-            BackNavigationBehavior.PopLatest,
+-        )
+-    val backBehavior = backBehaviors[backBehaviorIndex]
+-
+-    val items = listOf("Item 1", "Item 2", "Item 3")
+-    val extraItems = listOf("Extra 1", "Extra 2", "Extra 3")
+-
+-    NavHost(
+-        navController = navController,
+-        startDestination = welcomeRoute,
+-        enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
+-        exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) },
+-        popEnterTransition = { slideInHorizontally(initialOffsetX = { -it }) },
+-        popExitTransition = { slideOutHorizontally(targetOffsetX = { it }) },
+-    ) {
+-        composable(welcomeRoute) {
+-            Scaffold(Modifier.fillMaxSize()) { paddingValues ->
+-                Column(
+-                    modifier =
+-                        Modifier.verticalScroll(rememberScrollState())
+-                            .padding(paddingValues)
+-                            .padding(24.dp)
+-                            .fillMaxSize(),
+-                    verticalArrangement = Arrangement.spacedBy(16.dp),
+-                ) {
+-                    Text(
+-                        text = "How should the scaffold handle back navigation?",
+-                        style = MaterialTheme.typography.headlineMedium,
+-                    )
+-                    RadioButtonRow(
+-                        selected = backBehaviorIndex == 0,
+-                        onClick = { backBehaviorIndex = 0 },
+-                        text =
+-                            "PopUntilScaffoldValueChange - Back navigation forces a change in " +
+-                                "which pane(s) is/are shown.",
+-                    )
+-                    RadioButtonRow(
+-                        selected = backBehaviorIndex == 1,
+-                        onClick = { backBehaviorIndex = 1 },
+-                        text =
+-                            "PopUntilCurrentDestinationChange - Back navigation forces a " +
+-                                "change in which pane is currently considered \"active\".",
+-                    )
+-                    RadioButtonRow(
+-                        selected = backBehaviorIndex == 2,
+-                        onClick = { backBehaviorIndex = 2 },
+-                        text =
+-                            "PopUntilContentChange - Back navigation forces a change in the " +
+-                                "content of any pane or which pane(s) is/are shown.\nNote: this " +
+-                                "may result in unintuitive behavior if the device size changes " +
+-                                "in the middle of the navigation.",
+-                    )
+-                    RadioButtonRow(
+-                        selected = backBehaviorIndex == 3,
+-                        onClick = { backBehaviorIndex = 3 },
+-                        text =
+-                            "PopLatest - No special back handling.\nNote: this may result in " +
+-                                "unintuitive behavior if the device size changes in the middle " +
+-                                "of the navigation.",
+-                    )
+-                    Button(onClick = { navController.navigate(listDetailRoute) }) { Text("Next") }
+-                }
+-            }
+-        }
+-        composable(listDetailRoute) {
+-            val selectedItem = scaffoldNavigator.currentDestination?.contentKey
+-            NavigableListDetailPaneScaffold(
+-                navigator = scaffoldNavigator,
+-                defaultBackBehavior = backBehavior,
+-                listPane = {
+-                    AnimatedPane(Modifier.preferredWidth(200.dp)) {
+-                        ListPaneContent(
+-                            items = items,
+-                            selectedItem = selectedItem,
+-                            scaffoldNavigator = scaffoldNavigator,
+-                            coroutineScope = coroutineScope,
+-                        )
+-                    }
+-                },
+-                detailPane = {
+-                    AnimatedPane {
+-                        DetailPaneContent(
+-                            items = items,
+-                            selectedItem = selectedItem,
+-                            scaffoldNavigator = scaffoldNavigator,
+-                            hasExtraPane = true,
+-                            backBehavior = backBehavior,
+-                            coroutineScope = coroutineScope,
+-                        )
+-                    }
+-                },
+-                extraPane = {
+-                    AnimatedPane {
+-                        ExtraPaneContent(
+-                            extraItems = extraItems,
+-                            selectedItem = selectedItem,
+-                            scaffoldNavigator = scaffoldNavigator,
+-                            backBehavior = backBehavior,
+-                            coroutineScope = coroutineScope,
+-                        )
+-                    }
+-                },
+-            )
+-        }
+-    }
+-}
+-
+-@OptIn(ExperimentalMaterial3AdaptiveApi::class)
+-@Preview
+-@Sampled
+-@Composable
+-fun ListDetailWithNavigation3Sample() {
+-    val backStack = rememberNavBackStack(HomeKey)
+-    val sceneStrategy = rememberListDetailSceneStrategy<Any>()
+-
+-    val items = listOf("Item 1", "Item 2", "Item 3")
+-    val extraItems = listOf("Extra 1", "Extra 2", "Extra 3")
+-
+-    val selectedIndex =
+-        backStack.lastOrNull()?.let {
+-            when (it) {
+-                is DetailKey -> it.index
+-                is ExtraKey -> it.index
+-                else -> null
+-            }
+-        }
+-
+-    NavDisplay(
+-        backStack = backStack,
+-        modifier = Modifier.fillMaxSize(),
+-        sceneStrategies = listOf(sceneStrategy),
+-        entryProvider =
+-            entryProvider {
+-                entry<HomeKey> {
+-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+-                        Button(
+-                            onClick = { if (backStack.last() != ListKey) backStack.add(ListKey) }
+-                        ) {
+-                            Text("Go to list")
+-                        }
+-                    }
+-                }
+-
+-                entry<ListKey>(
+-                    metadata =
+-                        ListDetailSceneStrategy.listPane(
+-                            detailPlaceholder = {
+-                                DetailPaneContent(selectedItem = null, onShowExtra = {})
+-                            }
+-                        )
+-                ) {
+-                    ListPaneContent(
+-                        items = items,
+-                        selectedIndex = selectedIndex,
+-                        onItemClick = { index ->
+-                            val dest = DetailKey(index)
+-                            if (backStack.last() != dest) backStack.add(dest)
+-                        },
+-                    )
+-                }
+-
+-                entry<DetailKey>(metadata = ListDetailSceneStrategy.detailPane()) {
+-                    val scaffoldSceneScope = LocalListDetailSceneScope.current
+-                    DetailPaneContent(
+-                        selectedItem = selectedIndex?.let { items[it] },
+-                        onShowExtra = {
+-                            val dest = ExtraKey(selectedIndex!!)
+-                            if (backStack.last() != dest) backStack.add(dest)
+-                        },
+-                        backButton =
+-                            if (scaffoldSceneScope == null) {
+-                                // Only show back button in a single-pane context
+-                                { BackButton(onClick = { backStack.removeLastOrNull() }) }
+-                            } else null,
+-                    )
+-                }
+-
+-                entry<ExtraKey>(metadata = ListDetailSceneStrategy.extraPane()) {
+-                    val scaffoldSceneScope = LocalListDetailSceneScope.current
+-                    ExtraPaneContent(
+-                        item = extraItems[selectedIndex!!],
+-                        backButton =
+-                            if (scaffoldSceneScope == null) {
+-                                // Only show back button in a single-pane context
+-                                { BackButton(onClick = { backStack.removeLastOrNull() }) }
+-                            } else null,
+-                    )
+-                }
+-            },
+-    )
+-}
+-
+ @OptIn(ExperimentalMaterial3AdaptiveApi::class)
+ private fun ThreePaneScaffoldNavigator<*>.isExpanded(role: ThreePaneScaffoldRole) =
+     scaffoldValue[role] == PaneAdaptedValue.Expanded
+ 
+ private data class NavItemData(val index: Int, val showExtra: Boolean = false)
+ 
+-@Serializable private data object HomeKey : NavKey
+-
+-@Serializable private data object ListKey : NavKey
+-
+-@Serializable private data class DetailKey(val index: Int) : NavKey
+-
+-@Serializable private data class ExtraKey(val index: Int) : NavKey
+-
+ @Composable
+ private fun ListCard(
+     title: String,
