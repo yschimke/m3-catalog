@@ -4191,6 +4191,14 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 
 | Preview | Image |
 |---------|-------|
+| `ListDetailPaneScaffoldSample` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/samples-catalog/ListDetailPaneScaffoldSample-65261308.png" width="150" /> |
+| `ListDetailPaneScaffoldSampleWithExtraPane` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/samples-catalog/ListDetailPaneScaffoldSampleWithExtraPane-cbb54952.png" width="150" /> |
+| `ListDetailPaneScaffoldSampleWithExtraPaneLevitatedAsDialog` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/samples-catalog/ListDetailPaneScaffoldSampleWithExtraPaneLevitatedAsDialog-9819cf61.png" width="150" /> |
+| `SupportingPaneScaffoldSample` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/samples-catalog/SupportingPaneScaffoldSample-88c1d3ac.png" width="150" /> |
+| `SupportingPaneScaffoldSampleWithExtraPaneLevitatedAsBottomSheet` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/samples-catalog/SupportingPaneScaffoldSampleWithExtraPaneLevitatedAsBottomSheet-5a164e49.png" width="150" /> |
+| `levitateAsBottomSheetSample` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/samples-catalog/levitateAsBottomSheetSample-4765ab6b.png" width="150" /> |
+| `levitateAsDialogSample` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/samples-catalog/levitateAsDialogSample-61d7ca6d.png" width="150" /> |
+| `reflowAdaptStrategySample` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/samples-catalog/reflowAdaptStrategySample-07756a0b.png" width="150" /> |
 | `AlertDialogSample` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/samples-catalog/AlertDialogSample-70258c69.png" width="150" /> |
 | `AlertDialogWithIconSample` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/samples-catalog/AlertDialogWithIconSample-ada9b615.png" width="150" /> |
 | `BasicAlertDialogSample` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/samples-catalog/BasicAlertDialogSample-c391a47f.png" width="150" /> |
