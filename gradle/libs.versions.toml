@@ -2,6 +2,28 @@
 kotlin = "2.4.10"
 ktfmt = "0.27.0"
 
+# The Android Gradle Plugin, for the two Glimmer modules ONLY. Every other module in this
+# repository is deliberately not an Android module — `catalog/build.gradle.kts` opens by explaining
+# why — and that has not changed: `androidx.xr.glimmer:glimmer` is published as an AAR with no
+# Compose Multiplatform port, so a desktop/Skiko module cannot resolve it at all. The Glimmer sheets
+# therefore render through Robolectric, which is the lane `yschimke/wear-m3-catalog` already runs,
+# and this is the first AGP in this tree. See docs/design/GLIMMER.md.
+agp = "9.4.0"
+# Robolectric is what actually executes the Glimmer previews. Pinned to the version the sibling
+# repository renders with, so the two Android lanes cannot skew.
+robolectric = "4.17-beta-4"
+
+# `androidx.xr.glimmer` — the Android XR design system. An alpha line moving on its own schedule,
+# and unlike material3 there is NO Compose Multiplatform artifact to fingerprint the pin against:
+# the version this compiles against IS the pin, and the compiler is the only gate. Same situation
+# the Wear side's samples are in.
+glimmer = "1.0.0-alpha19"
+# The ANDROIDX compose-ui line (not the Compose Multiplatform one the rest of this build uses), for
+# `androidx.compose.ui.tooling.preview.Preview` — the annotation discovery scans for — on the
+# Glimmer modules. Pinned to the version glimmer's own POM depends on, so the previews compile
+# against the same Compose the library was built against.
+androidx-compose-ui = "1.12.0-beta02"
+
 # Compose Multiplatform (desktop). 1.11.x is the first line that ships
 # `androidx.compose.ui.tooling.preview.PreviewWrapperProvider` on the desktop
 # target, which is what `@ThemeCatalog` needs — the catalog's named themes are
@@ -113,10 +135,20 @@ compose-ui-test-junit4 = { module = "org.jetbrains.compose.ui:ui-test-junit4", v
 
 materialkolor = { module = "com.materialkolor:material-kolor", version.ref = "materialKolor" }
 
+# Glimmer, and the Robolectric runtime that renders it. `glimmer-google-fonts` is deliberately NOT
+# here: it resolves typefaces over the network at render time, which a reproducible sticker sheet
+# cannot depend on.
+glimmer = { module = "androidx.xr.glimmer:glimmer", version.ref = "glimmer" }
+androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose-ui" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose-ui" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+
 composeai-preview-overrides = { module = "ee.schimke.composeai:data-preview-overrides-runtime", version.ref = "composePreviewAnnotations" }
 composeai-preview-annotations = { module = "ee.schimke.composeai:preview-annotations", version.ref = "composePreviewAnnotations" }
 
 [plugins]
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }

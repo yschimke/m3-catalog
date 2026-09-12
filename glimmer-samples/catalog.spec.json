@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/yschimke/compose-ai-tools/main/scripts/design-artifacts/catalog.spec.schema.json",
+  "$comment": "Cover-sheet spec for the vendored AndroidX Glimmer samples. Unlike :samples-catalog's spec this one is NOT generated: there is no `sample-map.json` to generate it from, because that map is read from the `@sample` KDoc of the artifact the module compiles against and glimmer's AAR publishes no sources jar. So the inventory is discovery's own — every `@Preview` in the vendored tree renders and lands as a bundle preview. `compareWith` names the sibling glimmer-catalog: same library, same renderer, so the kit cell beside how you call it is an honest pairing here in a way it is not between the Robolectric and Skiko sheets.",
+  "system": "glimmer-samples",
+  "title": "Compose Glimmer Samples",
+  "library": ["androidx.xr.glimmer:glimmer"],
+  "module": ":glimmer-samples",
+  "modes": ["dark"],
+  "display": { "surface": "dark" },
+  "compareWith": {
+    "system": "glimmer-catalog",
+    "repo": "yschimke/m3-catalog"
+  }
+}

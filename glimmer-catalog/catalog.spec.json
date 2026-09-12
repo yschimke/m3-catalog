@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/yschimke/compose-ai-tools/main/scripts/design-artifacts/catalog.spec.schema.json",
+  "$comment": "Cover-sheet spec only. The component inventory — ids, sections, groups, captions and variants — lives next to the @Previews as @CatalogGroup / @CatalogComponent / @CatalogVariant annotations under glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/, exactly as the sibling :catalog does. There is no `compareWith`: this sheet is rasterised by Robolectric while m3-catalog is rasterised by Skiko, so pairing the two would put a RENDERER difference into a comparison meant to be about design. `modes` is a single dark entry because Glimmer draws for an additive display where black is unlit — a light mode is not a thing the hardware can show — and the dark display surface keeps the preview server from staging these captures on white, which the additive-zero ground would vanish into.",
+  "system": "glimmer-catalog",
+  "title": "Compose Glimmer",
+  "library": ["androidx.xr.glimmer:glimmer"],
+  "module": ":glimmer-catalog",
+  "modes": ["dark"],
+  "display": {
+    "surface": "dark",
+    "hero": "Button"
+  }
+}

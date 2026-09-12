@@ -1,0 +1,14 @@
+{
+  "$comment": "The AndroidX Glimmer samples pin for :glimmer-samples. Its own manifest rather than a third library in samples/import.json, because the two corpora compile against different classpaths — that one is Compose Multiplatform desktop, this one is Android through Robolectric — so their quarantine lists answer different questions and must not be shared. Unlike material3, there is NO Compose Multiplatform artifact to fingerprint this pin against: `scripts/samples-drift.mjs` has nothing to check here and the compiler is the only gate, which is the same position the Wear side's samples are in. `ref` is a COMMIT SHA and never a branch, so a render is reproducible and an upstream bump is a reviewable diff.",
+  "repo": "https://github.com/androidx/androidx",
+  "libraries": [
+    {
+      "name": "glimmer",
+      "ref": "4a14204d1ef5126b7f87bf2d71ce3bc02637c7e1",
+      "refDescription": "androidx-main on 2026-09-09, the day glimmer 1.0.0-alpha19 was published, resolved by the same POM Last-Modified rule samples/import.json uses — then backed up ONE commit, to the parent of `Introduce ImageCard API in glimmer` (9bca189d). That commit landed hours after the alpha19 cut, and the samples it rewrote call an `ImageCard` the published AAR does not contain. The Last-Modified rule places the ref within a day; where a same-day API commit straddles the cut, the compiler says which side to be on. Pinning four months earlier instead is what a guess looks like: that tree calls a Card `action` slot alpha19 also does not have.",
+      "paths": ["xr/glimmer/glimmer/samples/src/main/java/androidx/xr/glimmer/samples"],
+      "artifactCoordinates": "androidx.xr.glimmer:glimmer",
+      "artifactVersion": "1.0.0-alpha19"
+    }
+  ]
+}

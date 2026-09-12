@@ -52,6 +52,9 @@
  *
  *     node scripts/import-samples.mjs --out <dir>     # vendor into <dir>
  *     node scripts/import-samples.mjs --check         # re-import and diff against the committed tree
+ *
+ * `--manifest`, `--patches`, `--quarantine`, `--out` and `--res` all default to the material3
+ * corpus' paths; `:glimmer-samples` passes its own. See `glimmer-samples/import.json`.
  */
 
 import { execFileSync } from "node:child_process";
@@ -68,6 +71,13 @@ import {
 import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 
+// The material3 corpus' paths. Every one is overridable on the command line, because this script
+// now serves TWO corpora: `:samples-catalog` (AndroidX material3 + adaptive, vendored from these
+// defaults) and `:glimmer-samples` (`androidx.xr.glimmer`, which passes its own manifest, patch
+// directory and quarantine list). They stay separate files rather than one manifest with two
+// destinations: the two modules compile against different classpaths — one Compose Multiplatform
+// desktop, one Android via Robolectric — so a file that must be quarantined in one is routinely
+// fine in the other, and a shared quarantine list would make each corpus' gaps unreadable.
 const MANIFEST = "samples/import.json";
 const PATCH_DIR = "samples/patches";
 const QUARANTINE = "samples/quarantine.json";
@@ -328,12 +338,12 @@ function main(argv) {
   for (let i = 0; i < argv.length; i += 1) {
     if (argv[i].startsWith("--")) args.set(argv[i].slice(2), argv[i + 1]);
   }
-  const manifest = JSON.parse(readFileSync(MANIFEST, "utf8"));
+  const manifest = JSON.parse(readFileSync(args.get("manifest") ?? MANIFEST, "utf8"));
   const check = argv.includes("--check");
   const committed = args.get("out") ?? "samples-catalog/src/main/kotlin/upstream";
   const cacheBase = args.get("cache") ?? join(tmpdir(), "androidx-samples");
 
-  const skip = quarantined();
+  const skip = quarantined(args.get("quarantine") ?? QUARANTINE);
   const out = check ? mkdtempSync(join(tmpdir(), "samples-import-")) : committed;
   const resourcesOut = args.get("res") ?? "samples-catalog/src/main/res";
   const result = { copied: [], skipped: [], byLibrary: {} };
@@ -354,7 +364,7 @@ function main(argv) {
   result.skipped.sort();
   let patches;
   try {
-    patches = applyPatches(out);
+    patches = applyPatches(out, args.get("patches") ?? PATCH_DIR);
   } catch (error) {
     // The message already says which patch and what to do about it; a stack trace on top only
     // buries it, and this is a failure a human has to read and act on.

@@ -95,6 +95,7 @@ jobs:
     outputs:
       kit: ${{ steps.scope.outputs.kit }}
       samples: ${{ steps.scope.outputs.samples }}
+      glimmer: ${{ steps.scope.outputs.glimmer }}
     steps:
       - uses: actions/checkout@v7.0.1
         with:
@@ -111,18 +112,25 @@ jobs:
              ! files="$(git diff --name-only "$BEFORE" "$GITHUB_SHA")"; then
             echo 'kit=true' >> "$GITHUB_OUTPUT"
             echo 'samples=true' >> "$GITHUB_OUTPUT"
+            echo 'glimmer=true' >> "$GITHUB_OUTPUT"
             exit 0
           fi
           shared='^(gradle/|settings\.gradle\.kts$|build\.gradle\.kts$|\.github/workflows/design-artifacts\.yml$)'
           if grep -qE "$shared" <<<"$files"; then
             echo 'kit=true' >> "$GITHUB_OUTPUT"
             echo 'samples=true' >> "$GITHUB_OUTPUT"
+            echo 'glimmer=true' >> "$GITHUB_OUTPUT"
             exit 0
           fi
           grep -qE '^(catalog/|catalog\.spec\.json$|design-pages\.json$|design/pages/)' <<<"$files" &&
             echo 'kit=true' >> "$GITHUB_OUTPUT" || echo 'kit=false' >> "$GITHUB_OUTPUT"
           grep -qE '^(samples-catalog/|samples/|sample-map\.json$|scripts/samples-)' <<<"$files" &&
             echo 'samples=true' >> "$GITHUB_OUTPUT" || echo 'samples=false' >> "$GITHUB_OUTPUT"
+          # Both Glimmer sheets move together: they share the `glimmer` version ref, the Robolectric
+          # pin and the AGP setup, so a change to one is nearly always a change to both, and the two
+          # renders together cost less than the runner minutes a finer split would save.
+          grep -qE '^(glimmer-catalog/|glimmer-samples/)' <<<"$files" &&
+            echo 'glimmer=true' >> "$GITHUB_OUTPUT" || echo 'glimmer=false' >> "$GITHUB_OUTPUT"
 
   publish:
     name: m3-catalog
@@ -338,4 +346,67 @@ jobs:
       # needs telling about multipreviews declared in another module. This module has none: every
       # published preview is the plain `androidx.compose.ui.tooling.preview.Preview`, carried by
       # upstream's own sources — verified against the vendored tree rather than assumed.
+      allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
+
+  # ── The two Glimmer sheets ──────────────────────────────────────────────────────────────────────
+  #
+  # Both render through ROBOLECTRIC rather than Skiko, which is the one thing that makes these
+  # callers different from the two above. `androidx.xr.glimmer:glimmer` ships only as an AAR
+  # (`minCompileSdk=37`) with no Compose Multiplatform port, so a desktop module cannot resolve it
+  # — see `docs/design/GLIMMER.md` for why that decides everything else here.
+  #
+  # Neither carries a design map, a `figma_token` or a `reference-cache-branch`: Glimmer publishes
+  # no Figma kit, so there is no node for any component to be scored against and 0% parity coverage
+  # is the truthful number. Same empty-map command the samples job above explains at length; the
+  # reason it cannot simply be omitted is the same too.
+  glimmer-catalog:
+    name: glimmer-catalog
+    needs: changes
+    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.glimmer == 'true' }}
+    permissions:
+      contents: write
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
+    with:
+      system: glimmer-catalog
+      spec: glimmer-catalog/catalog.spec.json
+      module: ':glimmer-catalog'
+      design-map-command: printf '{"components":[]}\n' > design-map.json
+      cli-version: catalog
+      catalog-key: composePreviewPlugin
+      # FALSE, unlike every other caller in this file: no AGP would mean no Glimmer at all.
+      desktop-render: false
+      publish-live-bundle: false
+      split-per-preview: false
+      commit-user-name: Yuri Schimke
+      commit-user-email: yuri@schimke.ee
+      timeout-minutes: 60
+      render-timeout: 1800
+      render-shards: 1
+      allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
+
+  glimmer-samples:
+    name: glimmer-samples
+    needs: changes
+    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.glimmer == 'true' }}
+    permissions:
+      contents: write
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
+    with:
+      system: glimmer-samples
+      spec: glimmer-samples/catalog.spec.json
+      module: ':glimmer-samples'
+      design-map-command: printf '{"components":[]}\n' > design-map.json
+      cli-version: catalog
+      catalog-key: composePreviewPlugin
+      desktop-render: false
+      # Baked stickers only, for the reason the m3-samples job sets out: a live bundle here would
+      # mean the preview server executing vendored third-party Compose, which is a decision about
+      # that host rather than about this catalog.
+      publish-live-bundle: false
+      split-per-preview: false
+      commit-user-name: Yuri Schimke
+      commit-user-email: yuri@schimke.ee
+      timeout-minutes: 60
+      render-timeout: 1800
+      render-shards: 1
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
