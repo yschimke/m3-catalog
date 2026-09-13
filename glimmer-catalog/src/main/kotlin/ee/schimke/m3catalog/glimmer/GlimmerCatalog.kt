@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.painter.BrushPainter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import androidx.xr.glimmer.GlimmerTheme
+import androidx.xr.glimmer.googlefonts.createGoogleSansFlexTypography
 
 /**
  * Opaque black: the additive-zero baseline described above, and the ONLY thing this module states
@@ -79,8 +80,34 @@ const val ADDITIVE_ZERO_BACKGROUND: Long = 0xFF000000L
  */
 @Composable
 fun Sticker(content: @Composable () -> Unit) {
-  GlimmerTheme(content = content)
+  GlimmerTheme(typography = GoogleSansFlexTypography, content = content)
 }
+
+/**
+ * The kit's typeface, as `glimmer-google-fonts` itself builds it.
+ *
+ * Every text node in the Glimmer kit is **Google Sans Flex** — 74 text runs across the 35 cached
+ * reference nodes on `design-parity/glimmer-reference`, with no second family among them. The stock
+ * `GlimmerTheme()` types in the platform default (Roboto on this Robolectric lane), so before this
+ * every text-bearing component was scored against the kit in the wrong face: a difference on
+ * `Button`, `Card`, `TitleChip` and `ListItem` that no amount of layout work could close.
+ *
+ * `createGoogleSansFlexTypography()` is Glimmer's own, so the axis positions come from the library
+ * rather than from a reading of the kit — which matters here because Google Sans Flex is VARIABLE
+ * and the kit uses it as one: its labels sit at weight 725 and 750, not on a named style, and the
+ * function carries a `FontVariation.Settings` per role to match.
+ *
+ * Hoisted to a `val` because it allocates seven `FontFamily`s and [Sticker] wraps 19 previews; the
+ * function is not `@Composable` and its result does not vary, so calling it per sticker would build
+ * the same object 19 times per render.
+ *
+ * The faces arrive through Android's downloadable-font provider, which on this lane is the
+ * renderer's `ShadowFontsContractCompat` reading `$XDG_CACHE_HOME/composeai/fonts`. That is a real
+ * dependency and it is guarded rather than hoped for: `composeai.fonts.failOnFallback` defaults ON,
+ * so if the face does not resolve the preview FAILS instead of quietly rendering Roboto — see
+ * `docs/design/GLIMMER.md` for how the CI lane warms and proves the cache.
+ */
+private val GoogleSansFlexTypography = createGoogleSansFlexTypography()
 
 /**
  * The width the Glimmer kit draws its fill-width components at: 420dp, read from the `Card`

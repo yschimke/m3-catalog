@@ -139,10 +139,23 @@ compose-ui-test-junit4 = { module = "org.jetbrains.compose.ui:ui-test-junit4", v
 
 materialkolor = { module = "com.materialkolor:material-kolor", version.ref = "materialKolor" }
 
-# Glimmer, and the Robolectric runtime that renders it. `glimmer-google-fonts` is deliberately NOT
-# here: it resolves typefaces over the network at render time, which a reproducible sticker sheet
-# cannot depend on.
+# Glimmer, and the Robolectric runtime that renders it.
+#
+# `glimmer-google-fonts` carries `createGoogleSansFlexTypography()` — the kit's real typeface. Every
+# text node in the Glimmer kit is Google Sans Flex (read off the 35 cached reference nodes on
+# `design-parity/glimmer-reference`: 74 text runs, all of it), so without this the whole sheet is
+# compared against the kit in Roboto and every text-bearing component scores a difference it can
+# never close.
+#
+# It used to be excluded, with the note "it resolves typefaces over the network at render time,
+# which a reproducible sticker sheet cannot depend on". The premise was right and the conclusion did
+# not follow: the render already has the machinery for exactly this. The faces land in the shared
+# `$XDG_CACHE_HOME/composeai/fonts` cache that every render lane restores and saves, and
+# `composeai.fonts.failOnFallback` (ON by default) turns an unresolved `Font(GoogleFont(...))` into
+# a FAILED preview rather than a silent Roboto substitution. So the sheet is reproducible because an
+# irreproducible one cannot pass, which is a stronger guarantee than not asking for the font at all.
 glimmer = { module = "androidx.xr.glimmer:glimmer", version.ref = "glimmer" }
+glimmer-google-fonts = { module = "androidx.xr.glimmer:glimmer-google-fonts", version.ref = "glimmer" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose-ui" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose-ui" }
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidx-compose-material-icons" }

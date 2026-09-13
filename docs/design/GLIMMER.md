@@ -358,6 +358,93 @@ hollow paper plane — and the published Compose icon set has no unfilled `send`
 styles. `Icons.AutoMirrored.Rounded.Send` is the closest thing that ships; the fill axis is not
 something to redraw by hand.
 
+## The kit types in Google Sans Flex, and so does the sheet now
+
+The kit's glyphs were settled first (above); its **typeface** was not, and the sheet was typing in
+the wrong one the whole time.
+
+Read off the 35 cached reference nodes on `design-parity/glimmer-reference`, every text run in the
+kit is one family:
+
+| family | role | runs |
+| --- | --- | --- |
+| Google Sans Flex | all text | 74 |
+| Material Symbols Rounded | icon font | 111 |
+| Material Symbols Outlined | icon font | 4 |
+
+`GlimmerTheme()` with no `typography` argument types in the platform default, which on this
+Robolectric lane is Roboto. So `Button`, `Card`, `TitleChip` and `ListItem` were each being scored
+against the kit in the wrong face — a difference no amount of layout work could close, and one that
+would have kept re-appearing on the board as an unexplained text-layer diff.
+
+`androidx.xr.glimmer:glimmer-google-fonts` exists for exactly this and now backs
+[`Sticker`](../../glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/GlimmerCatalog.kt):
+
+```kotlin
+GlimmerTheme(typography = createGoogleSansFlexTypography(), content = content)
+```
+
+Taking the typography from the library rather than hand-building a `FontFamily` matters because
+Google Sans Flex is a **variable** font and the kit uses it as one: its labels sit at weight 725 and
+750, which are axis positions rather than named styles. `createGoogleSansFlexTypography()` carries a
+`FontVariation.Settings` per role, so the axis values come from Glimmer instead of from a reading of
+the kit.
+
+### Why a downloaded face is allowed here
+
+`gradle/libs.versions.toml` used to exclude this artifact, with the note that it *"resolves typefaces
+over the network at render time, which a reproducible sticker sheet cannot depend on"*. The premise
+was right; the conclusion did not follow, because the render already has machinery for precisely
+this case:
+
+* the faces land in `$XDG_CACHE_HOME/composeai/fonts` (else `~/.cache/composeai/fonts`), the shared
+  cache every render lane restores before and saves after — including the design-parity glimmer lane,
+  keyed `composeai-fonts-<os>-<system>-`;
+* `composeai.fonts.failOnFallback` is **ON by default**, so an unresolved `Font(GoogleFont(...))`
+  FAILS the preview rather than quietly substituting Roboto.
+
+The sheet is reproducible because an irreproducible one cannot pass — a stronger guarantee than
+never asking for the font.
+
+### Proving the cache is actually hit
+
+Not asserted, measured. Three runs of `:glimmer-catalog:composePreviewRenderAll`:
+
+| run | cache | `fontsOffline` | result |
+| --- | --- | --- | --- |
+| 1 | cold | off | 59 renders, `google-sans-flex-400.ttf` appears in the cache |
+| 2 | warm | **on** | BUILD SUCCESSFUL — served entirely from cache, no egress |
+| 3 | **cleared** | **on** | BUILD FAILED (the control) |
+
+Run 3 is the one that carries the proof. Without it, run 2 only shows that the build passed:
+
+```
+FontFallbackException: Downloadable font(s) fell back to the platform default (Roboto), so this
+preview would render in the wrong typeface. … Unresolved: Google Sans Flex (weight=400) — offline
+(composeai.fonts.offline=true) and the face was not already cached
+→ 3 previews, e.g. ButtonsKt.ButtonSticker, CardsKt.CardSticker, ListsKt.ListItemSupportingSticker
+```
+
+So the font is genuinely required by the tree, the cache is what serves it, and the guard fires when
+it cannot. Across all 59 renders every `*.warnings.json` sidecar reports `"fontFallbacks": []`; the
+22 sidecars that do carry a warning are the pre-existing `unsettledCaptures` on animated
+focused/pressed variants.
+
+### Pre-populating, and what is missing
+
+No repo change is needed to warm the cache in CI: the reusable workflow already restores it before
+the render and saves it after, and the restore-keys fall back to this catalog's prior runs and then
+to any catalog's, so only a genuinely first-ever run fetches live.
+
+What has no first-class mechanism is a **deterministic seed** for that first run. It matters more
+here than elsewhere, and compose-ai-tools' own cache documentation says why: the Google Fonts CSS API
+can serve a different face for the same `(family, weight, italic)` — a static sub-font at the exact
+weight, or the family's variable TTF — and those have different text metrics. The cache removes that
+coin flip only *after* the first fetch. For a sheet whose whole purpose is pixel comparison against
+the kit, the first fetch deciding which metrics the baseline carries is a real exposure. There is no
+`fonts-prefetch` input and no `composeai fonts warm` command to close it with, so it is written down
+here rather than papered over with a local hack.
+
 ## The samples inventory is generated, and the spec that skipped it did not publish
 
 `glimmer-samples/catalog.spec.json` originally shipped with no `groups`, on the reading — written
