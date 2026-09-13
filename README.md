@@ -4191,16 +4191,17 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 
 | Preview | Image |
 |---------|-------|
+| `ButtonLabelOnlySticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonLabelOnlySticker-4f8682e8.png" width="150" /> |
 | `ButtonLargeSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonLargeSticker-ee303491.png" width="150" /> |
-| `ButtonLeadingIconSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonLeadingIconSticker-46c69cfd.png" width="150" /> |
 | `ButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonSticker-aa90fbc4.png" width="150" /> |
 | `ButtonTrailingIconSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonTrailingIconSticker-defee072.png" width="150" /> |
 | `ToggleButtonCheckedSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonCheckedSticker-2c7b111d.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker-8516b2e2.png" width="150" /> |
+| `CardActionSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/CardActionSticker-5ed326d0.png" width="150" /> |
 | `CardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/CardSticker-3affd0ad.png" width="150" /> |
-| `CardTitleSubtitleSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/CardTitleSubtitleSticker-e6186b8d.png" width="150" /> |
+| `CardTextOnlySticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/CardTextOnlySticker-ad0ac56a.png" width="150" /> |
 | `CardTrailingIconSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/CardTrailingIconSticker-26b4ed90.png" width="150" /> |
-| `TitleChipLeadingIconSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/TitleChipLeadingIconSticker-202b2668.png" width="150" /> |
+| `TitleChipLabelOnlySticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/TitleChipLabelOnlySticker-ff638355.png" width="150" /> |
 | `TitleChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/TitleChipSticker-f11a7b32.png" width="150" /> |
 | `IconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconButtonSticker-a5f3e57b.png" width="150" /> |
 | `IconToggleButtonCheckedSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonCheckedSticker-f8b4c53f.png" width="150" /> |
