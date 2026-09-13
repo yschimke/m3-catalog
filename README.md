@@ -4193,10 +4193,23 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 |---------|-------|
 | `ButtonLabelOnlySticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonLabelOnlySticker-4f8682e8.png" width="150" /> |
 | `ButtonLargeSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonLargeSticker-ee303491.png" width="150" /> |
+| `ButtonLargeSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonLargeSticker_VARIANT_disabled-25abd94f.png" width="150" /> |
+| `ButtonLargeSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonLargeSticker_VARIANT_focused-7847392e.png" width="150" /> |
+| `ButtonLargeSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonLargeSticker_VARIANT_pressed-872dda55.png" width="150" /> |
 | `ButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonSticker-aa90fbc4.png" width="150" /> |
+| `ButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonSticker_VARIANT_disabled-ee8ef5b7.png" width="150" /> |
+| `ButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonSticker_VARIANT_focused-18c4aaf7.png" width="150" /> |
+| `ButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonSticker_VARIANT_pressed-d3900768.png" width="150" /> |
 | `ButtonTrailingIconSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonTrailingIconSticker-defee072.png" width="150" /> |
 | `ToggleButtonCheckedSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonCheckedSticker-2c7b111d.png" width="150" /> |
+| `ToggleButtonLargeSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonLargeSticker-a667dcf7.png" width="150" /> |
+| `ToggleButtonLargeSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonLargeSticker_VARIANT_disabled-dbd88db5.png" width="150" /> |
+| `ToggleButtonLargeSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonLargeSticker_VARIANT_focused-aa1634f7.png" width="150" /> |
+| `ToggleButtonLargeSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonLargeSticker_VARIANT_pressed-457fe065.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker-8516b2e2.png" width="150" /> |
+| `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker_VARIANT_disabled-9d21aadd.png" width="150" /> |
+| `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker_VARIANT_focused-db3ba777.png" width="150" /> |
+| `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker_VARIANT_pressed-5013866e.png" width="150" /> |
 | `CardActionSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/CardActionSticker-5ed326d0.png" width="150" /> |
 | `CardSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/CardSticker-3affd0ad.png" width="150" /> |
 | `CardTextOnlySticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/CardTextOnlySticker-ad0ac56a.png" width="150" /> |
@@ -4204,11 +4217,21 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `TitleChipLabelOnlySticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/TitleChipLabelOnlySticker-ff638355.png" width="150" /> |
 | `TitleChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/TitleChipSticker-f11a7b32.png" width="150" /> |
 | `IconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconButtonSticker-a5f3e57b.png" width="150" /> |
+| `IconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconButtonSticker_VARIANT_disabled-9cc6e48f.png" width="150" /> |
+| `IconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconButtonSticker_VARIANT_focused-2d383a0c.png" width="150" /> |
+| `IconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconButtonSticker_VARIANT_pressed-bb08619f.png" width="150" /> |
 | `IconToggleButtonCheckedSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonCheckedSticker-f8b4c53f.png" width="150" /> |
 | `IconToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonSticker-c59c63cf.png" width="150" /> |
+| `IconToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonSticker_VARIANT_disabled-827c715a.png" width="150" /> |
+| `IconToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonSticker_VARIANT_focused-762cd963.png" width="150" /> |
+| `IconToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonSticker_VARIANT_pressed-31d87b2c.png" width="150" /> |
 | `ListItemSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSticker-15c90274.png" width="150" /> |
+| `ListItemSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSticker_VARIANT_focused-5d48c7c6.png" width="150" /> |
+| `ListItemSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSticker_VARIANT_pressed-ff2f20b8.png" width="150" /> |
 | `ListItemSupportingIconSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSupportingIconSticker-5400b5bf.png" width="150" /> |
 | `ListItemSupportingSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSupportingSticker-99483a7b.png" width="150" /> |
+| `ListItemSupportingSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSupportingSticker_VARIANT_focused-ebd865da.png" width="150" /> |
+| `ListItemSupportingSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSupportingSticker_VARIANT_pressed-052543b0.png" width="150" /> |
 | `ContainedVoiceInputIndicatorSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ContainedVoiceInputIndicatorSticker-c6a24955.png" width="150" /> |
 | `VoiceInputIndicatorSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/VoiceInputIndicatorSticker-00b6c266.png" width="150" /> |
 
