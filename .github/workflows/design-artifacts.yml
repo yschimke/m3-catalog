@@ -499,10 +499,31 @@ jobs:
       cli-version: catalog
       catalog-key: composePreviewPlugin
       desktop-render: false
-      # Baked stickers only, for the reason the m3-samples job sets out: a live bundle here would
-      # mean the preview server executing vendored third-party Compose, which is a decision about
-      # that host rather than about this catalog.
-      publish-live-bundle: false
+      # LIVE, where this job shipped with baked stickers only.
+      #
+      # The comment this replaces deferred to the m3-samples job — "a live bundle here would mean
+      # the preview server executing vendored third-party Compose, which is a decision about that
+      # host rather than about this catalog". That job has since MADE the decision, and made it in
+      # the affirmative, on three specifics it states at length: the samples run in the same sandbox
+      # this repository's own code already runs in on that box; they are public AndroidX source
+      # vendored from a pinned commit and re-fetched byte-identically on every import, so what
+      # executes is auditable and cannot drift under us between publishes; and without a live bundle
+      # a samples page is baked PNGs with no device, theme or knob control, which is most of what
+      # makes a call site worth opening rather than reading on GitHub.
+      #
+      # Every one of those holds here unchanged — same import script, same pin discipline
+      # (`glimmer-samples/import.json`), same review. So the deferral has nothing left to defer to,
+      # and leaving it false only withheld the knobs from the one sheet whose components are hardest
+      # to read as still pictures.
+      #
+      # What differs is the DAEMON, not the grant: this module renders through Robolectric rather
+      # than Skiko, and `publish-live-bundle` carries the executable bundle for whichever daemon
+      # matches. preview.coo.ee's image bakes the Android one (`/opt/lib-daemon-android`,
+      # `android.jar` at ANDROID_HOME, Robolectric's `android-all-instrumented` jar) precisely so an
+      # Android-backed catalog re-renders live — the same reasoning the `glimmer-catalog` job above
+      # gives for its own `true`, and no `embed-deps` for the same reason: `androidx.xr.glimmer`
+      # resolves from `dl.google.com/dl/android/maven2`, which the serve box already reaches.
+      publish-live-bundle: true
       split-per-preview: false
       commit-user-name: Yuri Schimke
       commit-user-email: yuri@schimke.ee

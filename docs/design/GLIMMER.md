@@ -180,8 +180,10 @@ job copies it into place. It replaced a `design-map-command` that projected an e
   reachable — and a check on the arithmetic rather than a coincidence. So the generator is the LAST
   step of that work, not the first: the interaction states come before it, and even with the four
   vocabulary fixes above the ceiling is ten cells.
-- **No parity lane.** The job still carries no `figma_token` and no `reference-cache-branch`, so
-  nothing fetches reference artwork or scores the comparison yet.
+- **The parity lane exists and has published.** `design-parity.yml`'s `glimmer` job carries the
+  token and the `design-parity/glimmer-reference` cache, and the board lands on
+  `design-parity/glimmer`. What its first run said, and what this catalog did about it, is
+  **The first board, and what it moved** below.
 - **The direction is settled, by precedent.** An earlier draft of this section treated the kit's
   "(Community)" suffix as weaker authority than a first-party file, and asked whether
   `.design-parity.json`'s repo-wide `design-led` should apply. That was a misreading: **the Figma
@@ -198,6 +200,84 @@ job copies it into place. It replaced a `design-map-command` that projected an e
   folds were derived from the API surface alone. `AGENTS.md` says membership is the kit's call, and
   that rule now has something to say here — the kit also publishes Button groups, a Progress
   indicator, Entity (avatars, monograms, app icons) and Stacks, none of which this catalog draws.
+
+## The first board, and what it moved
+
+`design-parity/glimmer` published its first report from `91bef40e` (board `659f047`): status `warn`,
+nothing blocked — `block-on-verdict: false` on this lane. It reported 30 visual findings, 5 pairing
+findings, 1 layout finding, 5 semantic findings and 5 i18n findings across the eight components, and
+[#381](https://github.com/yschimke/m3-catalog/issues/381) established that nearly all of the visual
+ones had a single cause, stated in the board's own pairing lines:
+
+> reference renders with `Label=true, Label Text=Button, Show Leading icon=true, Show Trailing
+> icon=false` — component property defaults the variant name does not state
+
+**The kit cells draw their slots filled; the stickers drew bare components.** The variant a sticker
+names — `State=Enabled, Size=Default` — says nothing about a leading icon, and the kit turns one on
+anyway. So the comparison was scoring two different pictures, and design-led says the code moves.
+
+The numbers that made it look worse than it was: design-parity normalizes the reference to the
+CANDIDATE's width before comparing, so Button's 146x48 cell became 77x25 against our 77x48 and the
+board reported "67.4% of pixels differ". That was an aspect-ratio artifact of the missing icon, not
+a button drawn wrong — and the heights matched exactly everywhere the slots did (48/48, 44/44,
+80/80, 32/32).
+
+Two changes, both of them #381's own options:
+
+**The base stickers now draw what their cell draws.** Leading icon and the label "Button" on
+`Button` and `ToggleButton`, an entity and "Title Chip" on `TitleChip`, icon and "Title" on
+`ListItem`, and the kit's full content set on `Card` — header image, entity, title, subtitle, body.
+The BARE forms did not disappear; they inverted into variants (`content=label-only`,
+`content=text-only`), which is the honest taxonomy once the populated form is what the kit publishes
+as the base. `Card`'s `Show Action` layer is the one the base cannot carry — alpha19 puts the action
+slot on `ActionCard`, and a sticker published as `Card` has to invoke `Card` — so it folds in as
+`content=action`, the treatment `AGENTS.md` gives every "it is a separate composable" axis.
+
+**`Card` and `ListItem` are bound to the kit's 420dp column** (`ContentFrame`), where they were
+filling the 960dp glasses display #376 made the wrap sandbox — 2.3x the width the kit draws them at.
+It goes on a FRAME rather than on the component because 420 is the component's own measured extent
+in the kit rather than a number a caller passes, and because `Modifier.width` would hand a card that
+fills its width a tight minimum.
+
+What that does to the measurements, rendered locally against the cells #381 read from the reference
+cache:
+
+| component | kit cell | before | after |
+| --- | --- | --- | --- |
+| `Button` | 146 x 48 | 77 x 48 | 130 x 48 |
+| `ToggleButton` | 146 x 48 | 121 x 48 | 130 x 48 |
+| `TitleChip` | 146 x 44 | 107 x 44 | 134 x 44 |
+| `ListItem` | 420 x 80 | 960 x 80 | **420 x 80** |
+| `Card` | 420 x 412 | 960 x 80 | 420 x 371 |
+| `IconButton` | 48 x 48 | 48 x 48 | 48 x 48 |
+| `IconToggleButton` | 48 x 48 | 48 x 48 | 48 x 48 |
+| `VoiceInputIndicator` | 32 x 32 | 32 x 32 | 32 x 32 |
+
+The residue is small and named rather than swept up. The 16dp the buttons and the chip still give
+away is the kit's own icon-to-label spacing against Compose's; `Card`'s 41dp is the header image's
+aspect against the kit's photograph. `ButtonSize.Large` is the one that did not improve — 72dp
+against the cell's 64 — and it is a token difference rather than a content one.
+
+**What the board reported that this did NOT fix**, each already tracked:
+
+- [#382](https://github.com/yschimke/m3-catalog/issues/382) — `Card`, `ListItem`, `TitleChip` and
+  `VoiceInputIndicator` expose no accessibility roles, and the indicator no label either. That is a
+  property of what the LIBRARY puts in the semantics tree; papering over it with
+  `Modifier.semantics` at the call site would make these stickers more accessible than the library
+  they document and hide the gap. It stays honest reporting until the upstream question is settled.
+- [#383](https://github.com/yschimke/m3-catalog/issues/383) — every label needs roughly 2x its width
+  when localized and none has it. Taking the kit's copy shortens four of the five strings, which
+  moves the numbers without settling the question; #358 (string resources) comes first either way.
+- [#388](https://github.com/yschimke/m3-catalog/issues/388) — `VoiceInputIndicator` never settles,
+  so its 90.2% pixel difference is measuring an arbitrary animation frame rather than a divergence.
+- The icon GLYPH on `IconButton` / `IconToggleButton`, which is the whole of those two cells'
+  content: the kit draws a microphone, these draw `StarIcon`. Both are 48x48 with no size or layout
+  finding, and the glyph is the caller's content rather than the component's — an approximated
+  microphone would be a different wrong picture, so the star stays.
+- [#389](https://github.com/yschimke/m3-catalog/issues/389) — the `token` findings, all `info`:
+  Glimmer's colour and typography tokens have no Material-role mapping for design-parity to resolve
+  them through, so the whole token lane reports `unverified` rather than compliant or divergent.
+  That one lives in the comparison tool; nothing in this catalog can move it.
 
 ## The samples inventory is generated, and the spec that skipped it did not publish
 
@@ -285,8 +365,8 @@ the import without the entry is the check.
 
 | | |
 | --- | --- |
-| `:glimmer-catalog` | 7 components, 19 previews, all rendering |
-| `:glimmer-samples` | 19 files vendored, 1 quarantined, 0 patches; 50 previews, all rendering, none blank |
+| `:glimmer-catalog` | 8 components, 20 previews, all rendering |
+| `:glimmer-samples` | 19 files vendored, 1 quarantined, 0 patches; 50 previews, all rendering, none blank; published WITH a live bundle |
 | `androidx.annotation.Sampled` | a second local shim, beside `:samples-catalog`'s, because no published artifact provides it |
 | `design-artifacts.yml` | two more `uses:` blocks and a `glimmer` output on the Scope job |
 | `glimmer-design-map.json` | the eight kit references, projected from the annotations |
@@ -303,4 +383,6 @@ the import without the entry is the check.
   tests for exactly this; an additive sheet is the case where a blank frame is hardest to spot by
   eye, because black IS the ground.
 - **`VoiceInputIndicator` never settles.** Its render warns `still_changing` — the bars animate
-  indefinitely, so the sticker is a frame of an animation rather than a resting state.
+  indefinitely, so the sticker is a frame of an animation rather than a resting state, and the
+  parity board scores that frame against the kit's resting one.
+  [#388](https://github.com/yschimke/m3-catalog/issues/388).
