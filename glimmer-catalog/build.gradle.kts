@@ -52,6 +52,10 @@ android {
 
 dependencies {
   implementation(libs.glimmer)
+  // `createGoogleSansFlexTypography()` — the kit's own typeface, resolved through Android's
+  // downloadable-font provider and cached in `~/.cache/composeai/fonts`. See the note beside this
+  // artifact in `gradle/libs.versions.toml` for why the render can depend on a downloaded face.
+  implementation(libs.glimmer.google.fonts)
   // `androidx.compose.ui.tooling.preview.Preview` — the FQN discovery scans for. The ANDROIDX
   // artifact, not the Compose Multiplatform republication the desktop modules use.
   implementation(libs.androidx.compose.ui.tooling.preview)
