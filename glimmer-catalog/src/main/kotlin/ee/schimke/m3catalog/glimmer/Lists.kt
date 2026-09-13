@@ -2,6 +2,8 @@
 
 package ee.schimke.m3catalog.glimmer
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.xr.glimmer.Icon
@@ -46,7 +48,9 @@ import ee.schimke.composeai.preview.CatalogVariant
 fun ListItemSticker() = Sticker {
   val c = counted("Title")
   ContentFrame {
-    ListItem(onClick = c.onClick, leadingIcon = { Icon(StarIcon, "Favourite") }) { Text(c.label) }
+    ListItem(onClick = c.onClick, leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") }) {
+      Text(c.label)
+    }
   }
 }
 
@@ -78,7 +82,7 @@ fun ListItemSupportingIconSticker() = Sticker {
     ListItem(
       onClick = c.onClick,
       supportingLabel = { Text("Subtitle") },
-      leadingIcon = { Icon(StarIcon, "Favourite") },
+      leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
     ) {
       Text(c.label)
     }

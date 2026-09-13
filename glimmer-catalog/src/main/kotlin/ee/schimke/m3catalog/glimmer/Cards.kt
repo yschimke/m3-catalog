@@ -3,6 +3,8 @@
 package ee.schimke.m3catalog.glimmer
 
 import androidx.compose.foundation.Image
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,7 +50,7 @@ fun CardSticker() = Sticker {
       header = { Image(HeaderImage, "Header artwork", contentScale = ContentScale.FillWidth) },
       title = { Text("Title") },
       subtitle = { Text("Subtitle") },
-      leadingIcon = { Icon(StarIcon, "Favourite") },
+      leadingIcon = { Icon(Icons.Rounded.AccountCircle, "Sender") },
     ) {
       Text("Body")
     }
@@ -73,7 +75,12 @@ fun CardTextOnlySticker() = Sticker { ContentFrame { Card { Text("Body") } } }
 @Composable
 fun CardTrailingIconSticker() = Sticker {
   ContentFrame {
-    Card(trailingIcon = { Icon(StarIcon, "Favourite") }, title = { Text("Title") }) { Text("Body") }
+    Card(
+      trailingIcon = { Icon(Icons.Rounded.AccountCircle, "Sender") },
+      title = { Text("Title") },
+    ) {
+      Text("Body")
+    }
   }
 }
 
@@ -111,7 +118,7 @@ fun CardActionSticker() = Sticker {
 fun TitleChipSticker() = Sticker {
   // The kit's symbol draws its entity slot filled and labels it "Title Chip" (146x44); the
   // label-only chip is 107x44 and is the variant below.
-  TitleChip(leadingIcon = { Icon(StarIcon, "Favourite") }) { Text("Title Chip") }
+  TitleChip(leadingIcon = { Icon(Icons.Rounded.AccountCircle, "Sender") }) { Text("Title Chip") }
 }
 
 @CatalogVariant(

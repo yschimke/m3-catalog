@@ -26,11 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.BrushPainter
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 import androidx.xr.glimmer.GlimmerTheme
 
@@ -130,35 +127,3 @@ val HeaderImage: Painter =
       end = Offset(HEADER_INTRINSIC, HEADER_INTRINSIC),
     )
   )
-
-/**
- * One icon, used wherever a sticker needs to show a leading or trailing slot filled.
- *
- * Declared here rather than pulled from `material-icons-extended`: Glimmer is not Material, and
- * putting a Material icon set on this module's classpath would invite exactly the mix-up this
- * catalog exists to avoid. The path is the standard filled-star outline.
- */
-val StarIcon: ImageVector =
-  ImageVector.Builder(
-      name = "Star",
-      defaultWidth = 24.dp,
-      defaultHeight = 24.dp,
-      viewportWidth = 24f,
-      viewportHeight = 24f,
-    )
-    .apply {
-      path(fill = SolidColor(Color.White)) {
-        moveTo(12f, 17.27f)
-        lineTo(18.18f, 21f)
-        lineToRelative(-1.64f, -7.03f)
-        lineTo(22f, 9.24f)
-        lineToRelative(-7.19f, -0.61f)
-        lineTo(12f, 2f)
-        lineTo(9.19f, 8.63f)
-        lineTo(2f, 9.24f)
-        lineToRelative(5.46f, 4.73f)
-        lineTo(5.82f, 21f)
-        close()
-      }
-    }
-    .build()

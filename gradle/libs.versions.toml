@@ -23,6 +23,10 @@ glimmer = "1.0.0-alpha19"
 # Glimmer modules. Pinned to the version glimmer's own POM depends on, so the previews compile
 # against the same Compose the library was built against.
 androidx-compose-ui = "1.12.0-beta02"
+# The ANDROIDX extended Material icon set, for the Glimmer modules. Frozen at 1.7.8 upstream — the
+# same freeze `compose-material-icons` records for the Compose Multiplatform republication — and
+# pure icon `ImageVector` definitions, so it resolves alongside the compose-ui line above.
+androidx-compose-material-icons = "1.7.8"
 
 # Compose Multiplatform (desktop). 1.11.x is the first line that ships
 # `androidx.compose.ui.tooling.preview.PreviewWrapperProvider` on the desktop
@@ -141,6 +145,7 @@ materialkolor = { module = "com.materialkolor:material-kolor", version.ref = "ma
 glimmer = { module = "androidx.xr.glimmer:glimmer", version.ref = "glimmer" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose-ui" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose-ui" }
+androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidx-compose-material-icons" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 
 composeai-preview-overrides = { module = "ee.schimke.composeai:data-preview-overrides-runtime", version.ref = "composePreviewAnnotations" }

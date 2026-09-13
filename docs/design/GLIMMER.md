@@ -315,13 +315,48 @@ against the cell's 64 — and it is a token difference rather than a content one
 - [#388](https://github.com/yschimke/m3-catalog/issues/388) — `VoiceInputIndicator` never settles,
   so its 90.2% pixel difference is measuring an arbitrary animation frame rather than a divergence.
 - The icon GLYPH on `IconButton` / `IconToggleButton`, which is the whole of those two cells'
-  content: the kit draws a microphone, these draw `StarIcon`. Both are 48x48 with no size or layout
-  finding, and the glyph is the caller's content rather than the component's — an approximated
-  microphone would be a different wrong picture, so the star stays.
+  content. That one is **fixed**: see *The kit names its glyphs* below.
 - [#389](https://github.com/yschimke/m3-catalog/issues/389) — the `token` findings, all `info`:
   Glimmer's colour and typography tokens have no Material-role mapping for design-parity to resolve
   them through, so the whole token lane reports `unverified` rather than compliant or divergent.
   That one lives in the comparison tool; nothing in this catalog can move it.
+
+## The kit names its glyphs, so the catalog does not get to choose
+
+Every icon slot in the Glimmer kit is a **Material Symbol**, and each cell names its glyph by
+ligature in the node itself — read from the reference cache rather than guessed at:
+
+| kit node | slot | glyph |
+| --- | --- | --- |
+| `Button` `40:660`, `40000113:3576` | `Leading icon`, `Trailing icon` | `send` |
+| `Toggle Button` `40000113:3991` | `Leading icon`, `Trailing icon` | `send` |
+| `List Item` `384:4195` | `System Icon` | `send` |
+| `Icon button` `5315:4651` | `System Icon` | `mic_off` |
+| `Toggle` `40000113:4150` | `System Icon` | `mic_off` |
+| `Title chip` `5315:4722`, `Card` `416:2700` | `Entity` | an avatar / product icon, not a symbol |
+
+So the stickers draw `Icons.AutoMirrored.Rounded.Send`, `Icons.Rounded.MicOff` (and
+`Icons.Rounded.Mic` when the toggle is checked, which is the pair the kit's vocabulary implies), and
+`Icons.Rounded.AccountCircle` where the kit places an entity. Rounded because the kit's own family is
+Material Symbols **Rounded**.
+
+That retires the reason this module used to give for drawing its own star — *"Glimmer is not
+Material, and putting a Material icon set on this module's classpath would invite exactly the mix-up
+this catalog exists to avoid"*. The premise was wrong: Glimmer's kit draws Material Symbols
+throughout, so a Material icon is the kit's own choice rather than a category error. `StarIcon` is
+gone and `androidx.compose.material:material-icons-extended` is on the module.
+
+**The published set is the source, not the kit's vector data.** Lifting the exact path out of the
+reference SVG was tried first and is the wrong answer even though it is the authoritative side of
+the comparison: a copied path is a snapshot that cannot track the kit, it carries no licence trail,
+and it makes the catalog draw something the library it documents does not ship. The same reasoning
+retired `figmaStars` in `:catalog` — see `CatalogIcons.kt`, where the kit's `stars` placeholder had
+been copied as path data and hand-scaled, and is now `Icons.Filled.Stars` / `Icons.Outlined.Stars`.
+
+What is left is one residual worth stating: the kit draws `send` at Material Symbols' **fill 0** — a
+hollow paper plane — and the published Compose icon set has no unfilled `send`, in any of its five
+styles. `Icons.AutoMirrored.Rounded.Send` is the closest thing that ships; the fill axis is not
+something to redraw by hand.
 
 ## The samples inventory is generated, and the spec that skipped it did not publish
 
