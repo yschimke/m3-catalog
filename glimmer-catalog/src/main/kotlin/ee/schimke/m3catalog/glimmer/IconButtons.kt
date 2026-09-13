@@ -22,13 +22,14 @@ import ee.schimke.composeai.preview.CatalogVariant
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/5315:4651",
   caption = "An action carried by its icon alone.",
 )
+@GlimmerStates
 @Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun IconButtonSticker() = Sticker {
   // `counted`'s label is unused here — an icon button has none — but its handler is the point: a
   // live click has to reach the component rather than a dead lambda.
   val c = counted("")
-  IconButton(onClick = c.onClick) { Icon(StarIcon, "Favourite") }
+  IconButton(onClick = c.onClick, enabled = glimmerEnabled()) { Icon(StarIcon, "Favourite") }
 }
 
 @CatalogComponent(
@@ -39,15 +40,22 @@ fun IconButtonSticker() = Sticker {
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000113:4150",
   caption = "An icon button that holds its checked state.",
 )
+@GlimmerStates
 @Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun IconToggleButtonSticker() = Sticker {
   var checked by remember { mutableStateOf(false) }
-  IconToggleButton(checked = checked, onCheckedChange = { checked = it }) {
+  IconToggleButton(
+    checked = checked,
+    onCheckedChange = { checked = it },
+    enabled = glimmerEnabled(),
+  ) {
     Icon(StarIcon, "Favourite")
   }
 }
 
+// Same as `ToggleButton` above: no state cells under a checked variant until the generated kit-cell
+// view can address `Toggle=True` x `State=` without colliding with `Toggle=False`. See #374.
 @CatalogVariant(
   of = "IconToggleButton",
   state = "checked",
@@ -57,7 +65,11 @@ fun IconToggleButtonSticker() = Sticker {
 @Composable
 fun IconToggleButtonCheckedSticker() = Sticker {
   var checked by remember { mutableStateOf(true) }
-  IconToggleButton(checked = checked, onCheckedChange = { checked = it }) {
+  IconToggleButton(
+    checked = checked,
+    onCheckedChange = { checked = it },
+    enabled = glimmerEnabled(),
+  ) {
     Icon(StarIcon, "Favourite")
   }
 }

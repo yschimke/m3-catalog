@@ -37,22 +37,31 @@ import ee.schimke.composeai.preview.CatalogVariant
   // `State=` x `Size=Default | Large`. The CELL rather than the set: a reference is the
   // node this sticker is a rendition OF, and the set is a family, not a drawing.
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/40:660",
-  caption = "The primary action. Two sizes and the leading / trailing icon slots fold in.",
+  caption = "The primary action. Two sizes, the icon slots and the kit's states fold in.",
 )
+@GlimmerStates
 @Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ButtonSticker() = Sticker {
   val c = counted("Button")
-  Button(onClick = c.onClick, leadingIcon = { Icon(StarIcon, "Favourite") }) { Text(c.label) }
+  Button(
+    onClick = c.onClick,
+    enabled = glimmerEnabled(),
+    leadingIcon = { Icon(StarIcon, "Favourite") },
+  ) {
+    Text(c.label)
+  }
 }
 
 @CatalogVariant(of = "Button", props = ["size=Large"], caption = "The larger of the two sizes.")
+@GlimmerStates
 @Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ButtonLargeSticker() = Sticker {
   val c = counted("Button")
   Button(
     onClick = c.onClick,
+    enabled = glimmerEnabled(),
     buttonSize = ButtonSize.Large,
     leadingIcon = { Icon(StarIcon, "Favourite") },
   ) {
@@ -101,6 +110,7 @@ fun ButtonTrailingIconSticker() = Sticker {
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/40000113:3991",
   caption = "A button that holds its state. The corner morphs between checked and unchecked.",
 )
+@GlimmerStates
 @Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ToggleButtonSticker() = Sticker {
@@ -115,12 +125,41 @@ fun ToggleButtonSticker() = Sticker {
   ToggleButton(
     checked = checked,
     onCheckedChange = { checked = it },
+    enabled = glimmerEnabled(),
     leadingIcon = { Icon(StarIcon, "Favourite") },
   ) {
     Text("Button")
   }
 }
 
+@CatalogVariant(
+  of = "ToggleButton",
+  props = ["size=Large"],
+  caption = "The larger of the two sizes.",
+)
+@GlimmerStates
+@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Composable
+fun ToggleButtonLargeSticker() = Sticker {
+  var checked by remember { mutableStateOf(false) }
+  ToggleButton(
+    checked = checked,
+    onCheckedChange = { checked = it },
+    enabled = glimmerEnabled(),
+    buttonSize = ButtonSize.Large,
+    leadingIcon = { Icon(StarIcon, "Favourite") },
+  ) {
+    Text("Button")
+  }
+}
+
+// The CHECKED stickers carry no state cells, and the reason is the resolver rather than the kit.
+// The kit publishes `Toggle=True` x `State=Focused | Pressed` (`40000113:4138` and its siblings),
+// but a cell authored there resolves against the `Toggle=False` node: the resolver combines the
+// `@OverrideVariant` interaction without carrying the parent `@CatalogVariant`'s `state=checked`,
+// and `scripts/glimmer-design-map.sh` refuses to write a map where two cells own one node. Those
+// six cells are what #374's step 2 (kit vocabulary) and step 3 (the generated exhaustive view) are
+// for; authoring them now would mis-address them, which is worse than not drawing them.
 @CatalogVariant(
   of = "ToggleButton",
   state = "checked",
@@ -133,6 +172,7 @@ fun ToggleButtonCheckedSticker() = Sticker {
   ToggleButton(
     checked = checked,
     onCheckedChange = { checked = it },
+    enabled = glimmerEnabled(),
     leadingIcon = { Icon(StarIcon, "Favourite") },
   ) {
     Text("Button")
