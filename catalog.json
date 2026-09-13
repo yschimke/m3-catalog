@@ -10,7 +10,7 @@
           "variant": "ideal",
           "path": "images/button/ideal__default.png",
           "state": "default",
-          "width": 77,
+          "width": 130,
           "height": 48,
           "livePreview": "https://preview.coo.ee/glimmer-catalog/p/button__ideal__default",
           "previewId": "ee.schimke.m3catalog.glimmer.ButtonsKt.ButtonSticker",
@@ -25,7 +25,7 @@
           "variant": "ideal",
           "path": "images/button/ideal__default__size-large.png",
           "state": "default",
-          "width": 77,
+          "width": 130,
           "height": 72,
           "props": {
             "size": "Large"
@@ -41,27 +41,27 @@
         },
         {
           "variant": "ideal",
-          "path": "images/button/ideal__default__content-leading-icon.png",
+          "path": "images/button/ideal__default__content-label-only.png",
           "state": "default",
-          "width": 115,
+          "width": 92,
           "height": 48,
           "props": {
-            "content": "leading-icon"
+            "content": "label-only"
           },
-          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/button__ideal__default__content-leading-icon",
-          "previewId": "ee.schimke.m3catalog.glimmer.ButtonsKt.ButtonLeadingIconSticker",
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/button__ideal__default__content-label-only",
+          "previewId": "ee.schimke.m3catalog.glimmer.ButtonsKt.ButtonLabelOnlySticker",
           "previewParams": {
             "showBackground": true,
             "backgroundColor": 4278190080
           },
           "density": 1,
-          "figmaSvg": "https://preview.coo.ee/glimmer-catalog/render/button__ideal__default__content-leading-icon.svg"
+          "figmaSvg": "https://preview.coo.ee/glimmer-catalog/render/button__ideal__default__content-label-only.svg"
         },
         {
           "variant": "ideal",
           "path": "images/button/ideal__default__content-trailing-icon.png",
           "state": "default",
-          "width": 115,
+          "width": 168,
           "height": 48,
           "props": {
             "content": "trailing-icon"
@@ -86,14 +86,14 @@
             "bounds": {
               "x": 0,
               "y": 0,
-              "width": 77,
+              "width": 130,
               "height": 48
             }
           },
           "bounds": {
             "x": 0,
             "y": 0,
-            "width": 77,
+            "width": 130,
             "height": 48
           }
         }
@@ -103,7 +103,7 @@
           "bounds": {
             "x": 0,
             "y": 0,
-            "width": 77,
+            "width": 130,
             "height": 48
           },
           "role": "Button",
@@ -123,7 +123,7 @@
       "wireframe": "wireframes/button.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/Buttons.kt",
       "sourceModule": ":glimmer-catalog",
-      "bodyLine": 34,
+      "bodyLine": 44,
       "sourceDirectory": "glimmer-catalog",
       "sourceFunction": "ButtonSticker",
       "parameters": [
@@ -141,7 +141,7 @@
           "variant": "ideal",
           "path": "images/togglebutton/ideal__default.png",
           "state": "default",
-          "width": 121,
+          "width": 130,
           "height": 48,
           "livePreview": "https://preview.coo.ee/glimmer-catalog/p/togglebutton__ideal__default",
           "previewId": "ee.schimke.m3catalog.glimmer.ButtonsKt.ToggleButtonSticker",
@@ -156,7 +156,7 @@
           "variant": "ideal",
           "path": "images/togglebutton/ideal__checked.png",
           "state": "checked",
-          "width": 118,
+          "width": 130,
           "height": 48,
           "livePreview": "https://preview.coo.ee/glimmer-catalog/p/togglebutton__ideal__checked",
           "previewId": "ee.schimke.m3catalog.glimmer.ButtonsKt.ToggleButtonCheckedSticker",
@@ -178,14 +178,14 @@
             "bounds": {
               "x": 0,
               "y": 0,
-              "width": 121,
+              "width": 130,
               "height": 48
             }
           },
           "bounds": {
             "x": 0,
             "y": 0,
-            "width": 121,
+            "width": 130,
             "height": 48
           }
         }
@@ -195,7 +195,7 @@
           "bounds": {
             "x": 0,
             "y": 0,
-            "width": 121,
+            "width": 130,
             "height": 48
           },
           "role": "Checkbox",
@@ -214,7 +214,7 @@
       "wireframe": "wireframes/togglebutton.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/Buttons.kt",
       "sourceModule": ":glimmer-catalog",
-      "bodyLine": 85,
+      "bodyLine": 106,
       "sourceDirectory": "glimmer-catalog",
       "sourceFunction": "ToggleButtonSticker",
       "parameters": [
@@ -232,23 +232,40 @@
           "variant": "ideal",
           "path": "images/card/ideal__default.png",
           "state": "default",
-          "width": 960,
-          "height": 80,
+          "width": 420,
+          "height": 371,
           "livePreview": "https://preview.coo.ee/glimmer-catalog/p/card__ideal__default",
           "previewId": "ee.schimke.m3catalog.glimmer.CardsKt.CardSticker",
           "previewParams": {
             "showBackground": true,
             "backgroundColor": 4278190080
           },
+          "density": 1
+        },
+        {
+          "variant": "ideal",
+          "path": "images/card/ideal__default__content-text-only.png",
+          "state": "default",
+          "width": 420,
+          "height": 80,
+          "props": {
+            "content": "text-only"
+          },
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/card__ideal__default__content-text-only",
+          "previewId": "ee.schimke.m3catalog.glimmer.CardsKt.CardTextOnlySticker",
+          "previewParams": {
+            "showBackground": true,
+            "backgroundColor": 4278190080
+          },
           "density": 1,
-          "figmaSvg": "https://preview.coo.ee/glimmer-catalog/render/card__ideal__default.svg"
+          "figmaSvg": "https://preview.coo.ee/glimmer-catalog/render/card__ideal__default__content-text-only.svg"
         },
         {
           "variant": "ideal",
           "path": "images/card/ideal__default__content-trailing-icon.png",
           "state": "default",
-          "width": 960,
-          "height": 88,
+          "width": 420,
+          "height": 98,
           "props": {
             "content": "trailing-icon"
           },
@@ -263,21 +280,21 @@
         },
         {
           "variant": "ideal",
-          "path": "images/card/ideal__default__content-title-subtitle-icon.png",
+          "path": "images/card/ideal__default__content-action.png",
           "state": "default",
-          "width": 960,
-          "height": 123,
+          "width": 420,
+          "height": 146,
           "props": {
-            "content": "title-subtitle-icon"
+            "content": "action"
           },
-          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/card__ideal__default__content-title-subtitle-icon",
-          "previewId": "ee.schimke.m3catalog.glimmer.CardsKt.CardTitleSubtitleSticker",
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/card__ideal__default__content-action",
+          "previewId": "ee.schimke.m3catalog.glimmer.CardsKt.CardActionSticker",
           "previewParams": {
             "showBackground": true,
             "backgroundColor": 4278190080
           },
           "density": 1,
-          "figmaSvg": "https://preview.coo.ee/glimmer-catalog/render/card__ideal__default__content-title-subtitle-icon.svg"
+          "figmaSvg": "https://preview.coo.ee/glimmer-catalog/render/card__ideal__default__content-action.svg"
         }
       ],
       "greenlines": [],
@@ -286,8 +303,8 @@
           "bounds": {
             "x": 0,
             "y": 0,
-            "width": 960,
-            "height": 80
+            "width": 420,
+            "height": 371
           },
           "padding": {
             "start": 12,
@@ -296,16 +313,25 @@
             "bottom": 12
           },
           "cornerRadius": 36
+        },
+        {
+          "bounds": {
+            "x": 12,
+            "y": 12,
+            "width": 396,
+            "height": 248
+          },
+          "cornerRadius": 24
         }
       ],
       "section": "Containment",
       "group": "Card",
-      "caption": "A surface for a unit of content. Title, subtitle and the icon slots fold in.",
+      "caption": "A surface for a unit of content. Header image, title, subtitle and the icon slots.",
       "reference": "figma:HKfLClZDLRyMhf4IQQLna8/416:2700",
       "wireframe": "wireframes/card.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/Cards.kt",
       "sourceModule": ":glimmer-catalog",
-      "bodyLine": 27,
+      "bodyLine": 45,
       "sourceDirectory": "glimmer-catalog",
       "sourceFunction": "CardSticker",
       "parameters": [
@@ -323,7 +349,7 @@
           "variant": "ideal",
           "path": "images/titlechip/ideal__default.png",
           "state": "default",
-          "width": 107,
+          "width": 134,
           "height": 44,
           "livePreview": "https://preview.coo.ee/glimmer-catalog/p/titlechip__ideal__default",
           "previewId": "ee.schimke.m3catalog.glimmer.CardsKt.TitleChipSticker",
@@ -336,21 +362,21 @@
         },
         {
           "variant": "ideal",
-          "path": "images/titlechip/ideal__default__content-leading-icon.png",
+          "path": "images/titlechip/ideal__default__content-label-only.png",
           "state": "default",
-          "width": 139,
+          "width": 102,
           "height": 44,
           "props": {
-            "content": "leading-icon"
+            "content": "label-only"
           },
-          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/titlechip__ideal__default__content-leading-icon",
-          "previewId": "ee.schimke.m3catalog.glimmer.CardsKt.TitleChipLeadingIconSticker",
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/titlechip__ideal__default__content-label-only",
+          "previewId": "ee.schimke.m3catalog.glimmer.CardsKt.TitleChipLabelOnlySticker",
           "previewParams": {
             "showBackground": true,
             "backgroundColor": 4278190080
           },
           "density": 1,
-          "figmaSvg": "https://preview.coo.ee/glimmer-catalog/render/titlechip__ideal__default__content-leading-icon.svg"
+          "figmaSvg": "https://preview.coo.ee/glimmer-catalog/render/titlechip__ideal__default__content-label-only.svg"
         }
       ],
       "greenlines": [],
@@ -359,7 +385,7 @@
           "bounds": {
             "x": 6,
             "y": 6,
-            "width": 95,
+            "width": 122,
             "height": 32
           },
           "padding": {
@@ -378,7 +404,7 @@
       "wireframe": "wireframes/titlechip.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/Cards.kt",
       "sourceModule": ":glimmer-catalog",
-      "bodyLine": 69,
+      "bodyLine": 111,
       "sourceDirectory": "glimmer-catalog",
       "sourceFunction": "TitleChipSticker",
       "parameters": [
@@ -564,7 +590,7 @@
           "variant": "ideal",
           "path": "images/listitem/ideal__default.png",
           "state": "default",
-          "width": 960,
+          "width": 420,
           "height": 80,
           "livePreview": "https://preview.coo.ee/glimmer-catalog/p/listitem__ideal__default",
           "previewId": "ee.schimke.m3catalog.glimmer.ListsKt.ListItemSticker",
@@ -579,7 +605,7 @@
           "variant": "ideal",
           "path": "images/listitem/ideal__default__content-supporting-label.png",
           "state": "default",
-          "width": 960,
+          "width": 420,
           "height": 82,
           "props": {
             "content": "supporting-label"
@@ -597,7 +623,7 @@
           "variant": "ideal",
           "path": "images/listitem/ideal__default__content-supporting-label-leading-icon.png",
           "state": "default",
-          "width": 960,
+          "width": 420,
           "height": 82,
           "props": {
             "content": "supporting-label-leading-icon"
@@ -618,7 +644,7 @@
           "bounds": {
             "x": 0,
             "y": 0,
-            "width": 960,
+            "width": 420,
             "height": 80
           },
           "padding": {
@@ -637,7 +663,7 @@
       "wireframe": "wireframes/listitem.svg",
       "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/Lists.kt",
       "sourceModule": ":glimmer-catalog",
-      "bodyLine": 25,
+      "bodyLine": 34,
       "sourceDirectory": "glimmer-catalog",
       "sourceFunction": "ListItemSticker",
       "parameters": [
@@ -708,7 +734,7 @@
     "androidx.xr.glimmer:glimmer"
   ],
   "renderer": "compose-preview 2.13.0",
-  "generatedAt": "2026-09-12T23:57:04.140Z",
+  "generatedAt": "2026-09-13T07:07:28.071Z",
   "display": {
     "surface": "dark",
     "hero": "Button"
