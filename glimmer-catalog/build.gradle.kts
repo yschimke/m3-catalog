@@ -60,5 +60,7 @@ dependencies {
   // `previewOverrideBoolean`, which backs the `clickCount` knob `counted` exposes — the same
   // live-lane contract `:catalog` carries. See GlimmerInteractive.kt.
   implementation(libs.composeai.preview.overrides)
+  // The passthrough backdrops behind @GlimmerEnvironmentPreview.
+  implementation(libs.composeai.glimmer.environment)
   testImplementation(libs.robolectric)
 }

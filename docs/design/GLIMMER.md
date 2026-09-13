@@ -81,9 +81,32 @@ grows the canvas. It stays a function rather than being inlined at 19 call sites
 the seam that swaps to compose-ai-tools' `GlimmerSurface` when that is published from a runtime
 artifact.
 
+### The capture is radiance, and the compositing is additive
+
 `@GlimmerEnvironmentPreview` (Light / Dark / Busy / VeniceCanalCats) composites the same additive
-capture over a passthrough scene, which is what a wearer actually sees. It is not applied yet — see
-**Still to do**.
+capture over a passthrough scene, which is what a wearer actually sees. It is applied now —
+`GlimmerEnvironments.kt`, four scenes each for `Button` and `Card`.
+
+Doing that settled what the capture convention above actually means, and it is worth stating because
+[#380](https://github.com/yschimke/m3-catalog/issues/380) reads as though the opaque ground were a
+bug. `data-glimmer-environment-connector`'s compositor is, per channel,
+
+    min(255, backdrop + sticker)
+
+— clamped **additive**, with the alpha byte never read. The capture is a RADIANCE image: black is
+zero light, and the panel can only ever add to the scene. So opaque additive-zero black is the
+correct input to that path, not a placeholder for transparency.
+
+Which is why `showBackground = false` is **not** the fix #380 wants, measured rather than argued: it
+does produce real alpha (colour type 6, min alpha 0 against a published sticker's 255), and it
+removes only the unpainted frame around a component — 1.3% of pixels on `ListItemSticker` — because
+Glimmer's own containers are opaque `#303030` surfaces. The black rectangle in that report is mostly
+the component. And alpha says the wrong thing besides: alpha OCCLUDES (a dim pixel darkens what is
+behind it) where this surface EMITS. What is missing is not an alpha channel but a way for the sheet
+to declare "these pixels are light to be added", which no field in `catalog.spec.schema.json`
+expresses — [#394](https://github.com/yschimke/m3-catalog/issues/394). The environment axis is stuck
+one layer down for a related reason: the scene is a capture property rather than something a viewer
+can pick — [#395](https://github.com/yschimke/m3-catalog/issues/395).
 
 ## The kit: found late, and the components now name it
 
@@ -386,7 +409,7 @@ the import without the entry is the check.
 
 | | |
 | --- | --- |
-| `:glimmer-catalog` | 8 components, 43 previews (21 stickers plus 22 state cells), all rendering |
+| `:glimmer-catalog` | 8 components, 51 previews (21 stickers, 22 state cells, 8 environment composites), all rendering |
 | `:glimmer-samples` | 19 files vendored, 1 quarantined, 0 patches; 50 previews, all rendering, none blank; published WITH a live bundle |
 | `androidx.annotation.Sampled` | a second local shim, beside `:samples-catalog`'s, because no published artifact provides it |
 | `design-artifacts.yml` | two more `uses:` blocks and a `glimmer` output on the Scope job |
@@ -395,9 +418,12 @@ the import without the entry is the check.
 
 ## Still to do
 
-- **`@GlimmerEnvironmentPreview`.** The passthrough backdrops are the axis that makes an additive
-  sheet legible, and they need `composeai-data-glimmer-environment-connector` on the classpath.
-  Worth doing next; it is what turns these from "dark stickers" into pictures of the thing.
+- **The environment axis, past the eight pictures it has now.** `GlimmerEnvironments.kt` composites
+  `Button` and `Card` over all four scenes, which is what turns these from "dark stickers" into
+  pictures of the thing. It stops there because `@GlimmerEnvironmentPreview` is not repeatable and
+  the scene is baked into the capture rather than chosen by the viewer: the cross-product is
+  hand-written, and a reader cannot ask "how does this look against MY scene".
+  [#395](https://github.com/yschimke/m3-catalog/issues/395).
 - **`catalogs.json` on preview.coo.ee**, with `attributionRepos: ["androidx/androidx"]` for the
   samples sheet.
 - **A blank-render guard.** `:catalog` has `CatalogRenderTest` and the Wear repo renders before unit
