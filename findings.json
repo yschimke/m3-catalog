@@ -9,34 +9,34 @@
           {
             "kind": "i18n",
             "severity": "warn",
-            "message": "\"Send\" risks truncation when localized: ≈88dp expanded vs 45dp available.",
+            "message": "\"Button\" risks truncation when localized: ≈132dp expanded vs 60dp available.",
             "detail": {
-              "label": "Send",
-              "availableWidth": "45",
-              "estimatedWidth": "44",
+              "label": "Button",
+              "availableWidth": "60",
+              "estimatedWidth": "66",
               "expansionFactor": "2",
-              "estimatedExpandedWidth": "88"
+              "estimatedExpandedWidth": "132"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
-                  "x": 16,
-                  "y": 8,
-                  "width": 32,
-                  "height": 32
+                  "x": 54,
+                  "y": 10,
+                  "width": 72,
+                  "height": 28
                 },
-                "label": "Send"
+                "label": "Button"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 16,
+                  "x": 54,
                   "y": 12,
-                  "width": 45,
+                  "width": 60,
                   "height": 25
                 },
-                "label": "Send"
+                "label": "Button"
               }
             ]
           },
@@ -64,7 +64,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -94,7 +94,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -124,7 +124,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -154,7 +154,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -184,7 +184,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -214,7 +214,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -244,7 +244,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -259,81 +259,47 @@
             }
           },
           {
-            "kind": "layout",
-            "severity": "warn",
-            "message": "layout \"send\": offset (-14, -15), size Δ(-53, -15) vs candidate",
-            "detail": {
-              "label": "send",
-              "dx": "-14",
-              "dy": "-15",
-              "dw": "-53",
-              "dh": "-15"
-            },
-            "anchors": [
-              {
-                "side": "reference",
-                "bounds": {
-                  "x": 16,
-                  "y": 8,
-                  "width": 32,
-                  "height": 32
-                },
-                "label": "send"
-              },
-              {
-                "side": "actual",
-                "bounds": {
-                  "x": 16,
-                  "y": 12,
-                  "width": 45,
-                  "height": 25
-                },
-                "label": "send"
-              }
-            ]
-          },
-          {
             "kind": "visual",
-            "severity": "warn",
-            "message": "default: reference 77×25 vs candidate 77×48; compared over their 77×25 overlap, 47.9% of the frame uncovered",
+            "severity": "info",
+            "message": "default: reference and candidate differ slightly in size (130×43 vs 130×48); compared over their overlap",
             "detail": {
               "key": "default",
               "dw": "0",
-              "dh": "-23",
-              "borderPixels": "1771",
-              "contentPixels": "720"
+              "dh": "-5",
+              "borderPixels": "650",
+              "contentPixels": "1058"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default: 67.4% of pixels differ from reference",
+            "message": "default: 27.4% of pixels differ from reference",
             "detail": {
               "key": "default",
-              "score": "0.673972",
-              "diffPixels": "2491"
+              "score": "0.273718",
+              "diffPixels": "1708"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default/Large: reference 77×34 vs candidate 77×72; compared over their 77×34 overlap, 52.8% of the frame uncovered",
+            "message": "default/Large: reference 130×57 vs candidate 130×72; compared over their 130×57 overlap, 20.8% of the frame uncovered",
             "detail": {
               "key": "default/Large",
               "dw": "0",
-              "dh": "-38",
-              "borderPixels": "2926",
-              "contentPixels": "970"
+              "dh": "-15",
+              "borderPixels": "1950",
+              "contentPixels": "1801"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default/Large: 70.3% of pixels differ from reference",
+            "message": "default/Large: 40.1% of pixels differ from reference",
             "detail": {
               "key": "default/Large",
-              "score": "0.702742",
-              "diffPixels": "3896"
+              "score": "0.400748",
+              "diffPixels": "3751"
             }
           }
         ]
@@ -347,34 +313,34 @@
           {
             "kind": "i18n",
             "severity": "warn",
-            "message": "\"Send\" risks truncation when localized: ≈88dp expanded vs 45dp available.",
+            "message": "\"Button\" risks truncation when localized: ≈132dp expanded vs 60dp available.",
             "detail": {
-              "label": "Send",
-              "availableWidth": "45",
-              "estimatedWidth": "44",
+              "label": "Button",
+              "availableWidth": "60",
+              "estimatedWidth": "66",
               "expansionFactor": "2",
-              "estimatedExpandedWidth": "88"
+              "estimatedExpandedWidth": "132"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
-                  "x": 16,
-                  "y": 8,
-                  "width": 32,
-                  "height": 32
+                  "x": 54,
+                  "y": 10,
+                  "width": 72,
+                  "height": 28
                 },
-                "label": "Send"
+                "label": "Button"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 16,
+                  "x": 54,
                   "y": 12,
-                  "width": 45,
+                  "width": 60,
                   "height": 25
                 },
-                "label": "Send"
+                "label": "Button"
               }
             ]
           },
@@ -402,7 +368,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -432,7 +398,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -462,7 +428,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -492,7 +458,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -522,7 +488,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -552,7 +518,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -582,7 +548,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 77,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -597,81 +563,47 @@
             }
           },
           {
-            "kind": "layout",
-            "severity": "warn",
-            "message": "layout \"send\": offset (-14, -15), size Δ(-53, -15) vs candidate",
-            "detail": {
-              "label": "send",
-              "dx": "-14",
-              "dy": "-15",
-              "dw": "-53",
-              "dh": "-15"
-            },
-            "anchors": [
-              {
-                "side": "reference",
-                "bounds": {
-                  "x": 16,
-                  "y": 8,
-                  "width": 32,
-                  "height": 32
-                },
-                "label": "send"
-              },
-              {
-                "side": "actual",
-                "bounds": {
-                  "x": 16,
-                  "y": 12,
-                  "width": 45,
-                  "height": 25
-                },
-                "label": "send"
-              }
-            ]
-          },
-          {
             "kind": "visual",
-            "severity": "warn",
-            "message": "default: reference 77×25 vs candidate 77×48; compared over their 77×25 overlap, 47.9% of the frame uncovered",
+            "severity": "info",
+            "message": "default: reference and candidate differ slightly in size (130×43 vs 130×48); compared over their overlap",
             "detail": {
               "key": "default",
               "dw": "0",
-              "dh": "-23",
-              "borderPixels": "1771",
-              "contentPixels": "720"
+              "dh": "-5",
+              "borderPixels": "650",
+              "contentPixels": "1058"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default: 67.4% of pixels differ from reference",
+            "message": "default: 27.4% of pixels differ from reference",
             "detail": {
               "key": "default",
-              "score": "0.673972",
-              "diffPixels": "2491"
+              "score": "0.273718",
+              "diffPixels": "1708"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default/Large: reference 77×34 vs candidate 77×72; compared over their 77×34 overlap, 52.8% of the frame uncovered",
+            "message": "default/Large: reference 130×57 vs candidate 130×72; compared over their 130×57 overlap, 20.8% of the frame uncovered",
             "detail": {
               "key": "default/Large",
               "dw": "0",
-              "dh": "-38",
-              "borderPixels": "2926",
-              "contentPixels": "970"
+              "dh": "-15",
+              "borderPixels": "1950",
+              "contentPixels": "1801"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default/Large: 70.3% of pixels differ from reference",
+            "message": "default/Large: 40.1% of pixels differ from reference",
             "detail": {
               "key": "default/Large",
-              "score": "0.702742",
-              "diffPixels": "3896"
+              "score": "0.400748",
+              "diffPixels": "3751"
             }
           }
         ]
@@ -685,24 +617,34 @@
           {
             "kind": "i18n",
             "severity": "warn",
-            "message": "\"Toggle off\" risks truncation when localized: ≈220dp expanded vs 89dp available.",
+            "message": "\"Button\" risks truncation when localized: ≈132dp expanded vs 60dp available.",
             "detail": {
-              "label": "Toggle off",
-              "availableWidth": "89",
-              "estimatedWidth": "110",
+              "label": "Button",
+              "availableWidth": "60",
+              "estimatedWidth": "66",
               "expansionFactor": "2",
-              "estimatedExpandedWidth": "220"
+              "estimatedExpandedWidth": "132"
             },
             "anchors": [
               {
+                "side": "reference",
+                "bounds": {
+                  "x": 54,
+                  "y": 10,
+                  "width": 72,
+                  "height": 28
+                },
+                "label": "Button"
+              },
+              {
                 "side": "actual",
                 "bounds": {
-                  "x": 16,
+                  "x": 54,
                   "y": 12,
-                  "width": 89,
+                  "width": 60,
                   "height": 25
                 },
-                "label": "Toggle off"
+                "label": "Button"
               }
             ]
           },
@@ -730,7 +672,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -760,7 +702,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -790,7 +732,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -820,7 +762,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -850,7 +792,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -880,7 +822,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -910,7 +852,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -940,7 +882,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -957,23 +899,23 @@
           {
             "kind": "visual",
             "severity": "info",
-            "message": "default: reference and candidate differ slightly in size (121×40 vs 121×48); compared over their overlap",
+            "message": "default: reference and candidate differ slightly in size (130×43 vs 130×48); compared over their overlap",
             "detail": {
               "key": "default",
               "dw": "0",
-              "dh": "-8",
-              "borderPixels": "968",
-              "contentPixels": "1250"
+              "dh": "-5",
+              "borderPixels": "650",
+              "contentPixels": "1058"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default: 38.2% of pixels differ from reference",
+            "message": "default: 27.4% of pixels differ from reference",
             "detail": {
               "key": "default",
-              "score": "0.381887",
-              "diffPixels": "2218"
+              "score": "0.273718",
+              "diffPixels": "1708"
             }
           }
         ]
@@ -987,24 +929,34 @@
           {
             "kind": "i18n",
             "severity": "warn",
-            "message": "\"Toggle off\" risks truncation when localized: ≈220dp expanded vs 89dp available.",
+            "message": "\"Button\" risks truncation when localized: ≈132dp expanded vs 60dp available.",
             "detail": {
-              "label": "Toggle off",
-              "availableWidth": "89",
-              "estimatedWidth": "110",
+              "label": "Button",
+              "availableWidth": "60",
+              "estimatedWidth": "66",
               "expansionFactor": "2",
-              "estimatedExpandedWidth": "220"
+              "estimatedExpandedWidth": "132"
             },
             "anchors": [
               {
+                "side": "reference",
+                "bounds": {
+                  "x": 54,
+                  "y": 10,
+                  "width": 72,
+                  "height": 28
+                },
+                "label": "Button"
+              },
+              {
                 "side": "actual",
                 "bounds": {
-                  "x": 16,
+                  "x": 54,
                   "y": 12,
-                  "width": 89,
+                  "width": 60,
                   "height": 25
                 },
-                "label": "Toggle off"
+                "label": "Button"
               }
             ]
           },
@@ -1032,7 +984,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -1062,7 +1014,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -1092,7 +1044,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -1122,7 +1074,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -1152,7 +1104,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -1182,7 +1134,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -1212,7 +1164,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -1242,7 +1194,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 121,
+                  "width": 130,
                   "height": 48
                 }
               }
@@ -1259,23 +1211,23 @@
           {
             "kind": "visual",
             "severity": "info",
-            "message": "default: reference and candidate differ slightly in size (121×40 vs 121×48); compared over their overlap",
+            "message": "default: reference and candidate differ slightly in size (130×43 vs 130×48); compared over their overlap",
             "detail": {
               "key": "default",
               "dw": "0",
-              "dh": "-8",
-              "borderPixels": "968",
-              "contentPixels": "1250"
+              "dh": "-5",
+              "borderPixels": "650",
+              "contentPixels": "1058"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default: 38.2% of pixels differ from reference",
+            "message": "default: 27.4% of pixels differ from reference",
             "detail": {
               "key": "default",
-              "score": "0.381887",
-              "diffPixels": "2218"
+              "score": "0.273718",
+              "diffPixels": "1708"
             }
           }
         ]
@@ -1289,24 +1241,92 @@
           {
             "kind": "i18n",
             "severity": "warn",
-            "message": "\"This is a card\" risks truncation when localized: ≈277dp expanded vs 118dp available.",
+            "message": "\"Title\" risks truncation when localized: ≈132dp expanded vs 48dp available.",
             "detail": {
-              "label": "This is a card",
-              "availableWidth": "118",
-              "estimatedWidth": "154",
-              "expansionFactor": "1.8",
-              "estimatedExpandedWidth": "277"
+              "label": "Title",
+              "availableWidth": "48",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 80,
+                  "y": 315,
+                  "width": 320,
+                  "height": 32
+                },
+                "label": "Title"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 80,
+                  "y": 268,
+                  "width": 48,
+                  "height": 30
+                },
+                "label": "Title"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Subtitle\" risks truncation when localized: ≈158dp expanded vs 63dp available.",
+            "detail": {
+              "label": "Subtitle",
+              "availableWidth": "63",
+              "estimatedWidth": "79",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "158"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 80,
+                  "y": 350,
+                  "width": 320,
+                  "height": 28
+                },
+                "label": "Subtitle"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 80,
+                  "y": 301,
+                  "width": 63,
+                  "height": 22
+                },
+                "label": "Subtitle"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Body\" risks truncation when localized: ≈88dp expanded vs 45dp available.",
+            "detail": {
+              "label": "Body",
+              "availableWidth": "45",
+              "estimatedWidth": "44",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "88"
             },
             "anchors": [
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 20,
-                  "y": 28,
-                  "width": 118,
+                  "x": 80,
+                  "y": 326,
+                  "width": 45,
                   "height": 25
                 },
-                "label": "This is a card"
+                "label": "Body"
               }
             ]
           },
@@ -1334,8 +1354,8 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 960,
-                  "height": 80
+                  "width": 420,
+                  "height": 371
                 }
               }
             ]
@@ -1364,8 +1384,8 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 960,
-                  "height": 80
+                  "width": 420,
+                  "height": 371
                 }
               }
             ]
@@ -1379,34 +1399,93 @@
             }
           },
           {
-            "kind": "semantic",
+            "kind": "layout",
             "severity": "warn",
-            "message": "candidate exposes no accessibility roles",
+            "message": "layout \"Title\": offset (0, 47), size Δ(272, 2) vs candidate",
             "detail": {
-              "node": "tree",
-              "field": "role"
-            }
+              "label": "Title",
+              "dx": "0",
+              "dy": "47",
+              "dw": "272",
+              "dh": "2"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 80,
+                  "y": 315,
+                  "width": 320,
+                  "height": 32
+                },
+                "label": "Title"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 80,
+                  "y": 268,
+                  "width": 48,
+                  "height": 30
+                },
+                "label": "Title"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"Subtitle\": offset (0, 49), size Δ(257, 6) vs candidate",
+            "detail": {
+              "label": "Subtitle",
+              "dx": "0",
+              "dy": "49",
+              "dw": "257",
+              "dh": "6"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 80,
+                  "y": 350,
+                  "width": 320,
+                  "height": 28
+                },
+                "label": "Subtitle"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 80,
+                  "y": 301,
+                  "width": 63,
+                  "height": 22
+                },
+                "label": "Subtitle"
+              }
+            ]
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default: reference 960×942 vs candidate 960×80; compared over their 960×80 overlap, 91.5% of the frame uncovered",
+            "message": "default: reference 420×412 vs candidate 420×371; compared over their 420×371 overlap, 10.0% of the frame uncovered",
             "detail": {
               "key": "default",
               "dw": "0",
-              "dh": "862",
-              "borderPixels": "827520",
-              "contentPixels": "58637"
+              "dh": "41",
+              "borderPixels": "17220",
+              "contentPixels": "120280"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default: 98.0% of pixels differ from reference",
+            "message": "default: 79.5% of pixels differ from reference",
             "detail": {
               "key": "default",
-              "score": "0.979915",
-              "diffPixels": "886157"
+              "score": "0.794614",
+              "diffPixels": "137500"
             }
           }
         ]
@@ -1420,24 +1499,92 @@
           {
             "kind": "i18n",
             "severity": "warn",
-            "message": "\"This is a card\" risks truncation when localized: ≈277dp expanded vs 118dp available.",
+            "message": "\"Title\" risks truncation when localized: ≈132dp expanded vs 48dp available.",
             "detail": {
-              "label": "This is a card",
-              "availableWidth": "118",
-              "estimatedWidth": "154",
-              "expansionFactor": "1.8",
-              "estimatedExpandedWidth": "277"
+              "label": "Title",
+              "availableWidth": "48",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 80,
+                  "y": 315,
+                  "width": 320,
+                  "height": 32
+                },
+                "label": "Title"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 80,
+                  "y": 268,
+                  "width": 48,
+                  "height": 30
+                },
+                "label": "Title"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Subtitle\" risks truncation when localized: ≈158dp expanded vs 63dp available.",
+            "detail": {
+              "label": "Subtitle",
+              "availableWidth": "63",
+              "estimatedWidth": "79",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "158"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 80,
+                  "y": 350,
+                  "width": 320,
+                  "height": 28
+                },
+                "label": "Subtitle"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 80,
+                  "y": 301,
+                  "width": 63,
+                  "height": 22
+                },
+                "label": "Subtitle"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Body\" risks truncation when localized: ≈88dp expanded vs 45dp available.",
+            "detail": {
+              "label": "Body",
+              "availableWidth": "45",
+              "estimatedWidth": "44",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "88"
             },
             "anchors": [
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 20,
-                  "y": 28,
-                  "width": 118,
+                  "x": 80,
+                  "y": 326,
+                  "width": 45,
                   "height": 25
                 },
-                "label": "This is a card"
+                "label": "Body"
               }
             ]
           },
@@ -1465,8 +1612,8 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 960,
-                  "height": 80
+                  "width": 420,
+                  "height": 371
                 }
               }
             ]
@@ -1495,8 +1642,8 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 960,
-                  "height": 80
+                  "width": 420,
+                  "height": 371
                 }
               }
             ]
@@ -1510,34 +1657,93 @@
             }
           },
           {
-            "kind": "semantic",
+            "kind": "layout",
             "severity": "warn",
-            "message": "candidate exposes no accessibility roles",
+            "message": "layout \"Title\": offset (0, 47), size Δ(272, 2) vs candidate",
             "detail": {
-              "node": "tree",
-              "field": "role"
-            }
+              "label": "Title",
+              "dx": "0",
+              "dy": "47",
+              "dw": "272",
+              "dh": "2"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 80,
+                  "y": 315,
+                  "width": 320,
+                  "height": 32
+                },
+                "label": "Title"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 80,
+                  "y": 268,
+                  "width": 48,
+                  "height": 30
+                },
+                "label": "Title"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"Subtitle\": offset (0, 49), size Δ(257, 6) vs candidate",
+            "detail": {
+              "label": "Subtitle",
+              "dx": "0",
+              "dy": "49",
+              "dw": "257",
+              "dh": "6"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 80,
+                  "y": 350,
+                  "width": 320,
+                  "height": 28
+                },
+                "label": "Subtitle"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 80,
+                  "y": 301,
+                  "width": 63,
+                  "height": 22
+                },
+                "label": "Subtitle"
+              }
+            ]
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default: reference 960×942 vs candidate 960×80; compared over their 960×80 overlap, 91.5% of the frame uncovered",
+            "message": "default: reference 420×412 vs candidate 420×371; compared over their 420×371 overlap, 10.0% of the frame uncovered",
             "detail": {
               "key": "default",
               "dw": "0",
-              "dh": "862",
-              "borderPixels": "827520",
-              "contentPixels": "58637"
+              "dh": "41",
+              "borderPixels": "17220",
+              "contentPixels": "120280"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default: 98.0% of pixels differ from reference",
+            "message": "default: 79.5% of pixels differ from reference",
             "detail": {
               "key": "default",
-              "score": "0.979915",
-              "diffPixels": "886157"
+              "score": "0.794614",
+              "diffPixels": "137500"
             }
           }
         ]
@@ -1551,24 +1757,34 @@
           {
             "kind": "i18n",
             "severity": "warn",
-            "message": "\"Messages\" risks truncation when localized: ≈158dp expanded vs 83dp available.",
+            "message": "\"Title Chip\" risks truncation when localized: ≈198dp expanded vs 78dp available.",
             "detail": {
-              "label": "Messages",
-              "availableWidth": "83",
-              "estimatedWidth": "79",
+              "label": "Title Chip",
+              "availableWidth": "78",
+              "estimatedWidth": "99",
               "expansionFactor": "2",
-              "estimatedExpandedWidth": "158"
+              "estimatedExpandedWidth": "198"
             },
             "anchors": [
               {
+                "side": "reference",
+                "bounds": {
+                  "x": 46,
+                  "y": 8,
+                  "width": 94,
+                  "height": 28
+                },
+                "label": "Title Chip"
+              },
+              {
                 "side": "actual",
                 "bounds": {
-                  "x": 12,
+                  "x": 44,
                   "y": 11,
-                  "width": 83,
+                  "width": 78,
                   "height": 22
                 },
-                "label": "Messages"
+                "label": "Title Chip"
               }
             ]
           },
@@ -1596,7 +1812,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 107,
+                  "width": 134,
                   "height": 44
                 }
               }
@@ -1626,7 +1842,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 107,
+                  "width": 134,
                   "height": 44
                 }
               }
@@ -1656,7 +1872,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 107,
+                  "width": 134,
                   "height": 44
                 }
               }
@@ -1671,34 +1887,59 @@
             }
           },
           {
-            "kind": "semantic",
+            "kind": "layout",
             "severity": "warn",
-            "message": "candidate exposes no accessibility roles",
+            "message": "layout \"Title Chip\": offset (-2, -4), size Δ(9, 4) vs candidate",
             "detail": {
-              "node": "tree",
-              "field": "role"
-            }
+              "label": "Title Chip",
+              "dx": "-2",
+              "dy": "-4",
+              "dw": "9",
+              "dh": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 46,
+                  "y": 8,
+                  "width": 94,
+                  "height": 28
+                },
+                "label": "Title Chip"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 44,
+                  "y": 11,
+                  "width": 78,
+                  "height": 22
+                },
+                "label": "Title Chip"
+              }
+            ]
           },
           {
             "kind": "visual",
-            "severity": "warn",
-            "message": "default: reference 107×32 vs candidate 107×44; compared over their 107×32 overlap, 27.3% of the frame uncovered",
+            "severity": "info",
+            "message": "default: reference and candidate differ slightly in size (134×40 vs 134×44); compared over their overlap",
             "detail": {
               "key": "default",
               "dw": "0",
-              "dh": "-12",
-              "borderPixels": "1284",
-              "contentPixels": "1497"
+              "dh": "-4",
+              "borderPixels": "536",
+              "contentPixels": "1559"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default: 59.1% of pixels differ from reference",
+            "message": "default: 35.5% of pixels differ from reference",
             "detail": {
               "key": "default",
-              "score": "0.590697",
-              "diffPixels": "2781"
+              "score": "0.355326",
+              "diffPixels": "2095"
             }
           }
         ]
@@ -1712,24 +1953,34 @@
           {
             "kind": "i18n",
             "severity": "warn",
-            "message": "\"Messages\" risks truncation when localized: ≈158dp expanded vs 83dp available.",
+            "message": "\"Title Chip\" risks truncation when localized: ≈198dp expanded vs 78dp available.",
             "detail": {
-              "label": "Messages",
-              "availableWidth": "83",
-              "estimatedWidth": "79",
+              "label": "Title Chip",
+              "availableWidth": "78",
+              "estimatedWidth": "99",
               "expansionFactor": "2",
-              "estimatedExpandedWidth": "158"
+              "estimatedExpandedWidth": "198"
             },
             "anchors": [
               {
+                "side": "reference",
+                "bounds": {
+                  "x": 46,
+                  "y": 8,
+                  "width": 94,
+                  "height": 28
+                },
+                "label": "Title Chip"
+              },
+              {
                 "side": "actual",
                 "bounds": {
-                  "x": 12,
+                  "x": 44,
                   "y": 11,
-                  "width": 83,
+                  "width": 78,
                   "height": 22
                 },
-                "label": "Messages"
+                "label": "Title Chip"
               }
             ]
           },
@@ -1757,7 +2008,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 107,
+                  "width": 134,
                   "height": 44
                 }
               }
@@ -1787,7 +2038,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 107,
+                  "width": 134,
                   "height": 44
                 }
               }
@@ -1817,7 +2068,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 107,
+                  "width": 134,
                   "height": 44
                 }
               }
@@ -1832,34 +2083,59 @@
             }
           },
           {
-            "kind": "semantic",
+            "kind": "layout",
             "severity": "warn",
-            "message": "candidate exposes no accessibility roles",
+            "message": "layout \"Title Chip\": offset (-2, -4), size Δ(9, 4) vs candidate",
             "detail": {
-              "node": "tree",
-              "field": "role"
-            }
+              "label": "Title Chip",
+              "dx": "-2",
+              "dy": "-4",
+              "dw": "9",
+              "dh": "4"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 46,
+                  "y": 8,
+                  "width": 94,
+                  "height": 28
+                },
+                "label": "Title Chip"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 44,
+                  "y": 11,
+                  "width": 78,
+                  "height": 22
+                },
+                "label": "Title Chip"
+              }
+            ]
           },
           {
             "kind": "visual",
-            "severity": "warn",
-            "message": "default: reference 107×32 vs candidate 107×44; compared over their 107×32 overlap, 27.3% of the frame uncovered",
+            "severity": "info",
+            "message": "default: reference and candidate differ slightly in size (134×40 vs 134×44); compared over their overlap",
             "detail": {
               "key": "default",
               "dw": "0",
-              "dh": "-12",
-              "borderPixels": "1284",
-              "contentPixels": "1497"
+              "dh": "-4",
+              "borderPixels": "536",
+              "contentPixels": "1559"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "default: 59.1% of pixels differ from reference",
+            "message": "default: 35.5% of pixels differ from reference",
             "detail": {
               "key": "default",
-              "score": "0.590697",
-              "diffPixels": "2781"
+              "score": "0.355326",
+              "diffPixels": "2095"
             }
           }
         ]
@@ -2725,24 +3001,34 @@
           {
             "kind": "i18n",
             "severity": "warn",
-            "message": "\"Primary label\" risks truncation when localized: ≈257dp expanded vs 119dp available.",
+            "message": "\"Title\" risks truncation when localized: ≈110dp expanded vs 40dp available.",
             "detail": {
-              "label": "Primary label",
-              "availableWidth": "119",
-              "estimatedWidth": "143",
-              "expansionFactor": "1.8",
-              "estimatedExpandedWidth": "257"
+              "label": "Title",
+              "availableWidth": "40",
+              "estimatedWidth": "55",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "110"
             },
             "anchors": [
               {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 26,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Title"
+              },
+              {
                 "side": "actual",
                 "bounds": {
-                  "x": 24,
+                  "x": 72,
                   "y": 28,
-                  "width": 119,
+                  "width": 40,
                   "height": 25
                 },
-                "label": "Primary label"
+                "label": "Title"
               }
             ]
           },
@@ -2770,7 +3056,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 960,
+                  "width": 420,
                   "height": 80
                 }
               }
@@ -2800,7 +3086,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 960,
+                  "width": 420,
                   "height": 80
                 }
               }
@@ -2830,7 +3116,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 960,
+                  "width": 420,
                   "height": 80
                 }
               }
@@ -2845,34 +3131,13 @@
             }
           },
           {
-            "kind": "semantic",
-            "severity": "warn",
-            "message": "candidate exposes no accessibility roles",
-            "detail": {
-              "node": "tree",
-              "field": "role"
-            }
-          },
-          {
             "kind": "visual",
             "severity": "warn",
-            "message": "default: reference 960×183 vs candidate 960×80; compared over their 960×80 overlap, 56.3% of the frame uncovered",
+            "message": "default: 7.0% of pixels differ from reference",
             "detail": {
               "key": "default",
-              "dw": "0",
-              "dh": "103",
-              "borderPixels": "98880",
-              "contentPixels": "9862"
-            }
-          },
-          {
-            "kind": "visual",
-            "severity": "warn",
-            "message": "default: 61.9% of pixels differ from reference",
-            "detail": {
-              "key": "default",
-              "score": "0.618978",
-              "diffPixels": "108742"
+              "score": "0.069851",
+              "diffPixels": "2347"
             }
           }
         ]
@@ -2886,24 +3151,34 @@
           {
             "kind": "i18n",
             "severity": "warn",
-            "message": "\"Primary label\" risks truncation when localized: ≈257dp expanded vs 119dp available.",
+            "message": "\"Title\" risks truncation when localized: ≈110dp expanded vs 40dp available.",
             "detail": {
-              "label": "Primary label",
-              "availableWidth": "119",
-              "estimatedWidth": "143",
-              "expansionFactor": "1.8",
-              "estimatedExpandedWidth": "257"
+              "label": "Title",
+              "availableWidth": "40",
+              "estimatedWidth": "55",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "110"
             },
             "anchors": [
               {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 26,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Title"
+              },
+              {
                 "side": "actual",
                 "bounds": {
-                  "x": 24,
+                  "x": 72,
                   "y": 28,
-                  "width": 119,
+                  "width": 40,
                   "height": 25
                 },
-                "label": "Primary label"
+                "label": "Title"
               }
             ]
           },
@@ -2931,7 +3206,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 960,
+                  "width": 420,
                   "height": 80
                 }
               }
@@ -2961,7 +3236,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 960,
+                  "width": 420,
                   "height": 80
                 }
               }
@@ -2991,7 +3266,7 @@
                 "bounds": {
                   "x": 0,
                   "y": 0,
-                  "width": 960,
+                  "width": 420,
                   "height": 80
                 }
               }
@@ -3006,34 +3281,13 @@
             }
           },
           {
-            "kind": "semantic",
-            "severity": "warn",
-            "message": "candidate exposes no accessibility roles",
-            "detail": {
-              "node": "tree",
-              "field": "role"
-            }
-          },
-          {
             "kind": "visual",
             "severity": "warn",
-            "message": "default: reference 960×183 vs candidate 960×80; compared over their 960×80 overlap, 56.3% of the frame uncovered",
+            "message": "default: 7.0% of pixels differ from reference",
             "detail": {
               "key": "default",
-              "dw": "0",
-              "dh": "103",
-              "borderPixels": "98880",
-              "contentPixels": "9862"
-            }
-          },
-          {
-            "kind": "visual",
-            "severity": "warn",
-            "message": "default: 61.9% of pixels differ from reference",
-            "detail": {
-              "key": "default",
-              "score": "0.618978",
-              "diffPixels": "108742"
+              "score": "0.069851",
+              "diffPixels": "2347"
             }
           }
         ]
