@@ -34,6 +34,8 @@
 package ee.schimke.m3catalog.glimmer
 
 import androidx.compose.foundation.Image
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,7 +48,9 @@ import ee.schimke.composeai.preview.GlimmerEnvironmentPreview
 
 @Composable
 private fun EnvironmentButton() {
-  Button(onClick = {}, leadingIcon = { Icon(StarIcon, "Favourite") }) { Text("Button") }
+  Button(onClick = {}, leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") }) {
+    Text("Button")
+  }
 }
 
 @Composable
@@ -56,7 +60,7 @@ private fun EnvironmentCard() {
       header = { Image(HeaderImage, "Header artwork", contentScale = ContentScale.FillWidth) },
       title = { Text("Title") },
       subtitle = { Text("Subtitle") },
-      leadingIcon = { Icon(StarIcon, "Favourite") },
+      leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
     ) {
       Text("Body")
     }

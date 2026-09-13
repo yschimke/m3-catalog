@@ -62,5 +62,10 @@ dependencies {
   implementation(libs.composeai.preview.overrides)
   // The passthrough backdrops behind @GlimmerEnvironmentPreview.
   implementation(libs.composeai.glimmer.environment)
+  // The glyphs the kit draws. Every icon slot in the Glimmer kit is a Material Symbol named by
+  // ligature in the node itself — `send` on the buttons and the list item, `mic_off` on the icon
+  // buttons — so the icons are the kit's choice rather than this catalog's, and they come from the
+  // published set rather than being redrawn here.
+  implementation(libs.androidx.compose.material.icons.extended)
   testImplementation(libs.robolectric)
 }

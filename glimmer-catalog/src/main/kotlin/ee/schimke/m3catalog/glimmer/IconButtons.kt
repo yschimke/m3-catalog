@@ -2,6 +2,9 @@
 
 package ee.schimke.m3catalog.glimmer
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Mic
+import androidx.compose.material.icons.rounded.MicOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,7 +32,9 @@ fun IconButtonSticker() = Sticker {
   // `counted`'s label is unused here — an icon button has none — but its handler is the point: a
   // live click has to reach the component rather than a dead lambda.
   val c = counted("")
-  IconButton(onClick = c.onClick, enabled = glimmerEnabled()) { Icon(StarIcon, "Favourite") }
+  IconButton(onClick = c.onClick, enabled = glimmerEnabled()) {
+    Icon(Icons.Rounded.MicOff, "Unmute microphone")
+  }
 }
 
 @CatalogComponent(
@@ -50,7 +55,7 @@ fun IconToggleButtonSticker() = Sticker {
     onCheckedChange = { checked = it },
     enabled = glimmerEnabled(),
   ) {
-    Icon(StarIcon, "Favourite")
+    Icon(if (checked) Icons.Rounded.Mic else Icons.Rounded.MicOff, "Microphone")
   }
 }
 
@@ -70,6 +75,6 @@ fun IconToggleButtonCheckedSticker() = Sticker {
     onCheckedChange = { checked = it },
     enabled = glimmerEnabled(),
   ) {
-    Icon(StarIcon, "Favourite")
+    Icon(if (checked) Icons.Rounded.Mic else Icons.Rounded.MicOff, "Microphone")
   }
 }

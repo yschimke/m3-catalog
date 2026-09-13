@@ -162,6 +162,13 @@ same word. Where Compose has no name of its own, take the kit's.
   literal: token names (`primary`, `Display Large`, `XS`) and sample data that isn't language
   (`alice@example.com`, `⌘E`, person names). Numeric samples such as `10:30` and badge counts pass
   through `localizedDigits(...)` so the locale's numbering system still applies.
+- **Icons come from the published icon set, never from the kit's vector data.** The kit's glyphs are
+  Material Symbols and it names them by ligature in the node (`chars='send'`), so the glyph is the
+  kit's choice — but the SOURCE is `material-icons-extended`, not a path copied out of a reference
+  SVG and hand-scaled. A copied path cannot track the kit, carries no licence trail, and makes a
+  catalog draw something the library it documents does not ship. `CatalogIcons.kt`'s `figmaStars` was
+  exactly that and is now `Icons.Filled.Stars` / `Icons.Outlined.Stars`; where the published set has
+  no equivalent — the kit's unfilled `send`, say — say so in a comment rather than redrawing it.
 - Every published comparison must invoke the actual named Material 3 composable. Rebuilding a
   component from `Surface`, `Column`, or its `*Defaults` can make a replica line up, but it cannot
   test the library. Dialog APIs may use `InlineDialogHost`, which replaces only their platform window

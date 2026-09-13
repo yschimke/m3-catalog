@@ -2,6 +2,8 @@
 
 package ee.schimke.m3catalog.glimmer
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,7 +49,7 @@ fun ButtonSticker() = Sticker {
   Button(
     onClick = c.onClick,
     enabled = glimmerEnabled(),
-    leadingIcon = { Icon(StarIcon, "Favourite") },
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
   ) {
     Text(c.label)
   }
@@ -63,7 +65,7 @@ fun ButtonLargeSticker() = Sticker {
     onClick = c.onClick,
     enabled = glimmerEnabled(),
     buttonSize = ButtonSize.Large,
-    leadingIcon = { Icon(StarIcon, "Favourite") },
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
   ) {
     Text(c.label)
   }
@@ -91,8 +93,8 @@ fun ButtonTrailingIconSticker() = Sticker {
   val c = counted("Button")
   Button(
     onClick = c.onClick,
-    leadingIcon = { Icon(StarIcon, "Favourite") },
-    trailingIcon = { Icon(StarIcon, "Favourite") },
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
+    trailingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
   ) {
     Text(c.label)
   }
@@ -126,7 +128,7 @@ fun ToggleButtonSticker() = Sticker {
     checked = checked,
     onCheckedChange = { checked = it },
     enabled = glimmerEnabled(),
-    leadingIcon = { Icon(StarIcon, "Favourite") },
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
   ) {
     Text("Button")
   }
@@ -147,7 +149,7 @@ fun ToggleButtonLargeSticker() = Sticker {
     onCheckedChange = { checked = it },
     enabled = glimmerEnabled(),
     buttonSize = ButtonSize.Large,
-    leadingIcon = { Icon(StarIcon, "Favourite") },
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
   ) {
     Text("Button")
   }
@@ -173,7 +175,7 @@ fun ToggleButtonCheckedSticker() = Sticker {
     checked = checked,
     onCheckedChange = { checked = it },
     enabled = glimmerEnabled(),
-    leadingIcon = { Icon(StarIcon, "Favourite") },
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
   ) {
     Text("Button")
   }
