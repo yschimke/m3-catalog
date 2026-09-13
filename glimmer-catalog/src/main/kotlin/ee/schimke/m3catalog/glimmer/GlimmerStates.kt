@@ -37,6 +37,11 @@
  *   this catalog draws, and the `Hovered` cells stay unreachable with a reason.
  * - **`Disabled+Focused` is not reachable.** A disabled Glimmer component does not take focus, so
  *   the render is identical to plain `Disabled` — the same duplicate, from the other direction.
+ *
+ * Those two are the kit's nine impossible cells, and they have an issue of their own:
+ * [#392](https://github.com/yschimke/m3-catalog/issues/392). They will not close by drawing more —
+ * either the kit moves, or `kit-unauthorable.json` grows to cover this kit and makes the exclusion
+ * a checked declaration rather than a paragraph.
  */
 package ee.schimke.m3catalog.glimmer
 

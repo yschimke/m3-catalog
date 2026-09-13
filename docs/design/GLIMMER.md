@@ -186,12 +186,20 @@ job copies it into place. It replaced a `design-map-command` that projected an e
 
   | cells | why |
   | --- | --- |
-  | `Disabled+Focused` (4) | a disabled Glimmer component takes no focus; the render is its `Disabled` render, and a duplicate cell is a build failure here |
-  | `State=Hovered` (3, `List Item` only) | Glimmer draws no hover treatment — measured byte-identical to the resting capture — because a glasses surface has no pointer. The kit's `List Item` set is the one that names `Hovered` where its siblings name `Focused`; this catalog draws the focus Glimmer actually has |
+  | `Disabled+Focused` (6) | a disabled Glimmer component takes no focus: pinned `enabled = false`, the focus-driven capture is BYTE-IDENTICAL to the resting one. The render is its `Disabled` render, and a duplicate cell is a build failure here. [#392](https://github.com/yschimke/m3-catalog/issues/392) |
+  | `State=Hovered` (3, `List Item` only) | Glimmer draws no hover treatment — measured byte-identical to the resting capture — because a glasses surface has no pointer. The kit's `List Item` set is the one that names `Hovered` where its siblings name `Focused`; this catalog draws the focus Glimmer actually has. [#392](https://github.com/yschimke/m3-catalog/issues/392) |
   | `Toggle=True` x `State=` (6) | the resolver combines an `@OverrideVariant` interaction without carrying the parent `@CatalogVariant`'s `state=checked`, so a cell authored there resolves against the `Toggle=False` node and `glimmer-design-map.sh` refuses the map. #374's steps 2 and 3 — kit vocabulary, then the generated exhaustive view — are exactly this |
   | `List Item` `Type=2-line` / `Type=Card` (8) | `2-line` is drawn (`content=supporting-label`) but declared in Compose's vocabulary rather than the kit's, which is the same step-2 gap; `Type=Card` has no Compose API |
   | `List Item` `State=Disabled` (3) | alpha19's `ListItem` has **no `enabled` parameter**. There is no call that draws a disabled row — an upstream gap rather than a missing sticker |
   | `Mic Indicators` `Volume=` / `Contained=Yes` (3) | `container=contained` is drawn and misses on vocabulary (`Contained=Yes`); the volume axis is not drawn at all |
+
+  The first two rows are a different kind of gap from the rest, and
+  [#392](https://github.com/yschimke/m3-catalog/issues/392) is where they live now: **nine cells
+  whose state no Glimmer component can be in.** `design-led` normally says the code moves, and
+  those nine are the case it cannot reach — there is no call, parameter or interaction that
+  produces the picture, so authoring them would publish the `Disabled` and resting renders again
+  under other names, which `scripts/duplicate-renders.mjs` fails the build for. The remaining rows
+  are ordinary work waiting on #374's steps 2 and 3.
 
 - **The parity lane exists and has published.** `design-parity.yml`'s `glimmer` job carries the
   token and the `design-parity/glimmer-reference` cache, and the board lands on
