@@ -4216,6 +4216,14 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `CardTrailingIconSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/CardTrailingIconSticker-26b4ed90.png" width="150" /> |
 | `TitleChipLabelOnlySticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/TitleChipLabelOnlySticker-ff638355.png" width="150" /> |
 | `TitleChipSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/TitleChipSticker-f11a7b32.png" width="150" /> |
+| `ButtonOnBusyEnvironment` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonOnBusyEnvironment-eb427f8b.png" width="150" /> |
+| `ButtonOnDarkEnvironment` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonOnDarkEnvironment-4134d282.png" width="150" /> |
+| `ButtonOnLightEnvironment` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonOnLightEnvironment-cbadeeb0.png" width="150" /> |
+| `ButtonOnVeniceCanalCatsEnvironment` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonOnVeniceCanalCatsEnvironment-bee890b2.png" width="150" /> |
+| `CardOnBusyEnvironment` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/CardOnBusyEnvironment-f9b236a6.png" width="150" /> |
+| `CardOnDarkEnvironment` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/CardOnDarkEnvironment-e52561ff.png" width="150" /> |
+| `CardOnLightEnvironment` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/CardOnLightEnvironment-8780cdc9.png" width="150" /> |
+| `CardOnVeniceCanalCatsEnvironment` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/CardOnVeniceCanalCatsEnvironment-f3154d5d.png" width="150" /> |
 | `IconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconButtonSticker-a5f3e57b.png" width="150" /> |
 | `IconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconButtonSticker_VARIANT_disabled-9cc6e48f.png" width="150" /> |
 | `IconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconButtonSticker_VARIANT_focused-2d383a0c.png" width="150" /> |
