@@ -20,6 +20,16 @@ import ee.schimke.composeai.preview.CatalogVariant
 // Glimmer publishes ONE button, sized rather than styled: there is no filled / outlined / tonal
 // axis to split on, which is the axis `m3-catalog` keeps a component per. `ButtonSize.Large` is a
 // variant of the same component, and the icon slots are content rather than kind.
+//
+// ## Why the base sticker draws a leading icon and the label "Button"
+//
+// Because the cell it names does. The kit's `State=Enabled, Size=Default` cell (`40:660`) carries
+// component-property defaults the variant NAME does not state — `Label Text=Button,
+// Show Leading icon=true, Show Trailing icon=false` — and design-parity reports them as a pairing
+// finding rather than inventing them. A sticker that draws `Button { Text("Send") }` is a picture
+// of a different thing: 77x48 against the kit's 146x48, which is the whole of #381's Button row.
+// Design-led means the code moves, so the base is the populated form and the BARE form is the
+// variant under it.
 
 @CatalogComponent(
   id = "Button",
@@ -32,40 +42,51 @@ import ee.schimke.composeai.preview.CatalogVariant
 @Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ButtonSticker() = Sticker {
-  val c = counted("Send")
-  Button(onClick = c.onClick) { Text(c.label) }
+  val c = counted("Button")
+  Button(onClick = c.onClick, leadingIcon = { Icon(StarIcon, "Favourite") }) { Text(c.label) }
 }
 
 @CatalogVariant(of = "Button", props = ["size=Large"], caption = "The larger of the two sizes.")
 @Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ButtonLargeSticker() = Sticker {
-  val c = counted("Send")
-  Button(onClick = c.onClick, buttonSize = ButtonSize.Large) { Text(c.label) }
+  val c = counted("Button")
+  Button(
+    onClick = c.onClick,
+    buttonSize = ButtonSize.Large,
+    leadingIcon = { Icon(StarIcon, "Favourite") },
+  ) {
+    Text(c.label)
+  }
 }
 
-@CatalogVariant(
-  of = "Button",
-  props = ["content=leading-icon"],
-  caption = "Icon before the label.",
-)
+// The bare form is a variant rather than the default, which is the inversion #381 asks for: the
+// kit's base cell fills the leading slot, so a label-only button is the thing that differs from it.
+// It is also the form `Button(onClick) { Text(…) }` produces, which is what a reader writes first.
+@CatalogVariant(of = "Button", props = ["content=label-only"], caption = "Label with no icon.")
 @Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
-fun ButtonLeadingIconSticker() = Sticker {
-  val c = counted("Send")
-  Button(onClick = c.onClick, leadingIcon = { Icon(StarIcon, "Favourite") }) { Text(c.label) }
+fun ButtonLabelOnlySticker() = Sticker {
+  val c = counted("Button")
+  Button(onClick = c.onClick) { Text(c.label) }
 }
 
 @CatalogVariant(
   of = "Button",
   props = ["content=trailing-icon"],
-  caption = "Icon after the label.",
+  caption = "Icon after the label as well as before it.",
 )
 @Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ButtonTrailingIconSticker() = Sticker {
-  val c = counted("Send")
-  Button(onClick = c.onClick, trailingIcon = { Icon(StarIcon, "Favourite") }) { Text(c.label) }
+  val c = counted("Button")
+  Button(
+    onClick = c.onClick,
+    leadingIcon = { Icon(StarIcon, "Favourite") },
+    trailingIcon = { Icon(StarIcon, "Favourite") },
+  ) {
+    Text(c.label)
+  }
 }
 
 // The toggle is its own component rather than a Button variant: it carries checked state, its own
@@ -85,9 +106,18 @@ fun ButtonTrailingIconSticker() = Sticker {
 fun ToggleButtonSticker() = Sticker {
   // Stateful on purpose: a live click on the preview server has to answer with the component's
   // own checked state, not with a label the sticker swapped underneath it.
+  //
+  // The label stays "Button" across both states, which is the kit's copy for this cell
+  // (`40000113:3991`, 146x48, leading icon on). An earlier "Toggle off" / "Toggle on" pair said
+  // the state in words, which is the one thing a toggle button is supposed to say in PIXELS — the
+  // corner morph and the lit container — and it cost 25dp of width against the cell besides.
   var checked by remember { mutableStateOf(false) }
-  ToggleButton(checked = checked, onCheckedChange = { checked = it }) {
-    Text(if (checked) "Toggle on" else "Toggle off")
+  ToggleButton(
+    checked = checked,
+    onCheckedChange = { checked = it },
+    leadingIcon = { Icon(StarIcon, "Favourite") },
+  ) {
+    Text("Button")
   }
 }
 
@@ -100,7 +130,11 @@ fun ToggleButtonSticker() = Sticker {
 @Composable
 fun ToggleButtonCheckedSticker() = Sticker {
   var checked by remember { mutableStateOf(true) }
-  ToggleButton(checked = checked, onCheckedChange = { checked = it }) {
-    Text(if (checked) "Toggle on" else "Toggle off")
+  ToggleButton(
+    checked = checked,
+    onCheckedChange = { checked = it },
+    leadingIcon = { Icon(StarIcon, "Favourite") },
+  ) {
+    Text("Button")
   }
 }

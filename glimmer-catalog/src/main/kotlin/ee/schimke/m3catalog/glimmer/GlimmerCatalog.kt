@@ -19,9 +19,16 @@
  */
 package ee.schimke.m3catalog.glimmer
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.painter.BrushPainter
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
@@ -77,6 +84,52 @@ const val ADDITIVE_ZERO_BACKGROUND: Long = 0xFF000000L
 fun Sticker(content: @Composable () -> Unit) {
   GlimmerTheme(content = content)
 }
+
+/**
+ * The width the Glimmer kit draws its fill-width components at: 420dp, read from the `Card`
+ * (`416:2700`, 420x412) and `List Item` (`384:4195`, 420x80) nodes.
+ *
+ * It is a kit BOUND rather than a kit size, in the sense `AGENTS.md` draws the distinction — it is
+ * the component's own measured extent in the kit, not a number a caller passes — so it goes on a
+ * frame around the component ([ContentFrame]) rather than on the component itself. `Modifier.width`
+ * on a `Card` would hand it a tight minimum; a `Box` loosens the minimum for its child, so the card
+ * still measures itself and simply stops filling more than the kit gives it.
+ *
+ * Without it these two fill the 960dp glasses display that #376 made the wrap sandbox, which is
+ * 2.3x the kit's column and the second half of #381.
+ */
+val KitContentWidth = 420.dp
+
+/**
+ * A [KitContentWidth]-wide bound for the two components that fill whatever width they are given.
+ */
+@Composable
+fun ContentFrame(content: @Composable () -> Unit) {
+  Box(modifier = Modifier.width(KitContentWidth)) { content() }
+}
+
+private const val HEADER_INTRINSIC = 1000f
+
+/**
+ * The card header's placeholder artwork: a gradient standing in for the photograph the kit's `Card`
+ * node draws in its image slot.
+ *
+ * A gradient rather than a bundled photo for the reason every sticker here is deterministic — a
+ * painter computed from constants cannot decode differently between runs — and it is the same
+ * device upstream's own `CardSamples.kt` uses for its header samples, with a large intrinsic size
+ * so the slot scales it the way a loaded bitmap would be scaled.
+ */
+val HeaderImage: Painter =
+  BrushPainter(
+    Brush.linearGradient(
+      0.0f to Color(0xFF3C8CDE),
+      0.4f to Color(0xFFED73A8),
+      0.6f to Color(0xFFED73A8),
+      1.0f to Color(0xFFE763F9),
+      start = Offset.Zero,
+      end = Offset(HEADER_INTRINSIC, HEADER_INTRINSIC),
+    )
+  )
 
 /**
  * One icon, used wherever a sticker needs to show a leading or trailing slot filled.
