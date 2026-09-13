@@ -19,6 +19,17 @@ import ee.schimke.composeai.preview.CatalogVariant
 //  * `ListItem` fills the width it is given, and since #376 that width is the 960dp glasses display
 //    used as a wrap sandbox — 2.3x the 420dp column the kit draws the component in. `ContentFrame`
 //    is that bound, on a frame rather than on the component for the reason `AGENTS.md` gives.
+//
+// The rows are CLICKABLE, and that follows from the kit too: the `List Item` set publishes a
+// `State` axis with Pressed on it, which a row that takes no click cannot be a picture of — and a
+// Glimmer component only takes focus when something can act on it. `counted` is the handler
+// contract the rest of this module already uses. It also gives the row an accessibility ROLE,
+// which is half of what #382 reports; the other half is `TitleChip` and `VoiceInputIndicator`,
+// where nothing at the call site can supply one.
+//
+// What is missing and cannot be authored: the kit's `State=Disabled` cell (`384:4192`). alpha19's
+// `ListItem` has no `enabled` parameter at all, so there is no call that draws a disabled row —
+// which is why these carry `@GlimmerInteractionStates` rather than `@GlimmerStates`.
 
 @CatalogComponent(
   id = "ListItem",
@@ -27,12 +38,16 @@ import ee.schimke.composeai.preview.CatalogVariant
   // draws one line; the supporting-label variant below is a rendition of the kit's `2-line`
   // (`384:4191`).
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/384:4195",
-  caption = "One row of a list. The supporting label and icon slots fold in.",
+  caption = "One row of a list. The supporting label, icon slots and the kit's states fold in.",
 )
+@GlimmerInteractionStates
 @Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ListItemSticker() = Sticker {
-  ContentFrame { ListItem(leadingIcon = { Icon(StarIcon, "Favourite") }) { Text("Title") } }
+  val c = counted("Title")
+  ContentFrame {
+    ListItem(onClick = c.onClick, leadingIcon = { Icon(StarIcon, "Favourite") }) { Text(c.label) }
+  }
 }
 
 @CatalogVariant(
@@ -40,10 +55,14 @@ fun ListItemSticker() = Sticker {
   props = ["content=supporting-label"],
   caption = "A second line under the primary label.",
 )
+@GlimmerInteractionStates
 @Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ListItemSupportingSticker() = Sticker {
-  ContentFrame { ListItem(supportingLabel = { Text("Subtitle") }) { Text("Title") } }
+  val c = counted("Title")
+  ContentFrame {
+    ListItem(onClick = c.onClick, supportingLabel = { Text("Subtitle") }) { Text(c.label) }
+  }
 }
 
 @CatalogVariant(
@@ -54,12 +73,14 @@ fun ListItemSupportingSticker() = Sticker {
 @Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
 @Composable
 fun ListItemSupportingIconSticker() = Sticker {
+  val c = counted("Title")
   ContentFrame {
     ListItem(
+      onClick = c.onClick,
       supportingLabel = { Text("Subtitle") },
       leadingIcon = { Icon(StarIcon, "Favourite") },
     ) {
-      Text("Title")
+      Text(c.label)
     }
   }
 }

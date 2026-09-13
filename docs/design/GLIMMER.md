@@ -152,34 +152,47 @@ job copies it into place. It replaced a `design-map-command` that projected an e
     `Title chip` are single symbols whose content differences are hidden LAYERS — which is why both
     sit in the index's `standalone` rather than `sets`, with no variants to resolve against.
 
-  One resolves today (Button `size=Large`). Four more have a counterpart and are waiting on the
-  generated view rather than on anything unknown: ToggleButton `state=checked` -> `40000113:4138`,
-  IconToggleButton `state=checked` -> `40000113:4181`, VoiceInputIndicator `container=contained` ->
-  `40000116:9338`, and ListItem `content=supporting-label`, which is the kit's `Type=2-line`
-  (`384:4191`) under a Compose name.
+  **Twenty-one resolve today**, where one did when this was written (Button `size=Large`). The
+  difference is the `State` axis below: an interaction cell's name is the kit's own value, so
+  `focused` meets `State=Focused` and the size crossings come with it. What still misses is the
+  handful whose props are Compose's vocabulary rather than the kit's — ToggleButton and
+  IconToggleButton `state=checked` against `Toggle=True`, VoiceInputIndicator `container=contained`
+  against `Contained=Yes`, ListItem `content=supporting-label` against `Type=2-line` — which is
+  #374's step 2 and still wants the generated view rather than a rename.
 
-- **34 of the kit's 50 cells are MISSING from this catalog, and the reason is that it never draws
-  them.** Audited rather than assumed — [#374](https://github.com/yschimke/m3-catalog/issues/374)
-  has the working. `m3-catalog`'s generated kit cells look like the answer here, and running that
-  generator against these inputs with only the paths swapped writes `0 annotations with 0 exact kit
-  cells`. A cell is only emitted when every kit axis it changes is backed by an authored variant
-  that already resolves, and 970 of m3's own 1384 generated cells (70%) are backed by a
-  renderer-driven Hovered / Focused / Pressed. This module draws no interaction states at all, so
-  the `State` axis has nothing behind it:
+- **The kit's `State` axis is drawn now, and the coverage is 27 of the index's 55 cells.**
+  [#374](https://github.com/yschimke/m3-catalog/issues/374) measured the old number and named the
+  cause: a generated kit cell is emitted only when every axis it changes is backed by an authored
+  variant that resolves, and `State` had nothing behind it — this module drew no interaction states
+  at all. `GlimmerStates.kt` is that backing, and the resolver picks it up with no change to
+  `scripts/glimmer-design-map.sh`:
 
-  | set | cells | reachable without State coverage | blocked on it |
-  | --- | --- | --- | --- |
-  | `Button` | 10 | 1 | 8 |
-  | `Toggle Button` | 16 | 3 | 12 |
-  | `Toggle` (icon) | 8 | 1 | 6 |
-  | `List Item` | 12 | 2 | 9 |
-  | `Mic Indicators` | 4 | 3 | 0 |
-  | **total** | **50** | **10** | **34** |
+  | set | covered before | covered now |
+  | --- | --- | --- |
+  | `Button` | 2/10 | 8/10 |
+  | `Toggle Button` | 1/16 | 8/16 |
+  | `Toggle` (icon) | 1/8 | 4/8 |
+  | `Icon button` | 1/5 | 4/5 |
+  | `List Item` | 1/12 | 2/12 |
+  | `Mic Indicators` | 1/4 | 1/4 |
+  | **total** | **7/55** | **27/55** |
 
-  `Mic Indicators` is the set with no `State` axis, which is why every one of its non-base cells is
-  reachable — and a check on the arithmetic rather than a coincidence. So the generator is the LAST
-  step of that work, not the first: the interaction states come before it, and even with the four
-  vocabulary fixes above the ceiling is ten cells.
+  `focused` and `pressed` are driven by the RENDERER against the composed node — the distinction
+  `:catalog`'s `CatalogInteractionAnnotations.kt` makes, and it works on this module's Robolectric
+  lane, which was the open question. `disabled` seeds a `status` knob, because it is a parameter
+  rather than an interaction.
+
+  What is still uncovered is uncovered for a stated reason rather than for want of drawing:
+
+  | cells | why |
+  | --- | --- |
+  | `Disabled+Focused` (4) | a disabled Glimmer component takes no focus; the render is its `Disabled` render, and a duplicate cell is a build failure here |
+  | `State=Hovered` (3, `List Item` only) | Glimmer draws no hover treatment — measured byte-identical to the resting capture — because a glasses surface has no pointer. The kit's `List Item` set is the one that names `Hovered` where its siblings name `Focused`; this catalog draws the focus Glimmer actually has |
+  | `Toggle=True` x `State=` (6) | the resolver combines an `@OverrideVariant` interaction without carrying the parent `@CatalogVariant`'s `state=checked`, so a cell authored there resolves against the `Toggle=False` node and `glimmer-design-map.sh` refuses the map. #374's steps 2 and 3 — kit vocabulary, then the generated exhaustive view — are exactly this |
+  | `List Item` `Type=2-line` / `Type=Card` (8) | `2-line` is drawn (`content=supporting-label`) but declared in Compose's vocabulary rather than the kit's, which is the same step-2 gap; `Type=Card` has no Compose API |
+  | `List Item` `State=Disabled` (3) | alpha19's `ListItem` has **no `enabled` parameter**. There is no call that draws a disabled row — an upstream gap rather than a missing sticker |
+  | `Mic Indicators` `Volume=` / `Contained=Yes` (3) | `container=contained` is drawn and misses on vocabulary (`Contained=Yes`); the volume axis is not drawn at all |
+
 - **The parity lane exists and has published.** `design-parity.yml`'s `glimmer` job carries the
   token and the `design-parity/glimmer-reference` cache, and the board lands on
   `design-parity/glimmer`. What its first run said, and what this catalog did about it, is
@@ -192,10 +205,10 @@ job copies it into place. It replaced a `design-map-command` that projected an e
   Glimmer kit is the public edition of Android's own, not a third-party redraw, so it inherits the
   same authority the Material kit has: the kit is authoritative and a divergence is a bug in this
   code.
-- **The interaction states, which are the unlock for everything above.** Focused / pressed /
-  disabled per component, roughly doubling this module's 19 previews. Tracked in
-  [#374](https://github.com/yschimke/m3-catalog/issues/374); it is listed here too because it is the
-  single thing standing between this catalog and the kit-cell coverage `m3-catalog` has.
+- **The interaction states are drawn** — `GlimmerStates.kt`, and the coverage table above is what
+  they bought. What is left of [#374](https://github.com/yschimke/m3-catalog/issues/374) is its
+  steps 2 and 3: the kit vocabulary, and the generated exhaustive view that keeps a reader-facing
+  variant name and a kit-facing property vector at the same time.
 - **The taxonomy has not been re-checked against the kit.** These seven components and their variant
   folds were derived from the API surface alone. `AGENTS.md` says membership is the kit's call, and
   that rule now has something to say here — the kit also publishes Button groups, a Progress
@@ -365,7 +378,7 @@ the import without the entry is the check.
 
 | | |
 | --- | --- |
-| `:glimmer-catalog` | 8 components, 20 previews, all rendering |
+| `:glimmer-catalog` | 8 components, 43 previews (21 stickers plus 22 state cells), all rendering |
 | `:glimmer-samples` | 19 files vendored, 1 quarantined, 0 patches; 50 previews, all rendering, none blank; published WITH a live bundle |
 | `androidx.annotation.Sampled` | a second local shim, beside `:samples-catalog`'s, because no published artifact provides it |
 | `design-artifacts.yml` | two more `uses:` blocks and a `glimmer` output on the Scope job |
