@@ -162,13 +162,17 @@ same word. Where Compose has no name of its own, take the kit's.
   literal: token names (`primary`, `Display Large`, `XS`) and sample data that isn't language
   (`alice@example.com`, `⌘E`, person names). Numeric samples such as `10:30` and badge counts pass
   through `localizedDigits(...)` so the locale's numbering system still applies.
-- **Icons come from the published icon set, never from the kit's vector data.** The kit's glyphs are
-  Material Symbols and it names them by ligature in the node (`chars='send'`), so the glyph is the
-  kit's choice — but the SOURCE is `material-icons-extended`, not a path copied out of a reference
-  SVG and hand-scaled. A copied path cannot track the kit, carries no licence trail, and makes a
-  catalog draw something the library it documents does not ship. `CatalogIcons.kt`'s `figmaStars` was
-  exactly that and is now `Icons.Filled.Stars` / `Icons.Outlined.Stars`; where the published set has
-  no equivalent — the kit's unfilled `send`, say — say so in a comment rather than redrawing it.
+- **Icons always come from the published icon set — never a path copied from the kit or drawn by
+  hand.** WHICH glyph is the kit's call: its slots are Material Symbols and it names each one by
+  ligature in the node (`chars='send'`, `chars='mic_off'`). The SOURCE is `material-icons-extended`.
+  A copied path cannot track the kit, carries no licence trail, and makes a catalog draw something
+  the library it documents does not ship — `CatalogIcons.kt`'s `figmaStars` was exactly that.
+  **Render the candidates and pick the closest; then record what still differs.** The Compose set is
+  the OLD Material Icons, frozen at 1.7.x, and it is not Material Symbols, so an exact match is not
+  always on offer: the kit's unselected `stars` is a ring around a SOLID star and every published
+  style either hollows the star or inverts the glyph, and the kit's `send` is a hollow paper plane
+  the set ships only filled. Those residuals belong in a comment naming what was rendered and what
+  differed. They are not a licence to redraw the glyph.
 - Every published comparison must invoke the actual named Material 3 composable. Rebuilding a
   component from `Surface`, `Column`, or its `*Defaults` can make a replica line up, but it cannot
   test the library. Dialog APIs may use `InlineDialogHost`, which replaces only their platform window
