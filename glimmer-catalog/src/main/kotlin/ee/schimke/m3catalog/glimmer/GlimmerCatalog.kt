@@ -8,10 +8,10 @@
  * this catalog makes — it is what the library's colour tokens are calibrated against, and it
  * decides how a sticker has to be captured.
  *
- * So every preview here captures on an opaque `Color.Black` ground: what the PNG shows as black is
- * exactly what the glasses would leave unlit, and everything else is the light the UI adds. A
- * sticker sheet that composited Glimmer onto white would be a picture of something the hardware
- * cannot produce.
+ * The component stickers keep the preview canvas transparent. Glimmer's own alpha therefore stays
+ * available to callers that want a silhouette, while the environment compositor premultiplies
+ * those channels before ADD blending them onto a passthrough scene. An opaque black capture remains
+ * equivalent, but is no longer forced into every published component PNG.
  *
  * `@GlimmerEnvironmentPreview` is the second half of that story and is applied per component where
  * the backdrop is the point: it composites the same additive capture over a Light / Dark / Busy
@@ -33,13 +33,10 @@ import androidx.xr.glimmer.GlimmerTheme
 import androidx.xr.glimmer.googlefonts.createGoogleSansFlexTypography
 
 /**
- * Opaque black: the additive-zero baseline described above, and the ONLY thing this module states
- * about the capture.
- *
- * There used to be an `AI_GLASSES_DEVICE_SPEC` beside it — `spec:width=960,height=720,dpi=160`,
- * borrowed from compose-ai-tools' `:samples:xr-glimmer` on the reasoning that a Glimmer sticker
- * should be captured on a Glimmer-shaped screen. It was wrong twice over, and #367 is what it looks
- * like from the outside:
+ * There used to be an `AI_GLASSES_DEVICE_SPEC` here — `spec:width=960,height=720,dpi=160`, borrowed
+ * from compose-ai-tools' `:samples:xr-glimmer` on the reasoning that a Glimmer sticker should be
+ * captured on a Glimmer-shaped screen. It was wrong twice over, and #367 is what it looks like from
+ * the outside:
  *
  * * **It framed every sticker in a screen it does not fill.** A sticker is a picture of a
  *   COMPONENT, not a screenshot of a device, and the harness sizes the canvas to the content unless
@@ -56,8 +53,6 @@ import androidx.xr.glimmer.googlefonts.createGoogleSansFlexTypography
  * measuring convenience, and it is not worth either cost: `catalog.json` records every image's
  * `density` beside its `width`, so the dp size is still exactly recoverable.
  */
-const val ADDITIVE_ZERO_BACKGROUND: Long = 0xFF000000L
-
 /**
  * Wraps a sticker in `GlimmerTheme`. That is all it does, and the subtraction is the point.
  *
@@ -67,9 +62,10 @@ const val ADDITIVE_ZERO_BACKGROUND: Long = 0xFF000000L
  * * `fillMaxSize()` is what stretched the sticker to the device spec above — and, on `Card` and
  *   `ListItem`, what drew them 912dp wide because they fill whatever they are given. A component
  *   that measures itself is the honest picture of it.
- * * The black ground is `showBackground` / `backgroundColor` on the `@Preview`, where it belongs:
- *   the additive-zero ground is a property of the CAPTURE, and a `background()` node in the tree
- *   only re-states it somewhere it can drift.
+ * * A black ground used to be supplied by `showBackground` / `backgroundColor` on every `@Preview`.
+ *   The stickers now retain transparency; environment captures still get the correct additive
+ *   result because the compositor treats transparent source channels as premultiplied emitted
+ *   light.
  * * `padding(24.dp)` is the mistake `CatalogCaptureGutters.kt` already has a name and an issue
  *   number for (#179): "padding inside the sticker measures the component in a smaller box and
  *   grows the canvas". Room for a glow belongs on a `@CaptureGutter`, which reserves canvas without

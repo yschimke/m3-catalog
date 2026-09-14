@@ -42,7 +42,7 @@ import ee.schimke.composeai.preview.CatalogVariant
   caption = "The primary action. Two sizes, the icon slots and the kit's states fold in.",
 )
 @GlimmerStates
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ButtonSticker() = Sticker {
   val c = counted("Button")
@@ -57,7 +57,7 @@ fun ButtonSticker() = Sticker {
 
 @CatalogVariant(of = "Button", props = ["size=Large"], caption = "The larger of the two sizes.")
 @GlimmerStates
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ButtonLargeSticker() = Sticker {
   val c = counted("Button")
@@ -75,7 +75,7 @@ fun ButtonLargeSticker() = Sticker {
 // kit's base cell fills the leading slot, so a label-only button is the thing that differs from it.
 // It is also the form `Button(onClick) { Text(…) }` produces, which is what a reader writes first.
 @CatalogVariant(of = "Button", props = ["content=label-only"], caption = "Label with no icon.")
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ButtonLabelOnlySticker() = Sticker {
   val c = counted("Button")
@@ -87,7 +87,7 @@ fun ButtonLabelOnlySticker() = Sticker {
   props = ["content=trailing-icon"],
   caption = "Icon after the label as well as before it.",
 )
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ButtonTrailingIconSticker() = Sticker {
   val c = counted("Button")
@@ -113,7 +113,7 @@ fun ButtonTrailingIconSticker() = Sticker {
   caption = "A button that holds its state. The corner morphs between checked and unchecked.",
 )
 @GlimmerStates
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ToggleButtonSticker() = Sticker {
   // Stateful on purpose: a live click on the preview server has to answer with the component's
@@ -140,7 +140,7 @@ fun ToggleButtonSticker() = Sticker {
   caption = "The larger of the two sizes.",
 )
 @GlimmerStates
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ToggleButtonLargeSticker() = Sticker {
   var checked by remember { mutableStateOf(false) }
@@ -167,7 +167,7 @@ fun ToggleButtonLargeSticker() = Sticker {
   state = "checked",
   caption = "Checked, where the corner size differs from the unchecked default.",
 )
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ToggleButtonCheckedSticker() = Sticker {
   var checked by remember { mutableStateOf(true) }

@@ -42,7 +42,7 @@ import ee.schimke.composeai.preview.CatalogVariant
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/416:2700",
   caption = "A surface for a unit of content. Header image, title, subtitle and the icon slots.",
 )
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun CardSticker() = Sticker {
   ContentFrame {
@@ -62,7 +62,7 @@ fun CardSticker() = Sticker {
   props = ["content=text-only"],
   caption = "The bare form: content and nothing else.",
 )
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun CardTextOnlySticker() = Sticker { ContentFrame { Card { Text("Body") } } }
 
@@ -71,7 +71,7 @@ fun CardTextOnlySticker() = Sticker { ContentFrame { Card { Text("Body") } } }
   props = ["content=trailing-icon"],
   caption = "Icon after the content.",
 )
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun CardTrailingIconSticker() = Sticker {
   ContentFrame {
@@ -89,7 +89,7 @@ fun CardTrailingIconSticker() = Sticker {
   props = ["content=action"],
   caption = "The kit's action layer, which alpha19 puts on `ActionCard` rather than on `Card`.",
 )
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun CardActionSticker() = Sticker {
   ContentFrame {
@@ -113,7 +113,7 @@ fun CardActionSticker() = Sticker {
   reference = "figma:HKfLClZDLRyMhf4IQQLna8/5315:4722",
   caption = "Labels the content it sits above. Carries its own leading-icon slot.",
 )
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun TitleChipSticker() = Sticker {
   // The kit's symbol draws its entity slot filled and labels it "Title Chip" (146x44); the
@@ -126,6 +126,6 @@ fun TitleChipSticker() = Sticker {
   props = ["content=label-only"],
   caption = "Label with no icon.",
 )
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun TitleChipLabelOnlySticker() = Sticker { TitleChip { Text("Title Chip") } }

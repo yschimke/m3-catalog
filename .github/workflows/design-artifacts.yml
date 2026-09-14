@@ -463,6 +463,10 @@ jobs:
       # The third-party-execution caution the two samples jobs carry does NOT apply here: this
       # module is first-party code in this repository, not upstream's bytes vendored at a pin.
       publish-live-bundle: true
+      # Glimmer's layered vectors contain raster-backed effects for only some components. Publish
+      # every vector statically so catalog.json never advertises a deferred live SVG that the
+      # Android catalog host cannot reconstruct from its stripped sidecars (#400).
+      defer-figma-svg: false
       split-per-preview: false
       commit-user-name: Yuri Schimke
       commit-user-email: yuri@schimke.ee

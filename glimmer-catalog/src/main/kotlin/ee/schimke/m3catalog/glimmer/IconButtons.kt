@@ -26,7 +26,7 @@ import ee.schimke.composeai.preview.CatalogVariant
   caption = "An action carried by its icon alone.",
 )
 @GlimmerStates
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun IconButtonSticker() = Sticker {
   // `counted`'s label is unused here — an icon button has none — but its handler is the point: a
@@ -46,7 +46,7 @@ fun IconButtonSticker() = Sticker {
   caption = "An icon button that holds its checked state.",
 )
 @GlimmerStates
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun IconToggleButtonSticker() = Sticker {
   var checked by remember { mutableStateOf(false) }
@@ -66,7 +66,7 @@ fun IconToggleButtonSticker() = Sticker {
   state = "checked",
   caption = "Checked, where the container reads as lit rather than outlined.",
 )
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun IconToggleButtonCheckedSticker() = Sticker {
   var checked by remember { mutableStateOf(true) }

@@ -43,7 +43,7 @@ import ee.schimke.composeai.preview.CatalogVariant
   caption = "One row of a list. The supporting label, icon slots and the kit's states fold in.",
 )
 @GlimmerInteractionStates
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ListItemSticker() = Sticker {
   val c = counted("Title")
@@ -60,7 +60,7 @@ fun ListItemSticker() = Sticker {
   caption = "A second line under the primary label.",
 )
 @GlimmerInteractionStates
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ListItemSupportingSticker() = Sticker {
   val c = counted("Title")
@@ -74,7 +74,7 @@ fun ListItemSupportingSticker() = Sticker {
   props = ["content=supporting-label-leading-icon"],
   caption = "Supporting label and a leading icon.",
 )
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ListItemSupportingIconSticker() = Sticker {
   val c = counted("Title")

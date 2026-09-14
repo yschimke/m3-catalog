@@ -68,41 +68,41 @@ private fun EnvironmentCard() {
 }
 
 @GlimmerEnvironmentPreview(environment = GlimmerEnvironment.Light)
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ButtonOnLightEnvironment() = Sticker { EnvironmentButton() }
 
 @GlimmerEnvironmentPreview(environment = GlimmerEnvironment.Dark)
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ButtonOnDarkEnvironment() = Sticker { EnvironmentButton() }
 
 @GlimmerEnvironmentPreview(environment = GlimmerEnvironment.Busy)
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ButtonOnBusyEnvironment() = Sticker { EnvironmentButton() }
 
 @GlimmerEnvironmentPreview(environment = GlimmerEnvironment.VeniceCanalCats)
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun ButtonOnVeniceCanalCatsEnvironment() = Sticker { EnvironmentButton() }
 
 @GlimmerEnvironmentPreview(environment = GlimmerEnvironment.Light)
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun CardOnLightEnvironment() = Sticker { EnvironmentCard() }
 
 @GlimmerEnvironmentPreview(environment = GlimmerEnvironment.Dark)
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun CardOnDarkEnvironment() = Sticker { EnvironmentCard() }
 
 @GlimmerEnvironmentPreview(environment = GlimmerEnvironment.Busy)
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun CardOnBusyEnvironment() = Sticker { EnvironmentCard() }
 
 @GlimmerEnvironmentPreview(environment = GlimmerEnvironment.VeniceCanalCats)
-@Preview(showBackground = true, backgroundColor = ADDITIVE_ZERO_BACKGROUND)
+@Preview
 @Composable
 fun CardOnVeniceCanalCatsEnvironment() = Sticker { EnvironmentCard() }
