@@ -72,7 +72,7 @@ compose-multiplatform = "1.12.0"
 androidx-annotation = "1.9.1"
 # `ViewModel` / `viewModelScope`, which two vendored AndroidX samples use. The JetBrains multiplatform
 # port, so it resolves on the desktop JVM target `:samples-catalog` builds for.
-jb-lifecycle = "2.9.4"
+jb-lifecycle = "2.11.0"
 # `Dispatchers.Main` on the desktop JVM, backed by the Swing event thread. `viewModelScope` dispatches
 # there, so without this the ViewModel-backed samples render as a missing-dispatcher crash.
 kotlinx-coroutines = "1.10.2"
@@ -97,7 +97,7 @@ compose-material-icons = "1.7.3"
 # BOM and material3: the 1.3 line is the one built against the 1.9 Compose runtime the 1.12
 # Multiplatform line ships, so it moves on its own cadence. `material3-adaptive-navigation-suite`
 # below is the exception — it lives in the material3 group and tracks material3's version.
-compose-adaptive = "1.3.0-beta02"
+compose-adaptive = "1.3.0-rc01"
 
 materialKolor = "5.0.1"
 
