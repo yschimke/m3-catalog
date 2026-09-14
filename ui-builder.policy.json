@@ -189,15 +189,171 @@
       ],
       "propertyCapabilities": [
         {
-          "name": "variant",
+          "name": "containerColor",
           "jsonType": "string",
           "required": false,
-          "allowedValues": [
-            "filled",
-            "elevated",
-            "outlined"
-          ]
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
         },
+        {
+          "name": "shape",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "stableKey",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "elevationDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "onClickAction",
+          "jsonType": [
+            "object",
+            "null"
+          ],
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 1
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "clip",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "background",
+        "border",
+        "shadow",
+        "wrapContentSize",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/elevated-card": {
+      "record": "catalog/androidx.compose.material3.CardKt.ElevatedCard",
+      "displayName": "Elevated card",
+      "canvas": "material3/ElevatedCard",
+      "traits": [
+        "GridItem",
+        "CarouselItem",
+        "ListItem",
+        "OverlayContent"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "containerColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "shape",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "stableKey",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "elevationDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "onClickAction",
+          "jsonType": [
+            "object",
+            "null"
+          ],
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 1
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "clip",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "background",
+        "border",
+        "shadow",
+        "wrapContentSize",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/outlined-card": {
+      "record": "catalog/androidx.compose.material3.CardKt.OutlinedCard",
+      "displayName": "Outlined card",
+      "canvas": "material3/OutlinedCard",
+      "traits": [
+        "GridItem",
+        "CarouselItem",
+        "ListItem",
+        "OverlayContent"
+      ],
+      "propertyCapabilities": [
         {
           "name": "containerColor",
           "jsonType": "string",
@@ -867,16 +1023,257 @@
       ],
       "propertyCapabilities": [
         {
-          "name": "variant",
-          "jsonType": "string",
-          "required": false,
-          "allowedValues": [
-            "standard",
-            "filled",
-            "tonal",
-            "outlined"
-          ]
+          "name": "enabled",
+          "jsonType": "boolean",
+          "required": false
         },
+        {
+          "name": "selected",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "alignment",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "contentDescription",
+          "jsonType": [
+            "string",
+            "null"
+          ],
+          "required": false
+        },
+        {
+          "name": "sizeDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "onClickAction",
+          "jsonType": [
+            "object",
+            "null"
+          ],
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "IconContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/filled-icon-button": {
+      "record": "catalog/androidx.compose.material3.IconButtonKt.FilledIconButton",
+      "group": "Icon buttons",
+      "displayName": "Filled icon button",
+      "canvas": "material3/FilledIconButton",
+      "traits": [
+        "Action",
+        "OverlayControl",
+        "ToolbarItem"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "enabled",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "selected",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "alignment",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "contentDescription",
+          "jsonType": [
+            "string",
+            "null"
+          ],
+          "required": false
+        },
+        {
+          "name": "sizeDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "onClickAction",
+          "jsonType": [
+            "object",
+            "null"
+          ],
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "IconContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/filled-tonal-icon-button": {
+      "record": "catalog/androidx.compose.material3.IconButtonKt.FilledTonalIconButton",
+      "group": "Icon buttons",
+      "displayName": "Filled tonal icon button",
+      "canvas": "material3/FilledTonalIconButton",
+      "traits": [
+        "Action",
+        "OverlayControl",
+        "ToolbarItem"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "enabled",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "selected",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "alignment",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "contentDescription",
+          "jsonType": [
+            "string",
+            "null"
+          ],
+          "required": false
+        },
+        {
+          "name": "sizeDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "onClickAction",
+          "jsonType": [
+            "object",
+            "null"
+          ],
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "IconContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/outlined-icon-button": {
+      "record": "catalog/androidx.compose.material3.IconButtonKt.OutlinedIconButton",
+      "group": "Icon buttons",
+      "displayName": "Outlined icon button",
+      "canvas": "material3/OutlinedIconButton",
+      "traits": [
+        "Action",
+        "OverlayControl",
+        "ToolbarItem"
+      ],
+      "propertyCapabilities": [
         {
           "name": "enabled",
           "jsonType": "boolean",
@@ -1087,9 +1484,9 @@
         "weight"
       ]
     },
-    "m3/progress-indicator": {
+    "m3/linear-progress-indicator": {
       "record": "catalog/androidx.compose.material3.ProgressIndicatorKt.LinearProgressIndicator",
-      "displayName": "Progress indicator",
+      "displayName": "Linear progress indicator",
       "canvas": "material3/LinearProgressIndicator",
       "traits": [
         "Feedback",
@@ -1097,15 +1494,41 @@
       ],
       "propertyCapabilities": [
         {
-          "name": "variant",
-          "jsonType": "string",
-          "required": true,
-          "allowedValues": [
-            "linear",
-            "circular"
+          "name": "progress",
+          "jsonType": [
+            "number",
+            "object"
           ],
-          "notes": "Two Material composables that take the same arguments and differ in shape, spelled as one component the way `m3/text-field` spells its two."
+          "required": false,
+          "notes": "0..1, a literal or a `state` read. Absent means the indeterminate indicator — Material's own distinction between a progress you know and one you do not."
         },
+        {
+          "name": "indeterminate",
+          "jsonType": "boolean",
+          "required": false,
+          "notes": "Draws the running animation rather than a value. Pinned to its first frame on the canvas, because a render that animates is a render that cannot be diffed."
+        }
+      ],
+      "slotCapabilities": [],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/circular-progress-indicator": {
+      "record": "catalog/androidx.compose.material3.ProgressIndicatorKt.CircularProgressIndicator",
+      "displayName": "Circular progress indicator",
+      "canvas": "material3/CircularProgressIndicator",
+      "traits": [
+        "Feedback",
+        "Decoration"
+      ],
+      "propertyCapabilities": [
         {
           "name": "progress",
           "jsonType": [
@@ -1794,15 +2217,130 @@
       ],
       "propertyCapabilities": [
         {
-          "name": "variant",
-          "jsonType": "string",
-          "required": true,
-          "allowedValues": [
-            "filled",
-            "outlined"
+          "name": "value",
+          "jsonType": [
+            "string",
+            "object"
           ],
-          "notes": "Two composables, one component: `TextField` and `OutlinedTextField` differ in nothing a design authors, which is how `m3/card` already spells its three."
+          "required": false,
+          "notes": "A literal, or a `state` read of a declared variable — the same shape a search input's `value` takes, and what makes typing in the canvas change the design's state rather than a field's own memory."
         },
+        {
+          "name": "enabled",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "readOnly",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "singleLine",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "isError",
+          "jsonType": "boolean",
+          "required": false
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "label",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "TextContent"
+          ]
+        },
+        {
+          "name": "placeholder",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "TextContent"
+          ]
+        },
+        {
+          "name": "supportingText",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "TextContent"
+          ]
+        },
+        {
+          "name": "leadingIcon",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "IconContent",
+            "Action"
+          ]
+        },
+        {
+          "name": "trailingIcon",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "IconContent",
+            "Action"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/outlined-text-field": {
+      "record": "catalog/androidx.compose.material3.OutlinedTextFieldKt.OutlinedTextField",
+      "displayName": "Outlined text field",
+      "canvas": "material3/OutlinedTextField",
+      "traits": [
+        "TextInput",
+        "FormField"
+      ],
+      "propertyCapabilities": [
         {
           "name": "value",
           "jsonType": [
@@ -1984,6 +2522,51 @@
     "m3/material-expressive-theme": {
       "record": "catalog/androidx.compose.material3.MaterialThemeKt.MaterialExpressiveTheme",
       "excluded": "the theme scope every preview is wrapped in, not a component a design places. A design's theme is the document's, not a node's."
+    }
+  },
+  "supersedes": {
+    "m3/card": {
+      "componentId": "m3/card",
+      "variants": {
+        "property": "variant",
+        "components": {
+          "filled": "m3/card",
+          "elevated": "m3/elevated-card",
+          "outlined": "m3/outlined-card"
+        }
+      }
+    },
+    "m3/icon-button": {
+      "componentId": "m3/icon-button",
+      "variants": {
+        "property": "variant",
+        "components": {
+          "standard": "m3/icon-button",
+          "filled": "m3/filled-icon-button",
+          "tonal": "m3/filled-tonal-icon-button",
+          "outlined": "m3/outlined-icon-button"
+        }
+      }
+    },
+    "m3/progress-indicator": {
+      "componentId": "m3/linear-progress-indicator",
+      "variants": {
+        "property": "variant",
+        "components": {
+          "linear": "m3/linear-progress-indicator",
+          "circular": "m3/circular-progress-indicator"
+        }
+      }
+    },
+    "m3/text-field": {
+      "componentId": "m3/text-field",
+      "variants": {
+        "property": "variant",
+        "components": {
+          "filled": "m3/text-field",
+          "outlined": "m3/outlined-text-field"
+        }
+      }
     }
   }
 }
