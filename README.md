@@ -4240,6 +4240,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `ListItemSupportingSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSupportingSticker-99483a7b.png" width="150" /> |
 | `ListItemSupportingSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSupportingSticker_VARIANT_focused-ebd865da.png" width="150" /> |
 | `ListItemSupportingSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSupportingSticker_VARIANT_pressed-052543b0.png" width="150" /> |
+| `VerticalStackSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/VerticalStackSticker-27776b26.png" width="150" /> |
 | `ContainedVoiceInputIndicatorSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ContainedVoiceInputIndicatorSticker-c6a24955.png" width="150" /> |
 | `VoiceInputIndicatorSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/VoiceInputIndicatorSticker-00b6c266.png" width="150" /> |
 
