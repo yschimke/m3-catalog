@@ -503,7 +503,8 @@ export function pruneSvgNodes(svg, excludedNodeIds = []) {
     }
     if (closing) continue;
     const nodeId = /\bdata-node-id\s*=\s*["']([^"']+)["']/i.exec(tag)?.[1];
-    if (nodeId == null || !excluded.has(nodeId)) continue;
+    const componentId = nodeId?.split(";").at(-1)?.replace(/^I/, "");
+    if (nodeId == null || (!excluded.has(nodeId) && !excluded.has(componentId))) continue;
     pieces.push(svg.slice(copyFrom, match.index));
     removed += 1;
     if (selfClosing) copyFrom = match.index + tag.length;
@@ -603,7 +604,8 @@ async function importPage(
     // inferred from a shorter list.
     console.log(
       `${page.id}: SKIPPED — ${(bytes / 1024 / 1024).toFixed(1)} MB SVG exceeds the ` +
-        `${(maxSvgBytes / 1024 / 1024).toFixed(0)} MB cap`,
+        `${(maxSvgBytes / 1024 / 1024).toFixed(0)} MB cap` +
+        (excludedNodeIds.length > 0 ? ` after ${removed} excluded node(s)` : ""),
     );
     return null;
   }

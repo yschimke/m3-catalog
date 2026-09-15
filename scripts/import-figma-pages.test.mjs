@@ -128,6 +128,15 @@ test("prunes a self-closing excluded SVG node", () => {
   assert.equal(result.svg, `<svg><path data-node-id="2:2"/></svg>`);
 });
 
+test("matches a configured component id at the end of an instance path", () => {
+  const result = pruneSvgNodes(
+    `<svg><g data-node-id="I9:9;1:1"><path/></g><path data-node-id="2:2"/></svg>`,
+    ["1:1"],
+  );
+  assert.equal(result.removed, 1);
+  assert.equal(result.svg, `<svg><path data-node-id="2:2"/></svg>`);
+});
+
 // The node walk. Shaped after the kit's real `Switch` sheet, which is what showed the bug: a
 // component set of variants, each variant carrying an `Icon` instance and the focused ones a
 // `Focus indicator`, none of which a `design-map.json` reference can name.
