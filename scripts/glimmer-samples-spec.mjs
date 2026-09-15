@@ -47,9 +47,10 @@
  *
  * `related` normally links a group to the `glimmer-catalog` component of the same name. The small
  * explicit table below covers source-file names that are broader than the exact Compose API the
- * catalog must use: `StackSamples.kt` demonstrates `VerticalStack`, for example. This is still much
- * narrower than `samples-spec.mjs`'s hand-written table of 60-odd entries, and it never uses prefix
- * matching (`ButtonGroup` must not accidentally join to `Button`).
+ * catalog must use: `StackSamples.kt` demonstrates `VerticalStack`, while
+ * `GlimmerLazyListSamples.kt` demonstrates `GlimmerLazyColumn`. This is still much narrower than
+ * `samples-spec.mjs`'s hand-written table of 60-odd entries, and it never uses prefix matching
+ * (`ButtonGroup` must not accidentally join to `Button`).
  *
  *     node scripts/glimmer-samples-spec.mjs            # regenerate
  *     node scripts/glimmer-samples-spec.mjs --check    # fail if the committed spec is stale
@@ -65,7 +66,10 @@ const KIT_SYSTEM = "glimmer-catalog";
 const KIT_SOURCES = "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer";
 
 /** Sample source group -> exact Compose API id when the file name is broader than the API. */
-const SAMPLE_TO_KIT = new Map([["Stack", "VerticalStack"]]);
+const SAMPLE_TO_KIT = new Map([
+  ["GlimmerLazyList", "GlimmerLazyColumn"],
+  ["Stack", "VerticalStack"],
+]);
 
 /**
  * A preview function declaration: bare `@Preview`, `@Composable`, an OPTIONAL `private`, and a
