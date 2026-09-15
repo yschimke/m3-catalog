@@ -39,7 +39,13 @@ jobs:
       # The page cache records which exact kit nodes join to the generated map. This is a local,
       # token-free projection; letting it drift makes /pages.json under-report real coverage.
       - name: The imported page join is up to date
-        run: node scripts/import-figma-pages.mjs --check
+        run: |
+          node scripts/import-figma-pages.mjs --check
+          node scripts/import-figma-pages.mjs \
+            --config glimmer-design-pages.json \
+            --design-map glimmer-design-map.json \
+            --kit-index glimmer-figma-kit-index.json \
+            --check
 
       - uses: actions/upload-artifact@v7.0.1
         if: always()

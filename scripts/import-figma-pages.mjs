@@ -70,7 +70,7 @@
 // token needs `file_content:read` — the same scope `design-parity-propose-refs` and
 // `design-parity-pages list` already document.
 
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -228,6 +228,12 @@ export function resolvePages({ pins = [], discovered = [], exclude = [] } = {}) 
     resolved.push({ ...pin, nodeId, name: pin.name ?? pin.id, pinned: true });
   }
   return resolved;
+}
+
+/** SVG cache entries that no longer correspond to a resolved page. */
+export function stalePageSvgNames(fileNames, pageIds) {
+  const wanted = new Set(pageIds.map((id) => `${id}.svg`));
+  return fileNames.filter((name) => name.endsWith(".svg") && !wanted.has(name));
 }
 
 /**
@@ -838,6 +844,11 @@ async function main() {
     rmSync(path.join(outDir, `${id}.svg`), { force: true });
   }
   const ordered = resolved.map((p) => merged.get(p.id)).filter(Boolean);
+  if (!onlyPage) {
+    for (const name of stalePageSvgNames(readdirSync(outDir), resolved.map((page) => page.id))) {
+      rmSync(path.join(outDir, name), { force: true });
+    }
+  }
 
   writeFileSync(
     path.join(outDir, "pages.json"),

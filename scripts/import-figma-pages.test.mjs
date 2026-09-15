@@ -14,6 +14,7 @@ import {
   pruneSvgNodes,
   resolvePages,
   slugForPage,
+  stalePageSvgNames,
 } from "./import-figma-pages.mjs";
 
 const page = (nodeId, name) => ({ nodeId, name });
@@ -81,6 +82,16 @@ test("a pin carries descendant exclusions into the import", () => {
         excludeNodes: ["1:2"],
       },
     ],
+  );
+});
+
+test("a full refresh identifies SVGs removed from the resolved page inventory", () => {
+  assert.deepEqual(
+    stalePageSvgNames(
+      ["pages.json", "about.svg", "component-card.svg", "notes.txt"],
+      ["about"],
+    ),
+    ["component-card.svg"],
   );
 });
 
