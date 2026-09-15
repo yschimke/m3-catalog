@@ -266,10 +266,23 @@ job copies it into place. It replaced a `design-map-command` that projected an e
   they bought. [#374](https://github.com/yschimke/m3-catalog/issues/374)'s steps 2 and 3 landed with
   them: `kitAxis` / `kitValue` keeps a reader-facing variant name beside the kit's own property
   vector, and the exhaustive generator runs against this kit too.
-- **The taxonomy has not been re-checked against the kit.** These seven components and their variant
-  folds were derived from the API surface alone. `AGENTS.md` says membership is the kit's call, and
-  that rule now has something to say here — the kit also publishes Button groups, a Progress
-  indicator, Entity (avatars, monograms, app icons) and Stacks, none of which this catalog draws.
+- **The taxonomy has been re-checked against the kit, in both directions.** The original seven
+  components were derived from the API surface alone, and `AGENTS.md` says membership is the kit's
+  call. Both halves of that are now checked rather than asserted, by `scripts/glimmer-kit-gaps.mjs`:
+
+  - **Kit to code.** The sets this catalog does not draw are declared, with the reason and the
+    evidence, and the declaration fails if the node disappears or if a sticker starts mapping it —
+    Entity, the four progress indicators, the `ListItem` cells alpha19 exposes no parameter for, and
+    the Styles-page token specimens.
+  - **Code to kit.** Every public component composable the pinned library exports is either invoked
+    by a sticker or named in a declaration. Button groups
+    ([#425](https://github.com/yschimke/m3-catalog/issues/425)), the lazy column
+    ([#427](https://github.com/yschimke/m3-catalog/issues/427)) and the vertical stack
+    ([#423](https://github.com/yschimke/m3-catalog/issues/423)) closed the last three; the pager and
+    the orientation-parameterised `GlimmerLazyList` are the two that stay declared, for want of a
+    kit node rather than for want of a sticker. That list is
+    [#414](https://github.com/yschimke/m3-catalog/issues/414)'s answer, and a new release adding an
+    API fails the version pin the declarations carry.
 
 ## The first board, and what it moved
 

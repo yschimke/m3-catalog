@@ -35,14 +35,34 @@
       "`glimmer` entry in gradle/libs.versions.toml; Renovate owns that pin, so the day it",
       "moves this file fails until somebody re-reads the AAR.",
       "",
-      "Read from the published AAR's classes, not from documentation: alpha19 exports",
-      "ActionCard, Button, ButtonGroup, Card, ContainedVoiceInputIndicator,",
-      "GlimmerHorizontalPager, GlimmerLazyColumn, GlimmerLazyList, Icon, IconButton,",
-      "IconToggleButton, ListItem, Text, TitleChip, ToggleButton, VerticalStack and",
-      "VoiceInputIndicator, plus the Colors / Shapes / Typography / SurfaceDefaults /",
-      "DepthEffectLevels token types. 1.0.0-alpha19 is also the newest version the",
-      "androidx maven repository publishes, so `none published yet` below means exactly",
-      "that, not `not in the version we happen to pin`."
+      "Read from the published AAR's classes, not from documentation. `components` below is",
+      "that surface: every public component composable alpha19 exports. 1.0.0-alpha19 is",
+      "also the newest version the androidx maven repository publishes, so `none published",
+      "yet` in a declaration means exactly that, not `not in the version we happen to pin`.",
+      "",
+      "Each entry is either INVOKED by a sticker in glimmer-catalog/src/main/kotlin or named",
+      "in a declaration's `apis`. That is the completeness statement #414 asked for, and it",
+      "is checked rather than asserted: an API this repository stops calling, and an API a",
+      "new release adds, both fail the check."
+    ],
+    "components": [
+      "ActionCard",
+      "Button",
+      "ButtonGroup",
+      "Card",
+      "ContainedVoiceInputIndicator",
+      "GlimmerHorizontalPager",
+      "GlimmerLazyColumn",
+      "GlimmerLazyList",
+      "Icon",
+      "IconButton",
+      "IconToggleButton",
+      "ListItem",
+      "Text",
+      "TitleChip",
+      "ToggleButton",
+      "VerticalStack",
+      "VoiceInputIndicator"
     ]
   },
   "declarations": [
@@ -50,6 +70,7 @@
       "id": "Pager",
       "kind": "sample-only",
       "issue": 429,
+      "apis": ["GlimmerHorizontalPager"],
       "api": "androidx.xr.glimmer.pager.GlimmerHorizontalPager",
       "sample": "glimmer-samples/src/main/kotlin/upstream/androidx/xr/glimmer/samples/GlimmerPagerSamples.kt",
       "absentFromKit": "pager",
@@ -73,6 +94,17 @@
       "reason": "Four published progress component sets under the kit's Progress indicator frame (40000116:7000), with no Glimmer API to invoke. Rebuilding them from lower-level drawing primitives would put a replica in the inventory that tests nothing the library ships.",
       "evidence": "alpha19's AAR exports no progress-indicator composable — no ProgressIndicator, no LinearProgressIndicator, no CircularProgressIndicator — and 1.0.0-alpha19 is the newest version androidx publishes, so no release exposes these yet.",
       "closesWhen": "A Glimmer release exposes the progress APIs. Each set then lands in its own PR, with its variant axes folded behind the default sticker and the set added to glimmer-figma-kit-index.json with strict map coverage."
+    },
+    {
+      "id": "GlimmerLazyList",
+      "kind": "sample-only",
+      "issue": 414,
+      "apis": ["GlimmerLazyList"],
+      "api": "androidx.xr.glimmer.list.GlimmerLazyList",
+      "sample": "glimmer-samples/src/main/kotlin/upstream/androidx/xr/glimmer/samples/GlimmerLazyListSamples.kt",
+      "reason": "The orientation-parameterised base of `GlimmerLazyColumn`. The kit publishes `1-line list` and `2-line list`, which the column sticker is already the rendition of; a second component invoking the generic overload would resolve to the same nodes and publish one picture under two names.",
+      "evidence": "alpha19's GlimmerLazyListKt exports GlimmerLazyColumn and GlimmerLazyList(orientation, …); the kit's list sets carry no orientation axis to distinguish them.",
+      "closesWhen": "The kit publishes a horizontal list node."
     },
     {
       "id": "ListItemDisabled",

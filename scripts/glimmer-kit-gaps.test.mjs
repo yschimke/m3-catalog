@@ -4,7 +4,7 @@
 // from — and assert that each one fails the build rather than ageing in place.
 
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
 
 import { checkGaps, indexPages, pinnedVersion } from "./glimmer-kit-gaps.mjs";
@@ -13,12 +13,21 @@ const root = new URL("../", import.meta.url);
 const read = (name) => readFileSync(new URL(name, root), "utf8");
 const readJson = (name) => JSON.parse(read(name));
 
+const stickerDir = new URL("glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/", root);
+const stickerSources = readdirSync(stickerDir)
+  .filter((name) => name.endsWith(".kt"))
+  .map((name) => readFileSync(new URL(name, stickerDir), "utf8"))
+  .join("\n")
+  .replace(/\/\*[\s\S]*?\*\//g, "")
+  .replace(/\/\/[^\n]*/g, "");
+
 const committed = () => ({
   gaps: readJson("glimmer-kit-gaps.json"),
   pages: readJson("glimmer-design/pages/pages.json"),
   designMap: readJson("glimmer-design-map.json"),
   versions: read("gradle/libs.versions.toml"),
   exists: (relative) => existsSync(new URL(relative, root)),
+  stickerSources,
 });
 
 test("the committed declarations hold", () => {
@@ -33,6 +42,7 @@ test("every declaration names the issue that records it", () => {
       ["Pager", 429],
       ["Entity", 431],
       ["ProgressIndicator", 433],
+      ["GlimmerLazyList", 414],
       ["ListItemDisabled", 374],
       ["ListItemCard", 374],
       ["Styles", 432],
@@ -115,7 +125,11 @@ test("a declaration with no reason, evidence or kind is refused", () => {
   const input = committed();
   const findings = checkGaps({
     ...input,
-    gaps: { ...input.gaps, declarations: [{ id: "Mystery", kind: "vibes" }] },
+    gaps: {
+      ...input.gaps,
+      library: { ...input.gaps.library, components: [] },
+      declarations: [{ id: "Mystery", kind: "vibes" }],
+    },
   });
   assert.deepEqual(findings.sort(), [
     'declaration "Mystery" carries no evidence',
@@ -133,4 +147,39 @@ test("the page index keeps the first page a shared node appears on", () => {
     ],
   });
   assert.equal(index.get("1:1").page, "a");
+});
+
+test("every published component composable is drawn or declared", () => {
+  // The completeness statement itself, spelled out: the committed inputs already assert it above
+  // (the clean run), so what is worth pinning here is that the check can FAIL.
+  const input = committed();
+  const findings = checkGaps({
+    ...input,
+    gaps: { ...input.gaps, library: { ...input.gaps.library, components: ["Tooltip"] } },
+  });
+  assert.equal(findings.length, 1);
+  assert.match(findings[0], /publishes Tooltip, and no sticker calls it/);
+});
+
+test("an API that is both drawn and declared is a stale declaration", () => {
+  const input = committed();
+  const findings = checkGaps({
+    ...input,
+    gaps: {
+      ...input.gaps,
+      library: { ...input.gaps.library, components: ["Button"] },
+      declarations: [
+        {
+          id: "Button",
+          kind: "sample-only",
+          issue: 1,
+          reason: "r",
+          evidence: "e",
+          apis: ["Button"],
+          sample: "glimmer-kit-gaps.json",
+        },
+      ],
+    },
+  });
+  assert.deepEqual(findings, ["Button is declared as a gap and called by a sticker. One of the two is stale."]);
 });

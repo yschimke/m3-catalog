@@ -33,7 +33,7 @@
 //
 //   node scripts/glimmer-kit-gaps.mjs
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -66,7 +66,7 @@ export function indexPages(pages) {
  * Pure, so `glimmer-kit-gaps.test.mjs` can drive it with a moved kit and a bumped version rather
  * than waiting for either to happen.
  */
-export function checkGaps({ gaps, pages, designMap, versions, exists }) {
+export function checkGaps({ gaps, pages, designMap, versions, exists, stickerSources = "" }) {
   const findings = [];
   const byId = indexPages(pages);
   const pageIds = new Set((pages.pages ?? []).map((page) => page.id));
@@ -146,7 +146,42 @@ export function checkGaps({ gaps, pages, designMap, versions, exists }) {
       findings.push(`${at} is an api-gap and names no kit node`);
     }
   }
+  // The completeness statement: every public component composable the pinned library exports is
+  // either called by a sticker or declared here. #414 asked for the foundation components, and this
+  // is what "all of them" means in a form the build can check — an API a new release adds fails the
+  // version pin above, and an API this repository stops calling fails right here.
+  const declaredApis = new Set(
+    (gaps.declarations ?? []).flatMap((declaration) => declaration.apis ?? []),
+  );
+  for (const component of gaps.library?.components ?? []) {
+    const invoked = new RegExp(`\\b${component}\\s*\\(`).test(stickerSources);
+    if (!invoked && !declaredApis.has(component)) {
+      findings.push(
+        `${gaps.library.coordinate} publishes ${component}, and no sticker calls it and no ` +
+          `declaration accounts for it. Implement it against its kit node, or declare the gap.`,
+      );
+    }
+    if (invoked && declaredApis.has(component)) {
+      findings.push(
+        `${component} is declared as a gap and called by a sticker. One of the two is stale.`,
+      );
+    }
+  }
+
   return findings;
+}
+
+/** Every sticker source in `:glimmer-catalog`, concatenated, with comments removed. */
+function readStickerSources() {
+  const dir = new URL("glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/", ROOT);
+  return readdirSync(dir)
+    .filter((name) => name.endsWith(".kt"))
+    .map((name) => readFileSync(new URL(name, dir), "utf8"))
+    .join("\n")
+    // A comment naming a component is not a call to it — this module's comments are long and quote
+    // the APIs they discuss, including ones it deliberately does not draw.
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/\/\/[^\n]*/g, "");
 }
 
 function main() {
@@ -157,6 +192,7 @@ function main() {
     designMap: readJson("glimmer-design-map.json"),
     versions: read("gradle/libs.versions.toml"),
     exists: (relative) => existsSync(new URL(relative, ROOT)),
+    stickerSources: readStickerSources(),
   });
 
   for (const declaration of gaps.declarations ?? []) {
