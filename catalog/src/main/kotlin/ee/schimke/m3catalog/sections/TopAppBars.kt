@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Interests
@@ -29,6 +28,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
@@ -127,9 +127,12 @@ fun SmallTopAppBar(nav: Boolean = true, actions: Int = 1) = Sticker {
     // kit's raster into the repo, and it themes and scales as a consequence.
     title = {
       if (catalogChoice("content", "title", "title", "small-image") == "small-image") {
+        // 40dp and square: the kit's cell insets the band 56dp from each edge, centres it in the
+        // 64dp bar and gives it no corner of its own — the rounding an image placeholder carries
+        // in the carousel is the CAROUSEL's mask, not part of this graphic.
         CatalogImagePlaceholder(
-          Modifier.fillMaxWidth().height(44.dp),
-          shape = RoundedCornerShape(8.dp),
+          Modifier.fillMaxWidth().height(40.dp),
+          shape = RectangleShape,
           scaleBasis = 122f,
         )
       } else {
