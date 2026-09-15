@@ -149,11 +149,22 @@ test("`related` joins on exact name equality, so ButtonGroup does not link to Bu
   assert.equal(groups[1].components[0].related, undefined);
 });
 
-test("`related` maps a broad sample file name to the exact Compose API id", () => {
+test("`related` maps a broad lazy-list sample group to the exact Compose API id", () => {
+  const dir = sources({
+    "GlimmerLazyListSamples.kt":
+      SAMPLE("GlimmerLazyColumnSample") + PREVIEW("GlimmerLazyColumn", "GlimmerLazyColumnSample"),
+  });
+  const groups = buildGroups(dir, new Set(["GlimmerLazyColumn"]));
+
+  assert.deepEqual(groups[0].components[0].related, [
+    { system: "glimmer-catalog", componentId: "GlimmerLazyColumn" },
+  ]);
+});
+
+test("`related` maps the broad Stack sample group to VerticalStack", () => {
   const dir = sources({
     "StackSamples.kt": SAMPLE("VerticalStackSample") + PREVIEW("VerticalStack", "VerticalStackSample"),
   });
-
   const groups = buildGroups(dir, new Set(["VerticalStack"]));
 
   assert.deepEqual(groups[0].components[0].related, [

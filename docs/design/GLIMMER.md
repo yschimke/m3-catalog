@@ -118,7 +118,7 @@ worth keeping visible rather than editing away: the claim was made from the abse
 
 Every component shipped with `noReference` and a reason that read "no kit node exists to name". That
 is worse than a missing reference — it is an *audited* absence that was never audited, which is
-exactly the distinction the schema's own wording draws. All eight now carry a real `reference`, each
+exactly the distinction the schema's own wording draws. All eleven now carry a real `reference`, each
 with the evidence for it in a comment beside the annotation:
 
 | Component | Kit node | What identifies it |
@@ -130,19 +130,22 @@ with the evidence for it in a comment beside the annotation:
 | `Card` | `416:2700` | the `Card` component — title chip, image slot, title, subtitle, content |
 | `TitleChip` | `5315:4722` | the `Title chip` component, leading-icon slot included |
 | `ListItem` | `384:4197` | `Type=1-line \| 2-line \| Card` x `State=` |
+| `VerticalStack` | `40000042:4077` | `Type=Cards \| Home` |
+| `GlimmerLazyColumn` | `4116:5211` | the one-line list set, including its title and scroll-position axes |
+| `GlimmerLazyColumn/TwoLine` | `4116:5250` | the two-line list set populated through `ListItem.supportingLabel` |
 | `VoiceInputIndicator` | `40000116:9337` | `Mic Indicators`: `Volume=` x `Contained=Yes \| No` |
 
 The ids are the kit's own component sets, read from the file's `🧩 Components` page. `Card` and
 `TitleChip` were confirmed by rendering the node rather than by name alone — the others are
 identified by their variant axes, which is stronger evidence than a name.
 
-`scripts/glimmer-design-map.sh` projects those eight into `glimmer-design-map.json`, and the publish
+`scripts/glimmer-design-map.sh` projects those eleven into `glimmer-design-map.json`, and the publish
 job copies it into place. It replaced a `design-map-command` that projected an empty map.
 
 ### What is still missing
 
 - **The kit index exists now, and it did not do what was expected.**
-  `glimmer-figma-kit-index.json` holds the kit's 6 component sets, their 55 variants and 2
+  `glimmer-figma-kit-index.json` holds the kit's 9 component sets, their 69 variants and 2
   standalone components, so `scripts/glimmer-design-map.sh` runs the
   `@design-parity/kit-index resolve` step `design-map.sh` always had.
 
@@ -183,7 +186,8 @@ job copies it into place. It replaced a `design-map-command` that projected an e
   against `Contained=Yes`, ListItem `content=supporting-label` against `Type=2-line` — which is
   #374's step 2 and still wants the generated view rather than a rename.
 
-- **The kit's `State` axis is drawn now, and the coverage is 27 of the index's 55 cells.**
+- **The kit's `State` axis is drawn now, and the coverage is 27 of the original six sets' 55
+  cells.**
   [#374](https://github.com/yschimke/m3-catalog/issues/374) measured the old number and named the
   cause: a generated kit cell is emitted only when every axis it changes is backed by an authored
   variant that resolves, and `State` had nothing behind it — this module drew no interaction states
@@ -477,12 +481,12 @@ exists, and they turn out to be enough, because **upstream's Glimmer samples car
 four lines, so the preview, the sample it renders, and the API it belongs to are readable without
 compiling anything. 18 groups, 50 components — the same 50 discovery finds, by construction.
 
-Eight of the nine `glimmer-catalog` components pick up a `related` back-link. Seven join by exact
-name equality; `StackSamples.kt` uses the broad group name `Stack`, so its one explicit mapping
-points at the exact Compose API id `VerticalStack`. That stays much smaller than
-`samples-spec.mjs`'s 60-odd hand-written entries and avoids unsafe prefix matching. The remaining
-component is `VoiceInputIndicator`: upstream writes the sample but no `@Preview` for it, so there is
-no group to link from.
+Nine of the eleven `glimmer-catalog` components pick up a `related` back-link. Seven join by exact
+name equality; the two explicit mappings connect `StackSamples.kt` to `VerticalStack` and
+`GlimmerLazyListSamples.kt` to `GlimmerLazyColumn`. That stays much smaller than
+`samples-spec.mjs`'s 60-odd hand-written entries and avoids unsafe prefix matching. The two
+components without their own link are `GlimmerLazyColumn/TwoLine`, which is another kit set of the
+same sample-backed API, and `VoiceInputIndicator`, whose upstream sample has no `@Preview`.
 
 Two things in the generator are guards rather than parsing, and both earned their place on the first
 run:
@@ -533,11 +537,11 @@ the import without the entry is the check.
 
 | | |
 | --- | --- |
-| `:glimmer-catalog` | 8 components, 51 previews (21 stickers, 22 state cells, 8 environment composites), all rendering |
+| `:glimmer-catalog` | 11 components, 55 previews (25 stickers, 22 state cells, 8 environment composites), all rendering |
 | `:glimmer-samples` | 19 files vendored, 1 quarantined, 0 patches; 50 previews, all rendering, none blank; published WITH a live bundle |
 | `androidx.annotation.Sampled` | a second local shim, beside `:samples-catalog`'s, because no published artifact provides it |
 | `design-artifacts.yml` | two more `uses:` blocks and a `glimmer` output on the Scope job |
-| `glimmer-design-map.json` | the eight kit references, projected from the annotations |
+| `glimmer-design-map.json` | the eleven kit references, projected from the annotations |
 | `glimmer-samples/catalog.spec.json` | 18 groups, 50 components, generated by `scripts/glimmer-samples-spec.mjs` |
 
 ## Still to do
