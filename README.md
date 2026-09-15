@@ -31,9 +31,10 @@ node ids and reference images, and the MCP server for variables and metadata. No
   code on every change, and appended as a commit rather than force-pushed, so the branch is
   diffable over time.
 
-That is the kit catalog. Four further sheets are published alongside it from the same workflow —
-the AndroidX Material 3 samples, the AndroidX foundation samples, and two for `androidx.xr.glimmer`
-— each on its own delivery branch; see [**Published systems**](#published-systems).
+That is the kit catalog. Five further sheets are published alongside it from the same workflow — the
+AndroidX Material 3 samples, the AndroidX foundation samples, the UI builder's own vocabulary, and
+two for `androidx.xr.glimmer` — each on its own delivery branch; see
+[**Published systems**](#published-systems).
 
 The delivery branch's history is intentional: do not rewrite it into a fresh root commit as a
 repository-size workaround. A normal `git clone` fetches that generated branch as well as `main`,
@@ -123,13 +124,16 @@ before anything switches over.
 
 That policy declares **zero** builtins, on the grounds that `layout/*`, `shape/*` and `asset/image`
 are the builder's own vocabulary rather than Material 3's — and something still has to publish them,
-or a published palette has no container to put a design inside.
-[`foundation-catalog/`](foundation-catalog/) is that something: `compose-foundation`, the donor
-catalog a published `m3` or `wear-m3` palette borrows its containers, shapes and image asset from,
-joined by [`scripts/foundation-catalog.mjs`](scripts/foundation-catalog.mjs) from a frozen golden
-and an authored per-platform curation. `remote-m3` is deliberately not curated here and says so in
-the file. [`docs/design/FOUNDATION_CATALOG.md`](docs/design/FOUNDATION_CATALOG.md) has the reasoning,
-the two borrow sets and what the preview server has to do to read it.
+or a published palette has no container to put a design inside. `:foundation-catalog` is that
+something: `compose-foundation`, a catalog like any other here, publishing the fourteen containers,
+screen frames, shapes and the image asset a design is assembled out of, so an `m3` or `wear-m3`
+palette borrows them from a delivery branch instead of from Kotlin synthesised inside the preview
+server. Its `builtins` are projected from a frozen copy of what that server publishes today, by
+[`scripts/foundation-catalog.mjs`](scripts/foundation-catalog.mjs), so the cutover is a change of
+where the vocabulary lives and not of what it says. `remote-m3` is deliberately out, and says so in
+`foundation-catalog/curations.json`.
+[`docs/design/FOUNDATION_CATALOG.md`](docs/design/FOUNDATION_CATALOG.md) has the reasoning, the two
+per-platform borrow sets, and the one thing the policy schema cannot yet say honestly.
 
 Figma has two kinds of variation. Variant axes produce sibling component nodes and map directly.
 Boolean, text, instance-swap and slot properties do not: a definition node always renders at their
@@ -382,13 +386,14 @@ So light/dark and states being flat on `compose-preview/main` is expected; the g
 
 ### Published systems
 
-`design-artifacts.yml` no longer publishes one sheet. It runs five jobs, each rendering its own
+`design-artifacts.yml` no longer publishes one sheet. It runs six jobs, each rendering its own
 module against its own spec and appending to its own delivery branch:
 
 | System | Module | Renderer | Delivery branch | Paired with |
 | --- | --- | --- | --- | --- |
 | `m3-catalog` | `:catalog` | Skiko (desktop) | [`design-artifacts/m3-catalog`](../../tree/design-artifacts/m3-catalog) | — |
 | `m3-samples` | `:samples-catalog` | Skiko (desktop) | [`design-artifacts/m3-samples`](../../tree/design-artifacts/m3-samples) | `m3-catalog` |
+| `compose-foundation` | `:foundation-catalog` | Skiko (desktop) | [`design-artifacts/compose-foundation`](../../tree/design-artifacts/compose-foundation) | — |
 | `compose-ui-samples` | `:ui-samples-catalog` | Skiko (desktop) | [`design-artifacts/compose-ui-samples`](../../tree/design-artifacts/compose-ui-samples) | — |
 | `glimmer-catalog` | `:glimmer-catalog` | Robolectric (Android) | [`design-artifacts/glimmer-catalog`](../../tree/design-artifacts/glimmer-catalog) | — |
 | `glimmer-samples` | `:glimmer-samples` | Robolectric (Android) | [`design-artifacts/glimmer-samples`](../../tree/design-artifacts/glimmer-samples) | `glimmer-catalog` |

@@ -36,6 +36,13 @@ jobs:
       - name: Assemble the foundation samples
         run: ./gradlew :ui-samples-catalog:assemble --stacktrace
 
+      # `compose-foundation` — the builder vocabulary catalog. Discovery is the contract here more
+      # than anywhere: this catalog's whole payload is the `ui-builder.json` discovery writes from
+      # the policy, and the `component.policy.orphaned` diagnostics it reports are what caught the
+      # module's one real design constraint (the record does not reach foundation symbols).
+      - name: Discover the foundation vocabulary
+        run: ./gradlew :foundation-catalog:composePreviewDiscover --stacktrace
+
       # Discovery is the real contract for a design catalog: it is what turns the
       # `@CatalogComponent` / `@CatalogVariant` / `@ThemeCatalog` annotations into
       # the published inventory. A component that compiles but is not discovered
@@ -197,19 +204,36 @@ jobs:
           node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
             --spec ui-samples-catalog/catalog.spec.json --module-dir ui-samples-catalog
 
-      # `compose-foundation` is generated and committed like the samples spec above, so the first
-      # question is the same one: does the committed file still match its inputs? It is joined from
-      # a FROZEN golden — the builder-vocabulary slice of the catalog the preview server packages,
-      # copied rather than retyped — and an authored curation, and a hand edit to either the join or
-      # the output would change what a published m3 or wear palette is handed with nothing to say
-      # so. Build-free, so it runs on the pull request beside the spec pre-flights.
-      - name: compose-foundation is current
+      - name: validate-catalog-spec (foundation-catalog)
+        run: |
+          node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
+            --spec foundation-catalog/catalog.spec.json --module-dir foundation-catalog
+
+      # The policy pre-flight, which nothing here ran until `compose-foundation` needed it. It is
+      # not a JSON-Schema validator — the schema is the contract and a second implementation of it
+      # would drift — it checks the subset a schema states poorly: that a builtin names a role the
+      # template engine knows, that templates and the declared strategy agree, and that prose has
+      # not been written inside `builtins`, where it is a parse failure rather than a schema one.
+      # Both policies, because this repository now authors two.
+      - name: validate-ui-builder-policy
+        run: |
+          node compose-ai-tools/scripts/design-artifacts/validate-ui-builder-policy.mjs \
+            --policy ui-builder.policy.json
+          node compose-ai-tools/scripts/design-artifacts/validate-ui-builder-policy.mjs \
+            --policy foundation-catalog/ui-builder.policy.json
+
+      # The `builtins` block of `compose-foundation`'s policy is GENERATED from a frozen golden —
+      # the builder-vocabulary slice of the catalog the preview server packages, copied rather than
+      # retyped — so the same question comes first: does the committed file still match it? A hand
+      # edit there changes what a published m3 or wear palette is handed, with nothing to say so.
+      # Build-free, so it runs on the pull request beside the spec pre-flights.
+      - name: compose-foundation's builtins are current
         run: node scripts/foundation-catalog.mjs --check
 
-      # The invariants the regenerate-and-diff above cannot state: that each platform borrows the
-      # frozen set in the frozen order, that a Wear palette is never offered what its exporter
-      # refuses by name, that the Wear note reaches every borrowed foundation component and no seam,
-      # and that a curation narrows nothing. See docs/design/FOUNDATION_CATALOG.md.
+      # The invariants the regenerate-and-diff above cannot state: that every declaration is the
+      # packaged one field for field, that a canvas adapter is claimed only where one exists, that
+      # each platform borrows the frozen set in the frozen order, and that a Wear palette is never
+      # offered what its exporter refuses by name. See docs/design/FOUNDATION_CATALOG.md.
       - name: Test the compose-foundation donor
         run: node --test scripts/foundation-catalog.test.mjs
 

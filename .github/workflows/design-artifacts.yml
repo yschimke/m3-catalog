@@ -7,6 +7,7 @@ name: Design Artifacts
 #   :catalog            -> design-artifacts/m3-catalog        the kit rendition (Material 3)
 #   :samples-catalog    -> design-artifacts/m3-samples        the AndroidX samples, vendored
 #   :ui-samples-catalog -> design-artifacts/compose-ui-samples the AndroidX FOUNDATION samples
+#   :foundation-catalog -> design-artifacts/compose-foundation  the UI builder's own vocabulary
 #
 # Two catalogs, one pipeline, and a `changes` job so a push that moves one of them does not spend a
 # runner re-rendering the other. That job is new with the samples sheet: with a single catalog
@@ -62,6 +63,12 @@ on:
       - 'ui-samples-catalog/**'
       - 'scripts/samples-previews.mjs'
       - 'scripts/ui-samples-spec.mjs'
+      # The builder vocabulary catalog: the stickers and its two authored files, plus the generator
+      # that writes the policy's `builtins` block and the golden it writes them from. A change to
+      # either of those last two moves the published `ui-builder.json` — which IS this catalog's
+      # payload — with no change to the module at all.
+      - 'foundation-catalog/**'
+      - 'scripts/foundation-catalog.mjs'
       # The page-backdrop opt-in and its page list. Changing which screens are
       # published — or turning the surface on or off — changes what the delivery
       # branch carries, so it belongs in the same set as the spec.
@@ -131,6 +138,7 @@ jobs:
       kit: ${{ steps.scope.outputs.kit }}
       samples: ${{ steps.scope.outputs.samples }}
       ui-samples: ${{ steps.scope.outputs.ui-samples }}
+      foundation: ${{ steps.scope.outputs.foundation }}
       glimmer: ${{ steps.scope.outputs.glimmer }}
     steps:
       - uses: actions/checkout@v7.0.1
@@ -149,6 +157,7 @@ jobs:
             echo 'kit=true' >> "$GITHUB_OUTPUT"
             echo 'samples=true' >> "$GITHUB_OUTPUT"
             echo 'ui-samples=true' >> "$GITHUB_OUTPUT"
+            echo 'foundation=true' >> "$GITHUB_OUTPUT"
             echo 'glimmer=true' >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -175,6 +184,8 @@ jobs:
             echo 'samples=true' >> "$GITHUB_OUTPUT" || echo 'samples=false' >> "$GITHUB_OUTPUT"
           grep -qE '^(ui-samples-catalog/|scripts/samples-previews\.mjs$|scripts/ui-samples-spec\.mjs$)' <<<"$files" &&
             echo 'ui-samples=true' >> "$GITHUB_OUTPUT" || echo 'ui-samples=false' >> "$GITHUB_OUTPUT"
+          grep -qE '^(foundation-catalog/|scripts/foundation-catalog\.mjs$)' <<<"$files" &&
+            echo 'foundation=true' >> "$GITHUB_OUTPUT" || echo 'foundation=false' >> "$GITHUB_OUTPUT"
           # Both Glimmer sheets move together: they share the `glimmer` version ref, the Robolectric
           # pin and the AGP setup, so a change to one is nearly always a change to both, and the two
           # renders together cost less than the runner minutes a finer split would save.
@@ -459,6 +470,43 @@ jobs:
       # NO `preview-annotations`: every published preview here is the plain
       # `androidx.compose.ui.tooling.preview.Preview`, carried by upstream's own sources or by the
       # wrappers `scripts/samples-previews.mjs` generates, and there are no multipreviews at all.
+      allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
+
+  foundation:
+    name: compose-foundation
+    needs: changes
+    # Don't let forks push to the delivery branch.
+    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.foundation == 'true' }}
+    permissions:
+      contents: write
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
+    with:
+      system: compose-foundation
+      spec: foundation-catalog/catalog.spec.json
+      module: ':foundation-catalog'
+
+      # The empty map the two samples jobs explain at length, for the same reason: this catalog
+      # reproduces no Figma kit — its components are the builder's own vocabulary, and a kit
+      # publishes no node for a Box — so 0% parity coverage is the truthful number and this caller
+      # carries no `figma_token` and no `reference-cache-branch`.
+      design-map-command: printf '{"components":[]}\n' > design-map.json
+      cli-version: catalog
+      catalog-key: composePreviewPlugin
+      desktop-render: true
+      # FALSE. What this catalog publishes that anything reads is `ui-builder.json` — fourteen
+      # declarations and a shelf order — and its stickers are pictures for a palette rather than a
+      # surface anyone re-renders with a device, a theme or a knob. A live bundle would carry an
+      # executable payload onto a trusted branch to buy nothing.
+      publish-live-bundle: false
+      # No per-preview split, matching every other caller here.
+      split-per-preview: false
+      commit-user-name: Yuri Schimke
+      commit-user-email: yuri@schimke.ee
+      timeout-minutes: 45
+      render-timeout: 900
+      # ONE. Fourteen previews — seven stickers in light and dark — are a single warm render; a
+      # shard's own setup and merge would cost more than the whole job.
+      render-shards: 1
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
 
   # ── The two Glimmer sheets ──────────────────────────────────────────────────────────────────────
