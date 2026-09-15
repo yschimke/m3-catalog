@@ -7,7 +7,7 @@
     "ref": "main",
     "module": ":glimmer-catalog"
   },
-  "generatedAt": "2026-09-15T00:19:19.448Z",
+  "generatedAt": "2026-09-15T08:39:05.252Z",
   "mappings": [
     {
       "componentId": "Button",
@@ -154,6 +154,35 @@
       "confidence": "preview-fallback",
       "previewName": "ListItemSticker",
       "figmaSvg": "figma/listitem.svg"
+    },
+    {
+      "componentId": "VerticalStack",
+      "figmaLayerName": "VerticalStack",
+      "componentName": "Sticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/GlimmerCatalog.kt",
+      "label": "Compose",
+      "confidence": "HIGH",
+      "previewName": "VerticalStackSticker",
+      "codeSnippet": "Sticker(\n    content = { },\n)",
+      "imports": [
+        "import ee.schimke.m3catalog.glimmer.Sticker"
+      ],
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "typeFqn": "kotlin.Function0",
+          "hasDefault": false,
+          "composableSlot": true,
+          "composableSlotReceiver": null,
+          "nullable": false,
+          "noArgConstructible": false,
+          "noArgFactory": null,
+          "scopeDslReceiver": null,
+          "lambdaReturnTypeFqn": "kotlin.Unit"
+        }
+      ],
+      "figmaSvg": "figma/verticalstack.svg"
     },
     {
       "componentId": "VoiceInputIndicator",

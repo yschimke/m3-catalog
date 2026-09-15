@@ -1396,6 +1396,71 @@
       "sourceFunction": "ListItemSticker"
     },
     {
+      "componentId": "VerticalStack",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/verticalstack/ideal__default.png",
+          "state": "default",
+          "width": 420,
+          "height": 178,
+          "livePreview": "https://preview.coo.ee/glimmer-catalog/p/verticalstack__ideal__default",
+          "previewId": "ee.schimke.m3catalog.glimmer.StacksKt.VerticalStackSticker",
+          "density": 1
+        }
+      ],
+      "greenlines": [],
+      "redlines": [
+        {
+          "bounds": {
+            "x": 12,
+            "y": 27,
+            "width": 395,
+            "height": 150
+          },
+          "padding": {
+            "start": 12,
+            "top": 12,
+            "end": 12,
+            "bottom": 12
+          },
+          "cornerRadius": 36
+        },
+        {
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 420,
+            "height": 160
+          },
+          "padding": {
+            "start": 12,
+            "top": 12,
+            "end": 12,
+            "bottom": 12
+          },
+          "cornerRadius": 36
+        }
+      ],
+      "section": "Containment",
+      "group": "Stack",
+      "caption": "Layers focusable content in depth, scaling and revealing the items behind the front one.",
+      "reference": "figma:HKfLClZDLRyMhf4IQQLna8/40000042:4078",
+      "wireframe": "wireframes/verticalstack.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/m3catalog/glimmer/Stacks.kt",
+      "sourceModule": ":glimmer-catalog",
+      "bodyLine": 29,
+      "sourceDirectory": "glimmer-catalog",
+      "sourceFunction": "VerticalStackSticker",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "composableSlot": true
+        }
+      ]
+    },
+    {
       "componentId": "VoiceInputIndicator",
       "images": [
         {
@@ -1447,7 +1512,7 @@
     "androidx.xr.glimmer:glimmer"
   ],
   "renderer": "compose-preview 2.14.1",
-  "generatedAt": "2026-09-15T00:19:18.924Z",
+  "generatedAt": "2026-09-15T08:39:04.762Z",
   "display": {
     "surface": "dark",
     "hero": "CardActionSticker"

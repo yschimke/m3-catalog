@@ -38,10 +38,10 @@ customising the live render are two ends of one workflow.
 
 | | |
 | --- | --- |
-| Components | **8** |
-| Rendered images (PNG) | **43** |
-| Editable wireframes (SVG) | **8** |
-| Editable design vectors (figma-svg) | **8** |
+| Components | **9** |
+| Rendered images (PNG) | **44** |
+| Editable wireframes (SVG) | **9** |
+| Editable design vectors (figma-svg) | **9** |
 | Components with a11y greenlines | **4** |
 | Library | `androidx.xr.glimmer:glimmer` |
 | Renderer | compose-preview 2.14.1 |
@@ -56,6 +56,7 @@ customising the live render are two ends of one workflow.
 | Card | 2 |
 | Icon button | 2 |
 | List item | 1 |
+| Stack | 1 |
 | Voice input | 1 |
 
 ## What's in this branch
