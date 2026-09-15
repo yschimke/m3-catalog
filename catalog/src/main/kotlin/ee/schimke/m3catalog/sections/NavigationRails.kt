@@ -103,8 +103,13 @@ private fun RailHeaderContent(wide: Boolean, menu: Boolean, fab: Boolean) {
         }
       }
       // NavigationRail starts destinations immediately after its header, while WideNavigationRail
-      // supplies the 40 dp header-to-destination gap itself.
-      if (!wide) Spacer(Modifier.height(92.dp))
+      // supplies the 40 dp header-to-destination gap itself. 40dp is the kit's own gap on both:
+      // its `Menu & Fab` frame ends at y=160 and its `Segments` slot starts at y=200, on the
+      // standard rail and the wide one alike. This used to hold 92dp, which put every destination
+      // 63dp below the node it is compared against. What is left after it is upstream's: the kit
+      // insets its item's indicator 6dp inside a 64dp item and `NavigationRailItem` insets its own
+      // by ~17, so the first indicator still lands ~11dp low with the gap correct.
+      if (!wide) Spacer(Modifier.height(40.dp))
     }
   }
 }
