@@ -27,7 +27,9 @@
 package ee.schimke.m3catalog.glimmer
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalConfiguration
 import ee.schimke.composeai.overrides.previewOverrideString
+import java.text.DecimalFormatSymbols
 
 /**
  * User-visible copy whose baked default stays translated and whose value is editable on the live
@@ -40,3 +42,28 @@ import ee.schimke.composeai.overrides.previewOverrideString
  */
 @Composable
 fun glimmerText(key: String, default: String): String = previewOverrideString(key, default)
+
+/**
+ * `:catalog`'s `localizedDigits`, for this module.
+ *
+ * A translated time string carries the locale's words — `08:00 – 08:30` against `8 – 8:30 AM` — but
+ * its DIGITS are whatever was typed into the resource file, and that is not the same question. A
+ * locale can name its numbering system explicitly (`hi-IN-u-nu-deva`), and Arabic uses Arabic-Indic
+ * digits by default; a resource file cannot answer either, because the answer is a property of the
+ * configuration the render runs in rather than of the language.
+ *
+ * So the resources hold ASCII digits and this shapes them at render time, leaving the punctuation
+ * and the translated words alone. `AGENTS.md` requires exactly this of numeric samples, and a
+ * rendered clock value is one whether it arrives as a literal or from a resource.
+ */
+@Composable
+fun localizedDigits(value: String): String {
+  val locale = LocalConfiguration.current.locales[0]
+  val zero = DecimalFormatSymbols.getInstance(locale).zeroDigit
+  if (zero == '0') return value
+  return buildString(value.length) {
+    value.forEach { char ->
+      append(if (char in '0'..'9') (zero.code + (char - '0')).toChar() else char)
+    }
+  }
+}

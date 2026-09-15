@@ -159,12 +159,20 @@ class GlimmerTranslationsTest {
    * There are no exceptions today, and that is worth keeping: the carve-out `AGENTS.md` makes is
    * for token names and sample data that is not language, and nothing this module draws is in that
    * set — even the grocery and calendar rows are words a reader reads.
+   *
+   * Three shapes, because this module writes all three. `Text("…")` and a named `contentDescription
+   * = "…"` are what `:catalog` scans for; a Glimmer `Icon` and a Compose `Image` take their
+   * description POSITIONALLY as the second argument, and a scan that knew only the named form
+   * passed a sheet with `Image(HeaderImage, "Header artwork", …)` still rendering English in every
+   * locale.
    */
   @Test
   fun visibleLiteralsAreDeliberate() {
     val pattern =
       Regex(
-        """(?:\b(?:Text|BasicText)\s*\(\s*(?:text\s*=\s*)?|\bcontentDescription\s*=\s*)"((?:\\.|[^"\\])*)""""
+        """(?:\b(?:Text|BasicText)\s*\(\s*(?:text\s*=\s*)?|""" +
+          """\bcontentDescription\s*=\s*|""" +
+          """\b(?:Icon|Image)\s*\(\s*[^,()"]{1,80}(?:\([^()]*\))?\s*,\s*)"((?:\\.|[^"\\])*)""""
       )
     val found =
       sourceRoot

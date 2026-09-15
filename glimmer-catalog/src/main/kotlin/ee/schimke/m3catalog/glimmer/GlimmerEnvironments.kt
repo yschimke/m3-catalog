@@ -61,7 +61,13 @@ private fun EnvironmentButton() {
 private fun EnvironmentCard() {
   ContentFrame {
     Card(
-      header = { Image(HeaderImage, "Header artwork", contentScale = ContentScale.FillWidth) },
+      header = {
+        Image(
+          HeaderImage,
+          stringResource(R.string.cd_header_artwork),
+          contentScale = ContentScale.FillWidth,
+        )
+      },
       title = { Text(stringResource(R.string.label_title)) },
       subtitle = { Text(stringResource(R.string.label_subtitle)) },
       leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },

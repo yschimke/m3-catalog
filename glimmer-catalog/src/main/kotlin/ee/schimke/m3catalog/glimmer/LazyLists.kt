@@ -85,7 +85,7 @@ fun GlimmerLazyColumnTwoLineSticker() = Sticker {
       val c = counted(stringResource(MeetingLabels[index]))
       ListItem(
         onClick = c.onClick,
-        supportingLabel = { Text(stringResource(MeetingTimes[index])) },
+        supportingLabel = { Text(localizedDigits(stringResource(MeetingTimes[index]))) },
         leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
       ) {
         Text(c.label)
