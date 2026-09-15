@@ -1,6 +1,638 @@
 {
   "schema": "compose-preview-parity-findings/v1",
   "previews": {
+    "ee.schimke.m3catalog.glimmer.ButtonGroupsKt.ButtonGroupSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Button\" risks truncation when localized: ≈132dp expanded vs 60dp available.",
+            "detail": {
+              "label": "Button",
+              "availableWidth": "60",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                },
+                "label": "Button"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 78,
+                  "y": 11,
+                  "width": 60,
+                  "height": 26
+                },
+                "label": "Button"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Button\" risks truncation when localized: ≈132dp expanded vs 60dp available.",
+            "detail": {
+              "label": "Button",
+              "availableWidth": "60",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                },
+                "label": "Button"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 78,
+                  "y": 11,
+                  "width": 60,
+                  "height": 26
+                },
+                "label": "Button"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Button\" risks truncation when localized: ≈132dp expanded vs 34dp available.",
+            "detail": {
+              "label": "Button",
+              "availableWidth": "34",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                },
+                "label": "Button"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 78,
+                  "y": 11,
+                  "width": 60,
+                  "height": 26
+                },
+                "label": "Button"
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingStart: candidate resolved no value; unverified (spec 16)",
+            "detail": {
+              "token": "spacing.paddingStart",
+              "expected": "16",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingEnd: candidate resolved no value; unverified (spec 16)",
+            "detail": {
+              "token": "spacing.paddingEnd",
+              "expected": "16",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.label has no Material-role mapping; unverified (spec #FFFFFF)",
+            "detail": {
+              "token": "colors.label",
+              "expected": "#FFFFFF",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography.label has no Material-role mapping; unverified (spec {\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":32,\"fontWeight\":600,\"lineHeight\":38,\"letterSpacing\":0})",
+            "detail": {
+              "token": "typography.label",
+              "expected": "{\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":32,\"fontWeight\":600,\"lineHeight\":38,\"letterSpacing\":0}",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "pairing",
+            "severity": "info",
+            "message": "reference renders with Leading Scrim=true, Trailing Scrim=true — component property defaults the variant name does not state",
+            "detail": {
+              "properties": "[{\"name\":\"Leading Scrim\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Trailing Scrim\",\"type\":\"boolean\",\"value\":\"true\"}]"
+            }
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"Button\": offset (-62, -11), size Δ(86, 22) vs candidate",
+            "detail": {
+              "label": "Button",
+              "dx": "-62",
+              "dy": "-11",
+              "dw": "86",
+              "dh": "22"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                },
+                "label": "Button"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 78,
+                  "y": 11,
+                  "width": 60,
+                  "height": 26
+                },
+                "label": "Button"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"Button\": offset (-216, -11), size Δ(112, 22) vs candidate",
+            "detail": {
+              "label": "Button",
+              "dx": "-216",
+              "dy": "-11",
+              "dw": "112",
+              "dh": "22"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                },
+                "label": "Button"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 78,
+                  "y": 11,
+                  "width": 60,
+                  "height": 26
+                },
+                "label": "Button"
+              }
+            ]
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 40.2% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.402431",
+              "diffPixels": "8113"
+            }
+          }
+        ]
+      }
+    ],
+    "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/ButtonGroups.kt#ButtonGroupSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Button\" risks truncation when localized: ≈132dp expanded vs 60dp available.",
+            "detail": {
+              "label": "Button",
+              "availableWidth": "60",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                },
+                "label": "Button"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 78,
+                  "y": 11,
+                  "width": 60,
+                  "height": 26
+                },
+                "label": "Button"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Button\" risks truncation when localized: ≈132dp expanded vs 60dp available.",
+            "detail": {
+              "label": "Button",
+              "availableWidth": "60",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                },
+                "label": "Button"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 78,
+                  "y": 11,
+                  "width": 60,
+                  "height": 26
+                },
+                "label": "Button"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Button\" risks truncation when localized: ≈132dp expanded vs 34dp available.",
+            "detail": {
+              "label": "Button",
+              "availableWidth": "34",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                },
+                "label": "Button"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 78,
+                  "y": 11,
+                  "width": 60,
+                  "height": 26
+                },
+                "label": "Button"
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingStart: candidate resolved no value; unverified (spec 16)",
+            "detail": {
+              "token": "spacing.paddingStart",
+              "expected": "16",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingEnd: candidate resolved no value; unverified (spec 16)",
+            "detail": {
+              "token": "spacing.paddingEnd",
+              "expected": "16",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.label has no Material-role mapping; unverified (spec #FFFFFF)",
+            "detail": {
+              "token": "colors.label",
+              "expected": "#FFFFFF",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography.label has no Material-role mapping; unverified (spec {\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":32,\"fontWeight\":600,\"lineHeight\":38,\"letterSpacing\":0})",
+            "detail": {
+              "token": "typography.label",
+              "expected": "{\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":32,\"fontWeight\":600,\"lineHeight\":38,\"letterSpacing\":0}",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "pairing",
+            "severity": "info",
+            "message": "reference renders with Leading Scrim=true, Trailing Scrim=true — component property defaults the variant name does not state",
+            "detail": {
+              "properties": "[{\"name\":\"Leading Scrim\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Trailing Scrim\",\"type\":\"boolean\",\"value\":\"true\"}]"
+            }
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"Button\": offset (-62, -11), size Δ(86, 22) vs candidate",
+            "detail": {
+              "label": "Button",
+              "dx": "-62",
+              "dy": "-11",
+              "dw": "86",
+              "dh": "22"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                },
+                "label": "Button"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 78,
+                  "y": 11,
+                  "width": 60,
+                  "height": 26
+                },
+                "label": "Button"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"Button\": offset (-216, -11), size Δ(112, 22) vs candidate",
+            "detail": {
+              "label": "Button",
+              "dx": "-216",
+              "dy": "-11",
+              "dw": "112",
+              "dh": "22"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                },
+                "label": "Button"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 78,
+                  "y": 11,
+                  "width": 60,
+                  "height": 26
+                },
+                "label": "Button"
+              }
+            ]
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 40.2% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.402431",
+              "diffPixels": "8113"
+            }
+          }
+        ]
+      }
+    ],
     "ee.schimke.m3catalog.glimmer.ButtonsKt.ButtonSticker": [
       {
         "source": "figma",
@@ -3861,6 +4493,1744 @@
         ]
       }
     ],
+    "ee.schimke.m3catalog.glimmer.LazyListsKt.GlimmerLazyColumnSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Milk\" risks truncation when localized: ≈88dp expanded vs 36dp available.",
+            "detail": {
+              "label": "Milk",
+              "availableWidth": "36",
+              "estimatedWidth": "44",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "88"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 46,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Milk"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 47,
+                  "width": 36,
+                  "height": 26
+                },
+                "label": "Milk"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Bread\" risks truncation when localized: ≈110dp expanded vs 54dp available.",
+            "detail": {
+              "label": "Bread",
+              "availableWidth": "54",
+              "estimatedWidth": "55",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "110"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 146,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Bread"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 147,
+                  "width": 54,
+                  "height": 26
+                },
+                "label": "Bread"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Spinach\" risks truncation when localized: ≈154dp expanded vs 72dp available.",
+            "detail": {
+              "label": "Spinach",
+              "availableWidth": "72",
+              "estimatedWidth": "77",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "154"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 246,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Spinach"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 247,
+                  "width": 72,
+                  "height": 26
+                },
+                "label": "Spinach"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Cereal\" risks truncation when localized: ≈132dp expanded vs 60dp available.",
+            "detail": {
+              "label": "Cereal",
+              "availableWidth": "60",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 346,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Cereal"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 347,
+                  "width": 60,
+                  "height": 17
+                },
+                "label": "Cereal"
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.label has no Material-role mapping; unverified (spec #FFFFFF)",
+            "detail": {
+              "token": "colors.label",
+              "expected": "#FFFFFF",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography.label has no Material-role mapping; unverified (spec {\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":40,\"fontWeight\":600,\"lineHeight\":48,\"letterSpacing\":0})",
+            "detail": {
+              "token": "typography.label",
+              "expected": "{\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":40,\"fontWeight\":600,\"lineHeight\":48,\"letterSpacing\":0}",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 4), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "4",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 40,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 4), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "4",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 40,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 4), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "4",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 40,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 4), size Δ(-8, 12) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "4",
+              "dw": "-8",
+              "dh": "12"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 40,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"Cereal\": offset (-4, -1), size Δ(276, 11) vs candidate",
+            "detail": {
+              "label": "Cereal",
+              "dx": "-4",
+              "dy": "-1",
+              "dw": "276",
+              "dh": "11"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 346,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Cereal"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 347,
+                  "width": 60,
+                  "height": 17
+                },
+                "label": "Cereal"
+              }
+            ]
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 4.7% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "detail": {
+              "key": "default",
+              "alphaLossRatio": "0.04671",
+              "alphaLossPixels": "7141",
+              "alphaComparedPixels": "152880"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 37.8% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.377715",
+              "diffPixels": "57745"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "True: 13.0% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "detail": {
+              "key": "True",
+              "alphaLossRatio": "0.129906",
+              "alphaLossPixels": "19860",
+              "alphaComparedPixels": "152880"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "True: 54.8% of pixels differ from reference",
+            "detail": {
+              "key": "True",
+              "score": "0.548149",
+              "diffPixels": "83801"
+            }
+          }
+        ]
+      }
+    ],
+    "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/LazyLists.kt#GlimmerLazyColumnSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Milk\" risks truncation when localized: ≈88dp expanded vs 36dp available.",
+            "detail": {
+              "label": "Milk",
+              "availableWidth": "36",
+              "estimatedWidth": "44",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "88"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 46,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Milk"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 47,
+                  "width": 36,
+                  "height": 26
+                },
+                "label": "Milk"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Bread\" risks truncation when localized: ≈110dp expanded vs 54dp available.",
+            "detail": {
+              "label": "Bread",
+              "availableWidth": "54",
+              "estimatedWidth": "55",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "110"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 146,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Bread"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 147,
+                  "width": 54,
+                  "height": 26
+                },
+                "label": "Bread"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Spinach\" risks truncation when localized: ≈154dp expanded vs 72dp available.",
+            "detail": {
+              "label": "Spinach",
+              "availableWidth": "72",
+              "estimatedWidth": "77",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "154"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 246,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Spinach"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 247,
+                  "width": 72,
+                  "height": 26
+                },
+                "label": "Spinach"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Cereal\" risks truncation when localized: ≈132dp expanded vs 60dp available.",
+            "detail": {
+              "label": "Cereal",
+              "availableWidth": "60",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 346,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Cereal"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 347,
+                  "width": 60,
+                  "height": 17
+                },
+                "label": "Cereal"
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.label has no Material-role mapping; unverified (spec #FFFFFF)",
+            "detail": {
+              "token": "colors.label",
+              "expected": "#FFFFFF",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography.label has no Material-role mapping; unverified (spec {\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":40,\"fontWeight\":600,\"lineHeight\":48,\"letterSpacing\":0})",
+            "detail": {
+              "token": "typography.label",
+              "expected": "{\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":40,\"fontWeight\":600,\"lineHeight\":48,\"letterSpacing\":0}",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 4), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "4",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 40,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 4), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "4",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 40,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 4), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "4",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 40,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 4), size Δ(-8, 12) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "4",
+              "dw": "-8",
+              "dh": "12"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 40,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"Cereal\": offset (-4, -1), size Δ(276, 11) vs candidate",
+            "detail": {
+              "label": "Cereal",
+              "dx": "-4",
+              "dy": "-1",
+              "dw": "276",
+              "dh": "11"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 346,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Cereal"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 347,
+                  "width": 60,
+                  "height": 17
+                },
+                "label": "Cereal"
+              }
+            ]
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 4.7% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "detail": {
+              "key": "default",
+              "alphaLossRatio": "0.04671",
+              "alphaLossPixels": "7141",
+              "alphaComparedPixels": "152880"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 37.8% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.377715",
+              "diffPixels": "57745"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "True: 13.0% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "detail": {
+              "key": "True",
+              "alphaLossRatio": "0.129906",
+              "alphaLossPixels": "19860",
+              "alphaComparedPixels": "152880"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "True: 54.8% of pixels differ from reference",
+            "detail": {
+              "key": "True",
+              "score": "0.548149",
+              "diffPixels": "83801"
+            }
+          }
+        ]
+      }
+    ],
+    "ee.schimke.m3catalog.glimmer.LazyListsKt.GlimmerLazyColumnTwoLineSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Weekly Design Check-In\" risks truncation when localized: ≈387dp expanded vs 218dp available.",
+            "detail": {
+              "label": "Weekly Design Check-In",
+              "availableWidth": "218",
+              "estimatedWidth": "242",
+              "expansionFactor": "1.6",
+              "estimatedExpandedWidth": "387"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 36,
+                  "width": 261,
+                  "height": 28
+                },
+                "label": "Weekly Design Check-In"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 36,
+                  "width": 218,
+                  "height": 26
+                },
+                "label": "Weekly Design Check-In"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"8 - 8:30AM\" risks truncation when localized: ≈220dp expanded vs 98dp available.",
+            "detail": {
+              "label": "8 - 8:30AM",
+              "availableWidth": "98",
+              "estimatedWidth": "110",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "220"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 64,
+                  "width": 112,
+                  "height": 28
+                },
+                "label": "8 - 8:30AM"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 62,
+                  "width": 98,
+                  "height": 26
+                },
+                "label": "8 - 8:30AM"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Jordan/Sam 1:1\" risks truncation when localized: ≈277dp expanded vs 135dp available.",
+            "detail": {
+              "label": "Jordan/Sam 1:1",
+              "availableWidth": "135",
+              "estimatedWidth": "154",
+              "expansionFactor": "1.8",
+              "estimatedExpandedWidth": "277"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 144,
+                  "width": 163,
+                  "height": 28
+                },
+                "label": "Jordan/Sam 1:1"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 140,
+                  "width": 135,
+                  "height": 26
+                },
+                "label": "Jordan/Sam 1:1"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"9 - 9:30AM\" risks truncation when localized: ≈220dp expanded vs 98dp available.",
+            "detail": {
+              "label": "9 - 9:30AM",
+              "availableWidth": "98",
+              "estimatedWidth": "110",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "220"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 172,
+                  "width": 112,
+                  "height": 28
+                },
+                "label": "9 - 9:30AM"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 166,
+                  "width": 98,
+                  "height": 26
+                },
+                "label": "9 - 9:30AM"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Lunch\" risks truncation when localized: ≈110dp expanded vs 54dp available.",
+            "detail": {
+              "label": "Lunch",
+              "availableWidth": "54",
+              "estimatedWidth": "55",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "110"
+            },
+            "anchors": [
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 244,
+                  "width": 54,
+                  "height": 26
+                },
+                "label": "Lunch"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"12 - 1PM\" risks truncation when localized: ≈176dp expanded vs 71dp available.",
+            "detail": {
+              "label": "12 - 1PM",
+              "availableWidth": "71",
+              "estimatedWidth": "88",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "176"
+            },
+            "anchors": [
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 270,
+                  "width": 71,
+                  "height": 26
+                },
+                "label": "12 - 1PM"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Review\" risks truncation when localized: ≈132dp expanded vs 65dp available.",
+            "detail": {
+              "label": "Review",
+              "availableWidth": "65",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 348,
+                  "width": 65,
+                  "height": 16
+                },
+                "label": "Review"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"2 - 3PM\" risks truncation when localized: ≈154dp expanded vs 0dp available.",
+            "detail": {
+              "label": "2 - 3PM",
+              "availableWidth": "0",
+              "estimatedWidth": "77",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "154"
+            }
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.label has no Material-role mapping; unverified (spec #FFFFFF)",
+            "detail": {
+              "token": "colors.label",
+              "expected": "#FFFFFF",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography.label has no Material-role mapping; unverified (spec {\"fontFamily\":\"Material Symbols Outlined\",\"fontSize\":40,\"fontWeight\":600,\"lineHeight\":48,\"letterSpacing\":0})",
+            "detail": {
+              "token": "typography.label",
+              "expected": "{\"fontFamily\":\"Material Symbols Outlined\",\"fontSize\":40,\"fontWeight\":600,\"lineHeight\":48,\"letterSpacing\":0}",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              }
+            ]
+          },
+          {
+            "kind": "pairing",
+            "severity": "info",
+            "message": "reference renders with Show System Bar=true — component property defaults the variant name does not state",
+            "detail": {
+              "properties": "[{\"name\":\"Show System Bar\",\"type\":\"boolean\",\"value\":\"true\"}]"
+            }
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 8), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "8",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 44,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 12), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "12",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 44,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"9 - 9:30AM\": offset (-4, 6), size Δ(14, 2) vs candidate",
+            "detail": {
+              "label": "9 - 9:30AM",
+              "dx": "-4",
+              "dy": "6",
+              "dw": "14",
+              "dh": "2"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 172,
+                  "width": 112,
+                  "height": 28
+                },
+                "label": "9 - 9:30AM"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 166,
+                  "width": 98,
+                  "height": 26
+                },
+                "label": "9 - 9:30AM"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 16), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "16",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 44,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 11.1% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "detail": {
+              "key": "default",
+              "alphaLossRatio": "0.11095",
+              "alphaLossPixels": "16962",
+              "alphaComparedPixels": "152880"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 31.7% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.317419",
+              "diffPixels": "48527"
+            }
+          }
+        ]
+      }
+    ],
+    "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/LazyLists.kt#GlimmerLazyColumnTwoLineSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Weekly Design Check-In\" risks truncation when localized: ≈387dp expanded vs 218dp available.",
+            "detail": {
+              "label": "Weekly Design Check-In",
+              "availableWidth": "218",
+              "estimatedWidth": "242",
+              "expansionFactor": "1.6",
+              "estimatedExpandedWidth": "387"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 36,
+                  "width": 261,
+                  "height": 28
+                },
+                "label": "Weekly Design Check-In"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 36,
+                  "width": 218,
+                  "height": 26
+                },
+                "label": "Weekly Design Check-In"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"8 - 8:30AM\" risks truncation when localized: ≈220dp expanded vs 98dp available.",
+            "detail": {
+              "label": "8 - 8:30AM",
+              "availableWidth": "98",
+              "estimatedWidth": "110",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "220"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 64,
+                  "width": 112,
+                  "height": 28
+                },
+                "label": "8 - 8:30AM"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 62,
+                  "width": 98,
+                  "height": 26
+                },
+                "label": "8 - 8:30AM"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Jordan/Sam 1:1\" risks truncation when localized: ≈277dp expanded vs 135dp available.",
+            "detail": {
+              "label": "Jordan/Sam 1:1",
+              "availableWidth": "135",
+              "estimatedWidth": "154",
+              "expansionFactor": "1.8",
+              "estimatedExpandedWidth": "277"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 144,
+                  "width": 163,
+                  "height": 28
+                },
+                "label": "Jordan/Sam 1:1"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 140,
+                  "width": 135,
+                  "height": 26
+                },
+                "label": "Jordan/Sam 1:1"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"9 - 9:30AM\" risks truncation when localized: ≈220dp expanded vs 98dp available.",
+            "detail": {
+              "label": "9 - 9:30AM",
+              "availableWidth": "98",
+              "estimatedWidth": "110",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "220"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 172,
+                  "width": 112,
+                  "height": 28
+                },
+                "label": "9 - 9:30AM"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 166,
+                  "width": 98,
+                  "height": 26
+                },
+                "label": "9 - 9:30AM"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Lunch\" risks truncation when localized: ≈110dp expanded vs 54dp available.",
+            "detail": {
+              "label": "Lunch",
+              "availableWidth": "54",
+              "estimatedWidth": "55",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "110"
+            },
+            "anchors": [
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 244,
+                  "width": 54,
+                  "height": 26
+                },
+                "label": "Lunch"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"12 - 1PM\" risks truncation when localized: ≈176dp expanded vs 71dp available.",
+            "detail": {
+              "label": "12 - 1PM",
+              "availableWidth": "71",
+              "estimatedWidth": "88",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "176"
+            },
+            "anchors": [
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 270,
+                  "width": 71,
+                  "height": 26
+                },
+                "label": "12 - 1PM"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Review\" risks truncation when localized: ≈132dp expanded vs 65dp available.",
+            "detail": {
+              "label": "Review",
+              "availableWidth": "65",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 348,
+                  "width": 65,
+                  "height": 16
+                },
+                "label": "Review"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"2 - 3PM\" risks truncation when localized: ≈154dp expanded vs 0dp available.",
+            "detail": {
+              "label": "2 - 3PM",
+              "availableWidth": "0",
+              "estimatedWidth": "77",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "154"
+            }
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.label has no Material-role mapping; unverified (spec #FFFFFF)",
+            "detail": {
+              "token": "colors.label",
+              "expected": "#FFFFFF",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography.label has no Material-role mapping; unverified (spec {\"fontFamily\":\"Material Symbols Outlined\",\"fontSize\":40,\"fontWeight\":600,\"lineHeight\":48,\"letterSpacing\":0})",
+            "detail": {
+              "token": "typography.label",
+              "expected": "{\"fontFamily\":\"Material Symbols Outlined\",\"fontSize\":40,\"fontWeight\":600,\"lineHeight\":48,\"letterSpacing\":0}",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 364
+                }
+              }
+            ]
+          },
+          {
+            "kind": "pairing",
+            "severity": "info",
+            "message": "reference renders with Show System Bar=true — component property defaults the variant name does not state",
+            "detail": {
+              "properties": "[{\"name\":\"Show System Bar\",\"type\":\"boolean\",\"value\":\"true\"}]"
+            }
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 8), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "8",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 44,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 12), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "12",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 44,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"9 - 9:30AM\": offset (-4, 6), size Δ(14, 2) vs candidate",
+            "detail": {
+              "label": "9 - 9:30AM",
+              "dx": "-4",
+              "dy": "6",
+              "dw": "14",
+              "dh": "2"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 172,
+                  "width": 112,
+                  "height": 28
+                },
+                "label": "9 - 9:30AM"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 166,
+                  "width": 98,
+                  "height": 26
+                },
+                "label": "9 - 9:30AM"
+              }
+            ]
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 16), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "16",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 44,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 36,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 11.1% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "detail": {
+              "key": "default",
+              "alphaLossRatio": "0.11095",
+              "alphaLossPixels": "16962",
+              "alphaComparedPixels": "152880"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 31.7% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.317419",
+              "diffPixels": "48527"
+            }
+          }
+        ]
+      }
+    ],
     "ee.schimke.m3catalog.glimmer.ListsKt.ListItemSticker": [
       {
         "source": "figma",
@@ -4244,6 +6614,524 @@
               "key": "pressed",
               "score": "0.596756",
               "diffPixels": "20051"
+            }
+          }
+        ]
+      }
+    ],
+    "ee.schimke.m3catalog.glimmer.StacksKt.VerticalStackSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Body\" risks truncation when localized: ≈88dp expanded vs 43dp available.",
+            "detail": {
+              "label": "Body",
+              "availableWidth": "43",
+              "estimatedWidth": "44",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "88"
+            },
+            "anchors": [
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 31,
+                  "y": 90,
+                  "width": 43,
+                  "height": 25
+                },
+                "label": "Body"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Title\" risks truncation when localized: ≈132dp expanded vs 46dp available.",
+            "detail": {
+              "label": "Title",
+              "availableWidth": "46",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 20,
+                  "y": 20,
+                  "width": 380,
+                  "height": 32
+                },
+                "label": "Title"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 20,
+                  "y": 23,
+                  "width": 46,
+                  "height": 32
+                },
+                "label": "Title"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Subtitle\" risks truncation when localized: ≈158dp expanded vs 63dp available.",
+            "detail": {
+              "label": "Subtitle",
+              "availableWidth": "63",
+              "estimatedWidth": "79",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "158"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 20,
+                  "y": 55,
+                  "width": 380,
+                  "height": 28
+                },
+                "label": "Subtitle"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 20,
+                  "y": 58,
+                  "width": 63,
+                  "height": 23
+                },
+                "label": "Subtitle"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Leyla expanded avocado beet greens mustard kale fava\" risks truncation when localized: ≈744dp expanded vs 380dp available.",
+            "detail": {
+              "label": "Leyla expanded avocado beet greens mustard kale fava",
+              "availableWidth": "380",
+              "estimatedWidth": "572",
+              "expansionFactor": "1.3",
+              "estimatedExpandedWidth": "744"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 20,
+                  "y": 86,
+                  "width": 380,
+                  "height": 56
+                },
+                "label": "Leyla expanded avocado beet greens mustard kale fava"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 20,
+                  "y": 84,
+                  "width": 380,
+                  "height": 54
+                },
+                "label": "Leyla expanded avocado beet greens mustard kale fava"
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.label has no Material-role mapping; unverified (spec #FFFFFF)",
+            "detail": {
+              "token": "colors.label",
+              "expected": "#FFFFFF",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 178
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 178
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography.label has no Material-role mapping; unverified (spec {\"fontFamily\":\"Google Sans Flex\",\"fontSize\":18,\"fontWeight\":725,\"lineHeight\":28,\"letterSpacing\":0})",
+            "detail": {
+              "token": "typography.label",
+              "expected": "{\"fontFamily\":\"Google Sans Flex\",\"fontSize\":18,\"fontWeight\":725,\"lineHeight\":28,\"letterSpacing\":0}",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 178
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 178
+                }
+              }
+            ]
+          },
+          {
+            "kind": "semantic",
+            "severity": "warn",
+            "message": "candidate exposes no accessibility roles",
+            "detail": {
+              "node": "tree",
+              "field": "role"
+            }
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"Subtitle\": offset (0, -3), size Δ(317, 5) vs candidate",
+            "detail": {
+              "label": "Subtitle",
+              "dx": "0",
+              "dy": "-3",
+              "dw": "317",
+              "dh": "5"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 20,
+                  "y": 55,
+                  "width": 380,
+                  "height": 28
+                },
+                "label": "Subtitle"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 20,
+                  "y": 58,
+                  "width": 63,
+                  "height": 23
+                },
+                "label": "Subtitle"
+              }
+            ]
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: reference 420×212 vs candidate 420×178; compared over their 420×178 overlap, 16.0% of the frame uncovered",
+            "detail": {
+              "key": "default",
+              "dw": "0",
+              "dh": "34",
+              "borderPixels": "14280",
+              "contentPixels": "66938"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 91.2% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.912152",
+              "diffPixels": "81218"
+            }
+          }
+        ]
+      }
+    ],
+    "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/Stacks.kt#VerticalStackSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Body\" risks truncation when localized: ≈88dp expanded vs 43dp available.",
+            "detail": {
+              "label": "Body",
+              "availableWidth": "43",
+              "estimatedWidth": "44",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "88"
+            },
+            "anchors": [
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 31,
+                  "y": 90,
+                  "width": 43,
+                  "height": 25
+                },
+                "label": "Body"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Title\" risks truncation when localized: ≈132dp expanded vs 46dp available.",
+            "detail": {
+              "label": "Title",
+              "availableWidth": "46",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 20,
+                  "y": 20,
+                  "width": 380,
+                  "height": 32
+                },
+                "label": "Title"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 20,
+                  "y": 23,
+                  "width": 46,
+                  "height": 32
+                },
+                "label": "Title"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Subtitle\" risks truncation when localized: ≈158dp expanded vs 63dp available.",
+            "detail": {
+              "label": "Subtitle",
+              "availableWidth": "63",
+              "estimatedWidth": "79",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "158"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 20,
+                  "y": 55,
+                  "width": 380,
+                  "height": 28
+                },
+                "label": "Subtitle"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 20,
+                  "y": 58,
+                  "width": 63,
+                  "height": 23
+                },
+                "label": "Subtitle"
+              }
+            ]
+          },
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Leyla expanded avocado beet greens mustard kale fava\" risks truncation when localized: ≈744dp expanded vs 380dp available.",
+            "detail": {
+              "label": "Leyla expanded avocado beet greens mustard kale fava",
+              "availableWidth": "380",
+              "estimatedWidth": "572",
+              "expansionFactor": "1.3",
+              "estimatedExpandedWidth": "744"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 20,
+                  "y": 86,
+                  "width": 380,
+                  "height": 56
+                },
+                "label": "Leyla expanded avocado beet greens mustard kale fava"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 20,
+                  "y": 84,
+                  "width": 380,
+                  "height": 54
+                },
+                "label": "Leyla expanded avocado beet greens mustard kale fava"
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.label has no Material-role mapping; unverified (spec #FFFFFF)",
+            "detail": {
+              "token": "colors.label",
+              "expected": "#FFFFFF",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 178
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 178
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography.label has no Material-role mapping; unverified (spec {\"fontFamily\":\"Google Sans Flex\",\"fontSize\":18,\"fontWeight\":725,\"lineHeight\":28,\"letterSpacing\":0})",
+            "detail": {
+              "token": "typography.label",
+              "expected": "{\"fontFamily\":\"Google Sans Flex\",\"fontSize\":18,\"fontWeight\":725,\"lineHeight\":28,\"letterSpacing\":0}",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 178
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 178
+                }
+              }
+            ]
+          },
+          {
+            "kind": "semantic",
+            "severity": "warn",
+            "message": "candidate exposes no accessibility roles",
+            "detail": {
+              "node": "tree",
+              "field": "role"
+            }
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"Subtitle\": offset (0, -3), size Δ(317, 5) vs candidate",
+            "detail": {
+              "label": "Subtitle",
+              "dx": "0",
+              "dy": "-3",
+              "dw": "317",
+              "dh": "5"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 20,
+                  "y": 55,
+                  "width": 380,
+                  "height": 28
+                },
+                "label": "Subtitle"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 20,
+                  "y": 58,
+                  "width": 63,
+                  "height": 23
+                },
+                "label": "Subtitle"
+              }
+            ]
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: reference 420×212 vs candidate 420×178; compared over their 420×178 overlap, 16.0% of the frame uncovered",
+            "detail": {
+              "key": "default",
+              "dw": "0",
+              "dh": "34",
+              "borderPixels": "14280",
+              "contentPixels": "66938"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 91.2% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.912152",
+              "diffPixels": "81218"
             }
           }
         ]
