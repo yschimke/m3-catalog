@@ -229,9 +229,13 @@ annotation class CatalogModesLinearProgress
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 412)
 annotation class CatalogModesCompact
 
-/** Light/dark modes at the 905dp tablet width used by the kit's carousel examples. */
-@Preview(name = "Light", group = "modes", widthDp = 905)
-@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 905)
+/**
+ * Light/dark modes at the 600dp tablet width the kit's carousel examples are DRAWN at — its
+ * `Context=Tablet` cell is a 600dp frame, not the 905dp breakpoint that width names, and a sticker
+ * rendered at 905 is compared against a node a third narrower than itself.
+ */
+@Preview(name = "Light", group = "modes", widthDp = 600)
+@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 600)
 annotation class CatalogModesCarouselTablet
 
 /**
