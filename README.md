@@ -121,6 +121,16 @@ explains the split, and the file's own `$comment` fields explain each decision i
 reads it yet** — it is authored so the catalog it generates can be diffed against the packaged one
 before anything switches over.
 
+That policy declares **zero** builtins, on the grounds that `layout/*`, `shape/*` and `asset/image`
+are the builder's own vocabulary rather than Material 3's — and something still has to publish them,
+or a published palette has no container to put a design inside.
+[`foundation-catalog/`](foundation-catalog/) is that something: `compose-foundation`, the donor
+catalog a published `m3` or `wear-m3` palette borrows its containers, shapes and image asset from,
+joined by [`scripts/foundation-catalog.mjs`](scripts/foundation-catalog.mjs) from a frozen golden
+and an authored per-platform curation. `remote-m3` is deliberately not curated here and says so in
+the file. [`docs/design/FOUNDATION_CATALOG.md`](docs/design/FOUNDATION_CATALOG.md) has the reasoning,
+the two borrow sets and what the preview server has to do to read it.
+
 Figma has two kinds of variation. Variant axes produce sibling component nodes and map directly.
 Boolean, text, instance-swap and slot properties do not: a definition node always renders at their
 defaults. The checked-in kit index therefore also records visible instances already configured on

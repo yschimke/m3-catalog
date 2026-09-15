@@ -1,0 +1,1638 @@
+{
+  "$comment": "FROZEN GOLDEN — the builder-vocabulary slice of the catalog the preview server packages, copied byte-for-byte rather than retyped. Issue #819 asks for exactly this: \"Read off the frozen goldens, which ARE the synthesised catalogs, rather than retyped from the source — the source builds these lists partly from constants, and a hand-reconstruction of the Wear set missed remote-compose/custom and remote-compose/inline.\" Nothing in this repository edits this file: it is refreshed by re-copying the slice from the source below, and scripts/foundation-catalog.mjs regenerates compose-foundation.json from it, so a refresh shows up as a reviewable diff in the generated catalog rather than as a silent change of what is served.",
+  "schema": "compose-foundation-golden/v1",
+  "provenance": {
+    "repository": "yschimke/compose-preview-server",
+    "path": "docs/design/fixtures/ui-builder/m3-catalog-capabilities-v1.json",
+    "commit": "fd8c066b15920d40af07170b9edb6d869764fb22",
+    "copiedOn": "2026-09-15",
+    "$comment": "The packaged catalog is the donor the synthesised catalogs read from today (ProductionUiBuilderRuntime.baseCatalog -> composeFoundationCatalog), so its builder-namespace components ARE what every published catalog is handed on every request. Its own schema id is compose-ui-builder-capabilities/v1-candidate and the declarations below are unchanged from it.",
+    "sourceSchema": "compose-ui-builder-capabilities/v1-candidate"
+  },
+  "componentMenu": {
+    "$comment": "The shelf each builder-namespace id sits on in the PACKAGED (mobile) menu, and the packaged groupOrder it sits in. Carried because a donated component with no shelf sorts after every named one — the failure ui-builder.policy.json's own `menu` comment records for this repository's catalog.",
+    "groupOrder": [
+      "Scaffolds",
+      "Layout",
+      "Navigation",
+      "Actions",
+      "Selection",
+      "Text inputs",
+      "Containment",
+      "Communication",
+      "Content",
+      "Styles",
+      "Embedded"
+    ],
+    "components": {
+      "asset/image": {
+        "group": "Content"
+      },
+      "layout/box": {
+        "group": "Layout"
+      },
+      "layout/column": {
+        "group": "Layout"
+      },
+      "layout/horizontal-carousel": {
+        "group": "Containment"
+      },
+      "layout/for-each": {
+        "group": "Layout"
+      },
+      "layout/lazy-column": {
+        "group": "Layout"
+      },
+      "layout/lazy-grid": {
+        "group": "Layout"
+      },
+      "layout/lazy-row": {
+        "group": "Layout"
+      },
+      "layout/row": {
+        "group": "Layout"
+      },
+      "layout/scaffold": {
+        "group": "Scaffolds"
+      },
+      "layout/supporting-pane-scaffold": {
+        "group": "Scaffolds"
+      },
+      "remote-compose/document": {
+        "group": "Embedded"
+      },
+      "remote-compose/inline": {
+        "group": "Embedded"
+      },
+      "remote-compose/custom": {
+        "group": "Embedded"
+      },
+      "shape/colour-dot": {
+        "group": "Styles"
+      },
+      "shape/linear-gradient": {
+        "group": "Styles"
+      },
+      "shape/radial-gradient": {
+        "group": "Styles"
+      }
+    }
+  },
+  "assetRegistry": {
+    "$comment": "Every assetKey the catalog itself ships, because these are the assets the canvas draws from its own resources: the two project-owned Jetcaster covers in :ui-builder-artwork, the generated gate-0 cover, and the editor's own insert placeholder. A design extends this set with the keys its assets map pins through the asset lane (PUT /api/ui-builder/v1/designs/{designId}/assets/{assetKey}, ui_builder_put_asset; yschimke/compose-preview-server#478). Both reducers refuse any other key at commit (#484).",
+    "keys": [
+      "jetcaster.cover.android-developers-backstage",
+      "jetcaster.cover.google-developers-podcast",
+      "ui-builder.gate0.cover",
+      "editor.placeholder"
+    ]
+  },
+  "$comment_assetRegistry": "Copied with the components because a donor is read for it: `withBuilderVocabulary` takes the donor's asset registry so a donated `asset/image` validates against keys that exist, rather than against a null registry that accepts anything. `ComposeFoundationFaithfulnessTest` asserts exactly this in the preview server (\"every foundation carries the donor's asset registry and shelves\").",
+  "components": [
+    {
+      "componentId": "asset/image",
+      "displayName": "Image asset",
+      "role": "Leaf",
+      "traits": [
+        "ImageContent"
+      ],
+      "slots": [],
+      "properties": [
+        {
+          "name": "assetKey",
+          "jsonType": "string",
+          "required": true,
+          "notes": "The key of an asset the canvas can draw, written as {\"type\":\"assetKey\",\"value\":\"…\"}: one of statusSemantics.assetRegistry.keys, or a key pinned in the design's own assets map by PUT /api/ui-builder/v1/designs/{designId}/assets/{assetKey} (raw PNG, JPEG, GIF or WebP body) or the ui_builder_put_asset MCP tool. Any other key is refused at commit, so put the picture before inserting the node. A pinned key whose bytes this lane cannot show renders as a placeholder naming it, and exports as Image(painter = ColorPainter(...)) with an ASSET_PLACEHOLDER warning."
+        },
+        {
+          "name": "contentDescription",
+          "jsonType": [
+            "string",
+            "null"
+          ],
+          "required": false
+        },
+        {
+          "name": "contentScale",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "crop",
+            "fit",
+            "fillBounds",
+            "inside"
+          ]
+        },
+        {
+          "name": "alignment",
+          "jsonType": "string",
+          "required": false
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "fillMaxWidth",
+        "clip",
+        "matchParentSize",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "supported",
+        "notes": "Draws the bytes the design's assets map pins under assetKey (content-addressed, hash-checked, stored by the host), the project-owned Jetcaster covers, or a visible placeholder carrying the key. External URLs are not accepted."
+      },
+      "code": {
+        "symbol": "Image",
+        "imports": [
+          "androidx.compose.foundation.Image",
+          "androidx.compose.ui.layout.ContentScale"
+        ]
+      },
+      "svg": {
+        "status": "raster-fallback-required",
+        "fallback": "embedded-raster",
+        "blocksExport": false,
+        "notes": "The recorder embeds the pinned asset bytes, or the project-owned artwork, with source and payload provenance; a key with no bytes behind it is drawn as a vector placeholder rather than declared as a raster fallback."
+      }
+    },
+    {
+      "componentId": "layout/box",
+      "displayName": "Box",
+      "role": "Container",
+      "traits": [
+        "OrderedContent",
+        "OverlayContent",
+        "LayoutPrimitive",
+        "RemoteAuthorable"
+      ],
+      "slots": [
+        {
+          "name": "children",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Scaffold",
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "contentAlignment",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "propagateMinConstraints",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "showByState",
+          "jsonType": "object",
+          "required": false,
+          "notes": "Select one child by state. Object fields: selector is a typed scalar or state read; cases is an object mapping child IDs to typed scalar values; optional fallback is a string child ID. Every child must be a case or the fallback. Compose export uses when. Remote export uses StateLayout for non-null number or flag selectors; String equality is unavailable on that target."
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "fillMaxWidth",
+        "padding",
+        "clip",
+        "matchParentSize",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "background",
+        "border",
+        "shadow",
+        "wrapContentSize",
+        "verticalScroll",
+        "horizontalScroll",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "planned"
+      },
+      "code": {
+        "symbol": "Box",
+        "imports": [
+          "androidx.compose.foundation.layout.Box"
+        ]
+      },
+      "svg": {
+        "status": "verified",
+        "fallback": "none",
+        "blocksExport": false
+      }
+    },
+    {
+      "componentId": "layout/column",
+      "displayName": "Column",
+      "role": "Container",
+      "traits": [
+        "OrderedContent",
+        "VerticalContent",
+        "LayoutPrimitive",
+        "RemoteAuthorable"
+      ],
+      "slots": [
+        {
+          "name": "children",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Scaffold",
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "verticalArrangement",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "top",
+            "center",
+            "bottom",
+            "spaceBetween",
+            "spaceAround",
+            "spaceEvenly"
+          ],
+          "notes": "Distribution down the axis. The three aligned values compose with verticalSpacingDp through Arrangement.spacedBy(space, alignment); the three space* values distribute the free space themselves, and Compose has no form that also inserts a fixed gap."
+        },
+        {
+          "name": "verticalSpacingDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "horizontalAlignment",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "start",
+            "center",
+            "end"
+          ]
+        },
+        {
+          "name": "alignment",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "topStart",
+            "topCenter",
+            "topEnd",
+            "centerStart",
+            "center",
+            "centerEnd",
+            "bottomStart",
+            "bottomCenter",
+            "bottomEnd"
+          ],
+          "notes": "How a parent Box aligns this column. The renderer has always read `alignment` off any Box child and the exporter has always emitted `.align(...)` for it; only the declaration was missing, so a centred column was inexpressible."
+        },
+        {
+          "name": "weight",
+          "jsonType": "number",
+          "required": false
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "background",
+        "border",
+        "shadow",
+        "wrapContentSize",
+        "verticalScroll",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "supported"
+      },
+      "code": {
+        "symbol": "Column",
+        "imports": [
+          "androidx.compose.foundation.layout.Column"
+        ]
+      },
+      "svg": {
+        "status": "verified",
+        "fallback": "none",
+        "blocksExport": false
+      }
+    },
+    {
+      "componentId": "layout/for-each",
+      "displayName": "For each",
+      "role": "Container",
+      "traits": [
+        "OrderedContent",
+        "RepeatedContent"
+      ],
+      "slots": [
+        {
+          "name": "template",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "data",
+          "jsonType": "object",
+          "required": true,
+          "notes": "The rows: a `list` value whose entries are `object` values — one dictionary per row, read by the template through `{\"type\":\"binding\",\"value\":\"<key>\"}`, the same reader a component body uses for its arguments."
+        },
+        {
+          "name": "verticalSpacingDp",
+          "jsonType": "number",
+          "required": false
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "supported"
+      },
+      "code": {
+        "symbol": "",
+        "imports": []
+      },
+      "svg": {
+        "status": "unverified",
+        "fallback": "none",
+        "blocksExport": false,
+        "notes": "Repeated rows draw the template more than once, and the structured recorder correlates a text element by authored node id — so only the last row's measurements survive and the typography annotation cannot be matched. Unverified until the recorder reads instance paths, which makes an SVG export of a design holding a loop refuse by name rather than emit an unannotated one."
+      }
+    },
+    {
+      "componentId": "layout/horizontal-carousel",
+      "displayName": "Horizontal uncontained carousel",
+      "role": "Container",
+      "traits": [
+        "OrderedContent",
+        "CarouselContent",
+        "ScrollableContent",
+        "RepeatedContent"
+      ],
+      "slots": [
+        {
+          "name": "items",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container"
+          ],
+          "acceptedTraits": [
+            "CarouselItem"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "itemWidthDp",
+          "jsonType": "number",
+          "required": true
+        },
+        {
+          "name": "itemSpacingDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "contentPaddingStartDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "scrollStateKey",
+          "jsonType": "string",
+          "required": true
+        },
+        {
+          "name": "kind",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "span",
+          "jsonType": "string",
+          "required": false
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "planned",
+        "notes": "Experimental Material 3 carousel API; masking and stable item keys require conformance tests."
+      },
+      "code": {
+        "symbol": "HorizontalUncontainedCarousel",
+        "imports": [
+          "androidx.compose.material3.carousel.HorizontalUncontainedCarousel",
+          "androidx.compose.material3.carousel.rememberCarouselState"
+        ]
+      },
+      "svg": {
+        "status": "verified",
+        "fallback": "none",
+        "blocksExport": false,
+        "notes": "Verified only for the pinned settled viewport; off-screen items are not flattened into view."
+      }
+    },
+    {
+      "componentId": "layout/lazy-column",
+      "displayName": "Lazy column",
+      "role": "Container",
+      "traits": [
+        "OrderedContent",
+        "VerticalContent",
+        "ScrollableContent",
+        "RepeatedContent"
+      ],
+      "slots": [
+        {
+          "name": "items",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "contentPadding",
+          "jsonType": "object",
+          "required": false
+        },
+        {
+          "name": "verticalSpacingDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "scrollStateKey",
+          "jsonType": "string",
+          "required": true
+        },
+        {
+          "name": "reverseLayout",
+          "jsonType": "boolean",
+          "required": false
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "supported",
+        "notes": "Independent pane scroll requires distinct stable scrollStateKey values."
+      },
+      "code": {
+        "symbol": "LazyColumn",
+        "imports": [
+          "androidx.compose.foundation.lazy.LazyColumn"
+        ]
+      },
+      "svg": {
+        "status": "verified",
+        "fallback": "none",
+        "blocksExport": false
+      }
+    },
+    {
+      "componentId": "layout/lazy-grid",
+      "displayName": "Adaptive lazy vertical grid",
+      "role": "Container",
+      "traits": [
+        "OrderedContent",
+        "GridContent",
+        "ScrollableContent",
+        "RepeatedContent"
+      ],
+      "slots": [
+        {
+          "name": "items",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "columns",
+          "jsonType": "object",
+          "required": true
+        },
+        {
+          "name": "horizontalSpacingDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "verticalSpacingDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "contentPadding",
+          "jsonType": "object",
+          "required": false
+        },
+        {
+          "name": "scrollStateKey",
+          "jsonType": "string",
+          "required": true
+        },
+        {
+          "name": "itemSpans",
+          "jsonType": "object",
+          "required": false,
+          "notes": "Map stable child id to 'single' or 'full'."
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "planned",
+        "notes": "Must prove adaptive 362dp cells and full-span rows at the pinned viewport."
+      },
+      "code": {
+        "symbol": "LazyVerticalGrid",
+        "imports": [
+          "androidx.compose.foundation.lazy.grid.GridCells",
+          "androidx.compose.foundation.lazy.grid.GridItemSpan",
+          "androidx.compose.foundation.lazy.grid.LazyVerticalGrid"
+        ]
+      },
+      "svg": {
+        "status": "verified",
+        "fallback": "none",
+        "blocksExport": false
+      }
+    },
+    {
+      "componentId": "layout/lazy-row",
+      "displayName": "Lazy row",
+      "role": "Container",
+      "traits": [
+        "OrderedContent",
+        "HorizontalContent",
+        "ScrollableContent",
+        "RepeatedContent"
+      ],
+      "slots": [
+        {
+          "name": "items",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "contentPadding",
+          "jsonType": "object",
+          "required": false
+        },
+        {
+          "name": "horizontalSpacingDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "scrollStateKey",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "span",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "stableKey",
+          "jsonType": "string",
+          "required": false
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "supported"
+      },
+      "code": {
+        "symbol": "LazyRow",
+        "imports": [
+          "androidx.compose.foundation.lazy.LazyRow"
+        ]
+      },
+      "svg": {
+        "status": "verified",
+        "fallback": "none",
+        "blocksExport": false
+      }
+    },
+    {
+      "componentId": "layout/row",
+      "displayName": "Row",
+      "role": "Container",
+      "traits": [
+        "OrderedContent",
+        "HorizontalContent",
+        "LayoutPrimitive",
+        "RemoteAuthorable"
+      ],
+      "slots": [
+        {
+          "name": "children",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Scaffold",
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "horizontalArrangement",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "start",
+            "center",
+            "end",
+            "spaceBetween",
+            "spaceAround",
+            "spaceEvenly"
+          ],
+          "notes": "The Row counterpart of a Column’s verticalArrangement, with the same relationship to horizontalSpacingDp."
+        },
+        {
+          "name": "horizontalSpacingDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "verticalAlignment",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "top",
+            "center",
+            "bottom"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "background",
+        "border",
+        "shadow",
+        "wrapContentSize",
+        "horizontalScroll",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "supported"
+      },
+      "code": {
+        "symbol": "Row",
+        "imports": [
+          "androidx.compose.foundation.layout.Row"
+        ]
+      },
+      "svg": {
+        "status": "verified",
+        "fallback": "none",
+        "blocksExport": false
+      }
+    },
+    {
+      "componentId": "layout/scaffold",
+      "displayName": "Scaffold",
+      "role": "Scaffold",
+      "traits": [
+        "ScreenContent"
+      ],
+      "slots": [
+        {
+          "name": "topBar",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container"
+          ],
+          "acceptedTraits": [
+            "TopBar",
+            "LayoutPrimitive"
+          ]
+        },
+        {
+          "name": "snackbarHost",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container"
+          ],
+          "acceptedTraits": [
+            "SnackbarHost"
+          ]
+        },
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Scaffold",
+            "Container"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "containerColor",
+          "jsonType": "string",
+          "required": false,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "contentWindowInsets",
+          "jsonType": "array",
+          "required": false
+        },
+        {
+          "name": "loading",
+          "jsonType": "boolean",
+          "required": false
+        },
+        {
+          "name": "scrollStateKey",
+          "jsonType": "string",
+          "required": false
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "background",
+        "border",
+        "shadow",
+        "wrapContentSize",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "supported"
+      },
+      "code": {
+        "symbol": "Scaffold",
+        "imports": [
+          "androidx.compose.material3.Scaffold"
+        ]
+      },
+      "svg": {
+        "status": "verified",
+        "fallback": "none",
+        "blocksExport": false
+      }
+    },
+    {
+      "componentId": "layout/supporting-pane-scaffold",
+      "displayName": "Supporting pane scaffold",
+      "role": "Scaffold",
+      "traits": [
+        "ScreenContent",
+        "AdaptivePaneLayout"
+      ],
+      "slots": [
+        {
+          "name": "mainPane",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Scaffold",
+            "Container"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        },
+        {
+          "name": "supportingPane",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Scaffold",
+            "Container"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "layoutMode",
+          "jsonType": "string",
+          "required": true,
+          "allowedValues": [
+            "adaptive",
+            "expandedTwoPane",
+            "singlePane",
+            "twoPane"
+          ]
+        },
+        {
+          "name": "mainPanePreferredWidthDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "supportingPanePreferredWidthDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "paneSpacingDp",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "mainPaneVisible",
+          "jsonType": "boolean",
+          "required": true
+        },
+        {
+          "name": "supportingPaneVisible",
+          "jsonType": "boolean",
+          "required": true
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "background",
+        "border",
+        "shadow",
+        "wrapContentSize",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": "unverified",
+        "adapterStatus": "unsupported",
+        "notes": "The repository has no Material 3 adaptive dependency or verified Wasm adapter yet; this blocks the expanded benchmark."
+      },
+      "code": {
+        "symbol": "SupportingPaneScaffold",
+        "imports": [
+          "androidx.compose.material3.adaptive.layout.SupportingPaneScaffold"
+        ]
+      },
+      "svg": {
+        "status": "verified",
+        "fallback": "none",
+        "blocksExport": false,
+        "notes": "Verified for the deterministic expanded two-pane adapter used by this frozen benchmark, not the unavailable general adaptive Material API."
+      }
+    },
+    {
+      "componentId": "remote-compose/custom",
+      "displayName": "Custom component",
+      "role": "Container",
+      "traits": [
+        "RemoteContent",
+        "RemoteAuthorable",
+        "OrderedContent"
+      ],
+      "slots": [
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Scaffold",
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "name",
+          "jsonType": "string",
+          "required": true,
+          "notes": "The custom-component config name the document writes and the host registers a renderer under. Namespaced by convention (slot:, rc:, or an application domain) so two documents composed together cannot collide."
+        },
+        {
+          "name": "widthDp",
+          "jsonType": "number",
+          "required": false,
+          "notes": "The bounds the document reserves for host content it cannot measure. A player lays out a custom component from the document, not from the Compose content filling it."
+        },
+        {
+          "name": "heightDp",
+          "jsonType": "number",
+          "required": false,
+          "notes": "See widthDp."
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "fillMaxWidth",
+        "padding",
+        "clip",
+        "matchParentSize",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "supported",
+        "notes": "Draws the ordinary Compose content in its own slot, which is what a registered renderer draws on a real player too. A preview only draws it if a custom component of this name is registered; an unregistered one is a player support issue rather than silently borrowed content. The code mapping names the registry rather than a composable, because the composable is whatever the host registers under this name."
+      },
+      "code": {
+        "symbol": "RcCustomComponentRegistry",
+        "imports": [
+          "ee.schimke.composeai.rcplayer.compose.RcCustomComponentRegistry"
+        ]
+      },
+      "svg": {
+        "status": "unsupported",
+        "fallback": "none",
+        "blocksExport": true,
+        "notes": "Host content inside a Remote Compose document has no structured SVG answer."
+      }
+    },
+    {
+      "componentId": "remote-compose/document",
+      "displayName": "Remote Compose document",
+      "role": "Container",
+      "traits": [
+        "RemoteContent",
+        "OrderedContent",
+        "DynamicSlots"
+      ],
+      "slots": [],
+      "properties": [
+        {
+          "name": "documentBase64",
+          "jsonType": "string",
+          "required": false,
+          "notes": "Base64-encoded Remote Compose wire document; limited to 8 MiB encoded. Not required on its own: a node carries either the bytes or a documentUrl, and the editor's own rule reports a node that carries neither."
+        },
+        {
+          "name": "documentUrl",
+          "jsonType": "string",
+          "required": false,
+          "notes": "Absolute http(s) URL the host resolves to the same wire document. Read only when documentBase64 is empty, so a design that carries its own bytes never depends on the network."
+        },
+        {
+          "name": "theme",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "inherit",
+            "light",
+            "dark",
+            "system"
+          ]
+        },
+        {
+          "name": "namedValues",
+          "jsonType": "object",
+          "required": false,
+          "notes": "Typed host values keyed by the Remote Compose named-variable name."
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "fillMaxWidth",
+        "padding",
+        "clip",
+        "matchParentSize",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "supported",
+        "notes": "Uses the common CMP player. Each named UI Builder slot registers the matching Remote Compose custom-component config."
+      },
+      "code": {
+        "symbol": "RcComposePlayer",
+        "imports": [
+          "ee.schimke.composeai.rcplayer.compose.RcComposePlayer"
+        ]
+      },
+      "svg": {
+        "status": "unsupported",
+        "fallback": "none",
+        "blocksExport": true,
+        "notes": "Nested Remote Compose SVG export requires an explicit renderer implementation."
+      }
+    },
+    {
+      "componentId": "remote-compose/inline",
+      "displayName": "Remote Compose content",
+      "role": "Container",
+      "traits": [
+        "RemoteContent",
+        "OrderedContent"
+      ],
+      "slots": [
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "RemoteAuthorable"
+          ]
+        }
+      ],
+      "properties": [
+        {
+          "name": "theme",
+          "jsonType": "string",
+          "required": false,
+          "allowedValues": [
+            "inherit",
+            "light",
+            "dark",
+            "system"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "fillMaxWidth",
+        "padding",
+        "clip",
+        "matchParentSize",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "planned",
+        "notes": "The subtree is drawn with the ordinary Compose stand-ins remote-m3 already uses, inside a marked frame. The canvas has no Remote Compose writer, so until the subtree is captured these are the shapes the generated @RemoteComposable body describes rather than the pixels a player produces. A host that captures it - compiling the generated body and running captureSingleRemoteDocument on the Android daemon - answers with a document, and the same frame then plays it through the player that draws an embedded remote-compose/document, with the design's own custom components registered by name."
+      },
+      "code": {
+        "symbol": "RemoteDocumentPlayer",
+        "imports": [
+          "androidx.compose.remote.creation.compose.capture.captureSingleRemoteDocument",
+          "androidx.compose.remote.player.compose.RemoteDocumentPlayer"
+        ]
+      },
+      "svg": {
+        "status": "unsupported",
+        "fallback": "none",
+        "blocksExport": true,
+        "notes": "The subtree becomes a Remote Compose document at export; SVG export of one needs an explicit renderer, exactly as remote-compose/document does."
+      }
+    },
+    {
+      "componentId": "shape/colour-dot",
+      "displayName": "Colour dot",
+      "role": "Leaf",
+      "traits": [
+        "Decoration",
+        "DrawLayer"
+      ],
+      "slots": [],
+      "properties": [
+        {
+          "name": "color",
+          "jsonType": "string",
+          "required": true,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "diameterDp",
+          "jsonType": "number",
+          "required": false
+        }
+      ],
+      "modifierCapabilities": [
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "supported"
+      },
+      "code": {
+        "symbol": "Box",
+        "imports": [
+          "androidx.compose.foundation.background",
+          "androidx.compose.foundation.layout.Box"
+        ]
+      },
+      "svg": {
+        "status": "verified",
+        "fallback": "none",
+        "blocksExport": false
+      }
+    },
+    {
+      "componentId": "shape/linear-gradient",
+      "displayName": "Linear gradient layer",
+      "role": "Leaf",
+      "traits": [
+        "DrawLayer",
+        "OverlayContent"
+      ],
+      "slots": [],
+      "properties": [
+        {
+          "name": "startColor",
+          "jsonType": "string",
+          "required": true,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "endColor",
+          "jsonType": "string",
+          "required": true,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "direction",
+          "jsonType": "string",
+          "required": false
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "fillMaxWidth",
+        "clip",
+        "matchParentSize",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "planned",
+        "notes": "Must remain a semantic brush layer, not persisted pixel geometry."
+      },
+      "code": {
+        "symbol": "Modifier.background(Brush.linearGradient)",
+        "imports": [
+          "androidx.compose.foundation.background",
+          "androidx.compose.ui.Modifier",
+          "androidx.compose.ui.graphics.Brush"
+        ]
+      },
+      "svg": {
+        "status": "verified",
+        "fallback": "none",
+        "blocksExport": false,
+        "notes": "The frozen benchmark usage records as vector gradient output."
+      }
+    },
+    {
+      "componentId": "shape/radial-gradient",
+      "displayName": "Radial gradient layer",
+      "role": "Leaf",
+      "traits": [
+        "DrawLayer",
+        "BackgroundContent"
+      ],
+      "slots": [],
+      "properties": [
+        {
+          "name": "innerColor",
+          "jsonType": "string",
+          "required": true,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "outerColor",
+          "jsonType": "string",
+          "required": true,
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        },
+        {
+          "name": "innerAlpha",
+          "jsonType": "number",
+          "required": false
+        },
+        {
+          "name": "center",
+          "jsonType": "string",
+          "required": false
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "fillMaxWidth",
+        "clip",
+        "matchParentSize",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "wasm": {
+        "platformSupported": true,
+        "adapterStatus": "planned",
+        "notes": "Must remain a semantic brush layer, not persisted pixel geometry."
+      },
+      "code": {
+        "symbol": "Modifier.background(Brush.radialGradient)",
+        "imports": [
+          "androidx.compose.foundation.background",
+          "androidx.compose.ui.Modifier",
+          "androidx.compose.ui.graphics.Brush"
+        ]
+      },
+      "svg": {
+        "status": "verified",
+        "fallback": "none",
+        "blocksExport": false,
+        "notes": "The frozen benchmark usage records as vector gradient output."
+      }
+    }
+  ]
+}

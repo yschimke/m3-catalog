@@ -167,6 +167,22 @@ jobs:
           node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
             --spec glimmer-samples/catalog.spec.json --module-dir glimmer-samples
 
+      # `compose-foundation` is generated and committed like the samples spec above, so the first
+      # question is the same one: does the committed file still match its inputs? It is joined from
+      # a FROZEN golden — the builder-vocabulary slice of the catalog the preview server packages,
+      # copied rather than retyped — and an authored curation, and a hand edit to either the join or
+      # the output would change what a published m3 or wear palette is handed with nothing to say
+      # so. Build-free, so it runs on the pull request beside the spec pre-flights.
+      - name: compose-foundation is current
+        run: node scripts/foundation-catalog.mjs --check
+
+      # The invariants the regenerate-and-diff above cannot state: that each platform borrows the
+      # frozen set in the frozen order, that a Wear palette is never offered what its exporter
+      # refuses by name, that the Wear note reaches every borrowed foundation component and no seam,
+      # and that a curation narrows nothing. See docs/design/FOUNDATION_CATALOG.md.
+      - name: Test the compose-foundation donor
+        run: node --test scripts/foundation-catalog.test.mjs
+
   design-map:
     name: design-map.json is current
     runs-on: ubuntu-latest

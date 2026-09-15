@@ -1,0 +1,68 @@
+{
+  "$comment": "AUTHORED. Which components each platform borrows from `compose-foundation`, in the order its insert panel shows them, and what a borrowed component is told about itself there. This file plus goldens/packaged-m3-builder-vocabulary.json is everything compose-foundation.json is generated from — `node scripts/foundation-catalog.mjs --check` regenerates and diffs it. The DECLARATIONS are not here: a component is declared once, in the golden, and a curation names it by id. That is the whole reason this is two files rather than one — a curation that could restate a property would be a second place to change it.",
+  "schema": "compose-foundation-curations/v1",
+  "catalogId": "compose-foundation",
+
+  "$comment_notOneSet": "Not one set. Each platform borrows a curated subset, and the curation is load-bearing rather than cosmetic: `WearScreenCodeExporter` refuses `layout/lazy-grid`, `layout/scaffold` and the shapes with \"no Wear Compose Material 3 counterpart this generator can write\", so a watch palette holding the mobile seventeen would guarantee a failed export for any design that used one — discovered at the end, which is the worst moment. The sets below are read off the frozen goldens rather than retyped, per yschimke/compose-preview-server#819.",
+
+  "platforms": {
+    "mobile": {
+      "$comment": "The packaged set, unchanged, on the packaged shelves and IN THE PACKAGED ORDER — the order is the insert panel's, so it is part of the curation rather than a formatting choice. This is what m3-catalog is served today: the published m3 catalog declares ZERO builtins by policy (`ui-builder.policy.json`'s `$comment_builtins`: declaring them \"would be this catalog claiming to own the builder's own vocabulary\"), so these seventeen reach a mobile palette only through the donor. Seventeen, not fourteen: the three `remote-compose/` seams are borrowed too, and they are referenced rather than owned — see `seams` below.",
+      "$comment_groupOrder": "The donor's own shelves, in the order the PACKAGED menu lists them. A consumer reads this to decide where a shelf it does not already have is inserted — `withBuilderVocabulary` takes the donor's shelf order as well as its per-component group, and an unnamed group sorts after every named one, which is how twenty-nine shelves of this repository's own catalog once ended up alphabetised (see `ui-builder.policy.json`'s `menu` comment).",
+      "groupOrder": ["Scaffolds", "Layout", "Containment", "Content", "Styles", "Embedded"],
+      "components": [
+        { "componentId": "asset/image", "group": "Content" },
+        { "componentId": "layout/box", "group": "Layout" },
+        { "componentId": "layout/column", "group": "Layout" },
+        { "componentId": "layout/for-each", "group": "Layout" },
+        { "componentId": "layout/horizontal-carousel", "group": "Containment" },
+        { "componentId": "layout/lazy-column", "group": "Layout" },
+        { "componentId": "layout/lazy-grid", "group": "Layout" },
+        { "componentId": "layout/lazy-row", "group": "Layout" },
+        { "componentId": "layout/row", "group": "Layout" },
+        { "componentId": "layout/scaffold", "group": "Scaffolds" },
+        { "componentId": "layout/supporting-pane-scaffold", "group": "Scaffolds" },
+        { "componentId": "remote-compose/custom", "group": "Embedded" },
+        { "componentId": "remote-compose/document", "group": "Embedded" },
+        { "componentId": "remote-compose/inline", "group": "Embedded" },
+        { "componentId": "shape/colour-dot", "group": "Styles" },
+        { "componentId": "shape/linear-gradient", "group": "Styles" },
+        { "componentId": "shape/radial-gradient", "group": "Styles" }
+      ]
+    },
+
+    "wear": {
+      "$comment": "Four foundation components and the three Remote Compose seams, in the order `wearM3Catalog` borrows them, because the order decides where they land in the insert panel. The hand-reconstruction #819 warns about missed `remote-compose/custom` and `remote-compose/inline`; both are here, and `scripts/foundation-catalog.test.mjs` pins the count at seven so a future edit cannot drop one quietly.",
+      "componentNote": "Foundation, shared by Compose on both platforms — `androidx.compose.foundation` and `androidx.compose.ui` publish one of these, not two. It is the real component rather than a stand-in, which is why `wear-m3` borrows it and borrows no Material component at all.",
+      "$comment_componentNote": "`wearM3Catalog` rewrites `wasm.notes` on every borrowed FOUNDATION component to this text, and the preview server's `WEAR_FOUNDATION_NOTE` is the constant it shares with `composeFoundationCatalog`. Carried here verbatim because #819 names it as one of the three things the extraction must carry: \"Injecting the base component instead would carry the mobile note. Nothing tests notes today, so this would change silently.\" It says the opposite of what a borrowed MATERIAL component's note said — a borrowed Material component was a stand-in drawn by the wrong library's lookalike, while Box, Column, Row and Image are the same declarations on both platforms, so there is nothing to stand in for.",
+      "componentNoteExcept": ["remote-compose/document", "remote-compose/inline", "remote-compose/custom"],
+      "$comment_componentNoteExcept": "The seams are already themselves on a watch and keep their own note: `remote-compose/document` describes the CMP player it draws through, which is true on both platforms and is not a statement about foundation.",
+      "$comment_groupOrder": "The three shelves the Wear palette puts borrowed components on, in `wearComponentMenu`'s order (its full order is Screens, Layout, Lists, Actions, Selection, Containment, Communication, Content, Embedded — the donated ids touch the second, the eighth and the ninth).",
+      "groupOrder": ["Layout", "Content", "Embedded"],
+      "components": [
+        { "componentId": "layout/box", "group": "Layout" },
+        { "componentId": "layout/column", "group": "Layout" },
+        { "componentId": "layout/row", "group": "Layout" },
+        { "componentId": "asset/image", "group": "Content" },
+        { "componentId": "remote-compose/document", "group": "Embedded" },
+        { "componentId": "remote-compose/inline", "group": "Embedded" },
+        { "componentId": "remote-compose/custom", "group": "Embedded" }
+      ],
+      "$comment_slotNarrowing": "NONE, and that is a checked answer rather than an omission. #819's third question is \"whether any borrowed builder component is also narrowed needs checking before the derivation goes\": `wearM3Catalog` narrows slots for its OWN components (`wear-m3/edge-button` to `acceptedTraits: [\"Action\"]`) and `composeFoundationCatalog`'s wear curation rewrites notes and nothing else — no slot, no modifier, no property is touched on a borrowed component. `scripts/foundation-catalog.mjs` therefore emits the borrowed declarations unchanged apart from the note, and `--check` is what keeps that true."
+    }
+  },
+
+  "declined": {
+    "remote-compose": {
+      "$comment": "Deliberately not curated here. `remote-m3` is published by `yschimke/wear-m3-catalog`'s `:remote-catalog`, and Remote Compose is a different library with a catalog of its own to describe it — so the platform that IS Remote Compose does not borrow its vocabulary from a Compose foundation catalog published beside Material 3. The preview server keeps its own `remote-compose` curation (eight components, plus the modifier narrowing `RemoteContentEmitter` can write) until that catalog publishes one; a reader of this file must not take the absence of a `remote-compose` entry as an instruction to hand that platform an empty palette. See docs/design/FOUNDATION_CATALOG.md, 'What this file does not cover'.",
+      "reason": "out-of-scope",
+      "owner": "yschimke/wear-m3-catalog (:remote-catalog, system remote-m3)"
+    }
+  },
+
+  "seams": {
+    "$comment": "`remote-compose/document`, `/inline` and `/custom` are REFERENCED, not owned. They are seams into Remote Compose — a different library — so the component belongs to whichever catalog describes it, and `compose-foundation` only says which seam a platform takes and where it sits on the shelf. The golden carries the packaged declarations so this file resolves today; a reader that has the Remote Compose catalog's own declaration must prefer it, and a seam neither source has is left off the palette rather than invented.",
+    "ids": ["remote-compose/document", "remote-compose/inline", "remote-compose/custom"],
+    "preferredOwner": "remote-m3"
+  }
+}
