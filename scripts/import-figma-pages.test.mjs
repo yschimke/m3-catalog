@@ -11,6 +11,7 @@ import {
   indexDesignMap,
   limitNodes,
   linkNode,
+  pruneSvgNodes,
   resolvePages,
   slugForPage,
 } from "./import-figma-pages.mjs";
@@ -104,6 +105,29 @@ test("excludes by node id or by name, case-insensitively", () => {
   );
 });
 
+test("prunes excluded SVG subtrees and definitions reachable only from them", () => {
+  const source = `<svg viewBox="0 0 10 10">
+<g data-node-id="1:1"><rect fill="url(#background)"/></g>
+<g data-node-id="2:2"><use href="#foreground"/></g>
+<defs><pattern id="background"><image href="#photo"/></pattern><image id="photo" href="data:image/png;base64,large"/><path id="foreground" d="M0 0h1v1z"/></defs>
+</svg>`;
+  const result = pruneSvgNodes(source, ["1:1"]);
+
+  assert.equal(result.removed, 1);
+  assert.doesNotMatch(result.svg, /1:1|background|photo|base64/);
+  assert.match(result.svg, /2:2|foreground/);
+  assert.match(result.svg, /viewBox="0 0 10 10"/);
+});
+
+test("prunes a self-closing excluded SVG node", () => {
+  const result = pruneSvgNodes(
+    `<svg><rect data-node-id="1:1"/><path data-node-id="2:2"/></svg>`,
+    ["1:1"],
+  );
+  assert.equal(result.removed, 1);
+  assert.equal(result.svg, `<svg><path data-node-id="2:2"/></svg>`);
+});
+
 // The node walk. Shaped after the kit's real `Switch` sheet, which is what showed the bug: a
 // component set of variants, each variant carrying an `Icon` instance and the focused ones a
 // `Focus indicator`, none of which a `design-map.json` reference can name.
@@ -138,6 +162,17 @@ test("walks a component set's variants but never a variant's insides", () => {
   assert.deepEqual(
     collectNodes(page).map((n) => n.type),
     ["COMPONENT_SET", "COMPONENT", "COMPONENT", "INSTANCE"],
+  );
+});
+
+test("the node manifest omits an excluded subtree", () => {
+  const page = frame([
+    set("1:1", "Background", [variant("1:2", "Decoration")]),
+    set("2:1", "Button", [variant("2:2", "Enabled")]),
+  ]);
+  assert.deepEqual(
+    collectNodes(page, { excludedNodeIds: new Set(["1:1"]) }).map((node) => node.nodeId),
+    ["2:1", "2:2"],
   );
 });
 

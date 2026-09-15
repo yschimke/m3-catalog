@@ -157,8 +157,16 @@ FIGMA_TOKEN=figd_... node scripts/import-figma-pages.mjs --page shape
   "discover": true,
   // Drop a page by node id or by name. Empty: every page in the kit is imported.
   "exclude": [],
-  // PINS. An entry here fixes the id for that node however discovery names it.
-  "pages": [{ "id": "shape", "nodeId": "58548:7093", "name": "Shape" }]
+  // PINS. An entry here fixes the id for that node however discovery names it. A pin may name
+  // decorative descendant ids to remove from both the SVG and its node manifest.
+  "pages": [
+    {
+      "id": "shape",
+      "nodeId": "58548:7093",
+      "name": "Shape",
+      "excludeNodes": ["58548:7100"]
+    }
+  ]
 }
 ```
 
@@ -246,6 +254,12 @@ log** rather than committed, and any stale export of it is deleted — the serve
 nodes regardless, so the densest sheets are mostly undrawable even when they fit. A skip is not a
 failure: with discovery on, an enormous sheet is a fact about the design file, not a config
 mistake. A page that truncates at that 500-node cap says so in the log too.
+
+Figma's export endpoint cannot omit descendants. For a deliberately pinned documentation frame,
+`excludeNodes` removes named descendant subtrees after export and garbage-collects SVG definitions
+that only those subtrees referenced. The same ids are also omitted from `pages.json`. This keeps
+the kit's own frame and layout repeatable while allowing decorative backgrounds or cover art to be
+left out; the size cap is applied to the pruned SVG.
 
 `svg_include_node_id=true` is the whole trick. Without it the export is a picture; with it, it is a
 **document a consumer can address** — the preview server inlines the SVG, finds `Shape=Circle` by
