@@ -19,7 +19,12 @@ import androidx.compose.ui.unit.dp
 
 /**
  * The kit's image placeholder — a triangle, a soft burst and a square in `outlineVariant` over a
- * `surfaceContainer` ground.
+ * `surfaceContainerHigh` ground.
+ *
+ * The ground is `surfaceContainerHigh` because the kit says so in one place for every node that
+ * draws this: the graphic is a shared add-on style, `M3/.add-on/placeholder image`, bound to
+ * `schemes/surface-container-high` (#ECE6F0) — not the `surfaceContainer` (#F3EDF7) this used to
+ * paint. One style, so the carousel item and the app bar's image cell were both a step too light.
  *
  * Where a kit node shows a photograph, it is showing THIS: Figma's own placeholder graphic, not
  * artwork the component depends on. So the catalog draws it from [MaterialShapes] rather than
@@ -37,7 +42,9 @@ fun CatalogImagePlaceholder(
   shape: Shape = RoundedCornerShape(24.dp),
   scaleBasis: Float = 188f,
 ) {
-  BoxWithConstraints(modifier.clip(shape).background(MaterialTheme.colorScheme.surfaceContainer)) {
+  BoxWithConstraints(
+    modifier.clip(shape).background(MaterialTheme.colorScheme.surfaceContainerHigh)
+  ) {
     val scale = minOf(1f, maxWidth.value / scaleBasis, maxHeight.value / MOTIF_HEIGHT)
     val tint = MaterialTheme.colorScheme.outlineVariant
     Box(
