@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.xr.glimmer.Card
@@ -31,14 +32,16 @@ fun VerticalStackSticker() = Sticker {
     item(key = "front") {
       Card(
         modifier = Modifier.fillMaxSize().itemDecoration(CardDefaults.shape),
-        title = { Text("Title") },
-        subtitle = { Text("Subtitle") },
+        title = { Text(stringResource(R.string.label_title)) },
+        subtitle = { Text(stringResource(R.string.label_subtitle)) },
       ) {
-        Text("Leyla expanded avocado beet greens mustard kale fava")
+        Text(stringResource(R.string.stack_card_body))
       }
     }
     item(key = "back") {
-      Card(modifier = Modifier.fillMaxSize().itemDecoration(CardDefaults.shape)) { Text("Body") }
+      Card(modifier = Modifier.fillMaxSize().itemDecoration(CardDefaults.shape)) {
+        Text(stringResource(R.string.label_body))
+      }
     }
   }
 }

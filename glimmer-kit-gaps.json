@@ -1,0 +1,153 @@
+{
+  "$comment": [
+    "Where `glimmer-catalog`'s inventory stops, and which side the gap is on.",
+    "",
+    "AGENTS.md admits nothing to the component inventory that does not name one exact,",
+    "renderable kit node, and admits nothing that does not invoke the exact named Glimmer",
+    "API. Those two rules meet in the middle for twelve components. Everywhere else they",
+    "disagree, and the disagreement is worth recording rather than leaving implied: an",
+    "unmapped kit set and an unmapped Compose API look identical in a coverage report, and",
+    "neither says whether somebody decided or nobody looked.",
+    "",
+    "A declaration here is a CHECKED gap, the way kit-unauthorable.json is for axis values.",
+    "scripts/glimmer-kit-gaps.mjs reads it in both directions:",
+    "",
+    "  * a kit node the gap names must still be in the imported page cache, and must still be",
+    "    unlinked — a node that has gained a sticker means the gap closed and the declaration",
+    "    has to go;",
+    "  * a `searchedPage` must still be in the cache, and must still hold nothing matching the",
+    "    component this catalog went looking for — the day the kit publishes one, this fails;",
+    "  * a sample file must still exist;",
+    "  * and every declaration pins the library version its API evidence was read from, so a",
+    "    Renovate bump fails the check until a human re-reads the new surface. That is the",
+    "    trigger #433 asks for, wired to the thing that actually moves.",
+    "",
+    "What this file is NOT: an exemption. Nothing here is published as a mapped component,",
+    "nothing here gets an invented `reference`, and none of it is a licence to rebuild a kit",
+    "component out of lower-level surfaces to match pixels."
+  ],
+  "library": {
+    "coordinate": "androidx.xr.glimmer:glimmer",
+    "versionRef": "glimmer",
+    "version": "1.0.0-alpha19",
+    "$comment": [
+      "The API surface every `api-gap` below was read from. `version` must equal the",
+      "`glimmer` entry in gradle/libs.versions.toml; Renovate owns that pin, so the day it",
+      "moves this file fails until somebody re-reads the AAR.",
+      "",
+      "Read from the published AAR's classes, not from documentation. `components` below is",
+      "that surface: every public component composable alpha19 exports. 1.0.0-alpha19 is",
+      "also the newest version the androidx maven repository publishes, so `none published",
+      "yet` in a declaration means exactly that, not `not in the version we happen to pin`.",
+      "",
+      "Each entry is either INVOKED by a sticker in glimmer-catalog/src/main/kotlin or named",
+      "in a declaration's `apis`. That is the completeness statement #414 asked for, and it",
+      "is checked rather than asserted: an API this repository stops calling, and an API a",
+      "new release adds, both fail the check."
+    ],
+    "components": [
+      "ActionCard",
+      "Button",
+      "ButtonGroup",
+      "Card",
+      "ContainedVoiceInputIndicator",
+      "GlimmerHorizontalPager",
+      "GlimmerLazyColumn",
+      "GlimmerLazyList",
+      "Icon",
+      "IconButton",
+      "IconToggleButton",
+      "ListItem",
+      "Text",
+      "TitleChip",
+      "ToggleButton",
+      "VerticalStack",
+      "VoiceInputIndicator"
+    ]
+  },
+  "declarations": [
+    {
+      "id": "Pager",
+      "kind": "sample-only",
+      "issue": 429,
+      "apis": ["GlimmerHorizontalPager"],
+      "api": "androidx.xr.glimmer.pager.GlimmerHorizontalPager",
+      "sample": "glimmer-samples/src/main/kotlin/upstream/androidx/xr/glimmer/samples/GlimmerPagerSamples.kt",
+      "absentFromKit": "pager",
+      "reason": "Glimmer publishes a pager; the kit publishes no Pager node. Under the design-led inventory rule a component with no exact kit cell does not enter the inventory, and mapping it to a neighbouring container would publish a picture claiming to depict something else.",
+      "evidence": "The kit's `🧩 Components` page (8:312) lays out Cards, Buttons, Lists, Stacks, Button groups, Progress indicator, Voice indicator, Entity and Title chips. No page in the imported cache carries a node whose name contains `pager`. The sample stays visible in `glimmer-samples`, which is upstream's own preview and not a mapped component."
+    },
+    {
+      "id": "Entity",
+      "kind": "api-gap",
+      "issue": 431,
+      "kitNodes": ["40000036:1823"],
+      "reason": "The kit's Entity set covers avatar, contained icon, monogram, adaptive product, image, app, system and progress presentations at several sizes. Glimmer publishes no Entity composable; `Icon` is one content primitive that an Entity would contain, not an implementation of it. Mapping `Icon` to this set would break the exact named-API rule and make the render claim to depict a component it never invokes.",
+      "evidence": "alpha19's AAR exports IconKt.Icon and no Entity of any kind. `IconSamples.kt` stays a sample in `glimmer-samples`, which is upstream's preview rather than a mapped component; bare Icon has no kit node of its own either.",
+      "closesWhen": "Glimmer publishes an Entity composable, or the kit publishes an Icon set."
+    },
+    {
+      "id": "ProgressIndicator",
+      "kind": "api-gap",
+      "issue": 433,
+      "kitNodes": ["40000116:7798", "40000116:8540", "40000116:7840", "40000116:8038"],
+      "reason": "Four published progress component sets under the kit's Progress indicator frame (40000116:7000), with no Glimmer API to invoke. Rebuilding them from lower-level drawing primitives would put a replica in the inventory that tests nothing the library ships.",
+      "evidence": "alpha19's AAR exports no progress-indicator composable — no ProgressIndicator, no LinearProgressIndicator, no CircularProgressIndicator — and 1.0.0-alpha19 is the newest version androidx publishes, so no release exposes these yet.",
+      "closesWhen": "A Glimmer release exposes the progress APIs. Each set then lands in its own PR, with its variant axes folded behind the default sticker and the set added to glimmer-figma-kit-index.json with strict map coverage."
+    },
+    {
+      "id": "GlimmerLazyList",
+      "kind": "sample-only",
+      "issue": 414,
+      "apis": ["GlimmerLazyList"],
+      "api": "androidx.xr.glimmer.list.GlimmerLazyList",
+      "sample": "glimmer-samples/src/main/kotlin/upstream/androidx/xr/glimmer/samples/GlimmerLazyListSamples.kt",
+      "reason": "The orientation-parameterised base of `GlimmerLazyColumn`. The kit publishes `1-line list` and `2-line list`, which the column sticker is already the rendition of; a second component invoking the generic overload would resolve to the same nodes and publish one picture under two names.",
+      "evidence": "alpha19's GlimmerLazyListKt exports GlimmerLazyColumn and GlimmerLazyList(orientation, …); the kit's list sets carry no orientation axis to distinguish them.",
+      "closesWhen": "The kit publishes a horizontal list node."
+    },
+    {
+      "id": "ListItemDisabled",
+      "kind": "api-gap",
+      "issue": 374,
+      "kitNodes": ["40000113:6885", "40000113:6931"],
+      "reason": "The kit publishes a disabled row at both line counts. alpha19's `ListItem` takes no `enabled` parameter at all, so there is no call this catalog could make that draws one — which is why the list stickers carry `@GlimmerInteractionStates` rather than `@GlimmerStates`.",
+      "evidence": "alpha19's ListItemKt exposes `ListItem` with content slots, an `onClick` and no `enabled`; the disabled treatment is not reachable from any overload.",
+      "closesWhen": "Glimmer gives `ListItem` an `enabled` parameter."
+    },
+    {
+      "id": "ListItemCard",
+      "kind": "api-gap",
+      "issue": 374,
+      "kitNodes": ["384:4193", "384:4196", "384:4190", "40000113:6901"],
+      "reason": "The kit's `List Item` set carries a third `Type` value, `Card`, at all four states. Glimmer publishes `Card` and `ListItem` as separate components and no card-shaped row type on `ListItem`; drawing a Card inside a list and calling it a ListItem cell would map pixels to an API that was never invoked.",
+      "evidence": "alpha19's ListItemKt has no type or shape parameter — `Type=1-line` and `Type=2-line` are the supporting-label slot, and nothing reaches the Card row.",
+      "closesWhen": "Glimmer publishes a card row type on `ListItem`."
+    },
+    {
+      "id": "Styles",
+      "kind": "tokens",
+      "issue": 432,
+      "pages": [
+        "styles-type",
+        "styles-color",
+        "styles-surface",
+        "styles-depth",
+        "styles-focus",
+        "styles-system-icons",
+        "styles-gesture-hints",
+        "styles-product-avatars"
+      ],
+      "samples": [
+        "glimmer-samples/src/main/kotlin/upstream/androidx/xr/glimmer/samples/ShapesSamples.kt",
+        "glimmer-samples/src/main/kotlin/upstream/androidx/xr/glimmer/samples/ColorsSamples.kt",
+        "glimmer-samples/src/main/kotlin/upstream/androidx/xr/glimmer/samples/TypographySamples.kt",
+        "glimmer-samples/src/main/kotlin/upstream/androidx/xr/glimmer/samples/SurfaceSamples.kt",
+        "glimmer-samples/src/main/kotlin/upstream/androidx/xr/glimmer/samples/DepthEffectLevelsSample.kt"
+      ],
+      "reason": "Shapes, Colors, Typography, Surface and DepthEffectLevels are token types, and their design counterparts are specimens on the kit's `🎨 Styles` page rather than component sets on `🧩 Components`. Publishing them as @CatalogComponent cards would blur token documentation into the component inventory and invent an exact component reference the kit does not offer.",
+      "evidence": "The Styles specimens are imported read-only as the eight pages listed above, addressable by node id through glimmer-design/pages/pages.json — which is the generated token inventory, and the only one the kit supports without a component set to point at. The samples stay in `glimmer-samples` as upstream's own previews.",
+      "closesWhen": "The catalog schema gains an explicit token/foundation representation, or the kit publishes a component set per token type. Each token type then lands in its own PR."
+    }
+  ]
+}

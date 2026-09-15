@@ -5,6 +5,7 @@ package ee.schimke.m3catalog.glimmer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.xr.glimmer.Icon
 import androidx.xr.glimmer.ListItem
@@ -16,7 +17,8 @@ import ee.schimke.composeai.preview.CatalogVariant
 // Two things the kit decides for these stickers, both of them #381:
 //
 //  * The `1-line` cell draws its ICON slot filled and labels it "Title", so the base sticker does
-//    too. A bare `ListItem { Text("Primary label") }` matched the cell's 80dp height and nothing
+//    too. A bare `ListItem { Text(stringResource(R.string.label_primary)) }` matched the cell's
+// 80dp height and nothing
 //    else about it.
 //  * `ListItem` fills the width it is given, and since #376 that width is the 960dp glasses display
 //    used as a wrap sandbox — 2.3x the 420dp column the kit draws the component in. `ContentFrame`
@@ -46,9 +48,12 @@ import ee.schimke.composeai.preview.CatalogVariant
 @Preview
 @Composable
 fun ListItemSticker() = Sticker {
-  val c = counted("Title")
+  val c = counted(glimmerText("label", stringResource(R.string.label_title)))
   ContentFrame {
-    ListItem(onClick = c.onClick, leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") }) {
+    ListItem(
+      onClick = c.onClick,
+      leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
+    ) {
       Text(c.label)
     }
   }
@@ -57,15 +62,23 @@ fun ListItemSticker() = Sticker {
 @CatalogVariant(
   of = "ListItem",
   props = ["content=supporting-label"],
+  // The kit counts lines where Compose names the slot: `Type=2-line` is this variant's cell.
+  kitAxis = "Type",
+  kitValue = "2-line",
   caption = "A second line under the primary label.",
 )
 @GlimmerInteractionStates
 @Preview
 @Composable
 fun ListItemSupportingSticker() = Sticker {
-  val c = counted("Title")
+  val c = counted(glimmerText("label", stringResource(R.string.label_title)))
   ContentFrame {
-    ListItem(onClick = c.onClick, supportingLabel = { Text("Subtitle") }) { Text(c.label) }
+    ListItem(
+      onClick = c.onClick,
+      supportingLabel = { Text(stringResource(R.string.label_subtitle)) },
+    ) {
+      Text(c.label)
+    }
   }
 }
 
@@ -77,12 +90,12 @@ fun ListItemSupportingSticker() = Sticker {
 @Preview
 @Composable
 fun ListItemSupportingIconSticker() = Sticker {
-  val c = counted("Title")
+  val c = counted(glimmerText("label", stringResource(R.string.label_title)))
   ContentFrame {
     ListItem(
       onClick = c.onClick,
-      supportingLabel = { Text("Subtitle") },
-      leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
+      supportingLabel = { Text(stringResource(R.string.label_subtitle)) },
+      leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
     ) {
       Text(c.label)
     }

@@ -8,9 +8,11 @@ import test from "node:test";
 
 import {
   collectNodes,
+  findRequiredBackplates,
   indexDesignMap,
   limitNodes,
   linkNode,
+  normalizeExclusions,
   pruneSvgNodes,
   resolvePages,
   slugForPage,
@@ -435,4 +437,179 @@ test("relinking replaces stale join decoration", () => {
     previewId: "new-preview",
     confidence: "high",
   });
+});
+
+// ── Blend-aware pruning (#437) ────────────────────────────────────────────────────────────────
+//
+// The exclusions in `glimmer-design-pages.json` exist to keep a component sheet under the size cap.
+// Five of them were carrying the backdrop that four screen-blended component sets are composited
+// against, and dropping them turned the published Buttons lane pale enough to read as a colour-token
+// bug. These tests pin the structural signal that tells the two cases apart.
+
+const buttonsPage = JSON.parse(
+  readFileSync(new URL("scripts/fixtures/glimmer-buttons-page.json", root), "utf8"),
+);
+
+/** The exclusions the committed config declares for that page, in the order it declares them. */
+const buttonsExclusions = JSON.parse(readFileSync(new URL("glimmer-design-pages.json", root), "utf8"))
+  .pages.find((page) => page.id === "components-buttons")
+  .excludeNodes;
+
+test("an exclusion is a bare id or a classified object, deduplicated and canonicalised", () => {
+  assert.deepEqual(
+    normalizeExclusions([
+      "40000034-2406",
+      { node: "40000034:2411", decorative: true, reason: "a label, not a backplate" },
+      { nodeId: "40000034:2406" },
+      "",
+      null,
+    ]),
+    [
+      { nodeId: "40000034:2406", decorative: false },
+      {
+        nodeId: "40000034:2411",
+        decorative: true,
+        reason: "a label, not a backplate",
+      },
+    ],
+  );
+});
+
+test("the kit's Buttons page: every excluded bg is a backplate a screen-blended set reads", () => {
+  const required = findRequiredBackplates(buttonsPage, buttonsExclusions);
+  assert.deepEqual(
+    required.map((entry) => entry.nodeId).sort(),
+    [...buttonsExclusions].sort(),
+    "all five configured exclusions on this page are required backplates",
+  );
+  // A `bg` is 1920x1080 and its section frame is not, so one backplate legitimately underlies more
+  // than one blended group — the check reports every reader rather than the nearest one.
+  assert.deepEqual(
+    [...new Set(required.flatMap((entry) => entry.dependents.map((d) => d.nodeId)))].sort(),
+    ["40000113:3966", "40000113:4149", "40:655", "4116:3991", "5315:4650"].sort(),
+    "and the readers are exactly the kit's screen-blended groups",
+  );
+  assert.deepEqual(
+    Object.fromEntries(required.map((entry) => [entry.nodeId, entry.dependents.length > 0])),
+    Object.fromEntries(buttonsExclusions.map((node) => [node, true])),
+    "and no configured exclusion on this page is free of readers",
+  );
+  for (const entry of required) {
+    assert.equal(entry.name, "bg");
+    assert.ok(entry.dependents.every((d) => d.blendMode === "SCREEN"));
+  }
+});
+
+test("a decorative classification is honoured, and stays visible in the report", () => {
+  const required = findRequiredBackplates(
+    buttonsPage,
+    buttonsExclusions.map((node) => ({ node, decorative: true, reason: "checked by hand" })),
+  );
+  assert.equal(required.length, 5);
+  assert.ok(required.every((entry) => entry.decorative === true));
+  assert.ok(required.every((entry) => entry.reason === "checked by hand"));
+});
+
+test("a normal-blended layer over an excluded node is not a backdrop reader", () => {
+  const tree = {
+    id: "1:1",
+    name: "page",
+    absoluteBoundingBox: { x: 0, y: 0, width: 100, height: 100 },
+    children: [
+      {
+        id: "1:2",
+        name: "bg",
+        absoluteBoundingBox: { x: 0, y: 0, width: 100, height: 100 },
+      },
+      {
+        id: "1:3",
+        name: "label",
+        blendMode: "NORMAL",
+        absoluteBoundingBox: { x: 10, y: 10, width: 20, height: 20 },
+      },
+    ],
+  };
+  assert.deepEqual(findRequiredBackplates(tree, ["1:2"]), []);
+});
+
+test("a blended layer that does not overlap the excluded node leaves it prunable", () => {
+  const tree = {
+    id: "1:1",
+    absoluteBoundingBox: { x: 0, y: 0, width: 400, height: 100 },
+    children: [
+      { id: "1:2", name: "bg", absoluteBoundingBox: { x: 0, y: 0, width: 100, height: 100 } },
+      {
+        id: "1:3",
+        name: "blended",
+        blendMode: "SCREEN",
+        absoluteBoundingBox: { x: 200, y: 0, width: 100, height: 100 },
+      },
+    ],
+  };
+  assert.deepEqual(findRequiredBackplates(tree, ["1:2"]), []);
+});
+
+test("a blended layer INSIDE the excluded subtree goes with it", () => {
+  const tree = {
+    id: "1:1",
+    absoluteBoundingBox: { x: 0, y: 0, width: 100, height: 100 },
+    children: [
+      {
+        id: "1:2",
+        name: "bg",
+        absoluteBoundingBox: { x: 0, y: 0, width: 100, height: 100 },
+        children: [
+          {
+            id: "1:3",
+            name: "sheen",
+            blendMode: "SCREEN",
+            absoluteBoundingBox: { x: 0, y: 0, width: 100, height: 100 },
+          },
+        ],
+      },
+    ],
+  };
+  assert.deepEqual(findRequiredBackplates(tree, ["1:2"]), []);
+});
+
+test("a background blur reads its backdrop as surely as a blend mode does", () => {
+  const tree = {
+    id: "1:1",
+    absoluteBoundingBox: { x: 0, y: 0, width: 100, height: 100 },
+    children: [
+      { id: "1:2", name: "bg", absoluteBoundingBox: { x: 0, y: 0, width: 100, height: 100 } },
+      {
+        id: "1:3",
+        name: "scrim",
+        blendMode: "NORMAL",
+        effects: [{ type: "BACKGROUND_BLUR", visible: true, radius: 24 }],
+        absoluteBoundingBox: { x: 0, y: 0, width: 100, height: 100 },
+      },
+    ],
+  };
+  assert.deepEqual(
+    findRequiredBackplates(tree, ["1:2"]).map((entry) => entry.dependents[0].blendMode),
+    ["BACKGROUND_BLUR"],
+  );
+});
+
+test("a node with no geometry is kept rather than guessed at", () => {
+  const tree = {
+    id: "1:1",
+    children: [
+      { id: "1:2", name: "bg" },
+      { id: "1:3", name: "blended", blendMode: "MULTIPLY" },
+    ],
+  };
+  assert.equal(findRequiredBackplates(tree, ["1:2"]).length, 1);
+});
+
+test("the committed Buttons export retains exactly the blended groups the check names", () => {
+  // The other half of the fixture: the blend modes above are read from this file, so if the export
+  // is refreshed and the kit has restructured, this fails rather than the fixture silently ageing.
+  const svg = readFileSync(new URL("glimmer-design/pages/components-buttons.svg", root), "utf8");
+  const blended = [...svg.matchAll(/data-node-id="([^"]+)"[^>]*style="[^"]*mix-blend-mode:screen/g)]
+    .map((match) => match[1])
+    .sort();
+  assert.deepEqual(blended, ["40000113:3966", "40000113:4149", "40:655", "4116:3991", "5315:4650"].sort());
 });

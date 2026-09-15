@@ -57,6 +57,28 @@
 // its URL is already published, and a slug is only stable while the designer leaves the page name
 // alone. `exclude` drops a page by node id or by name.
 //
+// EXCLUDING A DESCENDANT IS A REQUEST, NOT AN ORDER
+//
+// `excludeNodes` names descendants to drop so a sheet fits under the size cap. It is a request,
+// because one class of layer cannot be dropped without changing the colour of what is left:
+// anything a RETAINED layer blends against. Figma composites at render time, so a
+// `mix-blend-mode: screen` group reads whatever is under it, and removing its backplate silently
+// repaints it against the page's pale section fallback — which is exactly how #437 presented, as
+// four Glimmer component sets that looked like a broken colour export.
+//
+// So the importer checks the node tree before it prunes (`findRequiredBackplates`) and RETAINS an
+// excluded node that a retained blended or background-blurred layer overlaps, saying so in the run
+// log. Two escapes, both explicit:
+//
+//   * `{"node": "40000034:2406", "decorative": true, "reason": "…"}` — a human looked and says the
+//     blend does not depend on it. A positive assertion, because the silent default is what went
+//     wrong.
+//   * the size cap still wins. A page that busts `maxSvgBytes` with its backplates retained is
+//     re-pruned without them and published with `backplatesPruned: true` on its manifest entry,
+//     rather than being dropped: losing the sheet costs every component on it its node ids and its
+//     swap, and the flag makes the degraded compositing legible to the consumer instead of a
+//     mystery.
+//
 // USAGE
 //
 //   FIGMA_TOKEN=figd_... node scripts/import-figma-pages.mjs
@@ -486,6 +508,146 @@ function referencedDefinitionIds(text) {
 }
 
 /**
+ * Blend modes whose result is a function of what is BEHIND the layer.
+ *
+ * Figma reports a node's blend mode as `PASS_THROUGH` (groups), `NORMAL` (everything else by
+ * default) or one of these. A `NORMAL` layer draws the same over any backdrop, so removing what is
+ * under it costs nothing but bytes. A `SCREEN` layer does not: `#303030` over the kit's photographic
+ * backplate is a lit component, and the same source over the pale `#E8E5EE` section fallback is
+ * very nearly nothing — which is the whole of #437.
+ */
+const BACKDROP_BLEND_MODES = new Set([
+  "MULTIPLY",
+  "SCREEN",
+  "OVERLAY",
+  "DARKEN",
+  "LIGHTEN",
+  "COLOR_DODGE",
+  "COLOR_BURN",
+  "HARD_LIGHT",
+  "SOFT_LIGHT",
+  "DIFFERENCE",
+  "EXCLUSION",
+  "HUE",
+  "SATURATION",
+  "COLOR",
+  "LUMINOSITY",
+  "LINEAR_BURN",
+  "LINEAR_DODGE",
+]);
+
+/**
+ * One descendant the config asks the import to drop, with the human's classification attached.
+ *
+ * An entry is either a bare node id — "drop this, no claim made about why" — or an object naming
+ * the node and saying what it is. `decorative: true` is the ONE thing that lets a required backplate
+ * be dropped anyway, and it is deliberately a positive assertion a human has to write: #437's five
+ * `bg` instances were dropped as decorative on exactly that unstated assumption, and they were
+ * carrying the backdrop four screen-blended component sets are composited against.
+ */
+export function normalizeExclusions(entries = []) {
+  const out = [];
+  const seen = new Set();
+  for (const entry of entries) {
+    const nodeId =
+      typeof entry === "string" || typeof entry === "number"
+        ? canonicalNodeId(String(entry).trim())
+        : canonicalNodeId(String(entry?.node ?? entry?.nodeId ?? "").trim());
+    if (nodeId === "" || seen.has(nodeId)) continue;
+    seen.add(nodeId);
+    out.push({
+      nodeId,
+      decorative: typeof entry === "object" && entry !== null ? entry.decorative === true : false,
+      ...(typeof entry === "object" && entry?.reason ? { reason: String(entry.reason) } : {}),
+    });
+  }
+  return out;
+}
+
+/** Two Figma `absoluteBoundingBox`es overlapping by more than a rounding error. */
+function boxesIntersect(a, b) {
+  if (!a || !b) return true; // No box is no evidence of separation: assume the worst and keep.
+  const EPSILON = 0.5;
+  return (
+    a.x + a.width > b.x + EPSILON &&
+    b.x + b.width > a.x + EPSILON &&
+    a.y + a.height > b.y + EPSILON &&
+    b.y + b.height > a.y + EPSILON
+  );
+}
+
+/**
+ * The excluded nodes that a RETAINED backdrop-dependent layer is composited against.
+ *
+ * Figma flattens nothing at export time, so a `mix-blend-mode: screen` group in the SVG reads
+ * whatever the consumer leaves under it. Deleting a backplate therefore does not remove a
+ * decoration — it changes the colour of everything blended over it, silently, in a way that looks
+ * like a bad colour export rather than like a missing layer.
+ *
+ * Detection is structural rather than visual, and uses the node tree the import already fetched:
+ * a retained node whose `blendMode` is backdrop-dependent (or which carries a background blur, the
+ * other backdrop reader Figma publishes) and whose box overlaps an excluded subtree makes that
+ * subtree REQUIRED.
+ *
+ * Opacity is deliberately not a trigger. A translucent layer does read its backdrop, but Figma
+ * authors set opacity on a large share of all nodes, so treating it as a signal would mark nearly
+ * every exclusion required and the check would stop meaning anything. The blend modes are the
+ * narrow, load-bearing case, and they are the one #437 measured.
+ */
+export function findRequiredBackplates(root, exclusions = []) {
+  const declared = normalizeExclusions(exclusions);
+  const byId = new Map(declared.map((entry) => [entry.nodeId, entry]));
+  if (byId.size === 0) return [];
+
+  const excludedSubtrees = [];
+  const dependents = [];
+
+  function backdropReader(node) {
+    if (BACKDROP_BLEND_MODES.has(String(node?.blendMode ?? ""))) return String(node.blendMode);
+    if ((node?.effects ?? []).some((effect) => effect?.type === "BACKGROUND_BLUR" && effect?.visible !== false))
+      return "BACKGROUND_BLUR";
+    return null;
+  }
+
+  function walk(node, excludedRoot) {
+    const nodeId = canonicalNodeId(node?.id);
+    const entry = excludedRoot ?? byId.get(nodeId);
+    if (entry && entry !== excludedRoot) {
+      excludedSubtrees.push({
+        ...entry,
+        name: String(node?.name ?? ""),
+        box: node?.absoluteBoundingBox ?? null,
+      });
+    }
+    if (!entry) {
+      const mode = backdropReader(node);
+      if (mode) {
+        dependents.push({
+          nodeId,
+          name: String(node?.name ?? ""),
+          blendMode: mode,
+          box: node?.absoluteBoundingBox ?? null,
+        });
+      }
+    }
+    for (const child of node?.children ?? []) walk(child, entry ?? null);
+  }
+  walk(root, null);
+
+  return excludedSubtrees
+    .map((excluded) => ({
+      nodeId: excluded.nodeId,
+      name: excluded.name,
+      decorative: excluded.decorative,
+      ...(excluded.reason ? { reason: excluded.reason } : {}),
+      dependents: dependents
+        .filter((dependent) => boxesIntersect(excluded.box, dependent.box))
+        .map(({ box: _box, ...rest }) => rest),
+    }))
+    .filter((excluded) => excluded.dependents.length > 0);
+}
+
+/**
  * Remove explicitly named Figma descendants and definitions that only those descendants used.
  *
  * Figma cannot exclude descendants at export time. Keeping this as a deterministic import step
@@ -605,10 +767,62 @@ async function importPage(
   const exportedSvg = await (await get(url)).text();
   if (!/^\s*<svg\b/i.test(exportedSvg))
     throw new Error("the export did not start with an <svg> element");
-  const excludedNodeIds = [...excludeNodes, ...asArray(page.excludeNodes)];
-  const { svg, removed } = pruneSvgNodes(exportedSvg, excludedNodeIds);
+  const declared = normalizeExclusions([...excludeNodes, ...asArray(page.excludeNodes)]);
 
-  const bytes = Buffer.byteLength(svg, "utf8");
+  // Which of those the export may actually drop. A required backplate is retained unless its config
+  // entry says `decorative: true` — #437: the five `bg` instances under the Buttons frame were
+  // dropped on an unstated assumption, and four screen-blended component sets were composited
+  // against them, so the specimens came back washed out and the cause looked like a colour bug.
+  const required = findRequiredBackplates(document, declared);
+  const kept = required.filter((entry) => !entry.decorative);
+  const keptIds = new Set(kept.map((entry) => entry.nodeId));
+  for (const entry of kept) {
+    const readers = entry.dependents
+      .slice(0, 3)
+      .map((dependent) => `${dependent.nodeId} (${dependent.blendMode})`)
+      .join(", ");
+    console.log(
+      `${page.id}: RETAINED ${entry.nodeId}${entry.name ? ` "${entry.name}"` : ""} — ` +
+        `${entry.dependents.length} retained layer(s) blend against it: ${readers}` +
+        (entry.dependents.length > 3 ? ", …" : "") +
+        `. Drop it anyway with {"node": "${entry.nodeId}", "decorative": true, "reason": "…"}.`,
+    );
+  }
+  for (const entry of required.filter((entry) => entry.decorative)) {
+    console.log(
+      `${page.id}: pruning ${entry.nodeId} although ${entry.dependents.length} layer(s) blend ` +
+        `against it — declared decorative${entry.reason ? `: ${entry.reason}` : ""}`,
+    );
+  }
+
+  const prunedIds = declared.map((e) => e.nodeId).filter((id) => !keptIds.has(id));
+  let excludedNodeIds = prunedIds;
+  let { svg, removed } = pruneSvgNodes(exportedSvg, excludedNodeIds);
+  let backplatesPruned = false;
+
+  let bytes = Buffer.byteLength(svg, "utf8");
+  if (bytes > maxSvgBytes && keptIds.size > 0) {
+    // Degraded, and recorded as degraded. A retained backplate is usually the page's heaviest
+    // subtree, so honouring the cap and honouring the blend can genuinely conflict; dropping the
+    // page entirely would cost every component on it its node ids, its hotspots and its swap. So
+    // the backdrop goes, the page stays, and `backplatesPruned` says on the manifest that this
+    // sheet's blended content is being read against the section fallback rather than the kit's own
+    // ground — which is what #437 needs to be legible instead of inferred.
+    const all = declared.map((entry) => entry.nodeId);
+    const retry = pruneSvgNodes(exportedSvg, all);
+    const retryBytes = Buffer.byteLength(retry.svg, "utf8");
+    console.log(
+      `${page.id}: WARNING — ${(bytes / 1024 / 1024).toFixed(1)} MB with its backplates retained ` +
+        `exceeds the ${(maxSvgBytes / 1024 / 1024).toFixed(0)} MB cap; publishing at ` +
+        `${(retryBytes / 1024 / 1024).toFixed(1)} MB WITHOUT them. Blended content on this page ` +
+        `will read against the section fallback, not the kit's ground.`,
+    );
+    excludedNodeIds = all;
+    ({ svg, removed } = retry);
+    bytes = retryBytes;
+    backplatesPruned = true;
+  }
+
   if (bytes > maxSvgBytes) {
     // Skipped, not thrown: see MAX_SVG_BYTES. Reported at the same level as a successful page so
     // the run log says which sheets the cache does *not* carry, rather than leaving that to be
@@ -661,6 +875,7 @@ async function importPage(
     // `placements` and produced exactly that.
     nodes,
     ...(nodes.some((node) => node.inventory !== false) ? {} : { inventory: false }),
+    ...(backplatesPruned ? { backplatesPruned: true } : {}),
   };
 }
 
