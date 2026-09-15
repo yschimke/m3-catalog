@@ -10,7 +10,7 @@
 # ## Two steps, as `design-map.sh` has always had
 #
 # The second step — `@design-parity/kit-index resolve` — used to be absent here because no index of
-# the Glimmer kit existed. `glimmer-figma-kit-index.json` is that index now: 9 component sets, 69
+# the Glimmer kit existed. `glimmer-figma-kit-index.json` is that index now: 10 component sets, 78
 # variants and 2 standalone components, READ FROM FIGMA rather than hand-written. Not by
 # `@design-parity/kit-index` itself, which talks to api.figma.com and needs a token this repository
 # holds no secret for, but through the Figma MCP server's read-only `get_metadata` — one call per
