@@ -187,7 +187,7 @@ job copies it into place. It replaced a `design-map-command` that projected an e
   against `Contained=Yes`, ListItem `content=supporting-label` against `Type=2-line` — which is
   #374's step 2 and still wants the generated view rather than a rename.
 
-- **The kit's `State` axis is drawn now, and the coverage is 27 of the original six sets' 55
+- **The kit's `State` axis is drawn now, and the coverage is 41 of the original six sets' 55
   cells.**
   [#374](https://github.com/yschimke/m3-catalog/issues/374) measured the old number and named the
   cause: a generated kit cell is emitted only when every axis it changes is backed by an authored
@@ -195,15 +195,15 @@ job copies it into place. It replaced a `design-map-command` that projected an e
   at all. `GlimmerStates.kt` is that backing, and the resolver picks it up with no change to
   `scripts/glimmer-design-map.sh`:
 
-  | set | covered before | covered now |
-  | --- | --- | --- |
-  | `Button` | 2/10 | 8/10 |
-  | `Toggle Button` | 1/16 | 8/16 |
-  | `Toggle` (icon) | 1/8 | 4/8 |
-  | `Icon button` | 1/5 | 4/5 |
-  | `List Item` | 1/12 | 2/12 |
-  | `Mic Indicators` | 1/4 | 1/4 |
-  | **total** | **7/55** | **27/55** |
+  | set | at #374 | states drawn | + kit vocabulary and the generated cells |
+  | --- | --- | --- | --- |
+  | `Button` | 2/10 | 8/10 | 8/10 |
+  | `Toggle Button` | 1/16 | 8/16 | **14/16** |
+  | `Toggle` (icon) | 1/8 | 4/8 | **7/8** |
+  | `Icon button` | 1/5 | 4/5 | 4/5 |
+  | `List Item` | 1/12 | 2/12 | **4/12** |
+  | `Mic Indicators` | 1/4 | 1/4 | **4/4** |
+  | **total** | **7/55** | **27/55** | **41/55** |
 
   `focused` and `pressed` are driven by the RENDERER against the composed node — the distinction
   `:catalog`'s `CatalogInteractionAnnotations.kt` makes, and it works on this module's Robolectric
@@ -215,19 +215,40 @@ job copies it into place. It replaced a `design-map-command` that projected an e
   | cells | why |
   | --- | --- |
   | `Disabled+Focused` (6) | a disabled Glimmer component takes no focus: pinned `enabled = false`, the focus-driven capture is BYTE-IDENTICAL to the resting one. The render is its `Disabled` render, and a duplicate cell is a build failure here. [#392](https://github.com/yschimke/m3-catalog/issues/392) |
-  | `State=Hovered` (3, `List Item` only) | Glimmer draws no hover treatment — measured byte-identical to the resting capture — because a glasses surface has no pointer. The kit's `List Item` set is the one that names `Hovered` where its siblings name `Focused`; this catalog draws the focus Glimmer actually has. [#392](https://github.com/yschimke/m3-catalog/issues/392) |
-  | `Toggle=True` x `State=` (6) | the resolver combines an `@OverrideVariant` interaction without carrying the parent `@CatalogVariant`'s `state=checked`, so a cell authored there resolves against the `Toggle=False` node and `glimmer-design-map.sh` refuses the map. #374's steps 2 and 3 — kit vocabulary, then the generated exhaustive view — are exactly this |
-  | `List Item` `Type=2-line` / `Type=Card` (8) | `2-line` is drawn (`content=supporting-label`) but declared in Compose's vocabulary rather than the kit's, which is the same step-2 gap; `Type=Card` has no Compose API |
-  | `List Item` `State=Disabled` (3) | alpha19's `ListItem` has **no `enabled` parameter**. There is no call that draws a disabled row — an upstream gap rather than a missing sticker |
-  | `Mic Indicators` `Volume=` / `Contained=Yes` (3) | `container=contained` is drawn and misses on vocabulary (`Contained=Yes`); the volume axis is not drawn at all |
+  | `State=Hovered` (2, `List Item` only) | Glimmer draws no hover treatment — measured byte-identical to the resting capture — because a glasses surface has no pointer. The kit's `List Item` set is the one that names `Hovered` where its siblings name `Focused`; this catalog draws the focus Glimmer actually has. [#392](https://github.com/yschimke/m3-catalog/issues/392) |
+  | `List Item` `State=Disabled` (2) | alpha19's `ListItem` has **no `enabled` parameter**. There is no call that draws a disabled row — an upstream gap rather than a missing sticker, declared as `ListItemDisabled` in `glimmer-kit-gaps.json` |
+  | `List Item` `Type=Card` (4) | Glimmer publishes `Card` and `ListItem` as separate components and no card-shaped row type on `ListItem`. Declared as `ListItemCard` in `glimmer-kit-gaps.json` |
 
   The first two rows are a different kind of gap from the rest, and
-  [#392](https://github.com/yschimke/m3-catalog/issues/392) is where they live now: **nine cells
+  [#392](https://github.com/yschimke/m3-catalog/issues/392) is where they live now: **eight cells
   whose state no Glimmer component can be in.** `design-led` normally says the code moves, and
-  those nine are the case it cannot reach — there is no call, parameter or interaction that
+  those eight are the case it cannot reach — there is no call, parameter or interaction that
   produces the picture, so authoring them would publish the `Disabled` and resting renders again
-  under other names, which `scripts/duplicate-renders.mjs` fails the build for. The remaining rows
-  are ordinary work waiting on #374's steps 2 and 3.
+  under other names, which `scripts/duplicate-renders.mjs` fails the build for. The last two rows
+  are upstream API gaps, checked rather than described: `scripts/glimmer-kit-gaps.mjs` fails the
+  build if the kit drops the node, if a sticker starts mapping it, or if Renovate bumps the library
+  the evidence was read from.
+
+  **What closed the other fourteen cells** was #374's steps 2 and 3, and the escape hatch the issue
+  asked for turned out to exist already:
+
+  - **`kitAxis` / `kitValue` on `@CatalogVariant`** carries the kit's spelling beside Compose's, so
+    `state=checked` resolves against `Toggle=True`, `container=contained` against `Contained=Yes`
+    and `content=supporting-label` against `Type=2-line` without the sheet having to say `True`,
+    `Yes` or `2-line` to a reader. #374's comment tried `reference` and correctly found it ignored;
+    these two are the fields the resolver reads (compose-ai-tools#4086), and `:catalog` has used
+    them on the date pickers, text fields and chips since.
+  - **`scripts/generate-exhaustive-kit-cells.mjs` now takes its inputs as arguments**, so the same
+    generator runs against the Glimmer kit — the port #374 planned, as a generic input rather than
+    a forked copy. It writes `glimmer-exhaustive-kit-cells.json` and a generated annotation file
+    beside the stickers, and the eight cells it emits are the `Toggle=True` x `State=` x `Size=`
+    crossings and `Volume=Quiet, Contained=Yes`.
+  - **The base stickers grew the knobs those cells seed.** This is the part that is easy to get
+    wrong: a generated cell seeds a knob on the sticker it is attached to, and `glimmer-catalog`
+    writes a composable per variant, so a `size=Large` seed on a sticker that hardcodes the default
+    size would have published the default pixels at the kit's `Size=Large` address. `size`, `state`
+    (checked), `volume` and `container` are knobs on the base stickers now, which is also what
+    `AGENTS.md` asks for — a pinned value is invisible in the live lane's Overrides panel.
 
 - **The parity lane exists and has published.** `design-parity.yml`'s `glimmer` job carries the
   token and the `design-parity/glimmer-reference` cache, and the board lands on
@@ -242,9 +263,9 @@ job copies it into place. It replaced a `design-map-command` that projected an e
   same authority the Material kit has: the kit is authoritative and a divergence is a bug in this
   code.
 - **The interaction states are drawn** — `GlimmerStates.kt`, and the coverage table above is what
-  they bought. What is left of [#374](https://github.com/yschimke/m3-catalog/issues/374) is its
-  steps 2 and 3: the kit vocabulary, and the generated exhaustive view that keeps a reader-facing
-  variant name and a kit-facing property vector at the same time.
+  they bought. [#374](https://github.com/yschimke/m3-catalog/issues/374)'s steps 2 and 3 landed with
+  them: `kitAxis` / `kitValue` keeps a reader-facing variant name beside the kit's own property
+  vector, and the exhaustive generator runs against this kit too.
 - **The taxonomy has not been re-checked against the kit.** These seven components and their variant
   folds were derived from the API surface alone. `AGENTS.md` says membership is the kit's call, and
   that rule now has something to say here — the kit also publishes Button groups, a Progress

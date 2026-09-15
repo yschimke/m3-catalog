@@ -57,6 +57,9 @@ fun ListItemSticker() = Sticker {
 @CatalogVariant(
   of = "ListItem",
   props = ["content=supporting-label"],
+  // The kit counts lines where Compose names the slot: `Type=2-line` is this variant's cell.
+  kitAxis = "Type",
+  kitValue = "2-line",
   caption = "A second line under the primary label.",
 )
 @GlimmerInteractionStates

@@ -49,6 +49,7 @@ fun ButtonSticker() = Sticker {
   Button(
     onClick = c.onClick,
     enabled = glimmerEnabled(),
+    buttonSize = glimmerButtonSize(),
     leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
   ) {
     Text(c.label)
@@ -113,6 +114,7 @@ fun ButtonTrailingIconSticker() = Sticker {
   caption = "A button that holds its state. The corner morphs between checked and unchecked.",
 )
 @GlimmerStates
+@ee.schimke.m3catalog.glimmer.ToggleButtonStickerExhaustiveKitCells
 @Preview
 @Composable
 fun ToggleButtonSticker() = Sticker {
@@ -123,11 +125,13 @@ fun ToggleButtonSticker() = Sticker {
   // (`40000113:3991`, 146x48, leading icon on). An earlier "Toggle off" / "Toggle on" pair said
   // the state in words, which is the one thing a toggle button is supposed to say in PIXELS — the
   // corner morph and the lit container — and it cost 25dp of width against the cell besides.
-  var checked by remember { mutableStateOf(false) }
+  val initiallyChecked = glimmerChecked()
+  var checked by remember(initiallyChecked) { mutableStateOf(initiallyChecked) }
   ToggleButton(
     checked = checked,
     onCheckedChange = { checked = it },
     enabled = glimmerEnabled(),
+    buttonSize = glimmerButtonSize(),
     leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
   ) {
     Text("Button")
@@ -155,16 +159,22 @@ fun ToggleButtonLargeSticker() = Sticker {
   }
 }
 
-// The CHECKED stickers carry no state cells, and the reason is the resolver rather than the kit.
-// The kit publishes `Toggle=True` x `State=Focused | Pressed` (`40000113:4138` and its siblings),
-// but a cell authored there resolves against the `Toggle=False` node: the resolver combines the
-// `@OverrideVariant` interaction without carrying the parent `@CatalogVariant`'s `state=checked`,
-// and `scripts/glimmer-design-map.sh` refuses to write a map where two cells own one node. Those
-// six cells are what #374's step 2 (kit vocabulary) and step 3 (the generated exhaustive view) are
-// for; authoring them now would mis-address them, which is worse than not drawing them.
+// The CHECKED sticker is the kit's `Toggle=True, State=Enabled, Size=Default` cell
+// (`40000113:4138`)
+// and nothing else. Its state crossings — `Toggle=True` x `Focused | Pressed` x `Default | Large` —
+// are NOT authored here: they are generated into `ExhaustiveKitCellAnnotations.kt` and attached to
+// the base sticker above, which is what #374's step 3 asks for. A secondary generated cell seeds
+// the `size` and `state` knobs and drives the interaction, so it renders the exact vector it is
+// addressed by; authoring them as ordinary variants would have published a second navigable card
+// per cell for pictures the sheet already offers.
 @CatalogVariant(
   of = "ToggleButton",
   state = "checked",
+  // The kit spells this axis `Toggle=True`; Compose spells it `checked`, and a reader of a Compose
+  // catalog greps for the second. `kitAxis`/`kitValue` carry the kit's own words beside the
+  // Compose ones so the resolver can match the cell without the sheet having to say `True`.
+  kitAxis = "Toggle",
+  kitValue = "True",
   caption = "Checked, where the corner size differs from the unchecked default.",
 )
 @Preview

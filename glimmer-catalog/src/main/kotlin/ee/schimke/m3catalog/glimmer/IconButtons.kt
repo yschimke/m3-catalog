@@ -46,10 +46,12 @@ fun IconButtonSticker() = Sticker {
   caption = "An icon button that holds its checked state.",
 )
 @GlimmerStates
+@ee.schimke.m3catalog.glimmer.IconToggleButtonStickerExhaustiveKitCells
 @Preview
 @Composable
 fun IconToggleButtonSticker() = Sticker {
-  var checked by remember { mutableStateOf(false) }
+  val initiallyChecked = glimmerChecked()
+  var checked by remember(initiallyChecked) { mutableStateOf(initiallyChecked) }
   IconToggleButton(
     checked = checked,
     onCheckedChange = { checked = it },
@@ -59,11 +61,15 @@ fun IconToggleButtonSticker() = Sticker {
   }
 }
 
-// Same as `ToggleButton` above: no state cells under a checked variant until the generated kit-cell
-// view can address `Toggle=True` x `State=` without colliding with `Toggle=False`. See #374.
+// Same as `ToggleButton` above: the checked variant is the kit's `Toggle=True, State=Enabled` cell,
+// and its `Focused` / `Pressed` crossings are generated exact cells on the base sticker rather than
+// variants here. See #374.
 @CatalogVariant(
   of = "IconToggleButton",
   state = "checked",
+  // `Toggle=True` in the kit's vocabulary. See the note on `ToggleButtonCheckedSticker`.
+  kitAxis = "Toggle",
+  kitValue = "True",
   caption = "Checked, where the container reads as lit rather than outlined.",
 )
 @Preview

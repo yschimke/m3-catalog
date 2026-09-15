@@ -46,6 +46,7 @@
 package ee.schimke.m3catalog.glimmer
 
 import androidx.compose.runtime.Composable
+import androidx.xr.glimmer.ButtonSize
 import ee.schimke.composeai.data.overrides.PreviewOverrideOption
 import ee.schimke.composeai.overrides.previewOverrideChoice
 import ee.schimke.composeai.preview.OverrideVariant
@@ -73,6 +74,50 @@ annotation class GlimmerStates
 @OverrideVariant(name = "focused", interaction = VariantInteraction.Focused)
 @OverrideVariant(name = "pressed", interaction = VariantInteraction.Pressed)
 annotation class GlimmerInteractionStates
+
+/**
+ * The `size` knob: `Default` by default, and the kit's own two values.
+ *
+ * `ButtonSize` is a Compose parameter a caller really passes, so it is a knob rather than a second
+ * composable — and the knob is what makes the kit's `Size=Large` crossings addressable. A generated
+ * exact-cell annotation seeds a knob on the sticker it is attached to; a seed naming an axis the
+ * sticker does not READ would publish the default pixels at the kit's Large address, which is worse
+ * than leaving the cell uncovered. #374.
+ *
+ * The values are Compose's (`Medium` / `Large`); the kit calls the same two cells `Size=Default`
+ * and `Size=Large`. Only the large one has to meet the kit, and `size=Large` — the prop the
+ * existing `@CatalogVariant` already declares — is spelled the same on both sides.
+ */
+@Composable
+fun glimmerButtonSize(): ButtonSize =
+  if (
+    previewOverrideChoice(
+      "size",
+      "Medium",
+      listOf(PreviewOverrideOption("Medium", "Medium"), PreviewOverrideOption("Large", "Large")),
+    ) == "Large"
+  )
+    ButtonSize.Large
+  else ButtonSize.Medium
+
+/**
+ * The `state` knob behind the checked cells: unchecked by default.
+ *
+ * Seeds the INITIAL value of the sticker's own `checked` state rather than replacing it. A toggle
+ * that read this on every recomposition would stop answering a live click, which is the one thing
+ * `AGENTS.md` says a toggle's click has to do; keying the `remember` on the override-derived value
+ * keeps the panel and the component in step.
+ */
+@Composable
+fun glimmerChecked(): Boolean =
+  previewOverrideChoice(
+    "state",
+    "unchecked",
+    listOf(
+      PreviewOverrideOption("unchecked", "Unchecked"),
+      PreviewOverrideOption("checked", "Checked"),
+    ),
+  ) == "checked"
 
 /**
  * The `status` knob behind the `disabled` cell: `enabled` by default, and a closed two-value set so

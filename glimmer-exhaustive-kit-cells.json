@@ -1,0 +1,176 @@
+{
+  "schema": "m3-catalog-exhaustive-kit-cells/v1",
+  "components": [
+    {
+      "code": "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/Buttons.kt#ToggleButtonSticker",
+      "annotation": "ToggleButtonStickerExhaustiveKitCells",
+      "cells": [
+        {
+          "id": "40000113:4082",
+          "name": "cell-state-enabled-size-large-toggle-true-40000113-4082",
+          "kitProps": [
+            "State=Enabled",
+            "Size=Large",
+            "Toggle=True"
+          ],
+          "seeds": [
+            {
+              "key": "size",
+              "raw": "Large",
+              "kind": "strings"
+            },
+            {
+              "key": "state",
+              "raw": "checked",
+              "kind": "strings"
+            }
+          ],
+          "interaction": null
+        },
+        {
+          "id": "40000113:4092",
+          "name": "cell-state-focused-size-default-toggle-true-40000113-4092",
+          "kitProps": [
+            "State=Focused",
+            "Size=Default",
+            "Toggle=True"
+          ],
+          "seeds": [
+            {
+              "key": "state",
+              "raw": "checked",
+              "kind": "strings"
+            }
+          ],
+          "interaction": "Focused"
+        },
+        {
+          "id": "40000113:4102",
+          "name": "cell-state-pressed-size-default-toggle-true-40000113-4102",
+          "kitProps": [
+            "State=Pressed",
+            "Size=Default",
+            "Toggle=True"
+          ],
+          "seeds": [
+            {
+              "key": "state",
+              "raw": "checked",
+              "kind": "strings"
+            }
+          ],
+          "interaction": "Pressed"
+        },
+        {
+          "id": "40000113:4112",
+          "name": "cell-state-focused-size-large-toggle-true-40000113-4112",
+          "kitProps": [
+            "State=Focused",
+            "Size=Large",
+            "Toggle=True"
+          ],
+          "seeds": [
+            {
+              "key": "size",
+              "raw": "Large",
+              "kind": "strings"
+            },
+            {
+              "key": "state",
+              "raw": "checked",
+              "kind": "strings"
+            }
+          ],
+          "interaction": "Focused"
+        },
+        {
+          "id": "40000113:4122",
+          "name": "cell-state-pressed-size-large-toggle-true-40000113-4122",
+          "kitProps": [
+            "State=Pressed",
+            "Size=Large",
+            "Toggle=True"
+          ],
+          "seeds": [
+            {
+              "key": "size",
+              "raw": "Large",
+              "kind": "strings"
+            },
+            {
+              "key": "state",
+              "raw": "checked",
+              "kind": "strings"
+            }
+          ],
+          "interaction": "Pressed"
+        }
+      ]
+    },
+    {
+      "code": "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/IconButtons.kt#IconToggleButtonSticker",
+      "annotation": "IconToggleButtonStickerExhaustiveKitCells",
+      "cells": [
+        {
+          "id": "40000113:4188",
+          "name": "cell-toggle-true-state-focused-40000113-4188",
+          "kitProps": [
+            "Toggle=True",
+            "State=Focused"
+          ],
+          "seeds": [
+            {
+              "key": "state",
+              "raw": "checked",
+              "kind": "strings"
+            }
+          ],
+          "interaction": "Focused"
+        },
+        {
+          "id": "40000113:4195",
+          "name": "cell-toggle-true-state-pressed-40000113-4195",
+          "kitProps": [
+            "Toggle=True",
+            "State=Pressed"
+          ],
+          "seeds": [
+            {
+              "key": "state",
+              "raw": "checked",
+              "kind": "strings"
+            }
+          ],
+          "interaction": "Pressed"
+        }
+      ]
+    },
+    {
+      "code": "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/VoiceInput.kt#VoiceInputIndicatorSticker",
+      "annotation": "VoiceInputIndicatorStickerExhaustiveKitCells",
+      "cells": [
+        {
+          "id": "40000116:9342",
+          "name": "cell-volume-quiet-contained-yes-40000116-9342",
+          "kitProps": [
+            "Volume=Quiet",
+            "Contained=Yes"
+          ],
+          "seeds": [
+            {
+              "key": "volume",
+              "raw": "Quiet",
+              "kind": "strings"
+            },
+            {
+              "key": "container",
+              "raw": "contained",
+              "kind": "strings"
+            }
+          ],
+          "interaction": null
+        }
+      ]
+    }
+  ]
+}
