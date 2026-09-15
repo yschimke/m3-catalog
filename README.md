@@ -4233,6 +4233,9 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `IconToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonSticker_VARIANT_disabled-827c715a.png" width="150" /> |
 | `IconToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonSticker_VARIANT_focused-762cd963.png" width="150" /> |
 | `IconToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonSticker_VARIANT_pressed-31d87b2c.png" width="150" /> |
+| `GlimmerLazyColumnSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/GlimmerLazyColumnSticker-da12ecd1.png" width="150" /> |
+| `GlimmerLazyColumnTwoLineSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/GlimmerLazyColumnTwoLineSticker-a194e85d.png" width="150" /> |
+| `GlimmerLazyColumnWithTitleSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/GlimmerLazyColumnWithTitleSticker-1b5a5d39.png" width="150" /> |
 | `ListItemSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSticker-15c90274.png" width="150" /> |
 | `ListItemSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSticker_VARIANT_focused-5d48c7c6.png" width="150" /> |
 | `ListItemSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSticker_VARIANT_pressed-ff2f20b8.png" width="150" /> |
