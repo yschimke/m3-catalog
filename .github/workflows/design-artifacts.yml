@@ -66,6 +66,8 @@ on:
       # of it committed. A refreshed SVG is a changed published page, so it is
       # as much a render input as the spec.
       - 'design/pages/**'
+      - 'glimmer-design-pages.json'
+      - 'glimmer-design/pages/**'
       # The two Glimmer sheets' render inputs: the sticker sources and spec on one side, the
       # vendored tree with its import manifest, patches and quarantine list on the other. Without
       # these the `changes` job's `glimmer` output is unreachable on a push that touches only them —
@@ -158,7 +160,7 @@ jobs:
           # Both Glimmer sheets move together: they share the `glimmer` version ref, the Robolectric
           # pin and the AGP setup, so a change to one is nearly always a change to both, and the two
           # renders together cost less than the runner minutes a finer split would save.
-          grep -qE '^(glimmer-catalog/|glimmer-samples/|glimmer-design-map|scripts/glimmer-)' <<<"$files" &&
+          grep -qE '^(glimmer-catalog/|glimmer-samples/|glimmer-design-map|glimmer-design-pages\.json$|glimmer-design/pages/|scripts/glimmer-)' <<<"$files" &&
             echo 'glimmer=true' >> "$GITHUB_OUTPUT" || echo 'glimmer=false' >> "$GITHUB_OUTPUT"
 
   publish:
@@ -433,6 +435,7 @@ jobs:
       # workflow reads, the same shape `:catalog` relies on; it runs no Gradle because the map is
       # generated and committed by `scripts/glimmer-design-map.sh`.
       design-map-command: cp glimmer-design-map.json design-map.json
+      design-pages-config: glimmer-design-pages.json
 
       # The Glimmer kit's own cache, built by `design-parity-import.yml`'s second job (#378) and
       # already holding the nine referenced cells plus the six component sets they sit in. A miss

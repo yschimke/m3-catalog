@@ -70,7 +70,7 @@
 // token needs `file_content:read` — the same scope `design-parity-propose-refs` and
 // `design-parity-pages list` already document.
 
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -186,7 +186,12 @@ export function resolvePages({ pins = [], discovered = [], exclude = [] } = {}) 
       typeof pin?.id === "string" && pin.id !== "" ? pin.id : slugForPage(pin?.name, nodeId);
     assertUsableId(id, `the pin for ${nodeId}`);
     if (pinsByNode.has(nodeId)) throw new Error(`"pages" pins ${nodeId} twice`);
-    pinsByNode.set(nodeId, { id, nodeId, ...(pin?.name ? { name: String(pin.name) } : {}) });
+    pinsByNode.set(nodeId, {
+      id,
+      nodeId,
+      ...(pin?.name ? { name: String(pin.name) } : {}),
+      ...(pin?.excludeNodes ? { excludeNodes: asArray(pin.excludeNodes) } : {}),
+    });
   }
 
   const taken = new Set([...pinsByNode.values()].map((pin) => pin.id));
@@ -203,7 +208,7 @@ export function resolvePages({ pins = [], discovered = [], exclude = [] } = {}) 
       usedPins.add(nodeId);
       // The pin fixes the id; the *name* still comes from the file unless the pin overrode it, so a
       // renamed page reads correctly in the index while keeping its published URL.
-      resolved.push({ id: pin.id, nodeId, name: pin.name ?? name, pinned: true });
+      resolved.push({ ...pin, nodeId, name: pin.name ?? name, pinned: true });
       continue;
     }
     let id = slugForPage(name, nodeId);
@@ -220,9 +225,15 @@ export function resolvePages({ pins = [], discovered = [], exclude = [] } = {}) 
 
   for (const [nodeId, pin] of pinsByNode) {
     if (usedPins.has(nodeId) || isExcluded(nodeId, pin.name)) continue;
-    resolved.push({ id: pin.id, nodeId, name: pin.name ?? pin.id, pinned: true });
+    resolved.push({ ...pin, nodeId, name: pin.name ?? pin.id, pinned: true });
   }
   return resolved;
+}
+
+/** SVG cache entries that no longer correspond to a resolved page. */
+export function stalePageSvgNames(fileNames, pageIds) {
+  const wanted = new Set(pageIds.map((id) => `${id}.svg`));
+  return fileNames.filter((name) => name.endsWith(".svg") && !wanted.has(name));
 }
 
 /**
@@ -363,13 +374,15 @@ function asArray(value) {
  * is the only sound place to make that decision: after flattening, a variant no longer says which
  * set it came from.
  */
-export function collectNodes(root, { publicSetIds, mappedIds } = {}) {
+export function collectNodes(root, { publicSetIds, mappedIds, excludedNodeIds } = {}) {
   const classifyInventory = publicSetIds != null || mappedIds != null;
   const indexedSets = publicSetIds ?? new Set();
   const claimedNodes = mappedIds ?? new Set();
+  const excludedNodes = excludedNodeIds ?? new Set();
   const publicSets = new Set(indexedSets);
 
   function findClaimedSets(node) {
+    if (excludedNodes.has(canonicalNodeId(node.id))) return false;
     let claimed = claimedNodes.has(canonicalNodeId(node.id));
     for (const child of node.children ?? []) claimed = findClaimedSets(child) || claimed;
     if (node.type === "COMPONENT_SET" && claimed) publicSets.add(canonicalNodeId(node.id));
@@ -380,6 +393,7 @@ export function collectNodes(root, { publicSetIds, mappedIds } = {}) {
   const out = [];
   function walk(node, depth, enclosingSetPublic = null) {
     const nodeId = canonicalNodeId(node.id);
+    if (excludedNodes.has(nodeId)) return;
     const setPublic =
       node.type === "COMPONENT_SET" ? publicSets.has(nodeId) : enclosingSetPublic;
     if (depth > 0 && PLACEABLE_TYPES.has(node.type)) {
@@ -464,9 +478,111 @@ function countNodeIds(svg) {
   return (svg.match(/\bdata-node-id\s*=/g) ?? []).length;
 }
 
+function referencedDefinitionIds(text) {
+  const ids = new Set();
+  const pattern = /(?:url\(\s*#|(?:xlink:)?href\s*=\s*["']#)([^)"']+)/gi;
+  for (const match of text.matchAll(pattern)) ids.add(match[1]);
+  return ids;
+}
+
+/**
+ * Remove explicitly named Figma descendants and definitions that only those descendants used.
+ *
+ * Figma cannot exclude descendants at export time. Keeping this as a deterministic import step
+ * lets a config retain the kit's documentation-frame structure while dropping decorative image
+ * layers that otherwise turn a small component sheet into a 200 MB SVG.
+ */
+export function pruneSvgNodes(svg, excludedNodeIds = []) {
+  const excluded = new Set(excludedNodeIds.map((id) => String(id).trim()).filter(Boolean));
+  if (excluded.size === 0) return { svg, removed: 0 };
+
+  const tags = /<!--[\s\S]*?-->|<\/?[A-Za-z][^>]*>/g;
+  const pieces = [];
+  let copyFrom = 0;
+  let skippedDepth = 0;
+  let removed = 0;
+  for (const match of svg.matchAll(tags)) {
+    const tag = match[0];
+    if (tag.startsWith("<!--")) continue;
+    const closing = /^<\//.test(tag);
+    const selfClosing = /\/\s*>$/.test(tag);
+    if (skippedDepth > 0) {
+      if (!closing && !selfClosing) skippedDepth += 1;
+      if (closing) skippedDepth -= 1;
+      if (skippedDepth === 0) copyFrom = match.index + tag.length;
+      continue;
+    }
+    if (closing) continue;
+    const nodeId = /\bdata-node-id\s*=\s*["']([^"']+)["']/i.exec(tag)?.[1];
+    const componentId = nodeId?.split(";").at(-1)?.replace(/^I/, "");
+    if (nodeId == null || (!excluded.has(nodeId) && !excluded.has(componentId))) continue;
+    pieces.push(svg.slice(copyFrom, match.index));
+    removed += 1;
+    if (selfClosing) copyFrom = match.index + tag.length;
+    else skippedDepth = 1;
+  }
+  pieces.push(svg.slice(copyFrom));
+  let pruned = pieces.join("");
+
+  // Figma stores raster payloads and paint/filter resources in <defs>. Removing the visible node
+  // without collecting unreachable definitions would leave almost all of its bytes behind.
+  pruned = pruned.replace(/<defs\b([^>]*)>([\s\S]*?)<\/defs>/gi, (whole, attrs, inner) => {
+    const definitions = [];
+    const tokenPattern = /<!--[\s\S]*?-->|<\/?[A-Za-z][^>]*>/g;
+    let depth = 0;
+    let start = -1;
+    for (const token of inner.matchAll(tokenPattern)) {
+      const tag = token[0];
+      if (tag.startsWith("<!--")) continue;
+      const closing = /^<\//.test(tag);
+      const selfClosing = /\/\s*>$/.test(tag);
+      if (!closing && depth === 0) start = token.index;
+      if (!closing && !selfClosing) depth += 1;
+      if (closing) depth -= 1;
+      if ((selfClosing && depth === 0) || (closing && depth === 0 && start >= 0)) {
+        const end = token.index + tag.length;
+        const source = inner.slice(start, end);
+        const id = /\bid\s*=\s*["']([^"']+)["']/i.exec(source)?.[1];
+        definitions.push({ id, source });
+        start = -1;
+      }
+    }
+
+    const byId = new Map(definitions.filter((entry) => entry.id).map((entry) => [entry.id, entry]));
+    const body = pruned.replace(whole, "");
+    const reachable = referencedDefinitionIds(body);
+    const queue = [...reachable];
+    while (queue.length > 0) {
+      const definition = byId.get(queue.pop());
+      if (!definition) continue;
+      for (const id of referencedDefinitionIds(definition.source)) {
+        if (!reachable.has(id)) {
+          reachable.add(id);
+          queue.push(id);
+        }
+      }
+    }
+    const kept = definitions
+      .filter((entry) => entry.id == null || reachable.has(entry.id))
+      .map((entry) => entry.source)
+      .join("\n");
+    return `<defs${attrs}>${kept === "" ? "" : `\n${kept}\n`}</defs>`;
+  });
+
+  return { svg: pruned, removed };
+}
+
 async function importPage(
   page,
-  { fileKey, byRef, publicSetIds, mappedIds, outDir, maxSvgBytes = MAX_SVG_BYTES },
+  {
+    fileKey,
+    byRef,
+    publicSetIds,
+    mappedIds,
+    outDir,
+    maxSvgBytes = MAX_SVG_BYTES,
+    excludeNodes = [],
+  },
 ) {
   const nodeId = canonicalNodeId(page.nodeId);
   const encoded = encodeURIComponent(nodeId);
@@ -486,8 +602,11 @@ async function importPage(
   if (typeof url !== "string" || url === "") {
     throw new Error(`Figma rendered no SVG for ${nodeId}: ${images?.err ?? "no url"}`);
   }
-  const svg = await (await get(url)).text();
-  if (!/^\s*<svg\b/i.test(svg)) throw new Error("the export did not start with an <svg> element");
+  const exportedSvg = await (await get(url)).text();
+  if (!/^\s*<svg\b/i.test(exportedSvg))
+    throw new Error("the export did not start with an <svg> element");
+  const excludedNodeIds = [...excludeNodes, ...asArray(page.excludeNodes)];
+  const { svg, removed } = pruneSvgNodes(exportedSvg, excludedNodeIds);
 
   const bytes = Buffer.byteLength(svg, "utf8");
   if (bytes > maxSvgBytes) {
@@ -496,12 +615,17 @@ async function importPage(
     // inferred from a shorter list.
     console.log(
       `${page.id}: SKIPPED — ${(bytes / 1024 / 1024).toFixed(1)} MB SVG exceeds the ` +
-        `${(maxSvgBytes / 1024 / 1024).toFixed(0)} MB cap`,
+        `${(maxSvgBytes / 1024 / 1024).toFixed(0)} MB cap` +
+        (excludedNodeIds.length > 0 ? ` after ${removed} excluded node(s)` : ""),
     );
     return null;
   }
 
-  const walked = collectNodes(document, { publicSetIds, mappedIds });
+  const walked = collectNodes(document, {
+    publicSetIds,
+    mappedIds,
+    excludedNodeIds: new Set(excludedNodeIds),
+  });
   const nodes = limitNodes(walked.map((node) => linkNode(node, { fileKey, byRef })));
 
   const id = page.id;
@@ -519,7 +643,8 @@ async function importPage(
       // The kit's biggest sheets hold thousands of components, and both this walk and the server
       // stop at 500. Say so on the page it happens to: a truncated sheet still renders whole, and
       // the missing rows are only visible as an absence otherwise.
-      (walked.length > MAX_NODES ? ` (truncated at the ${MAX_NODES}-node cap)` : ""),
+      (walked.length > MAX_NODES ? ` (truncated at the ${MAX_NODES}-node cap)` : "") +
+      (removed > 0 ? `, ${removed} excluded node${removed === 1 ? "" : "s"}` : ""),
   );
 
   return {
@@ -687,6 +812,7 @@ async function main() {
         mappedIds,
         outDir,
         maxSvgBytes,
+        excludeNodes: asArray(config.excludeNodes),
       });
       if (imported) pages.push(imported);
       else skipped.push(page.id);
@@ -718,6 +844,11 @@ async function main() {
     rmSync(path.join(outDir, `${id}.svg`), { force: true });
   }
   const ordered = resolved.map((p) => merged.get(p.id)).filter(Boolean);
+  if (!onlyPage) {
+    for (const name of stalePageSvgNames(readdirSync(outDir), resolved.map((page) => page.id))) {
+      rmSync(path.join(outDir, name), { force: true });
+    }
+  }
 
   writeFileSync(
     path.join(outDir, "pages.json"),
