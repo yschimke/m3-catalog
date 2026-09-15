@@ -38,6 +38,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.xr.glimmer.Button
 import androidx.xr.glimmer.Card
@@ -48,8 +49,11 @@ import ee.schimke.composeai.preview.GlimmerEnvironmentPreview
 
 @Composable
 private fun EnvironmentButton() {
-  Button(onClick = {}, leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") }) {
-    Text("Button")
+  Button(
+    onClick = {},
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
+  ) {
+    Text(stringResource(R.string.label_button))
   }
 }
 
@@ -58,11 +62,11 @@ private fun EnvironmentCard() {
   ContentFrame {
     Card(
       header = { Image(HeaderImage, "Header artwork", contentScale = ContentScale.FillWidth) },
-      title = { Text("Title") },
-      subtitle = { Text("Subtitle") },
-      leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
+      title = { Text(stringResource(R.string.label_title)) },
+      subtitle = { Text(stringResource(R.string.label_subtitle)) },
+      leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
     ) {
-      Text("Body")
+      Text(stringResource(R.string.label_body))
     }
   }
 }

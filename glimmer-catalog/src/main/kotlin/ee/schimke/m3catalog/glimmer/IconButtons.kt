@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.xr.glimmer.Icon
 import androidx.xr.glimmer.IconButton
@@ -33,7 +34,7 @@ fun IconButtonSticker() = Sticker {
   // live click has to reach the component rather than a dead lambda.
   val c = counted("")
   IconButton(onClick = c.onClick, enabled = glimmerEnabled()) {
-    Icon(Icons.Rounded.MicOff, "Unmute microphone")
+    Icon(Icons.Rounded.MicOff, stringResource(R.string.cd_unmute_microphone))
   }
 }
 
@@ -57,7 +58,10 @@ fun IconToggleButtonSticker() = Sticker {
     onCheckedChange = { checked = it },
     enabled = glimmerEnabled(),
   ) {
-    Icon(if (checked) Icons.Rounded.Mic else Icons.Rounded.MicOff, "Microphone")
+    Icon(
+      if (checked) Icons.Rounded.Mic else Icons.Rounded.MicOff,
+      stringResource(R.string.cd_microphone),
+    )
   }
 }
 
@@ -81,6 +85,9 @@ fun IconToggleButtonCheckedSticker() = Sticker {
     onCheckedChange = { checked = it },
     enabled = glimmerEnabled(),
   ) {
-    Icon(if (checked) Icons.Rounded.Mic else Icons.Rounded.MicOff, "Microphone")
+    Icon(
+      if (checked) Icons.Rounded.Mic else Icons.Rounded.MicOff,
+      stringResource(R.string.cd_microphone),
+    )
   }
 }

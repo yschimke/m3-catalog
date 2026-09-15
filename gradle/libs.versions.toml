@@ -155,6 +155,10 @@ materialkolor = { module = "com.materialkolor:material-kolor", version.ref = "ma
 # a FAILED preview rather than a silent Roboto substitution. So the sheet is reproducible because an
 # irreproducible one cannot pass, which is a stronger guarantee than not asking for the font at all.
 glimmer = { module = "androidx.xr.glimmer:glimmer", version.ref = "glimmer" }
+# `GlimmerTranslationsTest` in the AGP module. `:catalog` gets kotlin-test from the multiplatform
+# plugin's own `kotlin("test")` accessor; AGP 9 brings Kotlin support but not that accessor, so the
+# Glimmer side names the artifact.
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 glimmer-google-fonts = { module = "androidx.xr.glimmer:glimmer-google-fonts", version.ref = "glimmer" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose-ui" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose-ui" }

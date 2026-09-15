@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.xr.glimmer.Icon
@@ -19,9 +20,25 @@ import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 
-private val GroceryLabels = listOf("Milk", "Bread", "Spinach", "Cereal")
-private val MeetingLabels = listOf("Weekly Design Check-In", "Jordan/Sam 1:1", "Lunch", "Review")
-private val MeetingTimes = listOf("8 - 8:30AM", "9 - 9:30AM", "12 - 1PM", "2 - 3PM")
+// The rows are copy rather than sample data — they are words a reader reads — so they resolve from
+// resources like everything else this module draws. Held as id lists so the row count stays one
+// number rather than three.
+private val GroceryLabels =
+  listOf(R.string.item_milk, R.string.item_bread, R.string.item_spinach, R.string.item_cereal)
+private val MeetingLabels =
+  listOf(
+    R.string.meeting_design_check_in,
+    R.string.meeting_one_to_one,
+    R.string.meeting_lunch,
+    R.string.meeting_review,
+  )
+private val MeetingTimes =
+  listOf(
+    R.string.time_early_morning,
+    R.string.time_late_morning,
+    R.string.time_midday,
+    R.string.time_afternoon,
+  )
 
 @CatalogComponent(
   id = "GlimmerLazyColumn",
@@ -46,7 +63,7 @@ fun GlimmerLazyColumnSticker() = Sticker {
 @Composable
 fun GlimmerLazyColumnWithTitleSticker() = Sticker {
   GlimmerLazyColumn(
-    title = { TitleChip { Text("Ingredients") } },
+    title = { TitleChip { Text(stringResource(R.string.list_title_ingredients)) } },
     modifier = Modifier.width(KitContentWidth).height(364.dp),
   ) {
     items(count = GroceryLabels.size) { index -> GroceryListItem(index) }
@@ -65,11 +82,11 @@ fun GlimmerLazyColumnWithTitleSticker() = Sticker {
 fun GlimmerLazyColumnTwoLineSticker() = Sticker {
   GlimmerLazyColumn(modifier = Modifier.width(KitContentWidth).height(364.dp)) {
     items(count = MeetingLabels.size) { index ->
-      val c = counted(MeetingLabels[index])
+      val c = counted(stringResource(MeetingLabels[index]))
       ListItem(
         onClick = c.onClick,
-        supportingLabel = { Text(MeetingTimes[index]) },
-        leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
+        supportingLabel = { Text(stringResource(MeetingTimes[index])) },
+        leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
       ) {
         Text(c.label)
       }
@@ -79,10 +96,10 @@ fun GlimmerLazyColumnTwoLineSticker() = Sticker {
 
 @Composable
 private fun GroceryListItem(index: Int) {
-  val c = counted(GroceryLabels[index])
+  val c = counted(stringResource(GroceryLabels[index]))
   ListItem(
     onClick = c.onClick,
-    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
   ) {
     Text(c.label)
   }

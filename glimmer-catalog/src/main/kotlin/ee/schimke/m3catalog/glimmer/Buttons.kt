@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.xr.glimmer.Button
 import androidx.xr.glimmer.ButtonSize
@@ -45,12 +46,12 @@ import ee.schimke.composeai.preview.CatalogVariant
 @Preview
 @Composable
 fun ButtonSticker() = Sticker {
-  val c = counted("Button")
+  val c = counted(glimmerText("label", stringResource(R.string.label_button)))
   Button(
     onClick = c.onClick,
     enabled = glimmerEnabled(),
     buttonSize = glimmerButtonSize(),
-    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
   ) {
     Text(c.label)
   }
@@ -61,12 +62,12 @@ fun ButtonSticker() = Sticker {
 @Preview
 @Composable
 fun ButtonLargeSticker() = Sticker {
-  val c = counted("Button")
+  val c = counted(glimmerText("label", stringResource(R.string.label_button)))
   Button(
     onClick = c.onClick,
     enabled = glimmerEnabled(),
     buttonSize = ButtonSize.Large,
-    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
   ) {
     Text(c.label)
   }
@@ -79,7 +80,7 @@ fun ButtonLargeSticker() = Sticker {
 @Preview
 @Composable
 fun ButtonLabelOnlySticker() = Sticker {
-  val c = counted("Button")
+  val c = counted(glimmerText("label", stringResource(R.string.label_button)))
   Button(onClick = c.onClick) { Text(c.label) }
 }
 
@@ -91,11 +92,11 @@ fun ButtonLabelOnlySticker() = Sticker {
 @Preview
 @Composable
 fun ButtonTrailingIconSticker() = Sticker {
-  val c = counted("Button")
+  val c = counted(glimmerText("label", stringResource(R.string.label_button)))
   Button(
     onClick = c.onClick,
-    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
-    trailingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
+    trailingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
   ) {
     Text(c.label)
   }
@@ -132,9 +133,9 @@ fun ToggleButtonSticker() = Sticker {
     onCheckedChange = { checked = it },
     enabled = glimmerEnabled(),
     buttonSize = glimmerButtonSize(),
-    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
   ) {
-    Text("Button")
+    Text(stringResource(R.string.label_button))
   }
 }
 
@@ -153,9 +154,9 @@ fun ToggleButtonLargeSticker() = Sticker {
     onCheckedChange = { checked = it },
     enabled = glimmerEnabled(),
     buttonSize = ButtonSize.Large,
-    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
   ) {
-    Text("Button")
+    Text(stringResource(R.string.label_button))
   }
 }
 
@@ -185,8 +186,8 @@ fun ToggleButtonCheckedSticker() = Sticker {
     checked = checked,
     onCheckedChange = { checked = it },
     enabled = glimmerEnabled(),
-    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
+    leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
   ) {
-    Text("Button")
+    Text(stringResource(R.string.label_button))
   }
 }

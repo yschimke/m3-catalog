@@ -158,7 +158,12 @@ same word. Where Compose has no name of its own, take the kit's.
   supporting text and `contentDescription`s resolve with `stringResource(Res.string.…)` from
   `catalog/src/main/composeResources/values*/strings.xml`. Adding a string means adding it to
   `values/` **and to all 17 locale files** — `CatalogTranslationsTest` fails the build for a key that
-  is missing from a locale, left as the English copy, or declared and never rendered. What stays a
+  is missing from a locale, left as the English copy, or declared and never rendered.
+  `:glimmer-catalog` is the same rule through the mechanism that module has: it is AGP with no
+  multiplatform plugin, so its copy lives in `glimmer-catalog/src/main/res/values*/strings.xml` and
+  resolves with `stringResource(R.string.…)`, guarded by `GlimmerTranslationsTest` — same 17
+  locales, same four invariants. `:samples-catalog` and `:glimmer-samples` are exempt and always
+  will be: that copy is upstream's bytes, re-fetched byte-identically on every import. What stays a
   literal: token names (`primary`, `Display Large`, `XS`) and sample data that isn't language
   (`alice@example.com`, `⌘E`, person names). Numeric samples such as `10:30` and badge counts pass
   through `localizedDigits(...)` so the locale's numbering system still applies.
