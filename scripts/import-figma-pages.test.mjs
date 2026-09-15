@@ -67,6 +67,23 @@ test("a pin whose node the file does not carry is still imported", () => {
   ]);
 });
 
+test("a pin carries descendant exclusions into the import", () => {
+  assert.deepEqual(
+    resolvePages({
+      pins: [{ id: "buttons", nodeId: "1:1", excludeNodes: ["1:2"] }],
+    }),
+    [
+      {
+        id: "buttons",
+        nodeId: "1:1",
+        name: "buttons",
+        pinned: true,
+        excludeNodes: ["1:2"],
+      },
+    ],
+  );
+});
+
 test("two pages sharing a name both survive, the first keeping the bare slug", () => {
   assert.deepEqual(
     resolvePages({ discovered: [page("1:1", "Buttons"), page("2:2", "Buttons")] }).map((p) => p.id),

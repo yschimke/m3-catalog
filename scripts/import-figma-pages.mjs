@@ -186,7 +186,12 @@ export function resolvePages({ pins = [], discovered = [], exclude = [] } = {}) 
       typeof pin?.id === "string" && pin.id !== "" ? pin.id : slugForPage(pin?.name, nodeId);
     assertUsableId(id, `the pin for ${nodeId}`);
     if (pinsByNode.has(nodeId)) throw new Error(`"pages" pins ${nodeId} twice`);
-    pinsByNode.set(nodeId, { id, nodeId, ...(pin?.name ? { name: String(pin.name) } : {}) });
+    pinsByNode.set(nodeId, {
+      id,
+      nodeId,
+      ...(pin?.name ? { name: String(pin.name) } : {}),
+      ...(pin?.excludeNodes ? { excludeNodes: asArray(pin.excludeNodes) } : {}),
+    });
   }
 
   const taken = new Set([...pinsByNode.values()].map((pin) => pin.id));
@@ -203,7 +208,7 @@ export function resolvePages({ pins = [], discovered = [], exclude = [] } = {}) 
       usedPins.add(nodeId);
       // The pin fixes the id; the *name* still comes from the file unless the pin overrode it, so a
       // renamed page reads correctly in the index while keeping its published URL.
-      resolved.push({ id: pin.id, nodeId, name: pin.name ?? name, pinned: true });
+      resolved.push({ ...pin, nodeId, name: pin.name ?? name, pinned: true });
       continue;
     }
     let id = slugForPage(name, nodeId);
@@ -220,7 +225,7 @@ export function resolvePages({ pins = [], discovered = [], exclude = [] } = {}) 
 
   for (const [nodeId, pin] of pinsByNode) {
     if (usedPins.has(nodeId) || isExcluded(nodeId, pin.name)) continue;
-    resolved.push({ id: pin.id, nodeId, name: pin.name ?? pin.id, pinned: true });
+    resolved.push({ ...pin, nodeId, name: pin.name ?? pin.id, pinned: true });
   }
   return resolved;
 }
