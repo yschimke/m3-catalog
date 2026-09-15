@@ -38,13 +38,13 @@ customising the live render are two ends of one workflow.
 
 | | |
 | --- | --- |
-| Components | **9** |
-| Rendered images (PNG) | **44** |
-| Editable wireframes (SVG) | **9** |
-| Editable design vectors (figma-svg) | **9** |
-| Components with a11y greenlines | **4** |
+| Components | **12** |
+| Rendered images (PNG) | **48** |
+| Editable wireframes (SVG) | **12** |
+| Editable design vectors (figma-svg) | **12** |
+| Components with a11y greenlines | **5** |
 | Library | `androidx.xr.glimmer:glimmer` |
-| Renderer | compose-preview 2.14.1 |
+| Renderer | compose-preview 2.15.0 |
 | Schema | `design-parity-catalog/v1` |
 | Generated | 2026-09-15 |
 
@@ -55,6 +55,8 @@ customising the live render are two ends of one workflow.
 | Button | 2 |
 | Card | 2 |
 | Icon button | 2 |
+| Lazy list | 2 |
+| Button group | 1 |
 | List item | 1 |
 | Stack | 1 |
 | Voice input | 1 |

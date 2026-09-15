@@ -7,8 +7,37 @@
     "ref": "main",
     "module": ":glimmer-catalog"
   },
-  "generatedAt": "2026-09-15T08:45:42.057Z",
+  "generatedAt": "2026-09-15T09:41:15.029Z",
   "mappings": [
+    {
+      "componentId": "ButtonGroup",
+      "figmaLayerName": "ButtonGroup",
+      "componentName": "Sticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/GlimmerCatalog.kt",
+      "label": "Compose",
+      "confidence": "LOW",
+      "previewName": "ButtonGroupSticker",
+      "codeSnippet": "Sticker(\n    content = { },\n)",
+      "imports": [
+        "import ee.schimke.m3catalog.glimmer.Sticker"
+      ],
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "typeFqn": "kotlin.Function0",
+          "hasDefault": false,
+          "composableSlot": true,
+          "composableSlotReceiver": null,
+          "nullable": false,
+          "noArgConstructible": false,
+          "noArgFactory": null,
+          "scopeDslReceiver": null,
+          "lambdaReturnTypeFqn": "kotlin.Unit"
+        }
+      ],
+      "figmaSvg": "figma/buttongroup.svg"
+    },
     {
       "componentId": "Button",
       "figmaLayerName": "Button",
@@ -144,6 +173,64 @@
         }
       ],
       "figmaSvg": "figma/icontogglebutton.svg"
+    },
+    {
+      "componentId": "GlimmerLazyColumn",
+      "figmaLayerName": "GlimmerLazyColumn",
+      "componentName": "Sticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/GlimmerCatalog.kt",
+      "label": "Compose",
+      "confidence": "HIGH",
+      "previewName": "GlimmerLazyColumnSticker",
+      "codeSnippet": "Sticker(\n    content = { },\n)",
+      "imports": [
+        "import ee.schimke.m3catalog.glimmer.Sticker"
+      ],
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "typeFqn": "kotlin.Function0",
+          "hasDefault": false,
+          "composableSlot": true,
+          "composableSlotReceiver": null,
+          "nullable": false,
+          "noArgConstructible": false,
+          "noArgFactory": null,
+          "scopeDslReceiver": null,
+          "lambdaReturnTypeFqn": "kotlin.Unit"
+        }
+      ],
+      "figmaSvg": "figma/glimmerlazycolumn.svg"
+    },
+    {
+      "componentId": "GlimmerLazyColumn/TwoLine",
+      "figmaLayerName": "GlimmerLazyColumn/TwoLine",
+      "componentName": "Sticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/GlimmerCatalog.kt",
+      "label": "Compose",
+      "confidence": "LOW",
+      "previewName": "GlimmerLazyColumnTwoLineSticker",
+      "codeSnippet": "Sticker(\n    content = { },\n)",
+      "imports": [
+        "import ee.schimke.m3catalog.glimmer.Sticker"
+      ],
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "typeFqn": "kotlin.Function0",
+          "hasDefault": false,
+          "composableSlot": true,
+          "composableSlotReceiver": null,
+          "nullable": false,
+          "noArgConstructible": false,
+          "noArgFactory": null,
+          "scopeDslReceiver": null,
+          "lambdaReturnTypeFqn": "kotlin.Unit"
+        }
+      ],
+      "figmaSvg": "figma/glimmerlazycolumn-twoline.svg"
     },
     {
       "componentId": "ListItem",

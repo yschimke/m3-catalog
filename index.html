@@ -110,12 +110,15 @@
 <body>
 <header class="top">
   <h1>Compose Glimmer</h1>
-  <div class="subtitle">system <code>glimmer-catalog</code> · androidx.xr.glimmer:glimmer · rendered by compose-preview 2.14.1 · 2026-09-15T08:45:41.544Z · 9 components</div>
+  <div class="subtitle">system <code>glimmer-catalog</code> · androidx.xr.glimmer:glimmer · rendered by compose-preview 2.15.0 · 2026-09-15T09:41:14.613Z · 12 components</div>
   <div class="subtitle"><a class="pagelink" href="compare.html">SVG vs PNG compare ↗</a></div>
 </header>
 
 <div class="layout">
   <nav class="index"><section class="nav-group">
+      <a class="nav-head" href="#g-button-group">Button group <span>1</span></a>
+      <ul><li><a href="#c-buttongroup">ButtonGroup</a></li></ul>
+    </section><section class="nav-group">
       <a class="nav-head" href="#g-button">Button <span>2</span></a>
       <ul><li><a href="#c-button">Button</a></li><li><a href="#c-togglebutton">ToggleButton</a></li></ul>
     </section><section class="nav-group">
@@ -124,6 +127,9 @@
     </section><section class="nav-group">
       <a class="nav-head" href="#g-icon-button">Icon button <span>2</span></a>
       <ul><li><a href="#c-iconbutton">IconButton</a></li><li><a href="#c-icontogglebutton">IconToggleButton</a></li></ul>
+    </section><section class="nav-group">
+      <a class="nav-head" href="#g-lazy-list">Lazy list <span>2</span></a>
+      <ul><li><a href="#c-glimmerlazycolumn">GlimmerLazyColumn</a></li><li><a href="#c-glimmerlazycolumn-twoline">GlimmerLazyColumn/TwoLine</a></li></ul>
     </section><section class="nav-group">
       <a class="nav-head" href="#g-list-item">List item <span>1</span></a>
       <ul><li><a href="#c-listitem">ListItem</a></li></ul>
@@ -134,7 +140,18 @@
       <a class="nav-head" href="#g-voice-input">Voice input <span>1</span></a>
       <ul><li><a href="#c-voiceinputindicator">VoiceInputIndicator</a></li></ul>
     </section></nav>
-  <main><section class="group" id="g-button">
+  <main><section class="group" id="g-button-group">
+      <h2>Button group</h2>
+      <div class="grid"><article class="card" id="c-buttongroup">
+  <a class="shot" href="#d-buttongroup" aria-label="Zoom ButtonGroup"><img loading="lazy" src="images/buttongroup/ideal__default.png" alt="ButtonGroup" /></a>
+  <div class="meta">
+    <h3><a class="ctitle" href="#d-buttongroup">ButtonGroup</a></h3>
+    <div class="sub">420×48<a class="wf" href="wireframes/buttongroup.svg" target="_blank" rel="noopener">wireframe ↗</a><a class="wf figma-svg-link" href="figma/buttongroup.svg" target="_blank" rel="noopener">figma svg ↗</a></div>
+    <div class="greenlines" title="accessibility greenlines"><span class="chip chip--info">button</span><span class="chip chip--info">button</span><span class="chip chip--info">button</span></div>
+  </div>
+</article></div>
+    </section>
+<section class="group" id="g-button">
       <h2>Button</h2>
       <div class="grid"><article class="card" id="c-button">
   <a class="shot" href="#d-button" aria-label="Zoom Button"><img loading="lazy" src="images/button/ideal__default.png" alt="Button" /></a>
@@ -191,6 +208,25 @@
   </div>
 </article></div>
     </section>
+<section class="group" id="g-lazy-list">
+      <h2>Lazy list</h2>
+      <div class="grid"><article class="card" id="c-glimmerlazycolumn">
+  <a class="shot" href="#d-glimmerlazycolumn" aria-label="Zoom GlimmerLazyColumn"><img loading="lazy" src="images/glimmerlazycolumn/ideal__default.png" alt="GlimmerLazyColumn" /></a>
+  <div class="meta">
+    <h3><a class="ctitle" href="#d-glimmerlazycolumn">GlimmerLazyColumn</a></h3>
+    <div class="sub">420×364<a class="statechip" href="#d-glimmerlazycolumn">+1 variant</a><a class="wf" href="wireframes/glimmerlazycolumn.svg" target="_blank" rel="noopener">wireframe ↗</a><a class="wf figma-svg-link" href="figma/glimmerlazycolumn.svg" target="_blank" rel="noopener">figma svg ↗</a></div>
+    
+  </div>
+</article>
+<article class="card" id="c-glimmerlazycolumn-twoline">
+  <a class="shot" href="#d-glimmerlazycolumn-twoline" aria-label="Zoom GlimmerLazyColumn/TwoLine"><img loading="lazy" src="images/glimmerlazycolumn-twoline/ideal__default.png" alt="GlimmerLazyColumn/TwoLine" /></a>
+  <div class="meta">
+    <h3><a class="ctitle" href="#d-glimmerlazycolumn-twoline">GlimmerLazyColumn/TwoLine</a></h3>
+    <div class="sub">420×364<a class="wf" href="wireframes/glimmerlazycolumn-twoline.svg" target="_blank" rel="noopener">wireframe ↗</a><a class="wf figma-svg-link" href="figma/glimmerlazycolumn-twoline.svg" target="_blank" rel="noopener">figma svg ↗</a></div>
+    
+  </div>
+</article></div>
+    </section>
 <section class="group" id="g-list-item">
       <h2>List item</h2>
       <div class="grid"><article class="card" id="c-listitem">
@@ -224,6 +260,15 @@
   </div>
 </article></div>
     </section></main>
+</div>
+<div class="detail" id="d-buttongroup" role="dialog" aria-label="ButtonGroup">
+  <a class="detail-scrim" href="#c-buttongroup" aria-label="Close"></a>
+  <div class="detail-panel">
+    <a class="detail-x" href="#c-buttongroup" aria-label="Close">×</a>
+    <h3>ButtonGroup</h3>
+    <div class="detail-caption">A horizontally scrolling set of buttons that enlarges and centers the focused item.</div>
+    <div class="detail-states"><figure class="state"><figcaption>default</figcaption><div class="state-shots"><div class="state-shot"><img loading="lazy" src="images/buttongroup/ideal__default.png" alt="ButtonGroup default" /><span>default</span></div></div></figure></div>
+  </div>
 </div>
 <div class="detail" id="d-button" role="dialog" aria-label="Button">
   <a class="detail-scrim" href="#c-button" aria-label="Close"></a>
@@ -277,6 +322,24 @@
     <h3>IconToggleButton</h3>
     <div class="detail-caption">An icon button that holds its checked state.</div>
     <div class="detail-states"><figure class="state"><figcaption>default</figcaption><div class="state-shots"><div class="state-shot"><img loading="lazy" src="images/icontogglebutton/ideal__default.png" alt="IconToggleButton default" /><span>default</span></div></div></figure><figure class="state"><figcaption>disabled</figcaption><div class="state-shots"><div class="state-shot"><img loading="lazy" src="images/icontogglebutton/ideal__disabled.png" alt="IconToggleButton disabled" /><span>disabled</span></div></div></figure><figure class="state"><figcaption>focused</figcaption><div class="state-shots"><div class="state-shot"><img loading="lazy" src="images/icontogglebutton/ideal__focused.png" alt="IconToggleButton focused" /><span>focused</span></div></div></figure><figure class="state"><figcaption>pressed</figcaption><div class="state-shots"><div class="state-shot"><img loading="lazy" src="images/icontogglebutton/ideal__pressed.png" alt="IconToggleButton pressed" /><span>pressed</span></div></div></figure><figure class="state"><figcaption>checked</figcaption><div class="state-shots"><div class="state-shot"><img loading="lazy" src="images/icontogglebutton/ideal__checked.png" alt="IconToggleButton checked" /><span>checked</span></div></div></figure></div>
+  </div>
+</div>
+<div class="detail" id="d-glimmerlazycolumn" role="dialog" aria-label="GlimmerLazyColumn">
+  <a class="detail-scrim" href="#c-glimmerlazycolumn" aria-label="Close"></a>
+  <div class="detail-panel">
+    <a class="detail-x" href="#c-glimmerlazycolumn" aria-label="Close">×</a>
+    <h3>GlimmerLazyColumn</h3>
+    <div class="detail-caption">A vertically scrolling Glimmer list with edge scrims and focus-aware snapping.</div>
+    <div class="detail-states"><figure class="state"><figcaption>default</figcaption><div class="state-shots"><div class="state-shot"><img loading="lazy" src="images/glimmerlazycolumn/ideal__default.png" alt="GlimmerLazyColumn default" /><span>default</span></div></div></figure><figure class="state"><figcaption>Title=True</figcaption><div class="state-shots"><div class="state-shot"><img loading="lazy" src="images/glimmerlazycolumn/ideal__default__title-true.png" alt="GlimmerLazyColumn Title=True" /><span>default</span></div></div></figure></div>
+  </div>
+</div>
+<div class="detail" id="d-glimmerlazycolumn-twoline" role="dialog" aria-label="GlimmerLazyColumn/TwoLine">
+  <a class="detail-scrim" href="#c-glimmerlazycolumn-twoline" aria-label="Close"></a>
+  <div class="detail-panel">
+    <a class="detail-x" href="#c-glimmerlazycolumn-twoline" aria-label="Close">×</a>
+    <h3>GlimmerLazyColumn/TwoLine</h3>
+    <div class="detail-caption">The lazy column populated with two-line list items.</div>
+    <div class="detail-states"><figure class="state"><figcaption>default</figcaption><div class="state-shots"><div class="state-shot"><img loading="lazy" src="images/glimmerlazycolumn-twoline/ideal__default.png" alt="GlimmerLazyColumn/TwoLine default" /><span>default</span></div></div></figure></div>
   </div>
 </div>
 <div class="detail" id="d-listitem" role="dialog" aria-label="ListItem">
