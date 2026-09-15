@@ -4,8 +4,9 @@ name: Design Artifacts
 # `design-artifacts/<system>` branches, which the public preview server
 # (preview.coo.ee) serves at /<system>/:
 #
-#   :catalog         -> design-artifacts/m3-catalog   the kit rendition (Material 3)
-#   :samples-catalog -> design-artifacts/m3-samples   the AndroidX samples, vendored
+#   :catalog            -> design-artifacts/m3-catalog        the kit rendition (Material 3)
+#   :samples-catalog    -> design-artifacts/m3-samples        the AndroidX samples, vendored
+#   :ui-samples-catalog -> design-artifacts/compose-ui-samples the AndroidX FOUNDATION samples
 #
 # Two catalogs, one pipeline, and a `changes` job so a push that moves one of them does not spend a
 # runner re-rendering the other. That job is new with the samples sheet: with a single catalog
@@ -54,6 +55,13 @@ on:
       - 'samples/**'
       - 'sample-map.json'
       - 'scripts/samples-spec.mjs'
+      # The foundation samples sheet's render inputs: the vendored tree, the generated wrappers and
+      # the generated spec live under the module, the pin and the quarantine list beside them, and
+      # the two generators are listed for the reason `scripts/samples-spec.mjs` is above — a change
+      # to either moves the published inventory with no change to the module at all.
+      - 'ui-samples-catalog/**'
+      - 'scripts/samples-previews.mjs'
+      - 'scripts/ui-samples-spec.mjs'
       # The page-backdrop opt-in and its page list. Changing which screens are
       # published — or turning the surface on or off — changes what the delivery
       # branch carries, so it belongs in the same set as the spec.
@@ -122,6 +130,7 @@ jobs:
     outputs:
       kit: ${{ steps.scope.outputs.kit }}
       samples: ${{ steps.scope.outputs.samples }}
+      ui-samples: ${{ steps.scope.outputs.ui-samples }}
       glimmer: ${{ steps.scope.outputs.glimmer }}
     steps:
       - uses: actions/checkout@v7.0.1
@@ -139,6 +148,7 @@ jobs:
              ! files="$(git diff --name-only "$BEFORE" "$GITHUB_SHA")"; then
             echo 'kit=true' >> "$GITHUB_OUTPUT"
             echo 'samples=true' >> "$GITHUB_OUTPUT"
+            echo 'ui-samples=true' >> "$GITHUB_OUTPUT"
             echo 'glimmer=true' >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -146,6 +156,7 @@ jobs:
           if grep -qE "$shared" <<<"$files"; then
             echo 'kit=true' >> "$GITHUB_OUTPUT"
             echo 'samples=true' >> "$GITHUB_OUTPUT"
+            echo 'ui-samples=true' >> "$GITHUB_OUTPUT"
             echo 'glimmer=true' >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -155,8 +166,15 @@ jobs:
           # was started for.
           grep -qE '^(catalog/|catalog\.spec\.json$|ui-builder\.policy\.json$|design-pages\.json$|design/pages/)' <<<"$files" &&
             echo 'kit=true' >> "$GITHUB_OUTPUT" || echo 'kit=false' >> "$GITHUB_OUTPUT"
+          # `scripts/samples-` also matches `samples-previews.mjs`, which is the FOUNDATION corpus'
+          # wrapper generator rather than this one's. Dirtying the m3 samples sheet for it is a
+          # spare render and never a stale sheet, which is the direction this job fails in on
+          # purpose; narrowing the pattern to buy that back would mean spelling out every script
+          # name twice.
           grep -qE '^(samples-catalog/|samples/|sample-map\.json$|scripts/samples-)' <<<"$files" &&
             echo 'samples=true' >> "$GITHUB_OUTPUT" || echo 'samples=false' >> "$GITHUB_OUTPUT"
+          grep -qE '^(ui-samples-catalog/|scripts/samples-previews\.mjs$|scripts/ui-samples-spec\.mjs$)' <<<"$files" &&
+            echo 'ui-samples=true' >> "$GITHUB_OUTPUT" || echo 'ui-samples=false' >> "$GITHUB_OUTPUT"
           # Both Glimmer sheets move together: they share the `glimmer` version ref, the Robolectric
           # pin and the AGP setup, so a change to one is nearly always a change to both, and the two
           # renders together cost less than the runner minutes a finer split would save.
@@ -390,6 +408,57 @@ jobs:
       # needs telling about multipreviews declared in another module. This module has none: every
       # published preview is the plain `androidx.compose.ui.tooling.preview.Preview`, carried by
       # upstream's own sources — verified against the vendored tree rather than assumed.
+      allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
+
+  ui-samples:
+    name: compose-ui-samples
+    needs: changes
+    # Don't let forks push to the delivery branch.
+    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.ui-samples == 'true' }}
+    permissions:
+      contents: write
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
+    with:
+      system: compose-ui-samples
+      spec: ui-samples-catalog/catalog.spec.json
+      module: ':ui-samples-catalog'
+
+      # The same empty map the `m3-samples` job above explains at length, for the same reason and
+      # with one more: these are AndroidX's `androidx.compose.foundation` call sites, and not only
+      # is there no kit node for a `LazyColumn` sample — there is no kit for this tier at all.
+      # Publishing `:catalog`'s map under this system's name would hand it Material 3 references
+      # naming files this module does not contain. 0% parity coverage is the truthful number, which
+      # is also why this caller carries no `figma_token` and no `reference-cache-branch`.
+      design-map-command: printf '{"components":[]}\n' > design-map.json
+      # Same CLI/plugin lockstep as every other caller here.
+      cli-version: catalog
+      catalog-key: composePreviewPlugin
+      # Compose Multiplatform desktop — no AGP, so the plugin routes it to the Skiko renderer under
+      # xvfb, which is also the classpath the samples were fingerprinted against.
+      desktop-render: true
+      # FALSE to start, unlike `m3-samples` — and deliberately, not by oversight.
+      #
+      # `docs/design/ANDROIDX_SAMPLES.md` records the rule: a live bundle on a trusted delivery
+      # branch means preview.coo.ee executing vendored third-party Compose on request, and it is
+      # granted on specifics rather than by default. The m3 samples earned it; this corpus starts
+      # without it and can make its own case later. When it does, the argument is already written:
+      # many foundation samples are INTERACTION demos — scroll, drag, `AnchoredDraggable` — and a
+      # single frame of one says very little, which is the strongest case for a live bundle anywhere
+      # in this repository (#346).
+      publish-live-bundle: false
+      # No per-preview split, matching every other caller: an addressable copy of 202 previews on an
+      # append-only branch, rewritten on every publish, for a lane nothing reads.
+      split-per-preview: false
+      commit-user-name: Yuri Schimke
+      commit-user-email: yuri@schimke.ee
+      timeout-minutes: 60
+      render-timeout: 1800
+      # ONE, like `m3-samples` and unlike `:catalog`: these 202 previews are one capture each, so a
+      # shard's own discovery, upload and merge cost would exceed what it saves.
+      render-shards: 1
+      # NO `preview-annotations`: every published preview here is the plain
+      # `androidx.compose.ui.tooling.preview.Preview`, carried by upstream's own sources or by the
+      # wrappers `scripts/samples-previews.mjs` generates, and there are no multipreviews at all.
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
 
   # ── The two Glimmer sheets ──────────────────────────────────────────────────────────────────────

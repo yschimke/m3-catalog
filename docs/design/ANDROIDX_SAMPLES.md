@@ -44,11 +44,16 @@ where measurement has since changed them. What exists in the tree today:
 | `:samples-catalog` | the module that compiles and renders them: 40 files vendored, 8 quarantined, 2 patches |
 | `design-artifacts.yml` → `m3-samples` | the publish job, plus the `changes`/Scope job it made necessary |
 
-**No `@Preview` wrappers here, and that is a difference from the Wear repo rather than an omission.**
-298 of the 317 `@Sampled` functions in `androidx.compose.material3.samples` already carry `@Preview`
-upstream, so discovery finds them directly. `androidx.wear.compose.material3.samples` carries it on
-34 of 170, which is why that repo generates 115 wrappers and this one generates none. The difference
-is the two teams' annotation habits, not anything about the platforms.
+**No `@Preview` wrappers for THIS corpus, and that is a difference from the Wear repo rather than an
+omission.** 298 of the 317 `@Sampled` functions in `androidx.compose.material3.samples` already carry
+`@Preview` upstream, so discovery finds them directly. `androidx.wear.compose.material3.samples`
+carries it on 34 of 170, which is why that repo generates 115 wrappers and `:samples-catalog`
+generates none. The difference is the two teams' annotation habits, not anything about the platforms.
+
+That sentence used to say "here" and mean "in this repository". It no longer can:
+`androidx.compose.foundation` annotates 7 of its 73 sample files, so the second corpus below needs
+the generator after all, and this repository now has it — `scripts/samples-previews.mjs`, ported from
+the Wear repo rather than written twice.
 
 Not built yet: the `catalogs.json` registration on preview.coo.ee, the server's "Samples"
 affordance, and the weekly `samples-refresh.yml`.
@@ -129,6 +134,79 @@ sticker publishing one picture under two names, and its audit runs against `:cat
 this module's. Fixing it needs a width axis these previews do not carry, which means a generated
 wrapper preview — the machinery this repo deliberately does not have, and the deliverable of the
 `:ui-samples-catalog` work. Recorded here rather than worked around.
+
+## A third corpus: `:ui-samples-catalog` (`compose-ui-samples`)
+
+The tier below Material 3 — `androidx.compose.foundation` and `-foundation-layout` — published as its
+own system (issue #346). A second module rather than two more `paths` on `:samples-catalog`, for
+three reasons in descending order of weight:
+
+1. **`compareWith` would be wrong.** `samples-catalog/catalog.spec.json` declares
+   `compareWith: { system: "m3-catalog" }`, and a `LazyColumn` or `pointerInput` sample has no kit
+   cell to be scored against and never will.
+2. **One system, one taxonomy.** `m3-samples` mirrors `m3-catalog`'s ids so every cross-link is an
+   identity mapping. These have no counterpart ids at all; they group by source file.
+3. **Different pins, different opt-ins.** Its own `artifactVersion` fingerprint, and a different
+   experimental surface (`ExperimentalFoundationApi`, `ExperimentalLayoutApi`, `ExperimentalFlexBoxApi`,
+   …).
+
+Everything else is shared: same renderer, same importer, same vendoring contract, same
+regenerate-and-diff gates. It is a second module using `scripts/import-samples.mjs`, not a second
+pipeline.
+
+### What it produces
+
+| Artifact | What it is |
+| --- | --- |
+| `ui-samples-catalog/import.json` | the pin: `androidx.compose.foundation:foundation` **1.12.0**, ref `8cb5911` |
+| `ui-samples-catalog/quarantine.json` | 14 files this lane cannot compile, each with its error count |
+| `scripts/samples-previews.mjs` | the ported wrapper generator — **192 wrappers** |
+| `scripts/ui-samples-spec.mjs`, `ui-samples-catalog/catalog.spec.json` | the generated inventory — **202 components in 57 groups** |
+| `:ui-samples-catalog` | the module: 59 files vendored, 14 quarantined, 0 patches |
+| `design-artifacts.yml` → `compose-ui-samples` | the publish job, and a third `changes`/Scope output |
+
+**The pin is measured, not chosen.** Against `org.jetbrains.compose.foundation:foundation-desktop`
+1.12.0's 157 `@sample` references, AndroidX `foundation` 1.12.0 shares 157 with 0 only in CMP and 0
+only in AndroidX — the same `308 / 0 / 0` shape material3's pin has. 1.12.0-alpha02 and earlier are
+missing 9; 1.13.0-alpha01 and later add samples CMP does not reference yet.
+`scripts/samples-drift.mjs` now takes `--manifest`, so this corpus is re-derived on every run the way
+the other is.
+
+### The quarantine, and which half of it is temporary
+
+Fourteen files, and the two kinds do not age the same way:
+
+- **Android-specific by nature (9 files).** `WindowInsetsPaddingSample.kt` and
+  `WindowInsetsSizeSample.kt` are `ComponentActivity` subclasses; `DragAndDropSamples.kt` and
+  `ReceiveContentSamples.kt` carry an Android `ClipData` payload; `AndroidExternalSurfaceSamples.kt`
+  is Android-only by name; `MagnifierSamples.kt`, `HandwritingDetectorSample.kt`,
+  `ContextMenuSample.kt` and `WindowInsetsConnectionSample.kt` reach for a platform widget, the IME
+  or a resource table. This is the steady state #346 budgets for, not a surprise.
+- **Version skew (5 files).** `FlexBoxSample.kt` (`maxItemsInEachLine`), `LazyGridSamples.kt` and
+  `LazyStaggeredGridSamples.kt` (`cacheWindow`), `BackgroundTextMeasurementSample.kt`
+  (`LocalBackgroundTextMeasurementExecutor`) and `ClickableTextSample.kt` (`android.util.Log`, the
+  odd one out) name APIs AndroidX 1.12.0 has and the Compose Multiplatform artifact of the same
+  version does not. These are expected to disappear: when the CMP pin moves, `samples-drift.mjs`
+  fails first and re-running the import without the entry is the check.
+
+The FlexBox entry is worth reading as evidence for the opt-in list rather than against it: the
+opt-ins took that file from 336 errors to one.
+
+### Not built yet
+
+- **`ui`, `ui-text` and `animation`**, which #346 sequences after foundation deliberately, so the
+  quarantine list stays reviewable. Each is a `paths` entry and a pin; the generator is the cost
+  that has now been paid once.
+- **`catalogs.json` on preview.coo.ee** — the `androidx-samples` group, `attributionRepos:
+  ["androidx/androidx"]`, no `sites` entry. That is the preview server's repository, not this one.
+- **A live bundle.** `publish-live-bundle: false` to start, deliberately: many foundation samples are
+  interaction demos (scroll, drag, `AnchoredDraggable`) where a single frame says little, which is
+  the strongest case for a live bundle anywhere here — and it is a case to be made rather than
+  assumed, because on a trusted delivery branch it means preview.coo.ee executing vendored
+  third-party Compose on request.
+- **`related` links back to `m3-samples`.** #346 leaves room for them "where a sample genuinely
+  shares a surface"; a generated join would have to guess from name similarity, which is how
+  `ButtonGroup` gets joined to `Button`. An editorial table, when someone writes one.
 
 ## Acquisition: vendor a pinned subtree
 

@@ -32,3 +32,11 @@ include(":glimmer-catalog")
 // The AndroidX Glimmer samples, vendored and rendered beside the catalog above — the Android-side
 // counterpart of `:samples-catalog`. See glimmer-samples/build.gradle.kts.
 include(":glimmer-samples")
+
+// The AndroidX **foundation** samples — `androidx.compose.foundation` and `-layout`, vendored from
+// a pinned upstream commit and published as the `compose-ui-samples` system. A second samples
+// module rather than two more `paths` in `:samples-catalog`, for the same "separate module, not a
+// source set" reason the include above carries, plus one this tier adds: `m3-samples` declares
+// `compareWith: { system: "m3-catalog" }`, and a `LazyColumn` sample has no kit cell to be paired
+// with. See ui-samples-catalog/build.gradle.kts and issue #346.
+include(":ui-samples-catalog")

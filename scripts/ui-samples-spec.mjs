@@ -1,0 +1,135 @@
+#!/usr/bin/env node
+/**
+ * Generate `ui-samples-catalog/catalog.spec.json` — the `compose-ui-samples` inventory — from the
+ * vendored AndroidX foundation sources.
+ *
+ * ## Why the inventory is generated
+ *
+ * A catalog declares its inventory one of two ways: `@CatalogComponent` beside the `@Preview`, or
+ * `groups` in the spec. The annotation route is closed here for the reason it is closed for
+ * `:samples-catalog` and `:glimmer-samples` — the sources are upstream's bytes, re-fetched
+ * byte-identically on every import, so an annotation written into one would not survive the next
+ * `scripts/import-samples.mjs` run. That leaves `groups`, generated and committed, with the
+ * regenerate-and-diff `--check` contract the other specs carry.
+ *
+ * ## Why it is neither of the two generators already here
+ *
+ * `scripts/samples-spec.mjs` reads `sample-map.json`, the `@sample` KDoc map of the artifact
+ * `:samples-catalog` compiles against, and joins each sample to the KIT cell it demonstrates. There
+ * is no kit here: a `LazyColumn` or `pointerInput` sample has no Material 3 Design Kit node and
+ * never will, which is the first of issue #346's three reasons for a separate module.
+ *
+ * `scripts/glimmer-samples-spec.mjs` reads upstream's own `@Preview` functions. Foundation ships
+ * almost none — 7 of 73 files — so there is nothing to read: what renders this corpus is the
+ * wrappers `scripts/samples-previews.mjs` generates.
+ *
+ * So this one reads the same classification the wrapper generator does, and is a projection of it
+ * rather than a second scan. A sample that gains a wrapper gains a card, and one that loses it
+ * loses the card, with no third source of truth in between.
+ *
+ * ## The shape it produces
+ *
+ * One **group per source file**, named for the API the file demonstrates (`ColumnSample.kt` ->
+ * `Column`, `LazyGridSamples.kt` -> `LazyGrid`). One **component per rendered sample**, because each
+ * sample is its own call site and the thing a reader came to see; a sample is not a state of another
+ * sample, so nothing folds as a variant — the same call both sibling generators make.
+ *
+ * **No `related` links, deliberately.** #346 leaves room for them "where a sample genuinely shares a
+ * surface" with `m3-samples`, and a generated join would have to guess: these are foundation APIs
+ * and the material3 corpus has no `Column`, no `AnchoredDraggable` and no `pointerInput`. A table of
+ * genuine overlaps is an editorial act, and writing one here from name similarity is how
+ * `ButtonGroup` gets joined to `Button`.
+ *
+ *     node scripts/ui-samples-spec.mjs            # regenerate
+ *     node scripts/ui-samples-spec.mjs --check    # fail if the committed spec is stale
+ */
+
+import { readFileSync, writeFileSync } from "node:fs";
+import { basename } from "node:path";
+
+import { VENDORED, classifySamples, quarantinedPreviews } from "./samples-previews.mjs";
+
+export const SPEC = "ui-samples-catalog/catalog.spec.json";
+
+/**
+ * The API a sample file demonstrates: its name without the `Sample`/`Samples` suffix.
+ *
+ * `ColumnSample.kt` -> `Column`, `LazyGridSamples.kt` -> `LazyGrid`. Upstream uses both spellings,
+ * often for files of the same kind, so the suffix is stripped rather than matched on.
+ */
+export function apiName(file) {
+  return basename(file, ".kt").replace(/Samples?$/, "");
+}
+
+/** One group per file, one component per rendered sample. */
+export function buildGroups(dir = VENDORED, skip = quarantinedPreviews()) {
+  const { wrap, hasPreview } = classifySamples(dir, skip);
+  const byApi = new Map();
+  const add = (sample, preview, caption) => {
+    const api = apiName(sample.file);
+    if (!byApi.has(api)) byApi.set(api, []);
+    byApi.get(api).push({ componentId: `${api}/${sample.fn}`, preview, caption });
+  };
+  for (const sample of wrap) {
+    add(sample, `${sample.fn}Preview`, `\`${sample.fn}\` — rendered by a generated \`@Preview\` wrapper.`);
+  }
+  for (const sample of hasPreview) {
+    // Upstream previewed this one itself, so the sample function IS the preview and no wrapper was
+    // generated for it. The card is the same card; only the route to a picture differs.
+    add(sample, sample.fn, `\`${sample.fn}\` — the sample carries its own \`@Preview\` upstream.`);
+  }
+  return [...byApi.entries()]
+    .map(([name, components]) => ({
+      name,
+      components: components.sort((a, b) => a.componentId.localeCompare(b.componentId)),
+    }))
+    // Sorted by GROUP name rather than by file name, because this list is the sheet's display order
+    // and a reader scans it for an API. The two differ — `LazyGridSamples.kt` sorts before
+    // `LazyListSamples.kt`, and their API names sort the other way round for `LazyColumn`.
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export function buildSpec(groups) {
+  return {
+    $schema:
+      "https://raw.githubusercontent.com/yschimke/compose-ai-tools/main/scripts/design-artifacts/catalog.spec.schema.json",
+    $comment:
+      "GENERATED by scripts/ui-samples-spec.mjs from the vendored sources and the wrapper " +
+      "classification — do not edit. The inventory is generated rather than annotated because the " +
+      "sources are upstream's bytes, re-fetched byte-identically on every import: an " +
+      "@CatalogComponent written into one would not survive it. One group per source file, one " +
+      "component per rendered sample. There is no `compareWith`: these are foundation APIs and " +
+      "nothing in this repository reproduces a kit of them — see ui-samples-catalog/build.gradle.kts " +
+      "and issue #346.",
+    system: "compose-ui-samples",
+    title: "Compose UI Samples",
+    library: ["org.jetbrains.compose.foundation:foundation"],
+    module: ":ui-samples-catalog",
+    // The two modes `:catalog` publishes. A foundation sample says nothing about theming, but the
+    // Material 3 surfaces they draw their text and buttons on do, and a sheet that published only
+    // one would be a sheet whose cards cannot be read in the other.
+    modes: ["light", "dark"],
+    display: { role: "samples" },
+    groups,
+  };
+}
+
+function main(argv) {
+  const groups = buildGroups();
+  const json = `${JSON.stringify(buildSpec(groups), null, 2)}\n`;
+  const components = groups.reduce((n, g) => n + g.components.length, 0);
+
+  if (argv.includes("--check")) {
+    if (readFileSync(SPEC, "utf8") !== json) {
+      console.error(`${SPEC} is stale: regenerate it with \`node scripts/ui-samples-spec.mjs\`.`);
+      process.exit(1);
+    }
+    console.log(`${SPEC} is current (${components} component(s) in ${groups.length} group(s)).`);
+    return;
+  }
+
+  writeFileSync(SPEC, json);
+  console.log(`${SPEC}: ${components} component(s) in ${groups.length} group(s).`);
+}
+
+if (process.argv[1] && process.argv[1].endsWith("ui-samples-spec.mjs")) main(process.argv.slice(2));

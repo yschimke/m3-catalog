@@ -31,9 +31,9 @@ node ids and reference images, and the MCP server for variables and metadata. No
   code on every change, and appended as a commit rather than force-pushed, so the branch is
   diffable over time.
 
-That is the kit catalog. Three further sheets are published alongside it from the same workflow —
-the AndroidX Material 3 samples, and two for `androidx.xr.glimmer` — each on its own delivery
-branch; see [**Published systems**](#published-systems).
+That is the kit catalog. Four further sheets are published alongside it from the same workflow —
+the AndroidX Material 3 samples, the AndroidX foundation samples, and two for `androidx.xr.glimmer`
+— each on its own delivery branch; see [**Published systems**](#published-systems).
 
 The delivery branch's history is intentional: do not rewrite it into a fresh root commit as a
 repository-size workaround. A normal `git clone` fetches that generated branch as well as `main`,
@@ -382,15 +382,24 @@ So light/dark and states being flat on `compose-preview/main` is expected; the g
 
 ### Published systems
 
-`design-artifacts.yml` no longer publishes one sheet. It runs four jobs, each rendering its own
+`design-artifacts.yml` no longer publishes one sheet. It runs five jobs, each rendering its own
 module against its own spec and appending to its own delivery branch:
 
 | System | Module | Renderer | Delivery branch | Paired with |
 | --- | --- | --- | --- | --- |
 | `m3-catalog` | `:catalog` | Skiko (desktop) | [`design-artifacts/m3-catalog`](../../tree/design-artifacts/m3-catalog) | — |
 | `m3-samples` | `:samples-catalog` | Skiko (desktop) | [`design-artifacts/m3-samples`](../../tree/design-artifacts/m3-samples) | `m3-catalog` |
+| `compose-ui-samples` | `:ui-samples-catalog` | Skiko (desktop) | [`design-artifacts/compose-ui-samples`](../../tree/design-artifacts/compose-ui-samples) | — |
 | `glimmer-catalog` | `:glimmer-catalog` | Robolectric (Android) | [`design-artifacts/glimmer-catalog`](../../tree/design-artifacts/glimmer-catalog) | — |
 | `glimmer-samples` | `:glimmer-samples` | Robolectric (Android) | [`design-artifacts/glimmer-samples`](../../tree/design-artifacts/glimmer-samples) | `glimmer-catalog` |
+
+`compose-ui-samples` is the tier below Material 3 — `androidx.compose.foundation` and
+`-foundation-layout`, vendored the same way — and it is paired with nothing on purpose: a
+`LazyColumn` sample has no kit cell to be scored against. It is also the one sheet whose pictures
+exist because this repository generates them: upstream annotates 7 of its 73 sample files, so
+`scripts/samples-previews.mjs` writes a `@Preview` wrapper per sample, into the module's own package
+and never into the vendored tree. See
+[`docs/design/ANDROIDX_SAMPLES.md`](docs/design/ANDROIDX_SAMPLES.md).
 
 The two Glimmer sheets are the repository's only Android modules, and the renderer column is why:
 `androidx.xr.glimmer` ships an AAR with no Compose Multiplatform port, so a desktop JVM module

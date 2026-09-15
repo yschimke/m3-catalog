@@ -39,8 +39,9 @@
  * generated wrapper calling a sample that does not resolve against the CMP artifact does not
  * compile.
  *
- *     node scripts/samples-drift.mjs            # check the pin
+ *     node scripts/samples-drift.mjs            # check :samples-catalog's pin
  *     node scripts/samples-drift.mjs --search   # also scan the AndroidX line for a better match
+ *     node scripts/samples-drift.mjs --manifest ui-samples-catalog/import.json   # another corpus
  */
 
 import { execFileSync } from "node:child_process";
@@ -100,7 +101,15 @@ export function compare(left, right) {
 }
 
 function main(argv) {
-  const pin = JSON.parse(readFileSync("samples/import.json", "utf8"));
+  // `--manifest` because this repository now vendors two Compose Multiplatform corpora: the
+  // material3 samples of `:samples-catalog` and the foundation samples of `:ui-samples-catalog`.
+  // Each has its own manifest, each entry in it names the CMP artifact it is fingerprinted against,
+  // and everything below is already per-library — so serving the second corpus is an argument
+  // rather than a second script. (`:glimmer-samples` has no CMP artifact to compare against at all
+  // and is checked by the compiler alone; see glimmer-samples/import.json.)
+  const manifestIndex = argv.indexOf("--manifest");
+  const manifestPath = manifestIndex === -1 ? "samples/import.json" : argv[manifestIndex + 1];
+  const pin = JSON.parse(readFileSync(manifestPath, "utf8"));
   const stale = [];
 
   // Each library is its own comparison: `material3` tracks the CMP material3 artifact and

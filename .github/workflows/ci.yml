@@ -29,6 +29,13 @@ jobs:
       - name: Assemble
         run: ./gradlew :catalog:assemble --stacktrace
 
+      # The foundation samples and — the part that can actually break — the 192 `@Preview` wrappers
+      # `scripts/samples-previews.mjs` generates for them. A wrapper is generated from source text,
+      # so the compiler is the only thing that says whether it resolves: a sample that moves package
+      # upstream, or gains a parameter, fails here and nowhere earlier.
+      - name: Assemble the foundation samples
+        run: ./gradlew :ui-samples-catalog:assemble --stacktrace
+
       # Discovery is the real contract for a design catalog: it is what turns the
       # `@CatalogComponent` / `@CatalogVariant` / `@ThemeCatalog` annotations into
       # the published inventory. A component that compiles but is not discovered
@@ -167,6 +174,29 @@ jobs:
           node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
             --spec glimmer-samples/catalog.spec.json --module-dir glimmer-samples
 
+      # The foundation samples' spec is GENERATED too, from the vendored sources and the wrapper
+      # classification, so the same question comes first: does the committed file still match its
+      # generator? Both halves are checked, because they can go stale independently — a re-import
+      # that adds a sample moves the wrappers AND the spec, and a hand edit to either would publish
+      # an inventory naming a preview function nobody generated.
+      - name: The foundation sample previews are current
+        run: node scripts/samples-previews.mjs --check
+
+      - name: compose-ui-samples spec is current
+        run: node scripts/ui-samples-spec.mjs --check
+
+      # And that every `preview` it names resolves to a real `@Preview`, before design-artifacts.yml
+      # spends a runner discovering the same thing.
+      #
+      # The reverse direction warns, and the warning is expected: 5 of the 207 discovered previews
+      # are upstream demo previews that are NOT `@Sampled` — the same category :samples-catalog's
+      # 18 fall into. `@Sampled` is what makes a function a sample rather than something a sample
+      # sits beside, so they render as bundle orphans rather than as catalog cards.
+      - name: validate-catalog-spec (ui-samples-catalog)
+        run: |
+          node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
+            --spec ui-samples-catalog/catalog.spec.json --module-dir ui-samples-catalog
+
       # `compose-foundation` is generated and committed like the samples spec above, so the first
       # question is the same one: does the committed file still match its inputs? It is joined from
       # a FROZEN golden — the builder-vocabulary slice of the catalog the preview server packages,
@@ -258,6 +288,21 @@ jobs:
       # with no `Sample` in the name at all.
       - name: Test the glimmer samples spec
         run: node --test scripts/glimmer-samples-spec.test.mjs
+
+      # The ported `@Preview` wrapper generator, which is what makes a foundation samples sheet
+      # possible at all: upstream annotates 7 of 73 files, so without wrappers the module publishes
+      # a tenth of its corpus. What is worth holding is its REFUSALS — a sample that takes arguments
+      # is a helper and gets no wrapper, one that carries `@Preview` upstream is left alone rather
+      # than published twice, and a quarantined one is skipped — plus that each sample is called
+      # through the package of the file that declares it, since this corpus spans two.
+      - name: Test the sample preview wrappers
+        run: node --test scripts/samples-previews.test.mjs
+
+      # The inventory those wrappers are published under: one group per source file, one component
+      # per rendered sample, and no `compareWith` — a `LazyColumn` sample has no kit cell to be
+      # paired against.
+      - name: Test the compose-ui-samples spec
+        run: node --test scripts/ui-samples-spec.test.mjs
 
       # The vendoring importer. The load-bearing behaviour is that a patch which no longer applies
       # FAILS the import rather than silently dropping the fix it carries, and that a quarantined
