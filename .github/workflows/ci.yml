@@ -29,6 +29,20 @@ jobs:
       - name: Assemble
         run: ./gradlew :catalog:assemble --stacktrace
 
+      # The foundation samples and — the part that can actually break — the 192 `@Preview` wrappers
+      # `scripts/samples-previews.mjs` generates for them. A wrapper is generated from source text,
+      # so the compiler is the only thing that says whether it resolves: a sample that moves package
+      # upstream, or gains a parameter, fails here and nowhere earlier.
+      - name: Assemble the foundation samples
+        run: ./gradlew :ui-samples-catalog:assemble --stacktrace
+
+      # `compose-foundation` — the builder vocabulary catalog. Discovery is the contract here more
+      # than anywhere: this catalog's whole payload is the `ui-builder.json` discovery writes from
+      # the policy, and the `component.policy.orphaned` diagnostics it reports are what caught the
+      # module's one real design constraint (the record does not reach foundation symbols).
+      - name: Discover the foundation vocabulary
+        run: ./gradlew :foundation-catalog:composePreviewDiscover --stacktrace
+
       # Discovery is the real contract for a design catalog: it is what turns the
       # `@CatalogComponent` / `@CatalogVariant` / `@ThemeCatalog` annotations into
       # the published inventory. A component that compiles but is not discovered
@@ -167,6 +181,62 @@ jobs:
           node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
             --spec glimmer-samples/catalog.spec.json --module-dir glimmer-samples
 
+      # The foundation samples' spec is GENERATED too, from the vendored sources and the wrapper
+      # classification, so the same question comes first: does the committed file still match its
+      # generator? Both halves are checked, because they can go stale independently — a re-import
+      # that adds a sample moves the wrappers AND the spec, and a hand edit to either would publish
+      # an inventory naming a preview function nobody generated.
+      - name: The foundation sample previews are current
+        run: node scripts/samples-previews.mjs --check
+
+      - name: compose-ui-samples spec is current
+        run: node scripts/ui-samples-spec.mjs --check
+
+      # And that every `preview` it names resolves to a real `@Preview`, before design-artifacts.yml
+      # spends a runner discovering the same thing.
+      #
+      # The reverse direction warns, and the warning is expected: 5 of the 207 discovered previews
+      # are upstream demo previews that are NOT `@Sampled` — the same category :samples-catalog's
+      # 18 fall into. `@Sampled` is what makes a function a sample rather than something a sample
+      # sits beside, so they render as bundle orphans rather than as catalog cards.
+      - name: validate-catalog-spec (ui-samples-catalog)
+        run: |
+          node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
+            --spec ui-samples-catalog/catalog.spec.json --module-dir ui-samples-catalog
+
+      - name: validate-catalog-spec (foundation-catalog)
+        run: |
+          node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
+            --spec foundation-catalog/catalog.spec.json --module-dir foundation-catalog
+
+      # The policy pre-flight, which nothing here ran until `compose-foundation` needed it. It is
+      # not a JSON-Schema validator — the schema is the contract and a second implementation of it
+      # would drift — it checks the subset a schema states poorly: that a builtin names a role the
+      # template engine knows, that templates and the declared strategy agree, and that prose has
+      # not been written inside `builtins`, where it is a parse failure rather than a schema one.
+      # Both policies, because this repository now authors two.
+      - name: validate-ui-builder-policy
+        run: |
+          node compose-ai-tools/scripts/design-artifacts/validate-ui-builder-policy.mjs \
+            --policy ui-builder.policy.json
+          node compose-ai-tools/scripts/design-artifacts/validate-ui-builder-policy.mjs \
+            --policy foundation-catalog/ui-builder.policy.json
+
+      # The `builtins` block of `compose-foundation`'s policy is GENERATED from a frozen golden —
+      # the builder-vocabulary slice of the catalog the preview server packages, copied rather than
+      # retyped — so the same question comes first: does the committed file still match it? A hand
+      # edit there changes what a published m3 or wear palette is handed, with nothing to say so.
+      # Build-free, so it runs on the pull request beside the spec pre-flights.
+      - name: compose-foundation's builtins are current
+        run: node scripts/foundation-catalog.mjs --check
+
+      # The invariants the regenerate-and-diff above cannot state: that every declaration is the
+      # packaged one field for field, that a canvas adapter is claimed only where one exists, that
+      # each platform borrows the frozen set in the frozen order, and that a Wear palette is never
+      # offered what its exporter refuses by name. See docs/design/FOUNDATION_CATALOG.md.
+      - name: Test the compose-foundation donor
+        run: node --test scripts/foundation-catalog.test.mjs
+
   design-map:
     name: design-map.json is current
     runs-on: ubuntu-latest
@@ -242,6 +312,21 @@ jobs:
       # with no `Sample` in the name at all.
       - name: Test the glimmer samples spec
         run: node --test scripts/glimmer-samples-spec.test.mjs
+
+      # The ported `@Preview` wrapper generator, which is what makes a foundation samples sheet
+      # possible at all: upstream annotates 7 of 73 files, so without wrappers the module publishes
+      # a tenth of its corpus. What is worth holding is its REFUSALS — a sample that takes arguments
+      # is a helper and gets no wrapper, one that carries `@Preview` upstream is left alone rather
+      # than published twice, and a quarantined one is skipped — plus that each sample is called
+      # through the package of the file that declares it, since this corpus spans two.
+      - name: Test the sample preview wrappers
+        run: node --test scripts/samples-previews.test.mjs
+
+      # The inventory those wrappers are published under: one group per source file, one component
+      # per rendered sample, and no `compareWith` — a `LazyColumn` sample has no kit cell to be
+      # paired against.
+      - name: Test the compose-ui-samples spec
+        run: node --test scripts/ui-samples-spec.test.mjs
 
       # The vendoring importer. The load-bearing behaviour is that a patch which no longer applies
       # FAILS the import rather than silently dropping the fix it carries, and that a quarantined

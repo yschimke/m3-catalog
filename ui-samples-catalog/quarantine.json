@@ -1,0 +1,63 @@
+{
+  "$comment": "AndroidX foundation sample FILES this catalog cannot compile, each with the reason and the evidence. A declared, CHECKED gap — scripts/import-samples.mjs skips these and re-running the import without an entry is what says whether it is still needed — so an exclusion cannot rot into a permanent one nobody revisits. Same contract samples/quarantine.json carries for the material3 corpus, and kit-unauthorable.json for kit cells. Every entry comes from a real compile failure against the pinned artifacts, never from a guess ahead of one: the error counts below are what `./gradlew :ui-samples-catalog:compileKotlin` reported on the first import. Quarantine is per FILE, which is the unit the importer copies, so a file listed here takes its whole sample set out — which is why a patch is preferred wherever the fix is small enough to state. `previews` is the second list and a different question: a sample that COMPILES but cannot run here, which scripts/samples-previews.mjs then generates no @Preview wrapper for.",
+  "$comment_twoKinds": "Two kinds of entry, and the difference decides whether it is expected to disappear. ANDROID-SPECIFIC BY NATURE (the first nine) is the steady state issue #346 budgets for: 12 of ui's 47 files and 8 of foundation's 74 touch LocalContext, android.* or androidx.activity, and a desktop renderer has no Activity, no resource table and no Android canvas. VERSION SKEW (the last five) is temporary: AndroidX 1.12.0 has an API the Compose Multiplatform artifact of the same name does not ship yet, so when the CMP pin moves, samples-drift.mjs fails first and re-running the import without the entry is the check.",
+  "samples": [
+    {
+      "file": "WindowInsetsPaddingSample.kt",
+      "reason": "159 errors: `androidx.activity.ComponentActivity`, `onCreate`, `setContent`, `WindowCompat` and `android.os.Bundle`. Every sample in the file is an Activity subclass demonstrating edge-to-edge insets, which is a statement about the Android window and has no desktop equivalent at all."
+    },
+    {
+      "file": "WindowInsetsSizeSample.kt",
+      "reason": "36 errors: the same Activity-and-`WindowCompat` shape as WindowInsetsPaddingSample.kt, for the inset SIZE modifiers."
+    },
+    {
+      "file": "WindowInsetsConnectionSample.kt",
+      "reason": "2 errors: `Modifier.imeNestedScroll`, which drives the Android soft keyboard as it animates. Android-only by construction — there is no IME to scroll with."
+    },
+    {
+      "file": "DragAndDropSamples.kt",
+      "reason": "69 errors: `android.content.ClipData`, `ClipDescription`, `Intent` and `toAndroidDragEvent`. Compose's drag-and-drop surface is platform-typed and these samples are written against the Android payload."
+    },
+    {
+      "file": "AndroidExternalSurfaceSamples.kt",
+      "reason": "53 errors: `AndroidExternalSurface` and `AndroidEmbeddedExternalSurface`, plus `android.graphics.Rect` and `Surface.lockCanvas`. Android-only by name as well as by API."
+    },
+    {
+      "file": "ReceiveContentSamples.kt",
+      "reason": "11 errors: the `TransferableContent` receive-content surface, whose payload is an Android `ClipData` and whose `consume` overload the multiplatform artifact does not carry."
+    },
+    {
+      "file": "ContextMenuSample.kt",
+      "reason": "6 errors: `ProcessTextKey`, `stringResource` and `R` — an Android text-processing intent and a resource table, neither of which exists on the desktop renderer."
+    },
+    {
+      "file": "MagnifierSamples.kt",
+      "reason": "4 errors: `Modifier.magnifier` and an `android.os.Build` version gate. The magnifier is a platform widget the Android framework draws."
+    },
+    {
+      "file": "HandwritingDetectorSample.kt",
+      "reason": "4 errors: `Modifier.handwritingDetector` and `Modifier.handwritingHandler`, the stylus handwriting surface the Android IME provides."
+    },
+    {
+      "file": "ClickableTextSample.kt",
+      "reason": "2 errors: `android.util.Log`, called from the click handler. Small enough to be a patch on its face — and a patch would edit what the sample DOES, since the logging call is the whole body of the click it demonstrates. Revisit when upstream stops logging from a sample."
+    },
+    {
+      "file": "BackgroundTextMeasurementSample.kt",
+      "reason": "3 errors: `LocalBackgroundTextMeasurementExecutor`, an AndroidX 1.12 composition local Compose Multiplatform 1.12.0 does not ship. Version skew, expected to disappear when the CMP pin moves."
+    },
+    {
+      "file": "FlexBoxSample.kt",
+      "reason": "1 error after the FlexBox opt-ins: `maxItemsInEachLine` on `FlexBox`, which AndroidX 1.12.0 has and the Compose Multiplatform artifact of the same version does not. Version skew, and the reason the opt-ins are worth keeping: they are what reduced 336 errors to this one, and they will be needed the moment the skew closes."
+    },
+    {
+      "file": "LazyGridSamples.kt",
+      "reason": "1 error: `cacheWindow`, a LazyGrid parameter added in AndroidX 1.12.0 and absent from Compose Multiplatform 1.12.0. Version skew. The whole file goes for one parameter, which is the per-file cost this list's header warns about — a patch would mean deleting an argument from a sample whose subject is arguably that argument."
+    },
+    {
+      "file": "LazyStaggeredGridSamples.kt",
+      "reason": "1 error: the same `cacheWindow` skew as LazyGridSamples.kt."
+    }
+  ],
+  "previews": []
+}
