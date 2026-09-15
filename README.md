@@ -4191,6 +4191,7 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 
 | Preview | Image |
 |---------|-------|
+| `ButtonGroupSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonGroupSticker-bf99a803.png" width="150" /> |
 | `ButtonLabelOnlySticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonLabelOnlySticker-4f8682e8.png" width="150" /> |
 | `ButtonLargeSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonLargeSticker-ee303491.png" width="150" /> |
 | `ButtonLargeSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ButtonLargeSticker_VARIANT_disabled-25abd94f.png" width="150" /> |
