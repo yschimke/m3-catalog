@@ -149,6 +149,18 @@ test("`related` joins on exact name equality, so ButtonGroup does not link to Bu
   assert.equal(groups[1].components[0].related, undefined);
 });
 
+test("`related` maps a broad sample file name to the exact Compose API id", () => {
+  const dir = sources({
+    "StackSamples.kt": SAMPLE("VerticalStackSample") + PREVIEW("VerticalStack", "VerticalStackSample"),
+  });
+
+  const groups = buildGroups(dir, new Set(["VerticalStack"]));
+
+  assert.deepEqual(groups[0].components[0].related, [
+    { system: "glimmer-catalog", componentId: "VerticalStack" },
+  ]);
+});
+
 test("kit ids are read from the catalog's @CatalogComponent annotations", () => {
   const dir = sources({
     "Buttons.kt":

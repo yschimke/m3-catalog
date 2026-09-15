@@ -477,10 +477,12 @@ exists, and they turn out to be enough, because **upstream's Glimmer samples car
 four lines, so the preview, the sample it renders, and the API it belongs to are readable without
 compiling anything. 18 groups, 50 components — the same 50 discovery finds, by construction.
 
-Seven of the eight `glimmer-catalog` components pick up a `related` back-link by exact name
-equality, which works here and does not in `samples-spec.mjs` (60-odd hand-written entries) because
-this kit catalog names its components after the Glimmer APIs directly. `VoiceInputIndicator` is the
-eighth: upstream writes the sample but no `@Preview` for it, so there is no group to link from.
+Eight of the nine `glimmer-catalog` components pick up a `related` back-link. Seven join by exact
+name equality; `StackSamples.kt` uses the broad group name `Stack`, so its one explicit mapping
+points at the exact Compose API id `VerticalStack`. That stays much smaller than
+`samples-spec.mjs`'s 60-odd hand-written entries and avoids unsafe prefix matching. The remaining
+component is `VoiceInputIndicator`: upstream writes the sample but no `@Preview` for it, so there is
+no group to link from.
 
 Two things in the generator are guards rather than parsing, and both earned their place on the first
 run:

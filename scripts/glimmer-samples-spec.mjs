@@ -45,11 +45,11 @@
  * state of another sample, so nothing folds as a variant — the same call this repo's own
  * `samples-spec.mjs` makes.
  *
- * `related` links a group to the `glimmer-catalog` component of the same name. Here — and NOT in
- * `samples-spec.mjs`, which needs a hand-written table of 60-odd entries — string equality is the
- * correct join: this kit catalog names its components after the Glimmer APIs directly, because
- * Glimmer's own component names are what the Figma kit uses. `ButtonGroup` does not join to
- * `Button`, and that is the point of requiring exact equality rather than a prefix.
+ * `related` normally links a group to the `glimmer-catalog` component of the same name. The small
+ * explicit table below covers source-file names that are broader than the exact Compose API the
+ * catalog must use: `StackSamples.kt` demonstrates `VerticalStack`, for example. This is still much
+ * narrower than `samples-spec.mjs`'s hand-written table of 60-odd entries, and it never uses prefix
+ * matching (`ButtonGroup` must not accidentally join to `Button`).
  *
  *     node scripts/glimmer-samples-spec.mjs            # regenerate
  *     node scripts/glimmer-samples-spec.mjs --check    # fail if the committed spec is stale
@@ -63,6 +63,9 @@ const SPEC = "glimmer-samples/catalog.spec.json";
 /** The kit catalog these samples are call sites for. */
 const KIT_SYSTEM = "glimmer-catalog";
 const KIT_SOURCES = "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer";
+
+/** Sample source group -> exact Compose API id when the file name is broader than the API. */
+const SAMPLE_TO_KIT = new Map([["Stack", "VerticalStack"]]);
 
 /**
  * A preview function declaration: bare `@Preview`, `@Composable`, an OPTIONAL `private`, and a
@@ -169,6 +172,7 @@ export function buildGroups(dir = VENDORED, kitIds = new Set()) {
   const groups = [];
   for (const file of readdirSync(dir).filter((f) => f.endsWith(".kt")).sort()) {
     const api = apiName(file);
+    const kitId = SAMPLE_TO_KIT.get(api) ?? api;
     const previews = scan(file, dir);
     // A file whose samples upstream never previews contributes nothing to render, so it
     // contributes no group: an empty `components` is not valid against the schema, and a group
@@ -181,7 +185,7 @@ export function buildGroups(dir = VENDORED, kitIds = new Set()) {
         componentId: `${api}/${sample}`,
         preview,
         caption: `\`${sample}\` — the sample upstream's own \`@Preview\` renders.`,
-        ...(kitIds.has(api) ? { related: [{ system: KIT_SYSTEM, componentId: api }] } : {}),
+        ...(kitIds.has(kitId) ? { related: [{ system: KIT_SYSTEM, componentId: kitId }] } : {}),
       })),
     });
   }
@@ -236,7 +240,7 @@ function main(argv) {
   writeFileSync(SPEC, json);
   const linked = groups.filter((g) => g.components.some((c) => c.related)).length;
   console.log(`${SPEC}: ${components} component(s) in ${groups.length} group(s).`);
-  console.log(`  ${linked} group(s) linked to a ${KIT_SYSTEM} component of the same name.`);
+  console.log(`  ${linked} group(s) linked to a ${KIT_SYSTEM} component.`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) main(process.argv.slice(2));
