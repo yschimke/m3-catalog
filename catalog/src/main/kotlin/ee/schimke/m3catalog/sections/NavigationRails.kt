@@ -41,10 +41,12 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogOutlinedStars
+import ee.schimke.m3catalog.FigmaWorkaround
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
+import ee.schimke.m3catalog.figmaWorkaround
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_menu
 import ee.schimke.m3catalog.generated.resources.action_new
@@ -69,8 +71,19 @@ private fun RailHeaderContent(wide: Boolean, menu: Boolean, fab: Boolean) {
   val menuClick = counted("menu")
   val fabClick = counted("new")
   Column(horizontalAlignment = Alignment.CenterHorizontally) {
-    // WideNavigationRail reserves its own header inset; the standard rail does not.
-    if (!wide) Spacer(Modifier.height(44.dp))
+    // WideNavigationRail reserves its own header inset; the standard rail does not, so the kit's
+    // 44dp is the caller's to draw — a cover-up, registered and tracked as #458.
+    if (!wide) {
+      Spacer(
+        Modifier.height(
+          figmaWorkaround(
+            FigmaWorkaround.NavigationRailHeaderInsets,
+            upstream = 0.dp,
+            workaround = 44.dp,
+          )
+        )
+      )
+    }
     if (menu) {
       IconButton(onClick = menuClick.onClick) {
         Icon(
@@ -109,7 +122,22 @@ private fun RailHeaderContent(wide: Boolean, menu: Boolean, fab: Boolean) {
       // 63dp below the node it is compared against. What is left after it is upstream's: the kit
       // insets its item's indicator 6dp inside a 64dp item and `NavigationRailItem` insets its own
       // by ~17, so the first indicator still lands ~11dp low with the gap correct.
-      if (!wide) Spacer(Modifier.height(40.dp))
+      //
+      // Both insets are [FigmaWorkaround.NavigationRailHeaderInsets]: padding the caller supplies
+      // for a gap the component does not apply, which is the shape this catalog otherwise refuses.
+      // Render with `figmaWorkarounds=false` for what `NavigationRail` draws unaided — its first
+      // destination at 176.8 against the kit's 206.
+      if (!wide) {
+        Spacer(
+          Modifier.height(
+            figmaWorkaround(
+              FigmaWorkaround.NavigationRailHeaderInsets,
+              upstream = 0.dp,
+              workaround = 40.dp,
+            )
+          )
+        )
+      }
     }
   }
 }
