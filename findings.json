@@ -11493,38 +11493,17 @@
         "status": "warn",
         "findings": [
           {
-            "kind": "i18n",
-            "severity": "warn",
-            "message": "\"Title\" risks truncation when localized: ≈88dp expanded vs 87dp available.",
+            "kind": "contrast",
+            "severity": "info",
+            "message": "Light-theme contrast 6.44:1 for \"Action\" meets AA but not AAA (needs 7:1).",
             "detail": {
-              "label": "Title",
-              "availableWidth": "87",
-              "estimatedWidth": "44",
-              "expansionFactor": "2",
-              "estimatedExpandedWidth": "88"
-            },
-            "anchors": [
-              {
-                "side": "reference",
-                "bounds": {
-                  "x": 16,
-                  "y": 276,
-                  "width": 328,
-                  "height": 24
-                },
-                "label": "Title"
-              },
-              {
-                "side": "actual",
-                "bounds": {
-                  "x": 53,
-                  "y": 342,
-                  "width": 87,
-                  "height": 63
-                },
-                "label": "Title"
-              }
-            ]
+              "theme": "light",
+              "ratio": "6.44",
+              "foreground": "#ffffffff",
+              "background": "#6750a4ff",
+              "required": "7",
+              "largeText": "false"
+            }
           },
           {
             "kind": "token",
@@ -11597,15 +11576,6 @@
           {
             "kind": "semantic",
             "severity": "warn",
-            "message": "candidate exposes no accessibility roles",
-            "detail": {
-              "node": "tree",
-              "field": "role"
-            }
-          },
-          {
-            "kind": "semantic",
-            "severity": "warn",
             "message": "reference variant 'default' has no candidate render to compare",
             "detail": {
               "variant": "default"
@@ -11614,68 +11584,68 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Title\": offset (-4, 149), size Δ(296, 1) vs candidate",
+            "message": "layout \"Header\": offset (-74, -16), size Δ(308, 49) vs candidate",
             "detail": {
-              "label": "Title",
-              "dx": "-4",
-              "dy": "149",
-              "dw": "296",
-              "dh": "1"
+              "label": "Header",
+              "dx": "-74",
+              "dy": "-16",
+              "dw": "308",
+              "dh": "49"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
-                  "x": 16,
-                  "y": 276,
-                  "width": 328,
-                  "height": 24
+                  "x": 0,
+                  "y": 0,
+                  "width": 360,
+                  "height": 72
                 },
-                "label": "Title"
+                "label": "Header"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 53,
-                  "y": 342,
-                  "width": 87,
+                  "x": 200,
+                  "y": 42,
+                  "width": 140,
                   "height": 63
                 },
-                "label": "Title"
+                "label": "Header"
               }
             ]
           },
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor\": offset (-4, 197), size Δ(7, 1) vs candidate",
+            "message": "layout \"A\": offset (-18, -12), size Δ(29, 17) vs candidate",
             "detail": {
-              "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
-              "dx": "-4",
-              "dy": "197",
-              "dw": "7",
-              "dh": "1"
+              "label": "A",
+              "dx": "-18",
+              "dy": "-12",
+              "dw": "29",
+              "dh": "17"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
                   "x": 16,
-                  "y": 352,
-                  "width": 328,
+                  "y": 16,
+                  "width": 40,
                   "height": 40
                 },
-                "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+                "label": "A"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 53,
-                  "y": 416,
-                  "width": 861,
-                  "height": 106
+                  "x": 91,
+                  "y": 74,
+                  "width": 29,
+                  "height": 63
                 },
-                "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+                "label": "A"
               }
             ]
           },
@@ -11710,38 +11680,17 @@
         "status": "warn",
         "findings": [
           {
-            "kind": "i18n",
-            "severity": "warn",
-            "message": "\"Title\" risks truncation when localized: ≈88dp expanded vs 87dp available.",
+            "kind": "contrast",
+            "severity": "info",
+            "message": "Light-theme contrast 6.44:1 for \"Action\" meets AA but not AAA (needs 7:1).",
             "detail": {
-              "label": "Title",
-              "availableWidth": "87",
-              "estimatedWidth": "44",
-              "expansionFactor": "2",
-              "estimatedExpandedWidth": "88"
-            },
-            "anchors": [
-              {
-                "side": "reference",
-                "bounds": {
-                  "x": 16,
-                  "y": 276,
-                  "width": 328,
-                  "height": 24
-                },
-                "label": "Title"
-              },
-              {
-                "side": "actual",
-                "bounds": {
-                  "x": 53,
-                  "y": 342,
-                  "width": 87,
-                  "height": 63
-                },
-                "label": "Title"
-              }
-            ]
+              "theme": "light",
+              "ratio": "6.44",
+              "foreground": "#ffffffff",
+              "background": "#6750a4ff",
+              "required": "7",
+              "largeText": "false"
+            }
           },
           {
             "kind": "token",
@@ -11814,15 +11763,6 @@
           {
             "kind": "semantic",
             "severity": "warn",
-            "message": "candidate exposes no accessibility roles",
-            "detail": {
-              "node": "tree",
-              "field": "role"
-            }
-          },
-          {
-            "kind": "semantic",
-            "severity": "warn",
             "message": "reference variant 'default' has no candidate render to compare",
             "detail": {
               "variant": "default"
@@ -11831,68 +11771,68 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Title\": offset (-4, 149), size Δ(296, 1) vs candidate",
+            "message": "layout \"Header\": offset (-74, -16), size Δ(308, 49) vs candidate",
             "detail": {
-              "label": "Title",
-              "dx": "-4",
-              "dy": "149",
-              "dw": "296",
-              "dh": "1"
+              "label": "Header",
+              "dx": "-74",
+              "dy": "-16",
+              "dw": "308",
+              "dh": "49"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
-                  "x": 16,
-                  "y": 276,
-                  "width": 328,
-                  "height": 24
+                  "x": 0,
+                  "y": 0,
+                  "width": 360,
+                  "height": 72
                 },
-                "label": "Title"
+                "label": "Header"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 53,
-                  "y": 342,
-                  "width": 87,
+                  "x": 200,
+                  "y": 42,
+                  "width": 140,
                   "height": 63
                 },
-                "label": "Title"
+                "label": "Header"
               }
             ]
           },
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor\": offset (-4, 197), size Δ(7, 1) vs candidate",
+            "message": "layout \"A\": offset (-18, -12), size Δ(29, 17) vs candidate",
             "detail": {
-              "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
-              "dx": "-4",
-              "dy": "197",
-              "dw": "7",
-              "dh": "1"
+              "label": "A",
+              "dx": "-18",
+              "dy": "-12",
+              "dw": "29",
+              "dh": "17"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
                   "x": 16,
-                  "y": 352,
-                  "width": 328,
+                  "y": 16,
+                  "width": 40,
                   "height": 40
                 },
-                "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+                "label": "A"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 53,
-                  "y": 416,
-                  "width": 861,
-                  "height": 106
+                  "x": 91,
+                  "y": 74,
+                  "width": 29,
+                  "height": 63
                 },
-                "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+                "label": "A"
               }
             ]
           },
@@ -11927,38 +11867,17 @@
         "status": "warn",
         "findings": [
           {
-            "kind": "i18n",
-            "severity": "warn",
-            "message": "\"Title\" risks truncation when localized: ≈88dp expanded vs 87dp available.",
+            "kind": "contrast",
+            "severity": "info",
+            "message": "Light-theme contrast 6.44:1 for \"Action\" meets AA but not AAA (needs 7:1).",
             "detail": {
-              "label": "Title",
-              "availableWidth": "87",
-              "estimatedWidth": "44",
-              "expansionFactor": "2",
-              "estimatedExpandedWidth": "88"
-            },
-            "anchors": [
-              {
-                "side": "reference",
-                "bounds": {
-                  "x": 16,
-                  "y": 276,
-                  "width": 328,
-                  "height": 24
-                },
-                "label": "Title"
-              },
-              {
-                "side": "actual",
-                "bounds": {
-                  "x": 42,
-                  "y": 331,
-                  "width": 87,
-                  "height": 63
-                },
-                "label": "Title"
-              }
-            ]
+              "theme": "light",
+              "ratio": "6.44",
+              "foreground": "#ffffffff",
+              "background": "#6750a4ff",
+              "required": "7",
+              "largeText": "false"
+            }
           },
           {
             "kind": "token",
@@ -12031,15 +11950,6 @@
           {
             "kind": "semantic",
             "severity": "warn",
-            "message": "candidate exposes no accessibility roles",
-            "detail": {
-              "node": "tree",
-              "field": "role"
-            }
-          },
-          {
-            "kind": "semantic",
-            "severity": "warn",
             "message": "reference variant 'default' has no candidate render to compare",
             "detail": {
               "variant": "default"
@@ -12048,68 +11958,68 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Title\": offset (0, 150), size Δ(295, 0) vs candidate",
+            "message": "layout \"Header\": offset (-72, -12), size Δ(307, 48) vs candidate",
             "detail": {
-              "label": "Title",
-              "dx": "0",
-              "dy": "150",
-              "dw": "295",
-              "dh": "0"
+              "label": "Header",
+              "dx": "-72",
+              "dy": "-12",
+              "dw": "307",
+              "dh": "48"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
-                  "x": 16,
-                  "y": 276,
-                  "width": 328,
-                  "height": 24
+                  "x": 0,
+                  "y": 0,
+                  "width": 360,
+                  "height": 72
                 },
-                "label": "Title"
+                "label": "Header"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 42,
-                  "y": 331,
-                  "width": 87,
+                  "x": 189,
+                  "y": 31,
+                  "width": 140,
                   "height": 63
                 },
-                "label": "Title"
+                "label": "Header"
               }
             ]
           },
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor\": offset (0, 198), size Δ(0, 0) vs candidate",
+            "message": "layout \"A\": offset (-14, -8), size Δ(29, 16) vs candidate",
             "detail": {
-              "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
-              "dx": "0",
-              "dy": "198",
-              "dw": "0",
-              "dh": "0"
+              "label": "A",
+              "dx": "-14",
+              "dy": "-8",
+              "dw": "29",
+              "dh": "16"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
                   "x": 16,
-                  "y": 352,
-                  "width": 328,
+                  "y": 16,
+                  "width": 40,
                   "height": 40
                 },
-                "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+                "label": "A"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 42,
-                  "y": 405,
-                  "width": 861,
-                  "height": 106
+                  "x": 80,
+                  "y": 63,
+                  "width": 29,
+                  "height": 63
                 },
-                "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+                "label": "A"
               }
             ]
           }
@@ -12122,38 +12032,17 @@
         "status": "warn",
         "findings": [
           {
-            "kind": "i18n",
-            "severity": "warn",
-            "message": "\"Title\" risks truncation when localized: ≈88dp expanded vs 87dp available.",
+            "kind": "contrast",
+            "severity": "info",
+            "message": "Light-theme contrast 6.44:1 for \"Action\" meets AA but not AAA (needs 7:1).",
             "detail": {
-              "label": "Title",
-              "availableWidth": "87",
-              "estimatedWidth": "44",
-              "expansionFactor": "2",
-              "estimatedExpandedWidth": "88"
-            },
-            "anchors": [
-              {
-                "side": "reference",
-                "bounds": {
-                  "x": 16,
-                  "y": 276,
-                  "width": 328,
-                  "height": 24
-                },
-                "label": "Title"
-              },
-              {
-                "side": "actual",
-                "bounds": {
-                  "x": 42,
-                  "y": 331,
-                  "width": 87,
-                  "height": 63
-                },
-                "label": "Title"
-              }
-            ]
+              "theme": "light",
+              "ratio": "6.44",
+              "foreground": "#ffffffff",
+              "background": "#6750a4ff",
+              "required": "7",
+              "largeText": "false"
+            }
           },
           {
             "kind": "token",
@@ -12226,15 +12115,6 @@
           {
             "kind": "semantic",
             "severity": "warn",
-            "message": "candidate exposes no accessibility roles",
-            "detail": {
-              "node": "tree",
-              "field": "role"
-            }
-          },
-          {
-            "kind": "semantic",
-            "severity": "warn",
             "message": "reference variant 'default' has no candidate render to compare",
             "detail": {
               "variant": "default"
@@ -12243,68 +12123,68 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Title\": offset (0, 150), size Δ(295, 0) vs candidate",
+            "message": "layout \"Header\": offset (-72, -12), size Δ(307, 48) vs candidate",
             "detail": {
-              "label": "Title",
-              "dx": "0",
-              "dy": "150",
-              "dw": "295",
-              "dh": "0"
+              "label": "Header",
+              "dx": "-72",
+              "dy": "-12",
+              "dw": "307",
+              "dh": "48"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
-                  "x": 16,
-                  "y": 276,
-                  "width": 328,
-                  "height": 24
+                  "x": 0,
+                  "y": 0,
+                  "width": 360,
+                  "height": 72
                 },
-                "label": "Title"
+                "label": "Header"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 42,
-                  "y": 331,
-                  "width": 87,
+                  "x": 189,
+                  "y": 31,
+                  "width": 140,
                   "height": 63
                 },
-                "label": "Title"
+                "label": "Header"
               }
             ]
           },
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor\": offset (0, 198), size Δ(0, 0) vs candidate",
+            "message": "layout \"A\": offset (-14, -8), size Δ(29, 16) vs candidate",
             "detail": {
-              "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
-              "dx": "0",
-              "dy": "198",
-              "dw": "0",
-              "dh": "0"
+              "label": "A",
+              "dx": "-14",
+              "dy": "-8",
+              "dw": "29",
+              "dh": "16"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
                   "x": 16,
-                  "y": 352,
-                  "width": 328,
+                  "y": 16,
+                  "width": 40,
                   "height": 40
                 },
-                "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+                "label": "A"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 42,
-                  "y": 405,
-                  "width": 861,
-                  "height": 106
+                  "x": 80,
+                  "y": 63,
+                  "width": 29,
+                  "height": 63
                 },
-                "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+                "label": "A"
               }
             ]
           }
@@ -12317,38 +12197,17 @@
         "status": "warn",
         "findings": [
           {
-            "kind": "i18n",
-            "severity": "warn",
-            "message": "\"Title\" risks truncation when localized: ≈88dp expanded vs 87dp available.",
+            "kind": "contrast",
+            "severity": "info",
+            "message": "Light-theme contrast 6.44:1 for \"Action\" meets AA but not AAA (needs 7:1).",
             "detail": {
-              "label": "Title",
-              "availableWidth": "87",
-              "estimatedWidth": "44",
-              "expansionFactor": "2",
-              "estimatedExpandedWidth": "88"
-            },
-            "anchors": [
-              {
-                "side": "reference",
-                "bounds": {
-                  "x": 16,
-                  "y": 276,
-                  "width": 328,
-                  "height": 24
-                },
-                "label": "Title"
-              },
-              {
-                "side": "actual",
-                "bounds": {
-                  "x": 42,
-                  "y": 331,
-                  "width": 87,
-                  "height": 63
-                },
-                "label": "Title"
-              }
-            ]
+              "theme": "light",
+              "ratio": "6.44",
+              "foreground": "#ffffffff",
+              "background": "#6750a4ff",
+              "required": "7",
+              "largeText": "false"
+            }
           },
           {
             "kind": "token",
@@ -12421,15 +12280,6 @@
           {
             "kind": "semantic",
             "severity": "warn",
-            "message": "candidate exposes no accessibility roles",
-            "detail": {
-              "node": "tree",
-              "field": "role"
-            }
-          },
-          {
-            "kind": "semantic",
-            "severity": "warn",
             "message": "reference variant 'default' has no candidate render to compare",
             "detail": {
               "variant": "default"
@@ -12438,68 +12288,68 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Title\": offset (0, 150), size Δ(295, 0) vs candidate",
+            "message": "layout \"Header\": offset (-72, -12), size Δ(307, 48) vs candidate",
             "detail": {
-              "label": "Title",
-              "dx": "0",
-              "dy": "150",
-              "dw": "295",
-              "dh": "0"
+              "label": "Header",
+              "dx": "-72",
+              "dy": "-12",
+              "dw": "307",
+              "dh": "48"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
-                  "x": 16,
-                  "y": 276,
-                  "width": 328,
-                  "height": 24
+                  "x": 0,
+                  "y": 0,
+                  "width": 360,
+                  "height": 72
                 },
-                "label": "Title"
+                "label": "Header"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 42,
-                  "y": 331,
-                  "width": 87,
+                  "x": 189,
+                  "y": 31,
+                  "width": 140,
                   "height": 63
                 },
-                "label": "Title"
+                "label": "Header"
               }
             ]
           },
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor\": offset (0, 198), size Δ(0, 0) vs candidate",
+            "message": "layout \"A\": offset (-14, -8), size Δ(29, 16) vs candidate",
             "detail": {
-              "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
-              "dx": "0",
-              "dy": "198",
-              "dw": "0",
-              "dh": "0"
+              "label": "A",
+              "dx": "-14",
+              "dy": "-8",
+              "dw": "29",
+              "dh": "16"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
                   "x": 16,
-                  "y": 352,
-                  "width": 328,
+                  "y": 16,
+                  "width": 40,
                   "height": 40
                 },
-                "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+                "label": "A"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 42,
-                  "y": 405,
-                  "width": 861,
-                  "height": 106
+                  "x": 80,
+                  "y": 63,
+                  "width": 29,
+                  "height": 63
                 },
-                "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+                "label": "A"
               }
             ]
           },
@@ -12522,38 +12372,17 @@
         "status": "warn",
         "findings": [
           {
-            "kind": "i18n",
-            "severity": "warn",
-            "message": "\"Title\" risks truncation when localized: ≈88dp expanded vs 87dp available.",
+            "kind": "contrast",
+            "severity": "info",
+            "message": "Light-theme contrast 6.44:1 for \"Action\" meets AA but not AAA (needs 7:1).",
             "detail": {
-              "label": "Title",
-              "availableWidth": "87",
-              "estimatedWidth": "44",
-              "expansionFactor": "2",
-              "estimatedExpandedWidth": "88"
-            },
-            "anchors": [
-              {
-                "side": "reference",
-                "bounds": {
-                  "x": 16,
-                  "y": 276,
-                  "width": 328,
-                  "height": 24
-                },
-                "label": "Title"
-              },
-              {
-                "side": "actual",
-                "bounds": {
-                  "x": 42,
-                  "y": 331,
-                  "width": 87,
-                  "height": 63
-                },
-                "label": "Title"
-              }
-            ]
+              "theme": "light",
+              "ratio": "6.44",
+              "foreground": "#ffffffff",
+              "background": "#6750a4ff",
+              "required": "7",
+              "largeText": "false"
+            }
           },
           {
             "kind": "token",
@@ -12626,15 +12455,6 @@
           {
             "kind": "semantic",
             "severity": "warn",
-            "message": "candidate exposes no accessibility roles",
-            "detail": {
-              "node": "tree",
-              "field": "role"
-            }
-          },
-          {
-            "kind": "semantic",
-            "severity": "warn",
             "message": "reference variant 'default' has no candidate render to compare",
             "detail": {
               "variant": "default"
@@ -12643,68 +12463,68 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Title\": offset (0, 150), size Δ(295, 0) vs candidate",
+            "message": "layout \"Header\": offset (-72, -12), size Δ(307, 48) vs candidate",
             "detail": {
-              "label": "Title",
-              "dx": "0",
-              "dy": "150",
-              "dw": "295",
-              "dh": "0"
+              "label": "Header",
+              "dx": "-72",
+              "dy": "-12",
+              "dw": "307",
+              "dh": "48"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
-                  "x": 16,
-                  "y": 276,
-                  "width": 328,
-                  "height": 24
+                  "x": 0,
+                  "y": 0,
+                  "width": 360,
+                  "height": 72
                 },
-                "label": "Title"
+                "label": "Header"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 42,
-                  "y": 331,
-                  "width": 87,
+                  "x": 189,
+                  "y": 31,
+                  "width": 140,
                   "height": 63
                 },
-                "label": "Title"
+                "label": "Header"
               }
             ]
           },
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor\": offset (0, 198), size Δ(0, 0) vs candidate",
+            "message": "layout \"A\": offset (-14, -8), size Δ(29, 16) vs candidate",
             "detail": {
-              "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
-              "dx": "0",
-              "dy": "198",
-              "dw": "0",
-              "dh": "0"
+              "label": "A",
+              "dx": "-14",
+              "dy": "-8",
+              "dw": "29",
+              "dh": "16"
             },
             "anchors": [
               {
                 "side": "reference",
                 "bounds": {
                   "x": 16,
-                  "y": 352,
-                  "width": 328,
+                  "y": 16,
+                  "width": 40,
                   "height": 40
                 },
-                "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+                "label": "A"
               },
               {
                 "side": "actual",
                 "bounds": {
-                  "x": 42,
-                  "y": 405,
-                  "width": 861,
-                  "height": 106
+                  "x": 80,
+                  "y": 63,
+                  "width": 29,
+                  "height": 63
                 },
-                "label": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+                "label": "A"
               }
             ]
           },
@@ -28017,17 +27837,17 @@
               "dw": "0",
               "dh": "-24",
               "borderPixels": "19656",
-              "contentPixels": "331389"
+              "contentPixels": "43307"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "icon: 33.8% of pixels differ from reference",
+            "message": "icon: 6.1% of pixels differ from reference",
             "detail": {
               "key": "icon",
-              "score": "0.338033",
-              "diffPixels": "351045"
+              "score": "0.060629",
+              "diffPixels": "62963"
             }
           }
         ]
@@ -28489,17 +28309,17 @@
               "dw": "0",
               "dh": "-24",
               "borderPixels": "19656",
-              "contentPixels": "331389"
+              "contentPixels": "43307"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "icon: 33.8% of pixels differ from reference",
+            "message": "icon: 6.1% of pixels differ from reference",
             "detail": {
               "key": "icon",
-              "score": "0.338033",
-              "diffPixels": "351045"
+              "score": "0.060629",
+              "diffPixels": "62963"
             }
           }
         ]
@@ -64781,11 +64601,11 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Label\": offset (-32, -63), size Δ(64, 0) vs candidate",
+            "message": "layout \"Label\": offset (-32, -11), size Δ(64, 0) vs candidate",
             "detail": {
               "label": "Label",
               "dx": "-32",
-              "dy": "-63",
+              "dy": "-11",
               "dw": "64",
               "dh": "0"
             },
@@ -64804,7 +64624,7 @@
                 "side": "actual",
                 "bounds": {
                   "x": 84,
-                  "y": 801,
+                  "y": 664,
                   "width": 84,
                   "height": 42
                 },
@@ -64815,11 +64635,11 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Label\": offset (-32, -55), size Δ(64, 0) vs candidate",
+            "message": "layout \"Label\": offset (-32, 5), size Δ(64, 0) vs candidate",
             "detail": {
               "label": "Label",
               "dx": "-32",
-              "dy": "-55",
+              "dy": "5",
               "dw": "64",
               "dh": "0"
             },
@@ -64838,41 +64658,7 @@
                 "side": "actual",
                 "bounds": {
                   "x": 84,
-                  "y": 801,
-                  "width": 84,
-                  "height": 42
-                },
-                "label": "Label"
-              }
-            ]
-          },
-          {
-            "kind": "layout",
-            "severity": "warn",
-            "message": "layout \"Label\": offset (-32, -48), size Δ(64, 0) vs candidate",
-            "detail": {
-              "label": "Label",
-              "dx": "-32",
-              "dy": "-48",
-              "dw": "64",
-              "dh": "0"
-            },
-            "anchors": [
-              {
-                "side": "reference",
-                "bounds": {
-                  "x": 0,
-                  "y": 242,
-                  "width": 96,
-                  "height": 16
-                },
-                "label": "Label"
-              },
-              {
-                "side": "actual",
-                "bounds": {
-                  "x": 84,
-                  "y": 801,
+                  "y": 664,
                   "width": 84,
                   "height": 42
                 },
@@ -64883,64 +64669,64 @@
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "cell-alignment-middle-nav-items-4-58016-36888: 2.6% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "message": "cell-alignment-middle-nav-items-4-58016-36888: 2.9% of aligned pixels are opaque in the reference but transparent in the candidate",
             "detail": {
               "key": "cell-alignment-middle-nav-items-4-58016-36888",
-              "alphaLossRatio": "0.026398",
-              "alphaLossPixels": "13970",
+              "alphaLossRatio": "0.028545",
+              "alphaLossPixels": "15106",
               "alphaComparedPixels": "529200"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "cell-alignment-middle-nav-items-4-58016-36888: 5.7% of pixels differ from reference",
+            "message": "cell-alignment-middle-nav-items-4-58016-36888: 6.0% of pixels differ from reference",
             "detail": {
               "key": "cell-alignment-middle-nav-items-4-58016-36888",
-              "score": "0.057054",
-              "diffPixels": "30193"
+              "score": "0.060268",
+              "diffPixels": "31894"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "four: 2.7% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "message": "four: 1.4% of aligned pixels are opaque in the reference but transparent in the candidate",
             "detail": {
               "key": "four",
-              "alphaLossRatio": "0.027056",
-              "alphaLossPixels": "14318",
+              "alphaLossRatio": "0.014367",
+              "alphaLossPixels": "7603",
               "alphaComparedPixels": "529200"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "four: 5.9% of pixels differ from reference",
+            "message": "four: 3.6% of pixels differ from reference",
             "detail": {
               "key": "four",
-              "score": "0.058783",
-              "diffPixels": "31108"
+              "score": "0.036455",
+              "diffPixels": "19292"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "middle: 2.5% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "message": "middle: 2.6% of aligned pixels are opaque in the reference but transparent in the candidate",
             "detail": {
               "key": "middle",
-              "alphaLossRatio": "0.024717",
-              "alphaLossPixels": "13080",
+              "alphaLossRatio": "0.025678",
+              "alphaLossPixels": "13589",
               "alphaComparedPixels": "529200"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "middle: 5.4% of pixels differ from reference",
+            "message": "middle: 5.5% of pixels differ from reference",
             "detail": {
               "key": "middle",
-              "score": "0.053804",
-              "diffPixels": "28473"
+              "score": "0.054658",
+              "diffPixels": "28925"
             }
           }
         ]
@@ -65090,11 +64876,11 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Label\": offset (-32, -63), size Δ(64, 0) vs candidate",
+            "message": "layout \"Label\": offset (-32, -11), size Δ(64, 0) vs candidate",
             "detail": {
               "label": "Label",
               "dx": "-32",
-              "dy": "-63",
+              "dy": "-11",
               "dw": "64",
               "dh": "0"
             },
@@ -65113,7 +64899,7 @@
                 "side": "actual",
                 "bounds": {
                   "x": 84,
-                  "y": 801,
+                  "y": 664,
                   "width": 84,
                   "height": 42
                 },
@@ -65124,11 +64910,11 @@
           {
             "kind": "layout",
             "severity": "warn",
-            "message": "layout \"Label\": offset (-32, -55), size Δ(64, 0) vs candidate",
+            "message": "layout \"Label\": offset (-32, 5), size Δ(64, 0) vs candidate",
             "detail": {
               "label": "Label",
               "dx": "-32",
-              "dy": "-55",
+              "dy": "5",
               "dw": "64",
               "dh": "0"
             },
@@ -65147,41 +64933,7 @@
                 "side": "actual",
                 "bounds": {
                   "x": 84,
-                  "y": 801,
-                  "width": 84,
-                  "height": 42
-                },
-                "label": "Label"
-              }
-            ]
-          },
-          {
-            "kind": "layout",
-            "severity": "warn",
-            "message": "layout \"Label\": offset (-32, -48), size Δ(64, 0) vs candidate",
-            "detail": {
-              "label": "Label",
-              "dx": "-32",
-              "dy": "-48",
-              "dw": "64",
-              "dh": "0"
-            },
-            "anchors": [
-              {
-                "side": "reference",
-                "bounds": {
-                  "x": 0,
-                  "y": 242,
-                  "width": 96,
-                  "height": 16
-                },
-                "label": "Label"
-              },
-              {
-                "side": "actual",
-                "bounds": {
-                  "x": 84,
-                  "y": 801,
+                  "y": 664,
                   "width": 84,
                   "height": 42
                 },
@@ -65192,64 +64944,64 @@
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "cell-alignment-middle-nav-items-4-58016-36888: 2.6% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "message": "cell-alignment-middle-nav-items-4-58016-36888: 2.9% of aligned pixels are opaque in the reference but transparent in the candidate",
             "detail": {
               "key": "cell-alignment-middle-nav-items-4-58016-36888",
-              "alphaLossRatio": "0.026398",
-              "alphaLossPixels": "13970",
+              "alphaLossRatio": "0.028545",
+              "alphaLossPixels": "15106",
               "alphaComparedPixels": "529200"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "cell-alignment-middle-nav-items-4-58016-36888: 5.7% of pixels differ from reference",
+            "message": "cell-alignment-middle-nav-items-4-58016-36888: 6.0% of pixels differ from reference",
             "detail": {
               "key": "cell-alignment-middle-nav-items-4-58016-36888",
-              "score": "0.057054",
-              "diffPixels": "30193"
+              "score": "0.060268",
+              "diffPixels": "31894"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "four: 2.7% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "message": "four: 1.4% of aligned pixels are opaque in the reference but transparent in the candidate",
             "detail": {
               "key": "four",
-              "alphaLossRatio": "0.027056",
-              "alphaLossPixels": "14318",
+              "alphaLossRatio": "0.014367",
+              "alphaLossPixels": "7603",
               "alphaComparedPixels": "529200"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "four: 5.9% of pixels differ from reference",
+            "message": "four: 3.6% of pixels differ from reference",
             "detail": {
               "key": "four",
-              "score": "0.058783",
-              "diffPixels": "31108"
+              "score": "0.036455",
+              "diffPixels": "19292"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "middle: 2.5% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "message": "middle: 2.6% of aligned pixels are opaque in the reference but transparent in the candidate",
             "detail": {
               "key": "middle",
-              "alphaLossRatio": "0.024717",
-              "alphaLossPixels": "13080",
+              "alphaLossRatio": "0.025678",
+              "alphaLossPixels": "13589",
               "alphaComparedPixels": "529200"
             }
           },
           {
             "kind": "visual",
             "severity": "warn",
-            "message": "middle: 5.4% of pixels differ from reference",
+            "message": "middle: 5.5% of pixels differ from reference",
             "detail": {
               "key": "middle",
-              "score": "0.053804",
-              "diffPixels": "28473"
+              "score": "0.054658",
+              "diffPixels": "28925"
             }
           }
         ]
