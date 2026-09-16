@@ -72,8 +72,16 @@ const SAMPLE_TO_KIT = new Map([
 ]);
 
 /**
- * A preview function declaration: bare `@Preview`, `@Composable`, an OPTIONAL `private`, and a
- * zero-argument `fun`.
+ * A preview function declaration: a bare preview annotation, `@Composable`, an OPTIONAL `private`,
+ * and a zero-argument `fun`.
+ *
+ * The annotation is `@GlimmerSamplePreview` rather than `@Preview` in the vendored tree, applied by
+ * `patches/0001-samples-type-in-google-sans-flex.patch`: it is this module's multi-preview
+ * annotation, carrying the same `@Preview` plus the wrapper that types the samples in the kit's
+ * face instead of the platform default. Both spellings are accepted so the scan still reads a
+ * freshly imported tree (upstream's own `@Preview`) as well as the patched one — the patch is
+ * applied after the copy, and a generator that only understood the patched form would fail against
+ * the import it is supposed to describe.
  *
  * Every one of the 50 previews in the vendored tree is written this way, and the constraints that
  * look incidental are the ones worth keeping. Zero-argument excludes a `@PreviewParameter` sample,
@@ -85,10 +93,13 @@ const SAMPLE_TO_KIT = new Map([
  * `private` is optional because exactly one sample — `GlimmerHorizontalPagerSamplePreview` — is
  * public while the other 49 are not. Nothing about the render depends on it.
  */
-const PREVIEW = /@Preview\s*\n\s*@Composable\s*\n\s*(?:private\s+)?fun (\w+)\(\)\s*\{/g;
+const PREVIEW = /@(?:GlimmerSample)?Preview\s*\n\s*@Composable\s*\n\s*(?:private\s+)?fun (\w+)\(\)\s*\{/g;
 
-/** Every `@Preview` in the file, however written — the denominator [scan] checks its matches against. */
-const ANY_PREVIEW = /^\s*@Preview\b/gm;
+/**
+ * Every preview annotation in the file, however written — the denominator [scan] checks its matches
+ * against. Accepts both spellings for the reason [PREVIEW] does.
+ */
+const ANY_PREVIEW = /^\s*@(?:GlimmerSample)?Preview\b/gm;
 
 /** Any zero-argument call — narrowed to the file's own functions by [scan]. */
 const CALL = /\b([A-Z]\w*)\(\)/g;
