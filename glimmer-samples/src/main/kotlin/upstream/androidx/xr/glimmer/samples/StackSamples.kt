@@ -25,7 +25,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextMotion
-import androidx.compose.ui.tooling.preview.Preview
+import ee.schimke.m3catalog.glimmersamples.GlimmerSamplePreview
 import androidx.compose.ui.unit.dp
 import androidx.xr.glimmer.Card
 import androidx.xr.glimmer.CardDefaults
@@ -88,7 +88,7 @@ fun VerticalStackWithMultipleShapesSample() {
     }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun VerticalStackPreview() {
     GlimmerTheme { VerticalStackSample() }

@@ -180,3 +180,36 @@ test("kit ids are read from the catalog's @CatalogComponent annotations", () => 
   });
   assert.deepEqual([...kitComponentIds(dir)].sort(), ["Button", "ToggleButton"]);
 });
+
+test("both preview spellings read the same, so the scan survives a fresh import", () => {
+  // The vendored tree carries `@GlimmerSamplePreview` — this module's multi-preview annotation,
+  // applied by patches/0001-samples-type-in-google-sans-flex.patch so the samples type in the kit's
+  // face rather than the platform default. The patch is applied AFTER the import copies upstream's
+  // bytes, so the scan meets `@Preview` and `@GlimmerSamplePreview` at different moments and must
+  // read both identically. Understanding only the patched spelling would fail against the very
+  // import this generator exists to describe; only the upstream spelling silently empties the sheet,
+  // which is how this was caught — `--check` went stale with the spec regenerating to nothing.
+  const wrapped = (name, body) =>
+    `@GlimmerSamplePreview\n@Composable\nprivate fun ${name}Preview() {\n    GlimmerTheme { ${body}() }\n}\n`;
+
+  const upstream = buildGroups(
+    sources({ "ButtonSamples.kt": SAMPLE("ButtonSample") + PREVIEW("Button", "ButtonSample") }),
+  );
+  const patched = buildGroups(
+    sources({ "ButtonSamples.kt": SAMPLE("ButtonSample") + wrapped("Button", "ButtonSample") }),
+  );
+  assert.deepEqual(patched, upstream);
+  assert.equal(patched.length, 1);
+  assert.equal(patched[0].components.length, 1);
+});
+
+test("a @GlimmerSamplePreview the generator cannot describe still FAILS", () => {
+  // The guard that makes the denominator worth having, on the patched spelling too: an argument-
+  // bearing annotation needs the spec to say so, and must stop rather than drop out of the sheet.
+  const root = sources({
+    "ButtonSamples.kt":
+      SAMPLE("ButtonSample") +
+      `@GlimmerSamplePreview(widthDp = 360)\n@Composable\nprivate fun ButtonPreview() {\n    GlimmerTheme { ButtonSample() }\n}\n`,
+  });
+  assert.throws(() => buildGroups(root), /ButtonSamples\.kt/);
+});

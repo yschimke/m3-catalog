@@ -49,6 +49,9 @@ android {
 
 dependencies {
   implementation(libs.glimmer)
+  // `createGoogleSansFlexTypography()`, for the preview wrapper that puts the kit's typeface around
+  // the vendored samples. `:glimmer-catalog` carries the same pair for the same reason.
+  implementation(libs.glimmer.google.fonts)
   implementation(libs.androidx.compose.ui.tooling.preview)
   implementation(libs.androidx.compose.ui.tooling)
   implementation(libs.composeai.preview.annotations)

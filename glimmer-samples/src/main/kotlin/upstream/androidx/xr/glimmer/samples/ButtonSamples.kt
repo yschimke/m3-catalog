@@ -22,7 +22,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import ee.schimke.m3catalog.glimmersamples.GlimmerSamplePreview
 import androidx.xr.glimmer.Button
 import androidx.xr.glimmer.ButtonSize
 import androidx.xr.glimmer.GlimmerTheme
@@ -119,49 +119,49 @@ private fun LargeButtonWithLeadingAndTrailingIconSample() {
     }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ButtonPreview() {
     GlimmerTheme { ButtonSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ButtonWithLeadingIconPreview() {
     GlimmerTheme { ButtonWithLeadingIconSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ButtonWithTrailingIconPreview() {
     GlimmerTheme { ButtonWithTrailingIconSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ButtonWithLeadingAndTrailingIconPreview() {
     GlimmerTheme { ButtonWithLeadingAndTrailingIconSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun LargeButtonPreview() {
     GlimmerTheme { LargeButtonSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun LargeButtonWithLeadingIconPreview() {
     GlimmerTheme { LargeButtonWithLeadingIconSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun LargeButtonWithTrailingIconPreview() {
     GlimmerTheme { LargeButtonWithTrailingIconSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun LargeButtonWithLeadingAndTrailingIconPreview() {
     GlimmerTheme { LargeButtonWithLeadingAndTrailingIconSample() }

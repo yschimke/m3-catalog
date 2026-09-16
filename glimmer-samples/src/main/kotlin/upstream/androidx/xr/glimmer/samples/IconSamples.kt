@@ -29,7 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
-import androidx.compose.ui.tooling.preview.Preview
+import ee.schimke.m3catalog.glimmersamples.GlimmerSamplePreview
 import androidx.compose.ui.unit.dp
 import androidx.xr.glimmer.GlimmerTheme
 import androidx.xr.glimmer.Icon
@@ -68,7 +68,7 @@ fun IconSizesSample() {
     }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun IconPreview() {
     GlimmerTheme { IconSampleUsage() }

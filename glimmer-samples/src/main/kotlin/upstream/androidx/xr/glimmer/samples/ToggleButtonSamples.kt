@@ -22,7 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.tooling.preview.Preview
+import ee.schimke.m3catalog.glimmersamples.GlimmerSamplePreview
 import androidx.xr.glimmer.ButtonSize
 import androidx.xr.glimmer.GlimmerTheme
 import androidx.xr.glimmer.Icon
@@ -83,25 +83,25 @@ fun ToggleButtonWithTrailingIconSample() {
     }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ToggleButtonPreview() {
     GlimmerTheme { ToggleButtonSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun LargeToggleButtonPreview() {
     GlimmerTheme { LargeToggleButtonSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ToggleButtonWithLeadingIconPreview() {
     GlimmerTheme { ToggleButtonWithLeadingIconSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ToggleButtonWithTrailingIconPreview() {
     GlimmerTheme { ToggleButtonWithTrailingIconSample() }

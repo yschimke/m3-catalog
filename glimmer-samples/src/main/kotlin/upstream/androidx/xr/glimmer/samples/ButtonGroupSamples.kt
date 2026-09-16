@@ -21,7 +21,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import ee.schimke.m3catalog.glimmersamples.GlimmerSamplePreview
 import androidx.xr.glimmer.Button
 import androidx.xr.glimmer.ButtonGroup
 import androidx.xr.glimmer.GlimmerTheme
@@ -56,7 +56,7 @@ fun ButtonGroupControlCurrentItemSample() {
     }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ButtonGroupPreview() {
     GlimmerTheme { ButtonGroupSample() }

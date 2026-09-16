@@ -26,7 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import ee.schimke.m3catalog.glimmersamples.GlimmerSamplePreview
 import androidx.compose.ui.unit.dp
 import androidx.xr.glimmer.GlimmerTheme
 import androidx.xr.glimmer.SurfaceDefaults
@@ -107,19 +107,19 @@ fun CustomFocusedColorSurfaceSample() {
     }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun SurfacePreview() {
     GlimmerTheme { SurfaceSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun FocusableSurfacePreview() {
     GlimmerTheme { FocusableSurfaceSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ClickableSurfacePreview() {
     GlimmerTheme { ClickableSurfaceSample() }

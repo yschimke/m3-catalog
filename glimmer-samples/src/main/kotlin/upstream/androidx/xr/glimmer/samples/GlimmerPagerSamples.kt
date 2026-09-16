@@ -28,7 +28,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextMotion
-import androidx.compose.ui.tooling.preview.Preview
+import ee.schimke.m3catalog.glimmersamples.GlimmerSamplePreview
 import androidx.xr.glimmer.Button
 import androidx.xr.glimmer.Card
 import androidx.xr.glimmer.GlimmerTheme
@@ -140,7 +140,7 @@ fun GlimmerPagerStateCustomAnimateScrollToPageSample() {
     }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 fun GlimmerHorizontalPagerSamplePreview() {
     GlimmerTheme {
