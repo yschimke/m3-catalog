@@ -1505,6 +1505,1202 @@
         ]
       }
     ],
+    "ee.schimke.m3catalog.glimmer.ButtonsKt.ToggleButtonSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Button\" risks truncation when localized: ≈132dp expanded vs 71dp available.",
+            "detail": {
+              "label": "Button",
+              "availableWidth": "71",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 54,
+                  "y": 10,
+                  "width": 72,
+                  "height": 28
+                },
+                "label": "Button"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 54,
+                  "y": 11,
+                  "width": 71,
+                  "height": 26
+                },
+                "label": "Button"
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingStart: candidate resolved no value; unverified (spec 16)",
+            "detail": {
+              "token": "spacing.paddingStart",
+              "expected": "16",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingTop: candidate resolved no value; unverified (spec 8)",
+            "detail": {
+              "token": "spacing.paddingTop",
+              "expected": "8",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingEnd: candidate resolved no value; unverified (spec 16)",
+            "detail": {
+              "token": "spacing.paddingEnd",
+              "expected": "16",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingBottom: candidate resolved no value; unverified (spec 8)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "8",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "radius: candidate resolved no radius tokens; compliance not evaluated (1 spec token)",
+            "detail": {
+              "token": "radius.*",
+              "unverified": "true",
+              "specCount": "1"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.container has no Material-role mapping; unverified (spec #303030)",
+            "detail": {
+              "token": "colors.container",
+              "expected": "#303030",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.label has no Material-role mapping; unverified (spec #FFFFFF)",
+            "detail": {
+              "token": "colors.label",
+              "expected": "#FFFFFF",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography.label has no Material-role mapping; unverified (spec {\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":32,\"fontWeight\":600,\"lineHeight\":38,\"letterSpacing\":0})",
+            "detail": {
+              "token": "typography.label",
+              "expected": "{\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":32,\"fontWeight\":600,\"lineHeight\":38,\"letterSpacing\":0}",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "pairing",
+            "severity": "info",
+            "message": "reference renders with Label=true, Label Text=Button, Show Leading icon=true, Show Trailing icon=false — component property defaults the variant name does not state",
+            "detail": {
+              "properties": "[{\"name\":\"Label\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Label Text\",\"type\":\"text\",\"value\":\"Button\"},{\"name\":\"Show Leading icon\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Show Trailing icon\",\"type\":\"boolean\",\"value\":\"false\"}]"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "default: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "default",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "616"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 13.3% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.132683",
+              "diffPixels": "898"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-enabled-size-large-toggle-true-40000113-4082: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "cell-state-enabled-size-large-toggle-true-40000113-4082",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "1823"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-enabled-size-large-toggle-true-40000113-4082: 31.8% of pixels differ from reference",
+            "detail": {
+              "key": "cell-state-enabled-size-large-toggle-true-40000113-4082",
+              "score": "0.318459",
+              "diffPixels": "3233"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "cell-state-focused-size-default-toggle-true-40000113-4092: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "cell-state-focused-size-default-toggle-true-40000113-4092",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "1566"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-focused-size-default-toggle-true-40000113-4092: 27.3% of pixels differ from reference",
+            "detail": {
+              "key": "cell-state-focused-size-default-toggle-true-40000113-4092",
+              "score": "0.27305",
+              "diffPixels": "1848"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-focused-size-large-toggle-true-40000113-4112: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "cell-state-focused-size-large-toggle-true-40000113-4112",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "2513"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-focused-size-large-toggle-true-40000113-4112: 38.6% of pixels differ from reference",
+            "detail": {
+              "key": "cell-state-focused-size-large-toggle-true-40000113-4112",
+              "score": "0.386426",
+              "diffPixels": "3923"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "cell-state-pressed-size-default-toggle-true-40000113-4102: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "cell-state-pressed-size-default-toggle-true-40000113-4102",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "1983"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-pressed-size-default-toggle-true-40000113-4102: 33.5% of pixels differ from reference",
+            "detail": {
+              "key": "cell-state-pressed-size-default-toggle-true-40000113-4102",
+              "score": "0.334663",
+              "diffPixels": "2265"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-pressed-size-large-toggle-true-40000113-4122: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "cell-state-pressed-size-large-toggle-true-40000113-4122",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "2756"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-pressed-size-large-toggle-true-40000113-4122: 41.0% of pixels differ from reference",
+            "detail": {
+              "key": "cell-state-pressed-size-large-toggle-true-40000113-4122",
+              "score": "0.410362",
+              "diffPixels": "4166"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "disabled: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "disabled",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "522"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "disabled: 11.9% of pixels differ from reference",
+            "detail": {
+              "key": "disabled",
+              "score": "0.118794",
+              "diffPixels": "804"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "focused: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "focused",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "4452"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "focused: 69.9% of pixels differ from reference",
+            "detail": {
+              "key": "focused",
+              "score": "0.699468",
+              "diffPixels": "4734"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "pressed: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "pressed",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "3939"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "pressed: 62.4% of pixels differ from reference",
+            "detail": {
+              "key": "pressed",
+              "score": "0.62367",
+              "diffPixels": "4221"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default/Large: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "default/Large",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "1429"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default/Large: 28.0% of pixels differ from reference",
+            "detail": {
+              "key": "default/Large",
+              "score": "0.279649",
+              "diffPixels": "2839"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Large-disabled: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "Large-disabled",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "1666"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Large-disabled: 30.3% of pixels differ from reference",
+            "detail": {
+              "key": "Large-disabled",
+              "score": "0.302994",
+              "diffPixels": "3076"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Large-focused: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "Large-focused",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "6089"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Large-focused: 73.9% of pixels differ from reference",
+            "detail": {
+              "key": "Large-focused",
+              "score": "0.738672",
+              "diffPixels": "7499"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Large-pressed: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "Large-pressed",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "5399"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Large-pressed: 67.1% of pixels differ from reference",
+            "detail": {
+              "key": "Large-pressed",
+              "score": "0.670705",
+              "diffPixels": "6809"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "checked: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "checked",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "1509"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "checked: 26.5% of pixels differ from reference",
+            "detail": {
+              "key": "checked",
+              "score": "0.264628",
+              "diffPixels": "1791"
+            }
+          }
+        ]
+      }
+    ],
+    "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/Buttons.kt#ToggleButtonSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Button\" risks truncation when localized: ≈132dp expanded vs 71dp available.",
+            "detail": {
+              "label": "Button",
+              "availableWidth": "71",
+              "estimatedWidth": "66",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "132"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 54,
+                  "y": 10,
+                  "width": 72,
+                  "height": 28
+                },
+                "label": "Button"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 54,
+                  "y": 11,
+                  "width": 71,
+                  "height": 26
+                },
+                "label": "Button"
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingStart: candidate resolved no value; unverified (spec 16)",
+            "detail": {
+              "token": "spacing.paddingStart",
+              "expected": "16",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingTop: candidate resolved no value; unverified (spec 8)",
+            "detail": {
+              "token": "spacing.paddingTop",
+              "expected": "8",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingEnd: candidate resolved no value; unverified (spec 16)",
+            "detail": {
+              "token": "spacing.paddingEnd",
+              "expected": "16",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingBottom: candidate resolved no value; unverified (spec 8)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "8",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "radius: candidate resolved no radius tokens; compliance not evaluated (1 spec token)",
+            "detail": {
+              "token": "radius.*",
+              "unverified": "true",
+              "specCount": "1"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.container has no Material-role mapping; unverified (spec #303030)",
+            "detail": {
+              "token": "colors.container",
+              "expected": "#303030",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.label has no Material-role mapping; unverified (spec #FFFFFF)",
+            "detail": {
+              "token": "colors.label",
+              "expected": "#FFFFFF",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography.label has no Material-role mapping; unverified (spec {\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":32,\"fontWeight\":600,\"lineHeight\":38,\"letterSpacing\":0})",
+            "detail": {
+              "token": "typography.label",
+              "expected": "{\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":32,\"fontWeight\":600,\"lineHeight\":38,\"letterSpacing\":0}",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 146,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 141,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "pairing",
+            "severity": "info",
+            "message": "reference renders with Label=true, Label Text=Button, Show Leading icon=true, Show Trailing icon=false — component property defaults the variant name does not state",
+            "detail": {
+              "properties": "[{\"name\":\"Label\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Label Text\",\"type\":\"text\",\"value\":\"Button\"},{\"name\":\"Show Leading icon\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Show Trailing icon\",\"type\":\"boolean\",\"value\":\"false\"}]"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "default: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "default",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "616"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 13.3% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.132683",
+              "diffPixels": "898"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-enabled-size-large-toggle-true-40000113-4082: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "cell-state-enabled-size-large-toggle-true-40000113-4082",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "1823"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-enabled-size-large-toggle-true-40000113-4082: 31.8% of pixels differ from reference",
+            "detail": {
+              "key": "cell-state-enabled-size-large-toggle-true-40000113-4082",
+              "score": "0.318459",
+              "diffPixels": "3233"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "cell-state-focused-size-default-toggle-true-40000113-4092: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "cell-state-focused-size-default-toggle-true-40000113-4092",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "1566"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-focused-size-default-toggle-true-40000113-4092: 27.3% of pixels differ from reference",
+            "detail": {
+              "key": "cell-state-focused-size-default-toggle-true-40000113-4092",
+              "score": "0.27305",
+              "diffPixels": "1848"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-focused-size-large-toggle-true-40000113-4112: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "cell-state-focused-size-large-toggle-true-40000113-4112",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "2513"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-focused-size-large-toggle-true-40000113-4112: 38.6% of pixels differ from reference",
+            "detail": {
+              "key": "cell-state-focused-size-large-toggle-true-40000113-4112",
+              "score": "0.386426",
+              "diffPixels": "3923"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "cell-state-pressed-size-default-toggle-true-40000113-4102: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "cell-state-pressed-size-default-toggle-true-40000113-4102",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "1983"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-pressed-size-default-toggle-true-40000113-4102: 33.5% of pixels differ from reference",
+            "detail": {
+              "key": "cell-state-pressed-size-default-toggle-true-40000113-4102",
+              "score": "0.334663",
+              "diffPixels": "2265"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-pressed-size-large-toggle-true-40000113-4122: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "cell-state-pressed-size-large-toggle-true-40000113-4122",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "2756"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-state-pressed-size-large-toggle-true-40000113-4122: 41.0% of pixels differ from reference",
+            "detail": {
+              "key": "cell-state-pressed-size-large-toggle-true-40000113-4122",
+              "score": "0.410362",
+              "diffPixels": "4166"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "disabled: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "disabled",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "522"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "disabled: 11.9% of pixels differ from reference",
+            "detail": {
+              "key": "disabled",
+              "score": "0.118794",
+              "diffPixels": "804"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "focused: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "focused",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "4452"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "focused: 69.9% of pixels differ from reference",
+            "detail": {
+              "key": "focused",
+              "score": "0.699468",
+              "diffPixels": "4734"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "pressed: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "pressed",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "3939"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "pressed: 62.4% of pixels differ from reference",
+            "detail": {
+              "key": "pressed",
+              "score": "0.62367",
+              "diffPixels": "4221"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default/Large: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "default/Large",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "1429"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default/Large: 28.0% of pixels differ from reference",
+            "detail": {
+              "key": "default/Large",
+              "score": "0.279649",
+              "diffPixels": "2839"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Large-disabled: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "Large-disabled",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "1666"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Large-disabled: 30.3% of pixels differ from reference",
+            "detail": {
+              "key": "Large-disabled",
+              "score": "0.302994",
+              "diffPixels": "3076"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Large-focused: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "Large-focused",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "6089"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Large-focused: 73.9% of pixels differ from reference",
+            "detail": {
+              "key": "Large-focused",
+              "score": "0.738672",
+              "diffPixels": "7499"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Large-pressed: reference 141×62 vs candidate 141×72; compared over their 141×62 overlap, 13.9% of the frame uncovered",
+            "detail": {
+              "key": "Large-pressed",
+              "dw": "0",
+              "dh": "-10",
+              "borderPixels": "1410",
+              "contentPixels": "5399"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Large-pressed: 67.1% of pixels differ from reference",
+            "detail": {
+              "key": "Large-pressed",
+              "score": "0.670705",
+              "diffPixels": "6809"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "checked: reference and candidate differ slightly in size (141×46 vs 141×48); compared over their overlap",
+            "detail": {
+              "key": "checked",
+              "dw": "0",
+              "dh": "-2",
+              "borderPixels": "282",
+              "contentPixels": "1509"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "checked: 26.5% of pixels differ from reference",
+            "detail": {
+              "key": "checked",
+              "score": "0.264628",
+              "diffPixels": "1791"
+            }
+          }
+        ]
+      }
+    ],
     "ee.schimke.m3catalog.glimmer.CardsKt.CardSticker": [
       {
         "source": "figma",
@@ -2864,6 +4060,582 @@
               "key": "pressed",
               "score": "0.578993",
               "diffPixels": "1334"
+            }
+          }
+        ]
+      }
+    ],
+    "ee.schimke.m3catalog.glimmer.IconButtonsKt.IconToggleButtonSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingStart: candidate resolved no value; unverified (spec 16)",
+            "detail": {
+              "token": "spacing.paddingStart",
+              "expected": "16",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingTop: candidate resolved no value; unverified (spec 8)",
+            "detail": {
+              "token": "spacing.paddingTop",
+              "expected": "8",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingEnd: candidate resolved no value; unverified (spec 16)",
+            "detail": {
+              "token": "spacing.paddingEnd",
+              "expected": "16",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingBottom: candidate resolved no value; unverified (spec 8)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "8",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "radius: candidate resolved no radius tokens; compliance not evaluated (1 spec token)",
+            "detail": {
+              "token": "radius.*",
+              "unverified": "true",
+              "specCount": "1"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors: candidate resolved no colors tokens; compliance not evaluated (2 spec tokens)",
+            "detail": {
+              "token": "colors.*",
+              "unverified": "true",
+              "specCount": "2"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography: candidate resolved no typography tokens; compliance not evaluated (1 spec token)",
+            "detail": {
+              "token": "typography.*",
+              "unverified": "true",
+              "specCount": "1"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 25.5% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.254774",
+              "diffPixels": "587"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-toggle-true-state-focused-40000113-4188: 14.0% of pixels differ from reference",
+            "detail": {
+              "key": "cell-toggle-true-state-focused-40000113-4188",
+              "score": "0.140191",
+              "diffPixels": "323"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-toggle-true-state-pressed-40000113-4195: 41.3% of pixels differ from reference",
+            "detail": {
+              "key": "cell-toggle-true-state-pressed-40000113-4195",
+              "score": "0.413194",
+              "diffPixels": "952"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "disabled: 57.7% of pixels differ from reference",
+            "detail": {
+              "key": "disabled",
+              "score": "0.576823",
+              "diffPixels": "1329"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "focused: 45.9% of pixels differ from reference",
+            "detail": {
+              "key": "focused",
+              "score": "0.458767",
+              "diffPixels": "1057"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "pressed: 52.8% of pixels differ from reference",
+            "detail": {
+              "key": "pressed",
+              "score": "0.527778",
+              "diffPixels": "1216"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "checked: 27.3% of pixels differ from reference",
+            "detail": {
+              "key": "checked",
+              "score": "0.273003",
+              "diffPixels": "629"
+            }
+          }
+        ]
+      }
+    ],
+    "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/IconButtons.kt#IconToggleButtonSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingStart: candidate resolved no value; unverified (spec 16)",
+            "detail": {
+              "token": "spacing.paddingStart",
+              "expected": "16",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingTop: candidate resolved no value; unverified (spec 8)",
+            "detail": {
+              "token": "spacing.paddingTop",
+              "expected": "8",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingEnd: candidate resolved no value; unverified (spec 16)",
+            "detail": {
+              "token": "spacing.paddingEnd",
+              "expected": "16",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "spacing.paddingBottom: candidate resolved no value; unverified (spec 8)",
+            "detail": {
+              "token": "spacing.paddingBottom",
+              "expected": "8",
+              "unverified": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "radius: candidate resolved no radius tokens; compliance not evaluated (1 spec token)",
+            "detail": {
+              "token": "radius.*",
+              "unverified": "true",
+              "specCount": "1"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors: candidate resolved no colors tokens; compliance not evaluated (2 spec tokens)",
+            "detail": {
+              "token": "colors.*",
+              "unverified": "true",
+              "specCount": "2"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography: candidate resolved no typography tokens; compliance not evaluated (1 spec token)",
+            "detail": {
+              "token": "typography.*",
+              "unverified": "true",
+              "specCount": "1"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 48,
+                  "height": 48
+                }
+              }
+            ]
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 25.5% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.254774",
+              "diffPixels": "587"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-toggle-true-state-focused-40000113-4188: 14.0% of pixels differ from reference",
+            "detail": {
+              "key": "cell-toggle-true-state-focused-40000113-4188",
+              "score": "0.140191",
+              "diffPixels": "323"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-toggle-true-state-pressed-40000113-4195: 41.3% of pixels differ from reference",
+            "detail": {
+              "key": "cell-toggle-true-state-pressed-40000113-4195",
+              "score": "0.413194",
+              "diffPixels": "952"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "disabled: 57.7% of pixels differ from reference",
+            "detail": {
+              "key": "disabled",
+              "score": "0.576823",
+              "diffPixels": "1329"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "focused: 45.9% of pixels differ from reference",
+            "detail": {
+              "key": "focused",
+              "score": "0.458767",
+              "diffPixels": "1057"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "pressed: 52.8% of pixels differ from reference",
+            "detail": {
+              "key": "pressed",
+              "score": "0.527778",
+              "diffPixels": "1216"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "checked: 27.3% of pixels differ from reference",
+            "detail": {
+              "key": "checked",
+              "score": "0.273003",
+              "diffPixels": "629"
             }
           }
         ]
@@ -4479,6 +6251,482 @@
         ]
       }
     ],
+    "ee.schimke.m3catalog.glimmer.ListsKt.ListItemSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Title\" risks truncation when localized: ≈110dp expanded vs 47dp available.",
+            "detail": {
+              "label": "Title",
+              "availableWidth": "47",
+              "estimatedWidth": "55",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "110"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 26,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Title"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 27,
+                  "width": 47,
+                  "height": 26
+                },
+                "label": "Title"
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.container has no Material-role mapping; unverified (spec #303030)",
+            "detail": {
+              "token": "colors.container",
+              "expected": "#303030",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 80
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 80
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.label has no Material-role mapping; unverified (spec #FFFFFF)",
+            "detail": {
+              "token": "colors.label",
+              "expected": "#FFFFFF",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 80
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 80
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography.label has no Material-role mapping; unverified (spec {\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":40,\"fontWeight\":600,\"lineHeight\":48,\"letterSpacing\":0})",
+            "detail": {
+              "token": "typography.label",
+              "expected": "{\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":40,\"fontWeight\":600,\"lineHeight\":48,\"letterSpacing\":0}",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 80
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 80
+                }
+              }
+            ]
+          },
+          {
+            "kind": "pairing",
+            "severity": "info",
+            "message": "reference renders with Entity=40000036:1830, Show Body=true, Show Icon=true, Show Subtitle=true, Show Title=true, Subtitle=Subtitle, Title=Title — component property defaults the variant name does not state",
+            "detail": {
+              "properties": "[{\"name\":\"Entity\",\"type\":\"instance-swap\",\"value\":\"40000036:1830\"},{\"name\":\"Show Body\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Show Icon\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Show Subtitle\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Show Title\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Subtitle\",\"type\":\"text\",\"value\":\"Subtitle\"},{\"name\":\"Title\",\"type\":\"text\",\"value\":\"Title\"}]"
+            }
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 4), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "4",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 20,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 16,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 4.7% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.046548",
+              "diffPixels": "1564"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "pressed: 57.3% of pixels differ from reference",
+            "detail": {
+              "key": "pressed",
+              "score": "0.572619",
+              "diffPixels": "19240"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "supporting-label: reference and candidate differ slightly in size (420×88 vs 420×84); compared over their overlap",
+            "detail": {
+              "key": "supporting-label",
+              "dw": "0",
+              "dh": "4",
+              "borderPixels": "1680",
+              "contentPixels": "2666"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "supporting-label: 11.8% of pixels differ from reference",
+            "detail": {
+              "key": "supporting-label",
+              "score": "0.117587",
+              "diffPixels": "4346"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "supporting-label-pressed: reference and candidate differ slightly in size (420×88 vs 420×84); compared over their overlap",
+            "detail": {
+              "key": "supporting-label-pressed",
+              "dw": "0",
+              "dh": "4",
+              "borderPixels": "1680",
+              "contentPixels": "22482"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "supporting-label-pressed: 65.4% of pixels differ from reference",
+            "detail": {
+              "key": "supporting-label-pressed",
+              "score": "0.653734",
+              "diffPixels": "24162"
+            }
+          }
+        ]
+      }
+    ],
+    "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/Lists.kt#ListItemSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "i18n",
+            "severity": "warn",
+            "message": "\"Title\" risks truncation when localized: ≈110dp expanded vs 47dp available.",
+            "detail": {
+              "label": "Title",
+              "availableWidth": "47",
+              "estimatedWidth": "55",
+              "expansionFactor": "2",
+              "estimatedExpandedWidth": "110"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 68,
+                  "y": 26,
+                  "width": 336,
+                  "height": 28
+                },
+                "label": "Title"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 72,
+                  "y": 27,
+                  "width": 47,
+                  "height": 26
+                },
+                "label": "Title"
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.container has no Material-role mapping; unverified (spec #303030)",
+            "detail": {
+              "token": "colors.container",
+              "expected": "#303030",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 80
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 80
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "colors.label has no Material-role mapping; unverified (spec #FFFFFF)",
+            "detail": {
+              "token": "colors.label",
+              "expected": "#FFFFFF",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 80
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 80
+                }
+              }
+            ]
+          },
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "typography.label has no Material-role mapping; unverified (spec {\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":40,\"fontWeight\":600,\"lineHeight\":48,\"letterSpacing\":0})",
+            "detail": {
+              "token": "typography.label",
+              "expected": "{\"fontFamily\":\"Material Symbols Rounded\",\"fontSize\":40,\"fontWeight\":600,\"lineHeight\":48,\"letterSpacing\":0}",
+              "unmapped": "true"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 80
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 420,
+                  "height": 80
+                }
+              }
+            ]
+          },
+          {
+            "kind": "pairing",
+            "severity": "info",
+            "message": "reference renders with Entity=40000036:1830, Show Body=true, Show Icon=true, Show Subtitle=true, Show Title=true, Subtitle=Subtitle, Title=Title — component property defaults the variant name does not state",
+            "detail": {
+              "properties": "[{\"name\":\"Entity\",\"type\":\"instance-swap\",\"value\":\"40000036:1830\"},{\"name\":\"Show Body\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Show Icon\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Show Subtitle\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Show Title\",\"type\":\"boolean\",\"value\":\"true\"},{\"name\":\"Subtitle\",\"type\":\"text\",\"value\":\"Subtitle\"},{\"name\":\"Title\",\"type\":\"text\",\"value\":\"Title\"}]"
+            }
+          },
+          {
+            "kind": "layout",
+            "severity": "warn",
+            "message": "layout \"send\": offset (0, 4), size Δ(-8, -8) vs candidate",
+            "detail": {
+              "label": "send",
+              "dx": "0",
+              "dy": "4",
+              "dw": "-8",
+              "dh": "-8"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 16,
+                  "y": 20,
+                  "width": 40,
+                  "height": 40
+                },
+                "label": "send"
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 16,
+                  "y": 16,
+                  "width": 48,
+                  "height": 48
+                },
+                "label": "send"
+              }
+            ]
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 4.7% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.046548",
+              "diffPixels": "1564"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "pressed: 57.3% of pixels differ from reference",
+            "detail": {
+              "key": "pressed",
+              "score": "0.572619",
+              "diffPixels": "19240"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "supporting-label: reference and candidate differ slightly in size (420×88 vs 420×84); compared over their overlap",
+            "detail": {
+              "key": "supporting-label",
+              "dw": "0",
+              "dh": "4",
+              "borderPixels": "1680",
+              "contentPixels": "2666"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "supporting-label: 11.8% of pixels differ from reference",
+            "detail": {
+              "key": "supporting-label",
+              "score": "0.117587",
+              "diffPixels": "4346"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "info",
+            "message": "supporting-label-pressed: reference and candidate differ slightly in size (420×88 vs 420×84); compared over their overlap",
+            "detail": {
+              "key": "supporting-label-pressed",
+              "dw": "0",
+              "dh": "4",
+              "borderPixels": "1680",
+              "contentPixels": "22482"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "supporting-label-pressed: 65.4% of pixels differ from reference",
+            "detail": {
+              "key": "supporting-label-pressed",
+              "score": "0.653734",
+              "diffPixels": "24162"
+            }
+          }
+        ]
+      }
+    ],
     "ee.schimke.m3catalog.glimmer.StacksKt.VerticalStackSticker": [
       {
         "source": "figma",
@@ -4972,6 +7220,264 @@
               "key": "default",
               "score": "0.910389",
               "diffPixels": "81061"
+            }
+          }
+        ]
+      }
+    ],
+    "ee.schimke.m3catalog.glimmer.VoiceInputKt.VoiceInputIndicatorSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "radius: candidate resolved no radius tokens; compliance not evaluated (1 spec token)",
+            "detail": {
+              "token": "radius.*",
+              "unverified": "true",
+              "specCount": "1"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 32,
+                  "height": 32
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 32,
+                  "height": 32
+                }
+              }
+            ]
+          },
+          {
+            "kind": "semantic",
+            "severity": "warn",
+            "message": "candidate exposes no accessibility roles",
+            "detail": {
+              "node": "tree",
+              "field": "role"
+            }
+          },
+          {
+            "kind": "semantic",
+            "severity": "warn",
+            "message": "candidate exposes no accessible labels",
+            "detail": {
+              "node": "tree",
+              "field": "label"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 12.3% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "detail": {
+              "key": "default",
+              "alphaLossRatio": "0.123047",
+              "alphaLossPixels": "126",
+              "alphaComparedPixels": "1024"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 16.4% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.164063",
+              "diffPixels": "168"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-volume-quiet-contained-yes-40000116-9342: 7.0% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "detail": {
+              "key": "cell-volume-quiet-contained-yes-40000116-9342",
+              "alphaLossRatio": "0.070313",
+              "alphaLossPixels": "72",
+              "alphaComparedPixels": "1024"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-volume-quiet-contained-yes-40000116-9342: 63.3% of pixels differ from reference",
+            "detail": {
+              "key": "cell-volume-quiet-contained-yes-40000116-9342",
+              "score": "0.632813",
+              "diffPixels": "648"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Quiet: 6.3% of pixels differ from reference",
+            "detail": {
+              "key": "Quiet",
+              "score": "0.063477",
+              "diffPixels": "65"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "contained: 7.0% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "detail": {
+              "key": "contained",
+              "alphaLossRatio": "0.070313",
+              "alphaLossPixels": "72",
+              "alphaComparedPixels": "1024"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "contained: 60.6% of pixels differ from reference",
+            "detail": {
+              "key": "contained",
+              "score": "0.606445",
+              "diffPixels": "621"
+            }
+          }
+        ]
+      }
+    ],
+    "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/VoiceInput.kt#VoiceInputIndicatorSticker": [
+      {
+        "source": "figma",
+        "status": "warn",
+        "findings": [
+          {
+            "kind": "token",
+            "severity": "info",
+            "message": "radius: candidate resolved no radius tokens; compliance not evaluated (1 spec token)",
+            "detail": {
+              "token": "radius.*",
+              "unverified": "true",
+              "specCount": "1"
+            },
+            "anchors": [
+              {
+                "side": "reference",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 32,
+                  "height": 32
+                }
+              },
+              {
+                "side": "actual",
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 32,
+                  "height": 32
+                }
+              }
+            ]
+          },
+          {
+            "kind": "semantic",
+            "severity": "warn",
+            "message": "candidate exposes no accessibility roles",
+            "detail": {
+              "node": "tree",
+              "field": "role"
+            }
+          },
+          {
+            "kind": "semantic",
+            "severity": "warn",
+            "message": "candidate exposes no accessible labels",
+            "detail": {
+              "node": "tree",
+              "field": "label"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 12.3% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "detail": {
+              "key": "default",
+              "alphaLossRatio": "0.123047",
+              "alphaLossPixels": "126",
+              "alphaComparedPixels": "1024"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "default: 16.4% of pixels differ from reference",
+            "detail": {
+              "key": "default",
+              "score": "0.164063",
+              "diffPixels": "168"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-volume-quiet-contained-yes-40000116-9342: 7.0% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "detail": {
+              "key": "cell-volume-quiet-contained-yes-40000116-9342",
+              "alphaLossRatio": "0.070313",
+              "alphaLossPixels": "72",
+              "alphaComparedPixels": "1024"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "cell-volume-quiet-contained-yes-40000116-9342: 63.3% of pixels differ from reference",
+            "detail": {
+              "key": "cell-volume-quiet-contained-yes-40000116-9342",
+              "score": "0.632813",
+              "diffPixels": "648"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "Quiet: 6.3% of pixels differ from reference",
+            "detail": {
+              "key": "Quiet",
+              "score": "0.063477",
+              "diffPixels": "65"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "contained: 7.0% of aligned pixels are opaque in the reference but transparent in the candidate",
+            "detail": {
+              "key": "contained",
+              "alphaLossRatio": "0.070313",
+              "alphaLossPixels": "72",
+              "alphaComparedPixels": "1024"
+            }
+          },
+          {
+            "kind": "visual",
+            "severity": "warn",
+            "message": "contained: 60.6% of pixels differ from reference",
+            "detail": {
+              "key": "contained",
+              "score": "0.606445",
+              "diffPixels": "621"
             }
           }
         ]
