@@ -346,6 +346,14 @@ jobs:
       - name: Test the compose-ui-samples spec
         run: node --test scripts/ui-samples-spec.test.mjs
 
+      # `.compose-preview/catalogs.json` — the registry document a box reads to decide WHICH of this
+      # repository's sheets it serves and how they are presented. Both directions matter: an id with
+      # no delivery branch is a 404 with nobody's name on it, and a published sheet missing from the
+      # file never appears at all. It also pins the one editorial decision in that file, that
+      # `compose-ui-samples` is served-but-unlisted, so flipping it is a reviewed act.
+      - name: Test the served-catalog registry
+        run: node --test scripts/catalogs-registry.test.mjs
+
       # The vendoring importer. The load-bearing behaviour is that a patch which no longer applies
       # FAILS the import rather than silently dropping the fix it carries, and that a quarantined
       # sample is a declared, checked gap rather than a permanent exclusion.

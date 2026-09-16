@@ -394,9 +394,17 @@ module against its own spec and appending to its own delivery branch:
 | `m3-catalog` | `:catalog` | Skiko (desktop) | [`design-artifacts/m3-catalog`](../../tree/design-artifacts/m3-catalog) | — |
 | `m3-samples` | `:samples-catalog` | Skiko (desktop) | [`design-artifacts/m3-samples`](../../tree/design-artifacts/m3-samples) | `m3-catalog` |
 | `compose-foundation` | `:foundation-catalog` | Skiko (desktop) | [`design-artifacts/compose-foundation`](../../tree/design-artifacts/compose-foundation) | — |
-| `compose-ui-samples` | `:ui-samples-catalog` | Skiko (desktop) | [`design-artifacts/compose-ui-samples`](../../tree/design-artifacts/compose-ui-samples) | — |
+| `compose-ui-samples`¹ | `:ui-samples-catalog` | Skiko (desktop) | [`design-artifacts/compose-ui-samples`](../../tree/design-artifacts/compose-ui-samples) | — |
 | `glimmer-catalog` | `:glimmer-catalog` | Robolectric (Android) | [`design-artifacts/glimmer-catalog`](../../tree/design-artifacts/glimmer-catalog) | — |
 | `glimmer-samples` | `:glimmer-samples` | Robolectric (Android) | [`design-artifacts/glimmer-samples`](../../tree/design-artifacts/glimmer-samples) | `glimmer-catalog` |
+
+¹ Served, and **off the front page**. Which of these sheets a box serves, and how it presents them,
+is declared by this repository in
+[`.compose-preview/catalogs.json`](.compose-preview/catalogs.json) — a registry document a preview
+server reads when it nominates this project, so a new sheet needs no out-of-band edit to the
+deployment. `compose-ui-samples` carries `listed: false` there: its 202 cards are a mechanical
+projection of upstream's `@Sampled` corpus, which is a catalog of call sites rather than something
+to browse, so it stays reachable at `/compose-ui-samples/` and keeps its card off the front door.
 
 `compose-ui-samples` is the tier below Material 3 — `androidx.compose.foundation` and
 `-foundation-layout`, vendored the same way — and it is paired with nothing on purpose: a
