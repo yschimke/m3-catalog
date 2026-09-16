@@ -1,0 +1,159 @@
+{
+  "system": "compose-foundation",
+  "title": "Compose Foundation",
+  "label": "Compose",
+  "source": {
+    "repo": "yschimke/m3-catalog",
+    "ref": "main",
+    "module": ":foundation-catalog"
+  },
+  "generatedAt": "2026-09-16T06:11:31.178Z",
+  "mappings": [
+    {
+      "componentId": "Content/Image",
+      "figmaLayerName": "Content/Image",
+      "componentName": "Sticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/foundation-catalog/src/main/kotlin/ee/schimke/foundationcatalog/FoundationSticker.kt",
+      "label": "Compose",
+      "confidence": "HIGH",
+      "previewName": "ImageSticker",
+      "codeSnippet": "Sticker(\n    content = { },\n)",
+      "imports": [
+        "import ee.schimke.foundationcatalog.Sticker"
+      ],
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "typeFqn": "kotlin.Function0",
+          "hasDefault": false,
+          "composableSlot": true,
+          "composableSlotReceiver": null,
+          "nullable": false,
+          "noArgConstructible": false,
+          "noArgFactory": null,
+          "scopeDslReceiver": null,
+          "lambdaReturnTypeFqn": "kotlin.Unit"
+        }
+      ],
+      "figmaSvg": "figma/content-image.svg"
+    },
+    {
+      "componentId": "Layout/Box",
+      "figmaLayerName": "Layout/Box",
+      "componentName": "BoxSticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/foundation-catalog/src/main/kotlin/ee/schimke/foundationcatalog/sections/Layout.kt",
+      "label": "Compose",
+      "confidence": "preview-fallback",
+      "previewName": "BoxSticker",
+      "figmaSvg": "figma/layout-box.svg"
+    },
+    {
+      "componentId": "Layout/Column",
+      "figmaLayerName": "Layout/Column",
+      "componentName": "ColumnSticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/foundation-catalog/src/main/kotlin/ee/schimke/foundationcatalog/sections/Layout.kt",
+      "label": "Compose",
+      "confidence": "preview-fallback",
+      "previewName": "ColumnSticker",
+      "figmaSvg": "figma/layout-column.svg"
+    },
+    {
+      "componentId": "Layout/Row",
+      "figmaLayerName": "Layout/Row",
+      "componentName": "RowSticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/foundation-catalog/src/main/kotlin/ee/schimke/foundationcatalog/sections/Layout.kt",
+      "label": "Compose",
+      "confidence": "preview-fallback",
+      "previewName": "RowSticker",
+      "figmaSvg": "figma/layout-row.svg"
+    },
+    {
+      "componentId": "Layout/LazyColumn",
+      "figmaLayerName": "Layout/LazyColumn",
+      "componentName": "Sticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/foundation-catalog/src/main/kotlin/ee/schimke/foundationcatalog/FoundationSticker.kt",
+      "label": "Compose",
+      "confidence": "LOW",
+      "previewName": "LazyColumnSticker",
+      "codeSnippet": "Sticker(\n    content = { },\n)",
+      "imports": [
+        "import ee.schimke.foundationcatalog.Sticker"
+      ],
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "typeFqn": "kotlin.Function0",
+          "hasDefault": false,
+          "composableSlot": true,
+          "composableSlotReceiver": null,
+          "nullable": false,
+          "noArgConstructible": false,
+          "noArgFactory": null,
+          "scopeDslReceiver": null,
+          "lambdaReturnTypeFqn": "kotlin.Unit"
+        }
+      ],
+      "figmaSvg": "figma/layout-lazycolumn.svg"
+    },
+    {
+      "componentId": "Layout/LazyRow",
+      "figmaLayerName": "Layout/LazyRow",
+      "componentName": "Sticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/foundation-catalog/src/main/kotlin/ee/schimke/foundationcatalog/FoundationSticker.kt",
+      "label": "Compose",
+      "confidence": "LOW",
+      "previewName": "LazyRowSticker",
+      "codeSnippet": "Sticker(\n    content = { },\n)",
+      "imports": [
+        "import ee.schimke.foundationcatalog.Sticker"
+      ],
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "typeFqn": "kotlin.Function0",
+          "hasDefault": false,
+          "composableSlot": true,
+          "composableSlotReceiver": null,
+          "nullable": false,
+          "noArgConstructible": false,
+          "noArgFactory": null,
+          "scopeDslReceiver": null,
+          "lambdaReturnTypeFqn": "kotlin.Unit"
+        }
+      ],
+      "figmaSvg": "figma/layout-lazyrow.svg"
+    },
+    {
+      "componentId": "Layout/LazyVerticalGrid",
+      "figmaLayerName": "Layout/LazyVerticalGrid",
+      "componentName": "Sticker",
+      "source": "https://github.com/yschimke/m3-catalog/blob/main/foundation-catalog/src/main/kotlin/ee/schimke/foundationcatalog/FoundationSticker.kt",
+      "label": "Compose",
+      "confidence": "LOW",
+      "previewName": "LazyVerticalGridSticker",
+      "codeSnippet": "Sticker(\n    content = { },\n)",
+      "imports": [
+        "import ee.schimke.foundationcatalog.Sticker"
+      ],
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "typeFqn": "kotlin.Function0",
+          "hasDefault": false,
+          "composableSlot": true,
+          "composableSlotReceiver": null,
+          "nullable": false,
+          "noArgConstructible": false,
+          "noArgFactory": null,
+          "scopeDslReceiver": null,
+          "lambdaReturnTypeFqn": "kotlin.Unit"
+        }
+      ],
+      "figmaSvg": "figma/layout-lazyverticalgrid.svg"
+    }
+  ]
+}

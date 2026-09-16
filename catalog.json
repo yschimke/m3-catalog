@@ -1,0 +1,346 @@
+{
+  "schema": "design-parity-catalog/v1",
+  "system": "compose-foundation",
+  "title": "Compose Foundation",
+  "components": [
+    {
+      "componentId": "Content/Image",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/content-image/ideal__default__dark.png",
+          "state": "default",
+          "width": 420,
+          "height": 252,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/content-image__ideal__default__dark",
+          "previewId": "ee.schimke.foundationcatalog.sections.AssetsKt.ImageSticker_Dark",
+          "previewParams": {
+            "uiMode": 32
+          },
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/content-image/ideal__default__light.png",
+          "state": "default",
+          "width": 420,
+          "height": 252,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/content-image__ideal__default__light",
+          "previewId": "ee.schimke.foundationcatalog.sections.AssetsKt.ImageSticker_Light",
+          "density": 2.625
+        }
+      ],
+      "greenlines": [],
+      "redlines": [],
+      "section": "Content",
+      "group": "Content",
+      "caption": "Draws the asset a design pins, scaled and aligned within its bounds.",
+      "noReference": "Not a kit component — `Image` is Compose's own leaf for drawing a painter.",
+      "wireframe": "wireframes/content-image.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/foundationcatalog/sections/Assets.kt",
+      "sourceModule": ":foundation-catalog",
+      "bodyLine": 63,
+      "sourceDirectory": "foundation-catalog",
+      "sourceFunction": "ImageSticker",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "composableSlot": true
+        }
+      ]
+    },
+    {
+      "componentId": "Layout/Box",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/layout-box/ideal__default__dark.png",
+          "state": "default",
+          "width": 252,
+          "height": 168,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/layout-box__ideal__default__dark",
+          "previewId": "ee.schimke.foundationcatalog.sections.LayoutKt.BoxSticker_Dark",
+          "previewParams": {
+            "uiMode": 32
+          },
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/layout-box/ideal__default__light.png",
+          "state": "default",
+          "width": 252,
+          "height": 168,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/layout-box__ideal__default__light",
+          "previewId": "ee.schimke.foundationcatalog.sections.LayoutKt.BoxSticker_Light",
+          "density": 2.625
+        }
+      ],
+      "greenlines": [],
+      "redlines": [],
+      "section": "Layout",
+      "group": "Layout",
+      "caption": "Stacks children on top of each other, aligned within the box.",
+      "noReference": "Not a kit component. `Box` is Compose's own stacking container — the Material 3 Design Kit publishes no node for it, and this catalog reproduces no kit.",
+      "wireframe": "wireframes/layout-box.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/foundationcatalog/sections/Layout.kt",
+      "sourceModule": ":foundation-catalog",
+      "bodyLine": 44,
+      "sourceDirectory": "foundation-catalog",
+      "sourceFunction": "BoxSticker"
+    },
+    {
+      "componentId": "Layout/Column",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/layout-column/ideal__default__dark.png",
+          "state": "default",
+          "width": 232,
+          "height": 316,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/layout-column__ideal__default__dark",
+          "previewId": "ee.schimke.foundationcatalog.sections.LayoutKt.ColumnSticker_Dark",
+          "previewParams": {
+            "uiMode": 32
+          },
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/layout-column/ideal__default__light.png",
+          "state": "default",
+          "width": 232,
+          "height": 316,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/layout-column__ideal__default__light",
+          "previewId": "ee.schimke.foundationcatalog.sections.LayoutKt.ColumnSticker_Light",
+          "density": 2.625
+        }
+      ],
+      "greenlines": [],
+      "redlines": [],
+      "section": "Layout",
+      "group": "Layout",
+      "caption": "Lays children out vertically, arranged and aligned.",
+      "noReference": "Not a kit component — Compose's own vertical container.",
+      "wireframe": "wireframes/layout-column.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/foundationcatalog/sections/Layout.kt",
+      "sourceModule": ":foundation-catalog",
+      "bodyLine": 58,
+      "sourceDirectory": "foundation-catalog",
+      "sourceFunction": "ColumnSticker"
+    },
+    {
+      "componentId": "Layout/Row",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/layout-row/ideal__default__dark.png",
+          "state": "default",
+          "width": 379,
+          "height": 148,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/layout-row__ideal__default__dark",
+          "previewId": "ee.schimke.foundationcatalog.sections.LayoutKt.RowSticker_Dark",
+          "previewParams": {
+            "uiMode": 32
+          },
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/layout-row/ideal__default__light.png",
+          "state": "default",
+          "width": 379,
+          "height": 148,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/layout-row__ideal__default__light",
+          "previewId": "ee.schimke.foundationcatalog.sections.LayoutKt.RowSticker_Light",
+          "density": 2.625
+        }
+      ],
+      "greenlines": [],
+      "redlines": [],
+      "section": "Layout",
+      "group": "Layout",
+      "caption": "Lays children out horizontally, arranged and aligned.",
+      "noReference": "Not a kit component — Compose's own horizontal container.",
+      "wireframe": "wireframes/layout-row.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/foundationcatalog/sections/Layout.kt",
+      "sourceModule": ":foundation-catalog",
+      "bodyLine": 77,
+      "sourceDirectory": "foundation-catalog",
+      "sourceFunction": "RowSticker"
+    },
+    {
+      "componentId": "Layout/LazyColumn",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/layout-lazycolumn/ideal__default__dark.png",
+          "state": "default",
+          "width": 315,
+          "height": 347,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/layout-lazycolumn__ideal__default__dark",
+          "previewId": "ee.schimke.foundationcatalog.sections.LazyListsKt.LazyColumnSticker_Dark",
+          "previewParams": {
+            "uiMode": 32
+          },
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/layout-lazycolumn/ideal__default__light.png",
+          "state": "default",
+          "width": 315,
+          "height": 347,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/layout-lazycolumn__ideal__default__light",
+          "previewId": "ee.schimke.foundationcatalog.sections.LazyListsKt.LazyColumnSticker_Light",
+          "density": 2.625
+        }
+      ],
+      "greenlines": [],
+      "redlines": [],
+      "section": "Layout",
+      "group": "Lazy layout",
+      "caption": "Composes only the items in view; scrolls vertically.",
+      "noReference": "Not a kit component — Compose's own vertically scrolling list.",
+      "wireframe": "wireframes/layout-lazycolumn.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/foundationcatalog/sections/LazyLists.kt",
+      "sourceModule": ":foundation-catalog",
+      "bodyLine": 38,
+      "sourceDirectory": "foundation-catalog",
+      "sourceFunction": "LazyColumnSticker",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "composableSlot": true
+        }
+      ]
+    },
+    {
+      "componentId": "Layout/LazyRow",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/layout-lazyrow/ideal__default__dark.png",
+          "state": "default",
+          "width": 368,
+          "height": 168,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/layout-lazyrow__ideal__default__dark",
+          "previewId": "ee.schimke.foundationcatalog.sections.LazyListsKt.LazyRowSticker_Dark",
+          "previewParams": {
+            "uiMode": 32
+          },
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/layout-lazyrow/ideal__default__light.png",
+          "state": "default",
+          "width": 368,
+          "height": 168,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/layout-lazyrow__ideal__default__light",
+          "previewId": "ee.schimke.foundationcatalog.sections.LazyListsKt.LazyRowSticker_Light",
+          "density": 2.625
+        }
+      ],
+      "greenlines": [],
+      "redlines": [],
+      "section": "Layout",
+      "group": "Lazy layout",
+      "caption": "Composes only the items in view; scrolls horizontally.",
+      "noReference": "Not a kit component — Compose's own horizontally scrolling list.",
+      "wireframe": "wireframes/layout-lazyrow.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/foundationcatalog/sections/LazyLists.kt",
+      "sourceModule": ":foundation-catalog",
+      "bodyLine": 55,
+      "sourceDirectory": "foundation-catalog",
+      "sourceFunction": "LazyRowSticker",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "composableSlot": true
+        }
+      ]
+    },
+    {
+      "componentId": "Layout/LazyVerticalGrid",
+      "images": [
+        {
+          "variant": "ideal",
+          "path": "images/layout-lazyverticalgrid/ideal__default__dark.png",
+          "state": "default",
+          "width": 525,
+          "height": 347,
+          "theme": "dark",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/layout-lazyverticalgrid__ideal__default__dark",
+          "previewId": "ee.schimke.foundationcatalog.sections.LazyListsKt.LazyVerticalGridSticker_Dark",
+          "previewParams": {
+            "uiMode": 32
+          },
+          "density": 2.625
+        },
+        {
+          "variant": "ideal",
+          "path": "images/layout-lazyverticalgrid/ideal__default__light.png",
+          "state": "default",
+          "width": 525,
+          "height": 347,
+          "theme": "light",
+          "livePreview": "https://preview.coo.ee/compose-foundation/p/layout-lazyverticalgrid__ideal__default__light",
+          "previewId": "ee.schimke.foundationcatalog.sections.LazyListsKt.LazyVerticalGridSticker_Light",
+          "density": 2.625
+        }
+      ],
+      "greenlines": [],
+      "redlines": [],
+      "section": "Layout",
+      "group": "Lazy layout",
+      "caption": "Wraps items into as many columns as the width allows.",
+      "noReference": "Not a kit component — Compose's own adaptive grid.",
+      "wireframe": "wireframes/layout-lazyverticalgrid.svg",
+      "sourceFile": "src/main/kotlin/ee/schimke/foundationcatalog/sections/LazyLists.kt",
+      "sourceModule": ":foundation-catalog",
+      "bodyLine": 72,
+      "sourceDirectory": "foundation-catalog",
+      "sourceFunction": "LazyVerticalGridSticker",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "() -> Unit",
+          "composableSlot": true
+        }
+      ]
+    }
+  ],
+  "library": [
+    "org.jetbrains.compose.foundation:foundation",
+    "org.jetbrains.compose.material3:material3",
+    "org.jetbrains.compose.material3.adaptive:adaptive-layout"
+  ],
+  "renderer": "compose-preview 2.16.0",
+  "generatedAt": "2026-09-16T06:11:31.148Z",
+  "display": {
+    "hero": "BoxSticker"
+  },
+  "componentsFile": "components.json",
+  "uiBuilderFile": "ui-builder.json",
+  "source": {
+    "repo": "yschimke/m3-catalog",
+    "ref": "main",
+    "module": ":foundation-catalog"
+  }
+}

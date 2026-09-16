@@ -1,0 +1,131 @@
+{
+    "schemaVersion": 2,
+    "module": "foundation-catalog",
+    "variant": "debug",
+    "components": [
+        {
+            "canonicalId": "foundation-catalog/ee.schimke.foundationcatalog.FoundationStickerKt.Sticker",
+            "componentIds": [
+                "Content/Image",
+                "Layout/LazyColumn",
+                "Layout/LazyRow",
+                "Layout/LazyVerticalGrid"
+            ],
+            "symbol": {
+                "jvmOwner": "ee.schimke.foundationcatalog.FoundationStickerKt",
+                "callable": "ee.schimke.foundationcatalog.Sticker",
+                "name": "Sticker",
+                "origin": "PROJECT",
+                "jvmName": "Sticker",
+                "descriptor": "(Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)V",
+                "sourceFile": "src/main/kotlin/ee/schimke/foundationcatalog/FoundationSticker.kt",
+                "docs": "unavailable",
+                "receiver": null
+            },
+            "parameters": [
+                {
+                    "name": "content",
+                    "type": "() -> Unit",
+                    "typeFqn": "kotlin.Function0",
+                    "hasDefault": false,
+                    "composableSlot": true,
+                    "composableSlotReceiver": null,
+                    "nullable": false,
+                    "noArgConstructible": false,
+                    "noArgFactory": null,
+                    "scopeDslReceiver": null,
+                    "lambdaReturnTypeFqn": "kotlin.Unit"
+                }
+            ],
+            "slots": [
+                {
+                    "name": "content",
+                    "required": true,
+                    "receiverScope": null
+                }
+            ],
+            "bindings": [
+                {
+                    "previewId": "ee.schimke.foundationcatalog.sections.AssetsKt.ImageSticker_Dark",
+                    "componentId": "Content/Image",
+                    "group": "Content"
+                },
+                {
+                    "previewId": "ee.schimke.foundationcatalog.sections.AssetsKt.ImageSticker_Light",
+                    "componentId": "Content/Image",
+                    "group": "Content"
+                },
+                {
+                    "previewId": "ee.schimke.foundationcatalog.sections.LazyListsKt.LazyColumnSticker_Dark",
+                    "componentId": "Layout/LazyColumn",
+                    "group": "Lazy layout"
+                },
+                {
+                    "previewId": "ee.schimke.foundationcatalog.sections.LazyListsKt.LazyColumnSticker_Light",
+                    "componentId": "Layout/LazyColumn",
+                    "group": "Lazy layout"
+                },
+                {
+                    "previewId": "ee.schimke.foundationcatalog.sections.LazyListsKt.LazyRowSticker_Dark",
+                    "componentId": "Layout/LazyRow",
+                    "group": "Lazy layout"
+                },
+                {
+                    "previewId": "ee.schimke.foundationcatalog.sections.LazyListsKt.LazyRowSticker_Light",
+                    "componentId": "Layout/LazyRow",
+                    "group": "Lazy layout"
+                },
+                {
+                    "previewId": "ee.schimke.foundationcatalog.sections.LazyListsKt.LazyVerticalGridSticker_Dark",
+                    "componentId": "Layout/LazyVerticalGrid",
+                    "group": "Lazy layout"
+                },
+                {
+                    "previewId": "ee.schimke.foundationcatalog.sections.LazyListsKt.LazyVerticalGridSticker_Light",
+                    "componentId": "Layout/LazyVerticalGrid",
+                    "group": "Lazy layout"
+                }
+            ],
+            "code": {
+                "call": "Sticker(content = {})",
+                "imports": [
+                    "ee.schimke.foundationcatalog.Sticker"
+                ],
+                "refusedReason": null,
+                "requiredOptIns": [],
+                "androidxOptIns": []
+            },
+            "signatureKnown": true,
+            "callableFromAnotherFile": true,
+            "hasTypeParameters": false,
+            "hasContextReceivers": false,
+            "overloadsCollided": false,
+            "builder": {
+                "id": null,
+                "component": "Sticker",
+                "declaredForCatalogId": "Content/Image",
+                "group": null,
+                "displayName": null,
+                "canvas": null,
+                "stateCallbacks": [],
+                "starter": [],
+                "slots": [],
+                "traits": [],
+                "variantProperty": null,
+                "variants": [],
+                "nativeOnly": false,
+                "exclude": "The theme wrapper every sticker in this module is drawn in, not a component anyone puts in a design.",
+                "declaredBy": [
+                    "ee.schimke.foundationcatalog.sections.AssetsKt.ImageSticker_Dark",
+                    "ee.schimke.foundationcatalog.sections.AssetsKt.ImageSticker_Light"
+                ],
+                "conflicting": [],
+                "ambiguousWith": [],
+                "malformed": []
+            },
+            "requiredOptIns": [],
+            "androidxOptIns": []
+        }
+    ],
+    "builderOrphans": []
+}

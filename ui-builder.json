@@ -1,0 +1,1107 @@
+{
+    "schema": "compose-ui-builder-catalog/v1",
+    "catalog": {
+        "id": "compose-foundation",
+        "title": "Compose Foundation",
+        "platform": "foundation",
+        "platformLabel": "Foundation",
+        "module": "foundation-catalog",
+        "variant": "debug"
+    },
+    "record": {
+        "file": "components.json",
+        "schemaVersion": 2,
+        "components": 1
+    },
+    "statusSemantics": {
+        "platform": "foundation",
+        "platformLabel": "Foundation",
+        "componentIdPrefix": "compose-foundation/",
+        "previewSurfaces": {
+            "wasm": {
+                "fidelity": "approximate",
+                "reason": "The builder's canvas is Compose Multiplatform for Wasm and links its own Compose, not this catalog's artifacts. The three layout primitives it draws through its own `foundation/*` adapters, which is as close as a box gets to being the same box; the scaffolds and the carousel it draws as placeholders, and says so."
+            },
+            "native": {
+                "fidelity": "authoritative",
+                "backend": "desktop",
+                "reason": "The generated Kotlin compiled against this module's own classpath and rendered by Skiko — the same lane that produces this catalog's stickers."
+            }
+        },
+        "componentMenu": {
+            "groupOrder": [
+                "Scaffolds",
+                "Layout",
+                "Containment",
+                "Content",
+                "Styles"
+            ],
+            "components": {}
+        },
+        "frame": {
+            "$comment": "A rectangle, and no geometry block. This catalog frames nothing: a design is drawn in a BORROWING catalog's frame — a phone screen's device size, a watch's measured round-screen padding — and a frame declared here would be a claim about someone else's screen. `frame` is required by the schema, so it states the neutral answer and the seed device the mobile borrower already uses.",
+            "adapter": "frame/rect",
+            "seedDevice": "id:pixel_6"
+        },
+        "code": null,
+        "templates": [],
+        "colorTokens": null,
+        "assetRegistry": null,
+        "supersedes": null,
+        "builtins": {
+            "layout/scaffold": {
+                "role": "screen-root",
+                "displayName": "Scaffold",
+                "group": "Scaffolds",
+                "canvas": "placeholder",
+                "traits": [
+                    "ScreenContent"
+                ],
+                "slots": {
+                    "topBar": {
+                        "acceptedRoles": [
+                            "Container"
+                        ],
+                        "acceptedTraits": [
+                            "TopBar",
+                            "LayoutPrimitive"
+                        ],
+                        "max": 1
+                    },
+                    "snackbarHost": {
+                        "acceptedRoles": [
+                            "Container"
+                        ],
+                        "acceptedTraits": [
+                            "SnackbarHost"
+                        ],
+                        "max": 1
+                    },
+                    "content": {
+                        "acceptedRoles": [
+                            "Scaffold",
+                            "Container"
+                        ],
+                        "acceptedTraits": [
+                            "AnyContent"
+                        ],
+                        "required": true,
+                        "max": 1
+                    }
+                },
+                "properties": [
+                    {
+                        "name": "containerColor",
+                        "jsonType": "string",
+                        "required": false,
+                        "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+                    },
+                    {
+                        "name": "contentWindowInsets",
+                        "jsonType": "array",
+                        "required": false
+                    },
+                    {
+                        "name": "loading",
+                        "jsonType": "boolean",
+                        "required": false
+                    },
+                    {
+                        "name": "scrollStateKey",
+                        "jsonType": "string",
+                        "required": false
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxSize",
+                    "fillMaxWidth",
+                    "padding",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "fillMaxHeight",
+                    "background",
+                    "border",
+                    "shadow",
+                    "wrapContentSize",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            },
+            "layout/supporting-pane-scaffold": {
+                "role": "screen-root",
+                "displayName": "Supporting pane scaffold",
+                "group": "Scaffolds",
+                "canvas": "placeholder",
+                "traits": [
+                    "ScreenContent",
+                    "AdaptivePaneLayout"
+                ],
+                "slots": {
+                    "mainPane": {
+                        "acceptedRoles": [
+                            "Scaffold",
+                            "Container"
+                        ],
+                        "acceptedTraits": [
+                            "AnyContent"
+                        ],
+                        "required": true,
+                        "max": 1
+                    },
+                    "supportingPane": {
+                        "acceptedRoles": [
+                            "Scaffold",
+                            "Container"
+                        ],
+                        "acceptedTraits": [
+                            "AnyContent"
+                        ],
+                        "max": 1
+                    }
+                },
+                "properties": [
+                    {
+                        "name": "layoutMode",
+                        "jsonType": "string",
+                        "required": true,
+                        "allowedValues": [
+                            "adaptive",
+                            "expandedTwoPane",
+                            "singlePane",
+                            "twoPane"
+                        ]
+                    },
+                    {
+                        "name": "mainPanePreferredWidthDp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "supportingPanePreferredWidthDp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "paneSpacingDp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "mainPaneVisible",
+                        "jsonType": "boolean",
+                        "required": true
+                    },
+                    {
+                        "name": "supportingPaneVisible",
+                        "jsonType": "boolean",
+                        "required": true
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxSize",
+                    "padding",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "fillMaxHeight",
+                    "background",
+                    "border",
+                    "shadow",
+                    "wrapContentSize",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            },
+            "layout/box": {
+                "role": "list",
+                "displayName": "Box",
+                "group": "Layout",
+                "canvas": "foundation/Box",
+                "traits": [
+                    "OrderedContent",
+                    "OverlayContent",
+                    "LayoutPrimitive",
+                    "RemoteAuthorable"
+                ],
+                "slots": {
+                    "children": {
+                        "acceptedRoles": [
+                            "Scaffold",
+                            "Container",
+                            "Leaf"
+                        ],
+                        "acceptedTraits": [
+                            "AnyContent"
+                        ]
+                    }
+                },
+                "properties": [
+                    {
+                        "name": "contentAlignment",
+                        "jsonType": "string",
+                        "required": false
+                    },
+                    {
+                        "name": "propagateMinConstraints",
+                        "jsonType": "boolean",
+                        "required": false
+                    },
+                    {
+                        "name": "showByState",
+                        "jsonType": "object",
+                        "required": false,
+                        "notes": "Select one child by state. Object fields: selector is a typed scalar or state read; cases is an object mapping child IDs to typed scalar values; optional fallback is a string child ID. Every child must be a case or the fallback. Compose export uses when. Remote export uses StateLayout for non-null number or flag selectors; String equality is unavailable on that target."
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxSize",
+                    "fillMaxWidth",
+                    "padding",
+                    "clip",
+                    "matchParentSize",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "fillMaxHeight",
+                    "background",
+                    "border",
+                    "shadow",
+                    "wrapContentSize",
+                    "verticalScroll",
+                    "horizontalScroll",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            },
+            "layout/column": {
+                "role": "list",
+                "displayName": "Column",
+                "group": "Layout",
+                "canvas": "foundation/Column",
+                "traits": [
+                    "OrderedContent",
+                    "VerticalContent",
+                    "LayoutPrimitive",
+                    "RemoteAuthorable"
+                ],
+                "slots": {
+                    "children": {
+                        "acceptedRoles": [
+                            "Scaffold",
+                            "Container",
+                            "Leaf"
+                        ],
+                        "acceptedTraits": [
+                            "AnyContent"
+                        ]
+                    }
+                },
+                "properties": [
+                    {
+                        "name": "verticalArrangement",
+                        "jsonType": "string",
+                        "required": false,
+                        "allowedValues": [
+                            "top",
+                            "center",
+                            "bottom",
+                            "spaceBetween",
+                            "spaceAround",
+                            "spaceEvenly"
+                        ],
+                        "notes": "Distribution down the axis. The three aligned values compose with verticalSpacingDp through Arrangement.spacedBy(space, alignment); the three space* values distribute the free space themselves, and Compose has no form that also inserts a fixed gap."
+                    },
+                    {
+                        "name": "verticalSpacingDp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "horizontalAlignment",
+                        "jsonType": "string",
+                        "required": false,
+                        "allowedValues": [
+                            "start",
+                            "center",
+                            "end"
+                        ]
+                    },
+                    {
+                        "name": "alignment",
+                        "jsonType": "string",
+                        "required": false,
+                        "allowedValues": [
+                            "topStart",
+                            "topCenter",
+                            "topEnd",
+                            "centerStart",
+                            "center",
+                            "centerEnd",
+                            "bottomStart",
+                            "bottomCenter",
+                            "bottomEnd"
+                        ],
+                        "notes": "How a parent Box aligns this column. The renderer has always read `alignment` off any Box child and the exporter has always emitted `.align(...)` for it; only the declaration was missing, so a centred column was inexpressible."
+                    },
+                    {
+                        "name": "weight",
+                        "jsonType": "number",
+                        "required": false
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxSize",
+                    "fillMaxWidth",
+                    "padding",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "fillMaxHeight",
+                    "background",
+                    "border",
+                    "shadow",
+                    "wrapContentSize",
+                    "verticalScroll",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            },
+            "layout/row": {
+                "role": "list",
+                "displayName": "Row",
+                "group": "Layout",
+                "canvas": "foundation/Row",
+                "traits": [
+                    "OrderedContent",
+                    "HorizontalContent",
+                    "LayoutPrimitive",
+                    "RemoteAuthorable"
+                ],
+                "slots": {
+                    "children": {
+                        "acceptedRoles": [
+                            "Scaffold",
+                            "Container",
+                            "Leaf"
+                        ],
+                        "acceptedTraits": [
+                            "AnyContent"
+                        ]
+                    }
+                },
+                "properties": [
+                    {
+                        "name": "horizontalArrangement",
+                        "jsonType": "string",
+                        "required": false,
+                        "allowedValues": [
+                            "start",
+                            "center",
+                            "end",
+                            "spaceBetween",
+                            "spaceAround",
+                            "spaceEvenly"
+                        ],
+                        "notes": "The Row counterpart of a Column’s verticalArrangement, with the same relationship to horizontalSpacingDp."
+                    },
+                    {
+                        "name": "horizontalSpacingDp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "verticalAlignment",
+                        "jsonType": "string",
+                        "required": false,
+                        "allowedValues": [
+                            "top",
+                            "center",
+                            "bottom"
+                        ]
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxSize",
+                    "fillMaxWidth",
+                    "padding",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "fillMaxHeight",
+                    "background",
+                    "border",
+                    "shadow",
+                    "wrapContentSize",
+                    "horizontalScroll",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            },
+            "layout/for-each": {
+                "role": "list",
+                "displayName": "For each",
+                "group": "Layout",
+                "canvas": "placeholder",
+                "traits": [
+                    "OrderedContent",
+                    "RepeatedContent"
+                ],
+                "slots": {
+                    "template": {
+                        "acceptedRoles": [
+                            "Container",
+                            "Leaf"
+                        ],
+                        "acceptedTraits": [
+                            "AnyContent"
+                        ],
+                        "required": true,
+                        "max": 1
+                    }
+                },
+                "properties": [
+                    {
+                        "name": "data",
+                        "jsonType": "object",
+                        "required": true,
+                        "notes": "The rows: a `list` value whose entries are `object` values — one dictionary per row, read by the template through `{\"type\":\"binding\",\"value\":\"<key>\"}`, the same reader a component body uses for its arguments."
+                    },
+                    {
+                        "name": "verticalSpacingDp",
+                        "jsonType": "number",
+                        "required": false
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxWidth",
+                    "padding",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            },
+            "layout/lazy-column": {
+                "role": "list",
+                "displayName": "Lazy column",
+                "group": "Layout",
+                "canvas": "placeholder",
+                "traits": [
+                    "OrderedContent",
+                    "VerticalContent",
+                    "ScrollableContent",
+                    "RepeatedContent"
+                ],
+                "slots": {
+                    "items": {
+                        "acceptedRoles": [
+                            "Container",
+                            "Leaf"
+                        ],
+                        "acceptedTraits": [
+                            "AnyContent"
+                        ]
+                    }
+                },
+                "properties": [
+                    {
+                        "name": "contentPadding",
+                        "jsonType": "object",
+                        "required": false
+                    },
+                    {
+                        "name": "verticalSpacingDp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "scrollStateKey",
+                        "jsonType": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "reverseLayout",
+                        "jsonType": "boolean",
+                        "required": false
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxSize",
+                    "fillMaxWidth",
+                    "padding",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "fillMaxHeight",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            },
+            "layout/lazy-row": {
+                "role": "list",
+                "displayName": "Lazy row",
+                "group": "Layout",
+                "canvas": "placeholder",
+                "traits": [
+                    "OrderedContent",
+                    "HorizontalContent",
+                    "ScrollableContent",
+                    "RepeatedContent"
+                ],
+                "slots": {
+                    "items": {
+                        "acceptedRoles": [
+                            "Container",
+                            "Leaf"
+                        ],
+                        "acceptedTraits": [
+                            "AnyContent"
+                        ]
+                    }
+                },
+                "properties": [
+                    {
+                        "name": "contentPadding",
+                        "jsonType": "object",
+                        "required": false
+                    },
+                    {
+                        "name": "horizontalSpacingDp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "scrollStateKey",
+                        "jsonType": "string",
+                        "required": false
+                    },
+                    {
+                        "name": "span",
+                        "jsonType": "string",
+                        "required": false
+                    },
+                    {
+                        "name": "stableKey",
+                        "jsonType": "string",
+                        "required": false
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxWidth",
+                    "padding",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            },
+            "layout/lazy-grid": {
+                "role": "list",
+                "displayName": "Adaptive lazy vertical grid",
+                "group": "Layout",
+                "canvas": "placeholder",
+                "traits": [
+                    "OrderedContent",
+                    "GridContent",
+                    "ScrollableContent",
+                    "RepeatedContent"
+                ],
+                "slots": {
+                    "items": {
+                        "acceptedRoles": [
+                            "Container",
+                            "Leaf"
+                        ],
+                        "acceptedTraits": [
+                            "AnyContent"
+                        ]
+                    }
+                },
+                "properties": [
+                    {
+                        "name": "columns",
+                        "jsonType": "object",
+                        "required": true
+                    },
+                    {
+                        "name": "horizontalSpacingDp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "verticalSpacingDp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "contentPadding",
+                        "jsonType": "object",
+                        "required": false
+                    },
+                    {
+                        "name": "scrollStateKey",
+                        "jsonType": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "itemSpans",
+                        "jsonType": "object",
+                        "required": false,
+                        "notes": "Map stable child id to 'single' or 'full'."
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxSize",
+                    "fillMaxWidth",
+                    "padding",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "fillMaxHeight",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            },
+            "layout/horizontal-carousel": {
+                "role": "list",
+                "displayName": "Horizontal uncontained carousel",
+                "group": "Containment",
+                "canvas": "placeholder",
+                "traits": [
+                    "OrderedContent",
+                    "CarouselContent",
+                    "ScrollableContent",
+                    "RepeatedContent"
+                ],
+                "slots": {
+                    "items": {
+                        "acceptedRoles": [
+                            "Container"
+                        ],
+                        "acceptedTraits": [
+                            "CarouselItem"
+                        ],
+                        "required": true
+                    }
+                },
+                "properties": [
+                    {
+                        "name": "itemWidthDp",
+                        "jsonType": "number",
+                        "required": true
+                    },
+                    {
+                        "name": "itemSpacingDp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "contentPaddingStartDp",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "scrollStateKey",
+                        "jsonType": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "kind",
+                        "jsonType": "string",
+                        "required": false
+                    },
+                    {
+                        "name": "span",
+                        "jsonType": "string",
+                        "required": false
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxWidth",
+                    "padding",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            },
+            "asset/image": {
+                "role": "decoration",
+                "displayName": "Image asset",
+                "group": "Content",
+                "canvas": "placeholder",
+                "traits": [
+                    "ImageContent"
+                ],
+                "slots": {},
+                "properties": [
+                    {
+                        "name": "assetKey",
+                        "jsonType": "string",
+                        "required": true,
+                        "notes": "The key of an asset the canvas can draw, written as {\"type\":\"assetKey\",\"value\":\"…\"}: one of statusSemantics.assetRegistry.keys, or a key pinned in the design's own assets map by PUT /api/ui-builder/v1/designs/{designId}/assets/{assetKey} (raw PNG, JPEG, GIF or WebP body) or the ui_builder_put_asset MCP tool. Any other key is refused at commit, so put the picture before inserting the node. A pinned key whose bytes this lane cannot show renders as a placeholder naming it, and exports as Image(painter = ColorPainter(...)) with an ASSET_PLACEHOLDER warning."
+                    },
+                    {
+                        "name": "contentDescription",
+                        "jsonType": [
+                            "string",
+                            "null"
+                        ],
+                        "required": false
+                    },
+                    {
+                        "name": "contentScale",
+                        "jsonType": "string",
+                        "required": false,
+                        "allowedValues": [
+                            "crop",
+                            "fit",
+                            "fillBounds",
+                            "inside"
+                        ]
+                    },
+                    {
+                        "name": "alignment",
+                        "jsonType": "string",
+                        "required": false
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxSize",
+                    "fillMaxWidth",
+                    "clip",
+                    "matchParentSize",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "fillMaxHeight",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            },
+            "shape/colour-dot": {
+                "role": "decoration",
+                "displayName": "Colour dot",
+                "group": "Styles",
+                "canvas": "placeholder",
+                "traits": [
+                    "Decoration",
+                    "DrawLayer"
+                ],
+                "slots": {},
+                "properties": [
+                    {
+                        "name": "color",
+                        "jsonType": "string",
+                        "required": true,
+                        "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+                    },
+                    {
+                        "name": "diameterDp",
+                        "jsonType": "number",
+                        "required": false
+                    }
+                ],
+                "modifierCapabilities": [
+                    "padding",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            },
+            "shape/linear-gradient": {
+                "role": "decoration",
+                "displayName": "Linear gradient layer",
+                "group": "Styles",
+                "canvas": "placeholder",
+                "traits": [
+                    "DrawLayer",
+                    "OverlayContent"
+                ],
+                "slots": {},
+                "properties": [
+                    {
+                        "name": "startColor",
+                        "jsonType": "string",
+                        "required": true,
+                        "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+                    },
+                    {
+                        "name": "endColor",
+                        "jsonType": "string",
+                        "required": true,
+                        "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+                    },
+                    {
+                        "name": "direction",
+                        "jsonType": "string",
+                        "required": false
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxSize",
+                    "fillMaxWidth",
+                    "clip",
+                    "matchParentSize",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "fillMaxHeight",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            },
+            "shape/radial-gradient": {
+                "role": "decoration",
+                "displayName": "Radial gradient layer",
+                "group": "Styles",
+                "canvas": "placeholder",
+                "traits": [
+                    "DrawLayer",
+                    "BackgroundContent"
+                ],
+                "slots": {},
+                "properties": [
+                    {
+                        "name": "innerColor",
+                        "jsonType": "string",
+                        "required": true,
+                        "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+                    },
+                    {
+                        "name": "outerColor",
+                        "jsonType": "string",
+                        "required": true,
+                        "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+                    },
+                    {
+                        "name": "innerAlpha",
+                        "jsonType": "number",
+                        "required": false
+                    },
+                    {
+                        "name": "center",
+                        "jsonType": "string",
+                        "required": false
+                    }
+                ],
+                "modifierCapabilities": [
+                    "size",
+                    "fillMaxSize",
+                    "fillMaxWidth",
+                    "clip",
+                    "matchParentSize",
+                    "alpha",
+                    "offset",
+                    "rotate",
+                    "scale",
+                    "zIndex",
+                    "testTag",
+                    "width",
+                    "height",
+                    "widthIn",
+                    "heightIn",
+                    "aspectRatio",
+                    "fillMaxHeight",
+                    "align",
+                    "alignHorizontal",
+                    "alignVertical",
+                    "weight"
+                ],
+                "implementation": null
+            }
+        },
+        "components": {
+            "compose-foundation/sticker": {
+                "record": "foundation-catalog/ee.schimke.foundationcatalog.FoundationStickerKt.Sticker",
+                "catalogId": "Content/Image",
+                "displayName": null,
+                "canvas": null,
+                "nativeOnly": false,
+                "traits": [],
+                "slots": {},
+                "stateCallbacks": {},
+                "starter": {},
+                "variantProperty": null,
+                "variants": {},
+                "excluded": "The theme wrapper every sticker in this module is drawn in, not a component anyone puts in a design.",
+                "propertyCapabilities": null,
+                "slotCapabilities": null,
+                "modifierCapabilities": null
+            }
+        }
+    },
+    "diagnostics": [
+        {
+            "code": "component.excluded",
+            "subject": "compose-foundation/sticker",
+            "message": "kept off the builder's shelf: The theme wrapper every sticker in this module is drawn in, not a component anyone puts in a design."
+        },
+        {
+            "code": "component.canvas.unclaimed",
+            "subject": "compose-foundation/sticker",
+            "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
+        }
+    ]
+}
