@@ -4208,6 +4208,11 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `ToggleButtonLargeSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonLargeSticker_VARIANT_focused-aa1634f7.png" width="150" /> |
 | `ToggleButtonLargeSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonLargeSticker_VARIANT_pressed-457fe065.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker-8516b2e2.png" width="150" /> |
+| `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker_VARIANT_cell_state_enabled_size_large_toggle_true_40000113_4-630c5151.png" width="150" /> |
+| `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker_VARIANT_cell_state_focused_size_default_toggle_true_40000113-0f025f59.png" width="150" /> |
+| `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker_VARIANT_cell_state_focused_size_large_toggle_true_40000113_4-76923d65.png" width="150" /> |
+| `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker_VARIANT_cell_state_pressed_size_default_toggle_true_40000113-113fe0dc.png" width="150" /> |
+| `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker_VARIANT_cell_state_pressed_size_large_toggle_true_40000113_4-89e93abb.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker_VARIANT_disabled-9d21aadd.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker_VARIANT_focused-db3ba777.png" width="150" /> |
 | `ToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ToggleButtonSticker_VARIANT_pressed-5013866e.png" width="150" /> |
@@ -4231,6 +4236,8 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `IconButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconButtonSticker_VARIANT_pressed-bb08619f.png" width="150" /> |
 | `IconToggleButtonCheckedSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonCheckedSticker-f8b4c53f.png" width="150" /> |
 | `IconToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonSticker-c59c63cf.png" width="150" /> |
+| `IconToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonSticker_VARIANT_cell_toggle_true_state_focused_40000113_4188-98ae2f8c.png" width="150" /> |
+| `IconToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonSticker_VARIANT_cell_toggle_true_state_pressed_40000113_4195-d6b6c8d3.png" width="150" /> |
 | `IconToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonSticker_VARIANT_disabled-827c715a.png" width="150" /> |
 | `IconToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonSticker_VARIANT_focused-762cd963.png" width="150" /> |
 | `IconToggleButtonSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/IconToggleButtonSticker_VARIANT_pressed-31d87b2c.png" width="150" /> |
@@ -4246,7 +4253,9 @@ Auto-generated from `main`. Browse inline or compare against PR branches.
 | `ListItemSupportingSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ListItemSupportingSticker_VARIANT_pressed-052543b0.png" width="150" /> |
 | `VerticalStackSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/VerticalStackSticker-27776b26.png" width="150" /> |
 | `ContainedVoiceInputIndicatorSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/ContainedVoiceInputIndicatorSticker-c6a24955.png" width="150" /> |
+| `QuietVoiceInputIndicatorSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/QuietVoiceInputIndicatorSticker-d58200b1.png" width="150" /> |
 | `VoiceInputIndicatorSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/VoiceInputIndicatorSticker-00b6c266.png" width="150" /> |
+| `VoiceInputIndicatorSticker` | <img src="https://raw.githubusercontent.com/yschimke/m3-catalog/compose-preview/main/renders/glimmer-catalog/VoiceInputIndicatorSticker_VARIANT_cell_volume_quiet_contained_yes_40000116_9342-e4a2fc08.png" width="150" /> |
 
 ## glimmer-samples
 
