@@ -1,11 +1,62 @@
 {
   "schema": "compose-preview-activity/v1",
-  "generatedAt": "2026-09-16T07:16:52.627Z",
+  "generatedAt": "2026-09-16T07:52:55.591Z",
   "windowDays": 30,
   "code": {
     "repo": "yschimke/m3-catalog",
     "ref": "main",
     "events": [
+      {
+        "sha": "045574fe44aeb6e703e13a7050fc088af58c3691",
+        "subject": "feat(parity): register the differences the stickers draw over, with their bugs (#459)",
+        "at": "2026-09-16T07:57:19+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [
+          "navigationrail-standard__ideal__default__light",
+          "navigationrail-standard__ideal__cell-alignment-middle-nav-items-4-58016-36888",
+          "navigationrail-standard__ideal__four",
+          "navigationrail-standard__ideal__middle",
+          "navigationrail-wide__ideal__default__light",
+          "navigationrail-wide__ideal__cell-type-docked-alignment-middle-nav-items-4-58016-36783",
+          "navigationrail-wide__ideal__four",
+          "navigationrail-wide__ideal__middle"
+        ],
+        "components": [
+          "NavigationRail/Standard",
+          "NavigationRail/Wide"
+        ]
+      },
+      {
+        "sha": "edcae6518f0fc7da3fb6ff42895f3b3308a63873",
+        "subject": "fix(time picker): the library's own headline and mode toggle (#454)",
+        "at": "2026-09-16T07:57:08+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [
+          "timepicker-input__ideal__default__light",
+          "timepicker-input__ideal__12-hour",
+          "timepicker-dial__ideal__default__light",
+          "timepicker-dial__ideal__12-hour",
+          "timepicker-dial__ideal__default__light__compact__layout-horizontal"
+        ],
+        "components": [
+          "TimePicker/Input",
+          "TimePicker/Dial"
+        ]
+      },
+      {
+        "sha": "3aca3bb9eefb7aec0a123ad14e67fbd043f00dca",
+        "subject": "fix(bottom app bar): stop overriding the padding that already matched the kit (#453)",
+        "at": "2026-09-16T07:56:41+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [
+          "bottomappbar-standard__ideal__default__light__compact",
+          "bottomappbar-standard__ideal__four-actions__compact",
+          "bottomappbar-standard__ideal__two-actions__compact"
+        ],
+        "components": [
+          "BottomAppBar/Standard"
+        ]
+      },
       {
         "sha": "0b15a0854c57b7aeab54e490dbc2d9c3e176f946",
         "subject": "fix(rail, dialog): the rail's header gap, and list rows that drew their own container (#447)",

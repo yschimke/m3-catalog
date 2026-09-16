@@ -11,7 +11,7 @@
     "record": {
         "file": "components.json",
         "schemaVersion": 2,
-        "components": 110
+        "components": 112
     },
     "statusSemantics": {
         "platform": "mobile",
@@ -334,6 +334,12 @@
                 },
                 "m3/text": {
                     "group": "Typography"
+                },
+                "m3/display-mode-toggle": {
+                    "group": "Time pickers"
+                },
+                "m3/title": {
+                    "group": "Time pickers"
                 },
                 "m3/time-input": {
                     "group": "Time pickers"
@@ -4045,6 +4051,40 @@
                     "weight"
                 ]
             },
+            "m3/display-mode-toggle": {
+                "record": "catalog/androidx.compose.material3.TimePickerDialogDefaults.DisplayModeToggle",
+                "catalogId": null,
+                "displayName": null,
+                "canvas": null,
+                "nativeOnly": false,
+                "traits": [],
+                "slots": {},
+                "stateCallbacks": {},
+                "starter": {},
+                "variantProperty": null,
+                "variants": {},
+                "excluded": null,
+                "propertyCapabilities": null,
+                "slotCapabilities": null,
+                "modifierCapabilities": null
+            },
+            "m3/title": {
+                "record": "catalog/androidx.compose.material3.TimePickerDialogDefaults.Title",
+                "catalogId": null,
+                "displayName": null,
+                "canvas": null,
+                "nativeOnly": false,
+                "traits": [],
+                "slots": {},
+                "stateCallbacks": {},
+                "starter": {},
+                "variantProperty": null,
+                "variants": {},
+                "excluded": null,
+                "propertyCapabilities": null,
+                "slotCapabilities": null,
+                "modifierCapabilities": null
+            },
             "m3/time-input": {
                 "record": "catalog/androidx.compose.material3.TimePickerKt.TimeInput",
                 "catalogId": null,
@@ -4897,6 +4937,16 @@
         {
             "code": "component.canvas.unclaimed",
             "subject": "m3/text",
+            "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
+        },
+        {
+            "code": "component.canvas.unclaimed",
+            "subject": "m3/display-mode-toggle",
+            "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
+        },
+        {
+            "code": "component.canvas.unclaimed",
+            "subject": "m3/title",
             "message": "no canvas adapter claimed, so it draws as a placeholder. That is the honest default and needs no fixing; it is reported so a shelf drawn entirely in placeholders is visible rather than mysterious."
         },
         {
