@@ -18,7 +18,7 @@ package androidx.xr.glimmer.samples
 
 import androidx.annotation.Sampled
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import ee.schimke.m3catalog.glimmersamples.GlimmerSamplePreview
 import androidx.xr.glimmer.GlimmerTheme
 import androidx.xr.glimmer.Icon
 import androidx.xr.glimmer.ListItem
@@ -112,55 +112,55 @@ private fun ListItemWithSupportingLabelAndLeadingIconLongText() {
     }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ListItemPreview() {
     GlimmerTheme { ListItemSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ListItemWithSupportingLabelPreview() {
     GlimmerTheme { ListItemWithSupportingLabelSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ListItemWithSupportingLabelAndLeadingIconPreview() {
     GlimmerTheme { ListItemWithSupportingLabelAndLeadingIconSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ClickableListItemPreview() {
     GlimmerTheme { ClickableListItemSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ClickableListItemWithSupportingLabelPreview() {
     GlimmerTheme { ClickableListItemWithSupportingLabelSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ClickableListItemWithSupportingLabelAndLeadingIconPreview() {
     GlimmerTheme { ClickableListItemWithSupportingLabelAndLeadingIconSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ListItemWithSupportingLabelAndIconsPreview() {
     GlimmerTheme { ListItemWithSupportingLabelAndIcons() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ListItemWithLeadingIconLongTextPreview() {
     GlimmerTheme { ListItemWithLeadingIconLongText() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ListItemWithSupportingLabelAndLeadingIconLongTextPreview() {
     GlimmerTheme { ListItemWithSupportingLabelAndLeadingIconLongText() }

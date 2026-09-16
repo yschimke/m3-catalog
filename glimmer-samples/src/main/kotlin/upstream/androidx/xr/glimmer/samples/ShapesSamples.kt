@@ -23,7 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.tooling.preview.Preview
+import ee.schimke.m3catalog.glimmersamples.GlimmerSamplePreview
 import androidx.xr.glimmer.GlimmerTheme
 import androidx.xr.glimmer.Text
 import androidx.xr.glimmer.list.GlimmerLazyColumn
@@ -39,7 +39,7 @@ fun ShapesSample() {
     }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ShapesPreview() {
     GlimmerTheme { ShapesSample() }

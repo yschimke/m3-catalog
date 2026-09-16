@@ -18,7 +18,7 @@ package androidx.xr.glimmer.samples
 
 import androidx.annotation.Sampled
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import ee.schimke.m3catalog.glimmersamples.GlimmerSamplePreview
 import androidx.xr.glimmer.GlimmerTheme
 import androidx.xr.glimmer.ListItem
 import androidx.xr.glimmer.Text
@@ -46,13 +46,13 @@ fun GlimmerLazyColumnWithTitleChipSample() {
     }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun GlimmerLazyColumnPreview() {
     GlimmerTheme { GlimmerLazyColumnSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun GlimmerLazyColumnWithTitleChipPreview() {
     GlimmerTheme { GlimmerLazyColumnWithTitleChipSample() }

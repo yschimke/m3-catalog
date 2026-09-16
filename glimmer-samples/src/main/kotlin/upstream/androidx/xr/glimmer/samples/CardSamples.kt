@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.painter.BrushPainter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
+import ee.schimke.m3catalog.glimmersamples.GlimmerSamplePreview
 import androidx.xr.glimmer.ActionCard
 import androidx.xr.glimmer.Button
 import androidx.xr.glimmer.Card
@@ -209,61 +209,61 @@ fun CardWithTitleAndSubtitleAndLeadingIconAndTrailingIconLongText() {
     }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun CardPreview() {
     GlimmerTheme { CardSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun CardWithTrailingIconPreview() {
     GlimmerTheme { CardWithTrailingIconSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun CardWithTitleAndSubtitleAndLeadingIconPreview() {
     GlimmerTheme { CardWithTitleAndSubtitleAndLeadingIconSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun CardWithTitleAndHeaderPreview() {
     GlimmerTheme { CardWithTitleAndHeaderSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ActionCardWithTitlePreview() {
     GlimmerTheme { ActionCardWithTitleSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun CardWithTitleAndLeadingIconAndHeaderPreview() {
     GlimmerTheme { CardWithTitleAndLeadingIconAndHeader() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun ActionCardWithTitleAndLeadingIconAndHeaderPreview() {
     GlimmerTheme { ActionCardWithTitleAndLeadingIconAndHeader() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun CardWithLongTextPreview() {
     GlimmerTheme { CardWithLongText() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun CardWithTitleAndSubtitleAndLeadingIconLongTextPreview() {
     GlimmerTheme { CardWithTitleAndSubtitleAndLeadingIconLongText() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun CardWithTitleAndSubtitleAndLeadingIconAndTrailingIconLongTextPreview() {
     GlimmerTheme { CardWithTitleAndSubtitleAndLeadingIconAndTrailingIconLongText() }

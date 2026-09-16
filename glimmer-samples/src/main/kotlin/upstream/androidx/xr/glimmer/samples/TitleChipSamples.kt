@@ -25,7 +25,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import ee.schimke.m3catalog.glimmersamples.GlimmerSamplePreview
 import androidx.xr.glimmer.Card
 import androidx.xr.glimmer.GlimmerTheme
 import androidx.xr.glimmer.Icon
@@ -74,19 +74,19 @@ fun TitleChipWithCardSample() {
     }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun TitleChipPreview() {
     GlimmerTheme { TitleChipSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun TitleChipWithLeadingIconPreview() {
     GlimmerTheme { TitleChipWithLeadingIconSample() }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun TitleChipWithCardPreview() {
     GlimmerTheme { TitleChipWithCardSample() }

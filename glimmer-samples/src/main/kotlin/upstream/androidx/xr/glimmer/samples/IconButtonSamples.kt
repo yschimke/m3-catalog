@@ -18,7 +18,7 @@ package androidx.xr.glimmer.samples
 
 import androidx.annotation.Sampled
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import ee.schimke.m3catalog.glimmersamples.GlimmerSamplePreview
 import androidx.xr.glimmer.GlimmerTheme
 import androidx.xr.glimmer.Icon
 import androidx.xr.glimmer.IconButton
@@ -29,7 +29,7 @@ fun IconButtonSample() {
     IconButton(onClick = {}) { Icon(FavoriteIcon, "Localized description") }
 }
 
-@Preview
+@GlimmerSamplePreview
 @Composable
 private fun IconButtonPreview() {
     GlimmerTheme { IconButtonSample() }
