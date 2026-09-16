@@ -105,8 +105,23 @@ on:
       - 'settings.gradle.kts'
       - 'build.gradle.kts'
       - '.github/workflows/design-artifacts.yml'
+      # The lane table the Scope job runs. It belongs here as well as in the mapper's own
+      # SHARED_RE: this list decides whether the workflow STARTS, and SHARED_RE decides which lanes
+      # publish once it has. In one and not the other, a mapping change either starts a run that
+      # scopes to nothing, or — as here — never starts one at all, so the fan-out it declares can
+      # never fire. The same trap `ui-builder.policy.json` above was caught in.
+      - 'scripts/scope-systems.sh'
   workflow_dispatch:
     inputs:
+      # The manual remedy for one stale lane should cost one render, not every catalog here.
+      # Comma-separated delivery-branch slugs; empty means all. `scripts/scope-systems.sh --list`
+      # prints the accepted names, and an unknown one fails the Scope job loudly rather than
+      # quietly reporting that lane false.
+      systems:
+        description: 'Comma-separated systems to republish (empty = all). e.g. glimmer-catalog,glimmer-samples'
+        type: string
+        required: false
+        default: ''
       allow_incomplete:
         description: 'Publish even if some previews fail to render or lack semantics (use while tuning the spec).'
         type: boolean
@@ -115,90 +130,103 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: design-artifacts-${{ github.ref }}
-  cancel-in-progress: false
+# NO workflow-level concurrency. One bucket for every lane in this repository is what
+# compose-ai-tools#5438 is about: `cancel-in-progress: false` protects the IN-PROGRESS run, not the
+# PENDING one — GitHub keeps at most one pending run per group, so a newly queued run cancels the
+# one already waiting, and the cancelled run's catalogs are never re-rendered because its
+# replacement scopes to its own push. Each publish job below takes its own per-lane group instead,
+# so a glimmer render and a kit render queue independently and neither can evict the other.
+#
+# That is the cheap half. The load-bearing half is the Scope job's self-healing baseline below: a
+# genuine cancellation or a failed run still drops a lane, and only a scope that diffs from what the
+# lane LAST RENDERED can pick it back up.
 
 jobs:
-  # WHICH delivery branches does this push dirty?
+  # WHICH delivery branches does this run have to regenerate?
   #
   # The `paths:` filter above decides whether the workflow runs at all; this decides which catalogs
-  # inside it do. A render is 15-30 minutes, so a `catalog/**`-only push must not drag the samples
-  # sheet through one for a change it cannot see, and vice versa. Shared inputs — the version
-  # catalog, the settings/build files, this workflow — dirty both, and so does anything that is not
-  # a `push` (a schedule or a dispatch means "republish everything").
+  # inside it do. A render is 15-30 minutes, so a `catalog/**`-only push must not drag the glimmer
+  # sheets through one for a change they cannot see.
   #
-  # It fails SAFE: no resolvable change set means both. Publishing a fresh bundle is never wrong;
-  # skipping a stale one is. Same job, same reasoning and same shape as the sibling repo's.
+  # The body is `scope-step.sh` from compose-ai-tools, pointed at this repository's own lane table
+  # (`scripts/scope-systems.sh`). That is what compose-ai-tools#5465 asks callers to do, and the
+  # reason is that the defect it fixed lived in the job's PREMISE rather than in any one copy of it:
+  #
+  #   the old body diffed ONE range, `github.event.before..$GITHUB_SHA`, which is the whole truth
+  #   only if every push gets a run that finishes. It does not: a newly queued run evicts the one
+  #   already pending, and the evicted run's lanes are then never re-rendered, because its
+  #   replacement scopes to its own push — which touched something else.
+  #
+  # The predicate is now per LANE: is this lane's last rendered source an ancestor of HEAD, and did
+  # anything in its input set change since? The reusable workflow records that commit for us on every
+  # successful publish as `refs/design-artifacts/source/<system>`, so a dropped run is picked up by
+  # the NEXT push whatever that push touched. Every unresolvable answer still regenerates — publishing
+  # a fresh bundle is never wrong, skipping a stale one is.
   changes:
     name: Scope
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: read
+    # Keyed by DELIVERY-BRANCH SLUG, matching the `system:` each publish job passes and the marker
+    # ref the baseline is read from. The two Glimmer sheets are separate lanes now: their input
+    # patterns are identical so they still light up together, but a run that published one and
+    # dropped the other re-renders only the one that was dropped.
     outputs:
-      kit: ${{ steps.scope.outputs.kit }}
-      samples: ${{ steps.scope.outputs.samples }}
-      ui-samples: ${{ steps.scope.outputs.ui-samples }}
-      foundation: ${{ steps.scope.outputs.foundation }}
-      glimmer: ${{ steps.scope.outputs.glimmer }}
+      m3-catalog: ${{ steps.scope.outputs.m3-catalog }}
+      m3-samples: ${{ steps.scope.outputs.m3-samples }}
+      compose-ui-samples: ${{ steps.scope.outputs.compose-ui-samples }}
+      compose-foundation: ${{ steps.scope.outputs.compose-foundation }}
+      glimmer-catalog: ${{ steps.scope.outputs.glimmer-catalog }}
+      glimmer-samples: ${{ steps.scope.outputs.glimmer-samples }}
     steps:
-      - uses: actions/checkout@v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 2
+          persist-credentials: false
+      # The generic driver, at the SAME ref the publish jobs below call the reusable workflow at
+      # (`main`), so the scope logic and the pipeline that writes the markers it reads move together.
+      # Pinning this to a tag while the `uses:` above tracks main would let them disagree about what
+      # a marker means, which is worse than tracking main for both.
+      # This workflow never runs on a fork (`github.repository` is checked on every publish job) and
+      # the ref is a literal here rather than read from a manifest a pull request could edit.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: yschimke/compose-ai-tools
+          ref: main
+          path: .compose-ai-tools
           persist-credentials: false
       - id: scope
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT: ${{ github.event_name }}
+          # The dispatch lane selector; empty for every other trigger.
+          ONLY: ${{ inputs.systems }}
+          # The fallback baseline for a lane that has never published, i.e. the behaviour that
+          # shipped before this.
           BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          REPO: ${{ github.repository }}
+          SCOPE_MAPPER: ${{ github.workspace }}/scripts/scope-systems.sh
+        # `pipefail`, so a scope that fails fails the job rather than being masked by `tee`'s exit
+        # code — every lane downstream keys off these outputs.
         run: |
           set -euo pipefail
-          if [ "${{ github.event_name }}" != 'push' ] ||
-             [ -z "$BEFORE" ] ||
-             [ "$BEFORE" = '0000000000000000000000000000000000000000' ] ||
-             ! files="$(git diff --name-only "$BEFORE" "$GITHUB_SHA")"; then
-            echo 'kit=true' >> "$GITHUB_OUTPUT"
-            echo 'samples=true' >> "$GITHUB_OUTPUT"
-            echo 'ui-samples=true' >> "$GITHUB_OUTPUT"
-            echo 'foundation=true' >> "$GITHUB_OUTPUT"
-            echo 'glimmer=true' >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          shared='^(gradle/|settings\.gradle\.kts$|build\.gradle\.kts$|\.github/workflows/design-artifacts\.yml$)'
-          if grep -qE "$shared" <<<"$files"; then
-            echo 'kit=true' >> "$GITHUB_OUTPUT"
-            echo 'samples=true' >> "$GITHUB_OUTPUT"
-            echo 'ui-samples=true' >> "$GITHUB_OUTPUT"
-            echo 'glimmer=true' >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          # `ui-builder.policy.json` belongs here as well as in `push.paths` above: the paths list
-          # only decides whether the workflow STARTS, and this predicate decides whether the m3
-          # lane publishes. Listing it in one and not the other starts a run that skips the job it
-          # was started for.
-          grep -qE '^(catalog/|catalog\.spec\.json$|ui-builder\.policy\.json$|design-pages\.json$|design/pages/)' <<<"$files" &&
-            echo 'kit=true' >> "$GITHUB_OUTPUT" || echo 'kit=false' >> "$GITHUB_OUTPUT"
-          # `scripts/samples-` also matches `samples-previews.mjs`, which is the FOUNDATION corpus'
-          # wrapper generator rather than this one's. Dirtying the m3 samples sheet for it is a
-          # spare render and never a stale sheet, which is the direction this job fails in on
-          # purpose; narrowing the pattern to buy that back would mean spelling out every script
-          # name twice.
-          grep -qE '^(samples-catalog/|samples/|sample-map\.json$|scripts/samples-)' <<<"$files" &&
-            echo 'samples=true' >> "$GITHUB_OUTPUT" || echo 'samples=false' >> "$GITHUB_OUTPUT"
-          grep -qE '^(ui-samples-catalog/|scripts/samples-previews\.mjs$|scripts/ui-samples-spec\.mjs$)' <<<"$files" &&
-            echo 'ui-samples=true' >> "$GITHUB_OUTPUT" || echo 'ui-samples=false' >> "$GITHUB_OUTPUT"
-          grep -qE '^(foundation-catalog/|scripts/foundation-catalog\.mjs$)' <<<"$files" &&
-            echo 'foundation=true' >> "$GITHUB_OUTPUT" || echo 'foundation=false' >> "$GITHUB_OUTPUT"
-          # Both Glimmer sheets move together: they share the `glimmer` version ref, the Robolectric
-          # pin and the AGP setup, so a change to one is nearly always a change to both, and the two
-          # renders together cost less than the runner minutes a finer split would save.
-          grep -qE '^(glimmer-catalog/|glimmer-samples/|glimmer-design-map|glimmer-design-pages\.json$|glimmer-design/pages/|scripts/glimmer-)' <<<"$files" &&
-            echo 'glimmer=true' >> "$GITHUB_OUTPUT" || echo 'glimmer=false' >> "$GITHUB_OUTPUT"
+          .compose-ai-tools/scripts/design-artifacts/scope-step.sh | tee -a "$GITHUB_OUTPUT"
 
   publish:
     name: m3-catalog
     needs: changes
     # Don't let forks push to the delivery branch.
-    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.kit == 'true' }}
+    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.m3-catalog == 'true' }}
     permissions:
       contents: write
+    # Per LANE, so a queued render in one sheet cannot evict a pending one in another — see
+    # the note where the workflow-level group used to be. A caller's own concurrency is the
+    # one thing the reusable workflow cannot fix for it: a called workflow's jobs inherit the
+    # CALLER's workflow-level group.
+    concurrency:
+      group: design-artifacts-${{ github.ref }}-m3-catalog
+      cancel-in-progress: false
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
     with:
       system: m3-catalog
@@ -339,9 +367,16 @@ jobs:
     name: m3-samples
     needs: changes
     # Don't let forks push to the delivery branch.
-    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.samples == 'true' }}
+    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.m3-samples == 'true' }}
     permissions:
       contents: write
+    # Per LANE, so a queued render in one sheet cannot evict a pending one in another — see
+    # the note where the workflow-level group used to be. A caller's own concurrency is the
+    # one thing the reusable workflow cannot fix for it: a called workflow's jobs inherit the
+    # CALLER's workflow-level group.
+    concurrency:
+      group: design-artifacts-${{ github.ref }}-m3-samples
+      cancel-in-progress: false
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
     with:
       system: m3-samples
@@ -425,9 +460,16 @@ jobs:
     name: compose-ui-samples
     needs: changes
     # Don't let forks push to the delivery branch.
-    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.ui-samples == 'true' }}
+    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.compose-ui-samples == 'true' }}
     permissions:
       contents: write
+    # Per LANE, so a queued render in one sheet cannot evict a pending one in another — see
+    # the note where the workflow-level group used to be. A caller's own concurrency is the
+    # one thing the reusable workflow cannot fix for it: a called workflow's jobs inherit the
+    # CALLER's workflow-level group.
+    concurrency:
+      group: design-artifacts-${{ github.ref }}-compose-ui-samples
+      cancel-in-progress: false
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
     with:
       system: compose-ui-samples
@@ -476,9 +518,16 @@ jobs:
     name: compose-foundation
     needs: changes
     # Don't let forks push to the delivery branch.
-    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.foundation == 'true' }}
+    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.compose-foundation == 'true' }}
     permissions:
       contents: write
+    # Per LANE, so a queued render in one sheet cannot evict a pending one in another — see
+    # the note where the workflow-level group used to be. A caller's own concurrency is the
+    # one thing the reusable workflow cannot fix for it: a called workflow's jobs inherit the
+    # CALLER's workflow-level group.
+    concurrency:
+      group: design-artifacts-${{ github.ref }}-compose-foundation
+      cancel-in-progress: false
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
     with:
       system: compose-foundation
@@ -537,9 +586,16 @@ jobs:
   glimmer-catalog:
     name: glimmer-catalog
     needs: changes
-    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.glimmer == 'true' }}
+    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.glimmer-catalog == 'true' }}
     permissions:
       contents: write
+    # Per LANE, so a queued render in one sheet cannot evict a pending one in another — see
+    # the note where the workflow-level group used to be. A caller's own concurrency is the
+    # one thing the reusable workflow cannot fix for it: a called workflow's jobs inherit the
+    # CALLER's workflow-level group.
+    concurrency:
+      group: design-artifacts-${{ github.ref }}-glimmer-catalog
+      cancel-in-progress: false
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
     with:
       system: glimmer-catalog
@@ -611,9 +667,16 @@ jobs:
   glimmer-samples:
     name: glimmer-samples
     needs: changes
-    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.glimmer == 'true' }}
+    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.glimmer-samples == 'true' }}
     permissions:
       contents: write
+    # Per LANE, so a queued render in one sheet cannot evict a pending one in another — see
+    # the note where the workflow-level group used to be. A caller's own concurrency is the
+    # one thing the reusable workflow cannot fix for it: a called workflow's jobs inherit the
+    # CALLER's workflow-level group.
+    concurrency:
+      group: design-artifacts-${{ github.ref }}-glimmer-samples
+      cancel-in-progress: false
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
     with:
       system: glimmer-samples
