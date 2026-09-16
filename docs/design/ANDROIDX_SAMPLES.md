@@ -197,8 +197,21 @@ opt-ins took that file from 336 errors to one.
 - **`ui`, `ui-text` and `animation`**, which #346 sequences after foundation deliberately, so the
   quarantine list stays reviewable. Each is a `paths` entry and a pin; the generator is the cost
   that has now been paid once.
-- **`catalogs.json` on preview.coo.ee** — the `androidx-samples` group, `attributionRepos:
-  ["androidx/androidx"]`, no `sites` entry. That is the preview server's repository, not this one.
+- ~~**`catalogs.json` on preview.coo.ee**~~ — done, and in this repository rather than the server's:
+  `.compose-preview/catalogs.json` is a REGISTRY DOCUMENT, read by a box nominating this project
+  with `--catalog-registry`, and it declares the `androidx-samples` group,
+  `attributionRepos: ["androidx/androidx"]` and no `sites` entry. The operator still wins on any id
+  it already configures, and a hostname stays the box's to hand out.
+
+  **`compose-ui-samples` is `listed: false` there, deliberately.** It is served at
+  `/compose-ui-samples/` with its bundle, its pages and its MCP surface, and it is off the front
+  door. The reason is what this whole document describes: the inventory is a mechanical projection
+  of upstream's corpus — every zero-argument `@Sampled` composable gets a generated wrapper and a
+  card — which is right for a catalog of CALL SITES and wrong for a page someone browses. Much of it
+  documents an API surface rather than picturing anything (twenty `BasicTextField` variants, the
+  gesture detectors, `ProgressSemantics`), the interaction demos render as one frame of a drag, and
+  it reproduces no kit so there is nothing to score it against. `scripts/catalogs-registry.test.mjs`
+  pins the flag so turning it back on is a reviewed act rather than a stray edit.
 - **A live bundle.** `publish-live-bundle: false` to start, deliberately: many foundation samples are
   interaction demos (scroll, drag, `AnchoredDraggable`) where a single frame says little, which is
   the strongest case for a live bundle anywhere here — and it is a case to be made rather than

@@ -1,0 +1,57 @@
+{
+  "$comment": "What this repository publishes, and how preview.coo.ee should present it. Read by a box that nominates this project with `--catalog-registry yschimke/m3-catalog` (ServeCatalogRegistry): every entry is served exactly as one of the box's own `catalogs.json` entries would be, so a new sheet here becomes a served sheet without an out-of-band edit to the deployment. The operator still wins: an id the box already configures keeps the box's entry, group claims resolve against THIS document's own group table rather than the box's, and `sites` are ignored — a hostname stays the box's to hand out, which is why this file declares none.",
+  "$comment_listed": "`listed: false` is the one editorial decision in here. It does not withdraw a catalog: the sheet is served at /<system>/, keeps its bundle, its pages and its MCP surface, and is reachable by anyone with the link. It only keeps the card off the front door.",
+
+  "groups": [
+    {
+      "$comment": "The sheets that reproduce something: a published Figma kit, or a design system this repository renders as first-party code.",
+      "id": "design-systems",
+      "heading": "Design systems",
+      "priority": 10
+    },
+    {
+      "$comment": "The vendored AndroidX sample corpora. Not design: these are upstream's own @Sampled call sites, rendered so an API's usage has a picture beside it. The heading says AndroidX because the content is AndroidX's — `attributionRepos` on each entry is what lets a sheet served from this repository claim it.",
+      "id": "androidx-samples",
+      "heading": "AndroidX samples",
+      "priority": 5
+    }
+  ],
+
+  "catalogs": [
+    {
+      "$comment": "The Material 3 Design Kit rebuilt as @Preview stickers. Every component names an exact kit node; this is the sheet the repository is named for.",
+      "system": "m3-catalog",
+      "group": "design-systems",
+      "loadPriority": 10
+    },
+    {
+      "$comment": "`androidx.xr.glimmer` as a sticker sheet, compared against the Glimmer community kit.",
+      "system": "glimmer-catalog",
+      "group": "design-systems"
+    },
+    {
+      "$comment": "The UI builder's own vocabulary — the containers, screen frames, shapes and image asset a design is assembled out of — published so an `m3` or `wear-m3` palette borrows them from a delivery branch. See docs/design/FOUNDATION_CATALOG.md. LISTED, deliberately, and worth a second thought: like the samples sheets below it reproduces no kit and carries no Figma reference, so if the front page should hold only sheets that reproduce something, this is the other candidate for `listed: false` and the flag is the whole change.",
+      "system": "compose-foundation",
+      "group": "design-systems"
+    },
+    {
+      "$comment": "AndroidX's material3 samples, paired with `m3-catalog` so a sample sits beside the kit cell it is a call site for.",
+      "system": "m3-samples",
+      "group": "androidx-samples",
+      "attributionRepos": ["androidx/androidx"]
+    },
+    {
+      "$comment": "AndroidX's Glimmer samples, paired with `glimmer-catalog`.",
+      "system": "glimmer-samples",
+      "group": "androidx-samples",
+      "attributionRepos": ["androidx/androidx"]
+    },
+    {
+      "$comment": "AndroidX's foundation and foundation-layout samples — 202 cards across 57 groups, and UNLISTED on purpose. The inventory is a mechanical projection of upstream's corpus: every zero-argument @Sampled composable gets a generated @Preview wrapper and a card, which is right for a catalog of CALL SITES and wrong for a front page. Much of it is documentation for an API surface rather than a picture of anything — twenty BasicTextField variants, the gesture detectors, `ProgressSemantics` — and the interaction demos (drag, scroll, AnchoredDraggable) render as a single frame that says little. It reproduces no kit, so there is no reference to score it against either. Served at /compose-ui-samples/ for anyone who wants to know how an API is called; off the front door because it is not a thing to browse. See docs/design/ANDROIDX_SAMPLES.md.",
+      "system": "compose-ui-samples",
+      "listed": false,
+      "group": "androidx-samples",
+      "attributionRepos": ["androidx/androidx"]
+    }
+  ]
+}
