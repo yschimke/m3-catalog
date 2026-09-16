@@ -1,0 +1,30 @@
+{
+  "$comment": "Properties this catalog declares about its own renders, checked against the data-product sidecars a render already writes. See docs/RENDER_ASSERTIONS.md in yschimke/compose-ai-tools and its issue #5467. Declarative rather than a check(data) function because all three fit `path: value`; the code form is the escape hatch for what the vocabulary cannot state, and reaching for it when a path fits gives up the enumerability that makes these auditable.",
+  "$whatThisDoesNotCatch": "NOT the weight collapse of compose-preview-daemon#114, and that is worth stating because it is the bug this whole feature came from. Verified, not assumed: reconstruct the broken render and all three assertions here PASS. fonts-used records that the FAMILY resolved \u2014 which it did; only the FACE was wrong, and no fallback occurred, so resolvedFamily and fellBackFrom are both clean. compose-semantics records the AUTHORED TextStyle, which still carries 'wght' 750 even when Paint.setFontVariationSettings silently dropped it. The renderer alone knows: it has ResolvedFace(file, variable) and does not export it. Until fonts-used carries that flag, no declaration here can catch it \u2014 see yschimke/compose-preview-daemon#124.",
+  "assertions": [
+    {
+      "id": "every-text-node-types-in-google-sans-flex",
+      "product": "compose-semantics",
+      "because": "GlimmerCatalog.kt states the invariant: every text node in the kit is Google Sans Flex, 74 text runs across the 35 cached reference nodes with no second family among them. A node that escapes the theme wrapper types in the platform default and is scored against the kit in the wrong face.",
+      "require": {
+        "everyTextNode.typography.fontFamily": "Google Sans Flex"
+      }
+    },
+    {
+      "id": "every-type-role-carries-its-weight-axis",
+      "product": "compose-semantics",
+      "because": "Google Sans Flex is variable and the kit uses it as one \u2014 the roles sit at 520/650/725/750, not on a named style, and createGoogleSansFlexTypography() carries a FontVariation.Settings per role. Reverting to a stock GlimmerTheme(), or dropping the Settings, leaves every role on its Font's W400 with nothing else failing.",
+      "require": {
+        "everyTextNode.typography.fontVariationSettings": "contains 'wght'"
+      }
+    },
+    {
+      "id": "no-face-silently-falls-back",
+      "product": "fonts-used",
+      "because": "composeai.fonts.failOnFallback guards this at render time, but only while it stays on and only for the resolution path. Stating it here as well means the published sheet is checked for it rather than trusted to a flag a future -P can turn off.",
+      "require": {
+        "noFont.fellBackFrom": null
+      }
+    }
+  ]
+}
