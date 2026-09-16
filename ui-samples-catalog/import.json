@@ -1,0 +1,19 @@
+{
+  "$comment": "The AndroidX foundation samples pin for :ui-samples-catalog — the `compose-ui-samples` system. Its own manifest rather than a third library in samples/import.json, for the reason glimmer-samples/import.json states: a manifest is a corpus, and a corpus is the unit a quarantine list answers for. These are also a different TIER — `androidx.compose.foundation` rather than a design system — so they pair with nothing in m3-catalog and declare no `compareWith`. See issue #346 and docs/design/ANDROIDX_SAMPLES.md. `ref` is a COMMIT SHA and never a branch, so a render is reproducible and an upstream bump is a reviewable diff; `artifactVersion` is derived rather than chosen, and re-derived by scripts/samples-drift.mjs on every run.",
+  "repo": "https://github.com/androidx/androidx",
+  "libraries": [
+    {
+      "name": "foundation",
+      "ref": "8cb591117137a7d6fb20840d6734b6c554ec8f3d",
+      "refDescription": "androidx-main as of 2026-08-12, the day foundation 1.12.0 was published (POM Last-Modified 2026-08-12T17:10:11Z), resolved by the same rule samples/import.json uses. The version is the one whose @sample set matches the Compose Multiplatform artifact this module compiles against, MEASURED rather than assumed: against org.jetbrains.compose.foundation:foundation-desktop 1.12.0's 157 @sample references, androidx 1.12.0 shares 157, with 0 only in CMP and 0 only in AndroidX. 1.12.0-alpha02 and earlier share 148 (9 missing); 1.13.0-alpha01 and later add samples CMP does not reference yet. The perfect match starts at 1.12.0-alpha03 and holds through 1.12.1 — the stable release of the same line is the pin, because it is the one an ordinary reader can look up.",
+      "paths": [
+        "compose/foundation/foundation/samples/src/main/java/androidx/compose/foundation/samples",
+        "compose/foundation/foundation-layout/samples/src/main/java/androidx/compose/foundation/layout/samples"
+      ],
+      "artifactCoordinates": "androidx.compose.foundation:foundation",
+      "artifactVersion": "1.12.0",
+      "composeMultiplatformCoordinates": "org.jetbrains.compose.foundation:foundation-desktop",
+      "composeMultiplatformVersionRef": "compose-multiplatform"
+    }
+  ]
+}
