@@ -56,7 +56,7 @@ customising the live render are two ends of one workflow.
 | Library | `androidx.xr.glimmer:glimmer` |
 | Renderer | compose-preview 2.15.0 |
 | Schema | `design-parity-catalog/v1` |
-| Generated | 2026-09-15 |
+| Generated | 2026-09-16 |
 
 ## Components by group
 
