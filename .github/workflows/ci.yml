@@ -22,6 +22,13 @@ jobs:
       - uses: actions/checkout@v7.0.1
       - name: Test automated Gradle launcher
         run: .github/scripts/test-agent-gradle.sh
+      # The path->delivery-branch mapping the Design Artifacts Scope job runs. A false negative here
+      # silently strands a catalog on stale renders, which is not hypothetical: the hand-written job
+      # this replaced omitted `compose-foundation` from its shared fan-out, so every version-catalog
+      # change skipped that lane. Cheap to run, and the only thing standing between a typo in the
+      # table and a sheet that quietly stops being republished.
+      - name: Test the design-artifacts lane mapping
+        run: scripts/test-scope-systems.sh
       - uses: ./.github/actions/setup
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
