@@ -1,11 +1,75 @@
 {
   "schema": "compose-preview-activity/v1",
-  "generatedAt": "2026-09-16T05:32:13.595Z",
+  "generatedAt": "2026-09-16T06:14:53.887Z",
   "windowDays": 30,
   "code": {
     "repo": "yschimke/m3-catalog",
     "ref": "main",
     "events": [
+      {
+        "sha": "3357de81e1d8b4b34a99f8803f778ce174e10d4a",
+        "subject": "fix(ci): scope each design-artifacts lane against what it last rendered (#452)",
+        "at": "2026-09-16T07:05:49+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [],
+        "components": []
+      },
+      {
+        "sha": "4d7d890b2ce8b86fac4900d5b84f8c3dcdbc1341",
+        "subject": "docs(glimmer): record the Google Sans Flex weight-axis fix with renders (#451)",
+        "at": "2026-09-16T06:50:58+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [],
+        "components": []
+      },
+      {
+        "sha": "97b9e4dd301741e27935d1d7c99e30fb59eb0534",
+        "subject": "fix(deps): update compose-ai-tools (#448)",
+        "at": "2026-09-16T06:47:34+01:00",
+        "author": "renovate[bot]",
+        "previewIds": [],
+        "components": []
+      },
+      {
+        "sha": "c70ef4de552e18cc1ad056139d23d8ac328e89e0",
+        "subject": "fix(deps): update dependency ee.schimke.composeai:data-preview-overrides-runtime to v3.5.0 (#449)",
+        "at": "2026-09-16T06:47:12+01:00",
+        "author": "renovate[bot]",
+        "previewIds": [],
+        "components": []
+      },
+      {
+        "sha": "ea175cc6b6acc92c49011e8ce72fbe340c4920bc",
+        "subject": "Declare the served set, with compose-ui-samples unlisted (#450)",
+        "at": "2026-09-16T06:46:57+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [],
+        "components": []
+      },
+      {
+        "sha": "97e5ebb6864ffe3359e790c9c35628303163d342",
+        "subject": "Two new catalogs: compose-foundation (the builder's vocabulary) and compose-ui-samples (#441)",
+        "at": "2026-09-16T06:41:25+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [],
+        "components": []
+      },
+      {
+        "sha": "0b15a0854c57b7aeab54e490dbc2d9c3e176f946",
+        "subject": "fix(rail, dialog): the rail's header gap, and list rows that drew their own container (#447)",
+        "at": "2026-09-16T06:26:16+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [],
+        "components": []
+      },
+      {
+        "sha": "360c6e1b294277da93caf056589c6e8d9e223fd3",
+        "subject": "fix(cards): draw the kit's whole card, not its top half (#446)",
+        "at": "2026-09-16T06:25:57+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [],
+        "components": []
+      },
       {
         "sha": "76193d20ef8d2cab375ab423da29fcecec81b421",
         "subject": "feat(glimmer): close the kit-coverage gaps, and declare the ones that are upstream's (#445)",
@@ -418,70 +482,6 @@
         "sha": "08fb3459c5f5b988a2e11d8607338c1a4a1f6c4d",
         "subject": "feat(ci): publish a live bundle for glimmer-catalog (#368)",
         "at": "2026-09-12T15:10:20+01:00",
-        "author": "Yuri Schimke",
-        "previewIds": [],
-        "components": []
-      },
-      {
-        "sha": "cdadee9960d71a9680145d5c76375965784290a0",
-        "subject": "chore(deps): update yschimke/compose-ai-tools action to v2.12.0 (#366)",
-        "at": "2026-09-12T12:56:19Z",
-        "author": "renovate[bot]",
-        "previewIds": [],
-        "components": []
-      },
-      {
-        "sha": "a502aad5b83ef4c3ddff898d7af76f5a5b71475f",
-        "subject": "docs: name all four published systems in the README (#365)",
-        "at": "2026-09-12T12:25:52+01:00",
-        "author": "Yuri Schimke",
-        "previewIds": [],
-        "components": []
-      },
-      {
-        "sha": "90ed69e7158ca7552e78a36c1160c25b82c9e522",
-        "subject": "Generate the glimmer-samples inventory, and validate both Glimmer specs on the PR (#364)",
-        "at": "2026-09-12T12:22:26+01:00",
-        "author": "Yuri Schimke",
-        "previewIds": [],
-        "components": []
-      },
-      {
-        "sha": "555351adfeb0269cf8844f822e83b7c6e771f8f4",
-        "subject": "docs: show CI, Design Artifacts and Design parity state in the README (#361)",
-        "at": "2026-09-12T12:08:38+01:00",
-        "author": "Yuri Schimke",
-        "previewIds": [],
-        "components": []
-      },
-      {
-        "sha": "8d94447329421219cf4c0c76a3250645028056e5",
-        "subject": "fix(ci): republish when ui-builder.policy.json changes (#362)",
-        "at": "2026-09-12T12:08:18+01:00",
-        "author": "Yuri Schimke",
-        "previewIds": [],
-        "components": []
-      },
-      {
-        "sha": "d34ff7643324c042e319943c9a42db1f79de5e83",
-        "subject": "Trigger the glimmer lane on its design-map files (#363)",
-        "at": "2026-09-12T12:07:33+01:00",
-        "author": "Yuri Schimke",
-        "previewIds": [],
-        "components": []
-      },
-      {
-        "sha": "26b22e4af3f6ef867cebd7e860536e6bbac59394",
-        "subject": "docs(glimmer): the kit's \"(Community)\" suffix is Google's own channel (#360)",
-        "at": "2026-09-12T11:20:59+01:00",
-        "author": "Yuri Schimke",
-        "previewIds": [],
-        "components": []
-      },
-      {
-        "sha": "7eb4a212f1f969d274a6116366c74a1390d2ed5c",
-        "subject": "feat(glimmer): point the catalog at the Glimmer Figma kit (#359)",
-        "at": "2026-09-12T11:14:28+01:00",
         "author": "Yuri Schimke",
         "previewIds": [],
         "components": []
