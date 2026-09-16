@@ -184,6 +184,7 @@ class CatalogTranslationsTest {
    */
   private val visibleLiteralAllowed =
     mapOf(
+      "Cards.kt" to setOf("A"),
       "Dialogs.kt" to setOf("A"),
       "Lists.kt" to setOf("⌘C"),
       "Menus.kt" to setOf("⌘C"),
