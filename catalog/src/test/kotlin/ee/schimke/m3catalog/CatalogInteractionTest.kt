@@ -76,13 +76,14 @@ class CatalogInteractionTest {
   fun switchingTimeEntryModeSwapsTheDialForTheKeyboard() = runComposeUiTest {
     setContent { TimePickerSticker() }
 
-    onNodeWithText("Select time").assertIsDisplayed()
+    // The title and the toggle are material3's own `TimePickerDialogDefaults.Title` and
+    // `.DisplayModeToggle` now, so this asserts the LIBRARY's copy: "Select Time" / "Enter Time"
+    // for the headline, and a description naming the mode the toggle switches *to*.
+    onNodeWithText("Select Time").assertIsDisplayed()
 
-    // The icon button's description names the mode it switches *to*, so it is the dial's
-    // "Enter time" before the click and the keyboard form's "Select time" after.
-    onNodeWithContentDescription("Enter time").performClick()
+    onNodeWithContentDescription("Switch to text input mode").performClick()
 
-    onNodeWithText("Enter time").assertIsDisplayed()
-    onNodeWithContentDescription("Select time").assertIsDisplayed()
+    onNodeWithText("Enter Time").assertIsDisplayed()
+    onNodeWithContentDescription("Switch to clock mode").assertIsDisplayed()
   }
 }
