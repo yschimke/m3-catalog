@@ -261,6 +261,35 @@ that only those subtrees referenced. The same ids are also omitted from `pages.j
 the kit's own frame and layout repeatable while allowing decorative backgrounds or cover art to be
 left out; the size cap is applied to the pruned SVG.
 
+#### An exclusion is a request, and a backplate refuses it
+
+Not every background is decorative. Figma composites at render time, so a layer authored with
+`mix-blend-mode` — or a background blur — reads whatever is left underneath it, and deleting that
+backplate does not remove a decoration: it repaints the blended content against whatever fallback
+the page has. [#437](https://github.com/yschimke/m3-catalog/issues/437) is what that looks like from
+outside. The Glimmer kit authors its `Button`, `Toggle Button`, `Icon button` and `Toggle` sets with
+`mix-blend-mode: screen`, the five `bg` instances under the Buttons frame were excluded as
+decorative, and a dark `#303030` source over the `#E8E5EE` section fallback becomes `#ECEAF1` — a
+sheet of specimens that had all but vanished, looking for all the world like a broken colour export.
+
+So the importer reads the node tree before it prunes. An excluded subtree that a **retained**
+backdrop-dependent layer overlaps is a required backplate, and it is retained with a line in the run
+log naming the layers that blend against it. Blend modes and background blur are the signal;
+opacity is deliberately not, because a large share of all nodes carry it and a check that fires
+everywhere reports nothing.
+
+Two things still override that, both of them explicit:
+
+| | |
+| --- | --- |
+| `{"node": "40000034:2406", "decorative": true, "reason": "…"}` | A human looked and says the blend does not depend on it. A positive assertion, because the silent default is what went wrong the first time. |
+| the size cap | A page that busts `maxSvgBytes` with its backplates retained is re-pruned without them and published carrying `backplatesPruned: true`, rather than dropped. Losing the sheet costs every component on it its node ids, hotspots and swap; the flag makes the degraded compositing legible rather than mysterious. |
+
+The check is pinned by a fixture read from the kit itself —
+[`scripts/fixtures/glimmer-buttons-page.json`](../scripts/fixtures/glimmer-buttons-page.json), whose
+geometry comes from Figma's read-only metadata and whose blend modes come from the committed export,
+so a restructured kit fails the test rather than ageing quietly.
+
 `svg_include_node_id=true` is the whole trick. Without it the export is a picture; with it, it is a
 **document a consumer can address** — the preview server inlines the SVG, finds `Shape=Circle` by
 its node id, hides the design's own drawing of it, and puts this catalog's `Shape/Circle` render in

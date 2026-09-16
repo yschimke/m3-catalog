@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.xr.glimmer.Icon
 import androidx.xr.glimmer.IconButton
@@ -33,7 +34,7 @@ fun IconButtonSticker() = Sticker {
   // live click has to reach the component rather than a dead lambda.
   val c = counted("")
   IconButton(onClick = c.onClick, enabled = glimmerEnabled()) {
-    Icon(Icons.Rounded.MicOff, "Unmute microphone")
+    Icon(Icons.Rounded.MicOff, stringResource(R.string.cd_unmute_microphone))
   }
 }
 
@@ -46,24 +47,33 @@ fun IconButtonSticker() = Sticker {
   caption = "An icon button that holds its checked state.",
 )
 @GlimmerStates
+@ee.schimke.m3catalog.glimmer.IconToggleButtonStickerExhaustiveKitCells
 @Preview
 @Composable
 fun IconToggleButtonSticker() = Sticker {
-  var checked by remember { mutableStateOf(false) }
+  val initiallyChecked = glimmerChecked()
+  var checked by remember(initiallyChecked) { mutableStateOf(initiallyChecked) }
   IconToggleButton(
     checked = checked,
     onCheckedChange = { checked = it },
     enabled = glimmerEnabled(),
   ) {
-    Icon(if (checked) Icons.Rounded.Mic else Icons.Rounded.MicOff, "Microphone")
+    Icon(
+      if (checked) Icons.Rounded.Mic else Icons.Rounded.MicOff,
+      stringResource(R.string.cd_microphone),
+    )
   }
 }
 
-// Same as `ToggleButton` above: no state cells under a checked variant until the generated kit-cell
-// view can address `Toggle=True` x `State=` without colliding with `Toggle=False`. See #374.
+// Same as `ToggleButton` above: the checked variant is the kit's `Toggle=True, State=Enabled` cell,
+// and its `Focused` / `Pressed` crossings are generated exact cells on the base sticker rather than
+// variants here. See #374.
 @CatalogVariant(
   of = "IconToggleButton",
   state = "checked",
+  // `Toggle=True` in the kit's vocabulary. See the note on `ToggleButtonCheckedSticker`.
+  kitAxis = "Toggle",
+  kitValue = "True",
   caption = "Checked, where the container reads as lit rather than outlined.",
 )
 @Preview
@@ -75,6 +85,9 @@ fun IconToggleButtonCheckedSticker() = Sticker {
     onCheckedChange = { checked = it },
     enabled = glimmerEnabled(),
   ) {
-    Icon(if (checked) Icons.Rounded.Mic else Icons.Rounded.MicOff, "Microphone")
+    Icon(
+      if (checked) Icons.Rounded.Mic else Icons.Rounded.MicOff,
+      stringResource(R.string.cd_microphone),
+    )
   }
 }

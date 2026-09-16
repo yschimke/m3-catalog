@@ -202,6 +202,24 @@ jobs:
       - name: Test kit axis coverage
         run: node --test scripts/kit-coverage.test.mjs
 
+      # The generated exact-cell view, for both kits. A generated cell is an exact kit ADDRESS, so
+      # what is worth holding is that its `kitProps` is the kit variant's own name, that something
+      # real drives it rather than it being a second name for the default pixels, and that the
+      # annotation it lives in is attached to the sticker it claims to cross.
+      - name: Test the generated exact kit cells
+        run: node --test scripts/exhaustive-kit-cells.test.mjs
+
+      # Where the Glimmer inventory STOPS, and on which side. One level up from the axis-value
+      # check above: a kit set with no Glimmer API (Entity, the four progress indicators), a Glimmer
+      # API with no kit node (the pager), and the token types whose counterparts are Styles-page
+      # specimens rather than component sets. Checked in both directions, and pinned to the library
+      # version its API evidence was read from — so a Renovate bump fails the check until somebody
+      # re-reads the published surface, which is how the work reopens by itself.
+      - name: Test the declared Glimmer kit gaps
+        run: |
+          node --test scripts/glimmer-kit-gaps.test.mjs
+          node scripts/glimmer-kit-gaps.mjs
+
       # The duplicate-render scan's own logic, and the shape of the exemption
       # table it reads. The scan itself needs a render and runs in
       # compose-preview.yml; what is checkable without one is that it groups

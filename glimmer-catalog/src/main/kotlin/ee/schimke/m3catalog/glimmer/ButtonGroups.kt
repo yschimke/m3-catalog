@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.xr.glimmer.Button
@@ -35,11 +36,11 @@ fun ButtonGroupSticker() = Sticker {
     contentPadding = PaddingValues(horizontal = 16.dp),
   ) {
     repeat(3) {
-      val c = counted("Button")
+      val c = counted(stringResource(R.string.label_button))
       Button(
         modifier = Modifier.width(146.dp),
         onClick = c.onClick,
-        leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, "Send") },
+        leadingIcon = { Icon(Icons.AutoMirrored.Rounded.Send, stringResource(R.string.cd_send)) },
       ) {
         Text(c.label)
       }

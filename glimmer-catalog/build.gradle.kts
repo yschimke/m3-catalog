@@ -72,4 +72,7 @@ dependencies {
   // published set rather than being redrawn here.
   implementation(libs.androidx.compose.material.icons.extended)
   testImplementation(libs.robolectric)
+  // `GlimmerTranslationsTest` — the guard `:catalog`'s `CatalogTranslationsTest` is on the other
+  // side of the repository. It reads `src/main/res` off disk, so it needs no Android runtime.
+  testImplementation(libs.kotlin.test.junit)
 }

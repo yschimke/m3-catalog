@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.xr.glimmer.ActionCard
 import androidx.xr.glimmer.Button
@@ -25,7 +26,8 @@ import ee.schimke.composeai.preview.CatalogVariant
 //
 // The kit's `Card` (`416:2700`) is a single symbol whose content differences are hidden LAYERS, and
 // the layers it ships turned on are `Show Image`, `Show Entity`, `Show Title`, `Show Subtitle` and
-// `Show Body` — a 420x412 content card. A sticker drawing `Card { Text("This is a card") }` was an
+// `Show Body` — a 420x412 content card. A sticker drawing `Card {
+// Text(stringResource(R.string.card_content)) }` was an
 // 80dp row against it, which is why #381's board reported 98% of pixels differing: two different
 // pictures, not a card drawn wrongly. Design-led, so the base is the populated form and the bare
 // one is a variant under it.
@@ -47,12 +49,18 @@ import ee.schimke.composeai.preview.CatalogVariant
 fun CardSticker() = Sticker {
   ContentFrame {
     Card(
-      header = { Image(HeaderImage, "Header artwork", contentScale = ContentScale.FillWidth) },
-      title = { Text("Title") },
-      subtitle = { Text("Subtitle") },
-      leadingIcon = { Icon(Icons.Rounded.AccountCircle, "Sender") },
+      header = {
+        Image(
+          HeaderImage,
+          stringResource(R.string.cd_header_artwork),
+          contentScale = ContentScale.FillWidth,
+        )
+      },
+      title = { Text(glimmerText("title", stringResource(R.string.label_title))) },
+      subtitle = { Text(stringResource(R.string.label_subtitle)) },
+      leadingIcon = { Icon(Icons.Rounded.AccountCircle, stringResource(R.string.cd_sender)) },
     ) {
-      Text("Body")
+      Text(stringResource(R.string.label_body))
     }
   }
 }
@@ -64,7 +72,9 @@ fun CardSticker() = Sticker {
 )
 @Preview
 @Composable
-fun CardTextOnlySticker() = Sticker { ContentFrame { Card { Text("Body") } } }
+fun CardTextOnlySticker() = Sticker {
+  ContentFrame { Card { Text(stringResource(R.string.label_body)) } }
+}
 
 @CatalogVariant(
   of = "Card",
@@ -76,10 +86,10 @@ fun CardTextOnlySticker() = Sticker { ContentFrame { Card { Text("Body") } } }
 fun CardTrailingIconSticker() = Sticker {
   ContentFrame {
     Card(
-      trailingIcon = { Icon(Icons.Rounded.AccountCircle, "Sender") },
-      title = { Text("Title") },
+      trailingIcon = { Icon(Icons.Rounded.AccountCircle, stringResource(R.string.cd_sender)) },
+      title = { Text(glimmerText("title", stringResource(R.string.label_title))) },
     ) {
-      Text("Body")
+      Text(stringResource(R.string.label_body))
     }
   }
 }
@@ -93,12 +103,12 @@ fun CardTrailingIconSticker() = Sticker {
 @Composable
 fun CardActionSticker() = Sticker {
   ContentFrame {
-    val c = counted("Button")
+    val c = counted(glimmerText("label", stringResource(R.string.label_button)))
     ActionCard(
       action = { Button(onClick = c.onClick) { Text(c.label) } },
-      title = { Text("Title") },
+      title = { Text(glimmerText("title", stringResource(R.string.label_title))) },
     ) {
-      Text("Body")
+      Text(stringResource(R.string.label_body))
     }
   }
 }
@@ -118,7 +128,11 @@ fun CardActionSticker() = Sticker {
 fun TitleChipSticker() = Sticker {
   // The kit's symbol draws its entity slot filled and labels it "Title Chip" (146x44); the
   // label-only chip is 107x44 and is the variant below.
-  TitleChip(leadingIcon = { Icon(Icons.Rounded.AccountCircle, "Sender") }) { Text("Title Chip") }
+  TitleChip(
+    leadingIcon = { Icon(Icons.Rounded.AccountCircle, stringResource(R.string.cd_sender)) }
+  ) {
+    Text(glimmerText("label", stringResource(R.string.label_title_chip)))
+  }
 }
 
 @CatalogVariant(
@@ -128,4 +142,6 @@ fun TitleChipSticker() = Sticker {
 )
 @Preview
 @Composable
-fun TitleChipLabelOnlySticker() = Sticker { TitleChip { Text("Title Chip") } }
+fun TitleChipLabelOnlySticker() = Sticker {
+  TitleChip { Text(glimmerText("label", stringResource(R.string.label_title_chip))) }
+}
