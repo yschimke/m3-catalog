@@ -1,11 +1,56 @@
 {
   "schema": "compose-preview-activity/v1",
-  "generatedAt": "2026-09-16T06:22:25.978Z",
+  "generatedAt": "2026-09-16T06:57:05.896Z",
   "windowDays": 30,
   "code": {
     "repo": "yschimke/m3-catalog",
     "ref": "main",
     "events": [
+      {
+        "sha": "0b15a0854c57b7aeab54e490dbc2d9c3e176f946",
+        "subject": "fix(rail, dialog): the rail's header gap, and list rows that drew their own container (#447)",
+        "at": "2026-09-16T06:26:16+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [
+          "dialog-basic__ideal__default__light",
+          "dialog-basic__ideal__icon",
+          "dialog-list__ideal__default__light",
+          "dialog-list__ideal__icon",
+          "navigationrail-standard__ideal__default__light",
+          "navigationrail-standard__ideal__cell-alignment-middle-nav-items-4-58016-36888",
+          "navigationrail-standard__ideal__four",
+          "navigationrail-standard__ideal__middle",
+          "navigationrail-wide__ideal__default__light",
+          "navigationrail-wide__ideal__cell-type-docked-alignment-middle-nav-items-4-58016-36783",
+          "navigationrail-wide__ideal__four",
+          "navigationrail-wide__ideal__middle"
+        ],
+        "components": [
+          "Dialog/Basic",
+          "Dialog/List",
+          "NavigationRail/Standard",
+          "NavigationRail/Wide"
+        ]
+      },
+      {
+        "sha": "360c6e1b294277da93caf056589c6e8d9e223fd3",
+        "subject": "fix(cards): draw the kit's whole card, not its top half (#446)",
+        "at": "2026-09-16T06:25:57+01:00",
+        "author": "Yuri Schimke",
+        "previewIds": [
+          "card-elevated__ideal__default__light__compact",
+          "card-elevated__ideal__slot__compact",
+          "card-filled__ideal__default__light__compact",
+          "card-filled__ideal__slot__compact",
+          "card-outlined__ideal__default__light__compact",
+          "card-outlined__ideal__slot__compact"
+        ],
+        "components": [
+          "Card/Elevated",
+          "Card/Filled",
+          "Card/Outlined"
+        ]
+      },
       {
         "sha": "5ab60fa49f967a6107aa13007f37ce2930f7d4fc",
         "subject": "fix(placeholder): paint the kit's placeholder add-on, and square the app bar's band (#443)",
