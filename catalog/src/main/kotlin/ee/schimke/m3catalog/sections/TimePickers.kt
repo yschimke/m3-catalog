@@ -7,27 +7,26 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccessTime
-import androidx.compose.material.icons.filled.Keyboard
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimeInput
 import androidx.compose.material3.TimePicker
+import androidx.compose.material3.TimePickerDialogDefaults
+import androidx.compose.material3.TimePickerDisplayMode
 import androidx.compose.material3.TimePickerLayoutType
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.overrides.previewOverrideInt
 import ee.schimke.composeai.preview.CatalogComponent
@@ -47,8 +46,6 @@ import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_cancel
 import ee.schimke.m3catalog.generated.resources.action_ok
-import ee.schimke.m3catalog.generated.resources.time_enter
-import ee.schimke.m3catalog.generated.resources.time_select
 import ee.schimke.m3catalog.toggleable
 import org.jetbrains.compose.resources.stringResource
 
@@ -79,28 +76,56 @@ private fun initialTime(): Pair<Int, Int> {
   return hour to minute
 }
 
+/**
+ * The dialog around a time picker, built from `AlertDialog` because material3's own
+ * `TimePickerDialog` opens a platform window: it calls `androidx.compose.ui.window.Dialog` directly
+ * rather than `BasicAlertDialog`, so [InlineDialogHost] — which overrides
+ * `LocalBasicAlertDialogOverride` — cannot inline it, and a popup surface is not something this
+ * renderer can capture. `TimePickerDialogLayout`, the window-less layout the dialog uses inside
+ * that window, is `internal` to material3 and not callable from here.
+ *
+ * What IS public and now draws these two slots is the library's own header and mode toggle:
+ * `TimePickerDialogDefaults.Title` and `.DisplayModeToggle`, in place of a hand-rolled `Text` and
+ * `IconButton`. That is one less replica in a published comparison — the toggle in particular was
+ * tinted `primary` where the kit's `Icon button - standard` draws `on-surface-variant`, and it
+ * carries the library's own icon, tooltip and semantics for the mode it switches to.
+ *
+ * Two differences come with that and are deliberate. The library's headline reads `Select Time` /
+ * `Enter Time` where the kit writes `Select time`; that capital is material3's own copy, and this
+ * catalog would rather publish the library's string than a replica that happens to match the kit.
+ * And the frame still cannot reproduce the node's height: the kit's dialog is 328x520 — a 40dp
+ * header, 372dp of content, a 68dp action row — where `AlertDialog`'s own padding makes this 568dp
+ * tall, and those measurements are internal to the component.
+ */
 @Composable
 private fun TimePickerFrame(
-  headline: String,
-  switchIcon: ImageVector,
-  switchDescription: String,
+  displayMode: TimePickerDisplayMode,
   onSwitch: () -> Unit,
   modifier: Modifier,
   content: @Composable () -> Unit,
 ) {
   val cancel = counted(catalogText("dismissButton", stringResource(Res.string.action_cancel)))
   val ok = counted(catalogText("confirmButton", stringResource(Res.string.action_ok)))
-  val title = catalogText("title", headline)
   InlineDialogHost {
     AlertDialog(
       onDismissRequest = {},
       modifier = modifier,
-      title = { Text(title) },
+      title = { TimePickerDialogDefaults.Title(displayMode = displayMode) },
       text = { Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { content() } },
       dismissButton = {
         Row(verticalAlignment = Alignment.CenterVertically) {
-          IconButton(onClick = onSwitch) {
-            Icon(switchIcon, contentDescription = switchDescription)
+          // `AlertDialog` tints everything in its button slots `primary`, which is right for the
+          // text buttons beside it and wrong for the toggle: the kit draws that as an
+          // `Icon button - standard` in `on-surface-variant`, and so does material3's own
+          // `TimePickerDialog`, where the toggle sits outside the button row. Restoring the
+          // colour here is the host's imposition being undone, not a tint picked by hand.
+          CompositionLocalProvider(
+            LocalContentColor provides MaterialTheme.colorScheme.onSurfaceVariant
+          ) {
+            TimePickerDialogDefaults.DisplayModeToggle(
+              onDisplayModeChange = onSwitch,
+              displayMode = displayMode,
+            )
           }
           TextButton(onClick = cancel.onClick) { Text(cancel.label) }
         }
@@ -180,10 +205,7 @@ private fun TimePickerDialogFrame(seedInput: Boolean, seedHorizontal: Boolean = 
       )
     }
   TimePickerFrame(
-    headline = stringResource(if (input) Res.string.time_enter else Res.string.time_select),
-    switchIcon = if (input) Icons.Filled.AccessTime else Icons.Filled.Keyboard,
-    switchDescription =
-      stringResource(if (input) Res.string.time_select else Res.string.time_enter),
+    displayMode = if (input) TimePickerDisplayMode.Input else TimePickerDisplayMode.Picker,
     onSwitch = { input = !input },
     modifier =
       if (input) Modifier.width(if (is24Hour) 264.dp else 328.dp)
