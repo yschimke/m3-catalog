@@ -8,7 +8,7 @@ ktfmt = "0.27.0"
 # Compose Multiplatform port, so a desktop/Skiko module cannot resolve it at all. The Glimmer sheets
 # therefore render through Robolectric, which is the lane `yschimke/wear-m3-catalog` already runs,
 # and this is the first AGP in this tree. See docs/design/GLIMMER.md.
-agp = "9.4.0"
+agp = "9.4.1"
 # Robolectric is what actually executes the Glimmer previews. Pinned to the version the sibling
 # repository renders with, so the two Android lanes cannot skew.
 robolectric = "4.17"
