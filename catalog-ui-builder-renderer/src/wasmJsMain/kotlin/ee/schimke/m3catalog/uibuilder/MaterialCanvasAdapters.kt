@@ -50,6 +50,7 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberSearchBarState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -104,14 +105,16 @@ val materialCanvasAdapters = canvasAdapterRegistry {
   }
   register("material3/DatePicker") {
     val initial = string("selectedDate").toEpochMillisOrNull()
-    val state =
-      rememberDatePickerState(
-        initialSelectedDateMillis = initial,
-        initialDisplayedMonthMillis = initial,
-        initialDisplayMode =
-          if (string("mode") == "input") DisplayMode.Input else DisplayMode.Picker,
-      )
-    DatePicker(state, modifier, showModeToggle = boolean("showModeToggle", true))
+    val mode = if (string("mode") == "input") DisplayMode.Input else DisplayMode.Picker
+    key(initial, mode) {
+      val state =
+        rememberDatePickerState(
+          initialSelectedDateMillis = initial,
+          initialDisplayedMonthMillis = initial,
+          initialDisplayMode = mode,
+        )
+      DatePicker(state, modifier, showModeToggle = boolean("showModeToggle", true))
+    }
   }
   register("material3/AlertDialog") {
     AlertDialog(
@@ -193,30 +196,34 @@ val materialCanvasAdapters = canvasAdapterRegistry {
     )
   }
   register("material3/SearchBar") {
-    val state =
-      rememberSearchBarState(
-        if (boolean("expanded")) SearchBarValue.Expanded else SearchBarValue.Collapsed
+    val expanded = boolean("expanded")
+    key(expanded) {
+      val state =
+        rememberSearchBarState(if (expanded) SearchBarValue.Expanded else SearchBarValue.Collapsed)
+      SearchBar(
+        state = state,
+        inputField = { Slot("inputField", Modifier.fillMaxSize()) },
+        modifier = modifier,
       )
-    SearchBar(
-      state = state,
-      inputField = { Slot("inputField", Modifier.fillMaxSize()) },
-      modifier = modifier,
-    )
+    }
   }
   register("material3/InputField") {
-    val state = remember { androidx.compose.foundation.text.input.TextFieldState(string("value")) }
-    val searchState = rememberSearchBarState(SearchBarValue.Collapsed)
-    SearchBarDefaults.InputField(
-      textFieldState = state,
-      searchBarState = searchState,
-      onSearch = { dispatch("search") },
-      modifier = modifier,
-      enabled = boolean("enabled", true),
-      readOnly = boolean("readOnly"),
-      placeholder = optional("placeholder"),
-      leadingIcon = optional("leadingIcon"),
-      trailingIcon = optional("trailingIcon"),
-    )
+    val value = string("value")
+    key(value) {
+      val state = remember { androidx.compose.foundation.text.input.TextFieldState(value) }
+      val searchState = rememberSearchBarState(SearchBarValue.Collapsed)
+      SearchBarDefaults.InputField(
+        textFieldState = state,
+        searchBarState = searchState,
+        onSearch = { dispatch("search") },
+        modifier = modifier,
+        enabled = boolean("enabled", true),
+        readOnly = boolean("readOnly"),
+        placeholder = optional("placeholder"),
+        leadingIcon = optional("leadingIcon"),
+        trailingIcon = optional("trailingIcon"),
+      )
+    }
   }
   register("material3/Slider") {
     val from = float("valueFrom")
@@ -263,14 +270,20 @@ val materialCanvasAdapters = canvasAdapterRegistry {
   textField("material3/TextField", outlined = false)
   textField("material3/OutlinedTextField", outlined = true)
   register("material3/TimePicker") {
-    val state =
-      rememberTimePickerState(
-        initialHour = integer("hour").coerceIn(0, 23),
-        initialMinute = integer("minute").coerceIn(0, 59),
-        is24Hour = boolean("is24Hour"),
-      )
-    if (string("mode") == "input") TimeInput(state = state, modifier = modifier)
-    else TimePicker(state = state, modifier = modifier, layoutType = TimePickerLayoutType.Vertical)
+    val hour = integer("hour").coerceIn(0, 23)
+    val minute = integer("minute").coerceIn(0, 59)
+    val is24Hour = boolean("is24Hour")
+    key(hour, minute, is24Hour) {
+      val state =
+        rememberTimePickerState(
+          initialHour = hour,
+          initialMinute = minute,
+          is24Hour = is24Hour,
+        )
+      if (string("mode") == "input") TimeInput(state = state, modifier = modifier)
+      else
+        TimePicker(state = state, modifier = modifier, layoutType = TimePickerLayoutType.Vertical)
+    }
   }
 }
 
