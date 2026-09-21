@@ -38,6 +38,7 @@ on:
     branches: [main]
     paths:
       - 'catalog/**'
+      - 'catalog-ui-builder-renderer/**'
       - 'catalog.spec.json'
       # What this catalog declares about itself to the UI builder: the shelf a component is
       # filed under, the record an id binds to, the frame, the platform word. It is as much a
@@ -248,6 +249,12 @@ jobs:
       # This is what makes the interactive lane in CatalogInteractive.kt real,
       # and what the theme / knob overrides need in order to redraw anything.
       publish-live-bundle: true
+      # Build the catalog-owned protocol-v2 canvas against the source-only renderer SDK. The
+      # reusable workflow verifies and publishes the immutable ZIP, then declares its manifest
+      # identity on this exact catalog generation.
+      ui-builder-runtime-task: ':catalog-ui-builder-renderer:rendererArchive'
+      ui-builder-runtime-archive: 'catalog-ui-builder-renderer/build/distributions/m3-catalog-ui-builder-renderer.zip'
+      ui-builder-runtime-source-ref: '640e75b0dc1efafcb563e17dc3720197e92ced30'
       # Pure editable SVGs are a daemon data product too. Keep them transient through catalog
       # generation and per-preview cover cropping, then produce/cache them only when requested;
       # raster-backed hybrid SVGs remain static so their crop references stay self-contained.
