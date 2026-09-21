@@ -15,7 +15,23 @@ dependencyResolutionManagement {
 
 rootProject.name = "m3-catalog"
 
+providers.gradleProperty("composeUiBuilderDir").orNull?.let { path ->
+  val directory = file(path).canonicalFile
+  require(directory.resolve("settings.gradle.kts").isFile) {
+    "-PcomposeUiBuilderDir names $directory, which is not a compose-ui-builder Gradle checkout."
+  }
+  logger.lifecycle("Composite build: uiBuilder -> $directory")
+  includeBuild(directory) {
+    dependencySubstitution {
+      substitute(module("ee.schimke.composeai:ui-builder-renderer-sdk-source"))
+        .using(project(":ui-builder-renderer-sdk"))
+    }
+  }
+}
+
 include(":catalog")
+
+include(":catalog-ui-builder-renderer")
 
 // The AndroidX samples rendition — `androidx.compose.material3`'s own `@Sampled` composables,
 // vendored from a pinned upstream commit and rendered beside the kit catalog. Separate module, not

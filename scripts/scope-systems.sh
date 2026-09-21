@@ -52,7 +52,7 @@ system_pattern() {
     # `ui-builder.policy.json` is as much a render input as the spec — `composePreviewDiscover`
     # reads it and its overrides reach the published `ui-builder.json`.
     m3-catalog)
-      echo '^(catalog/|catalog\.spec\.json$|ui-builder\.policy\.json$|design-pages\.json$|design/pages/)' ;;
+      echo '^(catalog/|catalog-ui-builder-renderer/|catalog\.spec\.json$|ui-builder\.policy\.json$|design-pages\.json$|design/pages/)' ;;
     # `scripts/samples-` also matches `samples-previews.mjs`, the FOUNDATION corpus' wrapper
     # generator. Dirtying this sheet for it is a spare render and never a stale sheet, which is the
     # direction this mapping fails in on purpose.
