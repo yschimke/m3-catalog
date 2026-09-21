@@ -50,8 +50,10 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberSearchBarState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -67,6 +69,8 @@ import ee.schimke.composeai.uibuilder.CanvasAdapterRegistry
 import ee.schimke.composeai.uibuilder.CanvasNodeScope
 import ee.schimke.composeai.uibuilder.canvasAdapterRegistry
 import ee.schimke.composeai.uibuilder.googleMaterialIconImageVector
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.drop
 
 val materialCanvasAdapters = canvasAdapterRegistry {
   register("material3/Button") {
@@ -197,14 +201,13 @@ val materialCanvasAdapters = canvasAdapterRegistry {
   }
   register("material3/SearchBar") {
     val expanded = boolean("expanded")
-    key(expanded) {
-      val state =
-        rememberSearchBarState(if (expanded) SearchBarValue.Expanded else SearchBarValue.Collapsed)
-      SearchBar(
-        state = state,
-        inputField = { Slot("inputField", Modifier.fillMaxSize()) },
-        modifier = modifier,
-      )
+    SearchBar(
+      inputField = { Slot("inputField", Modifier.fillMaxSize()) },
+      expanded = expanded,
+      onExpandedChange = {},
+      modifier = modifier,
+    ) {
+      Slot("expandedContent")
     }
   }
   register("material3/InputField") {
@@ -212,6 +215,14 @@ val materialCanvasAdapters = canvasAdapterRegistry {
     key(value) {
       val state = remember { androidx.compose.foundation.text.input.TextFieldState(value) }
       val searchState = rememberSearchBarState(SearchBarValue.Collapsed)
+      LaunchedEffect(state) {
+        snapshotFlow { state.text.toString() }
+          .drop(1)
+          .collect { query ->
+            updateBoundState("value", query)
+            dispatch("queryChange")
+          }
+      }
       SearchBarDefaults.InputField(
         textFieldState = state,
         searchBarState = searchState,
