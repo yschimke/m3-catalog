@@ -231,6 +231,7 @@ jobs:
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
     with:
       system: m3-catalog
+      artifact-repository: yschimke/m3-catalog-out
       spec: catalog.spec.json
       # Sharding operates within one Gradle module. Every published preview in this repository is
       # owned by :catalog; keep this explicit so the reusable workflow can partition its preview
@@ -354,6 +355,7 @@ jobs:
       reference-cache-branch: design-parity/reference
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
     secrets:
+      artifacts_token: ${{ secrets.ARTIFACTS_TOKEN }}
       # Publishes the `figma:` entries in design-map.json as **design references** on the delivery
       # branch (`references/index.json` + one normalised reference image each), which is what feeds
       # the preview server's PNG ↔ Design reference lane. Without it those entries are skipped with
@@ -387,6 +389,7 @@ jobs:
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
     with:
       system: m3-samples
+      artifact-repository: yschimke/m3-catalog-out
       spec: samples-catalog/catalog.spec.json
       module: ':samples-catalog'
 
@@ -462,6 +465,8 @@ jobs:
       # published preview is the plain `androidx.compose.ui.tooling.preview.Preview`, carried by
       # upstream's own sources — verified against the vendored tree rather than assumed.
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
+    secrets:
+      artifacts_token: ${{ secrets.ARTIFACTS_TOKEN }}
 
   ui-samples:
     name: compose-ui-samples
@@ -480,6 +485,7 @@ jobs:
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
     with:
       system: compose-ui-samples
+      artifact-repository: yschimke/m3-catalog-out
       spec: ui-samples-catalog/catalog.spec.json
       module: ':ui-samples-catalog'
 
@@ -520,6 +526,8 @@ jobs:
       # `androidx.compose.ui.tooling.preview.Preview`, carried by upstream's own sources or by the
       # wrappers `scripts/samples-previews.mjs` generates, and there are no multipreviews at all.
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
+    secrets:
+      artifacts_token: ${{ secrets.ARTIFACTS_TOKEN }}
 
   foundation:
     name: compose-foundation
@@ -538,6 +546,7 @@ jobs:
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
     with:
       system: compose-foundation
+      artifact-repository: yschimke/m3-catalog-out
       spec: foundation-catalog/catalog.spec.json
       module: ':foundation-catalog'
 
@@ -564,6 +573,9 @@ jobs:
       # shard's own setup and merge would cost more than the whole job.
       render-shards: 1
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
+
+    secrets:
+      artifacts_token: ${{ secrets.ARTIFACTS_TOKEN }}
 
   # ── The two Glimmer sheets ──────────────────────────────────────────────────────────────────────
   #
@@ -606,6 +618,7 @@ jobs:
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
     with:
       system: glimmer-catalog
+      artifact-repository: yschimke/m3-catalog-out
       spec: glimmer-catalog/catalog.spec.json
       module: ':glimmer-catalog'
       # The Glimmer kit's references, projected from this module's own annotations. NOT the empty
@@ -658,6 +671,7 @@ jobs:
       render-shards: 1
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
     secrets:
+      artifacts_token: ${{ secrets.ARTIFACTS_TOKEN }}
       # What this buys, concretely: the reference render beside each sticker and the Figma deep link
       # on its page. The server gates both on an imported reference for THAT preview rather than on
       # the map's `reference` field — `badge-number__ideal__default__light` carries one and shows the
@@ -687,6 +701,7 @@ jobs:
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
     with:
       system: glimmer-samples
+      artifact-repository: yschimke/m3-catalog-out
       spec: glimmer-samples/catalog.spec.json
       module: ':glimmer-samples'
       design-map-command: printf '{"components":[]}\n' > design-map.json
@@ -725,3 +740,5 @@ jobs:
       render-timeout: 1800
       render-shards: 1
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
+    secrets:
+      artifacts_token: ${{ secrets.ARTIFACTS_TOKEN }}
