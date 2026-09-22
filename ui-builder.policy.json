@@ -7,6 +7,11 @@
   "componentIdPrefix": "m3/",
   "platform": "mobile",
   "platformLabel": "Mobile",
+  "$comment_composeSourceExport": "A safe, versioned source-export adapter selection — data, never a Kotlin template. The UI builder ships and resolves compose-material3/v1 against this catalog's discovered component records; an older host refuses the declaration rather than guessing a different source projection.",
+  "composeSourceExport": {
+    "adapter": "compose-material3",
+    "version": 1
+  },
   "previewSurfaces": {
     "wasm": {
       "fidelity": "approximate",
