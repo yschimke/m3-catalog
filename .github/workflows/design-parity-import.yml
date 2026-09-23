@@ -29,6 +29,7 @@ jobs:
       contents: write
     with:
       design-parity-ref: ${{ inputs.design_parity_ref || '' }}
+      publication-repository: yschimke/m3-catalog-out
 
       # THE CACHE BANKS. Stated explicitly even though `false` is the default,
       # because every other property of this branch depends on it and it is one
@@ -53,6 +54,7 @@ jobs:
       timeout-minutes: 90
     secrets:
       figma-token: ${{ secrets.FIGMA_TOKEN }}
+      publication-token: ${{ secrets.ARTIFACTS_TOKEN }}
 
   # The Glimmer kit, into a cache of its own.
   #
@@ -76,6 +78,7 @@ jobs:
       contents: write
     with:
       design-parity-ref: ${{ inputs.design_parity_ref || '' }}
+      publication-repository: yschimke/m3-catalog-out
       cache-branch: design-parity/glimmer-reference
 
       # Banked, for the reasons the job above sets out.
@@ -94,3 +97,4 @@ jobs:
       timeout-minutes: 60
     secrets:
       figma-token: ${{ secrets.FIGMA_TOKEN }}
+      publication-token: ${{ secrets.ARTIFACTS_TOKEN }}
