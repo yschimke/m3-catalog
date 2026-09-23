@@ -80,6 +80,7 @@ jobs:
       contents: write # publish the regenerated artifacts to design-parity/main
     with:
       module: ':catalog'
+      publication-repository: yschimke/m3-catalog-out
 
       # Skip the run outright when nothing that feeds the comparison has moved.
       # These are the paths whose content decides the render: the module itself,
@@ -133,6 +134,7 @@ jobs:
       timeout-minutes: 90
     secrets:
       figma-token: ${{ secrets.FIGMA_TOKEN }}
+      publication-token: ${{ secrets.ARTIFACTS_TOKEN }}
 
   # ── The Glimmer sheet ───────────────────────────────────────────────────────
   #
@@ -155,6 +157,7 @@ jobs:
       contents: write # publish the regenerated artifacts to design-parity/glimmer
     with:
       module: ':glimmer-catalog'
+      publication-repository: yschimke/m3-catalog-out
 
       # A branch of its own. The job above publishes `design-parity/main`; two
       # boards on one branch would each look like the other had gone stale.
@@ -237,3 +240,4 @@ jobs:
       timeout-minutes: 60
     secrets:
       figma-token: ${{ secrets.FIGMA_TOKEN }}
+      publication-token: ${{ secrets.ARTIFACTS_TOKEN }}
