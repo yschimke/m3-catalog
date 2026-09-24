@@ -66,11 +66,16 @@ jobs:
       # `design-artifacts/m3-catalog` — the same slug `design-artifacts.yml`
       # passes, not the shorter `m3` the design doc's examples use.
       system: m3-catalog
+      # Same output repository design-artifacts.yml publishes design-artifacts/<system> to;
+      # generated branches never live in this source repository.
+      artifact-repository: yschimke/m3-catalog-out
       # Only this repository for now. The catalog's previews are declared here,
       # so this is where a difference gets reported; add a source repo to this
       # array only alongside a credential that can read its issues, since an
       # unreadable repo is indistinguishable from one with no parity issues.
       repositories: '["yschimke/m3-catalog"]'
+    secrets:
+      artifacts_token: ${{ secrets.ARTIFACTS_TOKEN }}
 
   glimmer:
     name: glimmer-catalog
@@ -85,11 +90,16 @@ jobs:
       # `parity/activity.json` and no `parity/issues.json` at all, so the Glimmer
       # components had no issue lane to appear in.
       system: glimmer-catalog
+      # Same output repository design-artifacts.yml publishes design-artifacts/<system> to;
+      # generated branches never live in this source repository.
+      artifact-repository: yschimke/m3-catalog-out
       # Same single repository: Glimmer's stickers are declared here too, so a
       # difference in them is reported here.
       repositories: '["yschimke/m3-catalog"]'
-      # No `ISSUES_TOKEN`, matching the job above — the default `github.token`
-      # reads this repository's own issues, which is the whole list.
+    # No `ISSUES_TOKEN`, matching the job above — the default `github.token`
+    # reads this repository's own issues, which is the whole list.
+    secrets:
+      artifacts_token: ${{ secrets.ARTIFACTS_TOKEN }}
 
   # The two jobs run concurrently and never race: the reusable workflow's
   # concurrency group keys on `<repository>-<system>-parity-issues`, so each
