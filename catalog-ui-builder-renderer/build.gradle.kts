@@ -85,6 +85,8 @@ kotlin {
     commonMain.dependencies {
       implementation(libs.composeai.ui.builder.renderer.sdk.source)
       implementation(libs.compose.material3)
+      implementation(libs.compose.adaptive)
+      implementation(libs.compose.material3.adaptive.navigation.suite)
       implementation(libs.compose.material.icons.extended)
       @Suppress("DEPRECATION") implementation(compose.runtime)
       @Suppress("DEPRECATION") implementation(compose.ui)

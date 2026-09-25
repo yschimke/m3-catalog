@@ -2,6 +2,7 @@
 
 package ee.schimke.m3catalog.uibuilder
 
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AlertDialog
@@ -30,6 +31,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.SearchBar
@@ -39,6 +41,7 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -46,11 +49,19 @@ import androidx.compose.material3.TimeInput
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerLayoutType
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.adaptive.Posture
+import androidx.compose.material3.adaptive.WindowAdaptiveInfo
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteItem
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberSearchBarState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
@@ -65,6 +76,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.window.core.layout.WindowSizeClass
 import ee.schimke.composeai.uibuilder.CanvasAdapterRegistry
 import ee.schimke.composeai.uibuilder.CanvasNodeScope
 import ee.schimke.composeai.uibuilder.canvasAdapterRegistry
@@ -181,6 +193,56 @@ val materialCanvasAdapters = canvasAdapterRegistry {
   register("material3/PrimaryTabRow") {
     PrimaryTabRow(integer("selectedIndex").coerceAtLeast(0), modifier) { Slot("tabs") }
   }
+  register("material3/PrimaryScrollableTabRow") {
+    PrimaryScrollableTabRow(
+      integer("selectedIndex").coerceAtLeast(0),
+      modifier,
+      containerColor = color("containerColor", TabRowDefaults.primaryContainerColor),
+      contentColor = color("contentColor", TabRowDefaults.primaryContentColor),
+      edgePadding = float("edgePaddingDp", 52f).dp,
+      minTabWidth = float("minTabWidthDp", 90f).dp,
+    ) {
+      Slot("tabs")
+    }
+  }
+  register("material3/NavigationSuiteScaffold") {
+    // The suite type is measured from the frame the design is drawn in, as the catalog's own
+    // `NavigationSuiteScaffoldSticker` does: `currentWindowAdaptiveInfo()` would read the host
+    // window, so a phone frame beside a tablet frame would draw the same navigation component.
+    BoxWithConstraints(modifier) {
+      val width = maxWidth
+      val height = maxHeight
+      val type =
+        remember(width, height) {
+          NavigationSuiteScaffoldDefaults.navigationSuiteType(
+            WindowAdaptiveInfo(WindowSizeClass.compute(width.value, height.value), Posture())
+          )
+        }
+      CompositionLocalProvider(LocalNavigationSuiteType provides type) {
+        NavigationSuiteScaffold(
+          navigationItems = { Slot("navigationItems") },
+          navigationSuiteType = type,
+          containerColor = color("containerColor", MaterialTheme.colorScheme.surface),
+          contentColor = color("contentColor", MaterialTheme.colorScheme.onSurface),
+          primaryActionContent = { Slot("primaryAction") },
+        ) {
+          Slot("content")
+        }
+      }
+    }
+  }
+  register("material3/NavigationSuiteItem") {
+    // Styled for the type its scaffold resolved, not the default, which reads the host window.
+    NavigationSuiteItem(
+      selected = boolean("selected"),
+      onClick = ::click,
+      icon = { Slot("icon") },
+      label = optional("label"),
+      modifier = modifier,
+      navigationSuiteType = LocalNavigationSuiteType.current,
+      enabled = boolean("enabled", true),
+    )
+  }
   register("material3/LinearProgressIndicator") {
     val progress = float("progress").coerceIn(0f, 1f)
     if (boolean("indeterminate")) LinearProgressIndicator(modifier = modifier)
@@ -296,6 +358,11 @@ val materialCanvasAdapters = canvasAdapterRegistry {
         TimePicker(state = state, modifier = modifier, layoutType = TimePickerLayoutType.Vertical)
     }
   }
+}
+
+/** The type the enclosing `material3/NavigationSuiteScaffold` resolved for its frame. */
+private val LocalNavigationSuiteType = compositionLocalOf {
+  NavigationSuiteType.ShortNavigationBarCompact
 }
 
 private enum class CardKind {

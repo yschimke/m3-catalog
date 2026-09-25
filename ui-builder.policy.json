@@ -94,7 +94,7 @@
   "$comment_builtins": "None, and that is a claim worth making explicitly. Every component this catalog publishes is a real composable with a real call site, so it is in the component record and its policy belongs on its sticker. The builtins the packaged catalog carries — `layout/*`, `shape/*`, `asset/image`, `remote-compose/*` — are components OF THE BUILDER: a column is not a Material 3 component and this repository does not render one. Declaring them here would be this catalog claiming to own the builder's own vocabulary.",
   "$comment_code": "No `code` block, so the export stays `record`: a call site printed per node from the component record, which is all a catalog of leaf components needs and all this one has to say. The structural templates exist for a catalog whose screens have shape no signature carries — the Wear scaffold and its shared scroll state — and this one does not.",
   "$comment_templates": "No template designs listed yet. This catalog is due exactly one — `blank`, the Scaffold-over-Box starting point the New design chooser offers — and it is a Kotlin document builder in the preview server today. What arrives, what it carries beside the path, and why `jetcaster` is NOT this catalog's second template (it validates and then refuses to generate Kotlin, for reasons no component record fixes): docs/UI_BUILDER_TEMPLATES.md, and the plan it points at, https://github.com/yschimke/compose-preview-server/blob/main/docs/design/UI_BUILDER_SEED_TEMPLATES.md",
-  "$comment_components": "The per-component vocabulary a design is authored against: which properties this component takes, what each one accepts, which slots it has, which modifiers apply to it. Everything else about a component - its id, its record, its display name - is DERIVED from the annotations beside the preview, and restating it here would be a second place to rename it. Only what no annotation can express lives here, plus `group` where the derivation reaches the wrong shelf: one component is one SYMBOL, and a symbol several stickers draw is filed under whichever catalog id sorts first. That put `Text` on Badges, `Switch` on Lists, `IconButton` and `FloatingActionButton` on Bottom app bar, `HorizontalDivider` and `ListItem` on Dialogs. Seven entries here say the shelf instead; the generator reads this before the annotation for exactly that reason. Twenty-four components carry a vocabulary: the twenty-two a saved design names today, plus `m3/time-picker` and `m3/date-picker`, which a saved design also names and which only became reachable when discovery learned to resolve dependencies by coordinate and to follow a singleton lambda held by another singleton lambda (yschimke/compose-ai-tools#5354). Two more entries (`m3/floating-action-button`, `m3/provide-text-style`) carry a `group` and nothing else, because the derivation put them on a sibling's shelf. The other eighty-four are shelved straight from the record with no override, which is the correct and much smaller thing to publish. The contract: https://github.com/yschimke/compose-preview-server/blob/main/docs/design/UI_BUILDER_CATALOG_CONTRACT.md",
+  "$comment_components": "The per-component vocabulary a design is authored against: which properties this component takes, what each one accepts, which slots it has, which modifiers apply to it. Everything else about a component - its id, its record, its display name - is DERIVED from the annotations beside the preview, and restating it here would be a second place to rename it. Only what no annotation can express lives here, plus `group` where the derivation reaches the wrong shelf: one component is one SYMBOL, and a symbol several stickers draw is filed under whichever catalog id sorts first. That put `Text` on Badges, `Switch` on Lists, `IconButton` and `FloatingActionButton` on Bottom app bar, `HorizontalDivider` and `ListItem` on Dialogs. Seven entries here say the shelf instead; the generator reads this before the annotation for exactly that reason. Twenty-four components carry a vocabulary: the twenty-two a saved design names today, plus `m3/time-picker` and `m3/date-picker`, which a saved design also names and which only became reachable when discovery learned to resolve dependencies by coordinate and to follow a singleton lambda held by another singleton lambda (yschimke/compose-ai-tools#5354). Two more entries (`m3/floating-action-button`, `m3/provide-text-style`) carry a `group` and nothing else, because the derivation put them on a sibling's shelf. Three more carry a vocabulary because the builder's adaptive Google samples are authored on them: `m3/navigation-suite-scaffold` and `m3/navigation-suite-item`, which have no sticker (the kit publishes no node for a navigation suite, so it is a plain `@Preview` in `adaptive/AdaptiveLayouts.kt`) and so get their only shelf from `group` here, and `m3/primary-scrollable-tab-row`. The other eighty-one are shelved straight from the record with no override, which is the correct and much smaller thing to publish. The contract: https://github.com/yschimke/compose-preview-server/blob/main/docs/design/UI_BUILDER_CATALOG_CONTRACT.md",
   "components": {
     "m3/button": {
       "record": "catalog/androidx.compose.material3.ButtonKt.Button",
@@ -2531,6 +2531,204 @@
     "m3/material-expressive-theme": {
       "record": "catalog/androidx.compose.material3.MaterialThemeKt.MaterialExpressiveTheme",
       "excluded": "the theme scope every preview is wrapped in, not a component a design places. A design's theme is the document's, not a node's."
+    },
+    "m3/navigation-suite-item": {
+      "record": "catalog/androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldKt.NavigationSuiteItem",
+      "displayName": "Navigation item",
+      "group": "Navigation bar",
+      "canvas": "material3/NavigationSuiteItem",
+      "traits": [
+        "NavigationItem",
+        "SelectionControl"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "selected",
+          "jsonType": [
+            "boolean",
+            "string",
+            "object"
+          ],
+          "required": true,
+          "notes": "A flag, or a `stateEquals` read of a declared state variable — the shapes `m3/tab` accepts, for the same reason."
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "icon",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": []
+        },
+        {
+          "name": "label",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "TextContent"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/navigation-suite-scaffold": {
+      "record": "catalog/androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldKt.NavigationSuiteScaffold",
+      "displayName": "Navigation suite",
+      "group": "Navigation bar",
+      "canvas": "material3/NavigationSuiteScaffold",
+      "traits": [
+        "ScreenContent",
+        "AdaptiveNavigation"
+      ],
+      "slotCapabilities": [
+        {
+          "name": "navigationItems",
+          "cardinality": {
+            "min": 1
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container"
+          ],
+          "acceptedTraits": [
+            "NavigationItem"
+          ]
+        },
+        {
+          "name": "primaryAction",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "ordered": false,
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": []
+        },
+        {
+          "name": "content",
+          "cardinality": {
+            "min": 1
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container",
+            "Scaffold",
+            "Leaf"
+          ],
+          "acceptedTraits": []
+        }
+      ],
+      "modifierCapabilities": [
+        "size",
+        "fillMaxSize",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "fillMaxHeight",
+        "background",
+        "border",
+        "shadow",
+        "wrapContentSize",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
+    },
+    "m3/primary-scrollable-tab-row": {
+      "record": "catalog/androidx.compose.material3.TabRowKt.PrimaryScrollableTabRow",
+      "displayName": "Scrollable tab row",
+      "canvas": "material3/PrimaryScrollableTabRow",
+      "traits": [
+        "TabBar",
+        "OrderedContent"
+      ],
+      "propertyCapabilities": [
+        {
+          "name": "selectedIndex",
+          "jsonType": [
+            "integer",
+            "object"
+          ],
+          "required": true,
+          "notes": "An index, or a `state` read of a declared `int` variable — the shapes `m3/primary-tab-row` accepts. It is the variable the tabs write."
+        }
+      ],
+      "slotCapabilities": [
+        {
+          "name": "tabs",
+          "cardinality": {
+            "min": 1
+          },
+          "ordered": true,
+          "acceptedRoles": [
+            "Container"
+          ],
+          "acceptedTraits": [
+            "TabItem"
+          ]
+        }
+      ],
+      "modifierCapabilities": [
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ]
     }
   },
   "supersedes": {
