@@ -361,7 +361,9 @@ val materialCanvasAdapters = canvasAdapterRegistry {
 }
 
 /** The type the enclosing `material3/NavigationSuiteScaffold` resolved for its frame. */
-private val LocalNavigationSuiteType = compositionLocalOf { NavigationSuiteType.ShortNavigationBarCompact }
+private val LocalNavigationSuiteType = compositionLocalOf {
+  NavigationSuiteType.ShortNavigationBarCompact
+}
 
 private enum class CardKind {
   Filled,
