@@ -28,10 +28,7 @@ on:
         default: ''
       config:
         description: 'Page config to import.'
-        type: choice
-        options:
-          - design-pages.json
-          - glimmer-design-pages.json
+        type: string
         default: design-pages.json
       commit:
         description: 'Commit the refreshed cache back to this branch.'
@@ -63,11 +60,7 @@ jobs:
             echo "::error::FIGMA_TOKEN secret is not set."
             exit 1
           fi
-          if [ "$CONFIG" = "glimmer-design-pages.json" ]; then
-            args=(--config "$CONFIG" --design-map glimmer-design-map.json --kit-index glimmer-figma-kit-index.json)
-          else
-            args=(--config "$CONFIG")
-          fi
+          args=(--config "$CONFIG")
           [ -n "$PAGE" ] && args+=(--page "$PAGE")
           node scripts/import-figma-pages.mjs ${args[@]+"${args[@]}"} | tee import.txt
 
@@ -134,6 +127,5 @@ jobs:
           name: figma-pages
           path: |
             design/pages/
-            glimmer-design/pages/
             import.txt
           if-no-files-found: warn

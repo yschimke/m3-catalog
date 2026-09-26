@@ -63,8 +63,8 @@
 // because one class of layer cannot be dropped without changing the colour of what is left:
 // anything a RETAINED layer blends against. Figma composites at render time, so a
 // `mix-blend-mode: screen` group reads whatever is under it, and removing its backplate silently
-// repaints it against the page's pale section fallback — which is exactly how #437 presented, as
-// four Glimmer component sets that looked like a broken colour export.
+// repaints it against the page's fallback — which is exactly how #437 presented, as content that
+// looked like a broken colour export.
 //
 // So the importer checks the node tree before it prunes (`findRequiredBackplates`) and RETAINS an
 // excluded node that a retained blended or background-blurred layer overlaps, saying so in the run

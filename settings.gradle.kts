@@ -39,16 +39,6 @@ include(":catalog-ui-builder-renderer")
 // formatted, linted or refactored with this repo's own code. See docs/design/ANDROIDX_SAMPLES.md.
 include(":samples-catalog")
 
-// `androidx.xr.glimmer` as a sticker sheet. The FIRST Android modules in this build, and the
-// exception that proves the no-AGP rule rather than relaxing it: glimmer ships only as an AAR, so a
-// Compose Multiplatform desktop module cannot resolve it and the previews can only be rendered by
-// Robolectric. See glimmer-catalog/build.gradle.kts and docs/design/GLIMMER.md.
-include(":glimmer-catalog")
-
-// The AndroidX Glimmer samples, vendored and rendered beside the catalog above — the Android-side
-// counterpart of `:samples-catalog`. See glimmer-samples/build.gradle.kts.
-include(":glimmer-samples")
-
 // The AndroidX **foundation** samples — `androidx.compose.foundation` and `-layout`, vendored from
 // a pinned upstream commit and published as the `compose-ui-samples` system. A second samples
 // module rather than two more `paths` in `:samples-catalog`, for the same "separate module, not a

@@ -21,9 +21,9 @@ import ee.schimke.foundationcatalog.Sticker
 // The one leaf on this shelf. Everything else `compose-foundation` owns is something you put things
 // INSIDE; an image is a thing you put in.
 //
-// The picture is a gradient rather than a bundled photograph, for the reason `:glimmer-catalog`'s
-// own header artwork gives: a painter computed from constants cannot decode differently between
-// runs, so the sticker is reproducible without shipping bytes. What a design actually draws is the
+// The picture is a gradient rather than a bundled photograph: a painter computed from constants
+// cannot decode differently between runs, so the sticker is reproducible without shipping bytes.
+// What a design actually draws is the
 // asset its `assetKey` names — one the catalog ships, or one pinned through the builder's asset
 // lane — and the placeholder here is a picture of the SLOT rather than of any particular asset.
 

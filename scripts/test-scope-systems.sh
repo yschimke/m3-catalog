@@ -12,7 +12,7 @@
 set -uo pipefail
 
 SCRIPT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/scope-systems.sh"
-ALL='m3-catalog,m3-samples,compose-ui-samples,compose-foundation,glimmer-catalog,glimmer-samples'
+ALL='m3-catalog,m3-samples,compose-ui-samples,compose-foundation'
 failures=0
 
 # expect <name> <expected-systems-csv-or-"none"> <changed files…>
@@ -53,11 +53,6 @@ expect 'ui samples tree'    'compose-ui-samples' 'ui-samples-catalog/src/main/ko
 expect 'foundation sticker' 'compose-foundation' 'foundation-catalog/src/main/kotlin/A.kt'
 expect 'foundation gen'     'compose-foundation' 'scripts/foundation-catalog.mjs'
 
-# Both Glimmer sheets move together on a source change — same pattern, separate baselines.
-expect 'glimmer catalog' 'glimmer-catalog,glimmer-samples' 'glimmer-catalog/src/main/kotlin/Cards.kt'
-expect 'glimmer samples' 'glimmer-catalog,glimmer-samples' 'glimmer-samples/src/main/kotlin/A.kt'
-expect 'glimmer map'     'glimmer-catalog,glimmer-samples' 'glimmer-design-map.json'
-
 # --- the shared fan-out -----------------------------------------------------
 #
 # THE REGRESSION THIS FILE EXISTS FOR. The hand-written Scope job listed the lanes to fan out to by
@@ -72,10 +67,10 @@ expect 'this mapper'      "$ALL" 'scripts/scope-systems.sh'
 expect 'shared + one'     "$ALL" 'gradle/libs.versions.toml' 'catalog/src/main/kotlin/A.kt'
 
 # --- nothing relevant -------------------------------------------------------
-expect 'docs only'        'none' 'docs/evidence/glimmer-google-sans-flex/README.md'
+expect 'docs only'        'none' 'docs/FIGMA_PAGES.md'
 expect 'readme'           'none' 'README.md'
 expect 'unrelated ci'     'none' '.github/workflows/ci.yml'
-expect 'evidence png'     'none' 'docs/evidence/glimmer-google-sans-flex/card-sticker-after.png'
+expect 'evidence png'     'none' 'docs/evidence/example.png'
 
 # --- several at once --------------------------------------------------------
 expect 'kit + foundation' 'm3-catalog,compose-foundation' \
@@ -86,10 +81,10 @@ expect 'empty change set' "$ALL" ''
 
 # --- the flag forms a generic driver consumes -------------------------------
 expect_cmd '--all'  "$ALL" --all
-expect_cmd '--only one lane'  'glimmer-catalog' --only glimmer-catalog
-expect_cmd '--only two lanes' 'm3-catalog,glimmer-catalog' --only 'm3-catalog,glimmer-catalog'
+expect_cmd '--only one lane'  'm3-catalog' --only m3-catalog
+expect_cmd '--only two lanes' 'm3-catalog,compose-foundation' --only 'm3-catalog,compose-foundation'
 # The form a human types, with a space after the comma.
-expect_cmd '--only spaced'    'm3-catalog,glimmer-catalog' --only 'm3-catalog, glimmer-catalog'
+expect_cmd '--only spaced'    'm3-catalog,compose-foundation' --only 'm3-catalog, compose-foundation'
 
 # --- loud failures rather than a silent "regenerate nothing unusual" --------
 check_exit() {
@@ -103,7 +98,7 @@ check_exit() {
     failures=$((failures + 1))
   fi
 }
-check_exit 'unknown --only name' 2 --only 'glimmer-katalog'
+check_exit 'unknown --only name' 2 --only 'm3-katalog'
 check_exit 'empty --only'        2 --only ''
 check_exit 'unknown --system'    2 --system 'nope'
 check_exit 'unknown option'      2 --nope
@@ -115,7 +110,7 @@ else
   printf 'FAIL  --list -> %s\n' "$("$SCRIPT" --list </dev/null | paste -sd, -)"
   failures=$((failures + 1))
 fi
-if [ "$("$SCRIPT" --table </dev/null | wc -l)" -eq 6 ]; then
+if [ "$("$SCRIPT" --table </dev/null | wc -l)" -eq 4 ]; then
   printf 'PASS  --table rows\n'
 else
   printf 'FAIL  --table rows -> %s\n' "$("$SCRIPT" --table </dev/null | wc -l)"
@@ -129,15 +124,15 @@ else
 fi
 
 # --- --system, the per-lane range scope-step.sh calls back with -------------
-one="$(printf '%s\n' 'glimmer-catalog/src/main/kotlin/A.kt' | "$SCRIPT" --system glimmer-catalog)"
-if [ "$one" = 'glimmer-catalog=true' ]; then
+one="$(printf '%s\n' 'catalog/src/main/kotlin/A.kt' | "$SCRIPT" --system m3-catalog)"
+if [ "$one" = 'm3-catalog=true' ]; then
   printf 'PASS  --system single lane\n'
 else
   printf 'FAIL  --system single lane -> %s\n' "$one"
   failures=$((failures + 1))
 fi
-none="$(printf '%s\n' 'README.md' | "$SCRIPT" --system glimmer-catalog)"
-if [ "$none" = 'glimmer-catalog=false' ]; then
+none="$(printf '%s\n' 'README.md' | "$SCRIPT" --system m3-catalog)"
+if [ "$none" = 'm3-catalog=false' ]; then
   printf 'PASS  --system unrelated change\n'
 else
   printf 'FAIL  --system unrelated change -> %s\n' "$none"

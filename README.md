@@ -31,9 +31,9 @@ node ids and reference images, and the MCP server for variables and metadata. No
   code on every change, and appended as a commit rather than force-pushed, so the branch is
   diffable over time.
 
-That is the kit catalog. Five further sheets are published alongside it from the same workflow — the
-AndroidX Material 3 samples, the AndroidX foundation samples, the UI builder's own vocabulary, and
-two for `androidx.xr.glimmer` — each on its own delivery branch; see
+That is the kit catalog. Three further sheets are published alongside it from the same workflow —
+the AndroidX Material 3 samples, the AndroidX foundation samples, and the UI builder's own
+vocabulary — each on its own delivery branch; see
 [**Published systems**](#published-systems).
 
 The delivery branch's history is intentional: do not rewrite it into a fresh root commit as a
@@ -390,7 +390,7 @@ So light/dark and states being flat on `compose-preview/main` is expected; the g
 
 ### Published systems
 
-`design-artifacts.yml` no longer publishes one sheet. It runs six jobs, each rendering its own
+`design-artifacts.yml` no longer publishes one sheet. It runs four jobs, each rendering its own
 module against its own spec and appending to its own delivery branch:
 
 | System | Module | Renderer | Delivery branch | Paired with |
@@ -399,8 +399,6 @@ module against its own spec and appending to its own delivery branch:
 | `m3-samples` | `:samples-catalog` | Skiko (desktop) | [`design-artifacts/m3-samples`](../../tree/design-artifacts/m3-samples) | `m3-catalog` |
 | `compose-foundation` | `:foundation-catalog` | Skiko (desktop) | [`design-artifacts/compose-foundation`](../../tree/design-artifacts/compose-foundation) | — |
 | `compose-ui-samples`¹ | `:ui-samples-catalog` | Skiko (desktop) | [`design-artifacts/compose-ui-samples`](../../tree/design-artifacts/compose-ui-samples) | — |
-| `glimmer-catalog` | `:glimmer-catalog` | Robolectric (Android) | [`design-artifacts/glimmer-catalog`](../../tree/design-artifacts/glimmer-catalog) | — |
-| `glimmer-samples` | `:glimmer-samples` | Robolectric (Android) | [`design-artifacts/glimmer-samples`](../../tree/design-artifacts/glimmer-samples) | `glimmer-catalog` |
 
 ¹ Served, and **off the front page**. Which of these sheets a box serves, and how it presents them,
 is declared by this repository in
@@ -418,23 +416,10 @@ exist because this repository generates them: upstream annotates 7 of its 73 sam
 and never into the vendored tree. See
 [`docs/design/ANDROIDX_SAMPLES.md`](docs/design/ANDROIDX_SAMPLES.md).
 
-The two Glimmer sheets are the repository's only Android modules, and the renderer column is why:
-`androidx.xr.glimmer` ships an AAR with no Compose Multiplatform port, so a desktop JVM module
-cannot put it on the classpath at all. That split has a consequence worth reading off the table —
-each sheet is only ever paired with one rasterised the same way, because a Robolectric capture
-beside a Skiko one would put a *renderer* difference into a comparison meant to be about design.
-[`docs/design/GLIMMER.md`](docs/design/GLIMMER.md) has the full reasoning, including why these
-sheets are captured on black.
-
 **The badge above is workflow-scoped, and there is only one of it.** GitHub publishes status per
 workflow, not per job, so a green *Design Artifacts* badge means "the workflow's last run did not
-fail" — not "all four systems published". The per-system evidence is the delivery branch: a system
+fail" — not "all systems published". The per-system evidence is the delivery branch: a system
 whose job failed simply appends nothing, and its branch silently goes stale or never appears.
-
-That is not hypothetical. `glimmer-samples` failed at its spec-validation step on every run from the
-day the module landed, and the badge never showed it — the gap was only found by noticing that three
-branches had moved and a fourth had never existed. `ci.yml` now validates all four specs on the pull
-request, where a rejection is visible before the merge rather than after it.
 
 | Workflow | Does |
 | --- | --- |

@@ -9,9 +9,8 @@ name: Design Artifacts
 #   :ui-samples-catalog -> design-artifacts/compose-ui-samples the AndroidX FOUNDATION samples
 #   :foundation-catalog -> design-artifacts/compose-foundation  the UI builder's own vocabulary
 #
-# Two catalogs, one pipeline, and a `changes` job so a push that moves one of them does not spend a
-# runner re-rendering the other. That job is new with the samples sheet: with a single catalog
-# there was nothing to scope, and the `paths:` filter below was the whole of the answer.
+# Four catalogs, one pipeline, and a `changes` job so a push that moves one does not spend runners
+# re-rendering the others.
 #
 # The samples sheet's caller is deliberately the shorter of the two: it reproduces no Figma kit, so
 # every input the kit rendition spends on the design-reference lane is absent rather than merely
@@ -82,25 +81,6 @@ on:
       # of it committed. A refreshed SVG is a changed published page, so it is
       # as much a render input as the spec.
       - 'design/pages/**'
-      - 'glimmer-design-pages.json'
-      - 'glimmer-design/pages/**'
-      # The two Glimmer sheets' render inputs: the sticker sources and spec on one side, the
-      # vendored tree with its import manifest, patches and quarantine list on the other. Without
-      # these the `changes` job's `glimmer` output is unreachable on a push that touches only them —
-      # the workflow would never start, and both published sheets would sit stale until the weekly
-      # schedule or a manual dispatch.
-      - 'glimmer-catalog/**'
-      - 'glimmer-samples/**'
-      # `glimmer-design-map.json` is the committed kit-reference map the glimmer-catalog job copies
-      # into place, and the script is what projects it. Both are listed for the same reason
-      # `sample-map.json` and `scripts/samples-spec.mjs` are above: a change to either moves what
-      # the sheet publishes with no change to the module at all. A reference edit touches
-      # `glimmer-catalog/**` too and would have fired anyway — a regeneration-only change (a bumped
-      # emitter version, a fix to the script) would not have, and the published map would go stale
-      # in silence.
-      - 'glimmer-design-map.json'
-      - 'glimmer-design-map-variants.json'
-      - 'scripts/glimmer-design-map.sh'
       - 'gradle/libs.versions.toml'
       - 'gradle/wrapper/gradle-wrapper.properties'
       - 'settings.gradle.kts'
@@ -119,7 +99,7 @@ on:
       # prints the accepted names, and an unknown one fails the Scope job loudly rather than
       # quietly reporting that lane false.
       systems:
-        description: 'Comma-separated systems to republish (empty = all). e.g. glimmer-catalog,glimmer-samples'
+        description: 'Comma-separated systems to republish (empty = all). e.g. m3-catalog,m3-samples'
         type: string
         required: false
         default: ''
@@ -136,7 +116,7 @@ permissions:
 # PENDING one — GitHub keeps at most one pending run per group, so a newly queued run cancels the
 # one already waiting, and the cancelled run's catalogs are never re-rendered because its
 # replacement scopes to its own push. Each publish job below takes its own per-lane group instead,
-# so a glimmer render and a kit render queue independently and neither can evict the other.
+# so each catalog queues independently and cannot evict another.
 #
 # That is the cheap half. The load-bearing half is the Scope job's self-healing baseline below: a
 # genuine cancellation or a failed run still drops a lane, and only a scope that diffs from what the
@@ -146,7 +126,7 @@ jobs:
   # WHICH delivery branches does this run have to regenerate?
   #
   # The `paths:` filter above decides whether the workflow runs at all; this decides which catalogs
-  # inside it do. A render is 15-30 minutes, so a `catalog/**`-only push must not drag the glimmer
+  # inside it do. A render is 15-30 minutes, so a `catalog/**`-only push must not drag unrelated
   # sheets through one for a change they cannot see.
   #
   # The body is `scope-step.sh` from compose-ai-tools, pointed at this repository's own lane table
@@ -170,16 +150,12 @@ jobs:
     permissions:
       contents: read
     # Keyed by DELIVERY-BRANCH SLUG, matching the `system:` each publish job passes and the marker
-    # ref the baseline is read from. The two Glimmer sheets are separate lanes now: their input
-    # patterns are identical so they still light up together, but a run that published one and
-    # dropped the other re-renders only the one that was dropped.
+    # ref the baseline is read from.
     outputs:
       m3-catalog: ${{ steps.scope.outputs.m3-catalog }}
       m3-samples: ${{ steps.scope.outputs.m3-samples }}
       compose-ui-samples: ${{ steps.scope.outputs.compose-ui-samples }}
       compose-foundation: ${{ steps.scope.outputs.compose-foundation }}
-      glimmer-catalog: ${{ steps.scope.outputs.glimmer-catalog }}
-      glimmer-samples: ${{ steps.scope.outputs.glimmer-samples }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -574,171 +550,5 @@ jobs:
       render-shards: 1
       allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
 
-    secrets:
-      artifacts_token: ${{ secrets.ARTIFACTS_TOKEN }}
-
-  # ── The two Glimmer sheets ──────────────────────────────────────────────────────────────────────
-  #
-  # Both render through ROBOLECTRIC rather than Skiko, which is the one thing that makes these
-  # callers different from the two above. `androidx.xr.glimmer:glimmer` ships only as an AAR
-  # (`minCompileSdk=37`) with no Compose Multiplatform port, so a desktop module cannot resolve it
-  # — see `docs/design/GLIMMER.md` for why that decides everything else here.
-  #
-  # They differ on references. `glimmer-catalog` carries the Glimmer kit's, projected from its own
-  # annotations — the premise that Glimmer publishes no Figma kit was wrong, and its eight
-  # components now name exact nodes (see the `design-map-command` on that job). `glimmer-samples`
-  # still carries none: those are AndroidX's own sample call sites, not a reproduction of a
-  # published kit, so 0% parity coverage is the truthful number there and the empty-map command the
-  # m3-samples job explains at length is what states it.
-  #
-  # `glimmer-catalog` also carries a `figma_token` and a `reference-cache-branch`; `glimmer-samples`
-  # carries neither, because it maps nothing.
-  #
-  # An earlier revision of this comment said both could go without them because "scoring those
-  # references against the kit is design-parity.yml's job". That conflated two surfaces this repo
-  # keeps apart, and the `figma_token` comment on the `:catalog` job above states the distinction:
-  # design-parity scores the catalog against the kit on its OWN board, which the preview server does
-  # not serve; this workflow publishes the `references/` the SHEET uses. Without the token the nine
-  # `figma:` entries in the map were skipped with a warning and no `references/` was written at all,
-  # so every Glimmer page lost its Figma link and its side-by-side — with the mapping done and
-  # nothing on the page to show for it.
-  glimmer-catalog:
-    name: glimmer-catalog
-    needs: changes
-    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.glimmer-catalog == 'true' }}
-    permissions:
-      contents: write
-    # Per LANE, so a queued render in one sheet cannot evict a pending one in another — see
-    # the note where the workflow-level group used to be. A caller's own concurrency is the
-    # one thing the reusable workflow cannot fix for it: a called workflow's jobs inherit the
-    # CALLER's workflow-level group.
-    concurrency:
-      group: design-artifacts-${{ github.ref }}-glimmer-catalog
-      cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
-    with:
-      system: glimmer-catalog
-      artifact-repository: yschimke/m3-catalog-out
-      spec: glimmer-catalog/catalog.spec.json
-      module: ':glimmer-catalog'
-      # The Glimmer kit's references, projected from this module's own annotations. NOT the empty
-      # map this job shipped with: that was written on the premise that Glimmer publishes no Figma
-      # kit, which was wrong — there is a community kit, and the eight components now name exact
-      # nodes in it. The command copies the committed map into place under the name the reusable
-      # workflow reads, the same shape `:catalog` relies on; it runs no Gradle because the map is
-      # generated and committed by `scripts/glimmer-design-map.sh`.
-      design-map-command: cp glimmer-design-map.json design-map.json
-      design-pages-config: glimmer-design-pages.json
-
-      # The Glimmer kit's own cache, built by `design-parity-import.yml`'s second job (#378) and
-      # already holding the nine referenced cells plus the six component sets they sit in. A miss
-      # falls through to the API rather than failing, so this only removes requests — but with the
-      # whole map already cached it removes nearly all of them.
-      #
-      # NOT `design-parity/reference`: that one holds the Material 3 file
-      # (`ocdacdEsnHipMJD3egzxKb`) and knows nothing about `HKfLClZDLRyMhf4IQQLna8`. The caches are
-      # separate because the kits are, which is the same reason the two parity boards are.
-      reference-cache-branch: design-parity/glimmer-reference
-
-      cli-version: catalog
-      catalog-key: composePreviewPlugin
-      # FALSE, unlike every other caller in this file: no AGP would mean no Glimmer at all.
-      desktop-render: false
-      # TRUE, and the Robolectric lane above is not an obstacle to it: `publish-live-bundle` carries
-      # the executable bundle for whichever daemon matches, and preview.coo.ee's image bakes the
-      # ANDROID one (`/opt/lib-daemon-android`, `android.jar` at ANDROID_HOME, and Robolectric's
-      # `android-all-instrumented` jar) precisely so an Android-backed catalog re-renders live
-      # rather than replaying baked PNGs. Without this the viewer's device, theme and knob controls
-      # have nothing to redraw with, and it says so on the sheet.
-      #
-      # No `embed-deps`: that is for coordinates the serve box cannot resolve, and Glimmer is not
-      # one — `CoordinateResolver` fetches from `repo1.maven.org` AND `dl.google.com/dl/android/maven2`,
-      # which is where `androidx.xr.glimmer` lives. Turning it on anyway would only make the bundle
-      # bigger.
-      #
-      # The third-party-execution caution the two samples jobs carry does NOT apply here: this
-      # module is first-party code in this repository, not upstream's bytes vendored at a pin.
-      publish-live-bundle: true
-      # Glimmer's layered vectors contain raster-backed effects for only some components. Publish
-      # every vector statically so catalog.json never advertises a deferred live SVG that the
-      # Android catalog host cannot reconstruct from its stripped sidecars (#400).
-      defer-figma-svg: false
-      split-per-preview: false
-      commit-user-name: Yuri Schimke
-      commit-user-email: yuri@schimke.ee
-      timeout-minutes: 60
-      render-timeout: 1800
-      render-shards: 1
-      allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
-    secrets:
-      artifacts_token: ${{ secrets.ARTIFACTS_TOKEN }}
-      # What this buys, concretely: the reference render beside each sticker and the Figma deep link
-      # on its page. The server gates both on an imported reference for THAT preview rather than on
-      # the map's `reference` field — `badge-number__ideal__default__light` carries one and shows the
-      # link, `…__dark` carries none and shows nothing, from the same component with the same field.
-      #
-      # Glimmer draws a single capture per sticker with no theme axis at all — it is an additive
-      # glasses surface, dark-only like Wear — and that is fine here: 1857 of the 1937 references
-      # this repo already publishes carry no theme suffix either. The light-capture assumption that
-      # once broke Wear lived in the map PROJECTOR, not in this publisher, and was fixed upstream in
-      # `@yschimke/compose-design-map` v1.16.0; our map pairs `ButtonSticker` with its sole capture
-      # and resolves.
-      figma_token: ${{ secrets.FIGMA_TOKEN }}
-
-  glimmer-samples:
-    name: glimmer-samples
-    needs: changes
-    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.glimmer-samples == 'true' }}
-    permissions:
-      contents: write
-    # Per LANE, so a queued render in one sheet cannot evict a pending one in another — see
-    # the note where the workflow-level group used to be. A caller's own concurrency is the
-    # one thing the reusable workflow cannot fix for it: a called workflow's jobs inherit the
-    # CALLER's workflow-level group.
-    concurrency:
-      group: design-artifacts-${{ github.ref }}-glimmer-samples
-      cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
-    with:
-      system: glimmer-samples
-      artifact-repository: yschimke/m3-catalog-out
-      spec: glimmer-samples/catalog.spec.json
-      module: ':glimmer-samples'
-      design-map-command: printf '{"components":[]}\n' > design-map.json
-      cli-version: catalog
-      catalog-key: composePreviewPlugin
-      desktop-render: false
-      # LIVE, where this job shipped with baked stickers only.
-      #
-      # The comment this replaces deferred to the m3-samples job — "a live bundle here would mean
-      # the preview server executing vendored third-party Compose, which is a decision about that
-      # host rather than about this catalog". That job has since MADE the decision, and made it in
-      # the affirmative, on three specifics it states at length: the samples run in the same sandbox
-      # this repository's own code already runs in on that box; they are public AndroidX source
-      # vendored from a pinned commit and re-fetched byte-identically on every import, so what
-      # executes is auditable and cannot drift under us between publishes; and without a live bundle
-      # a samples page is baked PNGs with no device, theme or knob control, which is most of what
-      # makes a call site worth opening rather than reading on GitHub.
-      #
-      # Every one of those holds here unchanged — same import script, same pin discipline
-      # (`glimmer-samples/import.json`), same review. So the deferral has nothing left to defer to,
-      # and leaving it false only withheld the knobs from the one sheet whose components are hardest
-      # to read as still pictures.
-      #
-      # What differs is the DAEMON, not the grant: this module renders through Robolectric rather
-      # than Skiko, and `publish-live-bundle` carries the executable bundle for whichever daemon
-      # matches. preview.coo.ee's image bakes the Android one (`/opt/lib-daemon-android`,
-      # `android.jar` at ANDROID_HOME, Robolectric's `android-all-instrumented` jar) precisely so an
-      # Android-backed catalog re-renders live — the same reasoning the `glimmer-catalog` job above
-      # gives for its own `true`, and no `embed-deps` for the same reason: `androidx.xr.glimmer`
-      # resolves from `dl.google.com/dl/android/maven2`, which the serve box already reaches.
-      publish-live-bundle: true
-      split-per-preview: false
-      commit-user-name: Yuri Schimke
-      commit-user-email: yuri@schimke.ee
-      timeout-minutes: 60
-      render-timeout: 1800
-      render-shards: 1
-      allow-incomplete: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_incomplete }}
     secrets:
       artifacts_token: ${{ secrets.ARTIFACTS_TOKEN }}
