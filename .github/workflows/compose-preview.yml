@@ -38,7 +38,7 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           cache-read-only: 'true'
-      - uses: yschimke/compose-ai-tools/.github/actions/apply@v2.22.3
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@v2.27.0
         with:
           artifact-repository: yschimke/m3-catalog-out
           artifacts-token: ''
@@ -100,7 +100,7 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           cache-read-only: 'false'
-      - uses: yschimke/compose-ai-tools/.github/actions/apply@v2.22.3
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@v2.27.0
         with:
           artifact-repository: yschimke/m3-catalog-out
           artifacts-token: ${{ secrets.ARTIFACTS_TOKEN }}
