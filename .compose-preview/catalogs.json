@@ -25,11 +25,6 @@
       "loadPriority": 10
     },
     {
-      "$comment": "`androidx.xr.glimmer` as a sticker sheet, compared against the Glimmer community kit.",
-      "system": "glimmer-catalog",
-      "group": "design-systems"
-    },
-    {
       "$comment": "The UI builder's own vocabulary — the containers, screen frames, shapes and image asset a design is assembled out of — published so an `m3` or `wear-m3` palette borrows them from a delivery branch. See docs/design/FOUNDATION_CATALOG.md. LISTED, deliberately, and worth a second thought: like the samples sheets below it reproduces no kit and carries no Figma reference, so if the front page should hold only sheets that reproduce something, this is the other candidate for `listed: false` and the flag is the whole change.",
       "system": "compose-foundation",
       "group": "design-systems"
@@ -37,12 +32,6 @@
     {
       "$comment": "AndroidX's material3 samples, paired with `m3-catalog` so a sample sits beside the kit cell it is a call site for.",
       "system": "m3-samples",
-      "group": "androidx-samples",
-      "attributionRepos": ["androidx/androidx"]
-    },
-    {
-      "$comment": "AndroidX's Glimmer samples, paired with `glimmer-catalog`.",
-      "system": "glimmer-samples",
       "group": "androidx-samples",
       "attributionRepos": ["androidx/androidx"]
     },

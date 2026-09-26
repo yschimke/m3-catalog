@@ -15,21 +15,10 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 
-// ## One generator, two kits
-//
-// The inputs are arguments rather than constants because `glimmer-catalog` needs exactly this
-// expansion against a different kit, and AGENTS.md is explicit that a capability any catalog could
-// want is a generic input rather than a forked copy of the pipeline. The defaults are `:catalog`'s,
-// so the bare invocation is unchanged:
+// The inputs are arguments rather than constants so this remains a reusable generator. The defaults
+// are `:catalog`'s, so the bare invocation is unchanged:
 //
 //   node scripts/generate-exhaustive-kit-cells.mjs
-//   node scripts/generate-exhaustive-kit-cells.mjs \
-//     --design-map glimmer-design-map.json \
-//     --variants glimmer-design-map-variants.json \
-//     --kit-index glimmer-figma-kit-index.json \
-//     --manifest glimmer-exhaustive-kit-cells.json \
-//     --out glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/ExhaustiveKitCellAnnotations.kt \
-//     --package ee.schimke.m3catalog.glimmer
 
 const ROOT = new URL("../", import.meta.url);
 const readJson = (name) => JSON.parse(readFileSync(new URL(name, ROOT), "utf8"));

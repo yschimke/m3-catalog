@@ -5,7 +5,7 @@
 # This repository's path→lane mapping, in the shape `scope-step.sh` in
 # yschimke/compose-ai-tools consumes (`SCOPE_MAPPER`). That script is the whole Scope job,
 # generic over the lane table; this file is the only part that is ours. Adopting it rather than
-# keeping a sixth copy of the job is what compose-ai-tools#5465 asks callers to do, and the reason
+# keeping another copy of the job is what compose-ai-tools#5465 asks callers to do, and the reason
 # is that the defect it fixed lived in the job's PREMISE — so a repository that keeps its own copy
 # keeps the defect.
 #
@@ -15,8 +15,8 @@
 # Usage:
 #   printf '%s\n' "${changed[@]}" | scripts/scope-systems.sh
 #   scripts/scope-systems.sh --all                      # every system, no stdin
-#   scripts/scope-systems.sh --only glimmer-catalog     # exactly these, no stdin
-#   printf '%s\n' "${changed[@]}" | scripts/scope-systems.sh --system glimmer-catalog
+#   scripts/scope-systems.sh --only m3-catalog         # exactly these, no stdin
+#   printf '%s\n' "${changed[@]}" | scripts/scope-systems.sh --system m3-catalog
 #   scripts/scope-systems.sh --list                     # system names, one per line
 #   scripts/scope-systems.sh --table                    # `<system>\t<regex>` rows
 #   scripts/scope-systems.sh --shared-re                # the all-systems regex
@@ -26,14 +26,9 @@
 # writes on each successful publish. A mapper keyed on anything else would look up markers that do
 # not exist and silently fall back to the old behaviour.
 #
-# That also splits `glimmer-catalog` from `glimmer-samples`, which the hand-written job treated as
-# one lane. Their INPUT patterns are identical, so they still light up together on a source change —
-# what changes is that a run which published one and dropped the other now re-renders only the one
-# that was dropped.
-
 set -euo pipefail
 
-SYSTEMS=(m3-catalog m3-samples compose-ui-samples compose-foundation glimmer-catalog glimmer-samples)
+SYSTEMS=(m3-catalog m3-samples compose-ui-samples compose-foundation)
 
 # Inputs that change the shape of EVERY bundle: the version catalog (it carries the
 # composePreviewPlugin pin the CLI is resolved from, so a compose-ai-tools release changes the
@@ -64,10 +59,6 @@ system_pattern() {
     # IS this catalog's payload — with no change to the module at all.
     compose-foundation)
       echo '^(foundation-catalog/|scripts/foundation-catalog\.mjs$)' ;;
-    # Both Glimmer sheets share the `glimmer` version ref, the Robolectric pin and the AGP setup, so
-    # a change to one is nearly always a change to both. Same pattern, separate baselines.
-    glimmer-catalog|glimmer-samples)
-      echo '^(glimmer-catalog/|glimmer-samples/|glimmer-design-map|glimmer-design-pages\.json$|glimmer-design/pages/|scripts/glimmer-)' ;;
     *) echo "unknown system: $1" >&2; exit 2 ;;
   esac
 }

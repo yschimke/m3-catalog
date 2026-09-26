@@ -7,7 +7,7 @@
  *
  * A catalog declares its inventory one of two ways: `@CatalogComponent` beside the `@Preview`, or
  * `groups` in the spec. The annotation route is closed here for the reason it is closed for
- * `:samples-catalog` and `:glimmer-samples` — the sources are upstream's bytes, re-fetched
+ * `:samples-catalog` — the sources are upstream's bytes, re-fetched
  * byte-identically on every import, so an annotation written into one would not survive the next
  * `scripts/import-samples.mjs` run. That leaves `groups`, generated and committed, with the
  * regenerate-and-diff `--check` contract the other specs carry.
@@ -19,9 +19,9 @@
  * is no kit here: a `LazyColumn` or `pointerInput` sample has no Material 3 Design Kit node and
  * never will, which is the first of issue #346's three reasons for a separate module.
  *
- * `scripts/glimmer-samples-spec.mjs` reads upstream's own `@Preview` functions. Foundation ships
- * almost none — 7 of 73 files — so there is nothing to read: what renders this corpus is the
- * wrappers `scripts/samples-previews.mjs` generates.
+ * Foundation ships almost no upstream `@Preview` functions — 7 of 73 files — so there is nothing
+ * useful to read directly: what renders this corpus is the wrappers
+ * `scripts/samples-previews.mjs` generates.
  *
  * So this one reads the same classification the wrapper generator does, and is a projection of it
  * rather than a second scan. A sample that gains a wrapper gains a card, and one that loses it

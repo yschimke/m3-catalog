@@ -105,8 +105,7 @@ function main(argv) {
   // material3 samples of `:samples-catalog` and the foundation samples of `:ui-samples-catalog`.
   // Each has its own manifest, each entry in it names the CMP artifact it is fingerprinted against,
   // and everything below is already per-library — so serving the second corpus is an argument
-  // rather than a second script. (`:glimmer-samples` has no CMP artifact to compare against at all
-  // and is checked by the compiler alone; see glimmer-samples/import.json.)
+  // rather than a second script.
   const manifestIndex = argv.indexOf("--manifest");
   const manifestPath = manifestIndex === -1 ? "samples/import.json" : argv[manifestIndex + 1];
   const pin = JSON.parse(readFileSync(manifestPath, "utf8"));

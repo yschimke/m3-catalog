@@ -2,32 +2,6 @@
 kotlin = "2.4.20"
 ktfmt = "0.27.0"
 
-# The Android Gradle Plugin, for the two Glimmer modules ONLY. Every other module in this
-# repository is deliberately not an Android module — `catalog/build.gradle.kts` opens by explaining
-# why — and that has not changed: `androidx.xr.glimmer:glimmer` is published as an AAR with no
-# Compose Multiplatform port, so a desktop/Skiko module cannot resolve it at all. The Glimmer sheets
-# therefore render through Robolectric, which is the lane `yschimke/wear-m3-catalog` already runs,
-# and this is the first AGP in this tree. See docs/design/GLIMMER.md.
-agp = "9.4.1"
-# Robolectric is what actually executes the Glimmer previews. Pinned to the version the sibling
-# repository renders with, so the two Android lanes cannot skew.
-robolectric = "4.17"
-
-# `androidx.xr.glimmer` — the Android XR design system. An alpha line moving on its own schedule,
-# and unlike material3 there is NO Compose Multiplatform artifact to fingerprint the pin against:
-# the version this compiles against IS the pin, and the compiler is the only gate. Same situation
-# the Wear side's samples are in.
-glimmer = "1.0.0-alpha19"
-# The ANDROIDX compose-ui line (not the Compose Multiplatform one the rest of this build uses), for
-# `androidx.compose.ui.tooling.preview.Preview` — the annotation discovery scans for — on the
-# Glimmer modules. Pinned to the version glimmer's own POM depends on, so the previews compile
-# against the same Compose the library was built against.
-androidx-compose-ui = "1.12.1"
-# The ANDROIDX extended Material icon set, for the Glimmer modules. Frozen at 1.7.8 upstream — the
-# same freeze `compose-material-icons` records for the Compose Multiplatform republication — and
-# pure icon `ImageVector` definitions, so it resolves alongside the compose-ui line above.
-androidx-compose-material-icons = "1.7.8"
-
 # Compose Multiplatform (desktop). 1.11.x is the first line that ships
 # `androidx.compose.ui.tooling.preview.PreviewWrapperProvider` on the desktop
 # target, which is what `@ThemeCatalog` needs — the catalog's named themes are
@@ -140,40 +114,11 @@ compose-ui-test-junit4 = { module = "org.jetbrains.compose.ui:ui-test-junit4", v
 
 materialkolor = { module = "com.materialkolor:material-kolor", version.ref = "materialKolor" }
 
-# Glimmer, and the Robolectric runtime that renders it.
-#
-# `glimmer-google-fonts` carries `createGoogleSansFlexTypography()` — the kit's real typeface. Every
-# text node in the Glimmer kit is Google Sans Flex (read off the 35 cached reference nodes on
-# `design-parity/glimmer-reference`: 74 text runs, all of it), so without this the whole sheet is
-# compared against the kit in Roboto and every text-bearing component scores a difference it can
-# never close.
-#
-# It used to be excluded, with the note "it resolves typefaces over the network at render time,
-# which a reproducible sticker sheet cannot depend on". The premise was right and the conclusion did
-# not follow: the render already has the machinery for exactly this. The faces land in the shared
-# `$XDG_CACHE_HOME/composeai/fonts` cache that every render lane restores and saves, and
-# `composeai.fonts.failOnFallback` (ON by default) turns an unresolved `Font(GoogleFont(...))` into
-# a FAILED preview rather than a silent Roboto substitution. So the sheet is reproducible because an
-# irreproducible one cannot pass, which is a stronger guarantee than not asking for the font at all.
-glimmer = { module = "androidx.xr.glimmer:glimmer", version.ref = "glimmer" }
-# `GlimmerTranslationsTest` in the AGP module. `:catalog` gets kotlin-test from the multiplatform
-# plugin's own `kotlin("test")` accessor; AGP 9 brings Kotlin support but not that accessor, so the
-# Glimmer side names the artifact.
-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-glimmer-google-fonts = { module = "androidx.xr.glimmer:glimmer-google-fonts", version.ref = "glimmer" }
-androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose-ui" }
-androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose-ui" }
-androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidx-compose-material-icons" }
-robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
-
 composeai-preview-overrides = { module = "ee.schimke.composeai:data-preview-overrides-runtime", version.ref = "composePreviewAnnotations" }
 composeai-preview-annotations = { module = "ee.schimke.composeai:preview-annotations", version.ref = "composePreviewAnnotations" }
 composeai-ui-builder-renderer-sdk-source = { module = "ee.schimke.composeai:ui-builder-renderer-sdk-source", version.ref = "uiBuilderSource" }
-composeai-glimmer-environment = { module = "ee.schimke.composeai:data-glimmer-environment-connector", version.ref = "composePreviewAnnotations" }
 
 [plugins]
-android-library = { id = "com.android.library", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

@@ -60,13 +60,7 @@ jobs:
       # The page cache records which exact kit nodes join to the generated map. This is a local,
       # token-free projection; letting it drift makes /pages.json under-report real coverage.
       - name: The imported page join is up to date
-        run: |
-          node scripts/import-figma-pages.mjs --check
-          node scripts/import-figma-pages.mjs \
-            --config glimmer-design-pages.json \
-            --design-map glimmer-design-map.json \
-            --kit-index glimmer-figma-kit-index.json \
-            --check
+        run: node scripts/import-figma-pages.mjs --check
 
       - uses: actions/upload-artifact@v7.0.1
         if: always()
@@ -162,32 +156,6 @@ jobs:
           node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
             --spec samples-catalog/catalog.spec.json --module-dir samples-catalog
 
-      # Neither Glimmer spec was validated here, and that gap had already cost a publish: the
-      # `glimmer-samples` job in design-artifacts.yml failed on `main` at its own "Validate catalog
-      # spec" step, so `design-artifacts/glimmer-samples` was never published while its three
-      # sibling systems were. The spec omitted `groups` on the reading that discovery's inventory
-      # would serve, and it does not — a catalog declares its inventory with `@CatalogComponent` or
-      # with `groups`, and vendored upstream bytes can carry neither annotation.
-      #
-      # The lesson is the placement rather than the bug. design-artifacts.yml runs on `main` AFTER
-      # the merge, so a spec it rejects is a sheet that silently stops publishing; this job runs on
-      # the pull request, needs no build, and takes seconds.
-      - name: glimmer-samples spec is current
-        run: node scripts/glimmer-samples-spec.mjs --check
-
-      - name: validate-catalog-spec (glimmer-catalog)
-        run: |
-          node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
-            --spec glimmer-catalog/catalog.spec.json --module-dir glimmer-catalog
-
-      # Warnings are expected to be none here, unlike the m3 samples above: upstream's Glimmer
-      # samples carry their own `@Preview` functions, and the generator emits one component per
-      # `@Preview` it finds, so the inventory and discovery are the same 50 by construction.
-      - name: validate-catalog-spec (glimmer-samples)
-        run: |
-          node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
-            --spec glimmer-samples/catalog.spec.json --module-dir glimmer-samples
-
       # The foundation samples' spec is GENERATED too, from the vendored sources and the wrapper
       # classification, so the same question comes first: does the committed file still match its
       # generator? Both halves are checked, because they can go stale independently — a re-import
@@ -279,23 +247,12 @@ jobs:
       - name: Test kit axis coverage
         run: node --test scripts/kit-coverage.test.mjs
 
-      # The generated exact-cell view, for both kits. A generated cell is an exact kit ADDRESS, so
+      # The generated exact-cell view. A generated cell is an exact kit ADDRESS, so
       # what is worth holding is that its `kitProps` is the kit variant's own name, that something
       # real drives it rather than it being a second name for the default pixels, and that the
       # annotation it lives in is attached to the sticker it claims to cross.
       - name: Test the generated exact kit cells
         run: node --test scripts/exhaustive-kit-cells.test.mjs
-
-      # Where the Glimmer inventory STOPS, and on which side. One level up from the axis-value
-      # check above: a kit set with no Glimmer API (Entity, the four progress indicators), a Glimmer
-      # API with no kit node (the pager), and the token types whose counterparts are Styles-page
-      # specimens rather than component sets. Checked in both directions, and pinned to the library
-      # version its API evidence was read from — so a Renovate bump fails the check until somebody
-      # re-reads the published surface, which is how the work reopens by itself.
-      - name: Test the declared Glimmer kit gaps
-        run: |
-          node --test scripts/glimmer-kit-gaps.test.mjs
-          node scripts/glimmer-kit-gaps.mjs
 
       # The duplicate-render scan's own logic, and the shape of the exemption
       # table it reads. The scan itself needs a render and runs in
@@ -327,16 +284,6 @@ jobs:
       # family and shows up as a diff to review instead of drifting silently.
       - name: Test the samples spec and its kit back-links
         run: node --test scripts/samples-spec.test.mjs
-
-      # The Glimmer samples spec, generated from the vendored SOURCES rather than from a map — there
-      # is no map, because glimmer's AAR publishes no sources jar. Two behaviours carry the weight,
-      # and both are about not losing a component quietly: a `@Preview` the generator cannot
-      # describe FAILS the run instead of falling out of the sheet (a dropped one still publishes,
-      # and still looks complete), and the rendered function is identified as the one the file
-      # DECLARES rather than by its name — half of upstream's `CardSamples.kt` renders functions
-      # with no `Sample` in the name at all.
-      - name: Test the glimmer samples spec
-        run: node --test scripts/glimmer-samples-spec.test.mjs
 
       # The ported `@Preview` wrapper generator, which is what makes a foundation samples sheet
       # possible at all: upstream annotates 7 of 73 files, so without wrappers the module publishes
@@ -382,33 +329,5 @@ jobs:
           scripts/design-map.sh
           if ! git diff --exit-code --stat -- design-map.json design-map-variants.json; then
             echo "::error::design-map.json is stale. Run: ./gradlew :catalog:composePreviewDiscover && scripts/design-map.sh"
-            exit 1
-          fi
-
-      # `glimmer-design-map.json` is generated and committed exactly as `design-map.json` is, and
-      # until now nothing regenerated it here — the same unenforced `--check` the catalog specs had
-      # before #364. It matters more since the map gained a second step: `scripts/glimmer-design-map.sh`
-      # now runs `@design-parity/kit-index resolve` against `glimmer-figma-kit-index.json`, so a
-      # stale map can misreport the kit as well as the annotations.
-      #
-      # This needs the Android SDK, unlike everything above it: `:glimmer-catalog` is the repo's
-      # only AGP module on this lane. The package is `platforms;android-37.0` — the module sets
-      # `compileSdk = 37` and the platform directory is `android-37.0`, NOT `android-37`, which is
-      # the sort of thing that only fails in CI. Idempotent, and a no-op once a runner image ships
-      # it.
-      - name: Install the Android platform :glimmer-catalog compiles against
-        run: |
-          set -euo pipefail
-          sdkmanager="${ANDROID_HOME:-${ANDROID_SDK_ROOT:?no Android SDK on this runner}}/cmdline-tools/latest/bin/sdkmanager"
-          yes | "$sdkmanager" --licenses > /dev/null 2>&1 || true
-          "$sdkmanager" 'platforms;android-37.0'
-
-      - name: Regenerate and compare (glimmer)
-        run: |
-          set -euo pipefail
-          ./gradlew :glimmer-catalog:composePreviewDiscover --stacktrace
-          scripts/glimmer-design-map.sh
-          if ! git diff --exit-code --stat -- glimmer-design-map.json glimmer-design-map-variants.json; then
-            echo "::error::glimmer-design-map.json is stale. Run: ./gradlew :glimmer-catalog:composePreviewDiscover && scripts/glimmer-design-map.sh"
             exit 1
           fi

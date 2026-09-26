@@ -53,8 +53,8 @@
  *     node scripts/import-samples.mjs --out <dir>     # vendor into <dir>
  *     node scripts/import-samples.mjs --check         # re-import and diff against the committed tree
  *
- * `--manifest`, `--patches`, `--quarantine`, `--out` and `--res` all default to the material3
- * corpus' paths; `:glimmer-samples` passes its own. See `glimmer-samples/import.json`.
+ * `--manifest`, `--patches`, `--quarantine`, `--out` and `--res` all default to the Material 3
+ * corpus' paths and can be overridden for another vendored corpus.
  */
 
 import { execFileSync } from "node:child_process";
@@ -71,13 +71,8 @@ import {
 import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 
-// The material3 corpus' paths. Every one is overridable on the command line, because this script
-// now serves TWO corpora: `:samples-catalog` (AndroidX material3 + adaptive, vendored from these
-// defaults) and `:glimmer-samples` (`androidx.xr.glimmer`, which passes its own manifest, patch
-// directory and quarantine list). They stay separate files rather than one manifest with two
-// destinations: the two modules compile against different classpaths — one Compose Multiplatform
-// desktop, one Android via Robolectric — so a file that must be quarantined in one is routinely
-// fine in the other, and a shared quarantine list would make each corpus' gaps unreadable.
+// The Material 3 corpus' paths. Every one is overridable on the command line so another vendored
+// corpus can reuse the importer without sharing manifests, patches, quarantine entries, or output.
 const MANIFEST = "samples/import.json";
 const PATCH_DIR = "samples/patches";
 const QUARANTINE = "samples/quarantine.json";

@@ -88,7 +88,7 @@ dependencies {
 // `upstream/` is upstream's bytes: ktfmt would rewrite it into a permanent diff against every
 // future
 // import — the formatting counterpart of "a fix is a patch, never an edit". The same narrowing
-// `:samples-catalog` and `:glimmer-samples` apply.
+// `:samples-catalog` applies.
 //
 // `SamplePreviews.kt` is `scripts/samples-previews.mjs`'s output, and its canonical form is
 // whatever

@@ -1,9 +1,8 @@
-// The generated exact-cell view, for both kits.
+// The generated exact-cell view for the Material 3 kit.
 //
 // `scripts/generate-exhaustive-kit-cells.mjs` writes a manifest and a Kotlin annotation file per
-// catalog: `:catalog` against the Material 3 kit, `:glimmer-catalog` against the Glimmer kit since
-// #374. The generator's inputs are arguments rather than constants for exactly that reason, so this
-// test is table-driven over the same two invocations.
+// catalog. The generator's inputs remain arguments so its mechanics are reusable, while this test
+// holds the invocation owned by this repository still.
 //
 // What it holds still is that a generated cell is an EXACT kit address: its `kitProps` is the kit
 // variant's own name, it has a real input behind it rather than being a second name for the default
@@ -20,14 +19,6 @@ const CATALOGS = [
     index: "figma-kit-index.json",
     generated: "catalog/src/main/kotlin/ee/schimke/m3catalog/ExhaustiveKitCellAnnotations.kt",
     annotationPackage: "ee\\.schimke\\.m3catalog",
-  },
-  {
-    name: "glimmer-catalog",
-    manifest: "glimmer-exhaustive-kit-cells.json",
-    index: "glimmer-figma-kit-index.json",
-    generated:
-      "glimmer-catalog/src/main/kotlin/ee/schimke/m3catalog/glimmer/ExhaustiveKitCellAnnotations.kt",
-    annotationPackage: "ee\\.schimke\\.m3catalog\\.glimmer",
   },
 ];
 

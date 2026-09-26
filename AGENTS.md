@@ -23,17 +23,16 @@ upstream libraries are missing an annotation — **raise it in
 rather than growing a JSON file here.
 
 **The one exception, and it is about ownership rather than convenience: a catalog of VENDORED
-sources declares its inventory in `groups`.** `:samples-catalog` and `:glimmer-samples` hold
+sources declares its inventory in `groups`.** `:samples-catalog` and `:ui-samples-catalog` hold
 upstream's bytes under upstream's package, re-fetched byte-identically from a pinned commit on every
 import — an `@CatalogComponent` written into one would be destroyed by the next
 `scripts/import-samples.mjs` run, or would have to become a patch per sample, which is hundreds of
 patches carrying no fix. No annotation added upstream fixes that; the file is not ours to annotate.
-So those two specs carry a `groups` block, GENERATED from the sources and committed with a
-`--check` gate (`scripts/samples-spec.mjs`, `scripts/glimmer-samples-spec.mjs`), and the schema
-makes `groups` optional for exactly this case. The rule above is unchanged for every catalog whose
-composables this repository writes. Same for CI: a capability any catalog could want belongs as a
-generic input on the reusable `design-artifacts-reusable.yml` workflow, never as a forked copy of the
-pipeline in this repo.
+So those specs carry a `groups` block, GENERATED from the sources and committed with a `--check`
+gate, and the schema makes `groups` optional for exactly this case. The rule above is unchanged for
+every catalog whose composables this repository writes. Same for CI: a capability any catalog could
+want belongs as a generic input on the reusable `design-artifacts-reusable.yml` workflow, never as a
+forked copy of the pipeline in this repo.
 
 ## Direction: design-led, and Figma is read-only
 
@@ -159,11 +158,8 @@ same word. Where Compose has no name of its own, take the kit's.
   `catalog/src/main/composeResources/values*/strings.xml`. Adding a string means adding it to
   `values/` **and to all 17 locale files** — `CatalogTranslationsTest` fails the build for a key that
   is missing from a locale, left as the English copy, or declared and never rendered.
-  `:glimmer-catalog` is the same rule through the mechanism that module has: it is AGP with no
-  multiplatform plugin, so its copy lives in `glimmer-catalog/src/main/res/values*/strings.xml` and
-  resolves with `stringResource(R.string.…)`, guarded by `GlimmerTranslationsTest` — same 17
-  locales, same four invariants. `:samples-catalog` and `:glimmer-samples` are exempt and always
-  will be: that copy is upstream's bytes, re-fetched byte-identically on every import. What stays a
+  The vendored sample catalogs are exempt and always will be: that copy is upstream's bytes,
+  re-fetched byte-identically on every import. What stays a
   literal: token names (`primary`, `Display Large`, `XS`) and sample data that isn't language
   (`alice@example.com`, `⌘E`, person names). Numeric samples such as `10:30` and badge counts pass
   through `localizedDigits(...)` so the locale's numbering system still applies.
