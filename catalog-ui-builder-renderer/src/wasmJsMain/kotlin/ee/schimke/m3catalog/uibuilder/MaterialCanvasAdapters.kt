@@ -77,10 +77,10 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.window.core.layout.WindowSizeClass
-import ee.schimke.composeai.uibuilder.CanvasAdapterRegistry
-import ee.schimke.composeai.uibuilder.CanvasNodeScope
-import ee.schimke.composeai.uibuilder.canvasAdapterRegistry
-import ee.schimke.composeai.uibuilder.googleMaterialIconImageVector
+import ee.schimke.composeai.uibuilder.renderer.sdk.CanvasAdapterRegistry
+import ee.schimke.composeai.uibuilder.renderer.sdk.CanvasNodeScope
+import ee.schimke.composeai.uibuilder.renderer.sdk.canvasAdapterRegistry
+import ee.schimke.composeai.uibuilder.renderer.sdk.googleMaterialIconImageVector
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
 
