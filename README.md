@@ -25,7 +25,8 @@ node ids and reference images, and the MCP server for variables and metadata. No
 `create_new_file`, no `upload_assets`, no Code Connect publishing.
 
 - **Browse it:** the published catalog is served at `preview.coo.ee/m3-catalog/`.
-- **Import it:** the generated bundle lives on the `design-artifacts/m3-catalog` branch —
+- **Import it:** the generated bundle lives on the `design-artifacts/m3-catalog` branch of the
+  output repository, [`yschimke/m3-catalog-out`](https://github.com/yschimke/m3-catalog-out/tree/design-artifacts/m3-catalog) —
   `catalog.json` (the inventory), raster `images/`, editable layered `figma/*.svg` vectors,
   schematic `wireframes/`, `code-connect.json`, and a browsable `index.html`. Regenerated from the
   code on every change, and appended as a commit rather than force-pushed, so the branch is
@@ -36,11 +37,14 @@ the AndroidX Material 3 samples, the AndroidX foundation samples, and the UI bui
 vocabulary — each on its own delivery branch; see
 [**Published systems**](#published-systems).
 
+Every generated branch — the delivery branches, the `compose-preview/*` baselines and the parity
+artifacts — is published to `yschimke/m3-catalog-out`, not to this repository, so a clone of this
+repository carries source only. Consumers that need the published catalog fetch
+`design-artifacts/m3-catalog` from the output repository, e.g.
+`https://raw.githubusercontent.com/yschimke/m3-catalog-out/design-artifacts/m3-catalog/bundle/bundle.png`.
+
 The delivery branch's history is intentional: do not rewrite it into a fresh root commit as a
-repository-size workaround. A normal `git clone` fetches that generated branch as well as `main`,
-including its large live-render bundles. Contributors who only need the source should use
-`git clone --single-branch https://github.com/yschimke/m3-catalog.git`; consumers that need the
-published catalog should fetch `design-artifacts/m3-catalog` deliberately.
+repository-size workaround.
 
 It has been re-rooted twice, both times deliberately and both times against a repository-size
 budget rather than ordinary growth. **The order matters: fix the publisher first, then reclaim the
@@ -378,7 +382,8 @@ compose-preview show --module :catalog \
 
 ### Where the grouped view lives
 
-Two long-lived branches carry rendered output, and they are **not** the same thing:
+Two long-lived branches of `yschimke/m3-catalog-out` carry rendered output, and they are **not** the
+same thing:
 
 | Branch | Shape | For |
 | --- | --- | --- |
@@ -391,14 +396,14 @@ So light/dark and states being flat on `compose-preview/main` is expected; the g
 ### Published systems
 
 `design-artifacts.yml` no longer publishes one sheet. It runs four jobs, each rendering its own
-module against its own spec and appending to its own delivery branch:
+module against its own spec and appending to its own delivery branch in `yschimke/m3-catalog-out`:
 
 | System | Module | Renderer | Delivery branch | Paired with |
 | --- | --- | --- | --- | --- |
-| `m3-catalog` | `:catalog` | Skiko (desktop) | [`design-artifacts/m3-catalog`](../../tree/design-artifacts/m3-catalog) | — |
-| `m3-samples` | `:samples-catalog` | Skiko (desktop) | [`design-artifacts/m3-samples`](../../tree/design-artifacts/m3-samples) | `m3-catalog` |
-| `compose-foundation` | `:foundation-catalog` | Skiko (desktop) | [`design-artifacts/compose-foundation`](../../tree/design-artifacts/compose-foundation) | — |
-| `compose-ui-samples`¹ | `:ui-samples-catalog` | Skiko (desktop) | [`design-artifacts/compose-ui-samples`](../../tree/design-artifacts/compose-ui-samples) | — |
+| `m3-catalog` | `:catalog` | Skiko (desktop) | [`design-artifacts/m3-catalog`](https://github.com/yschimke/m3-catalog-out/tree/design-artifacts/m3-catalog) | — |
+| `m3-samples` | `:samples-catalog` | Skiko (desktop) | [`design-artifacts/m3-samples`](https://github.com/yschimke/m3-catalog-out/tree/design-artifacts/m3-samples) | `m3-catalog` |
+| `compose-foundation` | `:foundation-catalog` | Skiko (desktop) | [`design-artifacts/compose-foundation`](https://github.com/yschimke/m3-catalog-out/tree/design-artifacts/compose-foundation) | — |
+| `compose-ui-samples`¹ | `:ui-samples-catalog` | Skiko (desktop) | [`design-artifacts/compose-ui-samples`](https://github.com/yschimke/m3-catalog-out/tree/design-artifacts/compose-ui-samples) | — |
 
 ¹ Served, and **off the front page**. Which of these sheets a box serves, and how it presents them,
 is declared by this repository in
