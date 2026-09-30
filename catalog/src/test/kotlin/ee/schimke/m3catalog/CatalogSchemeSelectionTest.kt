@@ -1,5 +1,6 @@
 package ee.schimke.m3catalog
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -43,6 +44,12 @@ class CatalogSchemeSelectionTest {
     @Composable override fun dp(key: String, default: Dp, index: Int?): Dp = default
   }
 
+  /**
+   * Whether the test host composes as dark. Desktop reads it from the OS, so a developer machine in
+   * dark mode resolves the light/dark axis to dark — which is the axis working, not a failure.
+   */
+  private var hostDark = false
+
   /** [CatalogSchemeChoice.currentScheme] under an optional theme provider and an optional seed. */
   private fun resolve(theme: ColorScheme?, seed: String? = null): ColorScheme {
     var resolved: ColorScheme? = null
@@ -53,6 +60,7 @@ class CatalogSchemeSelectionTest {
             SeededHost(seed?.let { mapOf("theme" to it) }.orEmpty()),
           LocalCatalogScheme provides theme,
         ) {
+          hostDark = isSystemInDarkTheme()
           resolved = CatalogSchemeChoice.currentScheme()
         }
       }
@@ -66,8 +74,9 @@ class CatalogSchemeSelectionTest {
   }
 
   @Test
-  fun `with no theme selected the grid keeps the axis default`() {
-    assertEquals(BaselineLight, resolve(theme = null))
+  fun `with no theme selected the grid follows the light-dark axis`() {
+    val resolved = resolve(theme = null)
+    assertEquals(if (hostDark) BaselineDark else BaselineLight, resolved)
   }
 
   @Test
