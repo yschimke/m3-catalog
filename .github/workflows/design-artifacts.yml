@@ -213,6 +213,9 @@ jobs:
       # owned by :catalog; keep this explicit so the reusable workflow can partition its preview
       # ids across the four render jobs below.
       module: ':catalog'
+      # Properties every render must hold, checked against the merged render's data products
+      # before anything publishes. See the file's $comment.
+      render-assertions: render-assertions.json
       # Keep the render CLI lockstep with the applied Gradle plugin — the pin is
       # `composePreviewPlugin` in libs.versions.toml, and a CLI/plugin skew
       # breaks preview discovery outright.

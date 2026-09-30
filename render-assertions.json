@@ -1,0 +1,11 @@
+{
+  "$comment": "Properties every :catalog render must hold, checked by the design-artifacts workflow against the data products the render already wrote, before anything publishes. Format and failure semantics: https://github.com/yschimke/compose-ai-tools/blob/main/docs/RENDER_ASSERTIONS.md. The visual diff answers 'did this change?'; these answer 'is it still true?'. This sheet renders on the desktop (Skiko) lane, which writes compose-semantics but no fonts-used sidecar, so the typography rule reads the text nodes. Skiko names the face file it resolved (Roboto-Regular, Roboto-Medium), hence `contains` rather than equality. Previews that lay out no text, and merged accessibility labels with no laid-out run (DatePicker day cells), are skipped by the checker itself.",
+  "assertions": [
+    {
+      "id": "m3-types-in-roboto",
+      "product": "compose-semantics",
+      "because": "the Material 3 baseline type scale is Roboto; any other face on a laid-out run means the desktop render fell back to a system font and the sheet no longer shows the design system it compares against the M3 kit",
+      "require": { "everyTextNode.typography.fontFamily": "contains Roboto" }
+    }
+  ]
+}
