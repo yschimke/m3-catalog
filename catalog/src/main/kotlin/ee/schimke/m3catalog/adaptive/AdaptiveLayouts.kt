@@ -21,27 +21,36 @@ import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.material3.adaptive.layout.AnimatedPane
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
+import androidx.compose.material3.adaptive.layout.PaneExpansionState
+import androidx.compose.material3.adaptive.layout.PaneScaffoldDirective
 import androidx.compose.material3.adaptive.layout.SupportingPaneScaffold
 import androidx.compose.material3.adaptive.layout.SupportingPaneScaffoldRole
 import androidx.compose.material3.adaptive.layout.calculatePaneScaffoldDirective
 import androidx.compose.material3.adaptive.layout.calculatePaneScaffoldDirectiveWithTwoPanesOnMediumWidth
+import androidx.compose.material3.adaptive.layout.rememberPaneExpansionState
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.material3.adaptive.navigation.rememberSupportingPaneScaffoldNavigator
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteItem
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.window.core.layout.WindowSizeClass
+import ee.schimke.composeai.overrides.previewOverrideDp
+import ee.schimke.composeai.overrides.previewOverrideFloat
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.Sticker
+import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
@@ -98,7 +107,7 @@ private const val LIST_ITEMS = 5
  * `NavigationSuiteScaffoldDefaults.navigationSuiteType` making it.
  */
 @Composable
-private fun AdaptiveSticker(content: @Composable (WindowAdaptiveInfo) -> Unit) = Sticker {
+private fun AdaptiveSticker(content: @Composable (WindowAdaptiveInfo, Dp) -> Unit) = Sticker {
   BoxWithConstraints(Modifier.fillMaxSize()) {
     val width = maxWidth
     val height = maxHeight
@@ -106,7 +115,7 @@ private fun AdaptiveSticker(content: @Composable (WindowAdaptiveInfo) -> Unit) =
       remember(width, height) {
         WindowAdaptiveInfo(WindowSizeClass.compute(width.value, height.value), Posture())
       }
-    content(info)
+    content(info, width)
   }
 }
 
@@ -142,6 +151,47 @@ private fun paneDirective(info: WindowAdaptiveInfo, twoPanesOnMedium: Boolean) =
   else calculatePaneScaffoldDirective(info)
 
 /**
+ * Material pane sizing, separate from the policy that decides how many panes are visible. Fixed
+ * widths use PaneExpansionState, not preferredWidth (which the scaffold may grow). With one visible
+ * pane Material ignores expansion and fills the available partition. The width here is measured
+ * inside the preview frame, so fixed-end stays fixed when the frame resizes. Split is relative to
+ * the scaffold's content width; an enclosing navigation rail is not included. Fold/hinge partitions
+ * remain owned by Material's measure policy.
+ */
+@Composable
+private fun paneSizing(width: Dp, directive: PaneScaffoldDirective): PaneExpansionState {
+  val sizing =
+    catalogChoice("paneSizing", "preferred", "preferred", "split", "fixedStart", "fixedEnd")
+  val fixedWidth = previewOverrideDp("fixedPaneWidth", 360.dp).coerceAtLeast(0.dp)
+  val fraction = previewOverrideFloat("splitFraction", 0.5f).coerceIn(0.1f, 0.9f)
+  val density = LocalDensity.current
+  val state = rememberPaneExpansionState()
+  LaunchedEffect(
+    sizing,
+    fixedWidth,
+    fraction,
+    width,
+    directive.horizontalPartitionSpacerSize,
+    density,
+  ) {
+    when (sizing) {
+      "split" -> state.setFirstPaneProportion(fraction)
+      "fixedStart" -> state.setFirstPaneWidth(with(density) { fixedWidth.roundToPx() })
+      "fixedEnd" ->
+        state.setFirstPaneWidth(
+          with(density) {
+            (width - directive.horizontalPartitionSpacerSize - fixedWidth)
+              .coerceAtLeast(0.dp)
+              .roundToPx()
+          }
+        )
+      else -> state.clear()
+    }
+  }
+  return state
+}
+
+/**
  * `NavigationSuiteScaffold` — one declaration of a set of destinations, drawn as the navigation
  * component the window has room for: a short navigation bar when it is compact, a collapsed wide
  * rail when it is not. The pane names the type the scaffold resolved, which is an API identifier
@@ -158,7 +208,7 @@ private fun paneDirective(info: WindowAdaptiveInfo, twoPanesOnMedium: Boolean) =
  */
 @CatalogBreakpoints
 @Composable
-fun NavigationSuiteScaffoldSticker() = AdaptiveSticker { info ->
+fun NavigationSuiteScaffoldSticker() = AdaptiveSticker { info, _ ->
   val type = NavigationSuiteScaffoldDefaults.navigationSuiteType(info)
   var selected by selectable(0)
   NavigationSuiteScaffold(
@@ -188,7 +238,7 @@ fun NavigationSuiteScaffoldSticker() = AdaptiveSticker { info ->
 /**
  * `ListDetailPaneScaffold` — a list beside its detail where there is room, and one pane at a time
  * where there is not. Compact shows the list alone and the detail is a destination the navigator
- * moves to; medium and expanded show both.
+ * moves to; expanded shows both by default; medium can opt into two panes.
  *
  * The scaffold is driven by `rememberListDetailPaneScaffoldNavigator` rather than by a hand-built
  * `ThreePaneScaffoldValue`, so the render is what the real navigation state produces — including on
@@ -197,51 +247,53 @@ fun NavigationSuiteScaffoldSticker() = AdaptiveSticker { info ->
  */
 @CatalogBreakpoints
 @Composable
-fun ListDetailPaneScaffoldSticker(twoPanesOnMedium: Boolean = false) = AdaptiveSticker { info ->
-  val navigator =
-    rememberListDetailPaneScaffoldNavigator<Int>(
-      scaffoldDirective = paneDirective(info, twoPanesOnMedium)
-    )
-  val scope = rememberCoroutineScope()
-  var selected by selectable(0)
-  ListDetailPaneScaffold(
-    directive = navigator.scaffoldDirective,
-    value = navigator.scaffoldValue,
-    listPane = {
-      AnimatedPane {
-        Pane {
-          repeat(LIST_ITEMS) { index ->
-            ListItem(
-              colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-              headlineContent = {
-                Text(catalogText("item", stringResource(Res.string.list_item), index))
-              },
-              supportingContent = { Text(stringResource(Res.string.list_supporting)) },
-              modifier =
-                Modifier.clickable {
-                  selected = index
-                  scope.launch {
-                    navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, contentKey = index)
-                  }
+fun ListDetailPaneScaffoldSticker(twoPanesOnMedium: Boolean = false) =
+  AdaptiveSticker { info, width ->
+    val navigator =
+      rememberListDetailPaneScaffoldNavigator<Int>(
+        scaffoldDirective = paneDirective(info, twoPanesOnMedium)
+      )
+    val scope = rememberCoroutineScope()
+    var selected by selectable(0)
+    ListDetailPaneScaffold(
+      directive = navigator.scaffoldDirective,
+      value = navigator.scaffoldValue,
+      paneExpansionState = paneSizing(width, navigator.scaffoldDirective),
+      listPane = {
+        AnimatedPane {
+          Pane {
+            repeat(LIST_ITEMS) { index ->
+              ListItem(
+                colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                headlineContent = {
+                  Text(catalogText("item", stringResource(Res.string.list_item), index))
                 },
-            )
+                supportingContent = { Text(stringResource(Res.string.list_supporting)) },
+                modifier =
+                  Modifier.clickable {
+                    selected = index
+                    scope.launch {
+                      navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, contentKey = index)
+                    }
+                  },
+              )
+            }
           }
         }
-      }
-    },
-    detailPane = {
-      AnimatedPane {
-        Pane {
-          Text(
-            catalogText("item", stringResource(Res.string.list_item), selected),
-            style = MaterialTheme.typography.titleMedium,
-          )
-          Text(stringResource(Res.string.card_supporting))
+      },
+      detailPane = {
+        AnimatedPane {
+          Pane {
+            Text(
+              catalogText("item", stringResource(Res.string.list_item), selected),
+              style = MaterialTheme.typography.titleMedium,
+            )
+            Text(stringResource(Res.string.card_supporting))
+          }
         }
-      }
-    },
-  )
-}
+      },
+    )
+  }
 
 /**
  * `SupportingPaneScaffold` — a main pane with secondary content beside it when the window is wide
@@ -250,46 +302,48 @@ fun ListDetailPaneScaffoldSticker(twoPanesOnMedium: Boolean = false) = AdaptiveS
  */
 @CatalogBreakpoints
 @Composable
-fun SupportingPaneScaffoldSticker(twoPanesOnMedium: Boolean = false) = AdaptiveSticker { info ->
-  val navigator =
-    rememberSupportingPaneScaffoldNavigator<Unit>(
-      scaffoldDirective = paneDirective(info, twoPanesOnMedium)
-    )
-  val scope = rememberCoroutineScope()
-  val more = counted(stringResource(Res.string.action_more))
-  SupportingPaneScaffold(
-    directive = navigator.scaffoldDirective,
-    value = navigator.scaffoldValue,
-    mainPane = {
-      AnimatedPane {
-        Pane {
-          Text(
-            stringResource(Res.string.card_title),
-            style = MaterialTheme.typography.titleMedium,
-          )
-          Text(stringResource(Res.string.card_supporting))
-          Button(
-            onClick = {
-              more.onClick()
-              scope.launch { navigator.navigateTo(SupportingPaneScaffoldRole.Supporting) }
-            },
-            modifier = Modifier.padding(top = 16.dp),
-          ) {
-            Text(more.label)
+fun SupportingPaneScaffoldSticker(twoPanesOnMedium: Boolean = false) =
+  AdaptiveSticker { info, width ->
+    val navigator =
+      rememberSupportingPaneScaffoldNavigator<Unit>(
+        scaffoldDirective = paneDirective(info, twoPanesOnMedium)
+      )
+    val scope = rememberCoroutineScope()
+    val more = counted(stringResource(Res.string.action_more))
+    SupportingPaneScaffold(
+      directive = navigator.scaffoldDirective,
+      value = navigator.scaffoldValue,
+      paneExpansionState = paneSizing(width, navigator.scaffoldDirective),
+      mainPane = {
+        AnimatedPane {
+          Pane {
+            Text(
+              stringResource(Res.string.card_title),
+              style = MaterialTheme.typography.titleMedium,
+            )
+            Text(stringResource(Res.string.card_supporting))
+            Button(
+              onClick = {
+                more.onClick()
+                scope.launch { navigator.navigateTo(SupportingPaneScaffoldRole.Supporting) }
+              },
+              modifier = Modifier.padding(top = 16.dp),
+            ) {
+              Text(more.label)
+            }
           }
         }
-      }
-    },
-    supportingPane = {
-      AnimatedPane {
-        Pane {
-          Text(
-            stringResource(Res.string.sheet_details),
-            style = MaterialTheme.typography.titleMedium,
-          )
-          Text(stringResource(Res.string.sheet_supporting))
+      },
+      supportingPane = {
+        AnimatedPane {
+          Pane {
+            Text(
+              stringResource(Res.string.sheet_details),
+              style = MaterialTheme.typography.titleMedium,
+            )
+            Text(stringResource(Res.string.sheet_supporting))
+          }
         }
-      }
-    },
-  )
-}
+      },
+    )
+  }
