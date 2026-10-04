@@ -1,7 +1,7 @@
 {
   "schema": "compose-ui-builder-document/v1-candidate",
-  "id": "supporting-pane",
-  "title": "Supporting pane",
+  "id": "list-detail",
+  "title": "List-detail",
   "revision": 0,
   "catalogPin": {
     "systemId": "m3-catalog",
@@ -33,44 +33,41 @@
   "nodes": {
     "panes": {
       "id": "panes",
-      "componentId": "layout/supporting-pane-scaffold",
+      "componentId": "layout/list-detail-pane-scaffold",
       "properties": {
         "layoutMode": {
           "type": "enum",
           "value": "adaptive"
         },
-        "mainPaneVisible": {
+        "listPaneVisible": {
           "type": "bool",
           "value": true
         },
-        "supportingPaneVisible": {
+        "detailPaneVisible": {
           "type": "bool",
           "value": true
-        },
-        "supportingPanePreferredWidthDp": {
-          "type": "float",
-          "value": 360
-        },
-        "paneSpacingDp": {
-          "type": "float",
-          "value": 16
         },
         "paneSizing": {
           "type": "enum",
-          "value": "fixedEnd"
+          "value": "fixedStart"
         },
         "fixedPaneWidthDp": {
           "type": "float",
           "value": 360
+        },
+        "activePaneIndex": {
+          "type": "int",
+          "value": 0
         }
       },
       "slots": {
-        "mainPane": [
+        "listPane": [
           "main"
         ],
-        "supportingPane": [
+        "detailPane": [
           "support"
-        ]
+        ],
+        "extraPane": []
       },
       "modifiers": [
         {
@@ -109,7 +106,7 @@
       "properties": {
         "text": {
           "type": "string",
-          "value": "Main content"
+          "value": "List"
         },
         "style": {
           "type": "enum",
@@ -126,7 +123,7 @@
       "properties": {
         "text": {
           "type": "string",
-          "value": "Replace this with your primary content."
+          "value": "Start with the collection here. Connect selection to the active pane and selected item."
         },
         "style": {
           "type": "enum",
@@ -167,7 +164,7 @@
       "properties": {
         "text": {
           "type": "string",
-          "value": "Related content"
+          "value": "Detail"
         },
         "style": {
           "type": "enum",
@@ -184,7 +181,7 @@
       "properties": {
         "text": {
           "type": "string",
-          "value": "Add context or tools for the main content here."
+          "value": "The selected item appears here. Return to the list to choose another."
         },
         "style": {
           "type": "enum",
