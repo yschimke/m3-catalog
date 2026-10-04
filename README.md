@@ -126,10 +126,10 @@ explains the split, and the file's own `$comment` fields explain each decision i
 reads it yet** — it is authored so the catalog it generates can be diffed against the packaged one
 before anything switches over.
 
-The policy also declares four **starting templates**: a blank screen, adaptive navigation,
-a supporting pane and an adaptive feed. Their documents live under `ui-builder/designs/`;
+The policy also declares five **starting templates**: a blank screen, adaptive navigation,
+list-detail, a supporting pane and an adaptive feed. Their documents live under `ui-builder/designs/`;
 [`docs/UI_BUILDER_TEMPLATES.md`](docs/UI_BUILDER_TEMPLATES.md) records the guidance, pane sizing
-controls and builder support still needed for a true list-detail starter.
+controls and the companion builder support for list-detail and fixed/flexible panes.
 
 That policy declares **zero** builtins, on the grounds that `layout/*`, `shape/*` and `asset/image`
 are the builder's own vocabulary rather than Material 3's — and something still has to publish them,
