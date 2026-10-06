@@ -308,8 +308,9 @@ Wrapping changes none of the verification rules below; run the same tasks throug
   independently-versioned material3 artifact). Both change what the catalog renders, and the render
   is the product — a human reads the visual diff before it lands.
 - `compose-ai-tools` is the exception in the other direction: the CLI, the Gradle plugin marker, the
-  `preview-annotations` coord and the pinned CI action ref are one release and move together in a
-  single PR, unscheduled and automerged. A skew between them breaks preview discovery outright.
+  pinned CI action ref move together in a single PR, unscheduled and automerged. The annotations
+  and override runtime belong to compose-preview-daemon: keep their aliases versionless and apply
+  its release BOM. The contracts BOM advances independently; Renovate tracks both BOM pins.
 - Repository settings — squash-only merges, auto-merge, and the `Protect Main` ruleset that automerge
   depends on — are applied by `scripts/setup-repo-protection.sh`. They need an admin token, so no
   workflow or agent session can set them; re-running the script repairs drift. `DRY_RUN=1` prints

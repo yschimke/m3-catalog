@@ -105,6 +105,46 @@
       "automerge": true,
       "automergeSchedule": ["at any time"],
       "minimumReleaseAge": null
+    },
+    {
+      "description": "Update this release BOM independently; module versions come from its constraints.",
+      "matchPackageNames": [
+        "ee.schimke.composeai:compose-preview-daemon-bom"
+      ],
+      "groupName": "compose-preview-daemon",
+      "rangeStrategy": "pin",
+      "enabled": true,
+      "schedule": [
+        "at any time"
+      ],
+      "minimumReleaseAge": null
+    },
+    {
+      "description": "Update this release BOM independently; module versions come from its constraints.",
+      "matchPackageNames": [
+        "ee.schimke.composeai:compose-preview-contracts-bom"
+      ],
+      "groupName": "compose-preview-contracts",
+      "rangeStrategy": "pin",
+      "enabled": true,
+      "schedule": [
+        "at any time"
+      ],
+      "minimumReleaseAge": null
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/ci\\.yml$/"
+      ],
+      "matchStrings": [
+        "repository:\\s*yschimke/compose-ai-tools\\s+ref:\\s*v(?<currentValue>\\d+\\.\\d+\\.\\d+)"
+      ],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "yschimke/compose-ai-tools",
+      "extractVersionTemplate": "^v(?<version>.*)$"
     }
   ]
 }

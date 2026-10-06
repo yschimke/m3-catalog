@@ -47,6 +47,8 @@ plugins {
 kotlin { jvmToolchain(21) }
 
 dependencies {
+  implementation(platform(libs.composeai.contracts.bom))
+  implementation(platform(libs.composeai.daemon.bom))
   implementation(compose.desktop.currentOs)
   implementation(libs.compose.foundation)
   implementation(libs.compose.runtime)
