@@ -108,19 +108,23 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           repository: yschimke/compose-ai-tools
-          ref: main
+          ref: v2.35.0
           path: compose-ai-tools
           persist-credentials: false
       - uses: actions/setup-node@v7.0.0
         with:
           node-version: 24.21.0
+      - name: Install catalog validation driver
+        run: |
+          compose-ai-tools/.github/scripts/install-export-driver.sh \
+            --scripts-only "$RUNNER_TEMP/export-driver" >/dev/null
       # The build-free pre-flight: resolves every spec reference against the
       # module's actual `@Preview` functions and flags PNG-less previews, before
       # the (long) render in design-artifacts.yml spends a runner discovering the
       # same problem.
       - name: validate-catalog-spec
         run: |
-          node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
+          node "$DRIVER_DIR/validate-catalog-spec.mjs" \
             --spec catalog.spec.json --module-dir catalog
 
       # The samples sheet's spec is GENERATED, so the first question is whether the committed file
@@ -153,7 +157,7 @@ jobs:
       # They still render; they land as bundle orphans rather than as catalog cards.
       - name: validate-catalog-spec (samples)
         run: |
-          node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
+          node "$DRIVER_DIR/validate-catalog-spec.mjs" \
             --spec samples-catalog/catalog.spec.json --module-dir samples-catalog
 
       # The foundation samples' spec is GENERATED too, from the vendored sources and the wrapper
@@ -176,12 +180,12 @@ jobs:
       # sits beside, so they render as bundle orphans rather than as catalog cards.
       - name: validate-catalog-spec (ui-samples-catalog)
         run: |
-          node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
+          node "$DRIVER_DIR/validate-catalog-spec.mjs" \
             --spec ui-samples-catalog/catalog.spec.json --module-dir ui-samples-catalog
 
       - name: validate-catalog-spec (foundation-catalog)
         run: |
-          node compose-ai-tools/scripts/design-artifacts/validate-catalog-spec.mjs \
+          node "$DRIVER_DIR/validate-catalog-spec.mjs" \
             --spec foundation-catalog/catalog.spec.json --module-dir foundation-catalog
 
       # The policy pre-flight, which nothing here ran until `compose-foundation` needed it. It is
@@ -192,9 +196,9 @@ jobs:
       # Both policies, because this repository now authors two.
       - name: validate-ui-builder-policy
         run: |
-          node compose-ai-tools/scripts/design-artifacts/validate-ui-builder-policy.mjs \
+          node "$DRIVER_DIR/validate-ui-builder-policy.mjs" \
             --policy ui-builder.policy.json
-          node compose-ai-tools/scripts/design-artifacts/validate-ui-builder-policy.mjs \
+          node "$DRIVER_DIR/validate-ui-builder-policy.mjs" \
             --policy foundation-catalog/ui-builder.policy.json
 
       # The `builtins` block of `compose-foundation`'s policy is GENERATED from a frozen golden —

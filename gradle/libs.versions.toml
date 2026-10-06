@@ -78,12 +78,11 @@ materialKolor = "5.0.1"
 # compose-ai-tools: the `ee.schimke.composeai.preview` Gradle plugin and the reusable CI
 # actions/workflows are one release — keep both pinned together (Renovate groups them; see
 # .github/renovate.json).
-composePreviewPlugin = "2.32.1"
-# compose-preview-daemon: `preview-annotations` and `data-preview-overrides-runtime`, which moved
-# there from compose-ai-tools in compose-ai-tools#5336 and release from its 3.0.0 on a line of
-# their own — so this ref no longer tracks `composePreviewPlugin`, and Renovate carves it into its
-# own group.
-composePreviewAnnotations = "3.12.0"
+composePreviewPlugin = "2.35.0"
+# The daemon release BOM supplies each annotation and override module's published version.
+# These modules are versionless; releases may publish only a subset of them.
+composePreviewDaemon = "3.14.0"
+composePreviewContracts = "3.19.0"
 uiBuilderSource = "3.30.0"
 
 [libraries]
@@ -114,8 +113,10 @@ compose-ui-test-junit4 = { module = "org.jetbrains.compose.ui:ui-test-junit4", v
 
 materialkolor = { module = "com.materialkolor:material-kolor", version.ref = "materialKolor" }
 
-composeai-preview-overrides = { module = "ee.schimke.composeai:data-preview-overrides-runtime", version.ref = "composePreviewAnnotations" }
-composeai-preview-annotations = { module = "ee.schimke.composeai:preview-annotations", version.ref = "composePreviewAnnotations" }
+composeai-contracts-bom = { module = "ee.schimke.composeai:compose-preview-contracts-bom", version.ref = "composePreviewContracts" }
+composeai-daemon-bom = { module = "ee.schimke.composeai:compose-preview-daemon-bom", version.ref = "composePreviewDaemon" }
+composeai-preview-overrides = { module = "ee.schimke.composeai:data-preview-overrides-runtime" }
+composeai-preview-annotations = { module = "ee.schimke.composeai:preview-annotations" }
 composeai-ui-builder-renderer-sdk-source = { module = "ee.schimke.composeai:ui-builder-renderer-sdk-source", version.ref = "uiBuilderSource" }
 
 [plugins]
