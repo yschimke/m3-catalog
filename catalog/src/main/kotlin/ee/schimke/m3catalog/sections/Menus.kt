@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowRight
+import androidx.compose.material3.DropdownMenuGroup
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalDivider
@@ -22,7 +23,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import ee.schimke.composeai.preview.CaptureGutter
+import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.KitShadowGutter
 import ee.schimke.m3catalog.Sticker
@@ -34,23 +38,32 @@ import ee.schimke.m3catalog.generated.resources.label_text
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
-// `DropdownMenu` renders into a popup window a single-surface capture cannot reach. Its **items**
-// are plain composables, so the sticker composes them in the menu container the component uses —
-// the real `DropdownMenuItem` rows, in the real surface shape and colour.
+// Two kit menus, two Compose APIs, and they are not the same component:
 //
-// `MenuDefaults.shape` is 4dp where the kit specs 16 (#85). It stays the library's value on
-// purpose: hard-coding 16 would draw a container `DropdownMenu` never draws, and would hide the
-// divergence from every future parity run. The break is left visible and filed upstream instead.
+//   The kit's expressive `Menu` set (`58966:3975`, `Theme=Standard, Groups=1` is `58966:4078`) is
+//   Compose's grouped menu — `DropdownMenuGroup`, which the app hosts in a `DropdownMenuPopup`.
+//   `MenuDefaults.groupShape(index, count)` / `standaloneGroupShape` resolve to CornerLarge (16dp)
+//   and `MenuDefaults.groupStandardContainerColor` to surface-container-low: the kit's 16dp and
+//   `#F7F2FA` exactly (#85, #95). [DropdownMenuGroupSticker] renders it.
 //
-// The kit varies three things inside that container, and all three are item parameters rather than
-// different components: the leading icon, a trailing shortcut label, and dividers grouping the
-// items.
+//   The kit's `Menu (baseline)` set (`54061:36963`, `Density=0` is `54061:36964`) is the baseline
+//   `DropdownMenu`, whose 4dp `MenuDefaults.shape` and `MenuTokens.ContainerColor`
+//   (surface-container) are correct for that node. [DropdownMenuSticker] draws it, and stays out of
+//   the inventory: `DropdownMenu` composes its own popup window, which a single-surface capture
+//   cannot reach (compose-ai-tools#3916).
+//
+// The 4dp-vs-16dp and surface-container-vs-low "divergences" were the grouped node compared against
+// the baseline component. `MenuDefaults.LeadingIconSize` / `TrailingIconSize` are 20dp, which is
+// the
+// kit's 20x20 icon slot on both nodes.
 
 private data class MenuRow(val label: StringResource, val icon: ImageVector)
 
 private val MENU_ROWS = List(6) { MenuRow(Res.string.label_text, CatalogOutlinedStars) }
 
-// Not a catalog comparison until popup surfaces can be captured (compose-ai-tools#3916).
+// The baseline menu (`54061:36964`). Not a catalog comparison until popup surfaces can be captured
+// (compose-ai-tools#3916): `DropdownMenu` composes its container inside its own popup, so this
+// composes the items in the container `MenuDefaults` describes rather than invoking `DropdownMenu`.
 @Composable
 fun DropdownMenuSticker() = Sticker {
   val icons = catalogChoice("leading", "icon", "icon", "none") == "icon"
@@ -70,19 +83,8 @@ fun DropdownMenuSticker() = Sticker {
     )
   ) {
     // A dropdown menu lives in its own platform window, so this composes the container rather
-    // than capturing one — and the rule for that is to take every part of it from `MenuDefaults`,
-    // never to pick numbers that look right. The three that were literals now do:
-    //
-    //   `tonalElevation` was 3.dp and `MenuDefaults.TonalElevation` is Level0 — the tint was
-    //   drawn by nothing but the literal, and neither Compose nor the kit asks for it.
-    //   `shadowElevation` was also 3.dp, which happens to be `MenuTokens.ContainerElevation`
-    //   (Level2) — right number, no name.
-    //   `color` was `surfaceContainer` spelled by hand, which is what `MenuDefaults.containerColor`
-    //   resolves to (`MenuTokens.ContainerColor`) — so same pixels, and now it tracks the token.
-    //
-    // The kit fills this node with `surface-container-LOW` instead (see issue #95), which is also
-    // what `StandardMenuTokens.ContainerColor` says. Following the component's own default here
-    // leaves that disagreement where parity can see it.
+    // than capturing one, and every part of it comes from `MenuDefaults`: the baseline menu's 4dp
+    // shape and surface-container colour, both correct for the baseline node.
     Surface(
       modifier = Modifier.width(208.dp).height(292.dp),
       shape = MenuDefaults.shape,
@@ -108,25 +110,101 @@ fun DropdownMenuSticker() = Sticker {
             enabled = enabled,
             leadingIcon =
               if (!icons) null
-              // 20dp is the kit's leading element (`I58966:4081;58966:4103`, 20x20), not a guess.
-              // `MenuDefaults.LeadingIconSize` says 24; the kit wins on drawn content, and the
-              // difference is recorded in issue #95 rather than split between the two.
-              else ({ Icon(row.icon, contentDescription = null, modifier = Modifier.size(20.dp)) }),
+              // `MenuDefaults.LeadingIconSize` is 20dp, the kit's 20x20 leading slot.
+              else
+                ({
+                  Icon(
+                    row.icon,
+                    contentDescription = null,
+                    modifier = Modifier.size(MenuDefaults.LeadingIconSize),
+                  )
+                }),
             trailingIcon =
               if (shortcuts) ({ Text("⌘C") })
               else
                 ({
-                  // The kit's trailing element is 20x20, the same box as the leading one; 10dp
-                  // was half of it and matched neither the kit nor `MenuDefaults`.
+                  // `MenuDefaults.TrailingIconSize` is 20dp, the kit's 20x20 trailing slot.
                   Icon(
                     Icons.Filled.ArrowRight,
                     contentDescription = null,
-                    modifier = Modifier.size(20.dp),
+                    modifier = Modifier.size(MenuDefaults.TrailingIconSize),
                   )
                 }),
           )
         }
       }
+    }
+  }
+}
+
+/**
+ * The kit's expressive menu, `Theme=Standard, Groups=1`: one [DropdownMenuGroup].
+ *
+ * `DropdownMenuGroup` is the container itself — a `Surface` in the group's shape and colour — and
+ * an app hosts it in a `DropdownMenuPopup`. The popup only positions and animates its content, so
+ * the sticker renders the group directly: the pixels are the real composable's, not a replica. The
+ * shape is `MenuDefaults.standaloneGroupShape` (CornerLarge, 16dp) and the colour
+ * `MenuDefaults.groupStandardContainerColor` (surface-container-low), both the kit's (#85, #95).
+ *
+ * The kit's other `Menu` cells are not authored here: the vibrant theme needs vibrant item colours
+ * that only Compose's selectable items carry, and the multi-group cells' per-group content is not
+ * yet measured.
+ */
+@CatalogComponent(
+  id = "Menu/DropdownGroup",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58966:4078",
+  caption =
+    "The expressive menu: items in a DropdownMenuGroup, in the group's 16dp corner and " +
+      "surface-container-low.",
+)
+@CatalogModes
+// The leading / trailing / status knobs stay live-panel overrides rather than baked variants: they
+// are slot contents the kit's `Menu` set does not split into nodes, so a baked cell would have no
+// kit node to be compared against.
+@CaptureGutter(
+  start = KitShadowGutter.Level3Side,
+  top = KitShadowGutter.Level3Top,
+  end = KitShadowGutter.Level3Side,
+  bottom = KitShadowGutter.Level3Bottom,
+)
+@Composable
+fun DropdownMenuGroupSticker() = Sticker {
+  val icons = catalogChoice("leading", "icon", "icon", "none") == "icon"
+  val shortcuts = catalogChoice("trailing", "chevron", "chevron", "shortcut") == "shortcut"
+  val disabledLast = catalogChoice("status", "enabled", "enabled", "disabled") == "disabled"
+  // 208dp is the kit node's width — a size the caller passes, so it goes on the component.
+  DropdownMenuGroup(
+    shapes = MenuDefaults.groupShape(index = 0, count = 1),
+    modifier = Modifier.width(208.dp),
+    containerColor = MenuDefaults.groupStandardContainerColor,
+  ) {
+    MENU_ROWS.forEachIndexed { index, row ->
+      val c = counted(catalogText("label", stringResource(row.label), index))
+      DropdownMenuItem(
+        text = { Text(c.label) },
+        onClick = c.onClick,
+        enabled = !(disabledLast && index == MENU_ROWS.lastIndex),
+        leadingIcon =
+          if (!icons) null
+          else
+            ({
+              Icon(
+                row.icon,
+                contentDescription = null,
+                modifier = Modifier.size(MenuDefaults.LeadingIconSize),
+              )
+            }),
+        trailingIcon =
+          if (shortcuts) ({ Text("⌘C") })
+          else
+            ({
+              Icon(
+                Icons.Filled.ArrowRight,
+                contentDescription = null,
+                modifier = Modifier.size(MenuDefaults.TrailingIconSize),
+              )
+            }),
+      )
     }
   }
 }
