@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -21,6 +22,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CaptureGutter
 import ee.schimke.composeai.preview.CatalogComponent
@@ -96,12 +99,27 @@ private fun FigmaButtonContent(label: String) {
  * gutter inside the frame would measure the button in a smaller box and grow its canvas, which is
  * what drew the elevated arm 7% smaller than its siblings (#179, and #102 for the crop the gutter
  * fixes).
+ *
+ * Both heights go through [kitHeight].
  */
 @Composable
 private fun ButtonFrame(size: CatalogSize, content: @Composable () -> Unit) {
   val height = if (size == CatalogSize.Small) 48.dp else size.containerHeight
-  Box(modifier = Modifier.height(height), contentAlignment = Alignment.Center) { content() }
+  Box(modifier = Modifier.kitHeight(height), contentAlignment = Alignment.Center) { content() }
 }
+
+/**
+ * The kit's height, exact at font scale 1 and a minimum above it (#256).
+ *
+ * At the kit's font scale the size's container height is exact, as the kit draws it — and it has to
+ * stay exact there: as a minimum, the button's 48dp minimum interactive size would grow the XSmall
+ * and Small cells' layout and move their pixels. At a raised font scale the label needs more room
+ * than the kit's height, and `Button` grows with its `defaultMinSize` the way it does in an app; an
+ * exact height squeezed the label's text box to 24dp and clipped it.
+ */
+@Composable
+private fun Modifier.kitHeight(height: Dp): Modifier =
+  if (LocalDensity.current.fontScale > 1f) heightIn(min = height) else height(height)
 
 @CatalogComponent(
   id = "Button/Filled",
@@ -119,7 +137,7 @@ fun FilledButton() = Sticker {
   ButtonFrame(size) {
     val enabled = catalogEnabled()
     val padding = size.contentPadding
-    val modifier = Modifier.height(size.containerHeight)
+    val modifier = Modifier.kitHeight(size.containerHeight)
     val content: @Composable RowScope.() -> Unit = { FigmaButtonContent(c.label) }
     if (catalogExpressive()) {
       val shapes = catalogButtonShapes(size)
@@ -147,7 +165,7 @@ fun TonalButton() = Sticker {
   ButtonFrame(size) {
     val enabled = catalogEnabled()
     val pad = size.contentPadding
-    val modifier = Modifier.height(size.containerHeight)
+    val modifier = Modifier.kitHeight(size.containerHeight)
     val content: @Composable RowScope.() -> Unit = { FigmaButtonContent(c.label) }
     if (catalogExpressive()) {
       val shapes = catalogButtonShapes(size)
@@ -189,7 +207,7 @@ fun OutlinedButtonSticker() = Sticker {
   ButtonFrame(size) {
     val enabled = catalogEnabled()
     val pad = size.contentPadding
-    val modifier = Modifier.height(size.containerHeight)
+    val modifier = Modifier.kitHeight(size.containerHeight)
     val content: @Composable RowScope.() -> Unit = { FigmaButtonContent(c.label) }
     if (catalogExpressive()) {
       val shapes = catalogButtonShapes(size)
@@ -218,7 +236,7 @@ fun ElevatedButtonSticker() = Sticker {
   ButtonFrame(size) {
     val enabled = catalogEnabled()
     val pad = size.contentPadding
-    val modifier = Modifier.height(size.containerHeight)
+    val modifier = Modifier.kitHeight(size.containerHeight)
     val content: @Composable RowScope.() -> Unit = { FigmaButtonContent(c.label) }
     if (catalogExpressive()) {
       val shapes = catalogButtonShapes(size)
@@ -249,7 +267,7 @@ fun TextButtonSticker() = Sticker {
   ButtonFrame(size) {
     val enabled = catalogEnabled()
     val pad = size.contentPadding
-    val modifier = Modifier.height(size.containerHeight)
+    val modifier = Modifier.kitHeight(size.containerHeight)
     val content: @Composable RowScope.() -> Unit = { FigmaButtonContent(c.label) }
     if (catalogExpressive()) {
       val shapes = catalogButtonShapes(size)

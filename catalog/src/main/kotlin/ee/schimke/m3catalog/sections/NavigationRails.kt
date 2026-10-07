@@ -4,11 +4,10 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuOpen
 import androidx.compose.material.icons.filled.Edit
@@ -19,8 +18,6 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.NavigationRail
-import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.WideNavigationRail
 import androidx.compose.material3.WideNavigationRailDefaults
@@ -41,12 +38,10 @@ import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogOutlinedStars
-import ee.schimke.m3catalog.FigmaWorkaround
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
-import ee.schimke.m3catalog.figmaWorkaround
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_menu
 import ee.schimke.m3catalog.generated.resources.action_new
@@ -59,35 +54,37 @@ import ee.schimke.m3catalog.selectable
 import org.jetbrains.compose.resources.stringResource
 
 // The kit's axes: destination count, the optional menu and FAB header slots, and label visibility.
-// The expanded form is a separate composable (WideNavigationRail), so it is its own component.
+// Both kit sets are `WideNavigationRail`: collapsed (`Navigation Rail`) and expanded
+// (`Navigation Rail: Expanded`). The kit publishes them as two sets, so they are two components.
 
 private val RAIL =
   listOf(Res.string.nav_home, Res.string.nav_search, Res.string.nav_you, Res.string.nav_saved)
 
 @Composable
-private fun RailHeaderContent(wide: Boolean, menu: Boolean, fab: Boolean) {
+private fun RailHeaderContent(expanded: Boolean, menu: Boolean, fab: Boolean) {
   // Both tallies are read before the early return so the call sequence does not depend on the
   // knobs — the same reason `TopAppBars.NavIcon` resolves its tally ahead of the `nav` check.
   val menuClick = counted("menu")
   val fabClick = counted("new")
-  Column(horizontalAlignment = Alignment.CenterHorizontally) {
-    // WideNavigationRail reserves its own header inset; the standard rail does not, so the kit's
-    // 44dp is the caller's to draw — a cover-up, registered and tracked as #458.
-    if (!wide) {
-      Spacer(
-        Modifier.height(
-          figmaWorkaround(
-            FigmaWorkaround.NavigationRailHeaderInsets,
-            upstream = 0.dp,
-            workaround = 44.dp,
-          )
-        )
-      )
-    }
+  // No spacers: `WideNavigationRail` applies the kit's header insets itself, collapsed or expanded
+  // — `TopSpace` 44dp above the header and `HeaderSpaceMinimum` 40dp between it and the first
+  // destination (#458).
+  //
+  // The header slot is start-aligned and unpadded, because the same header travels into the
+  // expanded rail. Collapsed, the kit centres the menu (x=24) and FAB (x=20) on its 96dp rail, so
+  // the header content the caller passes spans the rail's collapsed width and centres itself — the
+  // shape of the Compose sample, which pads its collapsed menu button by 24dp. No public token
+  // names
+  // the 96dp; it is the kit node's width. Expanded, the header hugs the leading edge as the kit's
+  // expanded node does.
+  Column(
+    modifier = if (expanded) Modifier else Modifier.width(96.dp),
+    horizontalAlignment = Alignment.CenterHorizontally,
+  ) {
     if (menu) {
       IconButton(onClick = menuClick.onClick) {
         Icon(
-          if (wide) Icons.AutoMirrored.Filled.MenuOpen else Icons.Filled.Menu,
+          if (expanded) Icons.AutoMirrored.Filled.MenuOpen else Icons.Filled.Menu,
           contentDescription = stringResource(Res.string.action_menu),
         )
       }
@@ -101,7 +98,7 @@ private fun RailHeaderContent(wide: Boolean, menu: Boolean, fab: Boolean) {
           focusedElevation = 0.dp,
           hoveredElevation = 0.dp,
         )
-      if (wide) {
+      if (expanded) {
         ExtendedFloatingActionButton(
           onClick = fabClick.onClick,
           elevation = elevation,
@@ -115,37 +112,24 @@ private fun RailHeaderContent(wide: Boolean, menu: Boolean, fab: Boolean) {
           Icon(Icons.Filled.Edit, contentDescription = stringResource(Res.string.action_new))
         }
       }
-      // NavigationRail starts destinations immediately after its header, while WideNavigationRail
-      // supplies the 40 dp header-to-destination gap itself. 40dp is the kit's own gap on both:
-      // its `Menu & Fab` frame ends at y=160 and its `Segments` slot starts at y=200, on the
-      // standard rail and the wide one alike. This used to hold 92dp, which put every destination
-      // 63dp below the node it is compared against. What is left after it is upstream's: the kit
-      // insets its item's indicator 6dp inside a 64dp item and `NavigationRailItem` insets its own
-      // by ~17, so the first indicator still lands ~11dp low with the gap correct.
-      //
-      // Both insets are [FigmaWorkaround.NavigationRailHeaderInsets]: padding the caller supplies
-      // for a gap the component does not apply, which is the shape this catalog otherwise refuses.
-      // Render with `figmaWorkarounds=false` for what `NavigationRail` draws unaided — its first
-      // destination at 176.8 against the kit's 206.
-      if (!wide) {
-        Spacer(
-          Modifier.height(
-            figmaWorkaround(
-              FigmaWorkaround.NavigationRailHeaderInsets,
-              upstream = 0.dp,
-              workaround = 40.dp,
-            )
-          )
-        )
-      }
     }
   }
 }
 
+/**
+ * The kit's `Navigation Rail` set is the EXPRESSIVE collapsed rail, and Compose's equivalent is a
+ * collapsed [WideNavigationRail], not the baseline `NavigationRail` (#458). The collapsed wide rail
+ * draws the node as published: 96dp wide, the header 44dp down (`TopSpace`), 40dp to the first
+ * destination (`HeaderSpaceMinimum`), and 64dp items. The baseline `NavigationRail` — 80dp wide, a
+ * 4dp top inset and no header gap — is correct for a baseline rail, which the kit does not publish,
+ * so it has no sticker here. The id is kept so the published URL does not move.
+ */
 @CatalogComponent(
   id = "NavigationRail/Standard",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:36948",
-  caption = "Destinations along the side. Count, menu, FAB and labels fold in.",
+  caption =
+    "Destinations along the side: a collapsed WideNavigationRail. Count, menu, FAB and labels " +
+      "fold in.",
 )
 @CatalogModes
 @OverrideVariant(name = "four", ints = ["count=4"])
@@ -158,36 +142,31 @@ private fun RailHeaderContent(wide: Boolean, menu: Boolean, fab: Boolean) {
 @Composable
 fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = true) = Sticker {
   val labels = catalogChoice("labels", "always", "always", "none")
-  // The kit's `Alignment` axis. `NavigationRail` stacks its header and items from the top and
-  // offers no arrangement parameter, so TOP is what an unseeded rail draws — the reference above
-  // points at the kit's `Alignment=Top` node for that reason, having previously named `Middle`
-  // while rendering neither. Middle is the variant, and a leading weighted spacer is what makes
-  // it: there is nothing on `NavigationRail` to ask for it.
+  // The kit's `Alignment` axis, which `WideNavigationRail` takes as its `arrangement`.
   val middleAligned = catalogChoice("alignment", "top", "top", "middle") == "middle"
   var selected by selectable(0)
-  Box(Modifier.padding(horizontal = 8.dp)) {
-    NavigationRail(
-      modifier = Modifier.height(800.dp),
-      containerColor = Color.Transparent,
-      header = { RailHeaderContent(wide = false, menu = menu, fab = fab) },
-    ) {
-      if (middleAligned) Column(Modifier.weight(1f)) {}
-      RAIL.take(count).forEachIndexed { index, label ->
-        NavigationRailItem(
-          selected = index == selected,
-          onClick = { selected = index },
-          icon = {
-            Icon(
-              if (index == selected) CatalogFilledStars else CatalogOutlinedStars,
-              contentDescription = null,
-            )
-          },
-          label =
-            if (labels == "none") null
-            else ({ Text(catalogText("label", stringResource(label), index)) }),
-        )
-      }
-      if (middleAligned) Column(Modifier.weight(1f)) {}
+  WideNavigationRail(
+    modifier = Modifier.height(800.dp),
+    arrangement = if (middleAligned) Arrangement.Center else Arrangement.Top,
+    state = rememberWideNavigationRailState(WideNavigationRailValue.Collapsed),
+    colors = WideNavigationRailDefaults.colors(containerColor = Color.Transparent),
+    header = { RailHeaderContent(expanded = false, menu = menu, fab = fab) },
+  ) {
+    RAIL.take(count).forEachIndexed { index, label ->
+      WideNavigationRailItem(
+        railExpanded = false,
+        selected = index == selected,
+        onClick = { selected = index },
+        icon = {
+          Icon(
+            if (index == selected) CatalogFilledStars else CatalogOutlinedStars,
+            contentDescription = null,
+          )
+        },
+        label =
+          if (labels == "none") null
+          else ({ Text(catalogText("label", stringResource(label), index)) }),
+      )
     }
   }
 }
@@ -217,7 +196,7 @@ fun WideNavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean
   var selected by selectable(0)
   // `WideNavigationRail` takes a state object, not an `expanded` flag — the expansion is animated
   // and the rail owns it. Seeded Expanded so the baked capture shows the form this component is
-  // for; the collapsed rail is `NavigationRail/Standard` above.
+  // for; the collapsed rail is `NavigationRail/Standard` above, the same composable collapsed.
   // The kit's `Alignment` axis. Unlike the standard rail, this one takes an `arrangement`, so
   // the middle cell is a parameter rather than a spacer.
   val middle = catalogChoice("alignment", "top", "top", "middle") == "middle"
@@ -226,7 +205,7 @@ fun WideNavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean
     arrangement = if (middle) Arrangement.Center else Arrangement.Top,
     state = rememberWideNavigationRailState(WideNavigationRailValue.Expanded),
     colors = WideNavigationRailDefaults.colors(containerColor = Color.Transparent),
-    header = { RailHeaderContent(wide = true, menu = menu, fab = fab) },
+    header = { RailHeaderContent(expanded = true, menu = menu, fab = fab) },
   ) {
     RAIL.take(count).forEachIndexed { index, label ->
       WideNavigationRailItem(
