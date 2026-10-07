@@ -180,9 +180,18 @@ fun DropdownMenuGroupSticker() = Sticker {
   ) {
     MENU_ROWS.forEachIndexed { index, row ->
       val c = counted(catalogText("label", stringResource(row.label), index))
+      // The expressive item overload: a grouped item takes its position's shape (leading, middle,
+      // trailing), which is the shape its state layers are drawn in, and the selectable-item
+      // content padding — the baseline overload has neither.
       DropdownMenuItem(
         text = { Text(c.label) },
         onClick = c.onClick,
+        shape =
+          when (index) {
+            0 -> MenuDefaults.leadingItemShape
+            MENU_ROWS.lastIndex -> MenuDefaults.trailingItemShape
+            else -> MenuDefaults.middleItemShape
+          },
         enabled = !(disabledLast && index == MENU_ROWS.lastIndex),
         leadingIcon =
           if (!icons) null
