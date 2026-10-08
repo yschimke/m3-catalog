@@ -114,7 +114,7 @@ val materialCanvasAdapters = canvasAdapterRegistry {
   register("material3/Checkbox") {
     Checkbox(
       checked = boolean("checked"),
-      onCheckedChange = { dispatch("click") },
+      onCheckedChange = { writeBoundChange("checked", it.toString()) },
       modifier = modifier,
       enabled = boolean("enabled", true),
     )
@@ -323,7 +323,7 @@ val materialCanvasAdapters = canvasAdapterRegistry {
   register("material3/Switch") {
     Switch(
       checked = boolean("checked"),
-      onCheckedChange = { dispatch("click") },
+      onCheckedChange = { writeBoundChange("checked", it.toString()) },
       modifier = modifier,
       enabled = boolean("enabled", true),
       thumbContent = optional("thumbContent"),
