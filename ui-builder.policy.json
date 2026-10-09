@@ -101,7 +101,7 @@
     "ui-builder/designs/list-detail.json",
     "ui-builder/designs/adaptive-feed.json"
   ],
-  "$comment_components": "The per-component vocabulary a design is authored against: which properties this component takes, what each one accepts, which slots it has, which modifiers apply to it. Everything else about a component - its id, its record, its display name - is DERIVED from the annotations beside the preview, and restating it here would be a second place to rename it. Only what no annotation can express lives here, plus `group` where the derivation reaches the wrong shelf: one component is one SYMBOL, and a symbol several stickers draw is filed under whichever catalog id sorts first. That put `Text` on Badges, `Switch` on Lists, `IconButton` and `FloatingActionButton` on Bottom app bar, `HorizontalDivider` and `ListItem` on Dialogs. Seven entries here say the shelf instead; the generator reads this before the annotation for exactly that reason. Twenty-four components carry a vocabulary: the twenty-two a saved design names today, plus `m3/time-picker` and `m3/date-picker`, which a saved design also names and which only became reachable when discovery learned to resolve dependencies by coordinate and to follow a singleton lambda held by another singleton lambda (yschimke/compose-ai-tools#5354). Two more entries (`m3/floating-action-button`, `m3/provide-text-style`) carry a `group` and nothing else, because the derivation put them on a sibling's shelf. Three more carry a vocabulary because the builder's adaptive Google samples are authored on them: `m3/navigation-suite-scaffold` and `m3/navigation-suite-item`, which have no sticker (the kit publishes no node for a navigation suite, so it is a plain `@Preview` in `adaptive/AdaptiveLayouts.kt`) and so get their only shelf from `group` here, and `m3/primary-scrollable-tab-row`. The other eighty-one are shelved straight from the record with no override, which is the correct and much smaller thing to publish. The contract: https://github.com/yschimke/compose-preview-server/blob/main/docs/design/UI_BUILDER_CATALOG_CONTRACT.md",
+  "$comment_components": "The per-component vocabulary a design is authored against: which properties this component takes, what each one accepts, which slots it has, which modifiers apply to it. Everything else about a component - its id, its record, its display name - is DERIVED from the annotations beside the preview, and restating it here would be a second place to rename it. Only what no annotation can express lives here, plus `group` where the derivation reaches the wrong shelf: one component is one SYMBOL, and a symbol several stickers draw is filed under whichever catalog id sorts first. That put `Text` on Badges, `Switch` on Lists, `IconButton` and `FloatingActionButton` on Bottom app bar, `HorizontalDivider` and `ListItem` on Dialogs. Seven entries here say the shelf instead; the generator reads this before the annotation for exactly that reason. Twenty-four components carry a vocabulary: the twenty-two a saved design names today, plus `m3/time-picker` and `m3/date-picker`, which a saved design also names and which only became reachable when discovery learned to resolve dependencies by coordinate and to follow a singleton lambda held by another singleton lambda (yschimke/compose-ai-tools#5354). Two more entries (`m3/floating-action-button`, `m3/provide-text-style`) carry a `group` and nothing else, because the derivation put them on a sibling's shelf. Three more carry a vocabulary because the builder's adaptive Google samples are authored on them: `m3/navigation-suite-scaffold` and `m3/navigation-suite-item`, which have no sticker (the kit publishes no node for a navigation suite, so it is a plain `@Preview` in `adaptive/AdaptiveLayouts.kt`) and so get their only shelf from `group` here, and `m3/primary-scrollable-tab-row`. The other eighty-one are shelved straight from the record with no override, which is the correct and much smaller thing to publish. The contract: https://github.com/yschimke/compose-preview-server/blob/main/docs/design/UI_BUILDER_CATALOG_CONTRACT.md `m3/surface` states the theme host's typefaces and `themeTextStyle`, and `m3/icon` its Material Symbols name and axes, so a catalog-owned m3-catalog keeps what the builder's Kotlin catalog offered for them; the definitions are that catalog's, word for word. `iconKey` lists no `allowedValues`, for the reason remote-m3's `remote-icon` gives: the key table is the builder's, generated from material-icons-extended, and the 46 keys once copied here were a second list that had drifted to a fraction of it.",
   "components": {
     "m3/button": {
       "record": "catalog/androidx.compose.material3.ButtonKt.Button",
@@ -933,54 +933,47 @@
           "name": "iconKey",
           "jsonType": "string",
           "required": true,
+          "notes": "The key that resolves to a vector, and still required: it is what the canvas and the Compose export draw from. iconName and the axes beside it are recorded for the outline registry and become what is drawn once every lane reads it."
+        },
+        {
+          "name": "iconName",
+          "jsonType": "string",
+          "notes": "A Material Symbols name, such as search or chevron_right. One name is one icon: the face and the axes below are properties of this node rather than different icons. The host resolves the name against the pinned font and records the outline in the design's assets, so what the canvas draws is what an export and an offline render draw."
+        },
+        {
+          "name": "iconStyle",
+          "jsonType": "string",
           "allowedValues": [
-            "accessTime",
-            "accountCircle",
-            "add",
-            "addCircle",
-            "arrowBack",
-            "arrowForward",
-            "bookmark",
-            "bookmarkBorder",
-            "calendarMonth",
-            "cameraAlt",
-            "check",
-            "checkCircle",
-            "chevronRight",
-            "close",
-            "coffee",
-            "delete",
-            "download",
-            "edit",
-            "email",
-            "expandMore",
-            "favorite",
-            "genres",
-            "home",
-            "image",
-            "info",
-            "locationOn",
-            "lock",
-            "menu",
-            "moreVert",
-            "notifications",
-            "pauseCircle",
-            "person",
-            "phone",
-            "playCircle",
-            "playlistAdd",
-            "refresh",
-            "remove",
-            "search",
-            "settings",
-            "share",
-            "star",
-            "stopCircle",
-            "upload",
-            "videoLibrary",
-            "visibility",
-            "warning"
-          ]
+            "outlined",
+            "rounded",
+            "sharp"
+          ],
+          "notes": "Which Material Symbols face draws the name. The three are corner treatments of one drawing, not three icons."
+        },
+        {
+          "name": "iconFill",
+          "jsonType": "number",
+          "notes": "The FILL axis: 0 is the stroked drawing, 1 the solid one. Continuous, so a value between them is a partly filled icon."
+        },
+        {
+          "name": "iconWeight",
+          "jsonType": "number",
+          "notes": "The wght axis, 100 to 700. The face's own default is 400."
+        },
+        {
+          "name": "iconGrade",
+          "jsonType": "number",
+          "notes": "The GRAD axis, -25 to 200. Weight at a fixed footprint: it thickens the stroke without changing how much room the icon takes."
+        },
+        {
+          "name": "iconOpticalSize",
+          "jsonType": "number",
+          "notes": "The opsz axis, 20 to 48. The size the drawing is tuned for, which is not the size it is drawn at - that is sizeDp."
+        },
+        {
+          "name": "iconAutoMirror",
+          "jsonType": "boolean",
+          "notes": "Whether the icon flips in a right-to-left layout. A property because the font has no idea: an arrow is one glyph, and nothing in it says which way it points relative to the reader."
         },
         {
           "name": "contentDescription",
@@ -1915,6 +1908,53 @@
           "name": "themeCornerRadiusDp",
           "jsonType": "number",
           "required": false
+        },
+        {
+          "name": "themeDisplayTypeface",
+          "jsonType": "string",
+          "notes": "The font family for the display roles (displayLarge, displayMedium, displaySmall) of everything this theme host contains. A family name: one of the editor's vendored faces or any Google Fonts family (\"Space Grotesk\", \"Michroma\"); a `google:` prefix is accepted. Generated code sets it as a `GoogleFont` family on the theme's typography. Unset keeps the platform's own face for these roles."
+        },
+        {
+          "name": "themeHeadlineTypeface",
+          "jsonType": "string",
+          "notes": "The font family for the headline roles (headlineLarge, headlineMedium, headlineSmall) of everything this theme host contains. A family name: one of the editor's vendored faces or any Google Fonts family (\"Space Grotesk\", \"Michroma\"); a `google:` prefix is accepted. Generated code sets it as a `GoogleFont` family on the theme's typography. Unset keeps the platform's own face for these roles."
+        },
+        {
+          "name": "themeTitleTypeface",
+          "jsonType": "string",
+          "notes": "The font family for the title roles (titleLarge, titleMedium, titleSmall) of everything this theme host contains. A family name: one of the editor's vendored faces or any Google Fonts family (\"Space Grotesk\", \"Michroma\"); a `google:` prefix is accepted. Generated code sets it as a `GoogleFont` family on the theme's typography. Unset keeps the platform's own face for these roles."
+        },
+        {
+          "name": "themeBodyTypeface",
+          "jsonType": "string",
+          "notes": "The font family for the body roles (bodyLarge, bodyMedium, bodySmall) of everything this theme host contains. A family name: one of the editor's vendored faces or any Google Fonts family (\"Space Grotesk\", \"Michroma\"); a `google:` prefix is accepted. Generated code sets it as a `GoogleFont` family on the theme's typography. Unset keeps the platform's own face for these roles."
+        },
+        {
+          "name": "themeLabelTypeface",
+          "jsonType": "string",
+          "notes": "The font family for the label roles (labelLarge, labelMedium, labelSmall) of everything this theme host contains. A family name: one of the editor's vendored faces or any Google Fonts family (\"Space Grotesk\", \"Michroma\"); a `google:` prefix is accepted. Generated code sets it as a `GoogleFont` family on the theme's typography. Unset keeps the platform's own face for these roles."
+        },
+        {
+          "name": "themeTextStyle",
+          "jsonType": "string",
+          "allowedValues": [
+            "displayLarge",
+            "displayMedium",
+            "displaySmall",
+            "headlineLarge",
+            "headlineMedium",
+            "headlineSmall",
+            "titleLarge",
+            "titleMedium",
+            "titleSmall",
+            "bodyLarge",
+            "bodyMedium",
+            "bodySmall",
+            "labelLarge",
+            "labelMedium",
+            "labelSmall"
+          ],
+          "notes": "The type role a text with no `style` of its own is set in, for everything this theme host contains — and with it that role's size and typeface. Both themes default to `bodyLarge`; choose `labelLarge` for a design whose plain text is mostly labels, or a display role for one that is mostly figures. Generated code provides it as `ProvideTextStyle(MaterialTheme.typography.<role>)` inside the theme."
         }
       ],
       "slotCapabilities": [
