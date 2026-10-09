@@ -205,7 +205,7 @@ jobs:
     concurrency:
       group: design-artifacts-${{ github.ref }}-m3-catalog
       cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.35.1
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.36.0
     with:
       system: m3-catalog
       artifact-repository: yschimke/m3-catalog-out
@@ -366,7 +366,7 @@ jobs:
     concurrency:
       group: design-artifacts-${{ github.ref }}-m3-samples
       cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.35.1
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.36.0
     with:
       system: m3-samples
       artifact-repository: yschimke/m3-catalog-out
@@ -462,7 +462,7 @@ jobs:
     concurrency:
       group: design-artifacts-${{ github.ref }}-compose-ui-samples
       cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.35.1
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.36.0
     with:
       system: compose-ui-samples
       artifact-repository: yschimke/m3-catalog-out
@@ -523,7 +523,7 @@ jobs:
     concurrency:
       group: design-artifacts-${{ github.ref }}-compose-foundation
       cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.35.1
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.36.0
     with:
       system: compose-foundation
       artifact-repository: yschimke/m3-catalog-out
