@@ -91,11 +91,12 @@
       "transparent"
     ]
   },
-  "$comment_builtins": "Components with no call site, so no record can carry them. `m3/variable-font-text` calls a declaration flexpress generates at export into the screen's own package, not a Material 3 composable; it was the Kotlin catalog's alone, and is published here so a catalog-owned m3-catalog keeps it.",
+  "$comment_builtins": "Components with no call site, so no record can carry them. `m3/variable-font-text` calls a declaration flexpress generates at export into the screen's own package, not a Material 3 composable; it was the Kotlin catalog's alone, and is published here so a catalog-owned m3-catalog keeps it. `m3/snackbar-host` is the host the builder's scaffold `snackbarHost` slot holds. m3-catalog has no SnackbarHost sticker on purpose (Snackbar.kt composes snackbars directly), so no record carries it; published here, mirroring the Kotlin catalog's definition, so owning the catalog strands no design that holds one.",
   "$comment_code": "No `code` block, so the export stays `record`: a call site printed per node from the component record, which is all a catalog of leaf components needs and all this one has to say. The structural templates exist for a catalog whose screens have shape no signature carries — the Wear scaffold and its shared scroll state — and this one does not.",
   "$comment_templates": "Reusable starting documents owned here. Blank screen, adaptive navigation, list-detail, supporting pane and adaptive feed. Pane policies and the list-detail adapter require the compose-ui-builder adaptive support change; see docs/UI_BUILDER_TEMPLATES.md.",
   "templates": [
     "ui-builder/designs/blank.json",
+    "ui-builder/designs/hello.json",
     "ui-builder/designs/adaptive-navigation.json",
     "ui-builder/designs/supporting-pane.json",
     "ui-builder/designs/list-detail.json",
@@ -2855,6 +2856,80 @@
       },
       "wasm": {
         "notes": "flexpress's VariableFontText draws the text from the font's outlines, its axes free to move. flexpress runs on the JVM only, so the canvas draws a stand-in: Text in the vendored variable font, instanced at the same axes."
+      }
+    },
+    "m3/snackbar-host": {
+      "role": "overlay",
+      "shelfRole": "Container",
+      "displayName": "Snackbar host",
+      "group": "Communication",
+      "canvas": "m3/snackbar-host",
+      "traits": [
+        "SnackbarHost"
+      ],
+      "properties": [
+        {
+          "name": "visible",
+          "jsonType": "boolean",
+          "required": true,
+          "notes": "Whether the host shows its snackbar. The scaffold's `snackbarHost` slot keeps the host's identity while it is hidden."
+        },
+        {
+          "name": "message",
+          "jsonType": "string",
+          "required": false
+        },
+        {
+          "name": "actionLabel",
+          "jsonType": [
+            "string",
+            "null"
+          ],
+          "required": false
+        }
+      ],
+      "slots": {
+        "snackbar": {
+          "acceptedRoles": [
+            "Container",
+            "Leaf"
+          ],
+          "acceptedTraits": [
+            "AnyContent"
+          ],
+          "ordered": false,
+          "max": 1
+        }
+      },
+      "modifierCapabilities": [
+        "size",
+        "fillMaxWidth",
+        "padding",
+        "alpha",
+        "offset",
+        "rotate",
+        "scale",
+        "zIndex",
+        "testTag",
+        "width",
+        "height",
+        "widthIn",
+        "heightIn",
+        "aspectRatio",
+        "align",
+        "alignHorizontal",
+        "alignVertical",
+        "weight"
+      ],
+      "code": {
+        "symbol": "SnackbarHost",
+        "imports": [
+          "androidx.compose.material3.SnackbarHost",
+          "androidx.compose.material3.rememberSnackbarHostState"
+        ]
+      },
+      "wasm": {
+        "notes": "No SnackbarHost sticker exists to record: m3-catalog's Snackbar.kt treats the host as a dispatcher and composes snackbars directly. Published so a design holding the scaffold's `snackbarHost` slot keeps validating once the catalog is owned."
       }
     }
   },
