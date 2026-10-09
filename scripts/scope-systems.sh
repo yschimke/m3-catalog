@@ -45,9 +45,11 @@ SHARED_RE='^(gradle/|settings\.gradle\.kts$|build\.gradle\.kts$|\.github/workflo
 system_pattern() {
   case "$1" in
     # `ui-builder.policy.json` is as much a render input as the spec — `composePreviewDiscover`
-    # reads it and its overrides reach the published `ui-builder.json`.
+    # reads it and its overrides reach the published `ui-builder.json`. `ui-builder.guidelines.json`
+    # is published beside it, and the workflow's path filter starts a run for it; listing it in the
+    # filter and not here starts a run that skips the lane it was started for.
     m3-catalog)
-      echo '^(catalog/|catalog-ui-builder-renderer/|ui-builder/|catalog\.spec\.json$|ui-builder\.policy\.json$|design-pages\.json$|design/pages/)' ;;
+      echo '^(catalog/|catalog-ui-builder-renderer/|ui-builder/|catalog\.spec\.json$|ui-builder\.(policy|guidelines)\.json$|design-pages\.json$|design/pages/)' ;;
     # `scripts/samples-` also matches `samples-previews.mjs`, the FOUNDATION corpus' wrapper
     # generator. Dirtying this sheet for it is a spare render and never a stale sheet, which is the
     # direction this mapping fails in on purpose.

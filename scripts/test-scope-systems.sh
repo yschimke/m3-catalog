@@ -47,6 +47,7 @@ expect_cmd() {
 expect 'kit sticker'        'm3-catalog'         'catalog/src/main/kotlin/Buttons.kt'
 expect 'kit spec'           'm3-catalog'         'catalog.spec.json'
 expect 'kit builder policy' 'm3-catalog'         'ui-builder.policy.json'
+expect 'kit builder guidelines' 'm3-catalog'     'ui-builder.guidelines.json'
 expect 'm3 samples tree'    'm3-samples'         'samples-catalog/src/main/kotlin/A.kt'
 expect 'm3 sample map'      'm3-samples'         'sample-map.json'
 expect 'ui samples tree'    'compose-ui-samples' 'ui-samples-catalog/src/main/kotlin/A.kt'
