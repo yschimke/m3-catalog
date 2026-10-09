@@ -91,7 +91,7 @@
       "transparent"
     ]
   },
-  "$comment_builtins": "None, and that is a claim worth making explicitly. Every component this catalog publishes is a real composable with a real call site, so it is in the component record and its policy belongs on its sticker. The builtins the packaged catalog carries — `layout/*`, `shape/*`, `asset/image`, `remote-compose/*` — are components OF THE BUILDER: a column is not a Material 3 component and this repository does not render one. Declaring them here would be this catalog claiming to own the builder's own vocabulary.",
+  "$comment_builtins": "Components with no call site, so no record can carry them. `m3/variable-font-text` calls a declaration flexpress generates at export into the screen's own package, not a Material 3 composable; it was the Kotlin catalog's alone, and is published here so a catalog-owned m3-catalog keeps it.",
   "$comment_code": "No `code` block, so the export stays `record`: a call site printed per node from the component record, which is all a catalog of leaf components needs and all this one has to say. The structural templates exist for a catalog whose screens have shape no signature carries — the Wear scaffold and its shared scroll state — and this one does not.",
   "$comment_templates": "Reusable starting documents owned here. Blank screen, adaptive navigation, list-detail, supporting pane and adaptive feed. Pane policies and the list-detail adapter require the compose-ui-builder adaptive support change; see docs/UI_BUILDER_TEMPLATES.md.",
   "templates": [
@@ -2736,6 +2736,86 @@
         "alignVertical",
         "weight"
       ]
+    }
+  },
+  "builtins": {
+    "m3/variable-font-text": {
+      "role": "list-item",
+      "shelfRole": "Leaf",
+      "displayName": "Variable font text",
+      "group": "Typography",
+      "canvas": "m3/variable-font-text",
+      "traits": [
+        "TextContent"
+      ],
+      "properties": [
+        {
+          "name": "text",
+          "jsonType": "string",
+          "required": true,
+          "notes": "A literal: the outline is worked out from the font when the design exports, so the text cannot change at run time."
+        },
+        {
+          "name": "font",
+          "jsonType": "string",
+          "allowedValues": [
+            "robotoFlex",
+            "googleSansFlex"
+          ],
+          "notes": "The variable font the text is drawn from. Absent is Roboto Flex."
+        },
+        {
+          "name": "wght",
+          "jsonType": [
+            "number",
+            "object"
+          ],
+          "notes": "The `wght` axis: weight, 100–1000 in Roboto Flex and 1–1000 in Google Sans Flex. A literal holds it; a `state` read of a decimal variable animates it. Unset is the font's own 400."
+        },
+        {
+          "name": "wdth",
+          "jsonType": [
+            "number",
+            "object"
+          ],
+          "notes": "The `wdth` axis: width, 25–151 (100 is normal). A literal or a `state` read of a decimal variable. Unset is 100."
+        },
+        {
+          "name": "slnt",
+          "jsonType": [
+            "number",
+            "object"
+          ],
+          "notes": "The `slnt` axis: slant, -10–0 degrees. A literal or a `state` read of a decimal variable. Unset is upright."
+        },
+        {
+          "name": "rond",
+          "jsonType": [
+            "number",
+            "object"
+          ],
+          "notes": "The `ROND` axis: roundness, 0–100, which only Google Sans Flex has. A literal or a `state` read of a decimal variable. Unset is 0."
+        },
+        {
+          "name": "fontSizeSp",
+          "jsonType": "number",
+          "notes": "The text's size. Absent is 32."
+        },
+        {
+          "name": "color",
+          "jsonType": "string",
+          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+        }
+      ],
+      "code": {
+        "symbol": "VariableFontText",
+        "imports": [
+          "ee.schimke.flexpress.compose.VariableFontText"
+        ]
+      },
+      "wasm": {
+        "notes": "flexpress's VariableFontText draws the text from the font's outlines, its axes free to move. flexpress runs on the JVM only, so the canvas draws a stand-in: Text in the vendored variable font, instanced at the same axes."
+      }
     }
   },
   "supersedes": {
