@@ -33,7 +33,7 @@ val generateCatalogs =
       catalogRoot.file("samples-catalog/build/compose-previews/ui-builder.json"),
       catalogRoot.file("samples-catalog/catalog.spec.json"),
     )
-    inputs.dir(catalogRoot.dir("ui-builder/designs"))
+    inputs.files(fileTree(catalogRoot.dir("ui-builder/designs")))
     val output = layout.buildDirectory.dir("catalog")
     outputs.dir(output)
     argumentProviders.add(
