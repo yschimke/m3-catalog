@@ -1,0 +1,61 @@
+name: Typed M3 catalog trial
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'catalog-typed-*/**'
+      - 'settings.gradle.kts'
+      - '**/build.gradle.kts'
+      - 'gradle/libs.versions.toml'
+      - 'ui-builder.policy.json'
+      - 'ui-builder/designs/**'
+      - 'scripts/validate-typed-m3-catalog.sh'
+      - '.github/workflows/typed-catalog.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          path: m3-catalog
+      # Source-only API/renderer seams: immutable pins until their coordinates are released.
+      - uses: actions/checkout@v7.0.1
+        with:
+          repository: yschimke/compose-ai-tools
+          ref: d4c376db8a56df2edc4217fa336eed83e5af92ef
+          path: compose-ai-tools
+      - uses: actions/checkout@v7.0.1
+        with:
+          repository: yschimke/compose-ui-builder
+          ref: 1b176e188272d86e0e22a8fd8fec5f5670da95a8
+          path: compose-ui-builder
+      - uses: actions/setup-java@v6.0.1
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            21
+      - uses: gradle/actions/setup-gradle@v6.3.0
+        with:
+          cache-read-only: ${{ github.event_name == 'pull_request' }}
+      - name: Validate parallel generation and renderer
+        working-directory: m3-catalog
+        run: xvfb-run -a scripts/validate-typed-m3-catalog.sh
+      - uses: actions/upload-artifact@v7.0.1
+        if: always()
+        with:
+          name: typed-m3-catalog-trial
+          path: |
+            m3-catalog/catalog-typed-policy/build/catalog/
+            m3-catalog/catalog-typed-adapters/build/catalog/
+            m3-catalog/catalog-typed-adapters/build/distributions/
+            m3-catalog/catalog-typed-adapters/build/reports/tests/
+            m3-catalog/catalog-typed-policy/build/reports/tests/
+            m3-catalog/catalog-typed-host/build/reports/tests/
+            m3-catalog/catalog-typed-adapters/build/render-evidence/

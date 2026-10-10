@@ -2,7 +2,7 @@ plugins {
   alias(libs.plugins.kotlin.jvm)
   alias(libs.plugins.compose.multiplatform)
   alias(libs.plugins.compose.compiler)
-  alias(libs.plugins.composePreview)
+  id("ee.schimke.composeai.preview")
 }
 
 kotlin { jvmToolchain(21) }
