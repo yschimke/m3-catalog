@@ -270,6 +270,12 @@ Wrapping changes none of the verification rules below; run the same tasks throug
 
 ## Git
 
+- **Merge only when explicitly requested.** Only merge a PR or enable auto-merge
+  when the user specifically asks. If the request or intended PRs are unclear,
+  ask for clarification before merging. A request to implement, fix, review,
+  or open a PR does not by itself authorize merging. Honor required checks,
+  reviews, and branch protections.
+
 - **`main` is protected — every change goes through a PR.** The `Protect Main` ruleset requires a
   pull request (0 approvals) with all CI checks green, and squash is the only merge method. Branch
   names are `agent/…`.
