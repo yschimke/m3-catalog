@@ -15,6 +15,36 @@ dependencyResolutionManagement {
 
 rootProject.name = "m3-catalog"
 
+// The Kotlin-authored catalog runs beside the committed JSON policy until its compatibility
+// gates pass. No ordinary discovery, renderer or delivery task consumes its outputs.
+if (providers.gradleProperty("typedM3Catalog").orNull == "true") {
+  val tools =
+    file(providers.gradleProperty("composeAiToolsDir").orElse("../compose-ai-tools").get())
+  require(tools.resolve("settings.gradle.kts").isFile) {
+    "typedM3Catalog requires a compose-ai-tools checkout (-PcomposeAiToolsDir)."
+  }
+  require(providers.gradleProperty("composeUiBuilderDir").isPresent) {
+    "typedM3Catalog requires -PcomposeUiBuilderDir and the typed renderer bridge."
+  }
+  require(providers.gradleProperty("typedAdapterCatalog").orNull == "true") {
+    "typedM3Catalog requires -PtypedAdapterCatalog=true."
+  }
+  includeBuild(tools) {
+    dependencySubstitution {
+      substitute(module("ee.schimke.composeai:screen-model-source")).using(project(":screen-model"))
+      substitute(module("ee.schimke.composeai:screen-model")).using(project(":screen-model"))
+    }
+  }
+  include(":catalog-typed-adapters", ":catalog-typed-consumer")
+}
+
+if (
+  providers.gradleProperty("typedM3Catalog").orNull == "true" ||
+    providers.gradleProperty("typedM3Policy").orNull == "true"
+) {
+  include(":catalog-typed-policy")
+}
+
 providers.gradleProperty("composeUiBuilderDir").orNull?.let { path ->
   val directory = file(path).canonicalFile
   require(directory.resolve("settings.gradle.kts").isFile) {

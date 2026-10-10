@@ -126,6 +126,10 @@ explains the split, and the file's own `$comment` fields explain each decision i
 reads it yet** — it is authored so the catalog it generates can be diffed against the packaged one
 before anything switches over.
 
+[The parallel Kotlin-authored catalog trial](docs/design/TYPED_M3_CATALOG.md) generates the full
+policy and exercises three typed Material controls with a separate renderer. Its validation and
+readiness report gate a future switch; ordinary catalog delivery still uses the existing inputs.
+
 The policy also declares five **starting templates**: a blank screen, adaptive navigation,
 list-detail, a supporting pane and an adaptive feed. Their documents live under `ui-builder/designs/`;
 [`docs/UI_BUILDER_TEMPLATES.md`](docs/UI_BUILDER_TEMPLATES.md) records the guidance, pane sizing
