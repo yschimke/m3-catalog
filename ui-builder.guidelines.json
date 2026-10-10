@@ -2,7 +2,7 @@
   "schema": "compose-ui-builder/catalog-guidelines/v1",
   "catalog": "m3-catalog",
   "platform": "mobile",
-  "version": 2,
+  "version": 3,
   "about": "Phone and tablet design guidance for designs and previews built from this catalog: adaptive layout from developer.android.com, and Material 3 (including M3 Expressive) component, colour, type and shape guidance from m3.material.io and the Compose Material 3 pages. Each rule quotes its source. A rule naming the screen surface is asked of whole screens (UI builder designs, which are shown at the phone and tablet frames); one naming component is also asked of a single component preview, which is shown as its one render.",
   "frames": [
     {
@@ -575,6 +575,54 @@
       "guidance": "The Material 3 shape library can be used to create more interesting containers. Use the shape library for mostly visual elements. Avoid applying unconventional shapes to text-heavy containers.",
       "check": "Are expressive shapes from the Material shape library (cookie, clover, flower, sunny, burst, pentagon, puffy and similar) used on visual elements such as images, avatars, icons, loading indicators or a button's selected shape, and never as the container of text-heavy content such as a card, list item, dialog or paragraph? Answer not_applicable when no such shape is used.",
       "source": "https://m3.material.io/styles/shape/corner-radius-scale"
+    },
+    {
+      "id": "mobile.adaptive.size-class-from-window",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "structure",
+      "severity": "warning",
+      "guidance": "Use window size classes to make high‑level application layout decisions, such as deciding whether to use a specific canonical layout to take advantage of additional screen space. Compute the current WindowSizeClass using the currentWindowAdaptiveInfo() top‑level function of the androidx.compose.material3.adaptive library.",
+      "check": "Where the design makes an app-level layout decision by window size (which navigation component, how many panes, which canonical layout), does it take the window size class from the window, through currentWindowAdaptiveInfo() or currentWindowAdaptiveInfoV2(), or leave it to a pane scaffold navigator's default directive, rather than computing a size class or breakpoint from the constraints of a BoxWithConstraints or another container? A reusable component that adapts to its own available space (a card choosing a row or a column by its maxWidth) is not an app-level decision and passes. A preview or specimen that builds its window information from its own content box (a capture with no system bars, where that box is the window) passes only when a source comment beside it says why; without such a comment, answer fail. Answer not_applicable when the design makes no window-size layout decision.",
+      "source": "https://developer.android.com/develop/ui/compose/layouts/adaptive/use-window-size-classes"
+    },
+    {
+      "id": "mobile.adaptive.keep-posture",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "structure",
+      "severity": "info",
+      "guidance": "When your app is fold aware, it can adapt its layout to avoid placing important content in the area of folds or hinges and use folds and hinges as natural separators.",
+      "check": "Where the design builds its own WindowAdaptiveInfo or pane scaffold directive, does it carry the window's real posture (the windowPosture from currentWindowAdaptiveInfo() or currentWindowAdaptiveInfoV2()) rather than an empty Posture(), which drops tabletop and hinge information? A preview or specimen that builds its window information from its own content box (a capture with no system bars, where that box is the window) passes only when a source comment beside it says why; without such a comment, answer fail. Answer not_applicable when the design builds no WindowAdaptiveInfo or directive of its own.",
+      "source": "https://developer.android.com/develop/ui/compose/layouts/adaptive/foldables/make-your-app-fold-aware"
+    },
+    {
+      "id": "mobile.adaptive.list-detail-back",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "structure",
+      "severity": "warning",
+      "guidance": "When showing just the detail pane on small window sizes, add a BackHandler to remove the detail pane and display just the list pane.",
+      "check": "If the design is a list-detail layout, does back from the detail pane return to the list when only one pane is shown: through NavigableListDetailPaneScaffold, which handles back and predictive back itself, or through a BackHandler that calls the scaffold navigator's navigateBack? A preview pinned to one pane for a still capture passes only when a source comment beside it says why; without one, answer fail. Answer not_applicable when the design is not a list-detail layout.",
+      "source": "https://developer.android.com/develop/ui/compose/layouts/adaptive/canonical-layouts"
+    },
+    {
+      "id": "mobile.adaptive.scaffold-decides",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "structure",
+      "severity": "warning",
+      "guidance": "Use the following APIs to make your app adaptive: NavigationSuiteScaffold: Switches between navigation bar and navigation rail depending on app window size class. ListDetailPaneScaffold: Implements the list-detail canonical layout. Adapts the layout to the app window size. SupportingPaneScaffold: Implements the supporting pane canonical layout.",
+      "check": "Where a screen uses an adaptive scaffold (NavigationSuiteScaffold, ListDetailPaneScaffold, SupportingPaneScaffold), does it let the scaffold make the window-size decision, rather than wrapping the screen in a hand-rolled breakpoint (an if on width, a when over dp thresholds) that chooses between separate phone and tablet layouts or overrides the scaffold? Customising through the scaffold's own API, such as a layoutType derived with NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo or a directive from calculatePaneScaffoldDirective, passes. A preview or specimen that builds its window information from its own content box (a capture with no system bars, where that box is the window) passes only when a source comment beside it says why; without such a comment, answer fail. Answer not_applicable when the screen uses no adaptive scaffold.",
+      "source": "https://developer.android.com/develop/ui/compose/layouts/adaptive/adaptive-dos-and-donts"
     }
   ]
 }
