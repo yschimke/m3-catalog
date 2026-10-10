@@ -12,7 +12,7 @@ An app screen without a Figma design: a hand-written Compose inbox compared with
 | 840dp | First width with both panes |
 | 960dp | Tablet: list beside detail |
 
-All five widths have list/detail captures in light/dark, at 720dp height and 2px/dp: 20 comparisons. The implementation uses the real `ListDetailPaneScaffold`, with selection surviving resizing. The interactive test checks selection, back navigation, and the 839/840dp transition. These baked capture IDs are stable explicit matrix IDs; the six ordinary `@Preview` functions also remain discoverable for IDE use.
+All five widths have list/detail captures in light/dark, at 720dp height and 2px/dp: 20 comparisons. The implementation uses the real `ListDetailPaneScaffold`, with selection surviving resizing. The interactive test checks selection, back navigation, and the 839/840dp transition. These baked capture IDs are stable explicit matrix IDs; the six annotated IDE previews also remain discoverable for IDE use.
 
 ## Run
 
