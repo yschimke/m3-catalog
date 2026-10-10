@@ -53,3 +53,6 @@ include(":ui-samples-catalog")
 // the preview server. See foundation-catalog/build.gradle.kts and
 // docs/design/FOUNDATION_CATALOG.md.
 include(":foundation-catalog")
+
+// An app-style adaptive screen with repository-owned UID references, outside the Figma inventory.
+include(":adaptive-uid-pilot")
