@@ -82,3 +82,11 @@ proves the packaged trial, without establishing compatibility with saved product
 Only after those gates pass should ordinary discovery and delivery consume the generated Kotlin
 artifacts and matching runtime together. Retain the old catalog revisions and runtime bytes that
 saved pins require.
+
+## M3 samples
+
+The parallel policy consumer also authors `m3-samples` in Kotlin. `generateSamplesPolicy` writes
+`catalog-typed-policy/build/catalog/m3-samples/ui-builder.policy.json` and an independent baseline
+test preserves the catalog identity and deliberately empty component, builtin and menu declarations.
+The vendored AndroidX samples stay untouched and discovery continues to own their inventory.
+The production samples policy and delivery inputs remain authoritative during this trial.

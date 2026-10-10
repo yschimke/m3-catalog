@@ -78,7 +78,11 @@ kotlin.sourceSets.named("wasmJsMain") {
 val verifyTypedCatalog by tasks.registering {
   group = "verification"
   description = "Validate the parallel policy, discovered adapters and their JVM/Wasm renderers."
-  dependsOn(":catalog-typed-policy:test", ":catalog-typed-policy:generatePolicy")
+  dependsOn(
+    ":catalog-typed-policy:test",
+    ":catalog-typed-policy:generatePolicy",
+    ":catalog-typed-policy:generateSamplesPolicy",
+  )
   dependsOn("jvmTest", generateTypedCatalog, "compileKotlinWasmJs")
   dependsOn(":catalog-typed-consumer:compileKotlin")
 }
