@@ -1,0 +1,283 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "adaptive-inbox",
+  "title": "Adaptive inbox",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 412,
+    "heightDp": 720,
+    "density": 1,
+    "theme": "light",
+    "dynamicColor": false,
+    "locale": "en-US",
+    "fontScale": 1.0,
+    "layoutDirection": "ltr",
+    "windowPosture": "flat",
+    "browserZoomPercent": 100,
+    "fixedTime": "2024-05-16T12:00:00Z",
+    "animations": "settled",
+    "networkAccess": false,
+    "exportDevices": []
+  },
+  "stateVariables": {},
+  "roots": [
+    "screen"
+  ],
+  "nodes": {
+    "panes": {
+      "id": "panes",
+      "componentId": "layout/list-detail-pane-scaffold",
+      "properties": {
+        "layoutMode": {
+          "type": "enum",
+          "value": "adaptive"
+        },
+        "listPaneVisible": {
+          "type": "bool",
+          "value": true
+        },
+        "detailPaneVisible": {
+          "type": "bool",
+          "value": true
+        },
+        "paneSizing": {
+          "type": "enum",
+          "value": "fixedStart"
+        },
+        "fixedPaneWidthDp": {
+          "type": "float",
+          "value": 360
+        },
+        "activePaneIndex": {
+          "type": "int",
+          "value": 0
+        }
+      },
+      "slots": {
+        "listPane": [
+          "main"
+        ],
+        "detailPane": [
+          "support"
+        ],
+        "extraPane": []
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxSize"
+        }
+      ],
+      "eventBindings": {}
+    },
+    "main": {
+      "id": "main",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "main-title",
+          "message-0",
+          "message-1"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxSize"
+        },
+        {
+          "type": "padding",
+          "startDp": 24,
+          "topDp": 24,
+          "endDp": 24,
+          "bottomDp": 24
+        }
+      ],
+      "eventBindings": {}
+    },
+    "main-title": {
+      "id": "main-title",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Inbox"
+        },
+        "style": {
+          "type": "enum",
+          "value": "headlineMedium"
+        }
+      },
+      "slots": {},
+      "modifiers": [],
+      "eventBindings": {}
+    },
+    "support": {
+      "id": "support",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "support-title",
+          "support-copy",
+          "back-to-inbox"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxSize"
+        },
+        {
+          "type": "padding",
+          "startDp": 24,
+          "topDp": 24,
+          "endDp": 24,
+          "bottomDp": 24
+        }
+      ],
+      "eventBindings": {}
+    },
+    "support-title": {
+      "id": "support-title",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Release planning"
+        },
+        "style": {
+          "type": "enum",
+          "value": "titleLarge"
+        }
+      },
+      "slots": {},
+      "modifiers": [],
+      "eventBindings": {}
+    },
+    "support-copy": {
+      "id": "support-copy",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Review the adaptive screen on phone and tablet before the release."
+        },
+        "style": {
+          "type": "enum",
+          "value": "bodyLarge"
+        }
+      },
+      "slots": {},
+      "modifiers": [],
+      "eventBindings": {}
+    },
+    "screen": {
+      "id": "screen",
+      "componentId": "layout/scaffold",
+      "properties": {},
+      "slots": {
+        "content": [
+          "panes"
+        ]
+      },
+      "modifiers": [],
+      "eventBindings": {}
+    },
+    "message-0": {
+      "id": "message-0",
+      "componentId": "m3/button",
+      "properties": {
+        "style": {
+          "type": "enum",
+          "value": "filled"
+        }
+      },
+      "slots": {
+        "content": [
+          "message-0-label"
+        ]
+      },
+      "modifiers": [],
+      "eventBindings": {}
+    },
+    "message-0-label": {
+      "id": "message-0-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Release planning"
+        }
+      },
+      "slots": {},
+      "modifiers": [],
+      "eventBindings": {}
+    },
+    "message-1": {
+      "id": "message-1",
+      "componentId": "m3/button",
+      "properties": {
+        "style": {
+          "type": "enum",
+          "value": "filled"
+        }
+      },
+      "slots": {
+        "content": [
+          "message-1-label"
+        ]
+      },
+      "modifiers": [],
+      "eventBindings": {}
+    },
+    "message-1-label": {
+      "id": "message-1-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Build status"
+        }
+      },
+      "slots": {},
+      "modifiers": [],
+      "eventBindings": {}
+    },
+    "back-to-inbox": {
+      "id": "back-to-inbox",
+      "componentId": "m3/button",
+      "properties": {
+        "style": {
+          "type": "enum",
+          "value": "filled"
+        }
+      },
+      "slots": {
+        "content": [
+          "back-to-inbox-label"
+        ]
+      },
+      "modifiers": [],
+      "eventBindings": {}
+    },
+    "back-to-inbox-label": {
+      "id": "back-to-inbox-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Back to inbox"
+        }
+      },
+      "slots": {},
+      "modifiers": [],
+      "eventBindings": {}
+    }
+  },
+  "assets": {}
+}
