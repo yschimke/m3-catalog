@@ -17,11 +17,10 @@ if [[ ${CI:-false} == true ]]; then runner=("$root/gradlew"); fi
   :catalog-typed-adapters:verifyTypedCatalog :catalog-typed-adapters:rendererArchive \
   :catalog-typed-adapters:ktfmtCheck :catalog-typed-policy:ktfmtCheck "$@"
 
-host_runner=(build-brief "$builder/gradlew")
-if [[ ${CI:-false} == true ]]; then host_runner=("$builder/gradlew"); fi
-"${host_runner[@]}" -p "$builder" -PlocalBuilds=tools "-PlocalBuild.tools=$tools" \
-  -PtypedAdapterCatalog=true \
-  "-PtypedCatalogSmokeDirectory=$root/catalog-typed-adapters/build/catalog" \
-  :ui-builder-runtime:test --tests '*ExternalTypedCatalogSmokeTest' "$@"
+# A fresh host test process has the standard reader but no application implementation dependency.
+"${runner[@]}" -p "$root" \
+  -PtypedM3Catalog=true -PtypedAdapterCatalog=true -PlocalBuilds=tools \
+  "-PcomposeAiToolsDir=$tools" "-PcomposeUiBuilderDir=$builder" "-PlocalBuild.tools=$tools" \
+  :catalog-typed-host:test :catalog-typed-host:ktfmtCheck "$@"
 
 printf 'Cutover readiness: %s\n' "$root/catalog-typed-adapters/build/catalog/readiness.json"

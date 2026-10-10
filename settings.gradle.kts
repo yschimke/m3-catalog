@@ -35,7 +35,7 @@ if (providers.gradleProperty("typedM3Catalog").orNull == "true") {
       substitute(module("ee.schimke.composeai:screen-model")).using(project(":screen-model"))
     }
   }
-  include(":catalog-typed-adapters", ":catalog-typed-consumer")
+  include(":catalog-typed-adapters", ":catalog-typed-consumer", ":catalog-typed-host")
 }
 
 if (
@@ -55,6 +55,8 @@ providers.gradleProperty("composeUiBuilderDir").orNull?.let { path ->
     dependencySubstitution {
       substitute(module("ee.schimke.composeai:ui-builder-renderer-sdk-source"))
         .using(project(":ui-builder-renderer-sdk"))
+      substitute(module("ee.schimke.composeai:ui-builder-runtime-source"))
+        .using(project(":ui-builder-runtime"))
     }
   }
 }

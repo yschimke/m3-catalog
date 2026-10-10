@@ -44,9 +44,11 @@ tests, native pixel comparisons against Material, malformed-value isolation, Was
 runtime packaging. Six generated source fixtures (default and explicit values for each control)
 compile in `:catalog-typed-consumer`, independently of the discovery/renderer compilation. This
 proves static call sites, not the production exporter's complete state/event projection.
-A separate UI-builder process then loads the pair through the standard published
+A separate `:catalog-typed-host` test process then loads the pair through the standard published
 catalog reader with no M3 implementation on its classpath. That proves metadata transport, not
 installation of executable component code into the host.
+The existing native host recognizes these three `m3/*` ids; that recognition is independent of
+loading the pilot's executable Wasm adapter.
 
 The native comparison captures each control directly and through the typed registry. This example
 shows checked, enabled controls; the test compares every pixel for all twelve state combinations.
