@@ -2,6 +2,8 @@ plugins { alias(libs.plugins.kotlin.jvm) }
 
 kotlin { jvmToolchain(21) }
 
+kotlin.sourceSets.named("main") { kotlin.srcDir("src/commonMain/kotlin") }
+
 dependencies {
   implementation(platform(libs.composeai.contracts.bom))
   implementation("ee.schimke.composeai:component-catalog-protocol")

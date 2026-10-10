@@ -2,7 +2,7 @@ package ee.schimke.m3catalog.typed
 
 import ee.schimke.composeai.discovery.ComponentRecordFile
 import ee.schimke.composeai.discovery.UiBuilderCatalogFile
-import ee.schimke.composeai.discovery.writeTo
+import ee.schimke.composeai.discovery.UiBuilderCatalogs
 import java.nio.file.Files
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -17,9 +17,11 @@ class TypedM3CatalogTest {
     val typed = TypedM3Catalog(discovered)
     typed.adapters.forEach { assertEquals(emptyList(), it.validateAgainst(it.component)) }
     val pair = typed.generate()
-    assertTrue(pair.catalog.diagnostics.isEmpty())
+    assertTrue(
+      pair.catalog.diagnostics.all { it.code == UiBuilderCatalogs.Diagnostics.COMPONENT_EXCLUDED }
+    )
     assertEquals(
-      setOf("m3/checkbox", "m3/switch", "m3/radio-button"),
+      m3BuilderPolicy().components.keys,
       pair.catalog.statusSemantics.components.keys,
     )
     assertEquals(

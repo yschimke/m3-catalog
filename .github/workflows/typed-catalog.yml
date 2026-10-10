@@ -11,6 +11,7 @@ on:
       - 'ui-builder.policy.json'
       - 'ui-builder/designs/**'
       - 'scripts/validate-typed-m3-catalog.sh'
+      - 'scripts/verify-typed-m3-runtime.mjs'
       - '.github/workflows/typed-catalog.yml'
 
 permissions:
@@ -44,6 +45,9 @@ jobs:
       - uses: gradle/actions/setup-gradle@v6.3.0
         with:
           cache-read-only: ${{ github.event_name == 'pull_request' }}
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 24.21.0
       - name: Validate parallel generation and renderer
         working-directory: m3-catalog
         run: xvfb-run -a scripts/validate-typed-m3-catalog.sh
@@ -59,3 +63,4 @@ jobs:
             m3-catalog/catalog-typed-policy/build/reports/tests/
             m3-catalog/catalog-typed-host/build/reports/tests/
             m3-catalog/catalog-typed-adapters/build/render-evidence/
+            m3-catalog/catalog-typed-adapters/build/browser-evidence/

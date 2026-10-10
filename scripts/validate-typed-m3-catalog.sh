@@ -23,4 +23,6 @@ if [[ ${CI:-false} == true ]]; then runner=("$root/gradlew"); fi
   "-PcomposeAiToolsDir=$tools" "-PcomposeUiBuilderDir=$builder" "-PlocalBuild.tools=$tools" \
   :catalog-typed-host:test :catalog-typed-host:ktfmtCheck "$@"
 
-printf 'Cutover readiness: %s\n' "$root/catalog-typed-adapters/build/catalog/readiness.json"
+node "$root/scripts/verify-typed-m3-runtime.mjs" "$builder"
+
+printf 'Cutover readiness: %s\n' "$root/catalog-typed-adapters/build/browser-evidence/readiness.json"

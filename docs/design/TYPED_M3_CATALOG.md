@@ -1,91 +1,84 @@
 # Parallel Kotlin-authored M3 catalog
 
-The production catalog still reads the committed `ui-builder.policy.json` and builds the existing
-`:catalog-ui-builder-renderer`. This experiment writes separate outputs and publishes nothing.
-It is the consumer that proves the typed API before that API becomes the default.
+The production catalog still reads `ui-builder.policy.json` and builds the existing renderer.
+The typed implementation generates separate artifacts under `m3-catalog-typed-pilot`; delivery
+and saved runtime pins stay on their existing path until compatibility is proven.
 
-There are two linked pieces:
+`:catalog-typed-policy` declares the entire policy in Kotlin: 38 component policies, two builtins,
+menu order, templates, modifiers, insertion defaults, source-export routing and upgrade rules.
+Generation does not read the old JSON. An independent equivalence test compares the generated
+policy with that baseline, normalizing protocol defaults and documentation comments.
+The common Kotlin policy declarations also supply `:catalog-typed-adapters` directly.
 
-- `:catalog-typed-policy` declares the **entire existing policy** in Kotlin. Its 38 record policies,
-  two builtins, menu order, templates, source-export adapter and upgrade rules preserve the current
-  contract. Properties and slots use the owning protocol builders before serialization; fields the
-  catalog protocol deliberately carries as JSON use Kotlin JSON builders. It never reads the old
-  JSON to generate its output. The equivalence test reads the old file only as its independent
-  baseline, normalizes protocol defaults and documentation comments, and compares all policy data.
-- `:catalog-typed-adapters` starts the property-reference/renderer migration with checkbox, switch
-  and radio button. The public wrappers call the real Material APIs. JVM discovery reads their
-  compiled signatures; `TypedM3Catalog` uses those records with actual property and callback
-  references; the renderer registers those exact definitions. The same declarations generate the
-  portable `components.json` / `ui-builder.json` pair and the Wasm adapter table. Browser records are
-  generated from JVM discovery, never maintained as a signature fixture.
+The typed adapter catalog now covers **all 38 explicit component policy definitions and both
+builtins**, including variable-font text and snackbar host. Sticker and MaterialExpressiveTheme
+retain their existing shelf exclusions. This covers the explicit builder policy; it does not
+claim to replace every automatically discovered sticker in the wider Material inventory.
 
-The pilot uses a **separate catalog identity**, `m3-catalog-typed-pilot`, while retaining the three
-`m3/*` component ids. It does not claim compatibility with saved `m3-catalog` designs. In particular,
-the typed API's Boolean capability differs from the current `boolean/string/object` declarations,
-canvas ids become the adapter ids, and source calls target the repository's wrappers. These
-differences need proving or resolving before a cutover; a compiling component is not sufficient.
+Public wrappers call the Material APIs, outside the kit-mapped sticker inventory. They add no
+inventory annotations or Figma traffic. JVM discovery reads real compiled signatures; property,
+callback and slot references generate the portable catalog pair and the same Wasm adapter table.
+Wrapper and adapter defaults share declarations. Eleven foundation layout adapters support all
+six existing starter templates, including adaptive panes.
 
-The wrappers live outside `:catalog`'s kit-mapped sticker inventory. They add no kit membership,
-annotations, references or Figma traffic. Defaults are shared by the wrapper and adapter so an
-omitted property has one value.
+Existing policy vocabulary and richer metadata are preserved alongside the typed capabilities.
+The compatibility bridge accepts existing primitive wire encodings before strict typed decoding.
+It does not implement additional behavior for every richer legacy policy field. Invalid typed
+values remain diagnostics rather than silently receiving defaults.
 
-## Run
+## Validation
 
-With sibling checkouts of compose-ai-tools and compose-ui-builder:
+With sibling source checkouts of compose-ai-tools and compose-ui-builder:
 
 ```sh
 scripts/validate-typed-m3-catalog.sh
-# Optional explicit paths:
+# Or specify both source checkouts:
 scripts/validate-typed-m3-catalog.sh /path/to/compose-ai-tools /path/to/compose-ui-builder
 ```
 
-The script runs policy equivalence, real wrapper discovery, paired-artifact round trips, callback
-tests, native pixel comparisons against Material, malformed-value isolation, Wasm compilation and
-runtime packaging. Six generated source fixtures (default and explicit values for each control)
-compile in `:catalog-typed-consumer`, independently of the discovery/renderer compilation. This
-proves static call sites, not the production exporter's complete state/event projection.
-A separate `:catalog-typed-host` test process then loads the pair through the standard published
-catalog reader with no M3 implementation on its classpath. That proves metadata transport, not
-installation of executable component code into the host.
-The existing native host recognizes these three `m3/*` ids; that recognition is independent of
-loading the pilot's executable Wasm adapter.
+The source-composite workflow uses pinned upstream commits while the renderer bridge is
+experimental and unreleased. It proves the API by consuming it here rather than waiting for a
+release. Production dependency versions remain unchanged.
 
-The native comparison captures each control directly and through the typed registry. This example
-shows checked, enabled controls; the test compares every pixel for all twelve state combinations.
+Validation includes:
 
-![Direct Material and typed renderer selection controls](../evidence/typed-m3-catalog/selection-controls.png)
+- Full policy equivalence, compiled signature validation and atomic paired-artifact round trips.
+- Pixel comparisons for all 40 wrappers with populated slots, rendered directly and through the
+  typed registry at the same pixel origin. Selection controls also cover twelve state combinations.
+- Bound checkbox/switch interactions, text-input state updates and correct callback event names,
+  numeric codec checks, and malformed-value isolation.
+- **86 generated source fixtures** compiled by a separate consumer: default and explicit calls
+  for all 40 wrappers, plus six state-read fixtures. These do not prove the production exporter's
+  complete callback/state/event projection.
+- A separate standard published-catalog reader test process without application implementation
+  classes on its classpath. This proves metadata transport independently of executable rendering.
+- The actual packaged Wasm ZIP served in a sandbox iframe and controlled through protocol v2.
+  Chromium renders all 38 active component/builtin entries and six templates at phone and tablet
+  widths, checks measured inspection, rejects an original runtime pin, and clicks a state-bound
+  checkbox. Archive integrity is recomputed independently. Semantic protocol activation of a
+  bound callback without a click binding remains an upstream SDK limitation; pointer interaction
+  exercises the real component callback.
 
-To run just the full policy migration without the renderer composite:
+![Selection controls](../evidence/typed-m3-catalog/selection-controls.png)
 
-```sh
-scripts/agent-gradle.sh -PtypedM3Policy=true \
-  :catalog-typed-policy:test :catalog-typed-policy:generatePolicy
-```
+Outputs live beneath `catalog-typed-adapters/build/`:
 
-Outputs:
-
-- `catalog-typed-policy/build/catalog/ui-builder.policy.json` — the full Kotlin-authored policy.
-- `catalog-typed-adapters/build/catalog/{components.json,ui-builder.json}` — the typed pilot pair.
-- `catalog-typed-adapters/build/catalog/readiness.json` — remaining component/builtin coverage,
-  changed contract fields and unverified gates. A successful experiment build is not a cutover pass.
-- `catalog-typed-adapters/build/distributions/m3-catalog-typed-pilot-renderer.zip` — a separate
-  protocol-v2 runtime, with its own manifest and integrity digest. No production runtime descriptor
-  references it.
+- `catalog/{components.json,ui-builder.json}`: generated catalog pair.
+- `catalog/readiness.json`: component/builtin coverage, contract differences and cutover gates.
+- `distributions/m3-catalog-typed-pilot-renderer.zip`: isolated protocol-v2 runtime and manifest.
+- `render-evidence/full-catalog/`: direct and typed native captures for all 40 registrations.
+- `browser-evidence/`: browser screenshots, runtime verification results and assessed readiness.
 
 ## Before switching
 
-1. Migrate the remaining record components and both builtins, preserving the existing ids, groups,
-   insertion defaults, slot constraints, modifiers, upgrade rules and property vocabulary.
-2. Exercise the existing template and saved-design fixtures through the published reader and
-   exporter. Resolve the reported contract differences, including `stateEquals`, rich property
-   codecs, slots and wrapper source routing; do not suppress them just to make the report green.
-3. Compile generated source against a separate consumer classpath and compare its rendering and
-   interactions with the registered renderer, including omitted-property defaults.
-4. Run the packaged Wasm ZIP through the sandbox host and check its protocol, inspection, state,
-   events and rendering alongside the current runtime.
-5. Only then make ordinary discovery and delivery consume the Kotlin-generated artifacts and
-   matching runtime together. Retain the old catalog revisions/runtime bytes that saved pins need.
+Component coverage is complete for the explicit policy, but `readyForCutover` remains false.
+Canvas identities and wrapper source routing differ from production, and typed capabilities
+introduce contract differences. Preserve the report until those differences are resolved.
 
-The existing JSON annotations and delivery path stay authoritative during these steps. Adding a
-component to the typed trial should move the readiness report and add real renderer/export
-coverage; it must not change production just by enabling a development property.
+Existing saved-design fixtures still need compatibility validation through the standard host,
+including stateEquals and richer value forms. Production source export needs complete state/event
+projection and rendering/interaction comparisons against the renderer. Browser verification
+proves the packaged trial, without establishing compatibility with saved production runtime pins.
+Only after those gates pass should ordinary discovery and delivery consume the generated Kotlin
+artifacts and matching runtime together. Retain the old catalog revisions and runtime bytes that
+saved pins require.

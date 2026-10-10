@@ -27,10 +27,17 @@ import kotlinx.serialization.json.jsonPrimitive
 fun main() {
   val typed =
     TypedM3Catalog(Json.decodeFromString(ComponentRecordFile.serializer(), typedM3RecordsJson))
-  val registry = typedM3CanvasAdapters(typed)
-  val ids = typed.adapters.associate { it.id to it.id }
+  val registry = foundationCanvasAdapters + typedM3CanvasAdapters(typed)
+  val ids =
+    typed.runtimeAdapters.associate { it.id to it.id } + foundationAdapterIds.associateWith { it }
   val actions = UiBuilderSemanticActionController()
-  startCatalogRenderer(actions) { document, surface, session, inspection ->
+  startCatalogRenderer(
+    actions,
+    capabilities =
+      setOf(
+        ee.schimke.composeai.uibuilder.renderer.sdk.CATALOG_RUNTIME_CAPABILITY_HORIZONTAL_UNROLL
+      ),
+  ) { document, surface, session, inspection ->
     val density = Density(surface.density, LocalDensity.current.fontScale)
     val mode =
       if (surface.mode == UiBuilderRendererSurfaceModeV2.AUTHORING_UNROLLED)
@@ -64,8 +71,8 @@ fun main() {
                   value = value,
                   mode = mode,
                   unrolledHorizontally = unrolledHorizontally,
-                  resolveColor = { androidx.compose.ui.graphics.Color.Unspecified },
-                  resolveShape = { androidx.compose.ui.graphics.RectangleShape },
+                  resolveColor = { materialColor(it) },
+                  resolveShape = ::materialShape,
                 )
               },
               missingComponent = { label, next -> Text("Typed pilot: $label", modifier = next) },

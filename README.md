@@ -127,7 +127,7 @@ reads it yet** — it is authored so the catalog it generates can be diffed agai
 before anything switches over.
 
 [The parallel Kotlin-authored catalog trial](docs/design/TYPED_M3_CATALOG.md) generates the full
-policy and exercises three typed Material controls with a separate renderer. Its validation and
+policy and covers all 38 explicit component policies and both builtins with a separate renderer. Its validation and
 readiness report gate a future switch; ordinary catalog delivery still uses the existing inputs.
 
 The policy also declares five **starting templates**: a blank screen, adaptive navigation,

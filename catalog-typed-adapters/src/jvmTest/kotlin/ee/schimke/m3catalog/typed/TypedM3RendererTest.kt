@@ -14,6 +14,7 @@ import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
 import ee.schimke.composeai.uibuilder.export.UiBuilderNode
 import ee.schimke.composeai.uibuilder.renderer.sdk.CanvasMode
@@ -22,6 +23,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
@@ -29,6 +31,42 @@ import org.jetbrains.skia.Image
 
 @OptIn(ExperimentalTestApi::class)
 class TypedM3RendererTest {
+  @Test
+  fun `text controls write bound state and preserve their callback events`() {
+    for ((id, event) in
+      listOf(
+        "m3/text-field" to "valueChange",
+        "m3/outlined-text-field" to "valueChange",
+        "m3/search-input-field" to "queryChange",
+      )) {
+      runComposeUiTest {
+        val typed = TypedM3Catalog(discoverTypedM3Controls())
+        val registry = typedM3CanvasAdapters(typed)
+        val events = mutableListOf<String>()
+        val updates = mutableListOf<Pair<String, String?>>()
+        val properties = buildJsonObject {
+          put(
+            "value",
+            buildJsonObject {
+              put("type", "state")
+              put("variable", "query")
+              put("value", "Initial")
+            },
+          )
+        }
+        setContent {
+          MaterialTheme { registry[id]!!.invoke(scope(id, properties, "field", events, updates)) }
+        }
+        onNodeWithTag("field").performTextInput(" edited")
+        runOnIdle {
+          assertEquals("query", updates.last().first)
+          assertTrue(updates.last().second!!.contains("edited"))
+          assertEquals(event, events.last())
+        }
+      }
+    }
+  }
+
   @Test
   fun `typed adapters match real Material controls across selection and enabled states`() {
     for (id in listOf("m3/checkbox", "m3/switch", "m3/radio-button")) {

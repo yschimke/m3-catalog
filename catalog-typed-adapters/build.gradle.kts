@@ -18,6 +18,10 @@ kotlin {
       implementation("ee.schimke.composeai:screen-model-source:0")
       implementation(libs.composeai.ui.builder.renderer.sdk.source)
       implementation(libs.compose.material3)
+      implementation(libs.compose.adaptive)
+      implementation(libs.compose.adaptive.layout)
+      implementation(libs.compose.material3.adaptive.navigation.suite)
+      implementation(libs.compose.material.icons.extended)
       @Suppress("DEPRECATION") implementation(compose.runtime)
       @Suppress("DEPRECATION") implementation(compose.foundation)
       @Suppress("DEPRECATION") implementation(compose.ui)
@@ -31,6 +35,12 @@ kotlin {
       @Suppress("DEPRECATION") implementation(compose.desktop.currentOs)
     }
   }
+}
+
+kotlin.sourceSets.named("commonMain") {
+  kotlin.srcDir(
+    rootProject.layout.projectDirectory.dir("catalog-typed-policy/src/commonMain/kotlin")
+  )
 }
 
 val generationDirectory = layout.buildDirectory.dir("catalog")
