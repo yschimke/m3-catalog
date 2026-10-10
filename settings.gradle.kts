@@ -55,4 +55,6 @@ include(":ui-samples-catalog")
 include(":foundation-catalog")
 
 // An app-style adaptive screen with repository-owned UID references, outside the Figma inventory.
-include(":adaptive-uid-pilot")
+if (providers.gradleProperty("adaptiveUidPilot").orNull == "true") {
+  include(":adaptive-uid-pilot")
+}

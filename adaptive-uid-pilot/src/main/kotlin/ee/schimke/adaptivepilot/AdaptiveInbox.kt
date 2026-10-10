@@ -22,11 +22,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
@@ -42,6 +38,8 @@ fun AdaptiveInbox(dark: Boolean = false, initialDetail: Boolean = false) {
   MaterialTheme(colorScheme = if (dark) darkColorScheme() else lightColorScheme()) {
     Scaffold { padding ->
       BoxWithConstraints(Modifier.fillMaxSize().padding(padding)) {
+        // This bar-free capture's content box equals its window. Apps with bars or rails should
+        // derive the size class from the window rather than copy this content-box calculation.
         val info =
           WindowAdaptiveInfo(WindowSizeClass.compute(maxWidth.value, maxHeight.value), Posture())
         val navigator =
@@ -56,7 +54,7 @@ fun AdaptiveInbox(dark: Boolean = false, initialDetail: Boolean = false) {
                 )
               ),
           )
-        var selected by remember { mutableIntStateOf(0) }
+        val selected = navigator.currentDestination?.contentKey ?: 0
         val scope = rememberCoroutineScope()
         val expansion = rememberPaneExpansionState()
         val density = LocalDensity.current
@@ -74,7 +72,6 @@ fun AdaptiveInbox(dark: Boolean = false, initialDetail: Boolean = false) {
                 listOf("Release planning", "Build status").forEachIndexed { index, title ->
                   Button(
                     onClick = {
-                      selected = index
                       scope.launch {
                         navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, index)
                       }
