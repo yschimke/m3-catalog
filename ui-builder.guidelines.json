@@ -2,8 +2,8 @@
   "schema": "compose-ui-builder/catalog-guidelines/v1",
   "catalog": "m3-catalog",
   "platform": "mobile",
-  "version": 1,
-  "about": "Adaptive phone and tablet design guidance from developer.android.com.",
+  "version": 2,
+  "about": "Phone and tablet design guidance for designs and previews built from this catalog: adaptive layout from developer.android.com, and Material 3 (including M3 Expressive) component, colour, type and shape guidance from m3.material.io and the Compose Material 3 pages. Each rule quotes its source. A rule naming the screen surface is asked of whole screens (UI builder designs, which are shown at the phone and tablet frames); one naming component is also asked of a single component preview, which is shown as its one render.",
   "frames": [
     {
       "kind": "sized",
@@ -23,6 +23,9 @@
   "rules": [
     {
       "id": "mobile.adaptive.replace-not-stretch",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "warning",
       "guidance": "Instead of just stretching or shrinking UI elements in response to different window sizes, adaptive apps replace layout components and show or hide content.",
@@ -31,6 +34,9 @@
     },
     {
       "id": "mobile.navigation.bar-on-compact",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "warning",
       "guidance": "The default behavior is to show a navigation bar if the width or height is compact or if the device is in tabletop posture, and a navigation rail for everything else.",
@@ -39,6 +45,9 @@
     },
     {
       "id": "mobile.navigation.rail-on-expanded",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "warning",
       "guidance": "Change UI components as the window size changes to take advantage of available display space. For example, swap the bottom navigation bar used on compact window sizes for a vertical navigation rail on medium and expanded windows.",
@@ -47,6 +56,9 @@
     },
     {
       "id": "mobile.panes.compact-single-pane",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "warning",
       "guidance": "Compact sizes should stick to a one pane layout. Medium can use 1–2 pane layouts. Large and extra-large can use multiple pane layouts.",
@@ -55,6 +67,9 @@
     },
     {
       "id": "mobile.panes.expanded-multi-pane",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "info",
       "guidance": "Create multi-pane layouts (where appropriate) to take advantage of large screen space.",
@@ -63,6 +78,9 @@
     },
     {
       "id": "mobile.canonical.list-detail",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "warning",
       "guidance": "Expanded-width displays accommodate both the list and detail at the same time. Medium- and compact-width displays show either the list or the detail, depending on user interaction with the app.",
@@ -71,6 +89,9 @@
     },
     {
       "id": "mobile.canonical.list-detail-selection",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "info",
       "guidance": "The list and detail are shown together, and the list indicates that the item corresponding to the content in the detail pane is selected. If just the list pane was visible and the window widens to expanded, the list and a placeholder detail pane are shown together.",
@@ -79,6 +100,9 @@
     },
     {
       "id": "mobile.canonical.supporting-pane-split",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "info",
       "guidance": "For medium width, split the display space equally between the main and supporting content. For expanded width, give 70% of the space to the main content, 30% to the supporting content.",
@@ -87,6 +111,9 @@
     },
     {
       "id": "mobile.canonical.feed-columns",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "warning",
       "guidance": "A feed layout supports displays of almost any size because the grid can adapt from a single, scrolling column to a multi-column scrolling feed of content.",
@@ -95,6 +122,9 @@
     },
     {
       "id": "mobile.canonical.feed-adaptive-grid",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "structure",
       "severity": "info",
       "guidance": "The key to an adaptive feed is the columns configuration. GridCells.Adaptive(minSize = 180.dp) creates a grid where each column is at least 180.dp wide. The grid then displays as many columns as can fit in the available space.",
@@ -103,6 +133,9 @@
     },
     {
       "id": "mobile.layout.no-stretched-content",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "warning",
       "guidance": "Do set a max width on content and components to prevent stretching full width. Don't allow content to stretch full width.",
@@ -111,6 +144,9 @@
     },
     {
       "id": "mobile.text.line-length",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "warning",
       "guidance": "If you're not using content panes, don't just stretch UI elements to fill available display space. Long lines of text are difficult to read.",
@@ -119,6 +155,9 @@
     },
     {
       "id": "mobile.buttons.not-full-width-large",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "warning",
       "guidance": "Buttons are not full width on large screens.",
@@ -127,6 +166,9 @@
     },
     {
       "id": "mobile.text-fields.not-full-width-large",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "warning",
       "guidance": "Text fields and boxes don't stretch to full width on large screens.",
@@ -135,6 +177,9 @@
     },
     {
       "id": "mobile.layout.fill-max-width-bounded",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "structure",
       "severity": "info",
       "guidance": "Stretched buttons look poorly designed. If you use Modifier.fillMaxWidth, don't assume that's the right behavior for all display sizes.",
@@ -143,6 +188,9 @@
     },
     {
       "id": "mobile.sheets.max-width",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "warning",
       "guidance": "Bottom sheets are not full width on large screens. (Apply a maximum width to avoid stretching.) Allow a component to change its presentation. For example, a bottom sheet can become a side sheet at larger sizes.",
@@ -151,6 +199,9 @@
     },
     {
       "id": "mobile.dialogs.keep-context",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "warning",
       "guidance": "Small edit menus or modals don't cover the entire screen and maintain context for the user as much as possible.",
@@ -159,14 +210,21 @@
     },
     {
       "id": "mobile.touch-target-48dp",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
       "kind": "structure",
       "severity": "warning",
       "guidance": "Ensure all touch targets are at least 48 dp, even if this extends past the UI element visual.",
-      "check": "Is every interactive element at least 48dp in both dimensions, or given a 48dp minimum interactive size, with no size, height or width modifier shrinking a clickable element's touch area below 48dp?",
+      "check": "Is the touch area of every interactive element at least 48dp in each direction? Material components (buttons, icon buttons, checkboxes, switches, radio buttons, sliders, chips) pad themselves out to a 48dp minimum interactive size even when they draw smaller, so count that padding; fail only where a size, height, width or requiredSize modifier, or a custom clickable element, leaves the touch area under 48dp. When measured touch-target results from the accessibility check are attached, rely on them and name the element they flag.",
       "source": "https://developer.android.com/design/ui/mobile/guides/foundations/accessibility"
     },
     {
       "id": "mobile.edge-to-edge.content-inset",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "warning",
       "guidance": "Avoid adding tap gestures or drag targets under system insets; these conflict with edge-to-edge and gesture navigation. Don't place critical UI at the very edge of the screen.",
@@ -175,6 +233,9 @@
     },
     {
       "id": "mobile.layout.margins-adapt",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "info",
       "guidance": "A standard margin value for compact sizing is 16 dp, but margins should adapt to accommodate larger screens. Your app's body content and actions must stay within and align with these margins.",
@@ -183,6 +244,10 @@
     },
     {
       "id": "mobile.type.sp-and-min-body",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
       "kind": "structure",
       "severity": "warning",
       "guidance": "To allow users to adjust the font size, specify font size in scalable pixels (sp). Don't make the body size any smaller than 12 sp. This guideline aligns with the Material typescale as a default.",
@@ -191,11 +256,325 @@
     },
     {
       "id": "mobile.images.not-stretched",
+      "surfaces": [
+        "screen"
+      ],
       "kind": "visual",
       "severity": "info",
       "guidance": "Images are displayed at a proper resolution and are not stretched or cropped.",
       "check": "In the tablet picture, are images shown at their natural aspect ratio, not stretched, distorted or cropped to a thin strip by a container that grew wider than on the phone? Answer not_applicable when the design has no images.",
       "source": "https://developer.android.com/docs/quality-guidelines/adaptive-app-quality/tier-2"
+    },
+    {
+      "id": "m3.content.not-cut-off",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "Add extra padding to avoid cutting off content in information-dense components. For example, a large cut corner on a card will clip content and images in the area more than a rounded corner of the same size.",
+      "check": "Is every piece of text, every icon and every control drawn whole, with none of its pixels missing? Answer fail only when part of a glyph, an icon or a control's own shape is visibly cut off: a letter sliced by a container's edge or corner, an icon missing a side, a button cut by the edge of the card or bar it sits in. Text deliberately shortened with an ellipsis (…) is not cut off, and neither is an image cropped to fill its frame. Content that scrolls needs care: content cut at the top or bottom edge of a scrolling list is not clipping while the list can still scroll towards it, because scrolling brings it into view; it is clipping when the list cannot scroll any further that way (the first item cut at the top when the list is at its start, the last item cut at the bottom when it is at its end), and anything cut inside a container that does not scroll is clipping. Tell which from the accessibility nodes (a scrollable node and how far it can scroll) or from a long screenshot when one is attached; when you cannot tell, do not fail on content cut at the edge of a scrolling list.",
+      "source": "https://m3.material.io/styles/shape/corner-radius-scale"
+    },
+    {
+      "id": "m3.button.one-filled-action",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "Since they have such strong emphasis, the filled style should be used sparingly, ideally for only one action on a page.",
+      "check": "Among the buttons offered together as alternative actions (on a screen, in a dialog, a card or a row of buttons), is at most one of them a filled button, with the others given a lower-emphasis style (tonal, outlined, elevated or text) or made icon buttons? Answer not_applicable when fewer than two buttons are shown together, or when the picture is a specimen that lays out one button of each style or size for comparison rather than offering a choice of actions.",
+      "source": "https://m3.material.io/components/buttons/guidelines"
+    },
+    {
+      "id": "m3.button.label-single-line",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "Don’t truncate or wrap label text. It should always be fully visible on a single line.",
+      "check": "Is the label text of every button fully visible on a single line, neither wrapped onto a second line, ellipsized nor cut off by the button's edge? Answer not_applicable when no button with label text is shown.",
+      "source": "https://m3.material.io/components/buttons/guidelines"
+    },
+    {
+      "id": "m3.button.width-fits-label",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "structure",
+      "severity": "warning",
+      "guidance": "Avoid setting a fixed width smaller than the label text",
+      "check": "Where a button with label text is given a fixed width or size (width, size, requiredWidth, requiredSize), is that width at least what its label needs, so the label is not squeezed, wrapped or cut? Answer not_applicable when no labelled button has a fixed width or size.",
+      "source": "https://m3.material.io/components/buttons/guidelines"
+    },
+    {
+      "id": "m3.button.sentence-case",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "info",
+      "guidance": "Use sentence case, which only capitalizes the first word and proper nouns.",
+      "check": "Are button labels written in sentence case, capitalising only the first word and proper nouns, rather than in ALL CAPITALS or with Every Word Capitalised? Answer not_applicable when no button with label text is shown, or when the label is a single word.",
+      "source": "https://m3.material.io/components/buttons/guidelines"
+    },
+    {
+      "id": "m3.button.single-leading-icon",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "Icons visually communicate the button’s action and help draw attention. They should be placed on the leading side of the button, before the label text.",
+      "check": "Does every button that shows both an icon and label text have exactly one icon, placed on the leading side before the label (after it only in a right-to-left layout)? A split button's trailing chevron is a separate button and does not count. Answer not_applicable when no button shows both an icon and a label.",
+      "source": "https://m3.material.io/components/buttons/guidelines"
+    },
+    {
+      "id": "m3.toggle.icon-filled-when-selected",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "info",
+      "guidance": "Toggle buttons should use an outlined icon when unselected, and a filled version of the icon when selected. If a filled version doesn’t exist, increase the weight instead.",
+      "check": "Where a toggle button or toggle icon button is shown, does its icon read as filled (or heavier) when selected and outlined when unselected, so selection is shown by more than colour alone? Answer not_applicable when no toggle button with an icon is shown, or when its selected state cannot be told from the picture, the source or the accessibility nodes.",
+      "source": "https://m3.material.io/components/buttons/guidelines"
+    },
+    {
+      "id": "m3.button-group.uniform-size-shape",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "info",
+      "guidance": "By default, all buttons in a standard group should be the same size (XS to XL) and shape (round or square).",
+      "check": "In a standard button group (separate buttons in one row with gaps between them), are all the buttons one size, the same height, and one corner shape, apart from a selected or pressed button that has changed shape? Different widths and colours that mark the main action are allowed. Answer not_applicable when there is no standard button group.",
+      "source": "https://m3.material.io/components/button-groups/guidelines"
+    },
+    {
+      "id": "m3.button-group.single-line",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "Button groups should move through layouts together in a single line. They shouldn’t wrap to a second line.",
+      "check": "Does every button group sit on a single line, with none of its buttons wrapped onto a second row? Answer not_applicable when there is no button group.",
+      "source": "https://m3.material.io/components/button-groups/guidelines"
+    },
+    {
+      "id": "m3.button-group.connected-one-color-style",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "Avoid mixing color styles in connected button groups; it can make selection and emphasis unclear.",
+      "check": "In a connected button group (buttons joined edge to edge with small inner corners), do the unselected buttons all share one colour style, with only the selected ones coloured differently? Answer not_applicable when there is no connected button group.",
+      "source": "https://m3.material.io/components/button-groups/guidelines"
+    },
+    {
+      "id": "m3.button-group.connected-toggles",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "structure",
+      "severity": "info",
+      "guidance": "Connected button groups should be used for single or multi-select patterns that use toggle buttons.",
+      "check": "Where the design uses a connected button group, are its buttons toggle buttons that hold a checked or selected state, rather than plain one-shot action buttons? Answer not_applicable when there is no connected button group.",
+      "source": "https://m3.material.io/components/button-groups/guidelines"
+    },
+    {
+      "id": "m3.split-button.anatomy",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "The leading button should be brief, just one or two words, with an icon that best matches the action. The trailing button should always have the expand and collapse icon since it rotates when selected. Avoid modifying the icon.",
+      "check": "In a split button, does the trailing button show the expand/collapse chevron (not some other glyph), and is the leading button's label brief, one or two words? Answer not_applicable when there is no split button.",
+      "source": "https://m3.material.io/components/split-button/guidelines"
+    },
+    {
+      "id": "m3.fab-menu.item-count",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "FAB menus can contain 2–6 items.",
+      "check": "Does an open FAB menu hold between two and six items? Answer not_applicable when no open FAB menu is shown.",
+      "source": "https://m3.material.io/components/fab-menu/guidelines"
+    },
+    {
+      "id": "m3.fab-menu.labelled-items",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "FAB menu items should always have label text. The icons shouldn’t be removed since they make each item easy to identify.",
+      "check": "Does every item of an open FAB menu show label text, and an icon beside it? Answer not_applicable when no open FAB menu is shown.",
+      "source": "https://m3.material.io/components/fab-menu/guidelines"
+    },
+    {
+      "id": "m3.fab.one-per-screen",
+      "surfaces": [
+        "screen"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "Don't display multiple FABs on a single screen",
+      "check": "Does the screen show at most one floating action button (counting extended FABs)? Answer not_applicable when it shows none.",
+      "source": "https://m3.material.io/components/floating-action-button/guidelines"
+    },
+    {
+      "id": "m3.toolbar.one-emphasized-action",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "Visually emphasizing a single action more than others is an effective way to create hierarchy and guide people to controls they use most often. Avoid emphasizing more than one action at a time.",
+      "check": "In a toolbar (docked or floating), and in a FAB placed beside one, is at most one action emphasised with a filled, primary-coloured or larger treatment, the rest being standard icon buttons? Answer not_applicable when there is no toolbar.",
+      "source": "https://m3.material.io/components/toolbars/guidelines"
+    },
+    {
+      "id": "m3.toolbar.floating-round-buttons",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "info",
+      "guidance": "Avoid using square icon buttons in floating toolbars. Their square shape conflicts with the fully-rounded shape of the floating toolbar container.",
+      "check": "In a floating toolbar (a fully rounded bar floating over content), are its filled or tonal icon buttons round rather than square? Answer not_applicable when there is no floating toolbar, or for a docked toolbar spanning the window width.",
+      "source": "https://m3.material.io/components/toolbars/guidelines"
+    },
+    {
+      "id": "m3.navigation-bar.destinations",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "Navigation bars provide access to three to five destinations. The nav bar is positioned at the bottom of windows for convenient access. Each destination is represented by an icon and label text. One navigation destination is always active.",
+      "check": "In a navigation bar, are there three to five destinations, each with an icon and label text, and exactly one of them marked active by the active indicator? Answer not_applicable when there is no navigation bar.",
+      "source": "https://m3.material.io/components/navigation-bar/guidelines"
+    },
+    {
+      "id": "m3.text-field.label-visible",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "Don’t truncate label text. Keep it short, clear, and fully visible.",
+      "check": "Does every text field show its label text in full, neither cut off nor ellipsized, whether the label sits inside the field or above its input? Answer not_applicable when there is no text field.",
+      "source": "https://m3.material.io/components/text-fields/guidelines"
+    },
+    {
+      "id": "m3.dialog.action-order",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "Buttons are aligned to the trailing edge of the dialog for easier interaction. The confirmation button is always closest to the edge.",
+      "check": "In a dialog with actions, are the action buttons aligned to the trailing edge, with the confirming action closest to that edge and any dismissive action before it? Answer not_applicable when there is no dialog with actions.",
+      "source": "https://m3.material.io/components/dialogs/guidelines"
+    },
+    {
+      "id": "m3.color.on-color-pairs",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "structure",
+      "severity": "warning",
+      "guidance": "Use on-primary on top of primary, and on-primary-container on top of primary-container, and the same for other accent and neutral colors to provide accessible contrast to the user.",
+      "check": "Where the design chooses colours itself, is text and icon content drawn in the on- role that pairs with the container behind it (onPrimary on primary, onSecondaryContainer on secondaryContainer, onSurface or onSurfaceVariant on the surface roles), rather than a hard-coded colour or a role from another pair? Answer not_applicable when the design leaves every colour to the components' defaults.",
+      "source": "https://developer.android.com/develop/ui/compose/designsystems/material3"
+    },
+    {
+      "id": "m3.color.container-roles-for-fills",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "structure",
+      "severity": "info",
+      "guidance": "Roles used as a fill color for foreground elements like buttons. They should not be used for text or icons.",
+      "check": "Are the container colour roles (primaryContainer, secondaryContainer, tertiaryContainer, errorContainer) used only as fills, never as the colour of text or icons? Answer not_applicable when the design sets no colours of its own.",
+      "source": "https://m3.material.io/styles/color/roles"
+    },
+    {
+      "id": "m3.contrast.text-and-icons",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "warning",
+      "guidance": "App text and foreground content maintain the following contrast ratios with the app background: 3:1 for large text and graphics; 4.5:1 for small text (less than 18 pt or less than 14 pt if text is bold)",
+      "check": "Does all enabled text, and every icon that carries meaning, contrast with what is directly behind it by at least 4.5:1 for small text and 3:1 for large text and icons? When measured contrast results from the accessibility check are attached, rely on them and name the element they flag; without them, answer fail only for contrast that is plainly low, such as pale grey on white or dark grey on black. Disabled controls are exempt. Answer not_applicable when there is no text or icon.",
+      "source": "https://developer.android.com/docs/quality-guidelines/core-app-quality"
+    },
+    {
+      "id": "m3.a11y.content-descriptions",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "structure",
+      "severity": "warning",
+      "guidance": "Describe each UI element, except for TextView, using contentDescription.",
+      "check": "Does every icon-only control (an icon button, a FAB without a label, a clickable image) carry a description a screen reader can announce, either a contentDescription or text in its accessibility node? An icon beside a text label, and a decorative image given contentDescription = null, need none. Answer not_applicable when there is no icon-only control.",
+      "source": "https://developer.android.com/docs/quality-guidelines/core-app-quality"
+    },
+    {
+      "id": "m3.type.readable-body-face",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "structure",
+      "severity": "info",
+      "guidance": "Avoid expressive or decorative fonts for body text because these can be harder to read at small sizes.",
+      "check": "Is body text (paragraphs, supporting text, list rows) set in the theme's body styles or another plain, readable typeface, rather than a display, script or decorative font? Answer not_applicable when there is no body text.",
+      "source": "https://m3.material.io/styles/typography/applying-type"
+    },
+    {
+      "id": "m3.shape.expressive-on-visual-elements",
+      "surfaces": [
+        "screen",
+        "component"
+      ],
+      "kind": "visual",
+      "severity": "info",
+      "guidance": "The Material 3 shape library can be used to create more interesting containers. Use the shape library for mostly visual elements. Avoid applying unconventional shapes to text-heavy containers.",
+      "check": "Are expressive shapes from the Material shape library (cookie, clover, flower, sunny, burst, pentagon, puffy and similar) used on visual elements such as images, avatars, icons, loading indicators or a button's selected shape, and never as the container of text-heavy content such as a card, list item, dialog or paragraph? Answer not_applicable when no such shape is used.",
+      "source": "https://m3.material.io/styles/shape/corner-radius-scale"
     }
   ]
 }

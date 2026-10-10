@@ -7,7 +7,8 @@ on:
 
 permissions:
   actions: read
-  contents: write
+  # Read-only: renders are pushed to the -out repository with ARTIFACTS_TOKEN, not GITHUB_TOKEN.
+  contents: read
   pull-requests: write
 
 jobs:
@@ -27,10 +28,19 @@ jobs:
           # handoff, and fails with "Artifact not found".
           github-token: ${{ github.token }}
       - id: pr
-        run: echo "number=$(cat _compose_preview_handoff/_pr_number)" >> "$GITHUB_OUTPUT"
+        # The handoff comes from the PR's run, so keep only digits before writing an output; the
+        # apply action still checks the number against the workflow_run head.
+        run: echo "number=$(tr -cd 0-9 < _compose_preview_handoff/_pr_number)" >> "$GITHUB_OUTPUT"
       - uses: yschimke/compose-ai-tools/.github/actions/apply@f7b745f264327ba409ebf4d54edefba49ff3089d # v2.41.0
         with:
           phase: publish
           pr-number: ${{ steps.pr.outputs.number }}
           artifact-repository: yschimke/m3-catalog-out
           artifacts-token: ${{ secrets.ARTIFACTS_TOKEN }}
+          # Check the PR's changed previews against this catalog's ui-builder.guidelines.json and
+          # post a sticky `<!-- guidelines-report -->` comment. Skipped with a notice while the
+          # OPENROUTER_API_KEY secret is unset.
+          guidelines: 'true'
+          guidelines-file: ui-builder.guidelines.json
+          openrouter-key: ${{ secrets.OPENROUTER_API_KEY }}
+          guidelines-max-cost: '0.25'
