@@ -52,4 +52,43 @@ class GeneratedCatalogTest {
       root.toFile().deleteRecursively()
     }
   }
+
+  @Test
+  fun `changed contract refuses publication and preserves the previous artifact`() {
+    val original = Path.of(System.getProperty("catalogRoot"))
+    val scratch = Files.createTempDirectory("changed-contract")
+    val output = scratch.resolve("output")
+    try {
+      val input = catalogInputs().first()
+      val discovery = scratch.resolve(input.module).resolve("build/compose-previews")
+      Files.createDirectories(discovery)
+      val spec = scratch.resolve(input.spec)
+      Files.createDirectories(spec.parent)
+      Files.copy(original.resolve(input.spec), spec)
+      val originalDiscovery = original.resolve(input.module).resolve("build/compose-previews")
+      Files.copy(originalDiscovery.resolve("components.json"), discovery.resolve("components.json"))
+      val baseline =
+        json.decodeFromString(
+          UiBuilderCatalogFile.serializer(),
+          Files.readString(originalDiscovery.resolve("ui-builder.json")),
+        )
+      val changed =
+        baseline
+          .newBuilder()
+          .apply { catalog = catalog.newBuilder().apply { title = "Incompatible title" }.build() }
+          .build()
+      Files.writeString(
+        discovery.resolve("ui-builder.json"),
+        json.encodeToString(UiBuilderCatalogFile.serializer(), changed),
+      )
+      val previous = output.resolve(input.policy.catalogId!!)
+      Files.createDirectories(previous)
+      Files.writeString(previous.resolve("sentinel"), "previous validated pair")
+      kotlin.test.assertFailsWith<IllegalStateException> { generateCatalogs(scratch, output) }
+      assertEquals("previous validated pair", Files.readString(previous.resolve("sentinel")))
+      kotlin.test.assertFalse(Files.exists(previous.resolve("ui-builder.json")))
+    } finally {
+      scratch.toFile().deleteRecursively()
+    }
+  }
 }

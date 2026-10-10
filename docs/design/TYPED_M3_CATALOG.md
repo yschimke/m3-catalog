@@ -102,7 +102,7 @@ original compiled record, copied byte for byte alongside the generated `ui-build
 
 Generation compares the entire typed output with fresh legacy discovery, including identities,
 code contracts, exclusions, builtins and diagnostics, before replacing its task-owned output.
-Only documentation comments are ignored. A changed contract or missing discovery/template fails the
+Capability defaults are normalized by their owning protocol serializers; documentation comments are ignored. A changed contract or missing discovery/template fails the
 build. Template files travel with the pair. Artifacts and compatibility evidence are uploaded by the
 typed workflow from `catalog-typed-generator/build/catalog/<catalog-id>/`.
 

@@ -4,6 +4,8 @@ import ee.schimke.composeai.discovery.ComponentRecordFile
 import ee.schimke.composeai.discovery.UiBuilderCatalogFile
 import ee.schimke.composeai.discovery.UiBuilderCatalogs
 import ee.schimke.composeai.discovery.UiBuilderPolicyFile
+import ee.schimke.composeai.uibuilder.protocol.PropertyCapabilityV1
+import ee.schimke.composeai.uibuilder.protocol.SlotCapabilityV1
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
@@ -31,13 +33,41 @@ private val artifactJson = Json {
   ignoreUnknownKeys = true
 }
 
-// Comments do not execute. Everything else, including order, code contracts, IDs and diagnostics,
+// Comments do not execute. Capability defaults are normalized by their owner serializers.
+// Everything else,
+// including order, code contracts, IDs and diagnostics,
 // must survive the migration. Generation never loads ui-builder.policy.json.
 internal fun executable(value: JsonElement): JsonElement =
   when (value) {
     is JsonObject ->
       JsonObject(
-        value.filterKeys { !it.startsWith("\$comment") }.mapValues { executable(it.value) }
+        value
+          .filterKeys { !it.startsWith("\$comment") }
+          .mapValues { (key, child) ->
+            val normalized =
+              when {
+                key in setOf("propertyCapabilities", "properties") && child is JsonArray ->
+                  JsonArray(
+                    child.map {
+                      artifactJson.encodeToJsonElement(
+                        PropertyCapabilityV1.serializer(),
+                        artifactJson.decodeFromJsonElement(PropertyCapabilityV1.serializer(), it),
+                      )
+                    }
+                  )
+                key == "slotCapabilities" && child is JsonArray ->
+                  JsonArray(
+                    child.map {
+                      artifactJson.encodeToJsonElement(
+                        SlotCapabilityV1.serializer(),
+                        artifactJson.decodeFromJsonElement(SlotCapabilityV1.serializer(), it),
+                      )
+                    }
+                  )
+                else -> child
+              }
+            executable(normalized)
+          }
       )
     is JsonArray -> JsonArray(value.map(::executable))
     else -> value
