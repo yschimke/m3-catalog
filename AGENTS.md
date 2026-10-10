@@ -181,6 +181,27 @@ same word. Where Compose has no name of its own, take the kit's.
   until the renderer can capture their popup surface (compose-ai-tools#3916). A kit component with no
   Compose Material 3 API also stays out.
 
+## Design guidelines
+
+[`ui-builder.guidelines.json`](ui-builder.guidelines.json) is this catalog's design guidance (format
+`compose-ui-builder/catalog-guidelines/v1`): the rules a model is asked about a UI builder design
+built from `m3`, and about every preview a pull request changes. `compose-preview.yml` stages the
+changed previews, with their source and accessibility nodes, and `compose-preview-publish.yml` runs
+the check and posts a sticky `<!-- guidelines-report -->` comment. It skips with a notice while the
+`OPENROUTER_API_KEY` secret is unset.
+
+- **Every rule quotes m3.material.io or developer.android.com and links the page it came from.** No
+  invented guidance, and nothing a render, its source and its accessibility nodes cannot show: no
+  Play-store or manifest checks, and no motion rules, since a still cannot show motion.
+- **`surfaces` decides what is asked.** `screen` is a whole design, shown at the phone and tablet
+  frames; `component` is a single preview, which is what every sticker here is. A rule that compares
+  the two frames is `screen` only.
+- **Write the `check` so it does not over-fire.** Say when to answer `not_applicable`, exempt a
+  specimen that lays styles out side by side, and keep the scroll rule: content cut at the edge of a
+  list that can still scroll towards it is not clipping; content cut at the end of a scroll is.
+- **A picture's `description` says what the picture is, never what is wrong with it.**
+- Bump `version` whenever a rule or frame changes; it is recorded with every result.
+
 ## The catalog over MCP
 
 `.mcp.json` at the repository root registers the hosted catalog server (`compose-preview-catalog`,

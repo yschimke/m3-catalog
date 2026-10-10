@@ -43,13 +43,21 @@ jobs:
           artifact-repository: yschimke/m3-catalog-out
           artifacts-token: ''
           phase: render
+          # Stage the changed previews for the design-guidelines check; the publish phase runs it
+          # (compose-preview-publish.yml), since only that phase holds the OpenRouter key.
+          guidelines: 'true'
+          guidelines-file: ui-builder.guidelines.json
           # Single source of truth for the renderer version: the
           # composePreviewPlugin entry in libs.versions.toml. A newer published
           # CLI auto-installed against an older applied plugin breaks preview
           # discovery outright.
           cli-version: catalog
           catalog-key: composePreviewPlugin
-          only: compose
+          # The a11y pipeline gives the design-guidelines check each preview's nodes (so a finding
+          # can name and outline one, and the check knows what scrolls) and ATF's measured
+          # touch-target and contrast results. The baseline renders it too, to compare against.
+          only: compose,a11y
+          a11y-module: catalog
           # The action defaults to 600s, which is far under what this sheet costs — every run died
           # at 10 min with the baseline left unrefreshed, including documentation-only ones.
           #
@@ -107,7 +115,11 @@ jobs:
           phase: all
           cli-version: catalog
           catalog-key: composePreviewPlugin
-          only: compose
+          # The a11y pipeline gives the design-guidelines check each preview's nodes (so a finding
+          # can name and outline one, and the check knows what scrolls) and ATF's measured
+          # touch-target and contrast results. The baseline renders it too, to compare against.
+          only: compose,a11y
+          a11y-module: catalog
           timeout: '4800'
 
       - uses: actions/setup-node@v7.0.0
