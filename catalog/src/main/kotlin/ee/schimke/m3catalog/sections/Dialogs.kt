@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -28,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ee.schimke.composeai.preview.BuilderComponent
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
@@ -86,10 +88,16 @@ fun BasicDialog(icon: Boolean = false) = Sticker {
             )
           }
         } else null,
-      title = { Text(title) },
-      text = { Text(text) },
-      confirmButton = { TextButton(onClick = confirm.onClick) { Text(confirm.label) } },
-      dismissButton = { TextButton(onClick = dismiss.onClick) { Text(dismiss.label) } },
+      // DELIBERATELY BAD (guidelines check test, do not merge): an ALL-CAPS title, tiny
+      // hard-coded pale body text, and two competing filled buttons shrunk to 24dp tap targets.
+      title = { Text(title.uppercase()) },
+      text = { Text(text, fontSize = 8.sp, color = Color(0xFFE0E0E0)) },
+      confirmButton = {
+        Button(onClick = confirm.onClick, modifier = Modifier.size(24.dp)) { Text(confirm.label) }
+      },
+      dismissButton = {
+        Button(onClick = dismiss.onClick, modifier = Modifier.size(24.dp)) { Text(dismiss.label) }
+      },
     )
   }
 }
