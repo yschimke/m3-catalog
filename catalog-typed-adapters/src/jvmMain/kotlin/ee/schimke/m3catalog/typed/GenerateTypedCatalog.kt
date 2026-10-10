@@ -5,6 +5,7 @@ import ee.schimke.composeai.discovery.ComponentRecordFile
 import ee.schimke.composeai.discovery.ScreenDocument
 import ee.schimke.composeai.discovery.ScreenGenerator
 import ee.schimke.composeai.discovery.ScreenNode
+import ee.schimke.composeai.discovery.ScreenState
 import ee.schimke.composeai.discovery.ScreenValue
 import ee.schimke.composeai.discovery.TypedAdapterDiscovery
 import ee.schimke.composeai.discovery.UiBuilderPolicyFile
@@ -21,13 +22,15 @@ import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
 
 fun discoverTypedM3Controls(): ComponentRecordFile {
-  val names = listOf("M3Checkbox", "M3Switch", "M3RadioButton")
+  val names = m3Definitions.map { it.callable }
   val record =
     TypedAdapterDiscovery.discover(
       module = "catalog-typed-adapters",
       variant = "jvm",
       callables =
-        names.map { TypedAdapterDiscovery.Callable("ee.schimke.m3catalog.typed.M3ControlsKt", it) },
+        names.map {
+          TypedAdapterDiscovery.Callable("ee.schimke.m3catalog.typed.M3ComponentsKt", it)
+        },
     )
   return record
     .newBuilder()
@@ -36,7 +39,12 @@ fun discoverTypedM3Controls(): ComponentRecordFile {
         component
           .newBuilder()
           .apply {
-            builder = BuilderPolicy.Builder().apply { group = "Selection controls" }.build()
+            builder =
+              BuilderPolicy.Builder()
+                .apply {
+                  group = m3Definitions.single { it.callable == component.symbol.name }.group
+                }
+                .build()
           }
           .build()
       }
@@ -57,26 +65,98 @@ fun main(args: Array<String>) {
   pair.writeTo(output)
   val exportSources = output.resolve("generated-source")
   Files.createDirectories(exportSources)
-  for (component in pair.record.components) {
+  val exportRecord =
+    pair.record
+      .newBuilder()
+      .apply { components = pair.record.components + typed.builtinAdapters.map { it.component } }
+      .build()
+  val textRecord = typed.text.component.canonicalId
+  for (component in exportRecord.components) {
     for (explicit in listOf(false, true)) {
       val name = component.symbol.name + if (explicit) "ExplicitExport" else "DefaultExport"
       val arguments =
         if (explicit)
           mapOf(
-            (if (component.symbol.name == "M3RadioButton") "selected" else "checked") to
-              ScreenValue.Bool(true),
-            "enabled" to ScreenValue.Bool(false),
+            *component.parameters
+              .filter {
+                it.typeFqn in setOf("kotlin.Boolean", "kotlin.String", "kotlin.Float", "kotlin.Int")
+              }
+              .map { parameter ->
+                parameter.name to
+                  when (parameter.typeFqn) {
+                    "kotlin.Boolean" -> ScreenValue.Bool(true)
+                    "kotlin.String" ->
+                      ScreenValue.Text(
+                        if (parameter.name == "text" || parameter.name == "value") "Typed M3"
+                        else ""
+                      )
+                    "kotlin.Float" -> ScreenValue.Fractional32(1f)
+                    else -> ScreenValue.Whole(1)
+                  }
+              }
+              .toTypedArray()
           )
         else emptyMap()
       val result =
         ScreenGenerator.generate(
-          ScreenDocument(name, ScreenNode(component.canonicalId, arguments = arguments)),
-          pair.record,
+          ScreenDocument(
+            name,
+            ScreenNode(
+              component.canonicalId,
+              arguments = arguments,
+              slots =
+                if (explicit)
+                  component.parameters
+                    .filter { it.composableSlot }
+                    .associate {
+                      it.name to
+                        listOf(
+                          ScreenNode(textRecord, mapOf("text" to ScreenValue.Text("Slot content")))
+                        )
+                    }
+                else emptyMap(),
+            ),
+          ),
+          exportRecord,
           packageName = "ee.schimke.m3catalog.typed.consumer",
         )
       check(result is ScreenGenerator.Result.Emitted) { "Source fixture refused: $result" }
       Files.writeString(exportSources.resolve("$name.kt"), result.source)
     }
+  }
+  for (component in
+    pair.record.components.filter { it.builder?.stateCallbacks?.isNotEmpty() == true }) {
+    val binding = component.builder!!.stateCallbacks.single()
+    val property = binding.value.substringBefore(':')
+    val parameter = component.parameters.single { it.name == property }
+    val initial =
+      when (parameter.typeFqn) {
+        "kotlin.Boolean" -> ScreenValue.Bool(false)
+        "kotlin.String" -> ScreenValue.Text("Initial")
+        "kotlin.Float" -> ScreenValue.Fractional32(0.5f)
+        else -> error("No state fixture for ${parameter.typeFqn}")
+      }
+    val name = component.symbol.name + "StateExport"
+    val result =
+      ScreenGenerator.generate(
+        ScreenDocument(
+          name,
+          ScreenNode(
+            component.canonicalId,
+            arguments =
+              mapOf(
+                property to ScreenValue.StateRead("selection", requireNotNull(parameter.typeFqn))
+              ),
+          ),
+          state = listOf(ScreenState("selection", requireNotNull(parameter.typeFqn), initial)),
+        ),
+        exportRecord,
+        packageName = "ee.schimke.m3catalog.typed.consumer",
+      )
+    check(result is ScreenGenerator.Result.Emitted) { "State fixture refused: $result" }
+    // These fixtures prove typed state reads. The generic source generator does not yet
+    // project payload callback assignments; readiness keeps that production export gate open.
+    Files.writeString(exportSources.resolve("$name.kt"), result.source)
   }
   val json = Json {
     prettyPrint = true
@@ -85,6 +165,8 @@ fun main(args: Array<String>) {
   val legacy =
     json.decodeFromString(UiBuilderPolicyFile.serializer(), Files.readString(Path.of(args[2])))
   val covered = typed.adapters.map { it.id }.toSet()
+  val builtinCovered = typed.builtinAdapters.map { it.id }.toSet()
+  val remainingBuiltins = legacy.builtins.keys - builtinCovered
   val remaining = legacy.components.keys - covered
   val compatibilityChanges =
     covered
@@ -124,22 +206,28 @@ fun main(args: Array<String>) {
         buildJsonObject {
           put(
             "uncoveredComponents",
-            JsonArray((referenced - covered).sorted().map(::JsonPrimitive)),
+            JsonArray(
+              (referenced - covered - builtinCovered - foundationAdapterIds)
+                .sorted()
+                .map(::JsonPrimitive)
+            ),
           )
         }
     }
   val report = buildJsonObject {
+    put("typedBuiltins", JsonArray(builtinCovered.sorted().map(::JsonPrimitive)))
+    put("foundationAdapters", JsonArray(foundationAdapterIds.sorted().map(::JsonPrimitive)))
     put(
       "readyForCutover",
       remaining.isEmpty() &&
-        legacy.builtins.isEmpty() &&
+        remainingBuiltins.isEmpty() &&
         compatibilityChanges.isEmpty() &&
         unverified.isEmpty(),
     )
     put("policyEquivalenceTask", ":catalog-typed-policy:test")
     put("typedComponents", JsonArray(covered.sorted().map(::JsonPrimitive)))
     put("remainingComponents", JsonArray(remaining.sorted().map(::JsonPrimitive)))
-    put("remainingBuiltins", JsonArray(legacy.builtins.keys.sorted().map(::JsonPrimitive)))
+    put("remainingBuiltins", JsonArray(remainingBuiltins.sorted().map(::JsonPrimitive)))
     put(
       "compatibilityChanges",
       JsonObject(
