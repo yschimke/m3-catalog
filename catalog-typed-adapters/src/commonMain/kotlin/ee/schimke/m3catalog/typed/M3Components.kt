@@ -233,6 +233,9 @@ fun M3Checkbox(
   )
 }
 
+/** 2025-08-17 UTC: the same day `DatePickers.kt` pins its stickers to. */
+private const val PINNED_DATE_PICKER_MILLIS = 1755388800000L
+
 object TypedDatePickerDefaults {
   const val selectedDate: String = ""
   const val mode: String = ""
@@ -247,7 +250,9 @@ fun M3DatePicker(
   modifier: Modifier = Modifier,
 ) {
 
-  val initial = selectedDate.toEpochMillisOrNull()
+  // A missing or unparseable date falls back to the stickers' pinned day (2025-08-17) rather than
+  // `null`, which would open on the current month and make every render depend on the clock.
+  val initial = selectedDate.toEpochMillisOrNull() ?: PINNED_DATE_PICKER_MILLIS
   val mode = if (mode == "input") DisplayMode.Input else DisplayMode.Picker
   key(initial, mode) {
     val state =

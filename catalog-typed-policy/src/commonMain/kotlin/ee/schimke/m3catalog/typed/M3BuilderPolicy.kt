@@ -1939,7 +1939,7 @@ private fun builtinSnackbarHost(): UiBuilderBuiltin =
     .apply {
       shelfRole = "Container"
       displayName = "Snackbar host"
-      group = "Communication"
+      group = "Snackbar"
       canvas = "m3/snackbar-host"
       traits = listOf("SnackbarHost")
       properties =
