@@ -314,6 +314,16 @@ class IconButtonAdapter(record: ComponentRecord) :
   val content = slot("content")
 }
 
+class ListItemProperties
+
+class ListItemAdapter(record: ComponentRecord) :
+  TypedComponentAdapter<ListItemProperties>("m3/list-item", record) {
+  val headline = slot("headline")
+  val supporting = slot("supporting")
+  val leading = slot("leading")
+  val trailing = slot("trailing")
+}
+
 data class PrimaryTabRowProperties(val selectedIndex: Int)
 
 class PrimaryTabRowAdapter(record: ComponentRecord) :
