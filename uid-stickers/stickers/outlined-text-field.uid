@@ -1,0 +1,101 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-outlined-text-field",
+  "title": "Kit outlined text field",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 210,
+    "heightDp": 96,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-outlined-text-field": {
+      "name": "KitOutlinedTextField",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-outlined-text-field",
+        "arguments": {
+          "value": {
+            "type": "resource",
+            "resourceKey": "field_placeholder"
+          },
+          "enabled": {
+            "type": "bool",
+            "value": true
+          },
+          "labelText": {
+            "type": "resource",
+            "resourceKey": "field_name"
+          },
+          "placeholder": {
+            "type": "resource",
+            "resourceKey": "field_placeholder"
+          },
+          "supportingText": {
+            "type": "resource",
+            "resourceKey": "field_supporting"
+          }
+        }
+      }
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {
+        "children": [
+          "field"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "padding",
+          "startDp": 0,
+          "topDp": 8,
+          "endDp": 0,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "field": {
+      "id": "field",
+      "componentId": "m3/outlined-text-field",
+      "properties": {
+        "value": {
+          "type": "binding",
+          "value": "value"
+        },
+        "enabled": {
+          "type": "binding",
+          "value": "enabled"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 210
+        }
+      ]
+    }
+  }
+}
