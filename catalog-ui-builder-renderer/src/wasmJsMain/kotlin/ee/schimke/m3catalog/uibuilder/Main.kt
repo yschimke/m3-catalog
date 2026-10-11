@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
+import ee.schimke.composeai.uibuilder.ProvideUiBuilderFonts
 import ee.schimke.composeai.uibuilder.protocol.CanvasAdapterMappingV1
 import ee.schimke.composeai.uibuilder.protocol.UiBuilderRendererSurfaceModeV2
 import ee.schimke.composeai.uibuilder.renderer.sdk.CATALOG_RUNTIME_CAPABILITY_HORIZONTAL_UNROLL
@@ -26,6 +27,7 @@ import ee.schimke.composeai.uibuilder.renderer.sdk.CanvasMode
 import ee.schimke.composeai.uibuilder.renderer.sdk.RenderCanvasNode
 import ee.schimke.composeai.uibuilder.renderer.sdk.UiBuilderSemanticActionController
 import ee.schimke.composeai.uibuilder.renderer.sdk.applyCanvasModifier
+import ee.schimke.composeai.uibuilder.renderer.sdk.catalogRuntimeFontRegistry
 import ee.schimke.composeai.uibuilder.renderer.sdk.startCatalogRenderer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonPrimitive
@@ -62,6 +64,9 @@ private val adapterMappings: Map<String, CanvasAdapterMappingV1> by lazy {
 
 fun main() {
   val actions = UiBuilderSemanticActionController()
+  // One registry for the page, reading the vendored faces this runtime ships in `fonts/` (see
+  // `runtimeAssets`): `m3/variable-font-text` draws its stand-in in them.
+  val fonts = catalogRuntimeFontRegistry()
   startCatalogRenderer(
     actions,
     capabilities = setOf(CATALOG_RUNTIME_CAPABILITY_HORIZONTAL_UNROLL),
@@ -83,35 +88,37 @@ fun main() {
       else CanvasMode.Device
     val dark = document.environment["theme"]?.jsonPrimitive?.contentOrNull == "dark"
     CompositionLocalProvider(LocalDensity provides density) {
-      MaterialTheme(colorScheme = if (dark) darkColorScheme() else lightColorScheme()) {
-        Box(Modifier.requiredSize(surface.widthDp.dp, surface.heightDp.dp)) {
-          CanvasDocumentHost(
-            document = document,
-            adapterIds = adapterIds,
-            adapterMappings = adapterMappings,
-            mode = mode,
-            density = density,
-            modifier = Modifier.fillMaxSize(),
-            renderSessionId = renderSessionId,
-            runtimeActionController = actions,
-            onInspectionSnapshot = onInspectionSnapshot,
-          ) { entry, rootModifier ->
-            RenderCanvasNode(
-              entry = entry,
-              registry = runtimeAdapters,
-              modifier = rootModifier,
-              applyModifier = { current, value ->
-                current.applyCanvasModifier(
-                  value = value,
-                  mode = mode,
-                  unrolledHorizontally = unrolledHorizontally,
-                  resolveColor = { materialColor(it) },
-                  resolveShape = ::materialShape,
-                )
-              },
-              missingComponent = { label, next -> UnsupportedComponent(label, next) },
-            ) {
-              UnsupportedComponent(node.componentId, prepared.modifier)
+      ProvideUiBuilderFonts(fonts) {
+        MaterialTheme(colorScheme = if (dark) darkColorScheme() else lightColorScheme()) {
+          Box(Modifier.requiredSize(surface.widthDp.dp, surface.heightDp.dp)) {
+            CanvasDocumentHost(
+              document = document,
+              adapterIds = adapterIds,
+              adapterMappings = adapterMappings,
+              mode = mode,
+              density = density,
+              modifier = Modifier.fillMaxSize(),
+              renderSessionId = renderSessionId,
+              runtimeActionController = actions,
+              onInspectionSnapshot = onInspectionSnapshot,
+            ) { entry, rootModifier ->
+              RenderCanvasNode(
+                entry = entry,
+                registry = runtimeAdapters,
+                modifier = rootModifier,
+                applyModifier = { current, value ->
+                  current.applyCanvasModifier(
+                    value = value,
+                    mode = mode,
+                    unrolledHorizontally = unrolledHorizontally,
+                    resolveColor = { materialColor(it) },
+                    resolveShape = ::materialShape,
+                  )
+                },
+                missingComponent = { label, next -> UnsupportedComponent(label, next) },
+              ) {
+                UnsupportedComponent(node.componentId, prepared.modifier)
+              }
             }
           }
         }
