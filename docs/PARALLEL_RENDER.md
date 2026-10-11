@@ -9,9 +9,9 @@ adds lengthens the same serial render. That is a different document
 ([`PARALLEL_SWEEP.md`](PARALLEL_SWEEP.md)) solving a different problem.
 
 > **Status: built and in use.** [`design-artifacts.yml`](../.github/workflows/design-artifacts.yml)
-> currently passes **`render-shards: 4`**. §1 has the measurement that governs that number and the
-> thresholds for changing it — at today's sheet size the model puts the optimum below 2, so this is
-> worth re-checking against a real sharded run.
+> currently passes **`render-shards: 6`**. §1 has the PNG-render measurement and its thresholds; the
+> semantics pass is what sets the count now, at ~2.75s per preview against the per-shard
+> `render-timeout` (the reasoning is in the workflow's comments).
 
 ## 1. What the render costs
 
