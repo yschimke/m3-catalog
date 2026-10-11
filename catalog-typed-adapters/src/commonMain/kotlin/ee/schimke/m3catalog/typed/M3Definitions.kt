@@ -68,5 +68,5 @@ val m3Definitions =
     ),
     M3Definition("m3/primary-scrollable-tab-row", "M3PrimaryScrollableTabRow", "Tabs", false),
     M3Definition("m3/variable-font-text", "M3VariableFontText", "Typography", true),
-    M3Definition("m3/snackbar-host", "M3SnackbarHost", "Communication", true),
+    M3Definition("m3/snackbar-host", "M3SnackbarHost", "Snackbar", true),
   )
