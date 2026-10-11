@@ -29,7 +29,7 @@ dependencies {
   implementation(libs.composeai.preview.annotations)
 
   // The exporter the builder's code pane and the server's export.compose route run.
-  "generatorImplementation"("ee.schimke.composeai:compose-preview-ui-builder-export-jvm:3.106.0")
+  "generatorImplementation"("ee.schimke.composeai:compose-preview-ui-builder-export-jvm:3.107.0")
   // The Compose compiler plugin applies to every source set; it only needs the runtime present.
   "generatorImplementation"(libs.compose.runtime)
 }
