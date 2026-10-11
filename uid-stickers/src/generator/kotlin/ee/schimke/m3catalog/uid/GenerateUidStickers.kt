@@ -11,6 +11,7 @@ import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -21,22 +22,23 @@ private val json = Json {
 }
 
 /**
- * `<module dir> <output dir>`: exports every sticker in `stickers.json`, and every variant cell of
+ * `<module dir> <output dir> <catalog discovery dir>`: exports every sticker in `stickers.json`, and every variant cell of
  * it, to one Kotlin file per composable.
  *
  * A variant cell is a list of builder operations, spelled the way `ui_builder_apply` spells them
  * (`setProperty`, `removeNodeProperty`, `deleteNode`, `setModifiers`). They are applied to the
  * document before export, so a cell is the same kind of edit a designer makes in the builder and
  * the cell's Kotlin is exactly what the builder would export for it.
+ *
+ * Each document is a component definition placed once. Only the components are written
+ * (`exportComponents`), as `internal` functions whose parameters are the document's bindings and
+ * its action-free events, so the hand-written shell supplies the catalog's live knobs and click
+ * counters and the generated body stays free of catalog code.
  */
 fun main(args: Array<String>) {
   val module = File(args[0])
   val out = File(args[1])
-  val record =
-    json.decodeFromString(
-      ComponentRecordFile.serializer(),
-      module.resolve("component-record.json").readText(),
-    )
+  val record = vocabulary(module, File(args[2]))
   val manifest = json.parseToJsonElement(module.resolve("stickers.json").readText()).jsonObject
   // The catalog's string resource accessor, so `resource` values export as its translated strings.
   val structure =
@@ -54,9 +56,15 @@ fun main(args: Array<String>) {
     }
     for ((cell, operations) in cells) {
       val title = listOfNotNull(base.string("title"), cell).joinToString(" ")
-      val patched = operations.fold(base) { doc, op -> apply(doc, op) }.with("title", title)
+      val patched =
+        operations
+          .fold(base) { doc, op -> apply(doc, op) }
+          .with("title", title)
+          .let { suffixComponents(it, cell) }
+          .let(::pruneArguments)
       val document = json.decodeFromJsonElement(DesignDocumentV1.serializer(), patched)
-      when (val outcome = ScreenExportGate.export(document, record, emptyMap(), structure)) {
+      // Only the components: the shell is the screen, and calls them with the catalog's knobs.
+      when (val outcome = ScreenExportGate.exportComponents(document, record, emptyMap(), structure)) {
         is ScreenExportGate.Outcome.Emitted -> {
           val name = functionName(outcome.source) ?: error("$file: no composable in the export")
           out.resolve("generated/uibuilder/$name.kt").apply {
@@ -77,9 +85,89 @@ fun main(args: Array<String>) {
   }
 }
 
-/** The one top-level composable the exporter writes; its name is the design title's. */
+/**
+ * The vocabulary documents resolve against: the catalog's own published pair, so a sticker can use
+ * exactly what the builder serves for `m3-catalog` and nothing else.
+ *
+ * - `:catalog`'s discovered `components.json`, joined through its `ui-builder.json` policy: each
+ *   declared component (`m3/card`, `m3/outlined-button`, …) is the record entry its policy names,
+ *   answering to that id. This is the join the builder's server makes when it serves the pair.
+ * - `builder-foundation-record.json`: the builder's own `layout/` and `asset/` builtins.
+ * - `project-components.json`: components this module declares for its documents.
+ */
+private fun vocabulary(module: File, discovery: File): ComponentRecordFile {
+  fun read(file: File) = json.decodeFromString(ComponentRecordFile.serializer(), file.readText())
+  val published = read(discovery.resolve("components.json"))
+  val byCanonicalId = published.components.associateBy { it.canonicalId }
+  val policy =
+    json
+      .parseToJsonElement(discovery.resolve("ui-builder.json").readText())
+      .jsonObject
+      .getValue("statusSemantics")
+      .jsonObject
+      .getValue("components")
+      .jsonObject
+  val declared =
+    policy.mapNotNull { (id, declaration) ->
+      val entry = declaration.jsonObject
+      if (entry["excluded"]?.jsonPrimitive?.contentOrNull != null) return@mapNotNull null
+      val canonicalId = entry["record"]?.jsonPrimitive?.contentOrNull ?: return@mapNotNull null
+      val component =
+        byCanonicalId[canonicalId] ?: error("ui-builder.json declares $id over missing $canonicalId")
+      component.newBuilder().also { it.componentIds = listOf(id) }.build()
+    }
+  val builder = read(module.resolve("builder-foundation-record.json")).components
+  val project = read(module.resolve("project-components.json")).components
+  return published.newBuilder().also { it.components = declared + builder + project }.build()
+}
+
+/** The first component the exporter writes, which names the file. */
 private fun functionName(source: String): String? =
-  Regex("""^fun (\w+)\(""", RegexOption.MULTILINE).find(source)?.groupValues?.get(1)
+  Regex("""^internal fun (\w+)\(""", RegexOption.MULTILINE).find(source)?.groupValues?.get(1)
+
+/**
+ * Each cell's components get the cell's name (`KitCard` → `KitCardElevated`): every cell is
+ * generated into the same package, and a cell is a different body, not an argument.
+ */
+private fun suffixComponents(doc: JsonObject, cell: String?): JsonObject {
+  if (cell == null) return doc
+  val suffix = cell.split(' ').joinToString("") { it.replaceFirstChar(Char::uppercaseChar) }
+  val components = doc["components"]?.jsonObject ?: return doc
+  return doc.with(
+    "components",
+    JsonObject(
+      components.mapValues { (_, c) ->
+        c.jsonObject.with("name", c.jsonObject.string("name") + suffix)
+      }
+    ),
+  )
+}
+
+/**
+ * Drops each placement's arguments its component no longer reads, after a cell deleted the nodes
+ * that bound them: the slot cell's card has no copy, so `KitCardSlot` takes none.
+ */
+private fun pruneArguments(doc: JsonObject): JsonObject {
+  val nodes = doc.getValue("nodes").jsonObject
+  val components = doc["components"]?.jsonObject ?: return doc
+  val reads =
+    components.mapValues { (_, c) ->
+      descendants(nodes, c.jsonObject.string("root"))
+        .flatMap { id -> nodes[id]?.jsonObject?.get("properties")?.jsonObject?.values.orEmpty() }
+        .mapNotNull { v ->
+          v.jsonObject.takeIf { it["type"]?.jsonPrimitive?.content == "binding" }?.string("value")
+        }
+        .toSet()
+    }
+  val pruned =
+    nodes.mapValues { (_, n) ->
+      val placement = n.jsonObject["component"]?.jsonObject ?: return@mapValues n
+      val used = reads[placement.string("componentKey")] ?: return@mapValues n
+      val arguments = placement["arguments"]?.jsonObject.orEmpty().filterKeys { it in used }
+      n.jsonObject.with("component", placement.with("arguments", JsonObject(arguments)))
+    }
+  return doc.with("nodes", JsonObject(pruned))
+}
 
 private fun apply(doc: JsonObject, op: JsonObject): JsonObject {
   val nodes = doc.getValue("nodes").jsonObject

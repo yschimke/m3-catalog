@@ -17,6 +17,8 @@ plugins {
 kotlin { jvmToolchain(21) }
 
 // `-PuidExportVersion=<x>-SNAPSHOT` tries an unreleased exporter published to Maven local.
+// `exportComponents` is newer than 3.106.0, so the prototype currently needs both:
+// `-PuidExportVersion=3.107.1-SNAPSHOT -PscreenModelVersion=2.50.1-SNAPSHOT`.
 if (providers.gradleProperty("uidExportVersion").isPresent) {
   repositories {
     mavenLocal()
@@ -44,6 +46,16 @@ dependencies {
     "ee.schimke.composeai:compose-preview-ui-builder-export-jvm:" +
       providers.gradleProperty("uidExportVersion").getOrElse("3.106.0")
   )
+  // `-PscreenModelVersion=<x>-SNAPSHOT` pairs an unreleased exporter with the unreleased
+  // generator it was built against.
+  providers.gradleProperty("screenModelVersion").orNull?.let { pinned ->
+    "generatorImplementation"("ee.schimke.composeai:screen-model-jvm") {
+      version { strictly(pinned) }
+    }
+    "generatorImplementation"("ee.schimke.composeai:screen-model") {
+      version { strictly(pinned) }
+    }
+  }
   // The Compose compiler plugin applies to every source set; it only needs the runtime present.
   "generatorImplementation"(libs.compose.runtime)
 }
@@ -56,13 +68,21 @@ val generateUidStickers by
     description = "Exports every sticker document and variant cell to Kotlin with the UI builder."
     classpath = generator.runtimeClasspath
     mainClass = "ee.schimke.m3catalog.uid.GenerateUidStickersKt"
+    // The vocabulary is `:catalog`'s own published pair (its discovered record and builder policy),
+    // so a document can name only what the builder serves for `m3-catalog`.
+    val catalogDiscovery = project(":catalog").layout.buildDirectory.dir("compose-previews")
+    dependsOn(":catalog:composePreviewDiscover")
     inputs.dir("stickers")
     inputs.file("stickers.json")
-    inputs.file("component-record.json")
+    inputs.file("builder-foundation-record.json")
+    inputs.file("project-components.json")
+    inputs.file(catalogDiscovery.map { it.file("components.json") })
+    inputs.file(catalogDiscovery.map { it.file("ui-builder.json") })
     outputs.dir(generatedDir)
     args(
       layout.projectDirectory.asFile.absolutePath,
       generatedDir.get().asFile.absolutePath,
+      catalogDiscovery.get().asFile.absolutePath,
     )
   }
 

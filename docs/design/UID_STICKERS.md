@@ -35,14 +35,18 @@ Those are the gaps to close before migrating anything.
 ## How the prototype is wired
 
 ```text
-stickers/card.uid ──┐                                  ┌─ KitCard()              ┐
-stickers.json ──────┼─ generateUidStickers ────────────┼─ KitCardSlot()          ├─ src/main/.../Cards.kt
-component-record ───┘  (ScreenExportGate.export,       ├─ KitCardElevated()      │  @CatalogComponent +
-                        compose-preview-ui-builder-     ├─ … one per cell         ┘  Sticker { KitCard() }
-                        export-jvm 3.106.0)             └─ build/generated/uid/kotlin/generated/uibuilder
+stickers/card.uid ───────┐                                 ┌─ internal fun KitCard(…)  ┐
+stickers.json ───────────┤                                 ├─ KitCardSlot(…)           ├─ src/main/.../Cards.kt
+:catalog components.json ┼─ generateUidStickers ───────────┼─ KitCardElevated(…)       │  @CatalogComponent +
+  + ui-builder.json      │  (ScreenExportGate              ├─ … one per cell           ┘  KitCard(header =
+builder/project records ─┘   .exportComponents)            └─ build/generated/uid/kotlin     catalogText(…), …)
 ```
 
-- **The document is the sticker body.** Header row, avatar, media, text block and actions are all
+- **The document is a component definition, placed once.** `KitCard`'s copy is `binding` values
+  named for the published knob keys and its buttons carry action-free click events; the placement
+  supplies the catalog's string resources, so the builder still shows real copy. Only the
+  components are exported (`exportComponents`), as `internal` functions whose parameters are those
+  bindings and events. Header row, avatar, media, text block and actions are all
   ordinary builder nodes: `m3/card`, `layout/row`, `m3/surface`, `m3/text` with style and
   `colorToken` values, `m3/icon-button`, and so on.
 - **A cell is a list of builder operations**, in the `ui_builder_apply` vocabulary, applied before
@@ -55,25 +59,31 @@ component-record ───┘  (ScreenExportGate.export,       ├─ KitCardEle
 - **The exporter is the one behind the builder's code pane.** It runs offline from Gradle, against
   the component record, with no server. The generated files keep the exporter's own package
   (`generated.uibuilder`) and names, untouched.
-- **The shell is the only hand-written Kotlin.** Annotations, `Sticker { … }`, and `@CaptureGutter`
-  for the elevated shadow. That keeps the inventory annotation-first.
+- **The shell is the only hand-written Kotlin.** Annotations, `Sticker { … }`, `@CaptureGutter`
+  for the elevated shadow, and the live knobs: it calls
+  `KitCard(header = catalogText("header", …), …, onActionClick = counted(…).onClick)`. That keeps the
+  inventory annotation-first and the generated body free of catalog code.
 
-Run it:
+Run it (until the exporter and generator changes below are released, against snapshots of both in
+Maven local):
 
 ```sh
-scripts/agent-gradle.sh -PuidStickers=true :uid-stickers:composePreviewRender
-python3 uid-stickers/compare-published.py
+scripts/agent-gradle.sh -PuidStickers=true -PuidExportVersion=3.107.1-SNAPSHOT \
+  -PscreenModelVersion=2.50.1-SNAPSHOT :uid-stickers:composePreviewRender
+python3 uid-stickers/compare-published.py   # 31 cells, all SAME
 ```
 
 ## What the prototype established
 
 ### 1. The export lane is record-driven, so vocabulary is the catalog's to extend
 
-Two things the served catalog refused were fixed by adding a **component record entry**, with no
-builder release:
+Two things the builder's embedded record refused were fixed by **record entries**, with no builder
+release:
 
-- **`OutlinedButton`.** The curated record has no outlined button, and `m3/button.style` stops at
-  `filled|filledTonal|text|fab`. One record entry, and the exporter emits `OutlinedButton(…)`.
+- **`OutlinedButton`.** The builder's embedded `m3-catalog` fixture has no outlined button, and
+  `m3/button.style` stops at `filled|filledTonal|text|fab`. But m3-catalog's *published* policy
+  already declares `m3/outlined-button` (and `m3/suggestion-chip`). Now that the generator reads the
+  published pair (prerequisite 2 below), the documents simply name those ids.
 - **The kit's image placeholder.** `M3/.add-on/placeholder image` is a kit component, so the catalog
   publishes it as one: `m3catalog/image-placeholder`, a `PROJECT`-origin record entry over a
   builder-facing wrapper (`uid-stickers/.../BuilderComponents.kt`). The exporter emits
@@ -109,7 +119,8 @@ opened in today's editor would look subtly unlike the sticker it came from.
 
 ### 3. Clean source: achieved, and the reason is structural
 
-The generated `KitCard.kt` is 67 lines of plain Compose, imports included:
+The generated `KitCard.kt` is 72 lines of plain Compose, imports included, and its parameters are the
+card's knobs and click callbacks:
 
 - string literals and `MaterialTheme` tokens;
 - no `Sticker`, `counted`, `catalogText`, `catalogChoice` or `catalogInteractive()`;
@@ -250,15 +261,35 @@ A group file can hold both kinds.
    the accessor the catalog declares. The prototype's Card and chip copy now uses it:
    - all 24 English cells are still pixel-identical;
    - a German render of the generated Card matches the hand-written `FilledCard()` in German.
-2. **One declared vocabulary** shared by the generator, the published builder catalog and the editor
-   (the `catalog-typed-policy` direction). This prototype uses a hand-edited record.
-3. **Live overrides.** Generated bodies lose their text knobs in the Overrides panel. This one is
-   tolerable to ship without.
-4. **Live click handlers.** The exporter fills every required `onClick` with `{}`, so a generated
-   button or chip presses in the live catalog and does nothing. That breaks the "no dead handlers"
-   rule `counted(…)` exists for. The document needs an event binding the exporter lowers to a
-   callback the shell supplies (a generated `onClick` parameter, wired to `counted` in the shell).
-   That keeps `counted` out of the published source. Baked renders are unaffected.
+2. **One declared vocabulary** shared by the generator, the published builder catalog and the editor.
+   **Addressed for the generator.** `generateUidStickers` no longer reads a hand-edited record: it
+   joins `:catalog`'s own discovered `components.json` through its `ui-builder.json` policy, the pair
+   the delivery branch publishes, so a document can name only ids the builder serves for
+   `m3-catalog`. Two small files remain beside it: the builder's own `layout/` builtins
+   (`builder-foundation-record.json`, which no artifact ships yet) and the module's one project
+   component (`project-components.json`). **Still open: the editor.** Its code pane exports against
+   an embedded fixture (`m3-catalog-components-v1.json`) rather than the served pair, which is why it
+   lacks `OutlinedButton`; it should export against the records the server already joins
+   (`PublishedUiBuilderCatalog.Composed.records`).
+3. **Live overrides.** **Addressed, pending release.** The card is a `KitCard` component whose copy
+   is `binding` values named for the published knobs (`header`, `subhead`, `title`, `subtitle`,
+   `supportingText`, `action`, `dismissAction`). The shell passes `catalogText(…)` for each, reading
+   them in the hand-written order, so the generated sticker's Overrides panel declares exactly the
+   published keys. The `layout=slot` axis is a live `catalogChoice` in the shell choosing between the
+   media and slot cells, proven by `@OverrideVariant(name = "slot")` renders that match the published
+   slot captures. The chip's `label` and `enabled` are bindings too, so `disabled` is the published
+   `status=disabled` override rather than a second document.
+4. **Live click handlers.** **Addressed, pending release.** An event with no actions on a node inside
+   a component is the component's API: it exports as a named callback parameter (`onCancelClick`,
+   `onActionClick`, `onMoreClick`, `onChipClick`), and the shell wires each to `counted(…).onClick`.
+   Nothing is filled with `{}`, `counted` stays out of the published source, and a screen that places
+   the component with no handler is still refused. **Gap:** `Card`'s clickable overload is not in the
+   record, so the hand-written sticker's interactive-mode card click (`counted(title)`) has no
+   counterpart yet.
+
+   Upstream: yschimke/compose-ai-tools#5883 (`ScreenGenerator.Output.COMPONENTS`: only the
+   components, as `internal` functions) and a compose-ui-builder follow-up to #729
+   (`ScreenExportGate.exportComponents`, readable intent callbacks, `resource` placement arguments).
 
 **After those, roughly:**
 
@@ -314,9 +345,9 @@ Order:
 
 - `uid-stickers/stickers/card.uid`, `uid-stickers/stickers/suggestion-chip.uid`: the documents.
 - `uid-stickers/stickers.json`: their cells.
-- `uid-stickers/component-record.json`: a copy of the served `m3-catalog` record, plus
-  `OutlinedButton`, `SuggestionChip` and `m3catalog/image-placeholder`. A stand-in for the declared
-  policy.
+- `uid-stickers/builder-foundation-record.json`: the builder's `layout/` builtins.
+- `uid-stickers/project-components.json`: `m3catalog/image-placeholder`, the module's own component.
+  Everything else resolves against `:catalog`'s published pair.
 - `uid-stickers/src/generator`: the export step.
 - `uid-stickers/src/main`: the shell and the builder-facing placeholder.
 - `uid-stickers/compare-published.py`: the pixel check against the delivery branch.

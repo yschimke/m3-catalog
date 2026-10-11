@@ -22,10 +22,18 @@ CELLS = {  # this module's preview -> the published capture of the hand-written 
     "OutlinedCardUid_Dark": "card-outlined/ideal__default__dark__compact",
     "OutlinedCardUidSlot_Light": "card-outlined/ideal__slot__compact",
     "OutlinedCardUidSlot_Dark": "card-outlined/ideal__slot__dark__compact",
+    # The live `layout` knob on the media sticker, against the same published slot cells.
+    "FilledCardUid_Light_VARIANT_slot": "card-filled/ideal__slot__compact",
+    "FilledCardUid_Dark_VARIANT_slot": "card-filled/ideal__slot__dark__compact",
+    "ElevatedCardUid_Light_VARIANT_slot": "card-elevated/ideal__slot__compact",
+    "ElevatedCardUid_Dark_VARIANT_slot": "card-elevated/ideal__slot__dark__compact",
+    "OutlinedCardUid_Light_VARIANT_slot": "card-outlined/ideal__slot__compact",
+    "OutlinedCardUid_Dark_VARIANT_slot": "card-outlined/ideal__slot__dark__compact",
     "SuggestionChipUid_Light": "chip-suggestion/ideal__default__light",
     "SuggestionChipUid_Dark": "chip-suggestion/ideal__default__dark",
-    "SuggestionChipUidDisabled_Light": "chip-suggestion/ideal__disabled",
-    "SuggestionChipUidDisabled_Dark": "chip-suggestion/ideal__disabled__dark",
+    # The live `status` knob, as the published override cell sets it.
+    "SuggestionChipUid_Light_VARIANT_disabled": "chip-suggestion/ideal__disabled",
+    "SuggestionChipUid_Dark_VARIANT_disabled": "chip-suggestion/ideal__disabled__dark",
     # Interaction cells: the harness applies the state; the document knows nothing about it.
     "SuggestionChipUid_Light_VARIANT_hovered": "chip-suggestion/ideal__hovered",
     "SuggestionChipUid_Dark_VARIANT_hovered": "chip-suggestion/ideal__hovered__dark",
