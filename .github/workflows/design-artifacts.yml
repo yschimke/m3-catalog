@@ -163,7 +163,7 @@ jobs:
     # PINNED TO compose-ai-tools#5887's head until a release carries `scope-mapper` and
     # `supersede-stale-runs`; move all four lanes to that tag before merging. v2.50.0 rejects both
     # inputs at parse time.
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@5da325f55adbf37cd2b52e304799df0d66a6d758
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@f33c656b44a4d537dece0b056ab167b2ca818722
     with:
       system: m3-catalog
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
@@ -198,6 +198,13 @@ jobs:
       ui-builder-runtime-task: ':catalog-ui-builder-renderer:rendererArchive'
       ui-builder-runtime-archive: 'catalog-ui-builder-renderer/build/distributions/m3-catalog-ui-builder-renderer.zip'
       ui-builder-runtime-source-ref: 'c5a245386e24366f3c789a9398f599bff86fa744'
+      # Build that renderer in its own job WHILE the six shards render, rather than in the merge job
+      # after them — ~4 minutes off the critical path. Safe because the task is self-contained:
+      # `rendererArchive` reads only its library coordinates, the committed `ui-builder.policy.json`,
+      # the compose-ui-builder checkout named above and GITHUB_SHA, and writes a reproducible zip. It
+      # reads no render output. If it ever starts consuming something the render or the merge job
+      # produces, turn this off: the task then has to run in the rendered build again.
+      ui-builder-renderer-standalone: true
       # Pure editable SVGs are a daemon data product too. Keep them transient through catalog
       # generation and per-preview cover cropping, then produce/cache them only when requested;
       # raster-backed hybrid SVGs remain static so their crop references stay self-contained.
@@ -330,7 +337,7 @@ jobs:
     permissions:
       contents: write
     # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@5da325f55adbf37cd2b52e304799df0d66a6d758
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@f33c656b44a4d537dece0b056ab167b2ca818722
     with:
       system: m3-samples
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
@@ -423,7 +430,7 @@ jobs:
     permissions:
       contents: write
     # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@5da325f55adbf37cd2b52e304799df0d66a6d758
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@f33c656b44a4d537dece0b056ab167b2ca818722
     with:
       system: compose-ui-samples
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
@@ -481,7 +488,7 @@ jobs:
     permissions:
       contents: write
     # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@5da325f55adbf37cd2b52e304799df0d66a6d758
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@f33c656b44a4d537dece0b056ab167b2ca818722
     with:
       system: compose-foundation
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
