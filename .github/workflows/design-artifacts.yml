@@ -9,7 +9,7 @@ name: Design Artifacts
 #   :ui-samples-catalog -> design-artifacts/compose-ui-samples the AndroidX FOUNDATION samples
 #   :foundation-catalog -> design-artifacts/compose-foundation  the UI builder's own vocabulary
 #
-# Four catalogs, one pipeline, and a `changes` job so a push that moves one does not spend runners
+# Four catalogs, one pipeline, and a per-lane scope so a push that moves one does not spend runners
 # re-rendering the others.
 #
 # The samples sheet's caller is deliberately the shorter of the two: it reproduces no Figma kit, so
@@ -115,102 +115,58 @@ on:
 permissions:
   contents: read
 
-# NO workflow-level concurrency. One bucket for every lane in this repository is what
-# compose-ai-tools#5438 is about: `cancel-in-progress: false` protects the IN-PROGRESS run, not the
-# PENDING one — GitHub keeps at most one pending run per group, so a newly queued run cancels the
-# one already waiting, and the cancelled run's catalogs are never re-rendered because its
-# replacement scopes to its own push. Each publish job below takes its own per-lane group instead,
-# so each catalog queues independently and cannot evict another.
+# NO concurrency here at all — not at the workflow level, and not on the lane jobs either. Both
+# are the reusable workflow's now (`supersede-stale-runs` below), and a caller-side group would
+# defeat them.
 #
-# That is the cheap half. The load-bearing half is the Scope job's self-healing baseline below: a
-# genuine cancellation or a failed run still drops a lane, and only a scope that diffs from what the
-# lane LAST RENDERED can pick it back up.
+# The workflow-level bucket was compose-ai-tools#5438: `cancel-in-progress: false` protects the
+# IN-PROGRESS run, not the PENDING one, so a newly queued run evicted the one already waiting and
+# the evicted run's catalogs were never re-rendered. The per-lane `cancel-in-progress: false` groups
+# that replaced it fixed the eviction across lanes but made a push WAIT behind the older run of its
+# own lane — 38175941118, the fix for a broken config, sat pending behind 38175677237, which was
+# doomed to fail on the old one. A caller's job-level group wraps the whole called workflow, so
+# while it existed the reusable workflow never saw the two runs side by side.
+#
+# Inside the reusable workflow, per lane: a newer run's render shards and merge CANCEL the older
+# run's, and the publish QUEUES — a started publish always finishes, because it is three pushes
+# (catalog, source marker, history) and cutting between them would leave the marker or the timeline
+# a publish behind. A cancelled render is safe for the reason the scope below gives: the marker
+# still names what the lane was last published from, so the next run re-renders it.
 
 jobs:
-  # WHICH delivery branches does this run have to regenerate?
+  # WHICH delivery branches does this run have to regenerate? Decided per lane, inside the reusable
+  # workflow's `driver` job (`scope-mapper` below), from this repository's lane table
+  # (`scripts/scope-systems.sh`) — not by a `Scope` job here.
   #
-  # The `paths:` filter above decides whether the workflow runs at all; this decides which catalogs
-  # inside it do. A render is 15-30 minutes, so a `catalog/**`-only push must not drag unrelated
-  # sheets through one for a change they cannot see.
+  # The `paths:` filter above decides whether the workflow runs at all; the scope decides which
+  # catalogs inside it do. A render is 15-30 minutes, so a `catalog/**`-only push must not drag
+  # unrelated sheets through one for a change they cannot see.
   #
-  # The body is `scope-step.sh` from compose-ai-tools, pointed at this repository's own lane table
-  # (`scripts/scope-systems.sh`). That is what compose-ai-tools#5465 asks callers to do, and the
-  # reason is that the defect it fixed lived in the job's PREMISE rather than in any one copy of it:
+  # The logic is compose-ai-tools' `scope-step.sh`, and its predicate is per LANE: is this lane's
+  # last rendered source an ancestor of HEAD, and did anything in its input set change since? The
+  # reusable workflow records that commit on every successful publish as
+  # `refs/design-artifacts/source/<system>`, so a dropped or superseded run is picked up by the NEXT
+  # push whatever that push touched. Every unresolvable answer still regenerates — publishing a fresh
+  # bundle is never wrong, skipping a stale one is.
   #
-  #   the old body diffed ONE range, `github.event.before..$GITHUB_SHA`, which is the whole truth
-  #   only if every push gets a run that finishes. It does not: a newly queued run evicts the one
-  #   already pending, and the evicted run's lanes are then never re-rendered, because its
-  #   replacement scopes to its own push — which touched something else.
-  #
-  # The predicate is now per LANE: is this lane's last rendered source an ancestor of HEAD, and did
-  # anything in its input set change since? The reusable workflow records that commit for us on every
-  # successful publish as `refs/design-artifacts/source/<system>`, so a dropped run is picked up by
-  # the NEXT push whatever that push touched. Every unresolvable answer still regenerates — publishing
-  # a fresh bundle is never wrong, skipping a stale one is.
-  changes:
-    name: Scope
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    permissions:
-      contents: read
-    # Keyed by DELIVERY-BRANCH SLUG, matching the `system:` each publish job passes and the marker
-    # ref the baseline is read from.
-    outputs:
-      m3-catalog: ${{ steps.scope.outputs.m3-catalog }}
-      m3-samples: ${{ steps.scope.outputs.m3-samples }}
-      compose-ui-samples: ${{ steps.scope.outputs.compose-ui-samples }}
-      compose-foundation: ${{ steps.scope.outputs.compose-foundation }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-      # The generic driver, at the SAME ref the publish jobs below call the reusable workflow at
-      # (`main`), so the scope logic and the pipeline that writes the markers it reads move together.
-      # Pinning this to a tag while the `uses:` above tracks main would let them disagree about what
-      # a marker means, which is worse than tracking main for both.
-      # This workflow never runs on a fork (`github.repository` is checked on every publish job) and
-      # the ref is a literal here rather than read from a manifest a pull request could edit.
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: yschimke/compose-ai-tools
-          ref: main
-          path: .compose-ai-tools
-          persist-credentials: false
-      - id: scope
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          EVENT: ${{ github.event_name }}
-          # The dispatch lane selector; empty for every other trigger.
-          ONLY: ${{ inputs.systems }}
-          # The fallback baseline for a lane that has never published, i.e. the behaviour that
-          # shipped before this.
-          BEFORE: ${{ github.event.before }}
-          AFTER: ${{ github.sha }}
-          REPO: ${{ github.repository }}
-          SCOPE_MAPPER: ${{ github.workspace }}/scripts/scope-systems.sh
-        # `pipefail`, so a scope that fails fails the job rather than being masked by `tee`'s exit
-        # code — every lane downstream keys off these outputs.
-        run: |
-          set -euo pipefail
-          .compose-ai-tools/scripts/design-artifacts/scope-step.sh | tee -a "$GITHUB_OUTPUT"
-
+  # It used to be a `Scope` job here, in front of every lane. That job ran for twelve seconds and
+  # cost a full runner-queue wait — 11 of the 134.5 minutes of green run 38136351633 — before any
+  # lane could start. `driver` is a job every lane pays for anyway, so the decision now rides on it:
+  # a lane that scopes out stops at `driver`, a few seconds of a runner each.
   publish:
     name: m3-catalog
-    needs: changes
     # Don't let forks push to the delivery branch.
-    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.m3-catalog == 'true' }}
+    if: ${{ github.repository == 'yschimke/m3-catalog' }}
     permissions:
       contents: write
-    # Per LANE, so a queued render in one sheet cannot evict a pending one in another — see
-    # the note where the workflow-level group used to be. A caller's own concurrency is the
-    # one thing the reusable workflow cannot fix for it: a called workflow's jobs inherit the
-    # CALLER's workflow-level group.
-    concurrency:
-      group: design-artifacts-${{ github.ref }}-m3-catalog
-      cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.50.0
+    # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@5da325f55adbf37cd2b52e304799df0d66a6d758
     with:
       system: m3-catalog
+      # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
+      scope-mapper: scripts/scope-systems.sh
+      scope-only: ${{ inputs.systems }}
+      supersede-stale-runs: true
       artifact-repository: yschimke/m3-catalog-out
       spec: catalog.spec.json
       # Sharding operates within one Gradle module. Every published preview in this repository is
@@ -366,21 +322,18 @@ jobs:
 
   samples:
     name: m3-samples
-    needs: changes
     # Don't let forks push to the delivery branch.
-    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.m3-samples == 'true' }}
+    if: ${{ github.repository == 'yschimke/m3-catalog' }}
     permissions:
       contents: write
-    # Per LANE, so a queued render in one sheet cannot evict a pending one in another — see
-    # the note where the workflow-level group used to be. A caller's own concurrency is the
-    # one thing the reusable workflow cannot fix for it: a called workflow's jobs inherit the
-    # CALLER's workflow-level group.
-    concurrency:
-      group: design-artifacts-${{ github.ref }}-m3-samples
-      cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.50.0
+    # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@5da325f55adbf37cd2b52e304799df0d66a6d758
     with:
       system: m3-samples
+      # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
+      scope-mapper: scripts/scope-systems.sh
+      scope-only: ${{ inputs.systems }}
+      supersede-stale-runs: true
       artifact-repository: yschimke/m3-catalog-out
       spec: samples-catalog/catalog.spec.json
       module: ':samples-catalog'
@@ -462,21 +415,18 @@ jobs:
 
   ui-samples:
     name: compose-ui-samples
-    needs: changes
     # Don't let forks push to the delivery branch.
-    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.compose-ui-samples == 'true' }}
+    if: ${{ github.repository == 'yschimke/m3-catalog' }}
     permissions:
       contents: write
-    # Per LANE, so a queued render in one sheet cannot evict a pending one in another — see
-    # the note where the workflow-level group used to be. A caller's own concurrency is the
-    # one thing the reusable workflow cannot fix for it: a called workflow's jobs inherit the
-    # CALLER's workflow-level group.
-    concurrency:
-      group: design-artifacts-${{ github.ref }}-compose-ui-samples
-      cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.50.0
+    # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@5da325f55adbf37cd2b52e304799df0d66a6d758
     with:
       system: compose-ui-samples
+      # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
+      scope-mapper: scripts/scope-systems.sh
+      scope-only: ${{ inputs.systems }}
+      supersede-stale-runs: true
       artifact-repository: yschimke/m3-catalog-out
       spec: ui-samples-catalog/catalog.spec.json
       module: ':ui-samples-catalog'
@@ -523,21 +473,18 @@ jobs:
 
   foundation:
     name: compose-foundation
-    needs: changes
     # Don't let forks push to the delivery branch.
-    if: ${{ github.repository == 'yschimke/m3-catalog' && needs.changes.outputs.compose-foundation == 'true' }}
+    if: ${{ github.repository == 'yschimke/m3-catalog' }}
     permissions:
       contents: write
-    # Per LANE, so a queued render in one sheet cannot evict a pending one in another — see
-    # the note where the workflow-level group used to be. A caller's own concurrency is the
-    # one thing the reusable workflow cannot fix for it: a called workflow's jobs inherit the
-    # CALLER's workflow-level group.
-    concurrency:
-      group: design-artifacts-${{ github.ref }}-compose-foundation
-      cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.50.0
+    # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@5da325f55adbf37cd2b52e304799df0d66a6d758
     with:
       system: compose-foundation
+      # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
+      scope-mapper: scripts/scope-systems.sh
+      scope-only: ${{ inputs.systems }}
+      supersede-stale-runs: true
       artifact-repository: yschimke/m3-catalog-out
       spec: foundation-catalog/catalog.spec.json
       module: ':foundation-catalog'
