@@ -4,20 +4,79 @@
     {
       "file": "stickers/card.uid",
       "variants": {
-        "Slot": [{ "type": "deleteNode", "nodeId": "content" }],
+        "Slot": [
+          {
+            "type": "deleteNode",
+            "nodeId": "content"
+          }
+        ],
         "Elevated": [
-          { "type": "setProperty", "nodeId": "card", "property": "style", "value": { "type": "enum", "value": "elevated" } }
+          {
+            "type": "setProperty",
+            "nodeId": "card",
+            "property": "style",
+            "value": {
+              "type": "enum",
+              "value": "elevated"
+            }
+          }
         ],
         "Elevated slot": [
-          { "type": "setProperty", "nodeId": "card", "property": "style", "value": { "type": "enum", "value": "elevated" } },
-          { "type": "deleteNode", "nodeId": "content" }
+          {
+            "type": "setProperty",
+            "nodeId": "card",
+            "property": "style",
+            "value": {
+              "type": "enum",
+              "value": "elevated"
+            }
+          },
+          {
+            "type": "deleteNode",
+            "nodeId": "content"
+          }
         ],
         "Outlined": [
-          { "type": "setProperty", "nodeId": "card", "property": "style", "value": { "type": "enum", "value": "outlined" } }
+          {
+            "type": "setProperty",
+            "nodeId": "card",
+            "property": "style",
+            "value": {
+              "type": "enum",
+              "value": "outlined"
+            }
+          }
         ],
         "Outlined slot": [
-          { "type": "setProperty", "nodeId": "card", "property": "style", "value": { "type": "enum", "value": "outlined" } },
-          { "type": "deleteNode", "nodeId": "content" }
+          {
+            "type": "setProperty",
+            "nodeId": "card",
+            "property": "style",
+            "value": {
+              "type": "enum",
+              "value": "outlined"
+            }
+          },
+          {
+            "type": "deleteNode",
+            "nodeId": "content"
+          }
+        ]
+      }
+    },
+    {
+      "file": "stickers/suggestion-chip.uid",
+      "variants": {
+        "Disabled": [
+          {
+            "type": "setProperty",
+            "nodeId": "chip",
+            "property": "enabled",
+            "value": {
+              "type": "bool",
+              "value": false
+            }
+          }
         ]
       }
     }

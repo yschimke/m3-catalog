@@ -22,6 +22,19 @@ CELLS = {  # this module's preview -> the published capture of the hand-written 
     "OutlinedCardUid_Dark": "card-outlined/ideal__default__dark__compact",
     "OutlinedCardUidSlot_Light": "card-outlined/ideal__slot__compact",
     "OutlinedCardUidSlot_Dark": "card-outlined/ideal__slot__dark__compact",
+    "SuggestionChipUid_Light": "chip-suggestion/ideal__default__light",
+    "SuggestionChipUid_Dark": "chip-suggestion/ideal__default__dark",
+    "SuggestionChipUidDisabled_Light": "chip-suggestion/ideal__disabled",
+    "SuggestionChipUidDisabled_Dark": "chip-suggestion/ideal__disabled__dark",
+    # Interaction cells: the harness applies the state; the document knows nothing about it.
+    "SuggestionChipUid_Light_VARIANT_hovered": "chip-suggestion/ideal__hovered",
+    "SuggestionChipUid_Dark_VARIANT_hovered": "chip-suggestion/ideal__hovered__dark",
+    "SuggestionChipUid_Light_VARIANT_focused": "chip-suggestion/ideal__focused",
+    "SuggestionChipUid_Dark_VARIANT_focused": "chip-suggestion/ideal__focused__dark",
+    "SuggestionChipUid_Light_VARIANT_focus_ring": "chip-suggestion/ideal__focus-ring",
+    "SuggestionChipUid_Dark_VARIANT_focus_ring": "chip-suggestion/ideal__focus-ring__dark",
+    "SuggestionChipUid_Light_VARIANT_pressed": "chip-suggestion/ideal__pressed",
+    "SuggestionChipUid_Dark_VARIANT_pressed": "chip-suggestion/ideal__pressed__dark",
 }
 
 failed = 0
