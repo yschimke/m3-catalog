@@ -21,26 +21,7 @@ fun rawTypedM3CanvasAdapters(catalog: TypedM3Catalog) = canvasAdapterRegistry {
   register(catalog.card) {
     val adapter = catalog.card
     M3Card(
-      containerColor = value(adapter.containerColor),
-      elevationDp = value(adapter.elevationDp),
-      content = { Slot(adapter.content) },
-      modifier = modifier,
-    )
-  }
-
-  register(catalog.elevatedCard) {
-    val adapter = catalog.elevatedCard
-    M3ElevatedCard(
-      containerColor = value(adapter.containerColor),
-      elevationDp = value(adapter.elevationDp),
-      content = { Slot(adapter.content) },
-      modifier = modifier,
-    )
-  }
-
-  register(catalog.outlinedCard) {
-    val adapter = catalog.outlinedCard
-    M3OutlinedCard(
+      style = value(adapter.style),
       containerColor = value(adapter.containerColor),
       elevationDp = value(adapter.elevationDp),
       content = { Slot(adapter.content) },
@@ -149,39 +130,7 @@ fun rawTypedM3CanvasAdapters(catalog: TypedM3Catalog) = canvasAdapterRegistry {
   register(catalog.iconButton) {
     val adapter = catalog.iconButton
     M3IconButton(
-      sizeDp = value(adapter.sizeDp),
-      enabled = value(adapter.enabled),
-      onClick = callback(adapter.onClick),
-      content = { Slot(adapter.content) },
-      modifier = modifier,
-    )
-  }
-
-  register(catalog.filledIconButton) {
-    val adapter = catalog.filledIconButton
-    M3FilledIconButton(
-      sizeDp = value(adapter.sizeDp),
-      enabled = value(adapter.enabled),
-      onClick = callback(adapter.onClick),
-      content = { Slot(adapter.content) },
-      modifier = modifier,
-    )
-  }
-
-  register(catalog.filledTonalIconButton) {
-    val adapter = catalog.filledTonalIconButton
-    M3FilledTonalIconButton(
-      sizeDp = value(adapter.sizeDp),
-      enabled = value(adapter.enabled),
-      onClick = callback(adapter.onClick),
-      content = { Slot(adapter.content) },
-      modifier = modifier,
-    )
-  }
-
-  register(catalog.outlinedIconButton) {
-    val adapter = catalog.outlinedIconButton
-    M3OutlinedIconButton(
+      style = value(adapter.style),
       sizeDp = value(adapter.sizeDp),
       enabled = value(adapter.enabled),
       onClick = callback(adapter.onClick),

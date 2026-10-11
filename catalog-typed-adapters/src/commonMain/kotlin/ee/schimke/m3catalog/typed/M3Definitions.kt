@@ -11,8 +11,6 @@ val m3Definitions =
   listOf(
     M3Definition("m3/button", "M3Button", "Buttons", false),
     M3Definition("m3/card", "M3Card", "Cards", false),
-    M3Definition("m3/elevated-card", "M3ElevatedCard", "Cards", false),
-    M3Definition("m3/outlined-card", "M3OutlinedCard", "Cards", false),
     M3Definition("m3/center-aligned-top-app-bar", "M3CenterAlignedTopAppBar", "Top app bar", false),
     M3Definition("m3/checkbox", "M3Checkbox", "Checkbox", false),
     M3Definition("m3/date-picker", "M3DatePicker", "Date pickers", false),
@@ -28,9 +26,6 @@ val m3Definitions =
     ),
     M3Definition("m3/icon", "M3Icon", "Icons", false),
     M3Definition("m3/icon-button", "M3IconButton", "Icon buttons", false),
-    M3Definition("m3/filled-icon-button", "M3FilledIconButton", "Icon buttons", false),
-    M3Definition("m3/filled-tonal-icon-button", "M3FilledTonalIconButton", "Icon buttons", false),
-    M3Definition("m3/outlined-icon-button", "M3OutlinedIconButton", "Icon buttons", false),
     M3Definition("m3/list-item", "M3ListItem", "Lists", false),
     M3Definition("m3/primary-tab-row", "M3PrimaryTabRow", "Tabs", false),
     M3Definition(

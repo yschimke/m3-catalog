@@ -112,75 +112,59 @@ fun M3Button(
 }
 
 object TypedCardDefaults {
+  const val style: String = ""
   const val containerColor: String = ""
+  /** Unset: each style keeps Material 3's own resting elevation (an elevated card's is 1dp). */
   const val elevationDp: Float = 0f
 }
 
 @Composable
 fun M3Card(
+  style: String = TypedCardDefaults.style,
   containerColor: String = TypedCardDefaults.containerColor,
   elevationDp: Float = TypedCardDefaults.elevationDp,
   content: @Composable () -> Unit = {},
   modifier: Modifier = Modifier,
 ) {
-  Card(
-    modifier = modifier,
-    colors =
-      CardDefaults.cardColors(
-        containerColor = materialColor(containerColor, MaterialTheme.colorScheme.surfaceContainer)
-      ),
-    elevation = CardDefaults.cardElevation(defaultElevation = elevationDp.dp),
-  ) {
-    content()
-  }
-}
-
-object TypedElevatedCardDefaults {
-  const val containerColor: String = ""
-  const val elevationDp: Float = 1f
-}
-
-@Composable
-fun M3ElevatedCard(
-  containerColor: String = TypedElevatedCardDefaults.containerColor,
-  elevationDp: Float = TypedElevatedCardDefaults.elevationDp,
-  content: @Composable () -> Unit = {},
-  modifier: Modifier = Modifier,
-) {
-  ElevatedCard(
-    modifier = modifier,
-    colors =
-      CardDefaults.elevatedCardColors(
-        containerColor =
-          materialColor(containerColor, MaterialTheme.colorScheme.surfaceContainerLow)
-      ),
-    elevation = CardDefaults.elevatedCardElevation(defaultElevation = elevationDp.dp),
-  ) {
-    content()
-  }
-}
-
-object TypedOutlinedCardDefaults {
-  const val containerColor: String = ""
-  const val elevationDp: Float = 0f
-}
-
-@Composable
-fun M3OutlinedCard(
-  containerColor: String = TypedOutlinedCardDefaults.containerColor,
-  elevationDp: Float = TypedOutlinedCardDefaults.elevationDp,
-  content: @Composable () -> Unit = {},
-  modifier: Modifier = Modifier,
-) {
-  OutlinedCard(
-    modifier = modifier,
-    colors =
-      CardDefaults.outlinedCardColors(
-        containerColor = materialColor(containerColor, MaterialTheme.colorScheme.surfaceContainer)
-      ),
-    elevation = CardDefaults.outlinedCardElevation(defaultElevation = elevationDp.dp),
-  ) {
-    content()
+  when (style) {
+    "elevated" ->
+      ElevatedCard(
+        modifier = modifier,
+        colors =
+          CardDefaults.elevatedCardColors(
+            containerColor =
+              materialColor(containerColor, MaterialTheme.colorScheme.surfaceContainerLow)
+          ),
+        elevation =
+          if (elevationDp == TypedCardDefaults.elevationDp) CardDefaults.elevatedCardElevation()
+          else CardDefaults.elevatedCardElevation(defaultElevation = elevationDp.dp),
+      ) {
+        content()
+      }
+    "outlined" ->
+      OutlinedCard(
+        modifier = modifier,
+        colors =
+          CardDefaults.outlinedCardColors(
+            containerColor =
+              materialColor(containerColor, MaterialTheme.colorScheme.surfaceContainer)
+          ),
+        elevation = CardDefaults.outlinedCardElevation(defaultElevation = elevationDp.dp),
+      ) {
+        content()
+      }
+    else ->
+      Card(
+        modifier = modifier,
+        colors =
+          CardDefaults.cardColors(
+            containerColor =
+              materialColor(containerColor, MaterialTheme.colorScheme.surfaceContainer)
+          ),
+        elevation = CardDefaults.cardElevation(defaultElevation = elevationDp.dp),
+      ) {
+        content()
+      }
   }
 }
 
@@ -406,74 +390,28 @@ fun M3Icon(
 }
 
 object TypedIconButtonDefaults {
+  const val style: String = ""
   const val sizeDp: Float = 48f
   const val enabled: Boolean = true
 }
 
 @Composable
 fun M3IconButton(
+  style: String = TypedIconButtonDefaults.style,
   sizeDp: Float = TypedIconButtonDefaults.sizeDp,
   enabled: Boolean = TypedIconButtonDefaults.enabled,
   onClick: () -> Unit = {},
   content: @Composable () -> Unit = {},
   modifier: Modifier = Modifier,
 ) {
-  IconButton(onClick = onClick, modifier = modifier.size(sizeDp.dp), enabled = enabled) {
-    content()
-  }
-}
-
-object TypedFilledIconButtonDefaults {
-  const val sizeDp: Float = 48f
-  const val enabled: Boolean = true
-}
-
-@Composable
-fun M3FilledIconButton(
-  sizeDp: Float = TypedFilledIconButtonDefaults.sizeDp,
-  enabled: Boolean = TypedFilledIconButtonDefaults.enabled,
-  onClick: () -> Unit = {},
-  content: @Composable () -> Unit = {},
-  modifier: Modifier = Modifier,
-) {
-  FilledIconButton(onClick = onClick, modifier = modifier.size(sizeDp.dp), enabled = enabled) {
-    content()
-  }
-}
-
-object TypedFilledTonalIconButtonDefaults {
-  const val sizeDp: Float = 48f
-  const val enabled: Boolean = true
-}
-
-@Composable
-fun M3FilledTonalIconButton(
-  sizeDp: Float = TypedFilledTonalIconButtonDefaults.sizeDp,
-  enabled: Boolean = TypedFilledTonalIconButtonDefaults.enabled,
-  onClick: () -> Unit = {},
-  content: @Composable () -> Unit = {},
-  modifier: Modifier = Modifier,
-) {
-  FilledTonalIconButton(onClick = onClick, modifier = modifier.size(sizeDp.dp), enabled = enabled) {
-    content()
-  }
-}
-
-object TypedOutlinedIconButtonDefaults {
-  const val sizeDp: Float = 48f
-  const val enabled: Boolean = true
-}
-
-@Composable
-fun M3OutlinedIconButton(
-  sizeDp: Float = TypedOutlinedIconButtonDefaults.sizeDp,
-  enabled: Boolean = TypedOutlinedIconButtonDefaults.enabled,
-  onClick: () -> Unit = {},
-  content: @Composable () -> Unit = {},
-  modifier: Modifier = Modifier,
-) {
-  OutlinedIconButton(onClick = onClick, modifier = modifier.size(sizeDp.dp), enabled = enabled) {
-    content()
+  val sized = modifier.size(sizeDp.dp)
+  when (style) {
+    "filled" -> FilledIconButton(onClick = onClick, modifier = sized, enabled = enabled) { content() }
+    "tonal" ->
+      FilledTonalIconButton(onClick = onClick, modifier = sized, enabled = enabled) { content() }
+    "outlined" ->
+      OutlinedIconButton(onClick = onClick, modifier = sized, enabled = enabled) { content() }
+    else -> IconButton(onClick = onClick, modifier = sized, enabled = enabled) { content() }
   }
 }
 

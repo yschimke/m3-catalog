@@ -106,9 +106,7 @@ val materialCanvasAdapters = canvasAdapterRegistry {
       else -> Button(::click, modifier, enabled = boolean("enabled", true)) { Slot("content") }
     }
   }
-  card("material3/Card", CardKind.Filled)
-  card("material3/ElevatedCard", CardKind.Elevated)
-  card("material3/OutlinedCard", CardKind.Outlined)
+  card("material3/Card")
   register("material3/CenterAlignedTopAppBar") {
     CenterAlignedTopAppBar(
       title = { Slot("title") },
@@ -188,10 +186,7 @@ val materialCanvasAdapters = canvasAdapterRegistry {
     }
   }
   icon("material3/Icon")
-  iconButton("material3/IconButton", IconButtonKind.Standard)
-  iconButton("material3/FilledIconButton", IconButtonKind.Filled)
-  iconButton("material3/FilledTonalIconButton", IconButtonKind.Tonal)
-  iconButton("material3/OutlinedIconButton", IconButtonKind.Outlined)
+  iconButton("material3/IconButton")
   register("material3/ListItem") {
     ListItem(
       headlineContent = { Slot("headline") },
@@ -408,16 +403,32 @@ private val LocalNavigationSuiteType = compositionLocalOf {
   NavigationSuiteType.ShortNavigationBarCompact
 }
 
-private enum class CardKind {
-  Filled,
-  Elevated,
-  Outlined,
-}
-
-private fun CanvasAdapterRegistry.Builder.card(id: String, kind: CardKind) {
+/** `m3/card` in the style its `style` names: `filled` (the default), `elevated` or `outlined`. */
+private fun CanvasAdapterRegistry.Builder.card(id: String) {
   register(id) {
-    when (kind) {
-      CardKind.Filled ->
+    when (string("style")) {
+      "elevated" ->
+        ElevatedCard(
+          modifier = modifier,
+          colors =
+            CardDefaults.elevatedCardColors(
+              containerColor =
+                color("containerColor", MaterialTheme.colorScheme.surfaceContainerLow)
+            ),
+        ) {
+          Slot("content")
+        }
+      "outlined" ->
+        OutlinedCard(
+          modifier = modifier,
+          colors =
+            CardDefaults.outlinedCardColors(
+              containerColor = color("containerColor", MaterialTheme.colorScheme.surface)
+            ),
+        ) {
+          Slot("content")
+        }
+      else ->
         Card(
           modifier = modifier,
           colors =
@@ -428,32 +439,23 @@ private fun CanvasAdapterRegistry.Builder.card(id: String, kind: CardKind) {
         ) {
           Slot("content")
         }
-      CardKind.Elevated -> ElevatedCard(modifier = modifier) { Slot("content") }
-      CardKind.Outlined -> OutlinedCard(modifier = modifier) { Slot("content") }
     }
   }
 }
 
-private enum class IconButtonKind {
-  Standard,
-  Filled,
-  Tonal,
-  Outlined,
-}
-
-private fun CanvasAdapterRegistry.Builder.iconButton(id: String, kind: IconButtonKind) {
+/**
+ * `m3/icon-button` in the style its `style` names: `standard` (the default), `filled`, `tonal` or
+ * `outlined`.
+ */
+private fun CanvasAdapterRegistry.Builder.iconButton(id: String) {
   register(id) {
     val size = modifier.size(float("sizeDp", 48f).dp)
     val content: @Composable () -> Unit = { Slot("content") }
-    when (kind) {
-      IconButtonKind.Standard ->
-        IconButton(::click, size, boolean("enabled", true), content = content)
-      IconButtonKind.Filled ->
-        FilledIconButton(::click, size, boolean("enabled", true), content = content)
-      IconButtonKind.Tonal ->
-        FilledTonalIconButton(::click, size, boolean("enabled", true), content = content)
-      IconButtonKind.Outlined ->
-        OutlinedIconButton(::click, size, boolean("enabled", true), content = content)
+    when (string("style")) {
+      "filled" -> FilledIconButton(::click, size, boolean("enabled", true), content = content)
+      "tonal" -> FilledTonalIconButton(::click, size, boolean("enabled", true), content = content)
+      "outlined" -> OutlinedIconButton(::click, size, boolean("enabled", true), content = content)
+      else -> IconButton(::click, size, boolean("enabled", true), content = content)
     }
   }
 }
