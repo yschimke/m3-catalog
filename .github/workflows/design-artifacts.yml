@@ -160,6 +160,9 @@ jobs:
     permissions:
       contents: write
     # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
+    # PINNED TO compose-ai-tools#5887's head until a release carries `scope-mapper` and
+    # `supersede-stale-runs`; move all four lanes to that tag before merging. v2.50.0 rejects both
+    # inputs at parse time.
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@5da325f55adbf37cd2b52e304799df0d66a6d758
     with:
       system: m3-catalog
