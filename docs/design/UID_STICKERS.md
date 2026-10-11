@@ -244,9 +244,12 @@ A group file can hold both kinds.
 
 **But nothing can switch in the published catalog yet.** Three prerequisites are global:
 
-1. **String resources.** Documents hold literal text, so a generated sticker renders English in
-   all 17 locales and breaks `CatalogTranslationsTest`. The exporter needs a string-resource value
-   kind that lowers to `stringResource(Res.string.…)`.
+1. **String resources.** Documents used to hold only literal text, which broke
+   `CatalogTranslationsTest`. **Addressed by yschimke/compose-ui-builder#729, pending release.** A
+   `{"type": "resource", "resourceKey": …}` value exports as `stringResource(Res.string.…)` through
+   the accessor the catalog declares. The prototype's Card and chip copy now uses it:
+   - all 24 English cells are still pixel-identical;
+   - a German render of the generated Card matches the hand-written `FilledCard()` in German.
 2. **One declared vocabulary** shared by the generator, the published builder catalog and the editor
    (the `catalog-typed-policy` direction). This prototype uses a hand-edited record.
 3. **Live overrides.** Generated bodies lose their text knobs in the Overrides panel. This one is

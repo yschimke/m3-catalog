@@ -17,7 +17,13 @@ plugins {
 kotlin { jvmToolchain(21) }
 
 // `-PuidExportVersion=<x>-SNAPSHOT` tries an unreleased exporter published to Maven local.
-if (providers.gradleProperty("uidExportVersion").isPresent) repositories { mavenLocal() }
+if (providers.gradleProperty("uidExportVersion").isPresent) {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    google()
+  }
+}
 
 val generator by sourceSets.creating
 
@@ -30,6 +36,8 @@ dependencies {
   implementation(libs.compose.material.icons.extended)
   implementation(libs.compose.ui.tooling.preview)
   implementation(libs.composeai.preview.annotations)
+  // `stringResource(Res.string.…)`, which the generated bodies call for the catalog's copy.
+  @Suppress("DEPRECATION") implementation(compose.components.resources)
 
   // The exporter the builder's code pane and the server's export.compose route run.
   "generatorImplementation"(
