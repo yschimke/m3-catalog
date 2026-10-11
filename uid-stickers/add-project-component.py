@@ -29,10 +29,12 @@ def parameter(spec):
     spec = spec.replace("@slot", "")
     pname, _, type_fqn = spec.partition(":")
     type_fqn = type_fqn or "kotlin.Function2"
+    # A `() -> Unit` callback: the generator only accepts it as a callback when the return is stated.
+    returns = "kotlin.Unit" if type_fqn == "kotlin.Function0" else None
     return {"name": pname, "type": ("@Composable () -> Unit" if slot else type_fqn.rsplit(".", 1)[-1]),
             "typeFqn": None if slot else type_fqn, "hasDefault": has_default, "composableSlot": slot,
             "composableSlotReceiver": None, "nullable": False, "noArgConstructible": False,
-            "noArgFactory": None, "scopeDslReceiver": None, "lambdaReturnTypeFqn": None}
+            "noArgFactory": None, "scopeDslReceiver": None, "lambdaReturnTypeFqn": returns}
 
 
 entry = {
@@ -49,7 +51,7 @@ entry = {
 }
 record = json.load(open(path)) if os.path.isfile(path) else {
     "$comment": "PROJECT components this module declares for its documents.",
-    "schemaVersion": 2, "module": "m3-catalog", "variant": None, "components": []}
+    "schemaVersion": 2, "module": "m3-catalog", "variant": "authored", "components": []}
 record["components"] = [c for c in record["components"] if component_id not in c["componentIds"]] + [entry]
 open(path, "w").write(json.dumps(record, indent=2) + "\n")
 print(f"{component_id} -> {callable_}")

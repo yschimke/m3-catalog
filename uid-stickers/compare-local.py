@@ -41,12 +41,31 @@ def captures(directory, function):
     return found
 
 
+def frames(path):
+    """Every frame (an animated capture, `.apng`, has many) with its duration."""
+    image = Image.open(path)
+    out = []
+    for i in range(getattr(image, "n_frames", 1)):
+        image.seek(i)
+        out.append((image.convert("RGBA"), image.info.get("duration")))
+    return out
+
+
 def same(a, b):
-    x, y = Image.open(a).convert("RGBA"), Image.open(b).convert("RGBA")
-    if x.size != y.size:
-        return f"size {x.size} vs {y.size}"
-    box = ImageChops.difference(x, y).getbbox(alpha_only=False)  # the default only reads alpha
-    return None if box is None else f"differs within {box}"
+    if not os.path.isfile(b):
+        return "no reference capture"
+    xs, ys = frames(a), frames(b)
+    if len(xs) != len(ys):
+        return f"{len(xs)} frames vs {len(ys)}"
+    for i, ((x, dx), (y, dy)) in enumerate(zip(xs, ys)):
+        if x.size != y.size:
+            return f"frame {i}: size {x.size} vs {y.size}"
+        if dx != dy:
+            return f"frame {i}: duration {dx} vs {dy}"
+        box = ImageChops.difference(x, y).getbbox(alpha_only=False)  # the default only reads alpha
+        if box is not None:
+            return f"frame {i} differs within {box}"
+    return None
 
 
 ONLY = set(sys.argv[sys.argv.index("--only") + 1].split(",")) if "--only" in sys.argv else None

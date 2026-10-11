@@ -18,7 +18,7 @@ kotlin { jvmToolchain(21) }
 
 // `-PuidExportVersion=<x>-SNAPSHOT` tries an unreleased exporter published to Maven local.
 // `exportComponents` is newer than 3.107.0, so the prototype currently needs both:
-// `-PuidExportVersion=3.107.1-SNAPSHOT -PscreenModelVersion=2.50.1-SNAPSHOT`.
+// `-PuidExportVersion=3.107.1-SNAPSHOT -PscreenModelVersion=2.51.1-SNAPSHOT`.
 if (providers.gradleProperty("uidExportVersion").isPresent) {
   repositories {
     mavenLocal()

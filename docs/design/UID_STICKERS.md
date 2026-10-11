@@ -69,7 +69,7 @@ Maven local):
 
 ```sh
 scripts/agent-gradle.sh -PuidStickers=true -PuidExportVersion=3.107.1-SNAPSHOT \
-  -PscreenModelVersion=2.50.1-SNAPSHOT :uid-stickers:composePreviewRender
+  -PscreenModelVersion=2.51.1-SNAPSHOT :uid-stickers:composePreviewRender
 python3 uid-stickers/compare-published.py   # 31 cells, all SAME
 ```
 

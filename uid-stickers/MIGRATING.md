@@ -41,7 +41,7 @@ body swap, because the shell already carries the hand-written annotations and na
 
    ```sh
    scripts/agent-gradle.sh -PuidStickers=true -PuidExportVersion=3.107.1-SNAPSHOT \
-     -PscreenModelVersion=2.50.1-SNAPSHOT :uid-stickers:composePreviewRender
+     -PscreenModelVersion=2.51.1-SNAPSHOT :uid-stickers:composePreviewRender
    CATALOG_RENDERS=<dir with :catalog renders + previews.json> \
      python3 uid-stickers/compare-local.py --only <Shell>
    ```

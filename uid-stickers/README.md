@@ -17,7 +17,7 @@ unpublished. The findings and the recommendation are in
 ```sh
 # Until the exporter's `exportComponents` is released, against Maven-local snapshots:
 scripts/agent-gradle.sh -PuidStickers=true -PuidExportVersion=3.107.1-SNAPSHOT \
-  -PscreenModelVersion=2.50.1-SNAPSHOT :uid-stickers:composePreviewRender
+  -PscreenModelVersion=2.51.1-SNAPSHOT :uid-stickers:composePreviewRender
 python3 uid-stickers/compare-published.py   # needs Pillow; all 31 cells report SAME
 ```
 
