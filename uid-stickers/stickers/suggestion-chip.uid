@@ -1,0 +1,47 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "suggestion-chip",
+  "title": "Kit suggestion chip",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 120,
+    "heightDp": 48,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "chip"
+  ],
+  "nodes": {
+    "chip": {
+      "id": "chip",
+      "componentId": "androidx.compose.material3.ChipKt.SuggestionChip",
+      "properties": {},
+      "slots": {
+        "label": [
+          "label"
+        ]
+      }
+    },
+    "label": {
+      "id": "label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Label"
+        }
+      },
+      "slots": {}
+    }
+  }
+}
