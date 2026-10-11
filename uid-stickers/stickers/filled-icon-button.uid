@@ -1,0 +1,122 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "filled-icon-button",
+  "title": "KitFilledIconButton",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 200,
+    "heightDp": 200,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "filled-icon-button": {
+      "name": "KitFilledIconButton",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "filled-icon-button",
+        "arguments": {
+          "on": {
+            "type": "bool",
+            "value": true
+          },
+          "enabled": {
+            "type": "bool",
+            "value": true
+          }
+        }
+      }
+    },
+    "icon": {
+      "id": "icon",
+      "componentId": "m3catalog/favourite-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "on"
+        },
+        "contentDescription": {
+          "type": "resource",
+          "resourceKey": "label_favourite"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 24,
+          "heightDp": 24
+        }
+      ]
+    },
+    "button": {
+      "id": "button",
+      "componentId": "m3/filled-icon-button",
+      "properties": {
+        "enabled": {
+          "type": "binding",
+          "value": "enabled"
+        },
+        "shape": {
+          "type": "shapeToken",
+          "value": "circle"
+        }
+      },
+      "slots": {
+        "content": [
+          "icon"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 40,
+          "heightDp": 40
+        }
+      ],
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/box",
+      "properties": {
+        "contentAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "button"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 48,
+          "heightDp": 48
+        }
+      ]
+    }
+  }
+}
