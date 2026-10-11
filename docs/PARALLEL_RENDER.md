@@ -9,11 +9,16 @@ adds lengthens the same serial render. That is a different document
 ([`PARALLEL_SWEEP.md`](PARALLEL_SWEEP.md)) solving a different problem.
 
 > **Status: built and in use.** [`design-artifacts.yml`](../.github/workflows/design-artifacts.yml)
-> currently passes **`render-shards: 4`**. §1 has the measurement that governs that number and the
-> thresholds for changing it — at today's sheet size the model puts the optimum below 2, so this is
-> worth re-checking against a real sharded run.
+> currently passes **`render-shards: 6`** and `render-timeout: 3000`. The count is set by the
+> semantics pass, not by §1's PNG-only model: run 38169265214 measured ~2.75s per preview per shard
+> at 4139 previews, so four shards of ~1035 needed ~47 minutes against a 40-minute per-shard bound,
+> and six of ~690 need ~32. Size it as previews ÷ shards × ~2.75s, kept well under `render-timeout`.
 
 ## 1. What the render costs
+
+> **Historical.** This section models the PNG render alone at 1147 previews. It predates the
+> semantics pass and the 4139-preview sheet, and no longer sets the shard count; see the status
+> note above for the measured rate that does.
 
 Measured on CI, decomposed from the task timings the `Render catalog bundle` step prints
 (1147 previews, `ubuntu-latest`):

@@ -208,7 +208,7 @@ jobs:
     concurrency:
       group: design-artifacts-${{ github.ref }}-m3-catalog
       cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.48.0
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.50.0
     with:
       system: m3-catalog
       artifact-repository: yschimke/m3-catalog-out
@@ -272,7 +272,13 @@ jobs:
       # first serial Design Artifacts run remained in `Render catalog bundle` beyond 37 minutes,
       # leaving almost no headroom under this 40-minute bound. Four shards below bring the render
       # back inside the budget; the timeout remains a hung-render backstop rather than a target.
-      render-timeout: 2400
+      #
+      # The bound applies per shard to the whole semantics pass too, not per render. Once the
+      # daemon had heap enough to load the manifest again (#569), shards 2–4 of run 38169265214
+      # captured semantics at ~2.75s per preview, needed ~47 minutes for their ~1035 previews, and
+      # every render still queued at 40 minutes failed at once — so the publish refused an incomplete
+      # catalog. Fifty minutes keeps a backstop with headroom under the 90-minute job.
+      render-timeout: 3000
       # FOUR: the catalog has crossed the threshold where serial rendering no longer fits safely.
       #
       # The correctness blocker is gone. Sharding used to cost this catalog three quarters of its
@@ -311,7 +317,10 @@ jobs:
       # See compose-ai-tools
       # docs/design/DESIGN_CATALOGS.md, "Sharding the render across parallel jobs", and
       # docs/PARALLEL_RENDER.md here.
-      render-shards: 4
+      #
+      # SIX since the semantics pass came back (see `render-timeout` above): at ~2.75s per preview
+      # four shards of ~1035 each ran past the bound, and six of ~690 finish in about 32 minutes.
+      render-shards: 6
       # Read each mapped node's STRUCTURE from the design-parity reference cache
       # (`design-parity/reference`, maintained by design-parity-import.yml) instead of asking
       # `/v1/files/:key/nodes` for it. Same JSON either way — the import wrote that branch from
@@ -369,7 +378,7 @@ jobs:
     concurrency:
       group: design-artifacts-${{ github.ref }}-m3-samples
       cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.48.0
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.50.0
     with:
       system: m3-samples
       artifact-repository: yschimke/m3-catalog-out
@@ -465,7 +474,7 @@ jobs:
     concurrency:
       group: design-artifacts-${{ github.ref }}-compose-ui-samples
       cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.48.0
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.50.0
     with:
       system: compose-ui-samples
       artifact-repository: yschimke/m3-catalog-out
@@ -526,7 +535,7 @@ jobs:
     concurrency:
       group: design-artifacts-${{ github.ref }}-compose-foundation
       cancel-in-progress: false
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.48.0
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.50.0
     with:
       system: compose-foundation
       artifact-repository: yschimke/m3-catalog-out
