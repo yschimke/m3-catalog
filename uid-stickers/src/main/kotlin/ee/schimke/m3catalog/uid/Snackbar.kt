@@ -83,7 +83,12 @@ fun SnackbarMessage(close: Boolean = false) = Sticker {
       )
     action -> KitSnackbarAction(m, text = text, action = undo.label, onUndoClick = undo.onClick)
     close ->
-      KitSnackbarClose(m, text = text, dismissAction = dismiss.label, onCloseClick = dismiss.onClick)
+      KitSnackbarClose(
+        m,
+        text = text,
+        dismissAction = dismiss.label,
+        onCloseClick = dismiss.onClick,
+      )
     else -> KitSnackbar(m, text = text)
   }
 }

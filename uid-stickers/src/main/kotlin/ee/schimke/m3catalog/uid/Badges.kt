@@ -17,12 +17,17 @@ import java.util.Locale
 // a `Text` bound to `label`. The digit count is the label's doing, so every cell is the same body;
 // the shell shapes the digits for the locale, as the hand-written sticker does.
 
-/** The catalog's `localizedDigits`, which `:catalog` keeps internal: ASCII digits in [locale]'s numbering system. */
+/**
+ * The catalog's `localizedDigits`, which `:catalog` keeps internal: ASCII digits in [locale]'s
+ * numbering system.
+ */
 private fun localizedDigits(value: String, locale: Locale = Locale.getDefault()): String {
   val zero = DecimalFormatSymbols.getInstance(locale).zeroDigit
   if (zero == '0') return value
   return buildString(value.length) {
-    value.forEach { char -> append(if (char in '0'..'9') (zero.code + (char - '0')).toChar() else char) }
+    value.forEach { char ->
+      append(if (char in '0'..'9') (zero.code + (char - '0')).toChar() else char)
+    }
   }
 }
 
@@ -36,4 +41,6 @@ private fun localizedDigits(value: String, locale: Locale = Locale.getDefault())
 @OverrideVariant(name = "digits-3", strings = ["label=147"])
 @OverrideVariant(name = "overflow", strings = ["label=999+"])
 @Composable
-fun NumberBadge(label: String = "3") = Sticker { KitNumberBadge(Modifier, label = localizedDigits(label)) }
+fun NumberBadge(label: String = "3") = Sticker {
+  KitNumberBadge(Modifier, label = localizedDigits(label))
+}

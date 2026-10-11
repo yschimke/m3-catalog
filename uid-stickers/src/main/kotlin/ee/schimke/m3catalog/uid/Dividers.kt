@@ -49,17 +49,25 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun HorizontalDividerSticker(context: Boolean = false, subhead: Boolean = false) = Sticker {
   val inset = previewOverrideDp("inset", 0.dp) > 0.dp
-  val before = if (context) catalogText("beforeText", stringResource(Res.string.divider_above)) else ""
+  val before =
+    if (context) catalogText("beforeText", stringResource(Res.string.divider_above)) else ""
   val sub = if (subhead) catalogText("subhead", stringResource(Res.string.divider_section)) else ""
-  val after = if (context) catalogText("afterText", stringResource(Res.string.divider_below)) else ""
+  val after =
+    if (context) catalogText("afterText", stringResource(Res.string.divider_below)) else ""
   val m = Modifier
   when {
     inset && context && subhead ->
-      KitHorizontalDividerInsetContextSubhead(m, beforeText = before, subhead = sub, afterText = after)
+      KitHorizontalDividerInsetContextSubhead(
+        m,
+        beforeText = before,
+        subhead = sub,
+        afterText = after,
+      )
     inset && context -> KitHorizontalDividerInsetContext(m, beforeText = before, afterText = after)
     inset && subhead -> KitHorizontalDividerInsetSubhead(m, subhead = sub)
     inset -> KitHorizontalDividerInsetPlain(m)
-    context && subhead -> KitHorizontalDivider(m, beforeText = before, subhead = sub, afterText = after)
+    context && subhead ->
+      KitHorizontalDivider(m, beforeText = before, subhead = sub, afterText = after)
     context -> KitHorizontalDividerContext(m, beforeText = before, afterText = after)
     subhead -> KitHorizontalDividerSubhead(m, subhead = sub)
     else -> KitHorizontalDividerPlain(m)

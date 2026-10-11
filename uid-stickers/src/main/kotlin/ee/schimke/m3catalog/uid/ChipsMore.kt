@@ -109,19 +109,24 @@ fun AssistChipSticker() = Sticker {
   val m = Modifier
   when (chipLeading()) {
     "icon" ->
-      if (elevated) KitAssistChipElevatedIcon(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+      if (elevated)
+        KitAssistChipElevatedIcon(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
       else KitAssistChipIcon(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
     "brand" ->
-      if (elevated) KitAssistChipElevatedBrand(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+      if (elevated)
+        KitAssistChipElevatedBrand(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
       else KitAssistChipBrand(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
     "favicon" ->
-      if (elevated) KitAssistChipElevatedFavicon(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+      if (elevated)
+        KitAssistChipElevatedFavicon(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
       else KitAssistChipFavicon(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
     "avatar" ->
-      if (elevated) KitAssistChipElevatedAvatar(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+      if (elevated)
+        KitAssistChipElevatedAvatar(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
       else KitAssistChipAvatar(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
     else ->
-      if (elevated) KitAssistChipElevated(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+      if (elevated)
+        KitAssistChipElevated(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
       else KitAssistChip(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
   }
 }
@@ -162,18 +167,69 @@ fun FilterChipSticker(trailing: Boolean = false) = Sticker {
   val m = Modifier
   when {
     elevated && check && trailing ->
-      KitFilterChipElevatedCheckCaret(m, selected = selected, enabled = enabled, label = labelText, onChipClick = toggle)
+      KitFilterChipElevatedCheckCaret(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
     elevated && check ->
-      KitFilterChipElevatedCheck(m, selected = selected, enabled = enabled, label = labelText, onChipClick = toggle)
+      KitFilterChipElevatedCheck(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
     elevated && trailing ->
-      KitFilterChipElevatedCaret(m, selected = selected, enabled = enabled, label = labelText, onChipClick = toggle)
+      KitFilterChipElevatedCaret(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
     elevated ->
-      KitFilterChipElevated(m, selected = selected, enabled = enabled, label = labelText, onChipClick = toggle)
+      KitFilterChipElevated(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
     check && trailing ->
-      KitFilterChipCheckCaret(m, selected = selected, enabled = enabled, label = labelText, onChipClick = toggle)
-    check -> KitFilterChipCheck(m, selected = selected, enabled = enabled, label = labelText, onChipClick = toggle)
-    trailing -> KitFilterChipCaret(m, selected = selected, enabled = enabled, label = labelText, onChipClick = toggle)
-    else -> KitFilterChip(m, selected = selected, enabled = enabled, label = labelText, onChipClick = toggle)
+      KitFilterChipCheckCaret(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
+    check ->
+      KitFilterChipCheck(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
+    trailing ->
+      KitFilterChipCaret(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
+    else ->
+      KitFilterChip(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
   }
 }
 
@@ -213,19 +269,83 @@ fun InputChipSticker(closing: Boolean = true) = Sticker {
   val m = Modifier
   when (chipLeading()) {
     "icon" ->
-      if (closing) KitInputChipIconClosing(m, selected = selected, enabled = enabled, label = label, onChipClick = toggle)
-      else KitInputChipIcon(m, selected = selected, enabled = enabled, label = label, onChipClick = toggle)
+      if (closing)
+        KitInputChipIconClosing(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
+      else
+        KitInputChipIcon(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
     "brand" ->
-      if (closing) KitInputChipBrandClosing(m, selected = selected, enabled = enabled, label = label, onChipClick = toggle)
-      else KitInputChipBrand(m, selected = selected, enabled = enabled, label = label, onChipClick = toggle)
+      if (closing)
+        KitInputChipBrandClosing(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
+      else
+        KitInputChipBrand(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
     "favicon" ->
-      if (closing) KitInputChipFaviconClosing(m, selected = selected, enabled = enabled, label = label, onChipClick = toggle)
-      else KitInputChipFavicon(m, selected = selected, enabled = enabled, label = label, onChipClick = toggle)
+      if (closing)
+        KitInputChipFaviconClosing(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
+      else
+        KitInputChipFavicon(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
     "avatar" ->
-      if (closing) KitInputChipAvatarClosing(m, selected = selected, enabled = enabled, label = label, onChipClick = toggle)
-      else KitInputChipAvatar(m, selected = selected, enabled = enabled, label = label, onChipClick = toggle)
+      if (closing)
+        KitInputChipAvatarClosing(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
+      else
+        KitInputChipAvatar(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
     else ->
-      if (closing) KitInputChipClosing(m, selected = selected, enabled = enabled, label = label, onChipClick = toggle)
-      else KitInputChip(m, selected = selected, enabled = enabled, label = label, onChipClick = toggle)
+      if (closing)
+        KitInputChipClosing(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
+      else
+        KitInputChip(m, selected = selected, enabled = enabled, label = label, onChipClick = toggle)
   }
 }
