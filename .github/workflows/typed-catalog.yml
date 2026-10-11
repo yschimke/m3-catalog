@@ -11,6 +11,8 @@ on:
       - 'ui-builder.policy.json'
       - 'ui-builder/designs/**'
       - 'scripts/validate-typed-m3-catalog.sh'
+      - 'scripts/validate-typed-m3-catalogs.sh'
+      - 'samples-catalog/**'
       - 'scripts/verify-typed-m3-runtime.mjs'
       - '.github/workflows/typed-catalog.yml'
 
@@ -51,11 +53,16 @@ jobs:
       - name: Validate parallel generation and renderer
         working-directory: m3-catalog
         run: xvfb-run -a scripts/validate-typed-m3-catalog.sh
+      - name: Validate complete M3 samples pair
+        working-directory: m3-catalog
+        run: scripts/validate-typed-m3-catalogs.sh
       - uses: actions/upload-artifact@v7.0.1
         if: always()
         with:
           name: typed-m3-catalog-trial
           path: |
+            m3-catalog/catalog-typed-generator/build/catalog/
+            m3-catalog/catalog-typed-generator/build/reports/tests/
             m3-catalog/catalog-typed-policy/build/catalog/
             m3-catalog/catalog-typed-adapters/build/catalog/
             m3-catalog/catalog-typed-adapters/build/distributions/
