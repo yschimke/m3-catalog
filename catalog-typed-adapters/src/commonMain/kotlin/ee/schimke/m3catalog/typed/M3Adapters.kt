@@ -26,10 +26,17 @@ class ButtonAdapter(record: ComponentRecord) :
   val content = slot("content")
 }
 
-data class CardProperties(val containerColor: String, val elevationDp: Float)
+data class CardProperties(val style: String, val containerColor: String, val elevationDp: Float)
 
 class CardAdapter(record: ComponentRecord) :
   TypedComponentAdapter<CardProperties>("m3/card", record) {
+  val style =
+    property(
+      CardProperties::style,
+      AdapterValueCodecs.String,
+      TypedCardDefaults.style,
+      bindable = false,
+    )
   val containerColor =
     property(
       CardProperties::containerColor,
@@ -42,48 +49,6 @@ class CardAdapter(record: ComponentRecord) :
       CardProperties::elevationDp,
       M3ValueCodecs.Float,
       TypedCardDefaults.elevationDp,
-      bindable = false,
-    )
-  val content = slot("content")
-}
-
-data class ElevatedCardProperties(val containerColor: String, val elevationDp: Float)
-
-class ElevatedCardAdapter(record: ComponentRecord) :
-  TypedComponentAdapter<ElevatedCardProperties>("m3/elevated-card", record) {
-  val containerColor =
-    property(
-      ElevatedCardProperties::containerColor,
-      AdapterValueCodecs.String,
-      TypedElevatedCardDefaults.containerColor,
-      bindable = false,
-    )
-  val elevationDp =
-    property(
-      ElevatedCardProperties::elevationDp,
-      M3ValueCodecs.Float,
-      TypedElevatedCardDefaults.elevationDp,
-      bindable = false,
-    )
-  val content = slot("content")
-}
-
-data class OutlinedCardProperties(val containerColor: String, val elevationDp: Float)
-
-class OutlinedCardAdapter(record: ComponentRecord) :
-  TypedComponentAdapter<OutlinedCardProperties>("m3/outlined-card", record) {
-  val containerColor =
-    property(
-      OutlinedCardProperties::containerColor,
-      AdapterValueCodecs.String,
-      TypedOutlinedCardDefaults.containerColor,
-      bindable = false,
-    )
-  val elevationDp =
-    property(
-      OutlinedCardProperties::elevationDp,
-      M3ValueCodecs.Float,
-      TypedOutlinedCardDefaults.elevationDp,
       bindable = false,
     )
   val content = slot("content")
@@ -315,10 +280,22 @@ class IconAdapter(record: ComponentRecord) :
     )
 }
 
-data class IconButtonProperties(val sizeDp: Float, val enabled: Boolean, val onClick: () -> Unit)
+data class IconButtonProperties(
+  val style: String,
+  val sizeDp: Float,
+  val enabled: Boolean,
+  val onClick: () -> Unit,
+)
 
 class IconButtonAdapter(record: ComponentRecord) :
   TypedComponentAdapter<IconButtonProperties>("m3/icon-button", record) {
+  val style =
+    property(
+      IconButtonProperties::style,
+      AdapterValueCodecs.String,
+      TypedIconButtonDefaults.style,
+      bindable = false,
+    )
   val sizeDp =
     property(
       IconButtonProperties::sizeDp,
@@ -334,84 +311,6 @@ class IconButtonAdapter(record: ComponentRecord) :
       bindable = false,
     )
   val onClick = event(IconButtonProperties::onClick)
-  val content = slot("content")
-}
-
-data class FilledIconButtonProperties(
-  val sizeDp: Float,
-  val enabled: Boolean,
-  val onClick: () -> Unit,
-)
-
-class FilledIconButtonAdapter(record: ComponentRecord) :
-  TypedComponentAdapter<FilledIconButtonProperties>("m3/filled-icon-button", record) {
-  val sizeDp =
-    property(
-      FilledIconButtonProperties::sizeDp,
-      M3ValueCodecs.Float,
-      TypedFilledIconButtonDefaults.sizeDp,
-      bindable = false,
-    )
-  val enabled =
-    property(
-      FilledIconButtonProperties::enabled,
-      AdapterValueCodecs.Boolean,
-      TypedFilledIconButtonDefaults.enabled,
-      bindable = false,
-    )
-  val onClick = event(FilledIconButtonProperties::onClick)
-  val content = slot("content")
-}
-
-data class FilledTonalIconButtonProperties(
-  val sizeDp: Float,
-  val enabled: Boolean,
-  val onClick: () -> Unit,
-)
-
-class FilledTonalIconButtonAdapter(record: ComponentRecord) :
-  TypedComponentAdapter<FilledTonalIconButtonProperties>("m3/filled-tonal-icon-button", record) {
-  val sizeDp =
-    property(
-      FilledTonalIconButtonProperties::sizeDp,
-      M3ValueCodecs.Float,
-      TypedFilledTonalIconButtonDefaults.sizeDp,
-      bindable = false,
-    )
-  val enabled =
-    property(
-      FilledTonalIconButtonProperties::enabled,
-      AdapterValueCodecs.Boolean,
-      TypedFilledTonalIconButtonDefaults.enabled,
-      bindable = false,
-    )
-  val onClick = event(FilledTonalIconButtonProperties::onClick)
-  val content = slot("content")
-}
-
-data class OutlinedIconButtonProperties(
-  val sizeDp: Float,
-  val enabled: Boolean,
-  val onClick: () -> Unit,
-)
-
-class OutlinedIconButtonAdapter(record: ComponentRecord) :
-  TypedComponentAdapter<OutlinedIconButtonProperties>("m3/outlined-icon-button", record) {
-  val sizeDp =
-    property(
-      OutlinedIconButtonProperties::sizeDp,
-      M3ValueCodecs.Float,
-      TypedOutlinedIconButtonDefaults.sizeDp,
-      bindable = false,
-    )
-  val enabled =
-    property(
-      OutlinedIconButtonProperties::enabled,
-      AdapterValueCodecs.Boolean,
-      TypedOutlinedIconButtonDefaults.enabled,
-      bindable = false,
-    )
-  val onClick = event(OutlinedIconButtonProperties::onClick)
   val content = slot("content")
 }
 

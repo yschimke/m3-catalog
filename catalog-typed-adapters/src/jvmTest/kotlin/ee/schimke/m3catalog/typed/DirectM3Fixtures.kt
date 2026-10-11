@@ -9,8 +9,6 @@ fun DirectM3Fixture(id: String, modifier: Modifier) {
   when (id) {
     "m3/button" -> M3Button(content = { Text("Slot content") }, modifier = modifier)
     "m3/card" -> M3Card(content = { Text("Slot content") }, modifier = modifier)
-    "m3/elevated-card" -> M3ElevatedCard(content = { Text("Slot content") }, modifier = modifier)
-    "m3/outlined-card" -> M3OutlinedCard(content = { Text("Slot content") }, modifier = modifier)
     "m3/center-aligned-top-app-bar" ->
       M3CenterAlignedTopAppBar(
         title = { Text("Slot content") },
@@ -43,12 +41,6 @@ fun DirectM3Fixture(id: String, modifier: Modifier) {
       M3HorizontalFloatingToolbar(content = { Text("Slot content") }, modifier = modifier)
     "m3/icon" -> M3Icon(modifier = modifier)
     "m3/icon-button" -> M3IconButton(content = { Text("Slot content") }, modifier = modifier)
-    "m3/filled-icon-button" ->
-      M3FilledIconButton(content = { Text("Slot content") }, modifier = modifier)
-    "m3/filled-tonal-icon-button" ->
-      M3FilledTonalIconButton(content = { Text("Slot content") }, modifier = modifier)
-    "m3/outlined-icon-button" ->
-      M3OutlinedIconButton(content = { Text("Slot content") }, modifier = modifier)
     "m3/list-item" ->
       M3ListItem(
         headline = { Text("Slot content") },

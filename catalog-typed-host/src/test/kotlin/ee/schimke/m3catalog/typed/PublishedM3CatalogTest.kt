@@ -23,7 +23,7 @@ class PublishedM3CatalogTest {
         ComponentRecordFile.serializer(),
         Files.readString(directory.resolve("components.json")),
       )
-    assertEquals(38, records.components.size)
+    assertEquals(33, records.components.size)
     val published =
       Json.decodeFromString(
         UiBuilderCatalogFile.serializer(),

@@ -14,8 +14,6 @@ class TypedM3Catalog(val discovered: ComponentRecordFile) {
 
   val button = ButtonAdapter(record("M3Button"))
   val card = CardAdapter(record("M3Card"))
-  val elevatedCard = ElevatedCardAdapter(record("M3ElevatedCard"))
-  val outlinedCard = OutlinedCardAdapter(record("M3OutlinedCard"))
   val centerAlignedTopAppBar = CenterAlignedTopAppBarAdapter(record("M3CenterAlignedTopAppBar"))
   val checkbox = CheckboxAdapter(record("M3Checkbox"))
   val datePicker = DatePickerAdapter(record("M3DatePicker"))
@@ -27,9 +25,6 @@ class TypedM3Catalog(val discovered: ComponentRecordFile) {
     HorizontalFloatingToolbarAdapter(record("M3HorizontalFloatingToolbar"))
   val icon = IconAdapter(record("M3Icon"))
   val iconButton = IconButtonAdapter(record("M3IconButton"))
-  val filledIconButton = FilledIconButtonAdapter(record("M3FilledIconButton"))
-  val filledTonalIconButton = FilledTonalIconButtonAdapter(record("M3FilledTonalIconButton"))
-  val outlinedIconButton = OutlinedIconButtonAdapter(record("M3OutlinedIconButton"))
   val listItem = ListItemAdapter(record("M3ListItem"))
   val primaryTabRow = PrimaryTabRowAdapter(record("M3PrimaryTabRow"))
   val linearProgressIndicator = LinearProgressIndicatorAdapter(record("M3LinearProgressIndicator"))
@@ -61,8 +56,6 @@ class TypedM3Catalog(val discovered: ComponentRecordFile) {
     listOf(
       button,
       card,
-      elevatedCard,
-      outlinedCard,
       centerAlignedTopAppBar,
       checkbox,
       datePicker,
@@ -73,9 +66,6 @@ class TypedM3Catalog(val discovered: ComponentRecordFile) {
       horizontalFloatingToolbar,
       icon,
       iconButton,
-      filledIconButton,
-      filledTonalIconButton,
-      outlinedIconButton,
       listItem,
       primaryTabRow,
       linearProgressIndicator,

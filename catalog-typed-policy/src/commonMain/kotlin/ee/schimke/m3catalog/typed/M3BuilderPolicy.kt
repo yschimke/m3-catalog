@@ -94,8 +94,6 @@ fun m3BuilderPolicy(): UiBuilderPolicyFile =
         linkedMapOf(
           "m3/button" to componentButton(),
           "m3/card" to componentCard(),
-          "m3/elevated-card" to componentElevatedCard(),
-          "m3/outlined-card" to componentOutlinedCard(),
           "m3/center-aligned-top-app-bar" to componentCenterAlignedTopAppBar(),
           "m3/checkbox" to componentCheckbox(),
           "m3/date-picker" to componentDatePicker(),
@@ -106,9 +104,6 @@ fun m3BuilderPolicy(): UiBuilderPolicyFile =
           "m3/horizontal-floating-toolbar" to componentHorizontalFloatingToolbar(),
           "m3/icon" to componentIcon(),
           "m3/icon-button" to componentIconButton(),
-          "m3/filled-icon-button" to componentFilledIconButton(),
-          "m3/filled-tonal-icon-button" to componentFilledTonalIconButton(),
-          "m3/outlined-icon-button" to componentOutlinedIconButton(),
           "m3/list-item" to componentListItem(),
           "m3/primary-tab-row" to componentPrimaryTabRow(),
           "m3/linear-progress-indicator" to componentLinearProgressIndicator(),
@@ -262,77 +257,18 @@ private fun componentCard(): UiBuilderAuthoredComponent =
       propertyCapabilities =
         listOf(
           property(
-            "containerColor",
+            "style",
             JsonValueTypeV1.STRING,
             required = false,
+            allowedValues =
+              listOf(
+                JsonPrimitive("filled"),
+                JsonPrimitive("elevated"),
+                JsonPrimitive("outlined"),
+              ),
             notes =
-              "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit.",
+              "Which Material 3 card: `filled` (Card, the default), `elevated` (ElevatedCard) or `outlined` (OutlinedCard). One builder component with the style as a property, as `m3/button` is; the catalog keeps a sticker per style.",
           ),
-          property("shape", JsonValueTypeV1.STRING, required = false),
-          property("stableKey", JsonValueTypeV1.STRING, required = false),
-          property("elevationDp", JsonValueTypeV1.NUMBER, required = false),
-          property("onClickAction", JsonValueTypeV1.OBJECT, JsonValueTypeV1.NULL, required = false),
-        )
-      slotCapabilities =
-        listOf(
-          slot(
-            "content",
-            min = 1,
-            max = null,
-            ordered = true,
-            roles = listOf("Container", "Leaf"),
-            traits = listOf("AnyContent"),
-          )
-        )
-      modifierCapabilities = cardModifiers
-    }
-    .build()
-
-private fun componentElevatedCard(): UiBuilderAuthoredComponent =
-  UiBuilderAuthoredComponent.Builder()
-    .apply {
-      record = "catalog/androidx.compose.material3.CardKt.ElevatedCard"
-      displayName = "Elevated card"
-      canvas = "material3/ElevatedCard"
-      traits = listOf("GridItem", "CarouselItem", "ListItem", "OverlayContent")
-      propertyCapabilities =
-        listOf(
-          property(
-            "containerColor",
-            JsonValueTypeV1.STRING,
-            required = false,
-            notes =
-              "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit.",
-          ),
-          property("shape", JsonValueTypeV1.STRING, required = false),
-          property("stableKey", JsonValueTypeV1.STRING, required = false),
-          property("elevationDp", JsonValueTypeV1.NUMBER, required = false),
-          property("onClickAction", JsonValueTypeV1.OBJECT, JsonValueTypeV1.NULL, required = false),
-        )
-      slotCapabilities =
-        listOf(
-          slot(
-            "content",
-            min = 1,
-            max = null,
-            ordered = true,
-            roles = listOf("Container", "Leaf"),
-            traits = listOf("AnyContent"),
-          )
-        )
-      modifierCapabilities = cardModifiers
-    }
-    .build()
-
-private fun componentOutlinedCard(): UiBuilderAuthoredComponent =
-  UiBuilderAuthoredComponent.Builder()
-    .apply {
-      record = "catalog/androidx.compose.material3.CardKt.OutlinedCard"
-      displayName = "Outlined card"
-      canvas = "material3/OutlinedCard"
-      traits = listOf("GridItem", "CarouselItem", "ListItem", "OverlayContent")
-      propertyCapabilities =
-        listOf(
           property(
             "containerColor",
             JsonValueTypeV1.STRING,
@@ -759,117 +695,20 @@ private fun componentIconButton(): UiBuilderAuthoredComponent =
       traits = listOf("Action", "OverlayControl", "ToolbarItem")
       propertyCapabilities =
         listOf(
-          property("enabled", JsonValueTypeV1.BOOLEAN, required = false),
-          property("selected", JsonValueTypeV1.BOOLEAN, required = false),
-          property("alignment", JsonValueTypeV1.STRING, required = false),
           property(
-            "contentDescription",
+            "style",
             JsonValueTypeV1.STRING,
-            JsonValueTypeV1.NULL,
             required = false,
+            allowedValues =
+              listOf(
+                JsonPrimitive("standard"),
+                JsonPrimitive("filled"),
+                JsonPrimitive("tonal"),
+                JsonPrimitive("outlined"),
+              ),
+            notes =
+              "Which Material 3 icon button: `standard` (IconButton, the default), `filled` (FilledIconButton), `tonal` (FilledTonalIconButton) or `outlined` (OutlinedIconButton). One builder component with the style as a property, as `m3/button` is; the catalog keeps a sticker per style.",
           ),
-          property("sizeDp", JsonValueTypeV1.NUMBER, required = false),
-          property("onClickAction", JsonValueTypeV1.OBJECT, JsonValueTypeV1.NULL, required = false),
-        )
-      slotCapabilities =
-        listOf(
-          slot(
-            "content",
-            min = 1,
-            max = 1,
-            ordered = false,
-            roles = listOf("Leaf"),
-            traits = listOf("IconContent"),
-          )
-        )
-      modifierCapabilities = compactModifiers
-    }
-    .build()
-
-private fun componentFilledIconButton(): UiBuilderAuthoredComponent =
-  UiBuilderAuthoredComponent.Builder()
-    .apply {
-      record = "catalog/androidx.compose.material3.IconButtonKt.FilledIconButton"
-      group = "Icon buttons"
-      displayName = "Filled icon button"
-      canvas = "material3/FilledIconButton"
-      traits = listOf("Action", "OverlayControl", "ToolbarItem")
-      propertyCapabilities =
-        listOf(
-          property("enabled", JsonValueTypeV1.BOOLEAN, required = false),
-          property("selected", JsonValueTypeV1.BOOLEAN, required = false),
-          property("alignment", JsonValueTypeV1.STRING, required = false),
-          property(
-            "contentDescription",
-            JsonValueTypeV1.STRING,
-            JsonValueTypeV1.NULL,
-            required = false,
-          ),
-          property("sizeDp", JsonValueTypeV1.NUMBER, required = false),
-          property("onClickAction", JsonValueTypeV1.OBJECT, JsonValueTypeV1.NULL, required = false),
-        )
-      slotCapabilities =
-        listOf(
-          slot(
-            "content",
-            min = 1,
-            max = 1,
-            ordered = false,
-            roles = listOf("Leaf"),
-            traits = listOf("IconContent"),
-          )
-        )
-      modifierCapabilities = compactModifiers
-    }
-    .build()
-
-private fun componentFilledTonalIconButton(): UiBuilderAuthoredComponent =
-  UiBuilderAuthoredComponent.Builder()
-    .apply {
-      record = "catalog/androidx.compose.material3.IconButtonKt.FilledTonalIconButton"
-      group = "Icon buttons"
-      displayName = "Filled tonal icon button"
-      canvas = "material3/FilledTonalIconButton"
-      traits = listOf("Action", "OverlayControl", "ToolbarItem")
-      propertyCapabilities =
-        listOf(
-          property("enabled", JsonValueTypeV1.BOOLEAN, required = false),
-          property("selected", JsonValueTypeV1.BOOLEAN, required = false),
-          property("alignment", JsonValueTypeV1.STRING, required = false),
-          property(
-            "contentDescription",
-            JsonValueTypeV1.STRING,
-            JsonValueTypeV1.NULL,
-            required = false,
-          ),
-          property("sizeDp", JsonValueTypeV1.NUMBER, required = false),
-          property("onClickAction", JsonValueTypeV1.OBJECT, JsonValueTypeV1.NULL, required = false),
-        )
-      slotCapabilities =
-        listOf(
-          slot(
-            "content",
-            min = 1,
-            max = 1,
-            ordered = false,
-            roles = listOf("Leaf"),
-            traits = listOf("IconContent"),
-          )
-        )
-      modifierCapabilities = compactModifiers
-    }
-    .build()
-
-private fun componentOutlinedIconButton(): UiBuilderAuthoredComponent =
-  UiBuilderAuthoredComponent.Builder()
-    .apply {
-      record = "catalog/androidx.compose.material3.IconButtonKt.OutlinedIconButton"
-      group = "Icon buttons"
-      displayName = "Outlined icon button"
-      canvas = "material3/OutlinedIconButton"
-      traits = listOf("Action", "OverlayControl", "ToolbarItem")
-      propertyCapabilities =
-        listOf(
           property("enabled", JsonValueTypeV1.BOOLEAN, required = false),
           property("selected", JsonValueTypeV1.BOOLEAN, required = false),
           property("alignment", JsonValueTypeV1.STRING, required = false),
@@ -1993,41 +1832,49 @@ private fun policySupersedes(): JsonElement = buildJsonObject {
     "m3/card",
     buildJsonObject {
       put("componentId", JsonPrimitive("m3/card"))
-      put(
-        "variants",
-        buildJsonObject {
-          put("property", JsonPrimitive("variant"))
-          put(
-            "components",
-            buildJsonObject {
-              put("filled", JsonPrimitive("m3/card"))
-              put("elevated", JsonPrimitive("m3/elevated-card"))
-              put("outlined", JsonPrimitive("m3/outlined-card"))
-            },
-          )
-        },
-      )
+      put("properties", buildJsonObject { put("variant", JsonPrimitive("style")) })
+    },
+  )
+  put(
+    "m3/elevated-card",
+    buildJsonObject {
+      put("componentId", JsonPrimitive("m3/card"))
+      put("setProperties", buildJsonObject { put("style", JsonPrimitive("elevated")) })
+    },
+  )
+  put(
+    "m3/outlined-card",
+    buildJsonObject {
+      put("componentId", JsonPrimitive("m3/card"))
+      put("setProperties", buildJsonObject { put("style", JsonPrimitive("outlined")) })
     },
   )
   put(
     "m3/icon-button",
     buildJsonObject {
       put("componentId", JsonPrimitive("m3/icon-button"))
-      put(
-        "variants",
-        buildJsonObject {
-          put("property", JsonPrimitive("variant"))
-          put(
-            "components",
-            buildJsonObject {
-              put("standard", JsonPrimitive("m3/icon-button"))
-              put("filled", JsonPrimitive("m3/filled-icon-button"))
-              put("tonal", JsonPrimitive("m3/filled-tonal-icon-button"))
-              put("outlined", JsonPrimitive("m3/outlined-icon-button"))
-            },
-          )
-        },
-      )
+      put("properties", buildJsonObject { put("variant", JsonPrimitive("style")) })
+    },
+  )
+  put(
+    "m3/filled-icon-button",
+    buildJsonObject {
+      put("componentId", JsonPrimitive("m3/icon-button"))
+      put("setProperties", buildJsonObject { put("style", JsonPrimitive("filled")) })
+    },
+  )
+  put(
+    "m3/filled-tonal-icon-button",
+    buildJsonObject {
+      put("componentId", JsonPrimitive("m3/icon-button"))
+      put("setProperties", buildJsonObject { put("style", JsonPrimitive("tonal")) })
+    },
+  )
+  put(
+    "m3/outlined-icon-button",
+    buildJsonObject {
+      put("componentId", JsonPrimitive("m3/icon-button"))
+      put("setProperties", buildJsonObject { put("style", JsonPrimitive("outlined")) })
     },
   )
   put(

@@ -203,171 +203,16 @@
       ],
       "propertyCapabilities": [
         {
-          "name": "containerColor",
+          "name": "style",
           "jsonType": "string",
           "required": false,
-          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
-        },
-        {
-          "name": "shape",
-          "jsonType": "string",
-          "required": false
-        },
-        {
-          "name": "stableKey",
-          "jsonType": "string",
-          "required": false
-        },
-        {
-          "name": "elevationDp",
-          "jsonType": "number",
-          "required": false
-        },
-        {
-          "name": "onClickAction",
-          "jsonType": [
-            "object",
-            "null"
+          "allowedValues": [
+            "filled",
+            "elevated",
+            "outlined"
           ],
-          "required": false
-        }
-      ],
-      "slotCapabilities": [
-        {
-          "name": "content",
-          "cardinality": {
-            "min": 1
-          },
-          "ordered": true,
-          "acceptedRoles": [
-            "Container",
-            "Leaf"
-          ],
-          "acceptedTraits": [
-            "AnyContent"
-          ]
-        }
-      ],
-      "modifierCapabilities": [
-        "size",
-        "fillMaxWidth",
-        "padding",
-        "clip",
-        "alpha",
-        "offset",
-        "rotate",
-        "scale",
-        "zIndex",
-        "testTag",
-        "width",
-        "height",
-        "widthIn",
-        "heightIn",
-        "aspectRatio",
-        "background",
-        "border",
-        "shadow",
-        "wrapContentSize",
-        "align",
-        "alignHorizontal",
-        "alignVertical",
-        "weight"
-      ]
-    },
-    "m3/elevated-card": {
-      "record": "catalog/androidx.compose.material3.CardKt.ElevatedCard",
-      "displayName": "Elevated card",
-      "canvas": "material3/ElevatedCard",
-      "traits": [
-        "GridItem",
-        "CarouselItem",
-        "ListItem",
-        "OverlayContent"
-      ],
-      "propertyCapabilities": [
-        {
-          "name": "containerColor",
-          "jsonType": "string",
-          "required": false,
-          "notes": "A colour, written as {\"type\":\"color\",\"value\":\"#RRGGBB\"} or as {\"type\":\"colorToken\",\"value\":\"primary\"} naming one of statusSemantics.colorTokens. A string wrapper, or a role the canvas does not draw, is refused at commit."
+          "notes": "Which Material 3 card: `filled` (Card, the default), `elevated` (ElevatedCard) or `outlined` (OutlinedCard). One builder component with the style as a property, as `m3/button` is; the catalog keeps a sticker per style."
         },
-        {
-          "name": "shape",
-          "jsonType": "string",
-          "required": false
-        },
-        {
-          "name": "stableKey",
-          "jsonType": "string",
-          "required": false
-        },
-        {
-          "name": "elevationDp",
-          "jsonType": "number",
-          "required": false
-        },
-        {
-          "name": "onClickAction",
-          "jsonType": [
-            "object",
-            "null"
-          ],
-          "required": false
-        }
-      ],
-      "slotCapabilities": [
-        {
-          "name": "content",
-          "cardinality": {
-            "min": 1
-          },
-          "ordered": true,
-          "acceptedRoles": [
-            "Container",
-            "Leaf"
-          ],
-          "acceptedTraits": [
-            "AnyContent"
-          ]
-        }
-      ],
-      "modifierCapabilities": [
-        "size",
-        "fillMaxWidth",
-        "padding",
-        "clip",
-        "alpha",
-        "offset",
-        "rotate",
-        "scale",
-        "zIndex",
-        "testTag",
-        "width",
-        "height",
-        "widthIn",
-        "heightIn",
-        "aspectRatio",
-        "background",
-        "border",
-        "shadow",
-        "wrapContentSize",
-        "align",
-        "alignHorizontal",
-        "alignVertical",
-        "weight"
-      ]
-    },
-    "m3/outlined-card": {
-      "record": "catalog/androidx.compose.material3.CardKt.OutlinedCard",
-      "displayName": "Outlined card",
-      "canvas": "material3/OutlinedCard",
-      "traits": [
-        "GridItem",
-        "CarouselItem",
-        "ListItem",
-        "OverlayContent"
-      ],
-      "propertyCapabilities": [
         {
           "name": "containerColor",
           "jsonType": "string",
@@ -1030,257 +875,17 @@
       ],
       "propertyCapabilities": [
         {
-          "name": "enabled",
-          "jsonType": "boolean",
-          "required": false
-        },
-        {
-          "name": "selected",
-          "jsonType": "boolean",
-          "required": false
-        },
-        {
-          "name": "alignment",
+          "name": "style",
           "jsonType": "string",
-          "required": false
-        },
-        {
-          "name": "contentDescription",
-          "jsonType": [
-            "string",
-            "null"
+          "required": false,
+          "allowedValues": [
+            "standard",
+            "filled",
+            "tonal",
+            "outlined"
           ],
-          "required": false
+          "notes": "Which Material 3 icon button: `standard` (IconButton, the default), `filled` (FilledIconButton), `tonal` (FilledTonalIconButton) or `outlined` (OutlinedIconButton). One builder component with the style as a property, as `m3/button` is; the catalog keeps a sticker per style."
         },
-        {
-          "name": "sizeDp",
-          "jsonType": "number",
-          "required": false
-        },
-        {
-          "name": "onClickAction",
-          "jsonType": [
-            "object",
-            "null"
-          ],
-          "required": false
-        }
-      ],
-      "slotCapabilities": [
-        {
-          "name": "content",
-          "cardinality": {
-            "min": 1,
-            "max": 1
-          },
-          "ordered": false,
-          "acceptedRoles": [
-            "Leaf"
-          ],
-          "acceptedTraits": [
-            "IconContent"
-          ]
-        }
-      ],
-      "modifierCapabilities": [
-        "size",
-        "padding",
-        "alpha",
-        "offset",
-        "rotate",
-        "scale",
-        "zIndex",
-        "testTag",
-        "width",
-        "height",
-        "widthIn",
-        "heightIn",
-        "aspectRatio",
-        "align",
-        "alignHorizontal",
-        "alignVertical",
-        "weight"
-      ]
-    },
-    "m3/filled-icon-button": {
-      "record": "catalog/androidx.compose.material3.IconButtonKt.FilledIconButton",
-      "group": "Icon buttons",
-      "displayName": "Filled icon button",
-      "canvas": "material3/FilledIconButton",
-      "traits": [
-        "Action",
-        "OverlayControl",
-        "ToolbarItem"
-      ],
-      "propertyCapabilities": [
-        {
-          "name": "enabled",
-          "jsonType": "boolean",
-          "required": false
-        },
-        {
-          "name": "selected",
-          "jsonType": "boolean",
-          "required": false
-        },
-        {
-          "name": "alignment",
-          "jsonType": "string",
-          "required": false
-        },
-        {
-          "name": "contentDescription",
-          "jsonType": [
-            "string",
-            "null"
-          ],
-          "required": false
-        },
-        {
-          "name": "sizeDp",
-          "jsonType": "number",
-          "required": false
-        },
-        {
-          "name": "onClickAction",
-          "jsonType": [
-            "object",
-            "null"
-          ],
-          "required": false
-        }
-      ],
-      "slotCapabilities": [
-        {
-          "name": "content",
-          "cardinality": {
-            "min": 1,
-            "max": 1
-          },
-          "ordered": false,
-          "acceptedRoles": [
-            "Leaf"
-          ],
-          "acceptedTraits": [
-            "IconContent"
-          ]
-        }
-      ],
-      "modifierCapabilities": [
-        "size",
-        "padding",
-        "alpha",
-        "offset",
-        "rotate",
-        "scale",
-        "zIndex",
-        "testTag",
-        "width",
-        "height",
-        "widthIn",
-        "heightIn",
-        "aspectRatio",
-        "align",
-        "alignHorizontal",
-        "alignVertical",
-        "weight"
-      ]
-    },
-    "m3/filled-tonal-icon-button": {
-      "record": "catalog/androidx.compose.material3.IconButtonKt.FilledTonalIconButton",
-      "group": "Icon buttons",
-      "displayName": "Filled tonal icon button",
-      "canvas": "material3/FilledTonalIconButton",
-      "traits": [
-        "Action",
-        "OverlayControl",
-        "ToolbarItem"
-      ],
-      "propertyCapabilities": [
-        {
-          "name": "enabled",
-          "jsonType": "boolean",
-          "required": false
-        },
-        {
-          "name": "selected",
-          "jsonType": "boolean",
-          "required": false
-        },
-        {
-          "name": "alignment",
-          "jsonType": "string",
-          "required": false
-        },
-        {
-          "name": "contentDescription",
-          "jsonType": [
-            "string",
-            "null"
-          ],
-          "required": false
-        },
-        {
-          "name": "sizeDp",
-          "jsonType": "number",
-          "required": false
-        },
-        {
-          "name": "onClickAction",
-          "jsonType": [
-            "object",
-            "null"
-          ],
-          "required": false
-        }
-      ],
-      "slotCapabilities": [
-        {
-          "name": "content",
-          "cardinality": {
-            "min": 1,
-            "max": 1
-          },
-          "ordered": false,
-          "acceptedRoles": [
-            "Leaf"
-          ],
-          "acceptedTraits": [
-            "IconContent"
-          ]
-        }
-      ],
-      "modifierCapabilities": [
-        "size",
-        "padding",
-        "alpha",
-        "offset",
-        "rotate",
-        "scale",
-        "zIndex",
-        "testTag",
-        "width",
-        "height",
-        "widthIn",
-        "heightIn",
-        "aspectRatio",
-        "align",
-        "alignHorizontal",
-        "alignVertical",
-        "weight"
-      ]
-    },
-    "m3/outlined-icon-button": {
-      "record": "catalog/androidx.compose.material3.IconButtonKt.OutlinedIconButton",
-      "group": "Icon buttons",
-      "displayName": "Outlined icon button",
-      "canvas": "material3/OutlinedIconButton",
-      "traits": [
-        "Action",
-        "OverlayControl",
-        "ToolbarItem"
-      ],
-      "propertyCapabilities": [
         {
           "name": "enabled",
           "jsonType": "boolean",
@@ -2937,25 +2542,44 @@
   "supersedes": {
     "m3/card": {
       "componentId": "m3/card",
-      "variants": {
-        "property": "variant",
-        "components": {
-          "filled": "m3/card",
-          "elevated": "m3/elevated-card",
-          "outlined": "m3/outlined-card"
-        }
+      "properties": {
+        "variant": "style"
+      }
+    },
+    "m3/elevated-card": {
+      "componentId": "m3/card",
+      "setProperties": {
+        "style": "elevated"
+      }
+    },
+    "m3/outlined-card": {
+      "componentId": "m3/card",
+      "setProperties": {
+        "style": "outlined"
       }
     },
     "m3/icon-button": {
       "componentId": "m3/icon-button",
-      "variants": {
-        "property": "variant",
-        "components": {
-          "standard": "m3/icon-button",
-          "filled": "m3/filled-icon-button",
-          "tonal": "m3/filled-tonal-icon-button",
-          "outlined": "m3/outlined-icon-button"
-        }
+      "properties": {
+        "variant": "style"
+      }
+    },
+    "m3/filled-icon-button": {
+      "componentId": "m3/icon-button",
+      "setProperties": {
+        "style": "filled"
+      }
+    },
+    "m3/filled-tonal-icon-button": {
+      "componentId": "m3/icon-button",
+      "setProperties": {
+        "style": "tonal"
+      }
+    },
+    "m3/outlined-icon-button": {
+      "componentId": "m3/icon-button",
+      "setProperties": {
+        "style": "outlined"
       }
     },
     "m3/progress-indicator": {
