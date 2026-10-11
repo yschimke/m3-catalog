@@ -1,0 +1,2895 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-color-roles",
+  "title": "Kit colour role grid",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 808,
+    "heightDp": 532,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-color-roles": {
+      "name": "KitColorRoleGrid",
+      "root": "grid"
+    }
+  },
+  "nodes": {
+    "swatch-primary": {
+      "id": "swatch-primary",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "primary"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onPrimary"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 51
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "primary"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-onPrimary": {
+      "id": "swatch-onPrimary",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onPrimary"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "primary"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 40
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onPrimary"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "gap-1": {
+      "id": "gap-1",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 4
+        }
+      ]
+    },
+    "swatch-primaryContainer": {
+      "id": "swatch-primaryContainer",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "primaryContainer"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onPrimaryContainer"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 51
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "primaryContainer"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-onPrimaryContainer": {
+      "id": "swatch-onPrimaryContainer",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onPrimaryContainer"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "primaryContainer"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 40
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onPrimaryContainer"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "accent-primary": {
+      "id": "accent-primary",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "swatch-primary",
+          "swatch-onPrimary",
+          "gap-1",
+          "swatch-primaryContainer",
+          "swatch-onPrimaryContainer"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 196
+        },
+        {
+          "type": "fillMaxHeight"
+        }
+      ]
+    },
+    "gap-2": {
+      "id": "gap-2",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 4
+        }
+      ]
+    },
+    "swatch-secondary": {
+      "id": "swatch-secondary",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "secondary"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSecondary"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 51
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "secondary"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-onSecondary": {
+      "id": "swatch-onSecondary",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onSecondary"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "secondary"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 40
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onSecondary"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "gap-3": {
+      "id": "gap-3",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 4
+        }
+      ]
+    },
+    "swatch-secondaryContainer": {
+      "id": "swatch-secondaryContainer",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "secondaryContainer"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSecondaryContainer"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 51
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "secondaryContainer"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-onSecondaryContainer": {
+      "id": "swatch-onSecondaryContainer",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onSecondaryContainer"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "secondaryContainer"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 40
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onSecondaryContainer"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "accent-secondary": {
+      "id": "accent-secondary",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "swatch-secondary",
+          "swatch-onSecondary",
+          "gap-3",
+          "swatch-secondaryContainer",
+          "swatch-onSecondaryContainer"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 196
+        },
+        {
+          "type": "fillMaxHeight"
+        }
+      ]
+    },
+    "gap-4": {
+      "id": "gap-4",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 4
+        }
+      ]
+    },
+    "swatch-tertiary": {
+      "id": "swatch-tertiary",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "tertiary"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onTertiary"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 51
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "tertiary"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-onTertiary": {
+      "id": "swatch-onTertiary",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onTertiary"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "tertiary"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 40
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onTertiary"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "gap-5": {
+      "id": "gap-5",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 4
+        }
+      ]
+    },
+    "swatch-tertiaryContainer": {
+      "id": "swatch-tertiaryContainer",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "tertiaryContainer"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onTertiaryContainer"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 51
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "tertiaryContainer"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-onTertiaryContainer": {
+      "id": "swatch-onTertiaryContainer",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onTertiaryContainer"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "tertiaryContainer"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 40
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onTertiaryContainer"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "accent-tertiary": {
+      "id": "accent-tertiary",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "swatch-tertiary",
+          "swatch-onTertiary",
+          "gap-5",
+          "swatch-tertiaryContainer",
+          "swatch-onTertiaryContainer"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 196
+        },
+        {
+          "type": "fillMaxHeight"
+        }
+      ]
+    },
+    "accents": {
+      "id": "accents",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "accent-primary",
+          "gap-2",
+          "accent-secondary",
+          "gap-4",
+          "accent-tertiary"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 596
+        },
+        {
+          "type": "fillMaxHeight"
+        }
+      ]
+    },
+    "gap-6": {
+      "id": "gap-6",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 16
+        }
+      ]
+    },
+    "swatch-error": {
+      "id": "swatch-error",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "error"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onError"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 51
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "error"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-onError": {
+      "id": "swatch-onError",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onError"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "error"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 40
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onError"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "gap-7": {
+      "id": "gap-7",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 4
+        }
+      ]
+    },
+    "swatch-errorContainer": {
+      "id": "swatch-errorContainer",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "errorContainer"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onErrorContainer"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 51
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "errorContainer"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-onErrorContainer": {
+      "id": "swatch-onErrorContainer",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onErrorContainer"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "errorContainer"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 40
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onErrorContainer"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "accent-error": {
+      "id": "accent-error",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "swatch-error",
+          "swatch-onError",
+          "gap-7",
+          "swatch-errorContainer",
+          "swatch-onErrorContainer"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 196
+        },
+        {
+          "type": "fillMaxHeight"
+        }
+      ]
+    },
+    "band-accents": {
+      "id": "band-accents",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "accents",
+          "gap-6",
+          "accent-error"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 186
+        }
+      ]
+    },
+    "swatch-primaryFixed": {
+      "id": "swatch-primaryFixed",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "primaryFixed"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onPrimaryFixed"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "primaryFixed"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-primaryFixedDim": {
+      "id": "swatch-primaryFixedDim",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "primaryFixedDim"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onPrimaryFixedVariant"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "primaryFixedDim"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "fixed-pair-primary": {
+      "id": "fixed-pair-primary",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "swatch-primaryFixed",
+          "swatch-primaryFixedDim"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 56
+        }
+      ]
+    },
+    "swatch-onPrimaryFixed": {
+      "id": "swatch-onPrimaryFixed",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onPrimaryFixed"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "primaryFixed"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 36
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onPrimaryFixed"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-onPrimaryFixedVariant": {
+      "id": "swatch-onPrimaryFixedVariant",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onPrimaryFixedVariant"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "primaryFixed"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 36
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onPrimaryFixedVariant"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "fixed-primary": {
+      "id": "fixed-primary",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "fixed-pair-primary",
+          "swatch-onPrimaryFixed",
+          "swatch-onPrimaryFixedVariant"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 196
+        },
+        {
+          "type": "fillMaxHeight"
+        }
+      ]
+    },
+    "gap-8": {
+      "id": "gap-8",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 4
+        }
+      ]
+    },
+    "swatch-secondaryFixed": {
+      "id": "swatch-secondaryFixed",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "secondaryFixed"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSecondaryFixed"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "secondaryFixed"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-secondaryFixedDim": {
+      "id": "swatch-secondaryFixedDim",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "secondaryFixedDim"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSecondaryFixedVariant"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "secondaryFixedDim"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "fixed-pair-secondary": {
+      "id": "fixed-pair-secondary",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "swatch-secondaryFixed",
+          "swatch-secondaryFixedDim"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 56
+        }
+      ]
+    },
+    "swatch-onSecondaryFixed": {
+      "id": "swatch-onSecondaryFixed",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onSecondaryFixed"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "secondaryFixed"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 36
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onSecondaryFixed"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-onSecondaryFixedVariant": {
+      "id": "swatch-onSecondaryFixedVariant",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onSecondaryFixedVariant"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "secondaryFixed"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 36
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onSecondaryFixedVariant"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "fixed-secondary": {
+      "id": "fixed-secondary",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "fixed-pair-secondary",
+          "swatch-onSecondaryFixed",
+          "swatch-onSecondaryFixedVariant"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 196
+        },
+        {
+          "type": "fillMaxHeight"
+        }
+      ]
+    },
+    "gap-9": {
+      "id": "gap-9",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 4
+        }
+      ]
+    },
+    "swatch-tertiaryFixed": {
+      "id": "swatch-tertiaryFixed",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "tertiaryFixed"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onTertiaryFixed"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "tertiaryFixed"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-tertiaryFixedDim": {
+      "id": "swatch-tertiaryFixedDim",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "tertiaryFixedDim"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onTertiaryFixedVariant"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "tertiaryFixedDim"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "fixed-pair-tertiary": {
+      "id": "fixed-pair-tertiary",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "swatch-tertiaryFixed",
+          "swatch-tertiaryFixedDim"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 56
+        }
+      ]
+    },
+    "swatch-onTertiaryFixed": {
+      "id": "swatch-onTertiaryFixed",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onTertiaryFixed"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "tertiaryFixed"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 36
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onTertiaryFixed"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-onTertiaryFixedVariant": {
+      "id": "swatch-onTertiaryFixedVariant",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onTertiaryFixedVariant"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "tertiaryFixed"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 36
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onTertiaryFixedVariant"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "fixed-tertiary": {
+      "id": "fixed-tertiary",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "fixed-pair-tertiary",
+          "swatch-onTertiaryFixed",
+          "swatch-onTertiaryFixedVariant"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 196
+        },
+        {
+          "type": "fillMaxHeight"
+        }
+      ]
+    },
+    "band-fixed": {
+      "id": "band-fixed",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "fixed-primary",
+          "gap-8",
+          "fixed-secondary",
+          "gap-9",
+          "fixed-tertiary"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 596
+        },
+        {
+          "type": "height",
+          "heightDp": 128
+        }
+      ]
+    },
+    "swatch-surfaceDim": {
+      "id": "swatch-surfaceDim",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "surfaceDim"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "surfaceDim"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-surface": {
+      "id": "swatch-surface",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "surface"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "surface"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-surfaceBright": {
+      "id": "swatch-surfaceBright",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "surfaceBright"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "surfaceBright"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "surfaces-1": {
+      "id": "surfaces-1",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "swatch-surfaceDim",
+          "swatch-surface",
+          "swatch-surfaceBright"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 69
+        }
+      ]
+    },
+    "gap-10": {
+      "id": "gap-10",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 4
+        }
+      ]
+    },
+    "swatch-surfaceContainerLowest": {
+      "id": "swatch-surfaceContainerLowest",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "surfaceContainerLowest"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "surfaceContainerLowest"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-surfaceContainerLow": {
+      "id": "swatch-surfaceContainerLow",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "surfaceContainerLow"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "surfaceContainerLow"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-surfaceContainer": {
+      "id": "swatch-surfaceContainer",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "surfaceContainer"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "surfaceContainer"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-surfaceContainerHigh": {
+      "id": "swatch-surfaceContainerHigh",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "surfaceContainerHigh"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "surfaceContainerHigh"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-surfaceContainerHighest": {
+      "id": "swatch-surfaceContainerHighest",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "surfaceContainerHighest"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "surfaceContainerHighest"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "surfaces-2": {
+      "id": "surfaces-2",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "swatch-surfaceContainerLowest",
+          "swatch-surfaceContainerLow",
+          "swatch-surfaceContainer",
+          "swatch-surfaceContainerHigh",
+          "swatch-surfaceContainerHighest"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 69
+        }
+      ]
+    },
+    "gap-11": {
+      "id": "gap-11",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 4
+        }
+      ]
+    },
+    "swatch-onSurface": {
+      "id": "swatch-onSurface",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onSurface"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "surface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onSurface"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-onSurfaceVariant": {
+      "id": "swatch-onSurfaceVariant",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "onSurfaceVariant"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "surface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "onSurfaceVariant"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-outline": {
+      "id": "swatch-outline",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "outline"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "surface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "outline"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-outlineVariant": {
+      "id": "swatch-outlineVariant",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "outlineVariant"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "outlineVariant"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "surfaces-3": {
+      "id": "surfaces-3",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "swatch-onSurface",
+          "swatch-onSurfaceVariant",
+          "swatch-outline",
+          "swatch-outlineVariant"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 40
+        }
+      ]
+    },
+    "surfaces": {
+      "id": "surfaces",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "surfaces-1",
+          "gap-10",
+          "surfaces-2",
+          "gap-11",
+          "surfaces-3"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 596
+        },
+        {
+          "type": "fillMaxHeight"
+        }
+      ]
+    },
+    "swatch-inverseSurface": {
+      "id": "swatch-inverseSurface",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "inverseSurface"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "inverseOnSurface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 48
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "inverseSurface"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "swatch-inverseOnSurface": {
+      "id": "swatch-inverseOnSurface",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "inverseOnSurface"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "inverseSurface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 38
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "inverseOnSurface"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "gap-12": {
+      "id": "gap-12",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 4
+        }
+      ]
+    },
+    "swatch-inversePrimary": {
+      "id": "swatch-inversePrimary",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "inversePrimary"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "inverseSurface"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 40
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "inversePrimary"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "gap-13": {
+      "id": "gap-13",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 16
+        }
+      ]
+    },
+    "swatch-scrim": {
+      "id": "swatch-scrim",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "scrim"
+        },
+        "color": {
+          "type": "color",
+          "value": "#FFFFFF"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        },
+        "maxLines": {
+          "type": "integer",
+          "value": 2
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 90
+        },
+        {
+          "type": "fillMaxHeight"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "scrim"
+          }
+        },
+        {
+          "type": "padding",
+          "startDp": 12,
+          "topDp": 10,
+          "endDp": 12,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "scrim-row": {
+      "id": "scrim-row",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "swatch-scrim"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 40
+        }
+      ]
+    },
+    "inverses": {
+      "id": "inverses",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "swatch-inverseSurface",
+          "swatch-inverseOnSurface",
+          "gap-12",
+          "swatch-inversePrimary",
+          "gap-13",
+          "scrim-row"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 196
+        },
+        {
+          "type": "fillMaxHeight"
+        }
+      ]
+    },
+    "gap-14": {
+      "id": "gap-14",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 16
+        }
+      ]
+    },
+    "band-surfaces": {
+      "id": "band-surfaces",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "surfaces",
+          "gap-14",
+          "inverses"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 186
+        }
+      ]
+    },
+    "gap-15": {
+      "id": "gap-15",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 16
+        }
+      ]
+    },
+    "gap-16": {
+      "id": "gap-16",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 16
+        }
+      ]
+    },
+    "grid": {
+      "id": "grid",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "band-accents",
+          "gap-15",
+          "band-fixed",
+          "gap-16",
+          "band-surfaces"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 808
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "surface"
+          }
+        }
+      ]
+    },
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-color-roles",
+        "arguments": {}
+      }
+    }
+  }
+}

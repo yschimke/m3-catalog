@@ -1,0 +1,111 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-corner-scale",
+  "title": "Kit corner scale",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 220,
+    "heightDp": 176,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-corner-scale": {
+      "name": "KitCornerScale",
+      "root": "specimen"
+    }
+  },
+  "nodes": {
+    "silhouette": {
+      "id": "silhouette",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 136,
+          "heightDp": 136
+        },
+        {
+          "type": "clip",
+          "shape": "0"
+        },
+        {
+          "type": "background",
+          "color": {
+            "type": "colorToken",
+            "value": "primary"
+          }
+        }
+      ]
+    },
+    "caption": {
+      "id": "caption",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelLarge"
+        }
+      },
+      "slots": {}
+    },
+    "specimen": {
+      "id": "specimen",
+      "componentId": "layout/column",
+      "properties": {
+        "verticalSpacingDp": {
+          "type": "float",
+          "value": 12
+        },
+        "horizontalAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "silhouette",
+          "caption"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 220,
+          "heightDp": 176
+        }
+      ]
+    },
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-corner-scale",
+        "arguments": {
+          "label": {
+            "type": "string",
+            "value": "None \u00b7 0dp"
+          }
+        }
+      }
+    }
+  }
+}
