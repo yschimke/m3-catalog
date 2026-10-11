@@ -6,7 +6,7 @@ unpublished. The findings and the recommendation are in
 
 | File | What it is |
 | --- | --- |
-| `stickers/card.uid` | the sticker body: a `compose-ui-builder-document/v1-candidate` design |
+| `stickers/*.uid` | sticker bodies (`card.uid`, `suggestion-chip.uid`): `compose-ui-builder-document/v1-candidate` designs |
 | `stickers.json` | its cells, each a list of `ui_builder_apply` operations (`setProperty`, `deleteNode`, …) |
 | `component-record.json` | the vocabulary the export resolves against: the served `m3-catalog` record plus `OutlinedButton` and `m3catalog/image-placeholder` |
 | `src/generator` | `generateUidStickers`: exports each document and cell with the builder's `ScreenExportGate` |
@@ -15,7 +15,7 @@ unpublished. The findings and the recommendation are in
 
 ```sh
 scripts/agent-gradle.sh -PuidStickers=true :uid-stickers:composePreviewRender
-python3 uid-stickers/compare-published.py   # needs Pillow; all 12 cells report SAME
+python3 uid-stickers/compare-published.py   # needs Pillow; all 24 cells report SAME
 ```
 
 The generated Kotlin lands in `build/generated/uid/kotlin`, and that file is the sticker's source as
