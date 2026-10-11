@@ -76,10 +76,17 @@ fun FlatFloatingActionButton(
   modifier: Modifier = Modifier,
   content: @Composable () -> Unit,
 ) {
-  FloatingActionButton(onClick = onClick, modifier = modifier, elevation = flat(), content = content)
+  FloatingActionButton(
+    onClick = onClick,
+    modifier = modifier,
+    elevation = flat(),
+    content = content,
+  )
 }
 
-/** The expanded rail header's flat extended FAB, for the same reason as [FlatFloatingActionButton]. */
+/**
+ * The expanded rail header's flat extended FAB, for the same reason as [FlatFloatingActionButton].
+ */
 @Composable
 fun FlatExtendedFloatingActionButton(
   onClick: () -> Unit,

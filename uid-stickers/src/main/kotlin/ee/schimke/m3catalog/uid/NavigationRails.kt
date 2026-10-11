@@ -38,7 +38,8 @@ import generated.uibuilder.KitNavigationRailNoMenuNoFabNoLabels
 import generated.uibuilder.KitNavigationRailNoMenuNoLabels
 import org.jetbrains.compose.resources.stringResource
 
-// The body is `stickers/navigation-rail.uid`: a collapsed `WideNavigationRail` (`m3/wide-navigation-
+// The body is `stickers/navigation-rail.uid`: a collapsed `WideNavigationRail`
+// (`m3/wide-navigation-
 // rail`, its default state) whose header is the menu button over the kit's flat FAB, and whose
 // three destinations are `m3/wide-navigation-rail-item`s with the stars glyph. Each item's
 // `selected` is a binding and its click an action-free event, so the selection lives here in the
@@ -85,22 +86,226 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
       }
     else emptyList()
   when {
-    !four && menu && fab && labelled -> KitNavigationRail(Modifier, homeSelected = selected == 0, homeLabel = labels[0], searchSelected = selected == 1, searchLabel = labels[1], youSelected = selected == 2, youLabel = labels[2], onMenuClick = menuClick.onClick, onFabClick = fabClick.onClick, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 })
-    !four && menu && fab && !labelled -> KitNavigationRailNoLabels(Modifier, homeSelected = selected == 0, searchSelected = selected == 1, youSelected = selected == 2, onMenuClick = menuClick.onClick, onFabClick = fabClick.onClick, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 })
-    !four && menu && !fab && labelled -> KitNavigationRailNoFab(Modifier, homeSelected = selected == 0, homeLabel = labels[0], searchSelected = selected == 1, searchLabel = labels[1], youSelected = selected == 2, youLabel = labels[2], onMenuClick = menuClick.onClick, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 })
-    !four && menu && !fab && !labelled -> KitNavigationRailNoFabNoLabels(Modifier, homeSelected = selected == 0, searchSelected = selected == 1, youSelected = selected == 2, onMenuClick = menuClick.onClick, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 })
-    !four && !menu && fab && labelled -> KitNavigationRailNoMenu(Modifier, homeSelected = selected == 0, homeLabel = labels[0], searchSelected = selected == 1, searchLabel = labels[1], youSelected = selected == 2, youLabel = labels[2], onFabClick = fabClick.onClick, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 })
-    !four && !menu && fab && !labelled -> KitNavigationRailNoMenuNoLabels(Modifier, homeSelected = selected == 0, searchSelected = selected == 1, youSelected = selected == 2, onFabClick = fabClick.onClick, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 })
-    !four && !menu && !fab && labelled -> KitNavigationRailNoMenuNoFab(Modifier, homeSelected = selected == 0, homeLabel = labels[0], searchSelected = selected == 1, searchLabel = labels[1], youSelected = selected == 2, youLabel = labels[2], onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 })
-    !four && !menu && !fab && !labelled -> KitNavigationRailNoMenuNoFabNoLabels(Modifier, homeSelected = selected == 0, searchSelected = selected == 1, youSelected = selected == 2, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 })
-    four && menu && fab && labelled -> KitNavigationRailFour(Modifier, homeSelected = selected == 0, homeLabel = labels[0], searchSelected = selected == 1, searchLabel = labels[1], youSelected = selected == 2, youLabel = labels[2], savedSelected = selected == 3, savedLabel = labels[3], onMenuClick = menuClick.onClick, onFabClick = fabClick.onClick, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 }, onSavedClick = { selected = 3 })
-    four && menu && fab && !labelled -> KitNavigationRailFourNoLabels(Modifier, homeSelected = selected == 0, searchSelected = selected == 1, youSelected = selected == 2, savedSelected = selected == 3, onMenuClick = menuClick.onClick, onFabClick = fabClick.onClick, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 }, onSavedClick = { selected = 3 })
-    four && menu && !fab && labelled -> KitNavigationRailFourNoFab(Modifier, homeSelected = selected == 0, homeLabel = labels[0], searchSelected = selected == 1, searchLabel = labels[1], youSelected = selected == 2, youLabel = labels[2], savedSelected = selected == 3, savedLabel = labels[3], onMenuClick = menuClick.onClick, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 }, onSavedClick = { selected = 3 })
-    four && menu && !fab && !labelled -> KitNavigationRailFourNoFabNoLabels(Modifier, homeSelected = selected == 0, searchSelected = selected == 1, youSelected = selected == 2, savedSelected = selected == 3, onMenuClick = menuClick.onClick, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 }, onSavedClick = { selected = 3 })
-    four && !menu && fab && labelled -> KitNavigationRailFourNoMenu(Modifier, homeSelected = selected == 0, homeLabel = labels[0], searchSelected = selected == 1, searchLabel = labels[1], youSelected = selected == 2, youLabel = labels[2], savedSelected = selected == 3, savedLabel = labels[3], onFabClick = fabClick.onClick, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 }, onSavedClick = { selected = 3 })
-    four && !menu && fab && !labelled -> KitNavigationRailFourNoMenuNoLabels(Modifier, homeSelected = selected == 0, searchSelected = selected == 1, youSelected = selected == 2, savedSelected = selected == 3, onFabClick = fabClick.onClick, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 }, onSavedClick = { selected = 3 })
-    four && !menu && !fab && labelled -> KitNavigationRailFourNoMenuNoFab(Modifier, homeSelected = selected == 0, homeLabel = labels[0], searchSelected = selected == 1, searchLabel = labels[1], youSelected = selected == 2, youLabel = labels[2], savedSelected = selected == 3, savedLabel = labels[3], onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 }, onSavedClick = { selected = 3 })
-    four && !menu && !fab && !labelled -> KitNavigationRailFourNoMenuNoFabNoLabels(Modifier, homeSelected = selected == 0, searchSelected = selected == 1, youSelected = selected == 2, savedSelected = selected == 3, onHomeClick = { selected = 0 }, onSearchClick = { selected = 1 }, onYouClick = { selected = 2 }, onSavedClick = { selected = 3 })
+    !four && menu && fab && labelled ->
+      KitNavigationRail(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        onMenuClick = menuClick.onClick,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && menu && fab && !labelled ->
+      KitNavigationRailNoLabels(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        onMenuClick = menuClick.onClick,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && menu && !fab && labelled ->
+      KitNavigationRailNoFab(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        onMenuClick = menuClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && menu && !fab && !labelled ->
+      KitNavigationRailNoFabNoLabels(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        onMenuClick = menuClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && !menu && fab && labelled ->
+      KitNavigationRailNoMenu(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && !menu && fab && !labelled ->
+      KitNavigationRailNoMenuNoLabels(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && !menu && !fab && labelled ->
+      KitNavigationRailNoMenuNoFab(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && !menu && !fab && !labelled ->
+      KitNavigationRailNoMenuNoFabNoLabels(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    four && menu && fab && labelled ->
+      KitNavigationRailFour(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        onMenuClick = menuClick.onClick,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && menu && fab && !labelled ->
+      KitNavigationRailFourNoLabels(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        savedSelected = selected == 3,
+        onMenuClick = menuClick.onClick,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && menu && !fab && labelled ->
+      KitNavigationRailFourNoFab(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        onMenuClick = menuClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && menu && !fab && !labelled ->
+      KitNavigationRailFourNoFabNoLabels(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        savedSelected = selected == 3,
+        onMenuClick = menuClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && !menu && fab && labelled ->
+      KitNavigationRailFourNoMenu(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && !menu && fab && !labelled ->
+      KitNavigationRailFourNoMenuNoLabels(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        savedSelected = selected == 3,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && !menu && !fab && labelled ->
+      KitNavigationRailFourNoMenuNoFab(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && !menu && !fab && !labelled ->
+      KitNavigationRailFourNoMenuNoFabNoLabels(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        savedSelected = selected == 3,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
     else -> error("unreachable")
   }
 }
