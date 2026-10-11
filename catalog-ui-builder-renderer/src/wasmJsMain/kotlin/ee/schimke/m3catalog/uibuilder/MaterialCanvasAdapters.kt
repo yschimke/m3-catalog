@@ -29,7 +29,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedIconButton
@@ -521,10 +520,10 @@ private fun CanvasAdapterRegistry.Builder.variableFontText(id: String) {
       families[font.family]?.let { loaded ->
         if (axes.isEmpty()) loaded else variants?.variant(font.family, axes)
       }
+    // A fresh style, as `M3VariableFontText` uses: the theme's body style would carry its line
+    // height and letter spacing onto large variable text.
     val base =
-      LocalTextStyle.current.copy(
-        fontSize = float("fontSizeSp").takeIf { it > 0f }?.sp ?: VARIABLE_FONT_TEXT_SIZE
-      )
+      TextStyle(fontSize = float("fontSizeSp").takeIf { it > 0f }?.sp ?: VARIABLE_FONT_TEXT_SIZE)
     val style =
       when {
         // The axis is the weight: a synthesised bold over `wght` 800 would be two bolds.
