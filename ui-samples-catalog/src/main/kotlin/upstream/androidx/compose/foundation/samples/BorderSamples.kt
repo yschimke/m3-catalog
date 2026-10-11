@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.random.Random
 
 @Composable
 @Sampled
@@ -77,11 +78,12 @@ fun BorderSampleWithDataClass() {
 @Composable
 @Sampled
 fun BorderSampleWithDynamicData() {
+    val random = remember { Random(0) }
     val widthRange = (1..10)
-    var width by remember { mutableStateOf((widthRange.random()).dp) }
+    var width by remember { mutableStateOf((widthRange.random(random)).dp) }
 
     val shapes = remember { listOf(CutCornerShape(8.dp), CircleShape, RoundedCornerShape(20)) }
-    var selectedShape by remember { mutableStateOf(shapes.random()) }
+    var selectedShape by remember { mutableStateOf(shapes.random(random)) }
 
     val colors =
         listOf(
@@ -100,7 +102,7 @@ fun BorderSampleWithDynamicData() {
     var gradientBrush by remember {
         mutableStateOf(
             Brush.horizontalGradient(
-                colors = listOf(colors.random(), colors.random(), colors.random()),
+                colors = listOf(colors.random(random), colors.random(random), colors.random(random)),
                 startX = 0.0f,
                 endX = 500.0f,
                 tileMode = TileMode.Repeated,
@@ -113,7 +115,7 @@ fun BorderSampleWithDynamicData() {
         Row {
             Button(
                 modifier = Modifier.width(60.dp),
-                onClick = { width = (widthRange.random()).dp },
+                onClick = { width = (widthRange.random(random)).dp },
             ) {
                 Text(fontSize = 8.sp, text = "width")
             }
@@ -122,7 +124,7 @@ fun BorderSampleWithDynamicData() {
                 onClick = {
                     gradientBrush =
                         Brush.horizontalGradient(
-                            colors = listOf(colors.random(), colors.random(), colors.random()),
+                            colors = listOf(colors.random(random), colors.random(random), colors.random(random)),
                             startX = 0.0f,
                             endX = 500.0f,
                             tileMode = TileMode.Repeated,
@@ -133,7 +135,7 @@ fun BorderSampleWithDynamicData() {
             }
             Button(
                 modifier = Modifier.width(60.dp),
-                onClick = { selectedShape = shapes.random() },
+                onClick = { selectedShape = shapes.random(random) },
             ) {
                 Text(fontSize = 8.sp, text = "shape")
             }

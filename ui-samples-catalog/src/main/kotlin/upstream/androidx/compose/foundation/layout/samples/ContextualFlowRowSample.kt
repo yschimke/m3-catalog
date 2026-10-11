@@ -114,7 +114,7 @@ fun ContextualFlowRow_ItemPosition() {
         maxItemsInEachRow = 4,
         itemCount = 12,
     ) {
-        val width = Random.nextInt(80, 100).dp.coerceAtMost(maxWidthInLine)
+        val width = Random(it).nextInt(80, 100).dp.coerceAtMost(maxWidthInLine)
         val height = 50.dp.coerceAtMost(maxHeight)
         Box(
             Modifier.width(width)

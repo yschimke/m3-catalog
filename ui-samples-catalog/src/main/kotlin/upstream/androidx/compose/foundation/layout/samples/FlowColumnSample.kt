@@ -48,6 +48,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.random.Random
 
 @OptIn(ExperimentalLayoutApi::class)
 @Sampled
@@ -243,7 +244,8 @@ fun SimpleFlowColumn_EqualWidth() {
     ) {
         repeat(9) {
             Box(Modifier.height(100.dp).fillMaxColumnWidth(1f).background(Color.Green)) {
-                val text = generateRandomString(IntRange(1, 5).random())
+                val random = Random(it)
+                val text = generateRandomString(IntRange(1, 5).random(random), random)
                 Text(text = text, fontSize = 18.sp, modifier = Modifier.padding(3.dp))
             }
         }

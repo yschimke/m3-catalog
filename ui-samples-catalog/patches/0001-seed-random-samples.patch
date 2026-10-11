@@ -1,0 +1,154 @@
+# 0001 — Five samples draw from the unseeded `kotlin.random.Random`, so every render of them is a
+# different picture: `BorderSampleWithDynamicData` (initial width, shape and gradient colours),
+# `SimpleFlowRow_EqualHeight` / `SimpleFlowColumn_EqualWidth` (random strings of random length) and
+# `ContextualFlowRow_ItemPosition` / `ContextualFlowColumn_ItemPosition` (random item widths and
+# heights). The preview-diff bot then reports all five as Changed on every PR whatever it touched —
+# m3-catalog#554 changed only ui-builder policy files and still flagged the set — which trains a
+# reader to skip the Changed section, the one thing that bot is for.
+#
+# The fix SEEDS the randomness rather than removing it, so each sample still demonstrates what
+# upstream wrote it to show (items of uneven size, a border that changes on click). The flow samples
+# seed per item, by the item index the layout already hands the lambda, so the value is stable
+# across recompositions and independent of how many previews ran before it in the same JVM; a single
+# shared seeded `Random` would not be. `generateRandomString` takes the `Random` as a defaulted
+# parameter so any other caller is unaffected. The border sample seeds one remembered `Random(0)`
+# and keeps using it in the click handlers, so its buttons still produce new widths, shapes and
+# colours in a live render.
+#
+# Not a version skew: upstream has no reason to make a demo deterministic. Re-cut it if upstream
+# rewrites any of these five functions.
+diff --git a/androidx/compose/foundation/layout/samples/ContextualFlowColumnSample.kt b/androidx/compose/foundation/layout/samples/ContextualFlowColumnSample.kt
+index d5cd711..fb3257b 100644
+--- a/androidx/compose/foundation/layout/samples/ContextualFlowColumnSample.kt
++++ b/androidx/compose/foundation/layout/samples/ContextualFlowColumnSample.kt
+@@ -121,7 +121,7 @@ fun ContextualFlowColumn_ItemPosition() {
+         itemCount = 12,
+     ) {
+         val width = 50.dp.coerceAtMost(maxWidth)
+-        val height = Random.nextInt(80, 100).dp.coerceAtMost(maxHeightInLine)
++        val height = Random(it).nextInt(80, 100).dp.coerceAtMost(maxHeightInLine)
+         Box(
+             Modifier.width(width)
+                 .height(height)
+diff --git a/androidx/compose/foundation/layout/samples/ContextualFlowRowSample.kt b/androidx/compose/foundation/layout/samples/ContextualFlowRowSample.kt
+index b66021d..7abd81d 100644
+--- a/androidx/compose/foundation/layout/samples/ContextualFlowRowSample.kt
++++ b/androidx/compose/foundation/layout/samples/ContextualFlowRowSample.kt
+@@ -114,7 +114,7 @@ fun ContextualFlowRow_ItemPosition() {
+         maxItemsInEachRow = 4,
+         itemCount = 12,
+     ) {
+-        val width = Random.nextInt(80, 100).dp.coerceAtMost(maxWidthInLine)
++        val width = Random(it).nextInt(80, 100).dp.coerceAtMost(maxWidthInLine)
+         val height = 50.dp.coerceAtMost(maxHeight)
+         Box(
+             Modifier.width(width)
+diff --git a/androidx/compose/foundation/layout/samples/FlowColumnSample.kt b/androidx/compose/foundation/layout/samples/FlowColumnSample.kt
+index d3a708e..32b6087 100644
+--- a/androidx/compose/foundation/layout/samples/FlowColumnSample.kt
++++ b/androidx/compose/foundation/layout/samples/FlowColumnSample.kt
+@@ -48,6 +48,7 @@ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.unit.dp
+ import androidx.compose.ui.unit.sp
++import kotlin.random.Random
+ 
+ @OptIn(ExperimentalLayoutApi::class)
+ @Sampled
+@@ -243,7 +244,8 @@ fun SimpleFlowColumn_EqualWidth() {
+     ) {
+         repeat(9) {
+             Box(Modifier.height(100.dp).fillMaxColumnWidth(1f).background(Color.Green)) {
+-                val text = generateRandomString(IntRange(1, 5).random())
++                val random = Random(it)
++                val text = generateRandomString(IntRange(1, 5).random(random), random)
+                 Text(text = text, fontSize = 18.sp, modifier = Modifier.padding(3.dp))
+             }
+         }
+diff --git a/androidx/compose/foundation/layout/samples/FlowRowSample.kt b/androidx/compose/foundation/layout/samples/FlowRowSample.kt
+index 2594da0..985e219 100644
+--- a/androidx/compose/foundation/layout/samples/FlowRowSample.kt
++++ b/androidx/compose/foundation/layout/samples/FlowRowSample.kt
+@@ -320,16 +320,16 @@ fun SimpleFlowRow_EqualHeight() {
+     ) {
+         repeat(9) {
+             Box(Modifier.width(100.dp).background(Color.Green).fillMaxRowHeight(1f)) {
+-                val text = generateRandomString(IntRange(10, 50).random())
++                val random = Random(it)
++                val text = generateRandomString(IntRange(10, 50).random(random), random)
+                 Text(text = text, fontSize = 18.sp, modifier = Modifier.padding(3.dp))
+             }
+         }
+     }
+ }
+ 
+-fun generateRandomString(length: Int): String {
++fun generateRandomString(length: Int, random: Random = Random.Default): String {
+     val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+-    val random = Random.Default
+ 
+     val randomString = StringBuilder(length)
+     repeat(length) {
+diff --git a/androidx/compose/foundation/samples/BorderSamples.kt b/androidx/compose/foundation/samples/BorderSamples.kt
+index 087a272..63e7d51 100644
+--- a/androidx/compose/foundation/samples/BorderSamples.kt
++++ b/androidx/compose/foundation/samples/BorderSamples.kt
+@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.graphics.TileMode
+ import androidx.compose.ui.unit.dp
+ import androidx.compose.ui.unit.sp
++import kotlin.random.Random
+ 
+ @Composable
+ @Sampled
+@@ -77,11 +78,12 @@ fun BorderSampleWithDataClass() {
+ @Composable
+ @Sampled
+ fun BorderSampleWithDynamicData() {
++    val random = remember { Random(0) }
+     val widthRange = (1..10)
+-    var width by remember { mutableStateOf((widthRange.random()).dp) }
++    var width by remember { mutableStateOf((widthRange.random(random)).dp) }
+ 
+     val shapes = remember { listOf(CutCornerShape(8.dp), CircleShape, RoundedCornerShape(20)) }
+-    var selectedShape by remember { mutableStateOf(shapes.random()) }
++    var selectedShape by remember { mutableStateOf(shapes.random(random)) }
+ 
+     val colors =
+         listOf(
+@@ -100,7 +102,7 @@ fun BorderSampleWithDynamicData() {
+     var gradientBrush by remember {
+         mutableStateOf(
+             Brush.horizontalGradient(
+-                colors = listOf(colors.random(), colors.random(), colors.random()),
++                colors = listOf(colors.random(random), colors.random(random), colors.random(random)),
+                 startX = 0.0f,
+                 endX = 500.0f,
+                 tileMode = TileMode.Repeated,
+@@ -113,7 +115,7 @@ fun BorderSampleWithDynamicData() {
+         Row {
+             Button(
+                 modifier = Modifier.width(60.dp),
+-                onClick = { width = (widthRange.random()).dp },
++                onClick = { width = (widthRange.random(random)).dp },
+             ) {
+                 Text(fontSize = 8.sp, text = "width")
+             }
+@@ -122,7 +124,7 @@ fun BorderSampleWithDynamicData() {
+                 onClick = {
+                     gradientBrush =
+                         Brush.horizontalGradient(
+-                            colors = listOf(colors.random(), colors.random(), colors.random()),
++                            colors = listOf(colors.random(random), colors.random(random), colors.random(random)),
+                             startX = 0.0f,
+                             endX = 500.0f,
+                             tileMode = TileMode.Repeated,
+@@ -133,7 +135,7 @@ fun BorderSampleWithDynamicData() {
+             }
+             Button(
+                 modifier = Modifier.width(60.dp),
+-                onClick = { selectedShape = shapes.random() },
++                onClick = { selectedShape = shapes.random(random) },
+             ) {
+                 Text(fontSize = 8.sp, text = "shape")
+             }

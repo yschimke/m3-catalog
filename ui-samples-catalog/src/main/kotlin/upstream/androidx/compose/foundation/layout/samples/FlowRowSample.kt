@@ -320,16 +320,16 @@ fun SimpleFlowRow_EqualHeight() {
     ) {
         repeat(9) {
             Box(Modifier.width(100.dp).background(Color.Green).fillMaxRowHeight(1f)) {
-                val text = generateRandomString(IntRange(10, 50).random())
+                val random = Random(it)
+                val text = generateRandomString(IntRange(10, 50).random(random), random)
                 Text(text = text, fontSize = 18.sp, modifier = Modifier.padding(3.dp))
             }
         }
     }
 }
 
-fun generateRandomString(length: Int): String {
+fun generateRandomString(length: Int, random: Random = Random.Default): String {
     val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
-    val random = Random.Default
 
     val randomString = StringBuilder(length)
     repeat(length) {

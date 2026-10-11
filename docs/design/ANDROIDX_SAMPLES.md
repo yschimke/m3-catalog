@@ -162,7 +162,7 @@ pipeline.
 | `ui-samples-catalog/quarantine.json` | 14 files this lane cannot compile, each with its error count |
 | `scripts/samples-previews.mjs` | the ported wrapper generator — **192 wrappers** |
 | `scripts/ui-samples-spec.mjs`, `ui-samples-catalog/catalog.spec.json` | the generated inventory — **202 components in 57 groups** |
-| `:ui-samples-catalog` | the module: 59 files vendored, 14 quarantined, 0 patches |
+| `:ui-samples-catalog` | the module: 59 files vendored, 14 quarantined, 1 patch (`ui-samples-catalog/patches/`) |
 | `design-artifacts.yml` → `compose-ui-samples` | the publish job, and a third `changes`/Scope output |
 
 **The pin is measured, not chosen.** Against `org.jetbrains.compose.foundation:foundation-desktop`
