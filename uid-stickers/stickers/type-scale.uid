@@ -1,0 +1,87 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-type-scale",
+  "title": "Kit type scale",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 400,
+    "heightDp": 120,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-type-scale": {
+      "name": "KitTypeScale",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "specimen": {
+      "id": "specimen",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label"
+        },
+        "style": {
+          "type": "binding",
+          "value": "style"
+        }
+      },
+      "slots": {}
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {
+        "children": [
+          "specimen"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 400
+        },
+        {
+          "type": "padding",
+          "startDp": 0,
+          "topDp": 8,
+          "endDp": 0,
+          "bottomDp": 8
+        }
+      ]
+    },
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-type-scale",
+        "arguments": {
+          "label": {
+            "type": "string",
+            "value": "Display Large"
+          },
+          "style": {
+            "type": "enum",
+            "value": "displayLarge"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-multi-browse-carousel",
+  "title": "Kit multi-browse carousel",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 412,
+    "heightDp": 221,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-multi-browse-carousel": {
+      "name": "KitMultiBrowseCarousel",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "item": {
+      "id": "item",
+      "componentId": "m3catalog/image-placeholder",
+      "properties": {
+        "cornerRadiusDp": {
+          "type": "float",
+          "value": 0
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxSize"
+        }
+      ]
+    },
+    "carousel": {
+      "id": "carousel",
+      "componentId": "m3/horizontal-multi-browse-carousel",
+      "properties": {
+        "preferredItemWidth": {
+          "type": "float",
+          "value": 188
+        },
+        "itemSpacing": {
+          "type": "float",
+          "value": 8
+        }
+      },
+      "slots": {
+        "content": [
+          "item"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxSize"
+        }
+      ]
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {
+        "children": [
+          "carousel"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 412
+        },
+        {
+          "type": "height",
+          "heightDp": 221
+        },
+        {
+          "type": "padding",
+          "startDp": 16,
+          "topDp": 8,
+          "endDp": 16,
+          "bottomDp": 8
+        }
+      ]
+    },
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-multi-browse-carousel",
+        "arguments": {}
+      }
+    }
+  }
+}

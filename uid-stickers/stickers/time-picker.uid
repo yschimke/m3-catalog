@@ -1,0 +1,206 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-time-picker",
+  "title": "Kit time picker",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 360,
+    "heightDp": 640,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-time-picker": {
+      "name": "KitTimePicker",
+      "root": "dialog"
+    }
+  },
+  "nodes": {
+    "title": {
+      "id": "title",
+      "componentId": "m3catalog/time-picker-dialog-title",
+      "properties": {
+        "input": {
+          "type": "bool",
+          "value": false
+        }
+      },
+      "slots": {}
+    },
+    "picker": {
+      "id": "picker",
+      "componentId": "m3/time-picker",
+      "properties": {
+        "mode": {
+          "type": "enum",
+          "value": "dial"
+        },
+        "hour": {
+          "type": "int",
+          "value": 20
+        },
+        "minute": {
+          "type": "int",
+          "value": 0
+        },
+        "is24Hour": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      "slots": {}
+    },
+    "body": {
+      "id": "body",
+      "componentId": "layout/box",
+      "properties": {
+        "contentAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "picker"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        }
+      ]
+    },
+    "toggle": {
+      "id": "toggle",
+      "componentId": "m3catalog/time-picker-mode-toggle",
+      "properties": {
+        "input": {
+          "type": "bool",
+          "value": false
+        }
+      },
+      "slots": {},
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "cancel-label": {
+      "id": "cancel-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "dismissButton"
+        }
+      },
+      "slots": {}
+    },
+    "cancel": {
+      "id": "cancel",
+      "componentId": "m3/text-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "cancel-label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "dismiss": {
+      "id": "dismiss",
+      "componentId": "layout/row",
+      "properties": {
+        "verticalAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "toggle",
+          "cancel"
+        ]
+      }
+    },
+    "ok-label": {
+      "id": "ok-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "confirmButton"
+        }
+      },
+      "slots": {}
+    },
+    "ok": {
+      "id": "ok",
+      "componentId": "m3/text-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "ok-label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "dialog": {
+      "id": "dialog",
+      "componentId": "m3/dialog",
+      "properties": {},
+      "slots": {
+        "title": [
+          "title"
+        ],
+        "text": [
+          "body"
+        ],
+        "dismissButton": [
+          "dismiss"
+        ],
+        "confirmButton": [
+          "ok"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 328
+        }
+      ]
+    },
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-time-picker",
+        "arguments": {
+          "dismissButton": {
+            "type": "resource",
+            "resourceKey": "action_cancel"
+          },
+          "confirmButton": {
+            "type": "resource",
+            "resourceKey": "action_ok"
+          }
+        }
+      }
+    }
+  }
+}
