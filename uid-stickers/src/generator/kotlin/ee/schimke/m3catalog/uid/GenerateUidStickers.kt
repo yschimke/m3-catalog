@@ -1,6 +1,7 @@
 package ee.schimke.m3catalog.uid
 
 import ee.schimke.composeai.discovery.ComponentRecordFile
+import ee.schimke.composeai.uibuilder.export.CatalogScreenStructure
 import ee.schimke.composeai.uibuilder.export.ScreenExportGate
 import ee.schimke.composeai.uibuilder.protocol.DesignDocumentV1
 import java.io.File
@@ -37,6 +38,9 @@ fun main(args: Array<String>) {
       module.resolve("component-record.json").readText(),
     )
   val manifest = json.parseToJsonElement(module.resolve("stickers.json").readText()).jsonObject
+  // The catalog's string resource accessor, so `resource` values export as its translated strings.
+  val structure =
+    CatalogScreenStructure(stringResources = manifest["stringResources"]?.jsonPrimitive?.content)
   out.deleteRecursively()
   val failures = mutableListOf<String>()
   for (sticker in manifest.getValue("stickers").jsonArray.map { it.jsonObject }) {
@@ -52,7 +56,7 @@ fun main(args: Array<String>) {
       val title = listOfNotNull(base.string("title"), cell).joinToString(" ")
       val patched = operations.fold(base) { doc, op -> apply(doc, op) }.with("title", title)
       val document = json.decodeFromJsonElement(DesignDocumentV1.serializer(), patched)
-      when (val outcome = ScreenExportGate.export(document, record)) {
+      when (val outcome = ScreenExportGate.export(document, record, emptyMap(), structure)) {
         is ScreenExportGate.Outcome.Emitted -> {
           val name = functionName(outcome.source) ?: error("$file: no composable in the export")
           out.resolve("generated/uibuilder/$name.kt").apply {

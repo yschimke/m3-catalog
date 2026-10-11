@@ -97,7 +97,12 @@ dependencies {
 // The generated `Res` accessor's package. Without this it derives from the module's group/name,
 // which would put `Res` somewhere no section file expects; pinning it keeps the imports in the
 // stickers (`ee.schimke.m3catalog.generated.resources.*`) stable across a module rename.
-compose.resources { packageOfResClass = "ee.schimke.m3catalog.generated.resources" }
+compose.resources {
+  packageOfResClass = "ee.schimke.m3catalog.generated.resources"
+  // Public so a sticker generated from a UI builder document in another module (`:uid-stickers`)
+  // can name the catalog's translated strings as `stringResource(Res.string.…)`. No render changes.
+  publicResClass = true
+}
 
 // `CatalogMatrixAnnotations.kt` is GENERATED from the matrices declared in `CatalogAxes.kt` and
 // paired with their annotation names in `CatalogMatrixDeclarations.kt` — see

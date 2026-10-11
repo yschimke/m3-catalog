@@ -75,3 +75,15 @@ fun OutlinedCardUid() = Sticker { KitCardOutlined() }
 @Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 360)
 @Composable
 fun OutlinedCardUidSlot() = Sticker { KitCardOutlinedSlot() }
+
+// A locale check rather than a sticker: the document's copy is the catalog's string resources, so
+// the generated card and the hand-written one must also agree in German. Plain previews, outside
+// the inventory; `compare-published.py` diffs the pair.
+
+@Preview(name = "German", locale = "de", widthDp = 360)
+@Composable
+fun FilledCardUidGerman() = Sticker { KitCard() }
+
+@Preview(name = "German", locale = "de", widthDp = 360)
+@Composable
+fun FilledCardHandWrittenGerman() = ee.schimke.m3catalog.sections.FilledCard()

@@ -37,6 +37,12 @@ CELLS = {  # this module's preview -> the published capture of the hand-written 
     "SuggestionChipUid_Dark_VARIANT_pressed": "chip-suggestion/ideal__pressed__dark",
 }
 
+# Pairs rendered by this module: a generated sticker against the hand-written one it replaces,
+# where the delivery branch publishes no capture to compare with (another locale).
+LOCAL_PAIRS = {
+    "FilledCardUidGerman": "FilledCardHandWrittenGerman",
+}
+
 failed = 0
 for preview, published in CELLS.items():
     ours = Image.open(glob.glob(f"{RENDERS}/{preview}-*.png")[0]).convert("RGBA")
@@ -50,4 +56,12 @@ for preview, published in CELLS.items():
     else:
         n = sum(1 for p in diff.convert("L").getdata() if p)
         print(f"DIFF  {preview}: {n} px differ within {box}"); failed += 1
+for preview, reference in LOCAL_PAIRS.items():
+    ours = Image.open(glob.glob(f"{RENDERS}/{preview}_German-*.png")[0]).convert("RGBA")
+    theirs = Image.open(glob.glob(f"{RENDERS}/{reference}_German-*.png")[0]).convert("RGBA")
+    box = None if ours.size != theirs.size else ImageChops.difference(ours, theirs).getbbox(alpha_only=False)
+    if ours.size == theirs.size and box is None:
+        print(f"SAME  {preview} {ours.size[0]}x{ours.size[1]} == {reference} (local)")
+    else:
+        print(f"DIFF  {preview} vs {reference}: {ours.size} {theirs.size} {box}"); failed += 1
 sys.exit(1 if failed else 0)

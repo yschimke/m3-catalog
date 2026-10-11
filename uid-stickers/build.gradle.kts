@@ -16,6 +16,9 @@ plugins {
 
 kotlin { jvmToolchain(21) }
 
+// `-PuidExportVersion=<x>-SNAPSHOT` tries an unreleased exporter published to Maven local.
+if (providers.gradleProperty("uidExportVersion").isPresent) repositories { mavenLocal() }
+
 val generator by sourceSets.creating
 
 dependencies {
@@ -29,7 +32,10 @@ dependencies {
   implementation(libs.composeai.preview.annotations)
 
   // The exporter the builder's code pane and the server's export.compose route run.
-  "generatorImplementation"("ee.schimke.composeai:compose-preview-ui-builder-export-jvm:3.106.0")
+  "generatorImplementation"(
+    "ee.schimke.composeai:compose-preview-ui-builder-export-jvm:" +
+      providers.gradleProperty("uidExportVersion").getOrElse("3.106.0")
+  )
   // The Compose compiler plugin applies to every source set; it only needs the runtime present.
   "generatorImplementation"(libs.compose.runtime)
 }
