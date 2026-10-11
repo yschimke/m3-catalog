@@ -313,7 +313,8 @@ Wrapping changes none of the verification rules below; run the same tasks throug
   has run — which no local hook can stop. The gate only *blocks* once it is a required status check
   on the Protect Main ruleset; until then its `drift` job makes a breach loud rather than preventing
   it.
-- **Reviewers, human or bot: verify before reporting an attribution finding.** It is the
+- **Human reviewers: verify before reporting an attribution finding.** Automated reviewers do not
+  report attribution at all; see [Review guidelines](#review-guidelines). It is the
   most-reported and least-real finding across these repositories, and the reports keep naming commits
   that do not exist here at all. The identity is whatever `git config user.email` held, and here that
   is the human. Check first:
@@ -326,6 +327,15 @@ Wrapping changes none of the verification rules below; run the same tasks throug
   Report only what it exits 1 on, and quote its output. `Yuri Schimke <yuri@schimke.ee>` and the
   `github-actions[bot]` / `renovate[bot]` accounts are never findings. If the `Reject agent
   attribution` check is already green on the head commit, there is nothing to report.
+
+## Review guidelines
+
+- **Do not report commit author, committer or `Co-authored-by:` findings.** Your review sandbox
+  applies the pull request as a new commit under your own identity (`Codex <codex@openai.com>`),
+  so any identity you read from a local `git log` is yours, not the author's. Every such finding
+  on these repositories has named a commit that exists only in the sandbox. Attribution is a
+  human and CI concern; leave it out of reviews entirely. This overrides the human reviewer
+  guidance on attribution elsewhere in this file.
 
 ## Dependencies
 
