@@ -75,7 +75,7 @@ val generateUidStickers by
     inputs.dir("stickers")
     inputs.file("stickers.json")
     inputs.file("builder-foundation-record.json")
-    inputs.file("project-components.json")
+    inputs.files(fileTree(".") { include("project-components*.json") })
     inputs.file(catalogDiscovery.map { it.file("components.json") })
     inputs.file(catalogDiscovery.map { it.file("ui-builder.json") })
     outputs.dir(generatedDir)

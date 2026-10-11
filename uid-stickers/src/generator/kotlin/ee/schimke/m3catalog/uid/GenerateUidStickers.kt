@@ -123,7 +123,13 @@ private fun vocabulary(module: File, discovery: File): ComponentRecordFile {
       component.newBuilder().also { it.componentIds = listOf(id) }.build()
     }
   val builder = read(module.resolve("builder-foundation-record.json")).components
-  val project = read(module.resolve("project-components.json")).components
+  // `project-components.json` plus one `project-components-<group>.json` per migrated group.
+  val project =
+    module
+      .listFiles { f -> f.name.startsWith("project-components") && f.name.endsWith(".json") }
+      .orEmpty()
+      .sortedBy { it.name }
+      .flatMap { read(it).components }
   return published.newBuilder().also { it.components = declared + builder + project }.build()
 }
 

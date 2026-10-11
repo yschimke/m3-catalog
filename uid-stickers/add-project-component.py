@@ -11,8 +11,13 @@ under the given JVM owner, so the generated code imports and calls it like any l
 import json, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-path = os.path.join(HERE, "project-components.json")
-component_id, owner, name, *params = sys.argv[1:]
+args = sys.argv[1:]
+# `--file project-components-<group>.json` keeps parallel migrations from editing one file.
+target = "project-components.json"
+if args[0] == "--file":
+    target, args = args[1], args[2:]
+path = os.path.join(HERE, target)
+component_id, owner, name, *params = args
 package = owner.rsplit(".", 1)[0]
 callable_ = f"{package}.{name}"
 
@@ -42,7 +47,9 @@ entry = {
     "hasContextReceivers": False, "overloadsCollided": False, "builder": None,
     "requiredOptIns": [], "androidxOptIns": [],
 }
-record = json.load(open(path))
+record = json.load(open(path)) if os.path.isfile(path) else {
+    "$comment": "PROJECT components this module declares for its documents.",
+    "schemaVersion": 2, "module": "m3-catalog", "variant": None, "components": []}
 record["components"] = [c for c in record["components"] if component_id not in c["componentIds"]] + [entry]
 open(path, "w").write(json.dumps(record, indent=2) + "\n")
 print(f"{component_id} -> {callable_}")
