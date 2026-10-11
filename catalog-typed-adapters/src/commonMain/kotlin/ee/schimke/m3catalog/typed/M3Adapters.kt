@@ -31,7 +31,12 @@ data class CardProperties(val style: String, val containerColor: String, val ele
 class CardAdapter(record: ComponentRecord) :
   TypedComponentAdapter<CardProperties>("m3/card", record) {
   val style =
-    property(CardProperties::style, AdapterValueCodecs.String, TypedCardDefaults.style, bindable = false)
+    property(
+      CardProperties::style,
+      AdapterValueCodecs.String,
+      TypedCardDefaults.style,
+      bindable = false,
+    )
   val containerColor =
     property(
       CardProperties::containerColor,

@@ -115,8 +115,8 @@ object TypedCardDefaults {
   const val style: String = ""
   const val containerColor: String = ""
   /**
-   * Unset: each style keeps Material 3's own resting elevation (an elevated card's is 1dp). Negative,
-   * since zero is a real elevation a flat elevated card asks for.
+   * Unset: each style keeps Material 3's own resting elevation (an elevated card's is 1dp).
+   * Negative, since zero is a real elevation a flat elevated card asks for.
    */
   const val elevationDp: Float = -1f
 }
@@ -413,7 +413,8 @@ fun M3IconButton(
 ) {
   val sized = modifier.size(sizeDp.dp)
   when (style) {
-    "filled" -> FilledIconButton(onClick = onClick, modifier = sized, enabled = enabled) { content() }
+    "filled" ->
+      FilledIconButton(onClick = onClick, modifier = sized, enabled = enabled) { content() }
     "tonal" ->
       FilledTonalIconButton(onClick = onClick, modifier = sized, enabled = enabled) { content() }
     "outlined" ->
