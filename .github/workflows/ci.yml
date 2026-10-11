@@ -312,6 +312,12 @@ jobs:
       - name: Test the served-catalog registry
         run: node --test scripts/catalogs-registry.test.mjs
 
+      # Every canvas id ui-builder.policy.json publishes against the adapters the catalog's own
+      # renderer registers. An id with no adapter draws as an error box on the native canvas, and
+      # publishing a builtin is a separate edit from registering its adapter.
+      - name: Test canvas adapter coverage
+        run: node --test scripts/canvas-adapters.test.mjs
+
       # The vendoring importer. The load-bearing behaviour is that a patch which no longer applies
       # FAILS the import rather than silently dropping the fix it carries, and that a quarantined
       # sample is a declared, checked gap rather than a permanent exclusion.

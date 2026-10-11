@@ -2,11 +2,13 @@
 
 package ee.schimke.m3catalog.uibuilder
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -27,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedIconButton
@@ -38,6 +41,8 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.SearchBarValue
 import androidx.compose.material3.Slider
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Tab
@@ -69,6 +74,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontSynthesis
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -77,10 +83,16 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.window.core.layout.WindowSizeClass
+import ee.schimke.composeai.uibuilder.LocalUiBuilderFontFamilies
+import ee.schimke.composeai.uibuilder.LocalUiBuilderFontRegistry
+import ee.schimke.composeai.uibuilder.LocalUiBuilderFontVariants
+import ee.schimke.composeai.uibuilder.export.FontSettings
+import ee.schimke.composeai.uibuilder.export.VariableFontText
 import ee.schimke.composeai.uibuilder.renderer.sdk.CanvasAdapterRegistry
 import ee.schimke.composeai.uibuilder.renderer.sdk.CanvasNodeScope
 import ee.schimke.composeai.uibuilder.renderer.sdk.canvasAdapterRegistry
 import ee.schimke.composeai.uibuilder.renderer.sdk.googleMaterialIconImageVector
+import kotlin.math.roundToInt
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
 
@@ -310,6 +322,37 @@ val materialCanvasAdapters = canvasAdapterRegistry {
       steps = integer("steps").coerceAtLeast(0),
     )
   }
+  register("m3/snackbar-host") {
+    // The host shows its snackbar or holds its place empty, as the editor's canvas draws it: a
+    // design cannot drive a `SnackbarHostState`, so `visible` stands in for a snackbar being shown.
+    // A snackbar authored into the slot is drawn as the host's content; otherwise the host draws
+    // Material's own `Snackbar` from `message` and `actionLabel`.
+    when {
+      !boolean("visible") -> Box(modifier)
+      itemCount("snackbar") > 0 -> Box(modifier) { Slot("snackbar") }
+      else -> {
+        val actionLabel = string("actionLabel")
+        Snackbar(
+          modifier = modifier,
+          action =
+            if (actionLabel.isEmpty()) null
+            else {
+              {
+                TextButton(
+                  onClick = {},
+                  colors =
+                    ButtonDefaults.textButtonColors(contentColor = SnackbarDefaults.actionColor),
+                ) {
+                  Text(actionLabel)
+                }
+              }
+            },
+        ) {
+          Text(string("message"))
+        }
+      }
+    }
+  }
   register("material3/Surface") {
     Surface(
       modifier,
@@ -340,6 +383,7 @@ val materialCanvasAdapters = canvasAdapterRegistry {
     )
   }
   text("material3/Text")
+  variableFontText(VariableFontText.M3_ID)
   textField("material3/TextField", outlined = false)
   textField("material3/OutlinedTextField", outlined = true)
   register("material3/TimePicker") {
@@ -453,6 +497,59 @@ private fun CanvasAdapterRegistry.Builder.text(id: String) {
     )
   }
 }
+
+/**
+ * flexpress's `VariableFontText`, stood in for by Material's `Text` as the editor's canvas does
+ * (`variableFontTextStyle` in compose-ui-builder). flexpress draws from the font's outlines and
+ * runs on the JVM only, so the canvas sets the same vendored file — this runtime's `fonts/`, copied
+ * from compose-ui-builder's `assets/rc-fonts` — through the platform text stack, instanced at the
+ * node's axes. Until the family loads, `wght` is the text weight.
+ */
+private fun CanvasAdapterRegistry.Builder.variableFontText(id: String) {
+  register(id) {
+    val font = VariableFontText.Font.fromWire(string("font")) ?: VariableFontText.Font.RobotoFlex
+    val axes =
+      font.axes
+        .filter { it.property in node.properties }
+        .map { FontSettings.Axis(it.tag, float(it.property, it.default)) }
+    val weight = axes.firstOrNull { it.tag == "wght" }?.value
+    val registry = LocalUiBuilderFontRegistry.current
+    LaunchedEffect(registry, font) { registry?.request(font.family) }
+    val families = LocalUiBuilderFontFamilies.current
+    val variants = LocalUiBuilderFontVariants.current
+    val instance =
+      families[font.family]?.let { loaded ->
+        if (axes.isEmpty()) loaded else variants?.variant(font.family, axes)
+      }
+    val base =
+      LocalTextStyle.current.copy(
+        fontSize = float("fontSizeSp").takeIf { it > 0f }?.sp ?: VARIABLE_FONT_TEXT_SIZE
+      )
+    val style =
+      when {
+        // The axis is the weight: a synthesised bold over `wght` 800 would be two bolds.
+        instance != null && weight != null ->
+          base.copy(fontFamily = instance, fontSynthesis = base.fontSynthesis.withoutWeight())
+        instance != null -> base.copy(fontFamily = instance)
+        weight != null -> base.copy(fontWeight = FontWeight(weight.roundToInt().coerceIn(1, 1000)))
+        else -> base
+      }
+    Text(
+      text = string("text"),
+      modifier = modifier,
+      color = color("color", Color.Unspecified),
+      style = style,
+      onTextLayout = ::recordTextLayout,
+    )
+  }
+}
+
+private val VARIABLE_FONT_TEXT_SIZE = 32.sp
+
+/** Weight synthesis off, style synthesis as it was; unset is Compose's default, both. */
+private fun FontSynthesis?.withoutWeight(): FontSynthesis =
+  if (this == null || this == FontSynthesis.All || this == FontSynthesis.Style) FontSynthesis.Style
+  else FontSynthesis.None
 
 private fun CanvasAdapterRegistry.Builder.textField(id: String, outlined: Boolean) {
   register(id) {
