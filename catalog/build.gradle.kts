@@ -20,6 +20,14 @@ plugins {
 
 kotlin { jvmToolchain(21) }
 
+// The semantics daemon reads the whole `previews.json` into memory. Since compose-ai-tools 2.45.0
+// each preview target carries every overload's parameter list, and this catalog's 4,000-odd
+// previews of heavily overloaded components no longer fit the default 1 GB heap: the daemon dies
+// loading the manifest, `bundle pack --with-semantics` only warns, and the published bundle ships
+// with no compose-semantics sidecars, which fails `m3-types-in-roboto` and blocks the Design
+// Artifacts publish. Drop this once compose-ai-tools keeps the overloads out of the manifest.
+composePreview { daemon { maxHeapMb.set(2048) } }
+
 dependencies {
   implementation(platform(libs.composeai.contracts.bom))
   implementation(platform(libs.composeai.daemon.bom))
