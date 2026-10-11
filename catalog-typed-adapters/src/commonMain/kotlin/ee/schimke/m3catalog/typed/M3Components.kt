@@ -114,8 +114,11 @@ fun M3Button(
 object TypedCardDefaults {
   const val style: String = ""
   const val containerColor: String = ""
-  /** Unset: each style keeps Material 3's own resting elevation (an elevated card's is 1dp). */
-  const val elevationDp: Float = 0f
+  /**
+   * Unset: each style keeps Material 3's own resting elevation (an elevated card's is 1dp). Negative,
+   * since zero is a real elevation a flat elevated card asks for.
+   */
+  const val elevationDp: Float = -1f
 }
 
 @Composable
@@ -136,7 +139,7 @@ fun M3Card(
               materialColor(containerColor, MaterialTheme.colorScheme.surfaceContainerLow)
           ),
         elevation =
-          if (elevationDp == TypedCardDefaults.elevationDp) CardDefaults.elevatedCardElevation()
+          if (elevationDp < 0f) CardDefaults.elevatedCardElevation()
           else CardDefaults.elevatedCardElevation(defaultElevation = elevationDp.dp),
       ) {
         content()
@@ -149,7 +152,9 @@ fun M3Card(
             containerColor =
               materialColor(containerColor, MaterialTheme.colorScheme.surfaceContainer)
           ),
-        elevation = CardDefaults.outlinedCardElevation(defaultElevation = elevationDp.dp),
+        elevation =
+          if (elevationDp < 0f) CardDefaults.outlinedCardElevation()
+          else CardDefaults.outlinedCardElevation(defaultElevation = elevationDp.dp),
       ) {
         content()
       }
@@ -161,7 +166,9 @@ fun M3Card(
             containerColor =
               materialColor(containerColor, MaterialTheme.colorScheme.surfaceContainer)
           ),
-        elevation = CardDefaults.cardElevation(defaultElevation = elevationDp.dp),
+        elevation =
+          if (elevationDp < 0f) CardDefaults.cardElevation()
+          else CardDefaults.cardElevation(defaultElevation = elevationDp.dp),
       ) {
         content()
       }

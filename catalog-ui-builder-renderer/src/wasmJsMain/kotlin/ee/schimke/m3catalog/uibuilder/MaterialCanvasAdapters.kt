@@ -406,6 +406,8 @@ private val LocalNavigationSuiteType = compositionLocalOf {
 /** `m3/card` in the style its `style` names: `filled` (the default), `elevated` or `outlined`. */
 private fun CanvasAdapterRegistry.Builder.card(id: String) {
   register(id) {
+    // Unset is negative, not zero: a flat (0dp) elevated card is a real choice.
+    val elevationDp = float("elevationDp", -1f)
     when (string("style")) {
       "elevated" ->
         ElevatedCard(
@@ -415,6 +417,9 @@ private fun CanvasAdapterRegistry.Builder.card(id: String) {
               containerColor =
                 color("containerColor", MaterialTheme.colorScheme.surfaceContainerLow)
             ),
+          elevation =
+            if (elevationDp < 0f) CardDefaults.elevatedCardElevation()
+            else CardDefaults.elevatedCardElevation(defaultElevation = elevationDp.dp),
         ) {
           Slot("content")
         }
@@ -425,6 +430,9 @@ private fun CanvasAdapterRegistry.Builder.card(id: String) {
             CardDefaults.outlinedCardColors(
               containerColor = color("containerColor", MaterialTheme.colorScheme.surface)
             ),
+          elevation =
+            if (elevationDp < 0f) CardDefaults.outlinedCardElevation()
+            else CardDefaults.outlinedCardElevation(defaultElevation = elevationDp.dp),
         ) {
           Slot("content")
         }
@@ -435,7 +443,9 @@ private fun CanvasAdapterRegistry.Builder.card(id: String) {
             CardDefaults.cardColors(
               containerColor = color("containerColor", MaterialTheme.colorScheme.surfaceContainer)
             ),
-          elevation = CardDefaults.cardElevation(defaultElevation = float("elevationDp").dp),
+          elevation =
+            if (elevationDp < 0f) CardDefaults.cardElevation()
+            else CardDefaults.cardElevation(defaultElevation = elevationDp.dp),
         ) {
           Slot("content")
         }
