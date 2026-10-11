@@ -1,9 +1,11 @@
 package ee.schimke.m3catalog.uid
 
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogImagePlaceholder
 
 /**
@@ -19,4 +21,13 @@ fun ImagePlaceholder(
   scaleBasis: Float = 188f,
 ) {
   CatalogImagePlaceholder(modifier, RoundedCornerShape(cornerRadiusDp.dp), scaleBasis)
+}
+
+/**
+ * The kit's filled-stars glyph ([CatalogFilledStars]), decorative, as a component a document can
+ * place in an icon slot. Sized by the document's modifier, as the hand-written stickers size it.
+ */
+@Composable
+fun StarsIcon(modifier: Modifier = Modifier) {
+  Icon(CatalogFilledStars, contentDescription = null, modifier = modifier)
 }

@@ -22,11 +22,12 @@ private val json = Json {
 }
 
 /**
- * `<module dir> <output dir> <catalog discovery dir>`: exports every sticker in `stickers.json`, and every variant cell of
- * it, to one Kotlin file per composable.
+ * `<module dir> <output dir> <catalog discovery dir>`: exports every `stickers/<name>.uid` document, and
+ * every variant cell its sibling `stickers/<name>.json` lists, to one Kotlin file per component.
  *
  * A variant cell is a list of builder operations, spelled the way `ui_builder_apply` spells them
- * (`setProperty`, `removeNodeProperty`, `deleteNode`, `setModifiers`). They are applied to the
+ * (`setProperty`, `removeNodeProperty`, `deleteNode`, `setModifiers`, `addNode`), plus
+ * `setComponentId` for a kit axis Compose spells as a sibling function. They are applied to the
  * document before export, so a cell is the same kind of edit a designer makes in the builder and
  * the cell's Kotlin is exactly what the builder would export for it.
  *
@@ -45,9 +46,14 @@ fun main(args: Array<String>) {
     CatalogScreenStructure(stringResources = manifest["stringResources"]?.jsonPrimitive?.content)
   out.deleteRecursively()
   val failures = mutableListOf<String>()
-  for (sticker in manifest.getValue("stickers").jsonArray.map { it.jsonObject }) {
-    val file = sticker.string("file")
-    val base = json.parseToJsonElement(module.resolve(file).readText()).jsonObject
+  val documents =
+    module.resolve("stickers").listFiles { f -> f.name.endsWith(".uid") }.orEmpty().sortedBy { it.name }
+  for (document in documents) {
+    val file = "stickers/${document.name}"
+    val base = json.parseToJsonElement(document.readText()).jsonObject
+    val side = document.resolveSibling(document.nameWithoutExtension + ".json")
+    val sticker =
+      if (side.isFile) json.parseToJsonElement(side.readText()).jsonObject else JsonObject(emptyMap())
     val cells = buildMap {
       put(null, emptyList<JsonObject>())
       sticker["variants"]?.jsonObject?.forEach { (name, ops) ->
@@ -196,6 +202,25 @@ private fun apply(doc: JsonObject, op: JsonObject): JsonObject {
           JsonObject(n["properties"]?.jsonObject.orEmpty() - op.string("property")),
         ),
       )
+    }
+    // The same node as another component of the same family (`m3/suggestion-chip` →
+    // `m3/elevated-suggestion-chip`): the kit's variant axis that Compose spells as a function.
+    "setComponentId" -> {
+      val id = op.string("nodeId")
+      withNode(id, node(id).with("componentId", op.getValue("componentId")))
+    }
+    // A new node (with its id) appended to a parent's slot, e.g. the kit's `Show icon=True`.
+    "addNode" -> {
+      val added = op.getValue("node").jsonObject
+      val addedId = added.string("id")
+      require(addedId !in nodes) { "addNode: node $addedId already exists" }
+      val parentId = op.string("parentId")
+      val parent = node(parentId)
+      val slot = op.string("slot")
+      val slots = parent["slots"]?.jsonObject.orEmpty()
+      val children = slots[slot]?.jsonArray.orEmpty() + JsonPrimitive(addedId)
+      val withParent = parent.with("slots", JsonObject(slots + (slot to JsonArray(children))))
+      doc.with("nodes", JsonObject(nodes + (parentId to withParent) + (addedId to added)))
     }
     "setModifiers" -> {
       val id = op.string("nodeId")

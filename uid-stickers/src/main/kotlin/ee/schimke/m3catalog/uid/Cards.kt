@@ -8,9 +8,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import ee.schimke.composeai.preview.CaptureGutter
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
-import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.Counted
+import ee.schimke.m3catalog.CatalogModesKitContainer
 import ee.schimke.m3catalog.KitShadowGutter
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
@@ -44,8 +44,8 @@ import org.jetbrains.compose.resources.stringResource
 // `counted` for the clicks and `catalogChoice` for the `layout` axis, read in the same order as the
 // hand-written sticker so the published override keys are unchanged.
 //
-// The modes are spelled out because discovery does not follow `:catalog`'s
-// `@CatalogModesKitContainer` across the module boundary.
+// Each shell carries its hand-written sticker's annotations verbatim (`annotations-of.py`), so it
+// renders the same captures, and `compare-local.py` holds every one to the pixel.
 
 /** The card's live knobs, read whatever the layout, as the hand-written sticker reads them. */
 private class CardKnobs(
@@ -85,13 +85,14 @@ private fun KitCardSticker(slot: @Composable () -> Unit, media: @Composable (Car
 @CatalogComponent(
   id = "Card/Filled",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/52350:27738",
-  caption = "Default container for related content: header, media, text and actions.",
+  caption =
+    "Default container for related content: header, media, text and actions. The kit's empty " +
+      "slot layout folds in.",
 )
-@Preview(name = "Light", group = "modes", widthDp = 360)
-@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 360)
+@CatalogModesKitContainer
 @OverrideVariant(name = "slot", strings = ["layout=slot"])
 @Composable
-fun FilledCardUid() =
+fun FilledCard() =
   KitCardSticker(slot = { KitCardSlot(Modifier) }) { k ->
     KitCard(
       Modifier,
@@ -108,23 +109,21 @@ fun FilledCardUid() =
     )
   }
 
-@CatalogVariant(of = "Card/Filled", props = ["layout=slot"], caption = "The kit's slot layout.")
-@Preview(name = "Light", group = "modes", widthDp = 360)
-@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 360)
-@Composable
-fun FilledCardUidSlot() = Sticker { KitCardSlot(Modifier) }
-
 @CatalogComponent(
   id = "Card/Elevated",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/52350:27693",
-  caption = "Separated by shadow; header, media, text and actions.",
+  caption =
+    "Separated by shadow; header, media, text and actions. The kit's empty slot layout folds " +
+      "in.",
 )
-@Preview(name = "Light", group = "modes", widthDp = 360)
-@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 360)
-@CaptureGutter(all = KitShadowGutter.Level1All)
+@CatalogModesKitContainer
 @OverrideVariant(name = "slot", strings = ["layout=slot"])
+// The Level 1 shadow falls outside the card's bounds, so it needs room in the CAPTURE — not a
+// padded `Box`, which would measure the card in a smaller frame and publish a canvas 8dp wider
+// than every other card on the sheet (#179).
+@CaptureGutter(all = KitShadowGutter.Level1All)
 @Composable
-fun ElevatedCardUid() =
+fun ElevatedCardSticker() =
   KitCardSticker(slot = { KitCardElevatedSlot(Modifier) }) { k ->
     KitCardElevated(
       Modifier,
@@ -141,23 +140,17 @@ fun ElevatedCardUid() =
     )
   }
 
-@CatalogVariant(of = "Card/Elevated", props = ["layout=slot"], caption = "The kit's slot layout.")
-@Preview(name = "Light", group = "modes", widthDp = 360)
-@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 360)
-@CaptureGutter(all = KitShadowGutter.Level1All)
-@Composable
-fun ElevatedCardUidSlot() = Sticker { KitCardElevatedSlot(Modifier) }
-
 @CatalogComponent(
   id = "Card/Outlined",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/52346:27574",
-  caption = "Separated by outline; header, media, text and actions.",
+  caption =
+    "Separated by outline; header, media, text and actions. The kit's empty slot layout folds " +
+      "in.",
 )
-@Preview(name = "Light", group = "modes", widthDp = 360)
-@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 360)
+@CatalogModesKitContainer
 @OverrideVariant(name = "slot", strings = ["layout=slot"])
 @Composable
-fun OutlinedCardUid() =
+fun OutlinedCardSticker() =
   KitCardSticker(slot = { KitCardOutlinedSlot(Modifier) }) { k ->
     KitCardOutlined(
       Modifier,
@@ -174,19 +167,13 @@ fun OutlinedCardUid() =
     )
   }
 
-@CatalogVariant(of = "Card/Outlined", props = ["layout=slot"], caption = "The kit's slot layout.")
-@Preview(name = "Light", group = "modes", widthDp = 360)
-@Preview(name = "Dark", uiMode = 32, group = "modes", widthDp = 360)
-@Composable
-fun OutlinedCardUidSlot() = Sticker { KitCardOutlinedSlot(Modifier) }
-
 // A locale check rather than a sticker: the document's copy is the catalog's string resources, so
 // the generated card and the hand-written one must also agree in German. Plain previews, outside
 // the inventory; `compare-published.py` diffs the pair.
 
 @Preview(name = "German", locale = "de", widthDp = 360)
 @Composable
-fun FilledCardUidGerman() = FilledCardUid()
+fun FilledCardUidGerman() = FilledCard()
 
 @Preview(name = "German", locale = "de", widthDp = 360)
 @Composable

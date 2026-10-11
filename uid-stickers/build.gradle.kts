@@ -1,7 +1,7 @@
 // `:uid-stickers` — a PROTOTYPE: catalog stickers whose body is a UI builder `.uid` document.
 //
 // Opt-in (`-PuidStickers=true`), outside the published inventory, like `:adaptive-uid-pilot`.
-// `stickers/*.uid` is the sticker body; `stickers.json` lists them and their variant cells, each a
+// `stickers/*.uid` is the sticker body; its sibling `stickers/<name>.json` lists its variant cells, each a
 // list of builder operations applied to the document. `generateUidStickers` exports every document
 // and variant through the UI builder's own exporter (`ScreenExportGate`, the same code behind the
 // builder's code pane) into `build/generated/uid`, and `src/main` wraps each generated composable
@@ -87,3 +87,9 @@ val generateUidStickers by
   }
 
 sourceSets.main { kotlin.srcDir(generateUidStickers) }
+
+// `:catalog`'s jar holds the sticker meta-annotations (`@CatalogModesKitContainer`,
+// `@InteractionStates`, the generated `…ExhaustiveKitCells`). Discovery scans a dependency jar only
+// when its coordinate looks preview-related or it holds a configured component library, so name
+// the catalog's package: the shells then carry exactly the hand-written stickers' annotations.
+composePreview { componentLibraryPrefixes.add("ee.schimke.m3catalog.") }
