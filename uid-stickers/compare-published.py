@@ -31,7 +31,7 @@ for preview, published in CELLS.items():
     if ours.size != theirs.size:
         print(f"DIFF  {preview}: size {ours.size} vs {theirs.size}"); failed += 1; continue
     diff = ImageChops.difference(ours, theirs)
-    box = diff.getbbox()
+    box = diff.getbbox(alpha_only=False)  # the default only looks at alpha
     if box is None:
         print(f"SAME  {preview} {ours.size[0]}x{ours.size[1]} == {published}")
     else:
