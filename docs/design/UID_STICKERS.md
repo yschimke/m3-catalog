@@ -251,6 +251,11 @@ A group file can hold both kinds.
    (the `catalog-typed-policy` direction). This prototype uses a hand-edited record.
 3. **Live overrides.** Generated bodies lose their text knobs in the Overrides panel. This one is
    tolerable to ship without.
+4. **Live click handlers.** The exporter fills every required `onClick` with `{}`, so a generated
+   button or chip presses in the live catalog and does nothing. That breaks the "no dead handlers"
+   rule `counted(…)` exists for. The document needs an event binding the exporter lowers to a
+   callback the shell supplies (a generated `onClick` parameter, wired to `counted` in the shell).
+   That keeps `counted` out of the published source. Baked renders are unaffected.
 
 **After those, roughly:**
 
