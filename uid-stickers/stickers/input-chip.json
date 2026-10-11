@@ -1,0 +1,396 @@
+{
+  "variants": {
+    "Closing": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "close",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/close"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_remove"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Icon": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "avatar",
+        "node": {
+          "id": "lead",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/event"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Icon closing": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "avatar",
+        "node": {
+          "id": "lead",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/event"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "close",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/close"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_remove"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Brand": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "avatar",
+        "node": {
+          "id": "lead",
+          "componentId": "m3catalog/stars-icon",
+          "properties": {},
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Brand closing": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "avatar",
+        "node": {
+          "id": "lead",
+          "componentId": "m3catalog/stars-icon",
+          "properties": {},
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "close",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/close"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_remove"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Favicon": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "avatar",
+        "node": {
+          "id": "lead",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/person"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Favicon closing": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "avatar",
+        "node": {
+          "id": "lead",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/person"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "close",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/close"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_remove"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Avatar": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "avatar",
+        "node": {
+          "id": "lead",
+          "componentId": "m3/surface",
+          "properties": {
+            "shapeDp": {
+              "type": "float",
+              "value": 12
+            },
+            "containerColor": {
+              "type": "colorToken",
+              "value": "primaryContainer"
+            },
+            "contentColor": {
+              "type": "colorToken",
+              "value": "onPrimaryContainer"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "lead",
+        "slot": "content",
+        "node": {
+          "id": "lead-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/person"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 24,
+              "heightDp": 24
+            },
+            {
+              "type": "padding",
+              "startDp": 2,
+              "topDp": 2,
+              "endDp": 2,
+              "bottomDp": 2
+            }
+          ]
+        }
+      }
+    ],
+    "Avatar closing": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "avatar",
+        "node": {
+          "id": "lead",
+          "componentId": "m3/surface",
+          "properties": {
+            "shapeDp": {
+              "type": "float",
+              "value": 12
+            },
+            "containerColor": {
+              "type": "colorToken",
+              "value": "primaryContainer"
+            },
+            "contentColor": {
+              "type": "colorToken",
+              "value": "onPrimaryContainer"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "lead",
+        "slot": "content",
+        "node": {
+          "id": "lead-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/person"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 24,
+              "heightDp": 24
+            },
+            {
+              "type": "padding",
+              "startDp": 2,
+              "topDp": 2,
+              "endDp": 2,
+              "bottomDp": 2
+            }
+          ]
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "close",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/close"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_remove"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "pairs": {
+    "InputChipSticker": "InputChipSticker"
+  }
+}

@@ -38,6 +38,8 @@ dependencies {
   implementation(libs.compose.material.icons.extended)
   implementation(libs.compose.ui.tooling.preview)
   implementation(libs.composeai.preview.annotations)
+  // `previewOverrideDp`, for the shells whose hand-written stickers read a dimension knob.
+  implementation(libs.composeai.preview.overrides)
   // `stringResource(Res.string.…)`, which the generated bodies call for the catalog's copy.
   @Suppress("DEPRECATION") implementation(compose.components.resources)
 

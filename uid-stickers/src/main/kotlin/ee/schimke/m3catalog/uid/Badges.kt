@@ -1,0 +1,46 @@
+@file:CatalogGroup(name = "Badges", section = "Communication")
+
+package ee.schimke.m3catalog.uid
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import ee.schimke.composeai.preview.CatalogComponent
+import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.OverrideVariant
+import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.Sticker
+import generated.uibuilder.KitNumberBadge
+import java.text.DecimalFormatSymbols
+import java.util.Locale
+
+// The body is `stickers/number-badge.uid`: a `KitNumberBadge` component, a `Badge` whose content is
+// a `Text` bound to `label`. The digit count is the label's doing, so every cell is the same body;
+// the shell shapes the digits for the locale, as the hand-written sticker does.
+
+/**
+ * The catalog's `localizedDigits`, which `:catalog` keeps internal: ASCII digits in [locale]'s
+ * numbering system.
+ */
+private fun localizedDigits(value: String, locale: Locale = Locale.getDefault()): String {
+  val zero = DecimalFormatSymbols.getInstance(locale).zeroDigit
+  if (zero == '0') return value
+  return buildString(value.length) {
+    value.forEach { char ->
+      append(if (char in '0'..'9') (zero.code + (char - '0')).toChar() else char)
+    }
+  }
+}
+
+@CatalogComponent(
+  id = "Badge/Number",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/51592:4770",
+  caption = "Unread count badge. One to three digits and overflow fold in.",
+)
+@CatalogModes
+@OverrideVariant(name = "digits-2", strings = ["label=42"])
+@OverrideVariant(name = "digits-3", strings = ["label=147"])
+@OverrideVariant(name = "overflow", strings = ["label=999+"])
+@Composable
+fun NumberBadge(label: String = "3") = Sticker {
+  KitNumberBadge(Modifier, label = localizedDigits(label))
+}
