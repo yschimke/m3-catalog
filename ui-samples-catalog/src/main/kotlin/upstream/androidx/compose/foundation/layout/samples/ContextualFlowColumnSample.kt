@@ -121,7 +121,7 @@ fun ContextualFlowColumn_ItemPosition() {
         itemCount = 12,
     ) {
         val width = 50.dp.coerceAtMost(maxWidth)
-        val height = Random.nextInt(80, 100).dp.coerceAtMost(maxHeightInLine)
+        val height = Random(it).nextInt(80, 100).dp.coerceAtMost(maxHeightInLine)
         Box(
             Modifier.width(width)
                 .height(height)

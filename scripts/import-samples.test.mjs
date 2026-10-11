@@ -156,6 +156,28 @@ test("a patch that does not apply throws, naming the patch and what to do", () =
   }
 });
 
+test("a patch applies when the output directory sits inside a git repository", () => {
+  // A plain import writes into the committed tree, which is inside this repo. `git apply` run there
+  // resolved the patch's paths against the repo root, skipped every file and exited 0.
+  const { root, library } = fakeUpstream({ "A.kt": "fun a() {}\n" });
+  const repo = mkdtempSync(join(tmpdir(), "repo-"));
+  const patches = mkdtempSync(join(tmpdir(), "patches-"));
+  const out = join(repo, "module", "upstream");
+  writeFileSync(
+    join(patches, "0001-fix.patch"),
+    `diff --git a/${PKG}/A.kt b/${PKG}/A.kt\n--- a/${PKG}/A.kt\n+++ b/${PKG}/A.kt\n` +
+      "@@ -1 +1 @@\n-fun a() {}\n+fun a() = Unit\n",
+  );
+  try {
+    execFileSync("git", ["init", "-q", repo]);
+    vendor(root, library, out);
+    assert.deepEqual(applyPatches(out, patches), ["0001-fix.patch"]);
+    assert.equal(readFileSync(join(out, PKG, "A.kt"), "utf8"), "fun a() = Unit\n");
+  } finally {
+    for (const d of [root, repo, patches]) rmSync(d, { recursive: true, force: true });
+  }
+});
+
 test("provenance records each library's own ref and artifact", () => {
   // One entry PER LIBRARY, because the libraries are pinned independently: tracing a render back to
   // a commit needs the commit that particular sample came from, and the import stopped having a
