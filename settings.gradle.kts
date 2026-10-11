@@ -90,3 +90,7 @@ include(":foundation-catalog")
 if (providers.gradleProperty("adaptiveUidPilot").orNull == "true") {
   include(":adaptive-uid-pilot")
 }
+
+if (providers.gradleProperty("uidStickers").orNull == "true") {
+  include(":uid-stickers")
+}

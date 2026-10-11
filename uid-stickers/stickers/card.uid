@@ -1,0 +1,435 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-card",
+  "title": "Kit card",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 360,
+    "heightDp": 480,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "card"
+  ],
+  "nodes": {
+    "avatar-letter": {
+      "id": "avatar-letter",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "A"
+        },
+        "style": {
+          "type": "enum",
+          "value": "titleMedium"
+        }
+      },
+      "slots": {}
+    },
+    "avatar-box": {
+      "id": "avatar-box",
+      "componentId": "layout/box",
+      "properties": {
+        "contentAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "avatar-letter"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxSize"
+        }
+      ]
+    },
+    "avatar": {
+      "id": "avatar",
+      "componentId": "m3/surface",
+      "properties": {
+        "shapeDp": {
+          "type": "float",
+          "value": 20
+        },
+        "containerColor": {
+          "type": "colorToken",
+          "value": "primaryContainer"
+        },
+        "contentColor": {
+          "type": "colorToken",
+          "value": "onPrimaryContainer"
+        }
+      },
+      "slots": {
+        "content": [
+          "avatar-box"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 40,
+          "heightDp": 40
+        }
+      ]
+    },
+    "header": {
+      "id": "header",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Header"
+        },
+        "style": {
+          "type": "enum",
+          "value": "titleMedium"
+        }
+      },
+      "slots": {}
+    },
+    "subhead": {
+      "id": "subhead",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Subhead"
+        },
+        "style": {
+          "type": "enum",
+          "value": "bodyMedium"
+        }
+      },
+      "slots": {}
+    },
+    "header-text": {
+      "id": "header-text",
+      "componentId": "layout/column",
+      "properties": {
+        "verticalSpacingDp": {
+          "type": "float",
+          "value": 4
+        }
+      },
+      "slots": {
+        "children": [
+          "header",
+          "subhead"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "padding",
+          "startDp": 16,
+          "topDp": 0,
+          "endDp": 0,
+          "bottomDp": 0
+        },
+        {
+          "type": "weight",
+          "weight": 1
+        }
+      ]
+    },
+    "more-icon": {
+      "id": "more-icon",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "moreVert"
+        },
+        "contentDescription": {
+          "type": "string",
+          "value": "More options"
+        }
+      },
+      "slots": {}
+    },
+    "more": {
+      "id": "more",
+      "componentId": "m3/icon-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "more-icon"
+        ]
+      }
+    },
+    "header-row": {
+      "id": "header-row",
+      "componentId": "layout/row",
+      "properties": {
+        "verticalAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "avatar",
+          "header-text",
+          "more"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 72
+        },
+        {
+          "type": "padding",
+          "startDp": 16,
+          "topDp": 0,
+          "endDp": 4,
+          "bottomDp": 0
+        }
+      ]
+    },
+    "media": {
+      "id": "media",
+      "componentId": "m3catalog/image-placeholder",
+      "properties": {
+        "scaleBasis": {
+          "type": "float",
+          "value": 360
+        },
+        "cornerRadiusDp": {
+          "type": "float",
+          "value": 0
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 188
+        }
+      ]
+    },
+    "title": {
+      "id": "title",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Title"
+        },
+        "style": {
+          "type": "enum",
+          "value": "bodyLarge"
+        }
+      },
+      "slots": {}
+    },
+    "subtitle": {
+      "id": "subtitle",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Subtitle"
+        },
+        "style": {
+          "type": "enum",
+          "value": "bodyMedium"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurfaceVariant"
+        }
+      },
+      "slots": {}
+    },
+    "title-block": {
+      "id": "title-block",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "title",
+          "subtitle"
+        ]
+      }
+    },
+    "supporting": {
+      "id": "supporting",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+        },
+        "style": {
+          "type": "enum",
+          "value": "bodyMedium"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurfaceVariant"
+        }
+      },
+      "slots": {}
+    },
+    "cancel-label": {
+      "id": "cancel-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Cancel"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelLarge"
+        }
+      },
+      "slots": {}
+    },
+    "cancel": {
+      "id": "cancel",
+      "componentId": "androidx.compose.material3.ButtonKt.OutlinedButton",
+      "properties": {},
+      "slots": {
+        "content": [
+          "cancel-label"
+        ]
+      }
+    },
+    "action-label": {
+      "id": "action-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Action"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelLarge"
+        }
+      },
+      "slots": {}
+    },
+    "action": {
+      "id": "action",
+      "componentId": "m3/button",
+      "properties": {
+        "style": {
+          "type": "enum",
+          "value": "filled"
+        }
+      },
+      "slots": {
+        "content": [
+          "action-label"
+        ]
+      }
+    },
+    "actions": {
+      "id": "actions",
+      "componentId": "layout/row",
+      "properties": {
+        "horizontalArrangement": {
+          "type": "enum",
+          "value": "end"
+        },
+        "horizontalSpacingDp": {
+          "type": "float",
+          "value": 8
+        },
+        "verticalAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "cancel",
+          "action"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        }
+      ]
+    },
+    "body": {
+      "id": "body",
+      "componentId": "layout/column",
+      "properties": {
+        "verticalSpacingDp": {
+          "type": "float",
+          "value": 32
+        }
+      },
+      "slots": {
+        "children": [
+          "title-block",
+          "supporting",
+          "actions"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "padding",
+          "startDp": 16,
+          "topDp": 16,
+          "endDp": 16,
+          "bottomDp": 16
+        }
+      ]
+    },
+    "content": {
+      "id": "content",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "header-row",
+          "media",
+          "body"
+        ]
+      }
+    },
+    "card": {
+      "id": "card",
+      "componentId": "m3/card",
+      "properties": {},
+      "slots": {
+        "content": [
+          "content"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 360,
+          "heightDp": 480
+        }
+      ]
+    }
+  }
+}
