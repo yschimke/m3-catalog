@@ -1,0 +1,56 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-circular-progress",
+  "title": "Kit circular progress",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 48,
+    "heightDp": 48,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-circular-progress": {
+      "name": "KitCircularProgress",
+      "root": "indicator"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-circular-progress",
+        "arguments": {
+          "progress": {
+            "type": "float",
+            "value": 0.5
+          }
+        }
+      }
+    },
+    "indicator": {
+      "id": "indicator",
+      "componentId": "m3/circular-progress-indicator",
+      "properties": {
+        "progress": {
+          "type": "binding",
+          "value": "progress"
+        }
+      },
+      "slots": {}
+    }
+  }
+}
