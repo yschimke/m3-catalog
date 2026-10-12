@@ -1,6 +1,12 @@
 # Stickers defined as UI builder documents: investigation and prototype
 
-**Status: prototype, opt-in (`-PuidStickers=true`), nothing published.** The question was whether a
+**Status: 50 of 59 stickers (84%) ready to cut over, opt-in (`-PuidStickers=true`), nothing
+published yet.** Every one of their 3,724 published captures is pixel-identical to the hand-written
+sticker's; the table and the cutover steps are in
+[`uid-stickers/CUTOVER.md`](../../uid-stickers/CUTOVER.md), the method in
+[`uid-stickers/MIGRATING.md`](../../uid-stickers/MIGRATING.md).
+
+The question was whether a
 kit-matched sticker should be defined in UI builder syntax (a `.uid` document) instead of
 hand-written Compose. There were four reasons to try:
 
@@ -70,7 +76,8 @@ Maven local):
 ```sh
 scripts/agent-gradle.sh -PuidStickers=true -PuidExportVersion=3.107.1-SNAPSHOT \
   -PscreenModelVersion=2.51.1-SNAPSHOT :uid-stickers:composePreviewRender
-python3 uid-stickers/compare-published.py   # 31 cells, all SAME
+CATALOG_RENDERS=catalog/build/compose-previews/renders \
+  python3 uid-stickers/compare-local.py   # every capture of every paired sticker
 ```
 
 ## What the prototype established
@@ -291,25 +298,39 @@ A group file can hold both kinds.
    components, as `internal` functions) and a compose-ui-builder follow-up to #729
    (`ScreenExportGate.exportComponents`, readable intent callbacks, `resource` placement arguments).
 
-**After those, roughly:**
+**Measured, not estimated.** The estimate here was ~30% now and ~75–80% after vocabulary work.
+The migration then ran sticker by sticker, each held to every published capture
+(`compare-local.py`):
 
 | Stage | Stickers | Share |
 | --- | --- | --- |
-| Reachable with today's vocabulary, interaction cells included | ~18 | ~30% |
-| Plus shape values, button `contentPadding` and canvas colour tokens | ~45–48 | ~75–80% |
-| Stays hand-written | ~11–14 | ~20% |
+| Wave 1: the vocabulary as it stood (shape tokens and padding values already worked) | 32 | 54% |
+| Wave 2: colour bundles, outlines, enum and state values, toggle intents, empty optional slots | +12 | 75% |
+| Wave 3: toggle-button shapes, top app bar colours | +6 | **85%** |
+| Still hand-written | 9 | 15% |
 
-What stays hand-written is logic rather than layout:
+The nine that remain need vocabulary, not logic: state holders the document cannot yet build
+(search bar, range slider, date picker, carousel), members of an object or a scope as call sites
+(split button, segmented buttons, menu group shapes), the slider's thumb and track, and
+`MaterialShapes`. Each refusal is recorded in `uid-stickers/blocked/` and `CUTOVER.md`.
 
-- `MaterialShapes`;
-- the slider family;
-- the expressive vs standard overload split;
-- `kitHeight`'s font-scale branch;
-- live-only clickable overloads;
-- dialog and popup host tricks.
+Things the estimate expected to stay hand-written turned out not to:
 
-Matrix cells (`size=m`, `shape=square`) become per-cell builder operations, so the shells for those
-groups should be generated too, not written by hand.
+- **Dialog and popup hosts** stay in the shell around a generated body.
+- **The expressive vs standard overload split and `kitHeight`'s font-scale branch** are invisible
+  in every published capture (light and dark at font scale 1, standard theme). The shells drop
+  them, and say so; restoring them is an exporter feature (expressive overload records, a min-height
+  modifier), not a reason to keep the sticker hand-written.
+- **Matrix cells** (button sizes × shapes, text-field configurations) are generated cells, with
+  `uid-stickers/tools/` scripts writing the larger matrices.
+
+Known behaviour differences that no capture shows, all recorded in their shells:
+
+- Card's interactive-mode `onClick` overload has no record.
+- Tab and icon-switch selection is a cell per value, so a live tap swaps generated functions and
+  the indicator or thumb jumps rather than animating. An `Int` binding for the tab row and a
+  binding for the thumb icon would fix it.
+- Text fields take an inert `onValueChange`, because a typed value is not an intent.
 
 ## Recommendation
 
@@ -332,7 +353,7 @@ Order:
    - publish that same catalog to the builder;
    - publish each sticker's document as its `ui-builder` reference so the fork link is exact.
 3. **Migrate the reachable groups first**, each gated by the same pixel-identity check as
-   `compare-published.py`, run in CI against the delivery branch:
+   `compare-local.py`, run in CI against the hand-written renders:
    - Cards (done here);
    - Badges, Dividers, Dialog/Basic, Snackbar, TextFields, Chips/Assist and Chips/Suggestion,
      Typography.
@@ -350,4 +371,5 @@ Order:
   Everything else resolves against `:catalog`'s published pair.
 - `uid-stickers/src/generator`: the export step.
 - `uid-stickers/src/main`: the shell and the builder-facing placeholder.
-- `uid-stickers/compare-published.py`: the pixel check against the delivery branch.
+- `uid-stickers/compare-local.py`: the cutover check against every hand-written capture (it
+  replaced `compare-published.py`, which checked a hand-kept list of delivery-branch images).
