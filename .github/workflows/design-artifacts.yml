@@ -172,7 +172,7 @@ jobs:
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
       scope-mapper: scripts/scope-systems.sh
       scope-only: ${{ inputs.systems }}
-      supersede-stale-runs: true
+      supersede-stale-runs: false
       artifact-repository: yschimke/m3-catalog-out
       spec: catalog.spec.json
       # Sharding operates within one Gradle module. Every published preview in this repository is
@@ -354,7 +354,7 @@ jobs:
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
       scope-mapper: scripts/scope-systems.sh
       scope-only: ${{ inputs.systems }}
-      supersede-stale-runs: true
+      supersede-stale-runs: false
       artifact-repository: yschimke/m3-catalog-out
       spec: samples-catalog/catalog.spec.json
       module: ':samples-catalog'
@@ -450,7 +450,7 @@ jobs:
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
       scope-mapper: scripts/scope-systems.sh
       scope-only: ${{ inputs.systems }}
-      supersede-stale-runs: true
+      supersede-stale-runs: false
       artifact-repository: yschimke/m3-catalog-out
       spec: ui-samples-catalog/catalog.spec.json
       module: ':ui-samples-catalog'
@@ -511,7 +511,7 @@ jobs:
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
       scope-mapper: scripts/scope-systems.sh
       scope-only: ${{ inputs.systems }}
-      supersede-stale-runs: true
+      supersede-stale-runs: false
       artifact-repository: yschimke/m3-catalog-out
       spec: foundation-catalog/catalog.spec.json
       module: ':foundation-catalog'
