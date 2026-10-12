@@ -1,0 +1,163 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-secondary-tabs",
+  "title": "Kit secondary tabs",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 360,
+    "heightDp": 48,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-secondary-tabs": {
+      "name": "KitSecondaryTabs",
+      "root": "row"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-secondary-tabs",
+        "arguments": {
+          "text0": {
+            "type": "resource",
+            "resourceKey": "tab_overview"
+          },
+          "text1": {
+            "type": "resource",
+            "resourceKey": "tab_specs"
+          },
+          "text2": {
+            "type": "resource",
+            "resourceKey": "tab_reviews"
+          }
+        }
+      }
+    },
+    "text0": {
+      "id": "text0",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "text0"
+        }
+      },
+      "slots": {}
+    },
+    "tab0": {
+      "id": "tab0",
+      "componentId": "m3/tab",
+      "properties": {
+        "selected": {
+          "type": "bool",
+          "value": false
+        }
+      },
+      "slots": {
+        "text": [
+          "text0"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "text1": {
+      "id": "text1",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "text1"
+        }
+      },
+      "slots": {}
+    },
+    "tab1": {
+      "id": "tab1",
+      "componentId": "m3/tab",
+      "properties": {
+        "selected": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      "slots": {
+        "text": [
+          "text1"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "text2": {
+      "id": "text2",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "text2"
+        }
+      },
+      "slots": {}
+    },
+    "tab2": {
+      "id": "tab2",
+      "componentId": "m3/tab",
+      "properties": {
+        "selected": {
+          "type": "bool",
+          "value": false
+        }
+      },
+      "slots": {
+        "text": [
+          "text2"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "row": {
+      "id": "row",
+      "componentId": "m3/secondary-tab-row",
+      "properties": {
+        "selectedTabIndex": {
+          "type": "int",
+          "value": 1
+        }
+      },
+      "slots": {
+        "tabs": [
+          "tab0",
+          "tab1",
+          "tab2"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 360
+        }
+      ]
+    }
+  }
+}

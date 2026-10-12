@@ -1,0 +1,150 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-small-top-app-bar",
+  "title": "Kit small top app bar",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 412,
+    "heightDp": 64,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-small-top-app-bar": {
+      "name": "KitSmallTopAppBar",
+      "root": "bar"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-small-top-app-bar",
+        "arguments": {
+          "title": {
+            "type": "resource",
+            "resourceKey": "appbar_title"
+          },
+          "back": {
+            "type": "resource",
+            "resourceKey": "action_back"
+          },
+          "search": {
+            "type": "resource",
+            "resourceKey": "action_search"
+          },
+          "more": {
+            "type": "resource",
+            "resourceKey": "action_more"
+          }
+        }
+      }
+    },
+    "title": {
+      "id": "title",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "title"
+        }
+      },
+      "slots": {}
+    },
+    "back-icon": {
+      "id": "back-icon",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "arrowBack"
+        },
+        "contentDescription": {
+          "type": "binding",
+          "value": "back"
+        }
+      },
+      "slots": {}
+    },
+    "back": {
+      "id": "back",
+      "componentId": "m3/icon-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "back-icon"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "search-icon": {
+      "id": "search-icon",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "search"
+        },
+        "contentDescription": {
+          "type": "binding",
+          "value": "search"
+        }
+      },
+      "slots": {}
+    },
+    "search": {
+      "id": "search",
+      "componentId": "m3/icon-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "search-icon"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "bar": {
+      "id": "bar",
+      "componentId": "m3/top-app-bar",
+      "properties": {},
+      "slots": {
+        "title": [
+          "title"
+        ],
+        "navigationIcon": [
+          "back"
+        ],
+        "actions": [
+          "search"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 412
+        },
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    }
+  }
+}

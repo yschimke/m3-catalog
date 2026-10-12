@@ -1,0 +1,365 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-short-navigation-bar",
+  "title": "Kit short navigation bar",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 412,
+    "heightDp": 64,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-short-navigation-bar": {
+      "name": "KitShortNavigationBar",
+      "root": "bar"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-short-navigation-bar",
+        "arguments": {
+          "selected0": {
+            "type": "bool",
+            "value": true
+          },
+          "label0": {
+            "type": "resource",
+            "resourceKey": "nav_home"
+          },
+          "selected1": {
+            "type": "bool",
+            "value": false
+          },
+          "label1": {
+            "type": "resource",
+            "resourceKey": "nav_search"
+          },
+          "selected2": {
+            "type": "bool",
+            "value": false
+          },
+          "label2": {
+            "type": "resource",
+            "resourceKey": "nav_you"
+          },
+          "selected3": {
+            "type": "bool",
+            "value": false
+          },
+          "label3": {
+            "type": "resource",
+            "resourceKey": "nav_saved"
+          },
+          "selected4": {
+            "type": "bool",
+            "value": false
+          },
+          "label4": {
+            "type": "resource",
+            "resourceKey": "nav_settings"
+          }
+        }
+      }
+    },
+    "icon0": {
+      "id": "icon0",
+      "componentId": "m3catalog/selection-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected0"
+        }
+      },
+      "slots": {}
+    },
+    "label0": {
+      "id": "label0",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label0"
+        }
+      },
+      "slots": {}
+    },
+    "item0": {
+      "id": "item0",
+      "componentId": "m3/short-navigation-bar-item",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected0"
+        }
+      },
+      "slots": {
+        "icon": [
+          "icon0"
+        ],
+        "label": [
+          "label0"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        }
+      ],
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "icon1": {
+      "id": "icon1",
+      "componentId": "m3catalog/selection-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected1"
+        }
+      },
+      "slots": {}
+    },
+    "label1": {
+      "id": "label1",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label1"
+        }
+      },
+      "slots": {}
+    },
+    "item1": {
+      "id": "item1",
+      "componentId": "m3/short-navigation-bar-item",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected1"
+        }
+      },
+      "slots": {
+        "icon": [
+          "icon1"
+        ],
+        "label": [
+          "label1"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        }
+      ],
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "icon2": {
+      "id": "icon2",
+      "componentId": "m3catalog/selection-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected2"
+        }
+      },
+      "slots": {}
+    },
+    "label2": {
+      "id": "label2",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label2"
+        }
+      },
+      "slots": {}
+    },
+    "item2": {
+      "id": "item2",
+      "componentId": "m3/short-navigation-bar-item",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected2"
+        }
+      },
+      "slots": {
+        "icon": [
+          "icon2"
+        ],
+        "label": [
+          "label2"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        }
+      ],
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "icon3": {
+      "id": "icon3",
+      "componentId": "m3catalog/selection-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected3"
+        }
+      },
+      "slots": {}
+    },
+    "label3": {
+      "id": "label3",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label3"
+        }
+      },
+      "slots": {}
+    },
+    "item3": {
+      "id": "item3",
+      "componentId": "m3/short-navigation-bar-item",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected3"
+        }
+      },
+      "slots": {
+        "icon": [
+          "icon3"
+        ],
+        "label": [
+          "label3"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        }
+      ],
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "icon4": {
+      "id": "icon4",
+      "componentId": "m3catalog/selection-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected4"
+        }
+      },
+      "slots": {}
+    },
+    "label4": {
+      "id": "label4",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label4"
+        }
+      },
+      "slots": {}
+    },
+    "item4": {
+      "id": "item4",
+      "componentId": "m3/short-navigation-bar-item",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected4"
+        }
+      },
+      "slots": {
+        "icon": [
+          "icon4"
+        ],
+        "label": [
+          "label4"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        }
+      ],
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "row": {
+      "id": "row",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "item0",
+          "item1",
+          "item2",
+          "item3",
+          "item4"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        }
+      ]
+    },
+    "bar": {
+      "id": "bar",
+      "componentId": "m3/short-navigation-bar",
+      "properties": {},
+      "slots": {
+        "content": [
+          "row"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 412
+        },
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    }
+  }
+}
