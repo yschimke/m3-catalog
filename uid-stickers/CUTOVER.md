@@ -81,10 +81,13 @@ exhaustive kit cells) against the generated sticker's, pixel for pixel and frame
 
 1. **Release the upstream changes** the export needs, then point `uidExportVersion` /
    `screenModelVersion` at the releases and drop the Maven-local snapshots:
-   - compose-ai-tools: components-only output (#5883, released in 2.51.0), its follow-up (#5885),
-     and toggle intents with empty optional slots (#5896);
-   - compose-ui-builder: string resources (#729), then #732 (intent callbacks, colour bundles,
-     outlines, enum and state vocabulary, toggle shapes) and the `exportComponents` entry point.
+   - compose-ai-tools: components-only output (#5883, in 2.51.0); a components file's opt-ins
+     once (#5885, merged) and toggle intents with empty optional slots (#5896): the next release
+     after both;
+   - compose-ui-builder: string resources (#729, merged, in the 3.109.0 release PR) and #732
+     (intent callbacks, colour bundles, outlines, enum and state vocabulary, toggle shapes, and
+     `exportComponents` on compose-ai-tools 2.51.0): the release after it merges, once its
+     tools pin moves to the release carrying #5896.
 2. **Move the published inventory:** for each ready sticker, delete the hand-written function
    from `:catalog`'s `sections/` and publish `:uid-stickers` in its place (it is already a
    preview module with the same ids). The shells keep the catalog's meta-annotations working
