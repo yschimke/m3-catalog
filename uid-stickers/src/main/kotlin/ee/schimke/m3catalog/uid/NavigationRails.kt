@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
+import ee.schimke.composeai.preview.InteractionPreview
 import ee.schimke.composeai.preview.OverrideVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
@@ -15,6 +16,7 @@ import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
+import ee.schimke.m3catalog.generated.resources.label_text
 import ee.schimke.m3catalog.generated.resources.nav_home
 import ee.schimke.m3catalog.generated.resources.nav_saved
 import ee.schimke.m3catalog.generated.resources.nav_search
@@ -22,36 +24,68 @@ import ee.schimke.m3catalog.generated.resources.nav_you
 import ee.schimke.m3catalog.selectable
 import generated.uibuilder.KitNavigationRail
 import generated.uibuilder.KitNavigationRailFour
+import generated.uibuilder.KitNavigationRailFourMiddle
 import generated.uibuilder.KitNavigationRailFourNoFab
+import generated.uibuilder.KitNavigationRailFourNoFabMiddle
 import generated.uibuilder.KitNavigationRailFourNoFabNoLabels
+import generated.uibuilder.KitNavigationRailFourNoFabNoLabelsMiddle
 import generated.uibuilder.KitNavigationRailFourNoLabels
+import generated.uibuilder.KitNavigationRailFourNoLabelsMiddle
 import generated.uibuilder.KitNavigationRailFourNoMenu
+import generated.uibuilder.KitNavigationRailFourNoMenuMiddle
 import generated.uibuilder.KitNavigationRailFourNoMenuNoFab
+import generated.uibuilder.KitNavigationRailFourNoMenuNoFabMiddle
 import generated.uibuilder.KitNavigationRailFourNoMenuNoFabNoLabels
+import generated.uibuilder.KitNavigationRailFourNoMenuNoFabNoLabelsMiddle
 import generated.uibuilder.KitNavigationRailFourNoMenuNoLabels
+import generated.uibuilder.KitNavigationRailFourNoMenuNoLabelsMiddle
+import generated.uibuilder.KitNavigationRailMiddle
 import generated.uibuilder.KitNavigationRailNoFab
+import generated.uibuilder.KitNavigationRailNoFabMiddle
 import generated.uibuilder.KitNavigationRailNoFabNoLabels
+import generated.uibuilder.KitNavigationRailNoFabNoLabelsMiddle
 import generated.uibuilder.KitNavigationRailNoLabels
+import generated.uibuilder.KitNavigationRailNoLabelsMiddle
 import generated.uibuilder.KitNavigationRailNoMenu
+import generated.uibuilder.KitNavigationRailNoMenuMiddle
 import generated.uibuilder.KitNavigationRailNoMenuNoFab
+import generated.uibuilder.KitNavigationRailNoMenuNoFabMiddle
 import generated.uibuilder.KitNavigationRailNoMenuNoFabNoLabels
+import generated.uibuilder.KitNavigationRailNoMenuNoFabNoLabelsMiddle
 import generated.uibuilder.KitNavigationRailNoMenuNoLabels
+import generated.uibuilder.KitNavigationRailNoMenuNoLabelsMiddle
+import generated.uibuilder.KitWideNavigationRail
+import generated.uibuilder.KitWideNavigationRailFour
+import generated.uibuilder.KitWideNavigationRailFourMiddle
+import generated.uibuilder.KitWideNavigationRailFourNoFab
+import generated.uibuilder.KitWideNavigationRailFourNoFabMiddle
+import generated.uibuilder.KitWideNavigationRailFourNoMenu
+import generated.uibuilder.KitWideNavigationRailFourNoMenuMiddle
+import generated.uibuilder.KitWideNavigationRailFourNoMenuNoFab
+import generated.uibuilder.KitWideNavigationRailFourNoMenuNoFabMiddle
+import generated.uibuilder.KitWideNavigationRailMiddle
+import generated.uibuilder.KitWideNavigationRailNoFab
+import generated.uibuilder.KitWideNavigationRailNoFabMiddle
+import generated.uibuilder.KitWideNavigationRailNoMenu
+import generated.uibuilder.KitWideNavigationRailNoMenuMiddle
+import generated.uibuilder.KitWideNavigationRailNoMenuNoFab
+import generated.uibuilder.KitWideNavigationRailNoMenuNoFabMiddle
 import org.jetbrains.compose.resources.stringResource
 
-// The body is `stickers/navigation-rail.uid`: a collapsed `WideNavigationRail`
-// (`m3/wide-navigation-rail`, its default state) on a transparent container (the colour bundle),
-// whose header is the menu button over the kit's flat FAB, and whose three destinations are
-// `m3/wide-navigation-rail-item`s with the stars glyph. Each item's `selected` is a binding and its
-// click an action-free event, so the selection lives here in the shell (`selectable`), as the
-// hand-written sticker keeps it. The count, menu, FAB and label axes change the tree, so they cross
-// as sixteen cells (`stickers/navigation-rail.json`); a label-less item passes `label = null`. A
-// `count` below three draws three destinations.
+// Both rails are `WideNavigationRail` documents on a transparent container (the colour bundle).
 //
-// Not yet expressible, and the reason this shell has no `pairs` entry (12 of 16 captures match):
-// the `alignment=middle` axis. The exporter maps `arrangement` to `Arrangement.Center` but types
-// the value `androidx.compose.foundation.layout.Arrangement$Vertical` (JVM-spelled), while
-// `WideNavigationRail`'s record types the parameter `Arrangement.Vertical`, so every cell that
-// sets it is refused.
+// `stickers/navigation-rail.uid` is the collapsed rail (its default state): the header is the menu
+// button over the kit's flat FAB, and the three destinations are `m3/wide-navigation-rail-item`s
+// with the stars glyph. `stickers/wide-navigation-rail.uid` is the same rail seeded expanded
+// (`state`, `rememberWideNavigationRailState(Expanded)`), with the open-menu glyph and the flat
+// extended FAB, and its items expanded.
+//
+// Each item's `selected` is a binding and its click an action-free event, so the selection lives
+// here in the shell (`selectable`), as the hand-written stickers keep it. The count, menu, FAB,
+// label (collapsed only) and alignment axes change the tree or a property, so they cross as cells
+// (`stickers/navigation-rail.json`, `stickers/wide-navigation-rail.json`); `Middle` sets the
+// rail's `arrangement` to `Arrangement.Center`, and a label-less item passes `label = null`. A
+// `count` below three draws three destinations.
 
 private val RAIL =
   listOf(Res.string.nav_home, Res.string.nav_search, Res.string.nav_you, Res.string.nav_saved)
@@ -74,8 +108,7 @@ private val RAIL =
 @Composable
 fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = true) = Sticker {
   val labelled = catalogChoice("labels", "always", "always", "none") != "none"
-  // Read for its knob key: the document cannot arrange the rail yet (see above).
-  catalogChoice("alignment", "top", "top", "middle")
+  val middle = catalogChoice("alignment", "top", "top", "middle") == "middle"
   var selected by selectable(0)
   val menuClick = counted("menu")
   val fabClick = counted("new")
@@ -87,7 +120,7 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
       }
     else emptyList()
   when {
-    !four && menu && fab && labelled ->
+    !four && menu && fab && labelled && !middle ->
       KitNavigationRail(
         Modifier,
         homeSelected = selected == 0,
@@ -102,7 +135,22 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onSearchClick = { selected = 1 },
         onYouClick = { selected = 2 },
       )
-    !four && menu && fab && !labelled ->
+    !four && menu && fab && labelled && middle ->
+      KitNavigationRailMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        onMenuClick = menuClick.onClick,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && menu && fab && !labelled && !middle ->
       KitNavigationRailNoLabels(
         Modifier,
         homeSelected = selected == 0,
@@ -114,7 +162,19 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onSearchClick = { selected = 1 },
         onYouClick = { selected = 2 },
       )
-    !four && menu && !fab && labelled ->
+    !four && menu && fab && !labelled && middle ->
+      KitNavigationRailNoLabelsMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        onMenuClick = menuClick.onClick,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && menu && !fab && labelled && !middle ->
       KitNavigationRailNoFab(
         Modifier,
         homeSelected = selected == 0,
@@ -128,7 +188,21 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onSearchClick = { selected = 1 },
         onYouClick = { selected = 2 },
       )
-    !four && menu && !fab && !labelled ->
+    !four && menu && !fab && labelled && middle ->
+      KitNavigationRailNoFabMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        onMenuClick = menuClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && menu && !fab && !labelled && !middle ->
       KitNavigationRailNoFabNoLabels(
         Modifier,
         homeSelected = selected == 0,
@@ -139,7 +213,18 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onSearchClick = { selected = 1 },
         onYouClick = { selected = 2 },
       )
-    !four && !menu && fab && labelled ->
+    !four && menu && !fab && !labelled && middle ->
+      KitNavigationRailNoFabNoLabelsMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        onMenuClick = menuClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && !menu && fab && labelled && !middle ->
       KitNavigationRailNoMenu(
         Modifier,
         homeSelected = selected == 0,
@@ -153,7 +238,21 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onSearchClick = { selected = 1 },
         onYouClick = { selected = 2 },
       )
-    !four && !menu && fab && !labelled ->
+    !four && !menu && fab && labelled && middle ->
+      KitNavigationRailNoMenuMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && !menu && fab && !labelled && !middle ->
       KitNavigationRailNoMenuNoLabels(
         Modifier,
         homeSelected = selected == 0,
@@ -164,7 +263,18 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onSearchClick = { selected = 1 },
         onYouClick = { selected = 2 },
       )
-    !four && !menu && !fab && labelled ->
+    !four && !menu && fab && !labelled && middle ->
+      KitNavigationRailNoMenuNoLabelsMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && !menu && !fab && labelled && !middle ->
       KitNavigationRailNoMenuNoFab(
         Modifier,
         homeSelected = selected == 0,
@@ -177,7 +287,20 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onSearchClick = { selected = 1 },
         onYouClick = { selected = 2 },
       )
-    !four && !menu && !fab && !labelled ->
+    !four && !menu && !fab && labelled && middle ->
+      KitNavigationRailNoMenuNoFabMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && !menu && !fab && !labelled && !middle ->
       KitNavigationRailNoMenuNoFabNoLabels(
         Modifier,
         homeSelected = selected == 0,
@@ -187,7 +310,17 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onSearchClick = { selected = 1 },
         onYouClick = { selected = 2 },
       )
-    four && menu && fab && labelled ->
+    !four && !menu && !fab && !labelled && middle ->
+      KitNavigationRailNoMenuNoFabNoLabelsMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    four && menu && fab && labelled && !middle ->
       KitNavigationRailFour(
         Modifier,
         homeSelected = selected == 0,
@@ -205,7 +338,25 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onYouClick = { selected = 2 },
         onSavedClick = { selected = 3 },
       )
-    four && menu && fab && !labelled ->
+    four && menu && fab && labelled && middle ->
+      KitNavigationRailFourMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        onMenuClick = menuClick.onClick,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && menu && fab && !labelled && !middle ->
       KitNavigationRailFourNoLabels(
         Modifier,
         homeSelected = selected == 0,
@@ -219,7 +370,21 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onYouClick = { selected = 2 },
         onSavedClick = { selected = 3 },
       )
-    four && menu && !fab && labelled ->
+    four && menu && fab && !labelled && middle ->
+      KitNavigationRailFourNoLabelsMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        savedSelected = selected == 3,
+        onMenuClick = menuClick.onClick,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && menu && !fab && labelled && !middle ->
       KitNavigationRailFourNoFab(
         Modifier,
         homeSelected = selected == 0,
@@ -236,7 +401,24 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onYouClick = { selected = 2 },
         onSavedClick = { selected = 3 },
       )
-    four && menu && !fab && !labelled ->
+    four && menu && !fab && labelled && middle ->
+      KitNavigationRailFourNoFabMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        onMenuClick = menuClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && menu && !fab && !labelled && !middle ->
       KitNavigationRailFourNoFabNoLabels(
         Modifier,
         homeSelected = selected == 0,
@@ -249,7 +431,20 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onYouClick = { selected = 2 },
         onSavedClick = { selected = 3 },
       )
-    four && !menu && fab && labelled ->
+    four && menu && !fab && !labelled && middle ->
+      KitNavigationRailFourNoFabNoLabelsMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        savedSelected = selected == 3,
+        onMenuClick = menuClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && !menu && fab && labelled && !middle ->
       KitNavigationRailFourNoMenu(
         Modifier,
         homeSelected = selected == 0,
@@ -266,7 +461,24 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onYouClick = { selected = 2 },
         onSavedClick = { selected = 3 },
       )
-    four && !menu && fab && !labelled ->
+    four && !menu && fab && labelled && middle ->
+      KitNavigationRailFourNoMenuMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && !menu && fab && !labelled && !middle ->
       KitNavigationRailFourNoMenuNoLabels(
         Modifier,
         homeSelected = selected == 0,
@@ -279,7 +491,20 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onYouClick = { selected = 2 },
         onSavedClick = { selected = 3 },
       )
-    four && !menu && !fab && labelled ->
+    four && !menu && fab && !labelled && middle ->
+      KitNavigationRailFourNoMenuNoLabelsMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        savedSelected = selected == 3,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && !menu && !fab && labelled && !middle ->
       KitNavigationRailFourNoMenuNoFab(
         Modifier,
         homeSelected = selected == 0,
@@ -295,13 +520,334 @@ fun NavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = t
         onYouClick = { selected = 2 },
         onSavedClick = { selected = 3 },
       )
-    four && !menu && !fab && !labelled ->
+    four && !menu && !fab && labelled && middle ->
+      KitNavigationRailFourNoMenuNoFabMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && !menu && !fab && !labelled && !middle ->
       KitNavigationRailFourNoMenuNoFabNoLabels(
         Modifier,
         homeSelected = selected == 0,
         searchSelected = selected == 1,
         youSelected = selected == 2,
         savedSelected = selected == 3,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && !menu && !fab && !labelled && middle ->
+      KitNavigationRailFourNoMenuNoFabNoLabelsMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        searchSelected = selected == 1,
+        youSelected = selected == 2,
+        savedSelected = selected == 3,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    else -> error("unreachable")
+  }
+}
+
+@CatalogComponent(
+  id = "NavigationRail/Wide",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58016:36671",
+  caption = "The expanded form, labels beside the icons. Count folds in.",
+)
+// Indices count EVERY clickable node in layout order, and this rail's header contributes two of
+// its own before any destination: the menu button (0) and the extended FAB (1). So the three
+// destinations are 2, 3 and 4 — targeting [0] here would repeatedly tap "menu" and record a rail
+// whose selection never moved. Both header knobs default on; a variant that turned them off would
+// shift these, which is one more reason the interaction rides the default render only.
+@InteractionPreview(
+  targets = [4, 2, 3],
+  caption =
+    "Change destinations. The indicator travels while the item's label and icon cross-fade — the " +
+      "two run on different specs, which is only visible when they move together.",
+)
+@CatalogModes
+@OverrideVariant(name = "four", ints = ["count=4"])
+@OverrideVariant(name = "middle", strings = ["alignment=middle"])
+@ee.schimke.m3catalog.WideNavigationRailStickerExhaustiveKitCells
+@Composable
+fun WideNavigationRailSticker(count: Int = 3, menu: Boolean = true, fab: Boolean = true) = Sticker {
+  var selected by selectable(0)
+  val middle = catalogChoice("alignment", "top", "top", "middle") == "middle"
+  val menuClick = counted("menu")
+  val fabClick = counted("new")
+  val fabLabel = if (fab) catalogText("fabLabel", stringResource(Res.string.label_text)) else ""
+  val four = count >= 4
+  val labels =
+    RAIL.take(if (four) 4 else 3).mapIndexed { index, label ->
+      catalogText("label", stringResource(label), index)
+    }
+  when {
+    !four && menu && fab && !middle ->
+      KitWideNavigationRail(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        fabLabel = fabLabel,
+        onMenuClick = menuClick.onClick,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && menu && fab && middle ->
+      KitWideNavigationRailMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        fabLabel = fabLabel,
+        onMenuClick = menuClick.onClick,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && menu && !fab && !middle ->
+      KitWideNavigationRailNoFab(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        onMenuClick = menuClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && menu && !fab && middle ->
+      KitWideNavigationRailNoFabMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        onMenuClick = menuClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && !menu && fab && !middle ->
+      KitWideNavigationRailNoMenu(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        fabLabel = fabLabel,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && !menu && fab && middle ->
+      KitWideNavigationRailNoMenuMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        fabLabel = fabLabel,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && !menu && !fab && !middle ->
+      KitWideNavigationRailNoMenuNoFab(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    !four && !menu && !fab && middle ->
+      KitWideNavigationRailNoMenuNoFabMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+      )
+    four && menu && fab && !middle ->
+      KitWideNavigationRailFour(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        fabLabel = fabLabel,
+        onMenuClick = menuClick.onClick,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && menu && fab && middle ->
+      KitWideNavigationRailFourMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        fabLabel = fabLabel,
+        onMenuClick = menuClick.onClick,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && menu && !fab && !middle ->
+      KitWideNavigationRailFourNoFab(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        onMenuClick = menuClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && menu && !fab && middle ->
+      KitWideNavigationRailFourNoFabMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        onMenuClick = menuClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && !menu && fab && !middle ->
+      KitWideNavigationRailFourNoMenu(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        fabLabel = fabLabel,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && !menu && fab && middle ->
+      KitWideNavigationRailFourNoMenuMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        fabLabel = fabLabel,
+        onFabClick = fabClick.onClick,
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && !menu && !fab && !middle ->
+      KitWideNavigationRailFourNoMenuNoFab(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
+        onHomeClick = { selected = 0 },
+        onSearchClick = { selected = 1 },
+        onYouClick = { selected = 2 },
+        onSavedClick = { selected = 3 },
+      )
+    four && !menu && !fab && middle ->
+      KitWideNavigationRailFourNoMenuNoFabMiddle(
+        Modifier,
+        homeSelected = selected == 0,
+        homeLabel = labels[0],
+        searchSelected = selected == 1,
+        searchLabel = labels[1],
+        youSelected = selected == 2,
+        youLabel = labels[2],
+        savedSelected = selected == 3,
+        savedLabel = labels[3],
         onHomeClick = { selected = 0 },
         onSearchClick = { selected = 1 },
         onYouClick = { selected = 2 },
