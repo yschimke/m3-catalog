@@ -2,13 +2,30 @@ package ee.schimke.m3catalog.typed
 
 import ee.schimke.composeai.discovery.ComponentRecord
 import ee.schimke.composeai.discovery.ComponentRecordFile
+import ee.schimke.composeai.discovery.ExportProjectionJson
 import ee.schimke.composeai.discovery.GeneratedAdapterCatalog
 import ee.schimke.composeai.discovery.TypedAdapterCatalog
+import ee.schimke.composeai.discovery.TypedComponentAdapter
+import ee.schimke.composeai.discovery.UiBuilderAuthoredComponent
 import ee.schimke.composeai.discovery.UiBuilderCatalogFile
 import ee.schimke.composeai.discovery.UiBuilderCatalogs
+import ee.schimke.composeai.discovery.UiBuilderComposeSourceExport
+import ee.schimke.composeai.discovery.UiBuilderPolicyFile
 import kotlinx.serialization.json.jsonObject
 
-class TypedM3Catalog(val discovered: ComponentRecordFile) {
+/** The parallel pilot's catalog id. Production keeps `m3-catalog` and its committed JSON policy. */
+const val TYPED_M3_CATALOG_ID = "m3-catalog-typed-pilot"
+
+/**
+ * The typed pilot's wrapper adapters, each built against its freshly discovered compiled record,
+ * and optionally the [real]-record definitions its export goes through. Ids are the production ids,
+ * so saved designs address them unchanged.
+ */
+class TypedM3Catalog(
+  val discovered: ComponentRecordFile,
+  /** The real-record definitions to export through; null publishes the wrappers alone. */
+  val real: RealM3Publication? = null,
+) {
   private fun record(name: String): ComponentRecord =
     discovered.components.single { it.symbol.name == name }
 
@@ -93,7 +110,7 @@ class TypedM3Catalog(val discovered: ComponentRecordFile) {
 
   fun generate(): M3CatalogOutput {
     val basePolicy = m3BuilderPolicy()
-    val cover = UiBuilderCatalogs.CoverSheet("m3-catalog-typed-pilot", "Material 3 — typed catalog")
+    val cover = UiBuilderCatalogs.CoverSheet(TYPED_M3_CATALOG_ID, "Material 3 — typed catalog")
     val portable =
       TypedAdapterCatalog.generate(
         discovered,
@@ -144,16 +161,95 @@ class TypedM3Catalog(val discovered: ComponentRecordFile) {
             }
         }
         .build()
-    val full = requireNotNull(UiBuilderCatalogs.generate(portable.record, cover, authored))
+    val published = real?.let { publish(authored, portable.record, it) }
+    val record = published?.first ?: portable.record
+    val full =
+      requireNotNull(UiBuilderCatalogs.generate(record, cover, published?.second ?: authored))
     check(full.diagnostics.all { it.code == UiBuilderCatalogs.Diagnostics.COMPONENT_EXCLUDED }) {
       full.diagnostics.joinToString { it.message }
     }
     builtinAdapters.forEach { it.freeze() }
-    return M3CatalogOutput(portable, full)
+    return M3CatalogOutput(portable, full, record)
+  }
+
+  /**
+   * [policy] and [record] exporting through [real], as wear-m3-catalog's pilot publishes: the real
+   * records join the record as export targets kept off the shelf, each shelf component a real
+   * definition covers carries that definition's projection (its wrapper still draws it), and the
+   * catalog selects the component-record export, which reads them. No `code` block: an M3 screen's
+   * root is its own scaffold (`layout/scaffold`, `m3/navigation-suite-scaffold`, a pane scaffold),
+   * so there is no frame around it and nothing it declares for the records to read.
+   */
+  private fun publish(
+    policy: UiBuilderPolicyFile,
+    record: ComponentRecordFile,
+    real: RealM3Publication,
+  ): Pair<ComponentRecordFile, UiBuilderPolicyFile> {
+    val byId = real.adapters.associateBy { it.id }
+    val targets =
+      real.adapters
+        .flatMap { adapter -> listOf(adapter.component) + adapter.variantRecords }
+        .distinctBy { it.canonicalId }
+    val components =
+      policy.components.mapValues { (id, component) ->
+        val adapter = byId[id] ?: return@mapValues component
+        component.newBuilder().also { it.exportProjection = projectionJson(adapter) }.build()
+      } +
+        targets.associate { target ->
+          val owner = real.adapters.first { target.canonicalId in it.recordIds() }
+          "$EXPORT_TARGET_PREFIX${target.symbol.name.lowercase()}" to
+            UiBuilderAuthoredComponent.Builder()
+              .also {
+                it.record = target.canonicalId
+                it.excluded = "an export target of ${owner.id}"
+              }
+              .build()
+        }
+    val published =
+      policy
+        .newBuilder()
+        .apply {
+          this.components = components
+          composeSourceExport =
+            UiBuilderComposeSourceExport.Builder(COMPONENT_RECORDS, COMPONENT_RECORDS_V1).build()
+        }
+        .build()
+    val merged =
+      record
+        .newBuilder()
+        .also { b ->
+          b.components =
+            record.components +
+              targets.filter { t -> record.components.none { it.canonicalId == t.canonicalId } }
+        }
+        .build()
+    return merged to published
+  }
+
+  private fun TypedComponentAdapter<*>.recordIds(): Set<String> =
+    (listOf(component) + variantRecords).map { it.canonicalId }.toSet()
+
+  private fun projectionJson(adapter: TypedComponentAdapter<*>) =
+    ExportProjectionJson.encode(
+      requireNotNull(adapter.projection) { "${adapter.id}: no projection" }
+    )
+
+  companion object {
+    /** Policy ids of the real records published only as export targets. */
+    const val EXPORT_TARGET_PREFIX: String = "m3/export-"
+
+    /** compose-ui-builder's catalog-neutral component-record export adapter. */
+    const val COMPONENT_RECORDS: String = "compose-component-records"
+    const val COMPONENT_RECORDS_V1: Int = 1
   }
 }
 
-class M3CatalogOutput(val portable: GeneratedAdapterCatalog, val catalog: UiBuilderCatalogFile) {
-  val record: ComponentRecordFile
-    get() = portable.record
-}
+/** The real-record definitions a pilot pair exports through, read where discovery runs (JVM). */
+class RealM3Publication(val adapters: List<TypedComponentAdapter<*>>)
+
+class M3CatalogOutput(
+  val portable: GeneratedAdapterCatalog,
+  val catalog: UiBuilderCatalogFile,
+  /** The published record: the portable pair's, plus any real export targets. */
+  val record: ComponentRecordFile = portable.record,
+)

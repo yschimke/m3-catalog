@@ -72,6 +72,9 @@ object RealM3Records {
   fun factories(): List<FactorySignature> =
     TypedAdapterDiscovery.discoverFactories(factoryCallables)
 
+  /** What the pilot pair publishes to export through the real records. */
+  fun publication(): RealM3Publication = RealM3Publication(adapters())
+
   /** The real-record definitions, each on the record discovery read for it. */
   fun adapters(): List<TypedComponentAdapter<*>> {
     val records = discover().components.associateBy { it.symbol.name }
