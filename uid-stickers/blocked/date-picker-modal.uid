@@ -1,0 +1,167 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-date-picker-modal",
+  "title": "Kit date picker modal",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 360,
+    "heightDp": 640,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-date-picker-modal": {
+      "name": "KitDatePickerModal",
+      "root": "dialog"
+    }
+  },
+  "nodes": {
+    "picker": {
+      "id": "picker",
+      "componentId": "m3/date-picker",
+      "properties": {
+        "selectedDate": {
+          "type": "string",
+          "value": "2025-08-17"
+        },
+        "showModeToggle": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      "slots": {}
+    },
+    "ok-label": {
+      "id": "ok-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "confirmButton"
+        }
+      },
+      "slots": {}
+    },
+    "ok": {
+      "id": "ok",
+      "componentId": "m3/text-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "ok-label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "clear-label": {
+      "id": "clear-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "clearButton"
+        }
+      },
+      "slots": {}
+    },
+    "clear": {
+      "id": "clear",
+      "componentId": "m3/text-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "clear-label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "cancel-label": {
+      "id": "cancel-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "dismissButton"
+        }
+      },
+      "slots": {}
+    },
+    "cancel": {
+      "id": "cancel",
+      "componentId": "m3/text-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "cancel-label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "dismiss": {
+      "id": "dismiss",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "clear",
+          "cancel"
+        ]
+      }
+    },
+    "dialog": {
+      "id": "dialog",
+      "componentId": "m3/date-picker-dialog",
+      "properties": {},
+      "slots": {
+        "confirmButton": [
+          "ok"
+        ],
+        "dismissButton": [
+          "dismiss"
+        ],
+        "content": [
+          "picker"
+        ]
+      }
+    },
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-date-picker-modal",
+        "arguments": {
+          "confirmButton": {
+            "type": "resource",
+            "resourceKey": "action_ok"
+          },
+          "dismissButton": {
+            "type": "resource",
+            "resourceKey": "action_cancel"
+          },
+          "clearButton": {
+            "type": "resource",
+            "resourceKey": "action_clear"
+          }
+        }
+      }
+    }
+  }
+}

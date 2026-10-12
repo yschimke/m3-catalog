@@ -3,20 +3,9 @@
 
 package ee.schimke.m3catalog.sections
 
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Download
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -28,6 +17,14 @@ import ee.schimke.m3catalog.generated.resources.action_add
 import ee.schimke.m3catalog.generated.resources.action_check
 import ee.schimke.m3catalog.generated.resources.action_edit
 import ee.schimke.m3catalog.generated.resources.action_more
+import generated.uibuilder.KitBottomAppBar
+import generated.uibuilder.KitBottomAppBarNoFab
+import generated.uibuilder.KitBottomAppBarOne
+import generated.uibuilder.KitBottomAppBarOneNoFab
+import generated.uibuilder.KitBottomAppBarThree
+import generated.uibuilder.KitBottomAppBarThreeNoFab
+import generated.uibuilder.KitBottomAppBarTwo
+import generated.uibuilder.KitBottomAppBarTwoNoFab
 import org.jetbrains.compose.resources.stringResource
 
 // The kit's axes: the FAB slot, and how many actions sit beside it (two to four).
@@ -47,6 +44,8 @@ import org.jetbrains.compose.resources.stringResource
 // difference from the parity diff. Recorded in #455, the way Toolbars.kt records the floating
 // toolbar's unapplied `ContainerBetweenSpace`.
 
+// --- Generated sticker bodies, from uid-stickers/BottomAppBars.kt ---
+
 @CatalogComponent(
   id = "BottomAppBar/Standard",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/51159:5115",
@@ -63,37 +62,82 @@ fun BottomAppBarSticker(actions: Int = 3, fab: Boolean = true) = Sticker {
   val edit = counted(stringResource(Res.string.action_edit))
   val more = counted(stringResource(Res.string.action_more))
   val add = counted(stringResource(Res.string.action_add))
-  val count = actions
-  BottomAppBar(
-    modifier = Modifier.width(412.dp),
-    actions = {
-      // Outlined rather than filled for the bin and the download tray: the kit's symbols are
-      // unfilled at `on-surface-variant`, and the filled bin in particular read as a much heavier
-      // mark than the node it is compared against. `Search` and `Add` are strokes in both sets.
-      IconButton(onClick = check.onClick) {
-        Icon(Icons.Filled.Search, contentDescription = check.label)
-      }
-      if (count >= 2) {
-        IconButton(onClick = edit.onClick) {
-          Icon(Icons.Outlined.Delete, contentDescription = edit.label)
-        }
-      }
-      if (count >= 3) {
-        IconButton(onClick = more.onClick) {
-          Icon(Icons.Outlined.Download, contentDescription = more.label)
-        }
-      }
-      if (count >= 4) {
-        IconButton(onClick = add.onClick) { Icon(Icons.Filled.Add, contentDescription = add.label) }
-      }
-    },
-    floatingActionButton =
-      if (fab) {
-        {
-          FloatingActionButton(onClick = add.onClick) {
-            Icon(Icons.Filled.Add, contentDescription = add.label)
-          }
-        }
-      } else null,
-  )
+  val m = Modifier
+  when {
+    actions <= 1 && fab ->
+      KitBottomAppBarOne(
+        modifier = m,
+        check = check.label,
+        add = add.label,
+        onCheckClick = check.onClick,
+        onFabClick = add.onClick,
+      )
+    actions <= 1 ->
+      KitBottomAppBarOneNoFab(modifier = m, check = check.label, onCheckClick = check.onClick)
+    actions == 2 && fab ->
+      KitBottomAppBarTwo(
+        modifier = m,
+        check = check.label,
+        edit = edit.label,
+        add = add.label,
+        onCheckClick = check.onClick,
+        onEditClick = edit.onClick,
+        onFabClick = add.onClick,
+      )
+    actions == 2 ->
+      KitBottomAppBarTwoNoFab(
+        modifier = m,
+        check = check.label,
+        edit = edit.label,
+        onCheckClick = check.onClick,
+        onEditClick = edit.onClick,
+      )
+    actions == 3 && fab ->
+      KitBottomAppBarThree(
+        modifier = m,
+        check = check.label,
+        edit = edit.label,
+        more = more.label,
+        add = add.label,
+        onCheckClick = check.onClick,
+        onEditClick = edit.onClick,
+        onMoreClick = more.onClick,
+        onFabClick = add.onClick,
+      )
+    actions == 3 ->
+      KitBottomAppBarThreeNoFab(
+        modifier = m,
+        check = check.label,
+        edit = edit.label,
+        more = more.label,
+        onCheckClick = check.onClick,
+        onEditClick = edit.onClick,
+        onMoreClick = more.onClick,
+      )
+    fab ->
+      KitBottomAppBar(
+        modifier = m,
+        check = check.label,
+        edit = edit.label,
+        more = more.label,
+        add = add.label,
+        onCheckClick = check.onClick,
+        onEditClick = edit.onClick,
+        onMoreClick = more.onClick,
+        onAddClick = add.onClick,
+        onFabClick = add.onClick,
+      )
+    else ->
+      KitBottomAppBarNoFab(
+        modifier = m,
+        check = check.label,
+        edit = edit.label,
+        more = more.label,
+        add = add.label,
+        onCheckClick = check.onClick,
+        onEditClick = edit.onClick,
+        onMoreClick = more.onClick,
+        onAddClick = add.onClick,
+      )
+  }
 }

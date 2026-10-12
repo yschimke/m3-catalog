@@ -1,0 +1,351 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-wide-navigation-rail",
+  "title": "KitWideNavigationRail",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 360,
+    "heightDp": 800,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-wide-navigation-rail": {
+      "name": "KitWideNavigationRail",
+      "root": "rail"
+    }
+  },
+  "nodes": {
+    "menu-icon": {
+      "id": "menu-icon",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "autoMirrored/filled/menuOpen"
+        },
+        "contentDescription": {
+          "type": "resource",
+          "resourceKey": "action_menu"
+        }
+      },
+      "slots": {}
+    },
+    "menu": {
+      "id": "menu",
+      "componentId": "m3/icon-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "menu-icon"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "fab-gap": {
+      "id": "fab-gap",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 8
+        }
+      ]
+    },
+    "fab-icon": {
+      "id": "fab-icon",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "edit"
+        },
+        "contentDescription": {
+          "type": "resource",
+          "resourceKey": "action_new"
+        }
+      },
+      "slots": {}
+    },
+    "fab-label": {
+      "id": "fab-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "fabLabel"
+        }
+      },
+      "slots": {}
+    },
+    "fab": {
+      "id": "fab",
+      "componentId": "m3catalog/flat-extended-fab",
+      "properties": {},
+      "slots": {
+        "icon": [
+          "fab-icon"
+        ],
+        "text": [
+          "fab-label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "header": {
+      "id": "header",
+      "componentId": "layout/column",
+      "properties": {
+        "horizontalAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "menu",
+          "fab-gap",
+          "fab"
+        ]
+      }
+    },
+    "home-icon": {
+      "id": "home-icon",
+      "componentId": "m3catalog/rail-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "homeSelected"
+        }
+      },
+      "slots": {}
+    },
+    "home-label": {
+      "id": "home-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "homeLabel"
+        }
+      },
+      "slots": {}
+    },
+    "home": {
+      "id": "home",
+      "componentId": "m3/wide-navigation-rail-item",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "homeSelected"
+        },
+        "railExpanded": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      "slots": {
+        "icon": [
+          "home-icon"
+        ],
+        "label": [
+          "home-label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "search-icon": {
+      "id": "search-icon",
+      "componentId": "m3catalog/rail-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "searchSelected"
+        }
+      },
+      "slots": {}
+    },
+    "search-label": {
+      "id": "search-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "searchLabel"
+        }
+      },
+      "slots": {}
+    },
+    "search": {
+      "id": "search",
+      "componentId": "m3/wide-navigation-rail-item",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "searchSelected"
+        },
+        "railExpanded": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      "slots": {
+        "icon": [
+          "search-icon"
+        ],
+        "label": [
+          "search-label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "you-icon": {
+      "id": "you-icon",
+      "componentId": "m3catalog/rail-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "youSelected"
+        }
+      },
+      "slots": {}
+    },
+    "you-label": {
+      "id": "you-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "youLabel"
+        }
+      },
+      "slots": {}
+    },
+    "you": {
+      "id": "you",
+      "componentId": "m3/wide-navigation-rail-item",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "youSelected"
+        },
+        "railExpanded": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      "slots": {
+        "icon": [
+          "you-icon"
+        ],
+        "label": [
+          "you-label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "rail": {
+      "id": "rail",
+      "componentId": "m3/wide-navigation-rail",
+      "properties": {
+        "containerColor": {
+          "type": "color",
+          "value": "#00000000"
+        },
+        "arrangement": {
+          "type": "enum",
+          "value": "top"
+        },
+        "state": {
+          "type": "enum",
+          "value": "expanded"
+        }
+      },
+      "slots": {
+        "header": [
+          "header"
+        ],
+        "content": [
+          "home",
+          "search",
+          "you"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 800
+        }
+      ]
+    },
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-wide-navigation-rail",
+        "arguments": {
+          "fabLabel": {
+            "type": "resource",
+            "resourceKey": "label_text"
+          },
+          "homeSelected": {
+            "type": "bool",
+            "value": true
+          },
+          "homeLabel": {
+            "type": "resource",
+            "resourceKey": "nav_home"
+          },
+          "searchSelected": {
+            "type": "bool",
+            "value": false
+          },
+          "searchLabel": {
+            "type": "resource",
+            "resourceKey": "nav_search"
+          },
+          "youSelected": {
+            "type": "bool",
+            "value": false
+          },
+          "youLabel": {
+            "type": "resource",
+            "resourceKey": "nav_you"
+          },
+          "savedSelected": {
+            "type": "bool",
+            "value": false
+          },
+          "savedLabel": {
+            "type": "resource",
+            "resourceKey": "nav_saved"
+          }
+        }
+      }
+    }
+  }
+}

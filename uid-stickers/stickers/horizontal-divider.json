@@ -1,0 +1,147 @@
+{
+  "variants": {
+    "Plain": [
+      {
+        "type": "deleteNode",
+        "nodeId": "before"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "after"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "subhead"
+      }
+    ],
+    "Subhead": [
+      {
+        "type": "deleteNode",
+        "nodeId": "before"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "after"
+      }
+    ],
+    "Context": [
+      {
+        "type": "deleteNode",
+        "nodeId": "subhead"
+      }
+    ],
+    "Inset plain": [
+      {
+        "type": "deleteNode",
+        "nodeId": "before"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "after"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "subhead"
+      },
+      {
+        "type": "setModifiers",
+        "nodeId": "divider",
+        "modifiers": [
+          {
+            "type": "padding",
+            "startDp": 16,
+            "topDp": 0,
+            "endDp": 0,
+            "bottomDp": 0
+          }
+        ]
+      }
+    ],
+    "Inset subhead": [
+      {
+        "type": "deleteNode",
+        "nodeId": "before"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "after"
+      },
+      {
+        "type": "setModifiers",
+        "nodeId": "divider",
+        "modifiers": [
+          {
+            "type": "padding",
+            "startDp": 16,
+            "topDp": 0,
+            "endDp": 0,
+            "bottomDp": 0
+          }
+        ]
+      },
+      {
+        "type": "setModifiers",
+        "nodeId": "subhead",
+        "modifiers": [
+          {
+            "type": "padding",
+            "startDp": 16,
+            "topDp": 8,
+            "endDp": 0,
+            "bottomDp": 4
+          }
+        ]
+      }
+    ],
+    "Inset context": [
+      {
+        "type": "deleteNode",
+        "nodeId": "subhead"
+      },
+      {
+        "type": "setModifiers",
+        "nodeId": "divider",
+        "modifiers": [
+          {
+            "type": "padding",
+            "startDp": 16,
+            "topDp": 0,
+            "endDp": 0,
+            "bottomDp": 0
+          }
+        ]
+      }
+    ],
+    "Inset context subhead": [
+      {
+        "type": "setModifiers",
+        "nodeId": "divider",
+        "modifiers": [
+          {
+            "type": "padding",
+            "startDp": 16,
+            "topDp": 0,
+            "endDp": 0,
+            "bottomDp": 0
+          }
+        ]
+      },
+      {
+        "type": "setModifiers",
+        "nodeId": "subhead",
+        "modifiers": [
+          {
+            "type": "padding",
+            "startDp": 16,
+            "topDp": 8,
+            "endDp": 0,
+            "bottomDp": 4
+          }
+        ]
+      }
+    ]
+  },
+  "pairs": {
+    "HorizontalDividerSticker": "HorizontalDividerSticker"
+  }
+}

@@ -3,33 +3,22 @@
 
 package ee.schimke.m3catalog.sections
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.ElevatedToggleButton
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedToggleButton
-import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleButton
-import androidx.compose.material3.TonalToggleButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CaptureGutter
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.InteractionPreview
-import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
-import ee.schimke.m3catalog.CatalogOutlinedStars
+import ee.schimke.m3catalog.CatalogShape
 import ee.schimke.m3catalog.CatalogSize
 import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.KitShadowGutter
@@ -39,7 +28,6 @@ import ee.schimke.m3catalog.UnselectedToggleButtonMatrix
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.catalogEnabled
 import ee.schimke.m3catalog.catalogText
-import ee.schimke.m3catalog.catalogToggleButtonShapes
 import ee.schimke.m3catalog.catalogToggleSelected
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.label_elevated
@@ -49,6 +37,47 @@ import ee.schimke.m3catalog.generated.resources.label_on
 import ee.schimke.m3catalog.generated.resources.label_outlined
 import ee.schimke.m3catalog.generated.resources.label_tonal
 import ee.schimke.m3catalog.toggleable
+import generated.uibuilder.KitElevatedToggleButton
+import generated.uibuilder.KitElevatedToggleButtonL
+import generated.uibuilder.KitElevatedToggleButtonLSquare
+import generated.uibuilder.KitElevatedToggleButtonM
+import generated.uibuilder.KitElevatedToggleButtonMSquare
+import generated.uibuilder.KitElevatedToggleButtonSquare
+import generated.uibuilder.KitElevatedToggleButtonXl
+import generated.uibuilder.KitElevatedToggleButtonXlSquare
+import generated.uibuilder.KitElevatedToggleButtonXs
+import generated.uibuilder.KitElevatedToggleButtonXsSquare
+import generated.uibuilder.KitOutlinedToggleButton
+import generated.uibuilder.KitOutlinedToggleButtonL
+import generated.uibuilder.KitOutlinedToggleButtonLSquare
+import generated.uibuilder.KitOutlinedToggleButtonM
+import generated.uibuilder.KitOutlinedToggleButtonMSquare
+import generated.uibuilder.KitOutlinedToggleButtonSquare
+import generated.uibuilder.KitOutlinedToggleButtonXl
+import generated.uibuilder.KitOutlinedToggleButtonXlSquare
+import generated.uibuilder.KitOutlinedToggleButtonXs
+import generated.uibuilder.KitOutlinedToggleButtonXsSquare
+import generated.uibuilder.KitToggleButton
+import generated.uibuilder.KitToggleButtonL
+import generated.uibuilder.KitToggleButtonLSquare
+import generated.uibuilder.KitToggleButtonM
+import generated.uibuilder.KitToggleButtonMSquare
+import generated.uibuilder.KitToggleButtonSquare
+import generated.uibuilder.KitToggleButtonXl
+import generated.uibuilder.KitToggleButtonXlSquare
+import generated.uibuilder.KitToggleButtonXs
+import generated.uibuilder.KitToggleButtonXsSquare
+import generated.uibuilder.KitTonalToggleButton
+import generated.uibuilder.KitTonalToggleButtonL
+import generated.uibuilder.KitTonalToggleButtonLSquare
+import generated.uibuilder.KitTonalToggleButtonM
+import generated.uibuilder.KitTonalToggleButtonMSquare
+import generated.uibuilder.KitTonalToggleButtonSquare
+import generated.uibuilder.KitTonalToggleButtonXl
+import generated.uibuilder.KitTonalToggleButtonXlSquare
+import generated.uibuilder.KitTonalToggleButtonXs
+import generated.uibuilder.KitTonalToggleButtonXsSquare
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
 // A toggle button is a button whose selection persists, so unlike the plain buttons it owns state
@@ -62,31 +91,48 @@ import org.jetbrains.compose.resources.stringResource
 // its sticker was authored in, so no unseeded render moves; the unsuffixed variant names are that
 // authored state, and the `-on` / `-off` ones name the state absolutely.
 
+// --- Content axis, folded under the filled toggle ------------------------------------------------
+// The kit's remaining documented axis: "Can contain an optional leading icon". It also specifies
+// the glyph swap — outlined circle when unselected, filled circle when selected — so this variant
+// reads its own state rather than pinning one icon.
+
+@CatalogVariant(
+  of = "ToggleButton/Filled",
+  props = ["content=label"],
+  caption = "Label only, vs the kit's icon + label default.",
+)
+@CatalogModes
 @Composable
-private fun FigmaToggleButtonContent(selected: Boolean, label: String) {
-  val size = catalogButtonSize()
-  Icon(
-    if (selected) CatalogFilledStars else CatalogOutlinedStars,
-    contentDescription = null,
-    modifier = Modifier.size(size.iconSize),
-  )
-  Spacer(Modifier.width(size.iconSpacing))
-  ProvideTextStyle(size.labelStyle) { Text(label) }
+fun ToggleButtonLabelOnly() = Sticker {
+  var on by toggleable(true)
+  ToggleButton(checked = on, onCheckedChange = { on = it }) {
+    Text(catalogText("label", stringResource(Res.string.label_favourite)))
+  }
 }
 
-/**
- * The cell a toggle button sticker renders in: the size's container height, content centred.
- *
- * Identical for all four emphases, so they publish one basis for their render bounds at every size
- * and the sheet's side-by-side row compares the design rather than the frame. Room for
- * `ToggleButton/Elevated`'s Level 1 shadow is [ee.schimke.composeai.preview.CaptureGutter] on that
- * sticker's preview, not padding in here — the same move `ButtonFrame` makes, and for the same
- * reason (#179; #102 for the crop the gutter fixes).
- */
+// --- Generated sticker bodies, from uid-stickers/ToggleButtons.kt ---
+
+/** The toggle button's live knobs, read in the hand-written sticker's order. */
+private class ToggleButtonKnobs(
+  val on: MutableState<Boolean>,
+  val size: CatalogSize,
+  val enabled: Boolean,
+  val square: Boolean,
+  val label: String,
+) {
+  val toggle: () -> Unit = { on.value = !on.value }
+}
+
 @Composable
-private fun ToggleButtonFrame(size: CatalogSize, content: @Composable () -> Unit) {
-  val height = if (size == CatalogSize.Small) 48.dp else size.containerHeight
-  Box(modifier = Modifier.height(height), contentAlignment = Alignment.Center) { content() }
+private fun toggleButtonKnobs(default: Boolean, off: StringResource): ToggleButtonKnobs {
+  val on = toggleable(catalogToggleSelected(default = default))
+  val size = catalogButtonSize()
+  val enabled = catalogEnabled()
+  val square = CatalogShape.Axis.current() == CatalogShape.Square
+  // The hand-written content reads the size a second time before the label.
+  catalogButtonSize()
+  val label = catalogText("label", stringResource(if (on.value) Res.string.label_on else off))
+  return ToggleButtonKnobs(on, size, enabled, square, label)
 }
 
 @CatalogComponent(
@@ -108,26 +154,94 @@ private fun ToggleButtonFrame(size: CatalogSize, content: @Composable () -> Unit
 @ee.schimke.m3catalog.ToggleButtonStickerExhaustiveKitCells
 @Composable
 fun ToggleButtonSticker() = Sticker {
-  var on by toggleable(catalogToggleSelected(default = true))
-  val size = catalogButtonSize()
-  ToggleButtonFrame(size) {
-    ToggleButton(
-      checked = on,
-      onCheckedChange = { on = it },
-      enabled = catalogEnabled(),
-      shapes = catalogToggleButtonShapes(size),
-      contentPadding = size.contentPadding,
-      modifier = Modifier.height(size.containerHeight),
-    ) {
-      FigmaToggleButtonContent(
-        selected = on,
-        label =
-          catalogText(
-            "label",
-            stringResource(if (on) Res.string.label_on else Res.string.label_filled),
-          ),
-      )
-    }
+  val k = toggleButtonKnobs(default = true, Res.string.label_filled)
+  val m = Modifier
+  when (k.size) {
+    CatalogSize.ExtraSmall ->
+      if (k.square)
+        KitToggleButtonXsSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitToggleButtonXs(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.Small ->
+      if (k.square)
+        KitToggleButtonSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitToggleButton(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.Medium ->
+      if (k.square)
+        KitToggleButtonMSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitToggleButtonM(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.Large ->
+      if (k.square)
+        KitToggleButtonLSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitToggleButtonL(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.ExtraLarge ->
+      if (k.square)
+        KitToggleButtonXlSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitToggleButtonXl(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
   }
 }
 
@@ -142,26 +256,94 @@ fun ToggleButtonSticker() = Sticker {
 @ee.schimke.m3catalog.TonalToggleButtonStickerExhaustiveKitCells
 @Composable
 fun TonalToggleButtonSticker() = Sticker {
-  var on by toggleable(catalogToggleSelected(default = true))
-  val size = catalogButtonSize()
-  ToggleButtonFrame(size) {
-    TonalToggleButton(
-      checked = on,
-      onCheckedChange = { on = it },
-      enabled = catalogEnabled(),
-      shapes = catalogToggleButtonShapes(size),
-      contentPadding = size.contentPadding,
-      modifier = Modifier.height(size.containerHeight),
-    ) {
-      FigmaToggleButtonContent(
-        selected = on,
-        label =
-          catalogText(
-            "label",
-            stringResource(if (on) Res.string.label_on else Res.string.label_tonal),
-          ),
-      )
-    }
+  val k = toggleButtonKnobs(default = true, Res.string.label_tonal)
+  val m = Modifier
+  when (k.size) {
+    CatalogSize.ExtraSmall ->
+      if (k.square)
+        KitTonalToggleButtonXsSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitTonalToggleButtonXs(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.Small ->
+      if (k.square)
+        KitTonalToggleButtonSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitTonalToggleButton(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.Medium ->
+      if (k.square)
+        KitTonalToggleButtonMSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitTonalToggleButtonM(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.Large ->
+      if (k.square)
+        KitTonalToggleButtonLSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitTonalToggleButtonL(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.ExtraLarge ->
+      if (k.square)
+        KitTonalToggleButtonXlSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitTonalToggleButtonXl(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
   }
 }
 
@@ -181,26 +363,94 @@ fun TonalToggleButtonSticker() = Sticker {
 @ee.schimke.m3catalog.OutlinedToggleButtonStickerExhaustiveKitCells
 @Composable
 fun OutlinedToggleButtonSticker() = Sticker {
-  var on by toggleable(catalogToggleSelected(default = false))
-  val size = catalogButtonSize()
-  ToggleButtonFrame(size) {
-    OutlinedToggleButton(
-      checked = on,
-      onCheckedChange = { on = it },
-      enabled = catalogEnabled(),
-      shapes = catalogToggleButtonShapes(size),
-      contentPadding = size.contentPadding,
-      modifier = Modifier.height(size.containerHeight),
-    ) {
-      FigmaToggleButtonContent(
-        selected = on,
-        label =
-          catalogText(
-            "label",
-            stringResource(if (on) Res.string.label_on else Res.string.label_outlined),
-          ),
-      )
-    }
+  val k = toggleButtonKnobs(default = false, Res.string.label_outlined)
+  val m = Modifier
+  when (k.size) {
+    CatalogSize.ExtraSmall ->
+      if (k.square)
+        KitOutlinedToggleButtonXsSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitOutlinedToggleButtonXs(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.Small ->
+      if (k.square)
+        KitOutlinedToggleButtonSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitOutlinedToggleButton(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.Medium ->
+      if (k.square)
+        KitOutlinedToggleButtonMSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitOutlinedToggleButtonM(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.Large ->
+      if (k.square)
+        KitOutlinedToggleButtonLSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitOutlinedToggleButtonL(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.ExtraLarge ->
+      if (k.square)
+        KitOutlinedToggleButtonXlSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitOutlinedToggleButtonXl(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
   }
 }
 
@@ -216,44 +466,93 @@ fun OutlinedToggleButtonSticker() = Sticker {
 @ee.schimke.m3catalog.ElevatedToggleButtonStickerExhaustiveKitCells
 @Composable
 fun ElevatedToggleButtonSticker() = Sticker {
-  var on by toggleable(catalogToggleSelected(default = false))
-  val size = catalogButtonSize()
-  ToggleButtonFrame(size) {
-    ElevatedToggleButton(
-      checked = on,
-      onCheckedChange = { on = it },
-      enabled = catalogEnabled(),
-      shapes = catalogToggleButtonShapes(size),
-      contentPadding = size.contentPadding,
-      modifier = Modifier.height(size.containerHeight),
-    ) {
-      FigmaToggleButtonContent(
-        selected = on,
-        label =
-          catalogText(
-            "label",
-            stringResource(if (on) Res.string.label_on else Res.string.label_elevated),
-          ),
-      )
-    }
-  }
-}
-
-// --- Content axis, folded under the filled toggle ------------------------------------------------
-// The kit's remaining documented axis: "Can contain an optional leading icon". It also specifies
-// the glyph swap — outlined circle when unselected, filled circle when selected — so this variant
-// reads its own state rather than pinning one icon.
-
-@CatalogVariant(
-  of = "ToggleButton/Filled",
-  props = ["content=label"],
-  caption = "Label only, vs the kit's icon + label default.",
-)
-@CatalogModes
-@Composable
-fun ToggleButtonLabelOnly() = Sticker {
-  var on by toggleable(true)
-  ToggleButton(checked = on, onCheckedChange = { on = it }) {
-    Text(catalogText("label", stringResource(Res.string.label_favourite)))
+  val k = toggleButtonKnobs(default = false, Res.string.label_elevated)
+  val m = Modifier
+  when (k.size) {
+    CatalogSize.ExtraSmall ->
+      if (k.square)
+        KitElevatedToggleButtonXsSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitElevatedToggleButtonXs(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.Small ->
+      if (k.square)
+        KitElevatedToggleButtonSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitElevatedToggleButton(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.Medium ->
+      if (k.square)
+        KitElevatedToggleButtonMSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitElevatedToggleButtonM(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.Large ->
+      if (k.square)
+        KitElevatedToggleButtonLSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitElevatedToggleButtonL(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+    CatalogSize.ExtraLarge ->
+      if (k.square)
+        KitElevatedToggleButtonXlSquare(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
+      else
+        KitElevatedToggleButtonXl(
+          m,
+          checked = k.on.value,
+          enabled = k.enabled,
+          label = k.label,
+          onToggleCheckedChange = k.toggle,
+        )
   }
 }

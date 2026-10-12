@@ -1,0 +1,83 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-linear-progress",
+  "title": "Kit linear progress",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 405,
+    "heightDp": 12,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-linear-progress": {
+      "name": "KitLinearProgress",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-linear-progress",
+        "arguments": {
+          "progress": {
+            "type": "float",
+            "value": 0.5
+          }
+        }
+      }
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/box",
+      "properties": {
+        "contentAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "indicator"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 405,
+          "heightDp": 12
+        }
+      ]
+    },
+    "indicator": {
+      "id": "indicator",
+      "componentId": "m3/linear-progress-indicator",
+      "properties": {
+        "progress": {
+          "type": "binding",
+          "value": "progress"
+        }
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        }
+      ],
+      "slots": {}
+    }
+  }
+}

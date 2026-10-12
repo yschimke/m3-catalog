@@ -1,0 +1,74 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "fab",
+  "title": "KitFab",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 96,
+    "heightDp": 96,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "fab": {
+      "name": "KitFab",
+      "root": "fab"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "fab",
+        "arguments": {
+          "label": {
+            "type": "resource",
+            "resourceKey": "label_text"
+          }
+        }
+      }
+    },
+    "icon": {
+      "id": "icon",
+      "componentId": "m3catalog/described-stars-icon",
+      "properties": {
+        "contentDescription": {
+          "type": "binding",
+          "value": "label"
+        }
+      },
+      "slots": {}
+    },
+    "fab": {
+      "id": "fab",
+      "componentId": "m3/floating-action-button",
+      "properties": {
+        "containerColor": {
+          "type": "colorToken",
+          "value": "primaryContainer"
+        }
+      },
+      "slots": {
+        "content": [
+          "icon"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    }
+  }
+}

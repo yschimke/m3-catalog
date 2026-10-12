@@ -4,16 +4,12 @@
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -30,6 +26,16 @@ import ee.schimke.m3catalog.MaterialShapeRecipes
 import ee.schimke.m3catalog.ShapeTweaks
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
+import generated.uibuilder.KitCornerScale
+import generated.uibuilder.KitCornerScaleExtraExtraLarge
+import generated.uibuilder.KitCornerScaleExtraLarge
+import generated.uibuilder.KitCornerScaleExtraLargeIncreased
+import generated.uibuilder.KitCornerScaleExtraSmall
+import generated.uibuilder.KitCornerScaleFull
+import generated.uibuilder.KitCornerScaleLarge
+import generated.uibuilder.KitCornerScaleLargeIncreased
+import generated.uibuilder.KitCornerScaleMedium
+import generated.uibuilder.KitCornerScaleSmall
 
 // The kit's `Shape` page is a specimen sheet, not a component sheet: 35 named shapes drawn as
 // filled silhouettes, plus the corner-radius scale above them. Compose ships the same set as
@@ -73,26 +79,6 @@ import ee.schimke.m3catalog.catalogChoice
 // builder for that shape, transcribed with the corner radii, smoothing, repeat count and star inner
 // radius left adjustable. `MaterialShapeRecipeTest` asserts the two agree cubic-for-cubic at the
 // defaults, so the switch changes what you can change, never what you see by default.
-
-@CatalogComponent(
-  id = "Shape/Corner scale",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7181",
-  caption = "The Material corner scale, with each of its ten radius tokens folded in as a variant.",
-)
-@CatalogModes
-@CornerScaleMatrix
-@Composable
-fun CornerScaleSticker() = Sticker {
-  val token = CornerScaleToken.Axis.current()
-  Column(
-    modifier = Modifier.size(width = 220.dp, height = 176.dp),
-    verticalArrangement = Arrangement.spacedBy(12.dp),
-    horizontalAlignment = Alignment.CenterHorizontally,
-  ) {
-    Box(Modifier.size(136.dp).clip(token.shape).background(MaterialTheme.colorScheme.primary))
-    Text(token.label, style = MaterialTheme.typography.labelLarge)
-  }
-}
 
 @Composable
 private fun ShapeSticker(recipe: MaterialShapeRecipe) = Sticker {
@@ -223,3 +209,31 @@ private fun catalogShape(): MaterialShapeRecipe {
 @OverrideVariant(name = "sunny-count-12", strings = ["shape=sunny"], ints = ["count=12"])
 @Composable
 fun MaterialShapesSticker() = ShapeSticker(catalogShape())
+
+// --- Generated sticker bodies, from uid-stickers/Shapes.kt ---
+
+@CatalogComponent(
+  id = "Shape/Corner scale",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58548:7181",
+  caption = "The Material corner scale, with each of its ten radius tokens folded in as a variant.",
+)
+@CatalogModes
+@CornerScaleMatrix
+@Composable
+fun CornerScaleSticker() = Sticker {
+  val token = CornerScaleToken.Axis.current()
+  val label = token.label
+  when (token) {
+    CornerScaleToken.None -> KitCornerScale(Modifier, label = label)
+    CornerScaleToken.ExtraSmall -> KitCornerScaleExtraSmall(Modifier, label = label)
+    CornerScaleToken.Small -> KitCornerScaleSmall(Modifier, label = label)
+    CornerScaleToken.Medium -> KitCornerScaleMedium(Modifier, label = label)
+    CornerScaleToken.Large -> KitCornerScaleLarge(Modifier, label = label)
+    CornerScaleToken.LargeIncreased -> KitCornerScaleLargeIncreased(Modifier, label = label)
+    CornerScaleToken.ExtraLarge -> KitCornerScaleExtraLarge(Modifier, label = label)
+    CornerScaleToken.ExtraLargeIncreased ->
+      KitCornerScaleExtraLargeIncreased(Modifier, label = label)
+    CornerScaleToken.ExtraExtraLarge -> KitCornerScaleExtraExtraLarge(Modifier, label = label)
+    CornerScaleToken.Full -> KitCornerScaleFull(Modifier, label = label)
+  }
+}

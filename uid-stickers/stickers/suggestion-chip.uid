@@ -19,17 +19,48 @@
     "layoutDirection": "ltr"
   },
   "roots": [
-    "chip"
+    "place"
   ],
+  "components": {
+    "kit-suggestion-chip": {
+      "name": "KitSuggestionChip",
+      "root": "chip"
+    }
+  },
   "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-suggestion-chip",
+        "arguments": {
+          "label": {
+            "type": "resource",
+            "resourceKey": "chip_sounds_good"
+          },
+          "enabled": {
+            "type": "bool",
+            "value": true
+          }
+        }
+      }
+    },
     "chip": {
       "id": "chip",
-      "componentId": "androidx.compose.material3.ChipKt.SuggestionChip",
-      "properties": {},
+      "componentId": "m3/suggestion-chip",
+      "properties": {
+        "enabled": {
+          "type": "binding",
+          "value": "enabled"
+        }
+      },
       "slots": {
         "label": [
           "label"
         ]
+      },
+      "eventBindings": {
+        "click": []
       }
     },
     "label": {
@@ -37,8 +68,8 @@
       "componentId": "m3/text",
       "properties": {
         "text": {
-          "type": "string",
-          "value": "Label"
+          "type": "binding",
+          "value": "label"
         }
       },
       "slots": {}

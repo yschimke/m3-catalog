@@ -168,9 +168,10 @@ class CatalogTranslationsTest {
 
   @Test
   fun everyKeyIsUsedBySomeSticker() {
+    // The generated stickers' components (`src/uid/kotlin`) read copy too.
     val sources =
-      File("src/main/kotlin")
-        .walkTopDown()
+      sequenceOf(File("src/main/kotlin"), File("src/uid/kotlin"))
+        .flatMap { it.walkTopDown() }
         .filter { it.name.endsWith(".kt") }
         .joinToString("\n") { it.readText() }
     val unused = defaults.keys.filterNot { sources.contains("Res.string.$it") }.sorted()
@@ -184,11 +185,23 @@ class CatalogTranslationsTest {
    */
   private val visibleLiteralAllowed =
     mapOf(
-      "Cards.kt" to setOf("A"),
-      "Dialogs.kt" to setOf("A"),
+      // The generated components of the cut-over Card and List dialog stickers draw the monogram.
+      "KitCard.kt" to setOf("A"),
+      "KitCardElevated.kt" to setOf("A"),
+      "KitCardOutlined.kt" to setOf("A"),
+      "KitListDialog.kt" to setOf("A"),
+      "KitListDialogIcon.kt" to setOf("A"),
+      "KitListFrame.kt" to setOf("⌘C"),
       "Lists.kt" to setOf("⌘C"),
       "Menus.kt" to setOf("⌘C"),
     )
+
+  /**
+   * The colour-role sheet names each swatch by its token (`primary`, `onPrimaryContainer`): code
+   * identifiers, the same in every locale, which the generated grid writes as literals.
+   */
+  private fun isRoleToken(file: String, value: String) =
+    file == "KitColorRoleGrid.kt" && Regex("[a-z][A-Za-z]*").matches(value)
 
   private val visibleLiteralPattern =
     Regex(
@@ -197,14 +210,15 @@ class CatalogTranslationsTest {
 
   @Test
   fun visibleLiteralsAreDeliberate() {
-    val sections = File("src/main/kotlin/ee/schimke/m3catalog/sections")
+    // The generated components the cut-over stickers call render copy as well.
     val found =
-      sections
-        .walkTopDown()
+      sequenceOf(File("src/main/kotlin/ee/schimke/m3catalog/sections"), File("src/uid/kotlin"))
+        .flatMap { it.walkTopDown() }
         .filter { it.extension == "kt" }
         .flatMap { file ->
           visibleLiteralPattern.findAll(file.readText()).map { file.name to it.groupValues[1] }
         }
+        .filterNot { (file, value) -> isRoleToken(file, value) }
         .toSet()
     val allowed =
       visibleLiteralAllowed.flatMap { (file, values) -> values.map { file to it } }.toSet()

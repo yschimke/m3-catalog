@@ -1,0 +1,146 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "horizontal-divider",
+  "title": "Kit horizontal divider",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 280,
+    "heightDp": 120,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-horizontal-divider": {
+      "name": "KitHorizontalDivider",
+      "root": "column"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-horizontal-divider",
+        "arguments": {
+          "beforeText": {
+            "type": "resource",
+            "resourceKey": "divider_above"
+          },
+          "subhead": {
+            "type": "resource",
+            "resourceKey": "divider_section"
+          },
+          "afterText": {
+            "type": "resource",
+            "resourceKey": "divider_below"
+          }
+        }
+      }
+    },
+    "column": {
+      "id": "column",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "before",
+          "subhead",
+          "divider",
+          "after"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 280
+        }
+      ]
+    },
+    "before": {
+      "id": "before",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "beforeText"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "padding",
+          "startDp": 0,
+          "topDp": 8,
+          "endDp": 0,
+          "bottomDp": 8
+        }
+      ]
+    },
+    "subhead": {
+      "id": "subhead",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "subhead"
+        },
+        "style": {
+          "type": "enum",
+          "value": "titleSmall"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "primary"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "padding",
+          "startDp": 0,
+          "topDp": 8,
+          "endDp": 0,
+          "bottomDp": 4
+        }
+      ]
+    },
+    "divider": {
+      "id": "divider",
+      "componentId": "m3/horizontal-divider",
+      "properties": {},
+      "slots": {}
+    },
+    "after": {
+      "id": "after",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "afterText"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "padding",
+          "startDp": 0,
+          "topDp": 8,
+          "endDp": 0,
+          "bottomDp": 8
+        }
+      ]
+    }
+  }
+}

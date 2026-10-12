@@ -1,0 +1,929 @@
+{
+  "variants": {
+    "One": [
+      {
+        "type": "deleteNode",
+        "nodeId": "supporting"
+      }
+    ],
+    "One Text": [
+      {
+        "type": "deleteNode",
+        "nodeId": "supporting"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "trailing-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "trailingText"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "One Icon": [
+      {
+        "type": "deleteNode",
+        "nodeId": "supporting"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/moreVert"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_more"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "One Checkbox": [
+      {
+        "type": "deleteNode",
+        "nodeId": "supporting"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "toggle",
+          "componentId": "m3/checkbox",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "toggleChecked"
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "checkedChange": []
+          }
+        }
+      }
+    ],
+    "One Switch": [
+      {
+        "type": "deleteNode",
+        "nodeId": "supporting"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "toggle",
+          "componentId": "m3/switch",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "toggleChecked"
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "checkedChange": []
+          }
+        }
+      }
+    ],
+    "One No leading": [
+      {
+        "type": "deleteNode",
+        "nodeId": "supporting"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      }
+    ],
+    "One No leading Text": [
+      {
+        "type": "deleteNode",
+        "nodeId": "supporting"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "trailing-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "trailingText"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "One No leading Icon": [
+      {
+        "type": "deleteNode",
+        "nodeId": "supporting"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/moreVert"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_more"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "One No leading Checkbox": [
+      {
+        "type": "deleteNode",
+        "nodeId": "supporting"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "toggle",
+          "componentId": "m3/checkbox",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "toggleChecked"
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "checkedChange": []
+          }
+        }
+      }
+    ],
+    "One No leading Switch": [
+      {
+        "type": "deleteNode",
+        "nodeId": "supporting"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "toggle",
+          "componentId": "m3/switch",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "toggleChecked"
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "checkedChange": []
+          }
+        }
+      }
+    ],
+    "Text": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "trailing-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "trailingText"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Icon": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/moreVert"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_more"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Checkbox": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "toggle",
+          "componentId": "m3/checkbox",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "toggleChecked"
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "checkedChange": []
+          }
+        }
+      }
+    ],
+    "Switch": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "toggle",
+          "componentId": "m3/switch",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "toggleChecked"
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "checkedChange": []
+          }
+        }
+      }
+    ],
+    "No leading": [
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      }
+    ],
+    "No leading Text": [
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "trailing-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "trailingText"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "No leading Icon": [
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/moreVert"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_more"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "No leading Checkbox": [
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "toggle",
+          "componentId": "m3/checkbox",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "toggleChecked"
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "checkedChange": []
+          }
+        }
+      }
+    ],
+    "No leading Switch": [
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "toggle",
+          "componentId": "m3/switch",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "toggleChecked"
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "checkedChange": []
+          }
+        }
+      }
+    ],
+    "Three": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "supporting",
+        "node": {
+          "id": "supporting2",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText2"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "overlineContent",
+        "node": {
+          "id": "overline",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "overline"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Three Text": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "supporting",
+        "node": {
+          "id": "supporting2",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText2"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "overlineContent",
+        "node": {
+          "id": "overline",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "overline"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "trailing-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "trailingText"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Three Icon": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "supporting",
+        "node": {
+          "id": "supporting2",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText2"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "overlineContent",
+        "node": {
+          "id": "overline",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "overline"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/moreVert"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_more"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Three Checkbox": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "supporting",
+        "node": {
+          "id": "supporting2",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText2"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "overlineContent",
+        "node": {
+          "id": "overline",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "overline"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "toggle",
+          "componentId": "m3/checkbox",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "toggleChecked"
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "checkedChange": []
+          }
+        }
+      }
+    ],
+    "Three Switch": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "supporting",
+        "node": {
+          "id": "supporting2",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText2"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "overlineContent",
+        "node": {
+          "id": "overline",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "overline"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "toggle",
+          "componentId": "m3/switch",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "toggleChecked"
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "checkedChange": []
+          }
+        }
+      }
+    ],
+    "Three No leading": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "supporting",
+        "node": {
+          "id": "supporting2",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText2"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "overlineContent",
+        "node": {
+          "id": "overline",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "overline"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      }
+    ],
+    "Three No leading Text": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "supporting",
+        "node": {
+          "id": "supporting2",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText2"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "overlineContent",
+        "node": {
+          "id": "overline",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "overline"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "trailing-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "trailingText"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Three No leading Icon": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "supporting",
+        "node": {
+          "id": "supporting2",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText2"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "overlineContent",
+        "node": {
+          "id": "overline",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "overline"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/moreVert"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_more"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Three No leading Checkbox": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "supporting",
+        "node": {
+          "id": "supporting2",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText2"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "overlineContent",
+        "node": {
+          "id": "overline",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "overline"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "toggle",
+          "componentId": "m3/checkbox",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "toggleChecked"
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "checkedChange": []
+          }
+        }
+      }
+    ],
+    "Three No leading Switch": [
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "supporting",
+        "node": {
+          "id": "supporting2",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText2"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "overlineContent",
+        "node": {
+          "id": "overline",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "overline"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "leading"
+      },
+      {
+        "type": "addNode",
+        "parentId": "item",
+        "slot": "trailing",
+        "node": {
+          "id": "toggle",
+          "componentId": "m3/switch",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "toggleChecked"
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "checkedChange": []
+          }
+        }
+      }
+    ]
+  },
+  "pairs": {
+    "ListItemSticker": "ListItemSticker"
+  }
+}

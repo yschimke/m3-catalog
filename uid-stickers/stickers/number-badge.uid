@@ -1,0 +1,66 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "number-badge",
+  "title": "Kit number badge",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 40,
+    "heightDp": 24,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-number-badge": {
+      "name": "KitNumberBadge",
+      "root": "badge"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-number-badge",
+        "arguments": {
+          "label": {
+            "type": "string",
+            "value": "3"
+          }
+        }
+      }
+    },
+    "badge": {
+      "id": "badge",
+      "componentId": "m3/badge",
+      "properties": {},
+      "slots": {
+        "content": [
+          "count"
+        ]
+      }
+    },
+    "count": {
+      "id": "count",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label"
+        }
+      },
+      "slots": {}
+    }
+  }
+}

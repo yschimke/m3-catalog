@@ -1,0 +1,82 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-filled-text-field",
+  "title": "Kit filled text field",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 210,
+    "heightDp": 96,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-filled-text-field": {
+      "name": "KitFilledTextField",
+      "root": "field"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-filled-text-field",
+        "arguments": {
+          "value": {
+            "type": "resource",
+            "resourceKey": "field_placeholder"
+          },
+          "enabled": {
+            "type": "bool",
+            "value": true
+          },
+          "labelText": {
+            "type": "resource",
+            "resourceKey": "field_name"
+          },
+          "placeholder": {
+            "type": "resource",
+            "resourceKey": "field_placeholder"
+          },
+          "supportingText": {
+            "type": "resource",
+            "resourceKey": "field_supporting"
+          }
+        }
+      }
+    },
+    "field": {
+      "id": "field",
+      "componentId": "m3/text-field",
+      "properties": {
+        "value": {
+          "type": "binding",
+          "value": "value"
+        },
+        "enabled": {
+          "type": "binding",
+          "value": "enabled"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 210
+        }
+      ]
+    }
+  }
+}
