@@ -49,10 +49,11 @@ private fun normalizedScope(
           property.name in setOf("contentDescription", "actionLabel") -> JsonPrimitive("")
         else -> raw
       }
+    // The codec unwraps its own literal spelling (`bool`, `int`, `number`, `string`), which
+    // differs from the JSON Schema type for booleans and integers; a state wrapper stays as it is.
+    val written = if (canonical == expected) property.codec.literalType else canonical
     properties[property.name] =
-      JsonObject(
-        wrapper + mapOf("type" to JsonPrimitive(canonical), "value" to (value ?: JsonNull))
-      )
+      JsonObject(wrapper + mapOf("type" to JsonPrimitive(written), "value" to (value ?: JsonNull)))
   }
   return CanvasNodeScope(
     node = scope.node.copy(properties = JsonObject(properties)),

@@ -57,6 +57,9 @@ providers.gradleProperty("composeUiBuilderDir").orNull?.let { path ->
         .using(project(":ui-builder-renderer-sdk"))
       substitute(module("ee.schimke.composeai:ui-builder-runtime-source"))
         .using(project(":ui-builder-runtime"))
+      // The builder's own export, which the typed pilot's export test runs every design through.
+      substitute(module("ee.schimke.composeai:ui-builder-export-source"))
+        .using(project(":ui-builder-export"))
     }
   }
 }

@@ -23,13 +23,14 @@ class PublishedM3CatalogTest {
         ComponentRecordFile.serializer(),
         Files.readString(directory.resolve("components.json")),
       )
-    assertEquals(33, records.components.size)
+    // The 33 typed wrappers, and the 7 real Material 3 records their projections export to.
+    assertEquals(40, records.components.size)
     val published =
       Json.decodeFromString(
         UiBuilderCatalogFile.serializer(),
         Files.readString(directory.resolve("ui-builder.json")),
       )
-    for (record in records.components) {
+    for (record in records.components.filter { it.symbol.jvmOwner.startsWith("ee.schimke.") }) {
       assertNull(
         javaClass.classLoader.getResource(record.symbol.jvmOwner.replace('.', '/') + ".class")
       )

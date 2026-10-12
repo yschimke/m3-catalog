@@ -58,17 +58,20 @@ fun main(args: Array<String>) {
   }
   val output = Path.of(args[0])
   val sources = Path.of(args[1])
-  val typed = TypedM3Catalog(discoverTypedM3Controls())
+  val typed = TypedM3Catalog(discoverTypedM3Controls(), RealM3Records.publication())
   val pair = typed.generate()
   // Both directories belong exclusively to this task. The writer publishes the pair atomically.
   output.toFile().deleteRecursively()
   pair.writeTo(output)
   val exportSources = output.resolve("generated-source")
   Files.createDirectories(exportSources)
+  // The typed entry points only: the published record also carries the real records the
+  // definitions export through, which are the library's own API rather than the wrappers'.
+  val wrappers = pair.portable.record
   val exportRecord =
-    pair.record
+    wrappers
       .newBuilder()
-      .apply { components = pair.record.components + typed.builtinAdapters.map { it.component } }
+      .apply { components = wrappers.components + typed.builtinAdapters.map { it.component } }
       .build()
   val textRecord = typed.text.component.canonicalId
   for (component in exportRecord.components) {
@@ -125,7 +128,7 @@ fun main(args: Array<String>) {
     }
   }
   for (component in
-    pair.record.components.filter { it.builder?.stateCallbacks?.isNotEmpty() == true }) {
+    wrappers.components.filter { it.builder?.stateCallbacks?.isNotEmpty() == true }) {
     val binding = component.builder!!.stateCallbacks.single()
     val property = binding.value.substringBefore(':')
     val parameter = component.parameters.single { it.name == property }
@@ -226,6 +229,11 @@ fun main(args: Array<String>) {
     )
     put("policyEquivalenceTask", ":catalog-typed-policy:test")
     put("typedComponents", JsonArray(covered.sorted().map(::JsonPrimitive)))
+    put(
+      "exportProjections",
+      JsonArray(typed.real?.adapters.orEmpty().map { it.id }.sorted().map(::JsonPrimitive)),
+    )
+    put("composeSourceExport", pair.catalog.statusSemantics.composeSourceExport?.adapter)
     put("remainingComponents", JsonArray(remaining.sorted().map(::JsonPrimitive)))
     put("remainingBuiltins", JsonArray(remainingBuiltins.sorted().map(::JsonPrimitive)))
     put(

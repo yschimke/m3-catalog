@@ -1,5 +1,6 @@
 package ee.schimke.m3catalog.typed
 
+import ee.schimke.composeai.discovery.ComponentRecordFile
 import ee.schimke.composeai.discovery.UiBuilderCatalogFile
 import ee.schimke.composeai.discovery.writeTo
 import java.nio.file.Files
@@ -18,6 +19,11 @@ fun M3CatalogOutput.writeTo(directory: Path) {
       prettyPrint = true
       encodeDefaults = true
     }
+    // The published record also carries the real records the projections export to.
+    Files.writeString(
+      pair.resolve("components.json"),
+      json.encodeToString(ComponentRecordFile.serializer(), record),
+    )
     Files.writeString(
       pair.resolve("ui-builder.json"),
       json.encodeToString(UiBuilderCatalogFile.serializer(), catalog),
