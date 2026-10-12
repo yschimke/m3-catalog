@@ -166,6 +166,9 @@ jobs:
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@47d35868e9d6ed8577da2625ea9b648448aa35f3
     with:
       system: m3-catalog
+      # Only main publishes. A dispatch from a branch (e.g. to trial a new reusable-workflow pin)
+      # renders, merges and validates the lane, then stops short of the delivery branch.
+      publish: ${{ github.ref == 'refs/heads/main' }}
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
       scope-mapper: scripts/scope-systems.sh
       scope-only: ${{ inputs.systems }}
@@ -345,6 +348,9 @@ jobs:
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@47d35868e9d6ed8577da2625ea9b648448aa35f3
     with:
       system: m3-samples
+      # Only main publishes. A dispatch from a branch (e.g. to trial a new reusable-workflow pin)
+      # renders, merges and validates the lane, then stops short of the delivery branch.
+      publish: ${{ github.ref == 'refs/heads/main' }}
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
       scope-mapper: scripts/scope-systems.sh
       scope-only: ${{ inputs.systems }}
@@ -438,6 +444,9 @@ jobs:
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@47d35868e9d6ed8577da2625ea9b648448aa35f3
     with:
       system: compose-ui-samples
+      # Only main publishes. A dispatch from a branch (e.g. to trial a new reusable-workflow pin)
+      # renders, merges and validates the lane, then stops short of the delivery branch.
+      publish: ${{ github.ref == 'refs/heads/main' }}
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
       scope-mapper: scripts/scope-systems.sh
       scope-only: ${{ inputs.systems }}
@@ -496,6 +505,9 @@ jobs:
     uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@47d35868e9d6ed8577da2625ea9b648448aa35f3
     with:
       system: compose-foundation
+      # Only main publishes. A dispatch from a branch (e.g. to trial a new reusable-workflow pin)
+      # renders, merges and validates the lane, then stops short of the delivery branch.
+      publish: ${{ github.ref == 'refs/heads/main' }}
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
       scope-mapper: scripts/scope-systems.sh
       scope-only: ${{ inputs.systems }}
