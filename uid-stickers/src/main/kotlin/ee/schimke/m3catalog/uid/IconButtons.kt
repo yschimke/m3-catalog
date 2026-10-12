@@ -14,6 +14,7 @@ import ee.schimke.m3catalog.CatalogIconWidth
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogShape
 import ee.schimke.m3catalog.CatalogSize
+import ee.schimke.m3catalog.ContainerlessInteractionStates
 import ee.schimke.m3catalog.IconButtonMatrix
 import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.Sticker
@@ -51,6 +52,66 @@ import generated.uibuilder.KitFilledIconButtonXsUniform
 import generated.uibuilder.KitFilledIconButtonXsUniformSquare
 import generated.uibuilder.KitFilledIconButtonXsWide
 import generated.uibuilder.KitFilledIconButtonXsWideSquare
+import generated.uibuilder.KitOutlinedIconButton
+import generated.uibuilder.KitOutlinedIconButtonLNarrow
+import generated.uibuilder.KitOutlinedIconButtonLNarrowSquare
+import generated.uibuilder.KitOutlinedIconButtonLUniform
+import generated.uibuilder.KitOutlinedIconButtonLUniformSquare
+import generated.uibuilder.KitOutlinedIconButtonLWide
+import generated.uibuilder.KitOutlinedIconButtonLWideSquare
+import generated.uibuilder.KitOutlinedIconButtonMNarrow
+import generated.uibuilder.KitOutlinedIconButtonMNarrowSquare
+import generated.uibuilder.KitOutlinedIconButtonMUniform
+import generated.uibuilder.KitOutlinedIconButtonMUniformSquare
+import generated.uibuilder.KitOutlinedIconButtonMWide
+import generated.uibuilder.KitOutlinedIconButtonMWideSquare
+import generated.uibuilder.KitOutlinedIconButtonSNarrow
+import generated.uibuilder.KitOutlinedIconButtonSNarrowSquare
+import generated.uibuilder.KitOutlinedIconButtonSUniformSquare
+import generated.uibuilder.KitOutlinedIconButtonSWide
+import generated.uibuilder.KitOutlinedIconButtonSWideSquare
+import generated.uibuilder.KitOutlinedIconButtonXlNarrow
+import generated.uibuilder.KitOutlinedIconButtonXlNarrowSquare
+import generated.uibuilder.KitOutlinedIconButtonXlUniform
+import generated.uibuilder.KitOutlinedIconButtonXlUniformSquare
+import generated.uibuilder.KitOutlinedIconButtonXlWide
+import generated.uibuilder.KitOutlinedIconButtonXlWideSquare
+import generated.uibuilder.KitOutlinedIconButtonXsNarrow
+import generated.uibuilder.KitOutlinedIconButtonXsNarrowSquare
+import generated.uibuilder.KitOutlinedIconButtonXsUniform
+import generated.uibuilder.KitOutlinedIconButtonXsUniformSquare
+import generated.uibuilder.KitOutlinedIconButtonXsWide
+import generated.uibuilder.KitOutlinedIconButtonXsWideSquare
+import generated.uibuilder.KitStandardIconButton
+import generated.uibuilder.KitStandardIconButtonLNarrow
+import generated.uibuilder.KitStandardIconButtonLNarrowSquare
+import generated.uibuilder.KitStandardIconButtonLUniform
+import generated.uibuilder.KitStandardIconButtonLUniformSquare
+import generated.uibuilder.KitStandardIconButtonLWide
+import generated.uibuilder.KitStandardIconButtonLWideSquare
+import generated.uibuilder.KitStandardIconButtonMNarrow
+import generated.uibuilder.KitStandardIconButtonMNarrowSquare
+import generated.uibuilder.KitStandardIconButtonMUniform
+import generated.uibuilder.KitStandardIconButtonMUniformSquare
+import generated.uibuilder.KitStandardIconButtonMWide
+import generated.uibuilder.KitStandardIconButtonMWideSquare
+import generated.uibuilder.KitStandardIconButtonSNarrow
+import generated.uibuilder.KitStandardIconButtonSNarrowSquare
+import generated.uibuilder.KitStandardIconButtonSUniformSquare
+import generated.uibuilder.KitStandardIconButtonSWide
+import generated.uibuilder.KitStandardIconButtonSWideSquare
+import generated.uibuilder.KitStandardIconButtonXlNarrow
+import generated.uibuilder.KitStandardIconButtonXlNarrowSquare
+import generated.uibuilder.KitStandardIconButtonXlUniform
+import generated.uibuilder.KitStandardIconButtonXlUniformSquare
+import generated.uibuilder.KitStandardIconButtonXlWide
+import generated.uibuilder.KitStandardIconButtonXlWideSquare
+import generated.uibuilder.KitStandardIconButtonXsNarrow
+import generated.uibuilder.KitStandardIconButtonXsNarrowSquare
+import generated.uibuilder.KitStandardIconButtonXsUniform
+import generated.uibuilder.KitStandardIconButtonXsUniformSquare
+import generated.uibuilder.KitStandardIconButtonXsWide
+import generated.uibuilder.KitStandardIconButtonXsWideSquare
 import generated.uibuilder.KitTonalIconButton
 import generated.uibuilder.KitTonalIconButtonLNarrow
 import generated.uibuilder.KitTonalIconButtonLNarrowSquare
@@ -91,9 +152,11 @@ import generated.uibuilder.KitTonalIconButtonXsWideSquare
 // and S, `large` for M, `extraLarge` for L and XL). The click toggles `on`, as the hand-written
 // sticker's does.
 //
-// `IconButton/Standard` and `IconButton/Outlined` are not here: their hand-written stickers pass
-// `IconButtonColors` (and the outlined one a `BorderStroke`), which the exporter cannot spell
-// (`IconButton has no parameter contentColor`). As with the buttons, the Material 3 Expressive
+// `stickers/standard-icon-button.uid` and `stickers/outlined-icon-button.uid` are the same frame
+// around `m3/icon-button` and `m3/outlined-icon-button`, with the hand-written stickers'
+// `contentColor = onSurfaceVariant` as a colour-bundle role (`IconButtonDefaults.iconButtonColors`,
+// `outlinedIconButtonColors`) and the outlined one's `BorderStroke(1.dp, outlineVariant)` as its
+// `borderColor`. As with the buttons, the Material 3 Expressive
 // overload (`shapes: IconButtonShapes`) has no cell: no capture renders it, and the record is the
 // standard overload.
 
@@ -605,6 +668,516 @@ fun TonalIconButton() = Sticker {
             )
           else
             KitTonalIconButtonXlWide(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+      }
+  }
+}
+
+@CatalogComponent(
+  id = "IconButton/Standard",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:10132",
+  caption =
+    "Lowest emphasis; inline on a surface. Five sizes x three widths x two shapes fold in as " +
+      "variants. The container is transparent, so the shape axis is invisible at rest — the kit " +
+      "draws its square nodes the same way, and `square-hovered` is the cell where it shows.",
+)
+@CatalogModes
+@IconButtonMatrix
+@ContainerlessInteractionStates
+@ee.schimke.m3catalog.StandardIconButtonExhaustiveKitCells
+@Composable
+fun StandardIconButton() = Sticker {
+  var on by toggleable(true)
+  val k = iconButtonKnobs()
+  val onClick = { on = !on }
+  when (k.size) {
+    CatalogSize.ExtraSmall ->
+      when (k.width) {
+        CatalogIconWidth.Narrow ->
+          if (k.square)
+            KitStandardIconButtonXsNarrowSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonXsNarrow(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Uniform ->
+          if (k.square)
+            KitStandardIconButtonXsUniformSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonXsUniform(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Wide ->
+          if (k.square)
+            KitStandardIconButtonXsWideSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonXsWide(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+      }
+    CatalogSize.Small ->
+      when (k.width) {
+        CatalogIconWidth.Narrow ->
+          if (k.square)
+            KitStandardIconButtonSNarrowSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonSNarrow(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Uniform ->
+          if (k.square)
+            KitStandardIconButtonSUniformSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButton(Modifier, enabled = k.enabled, on = on, onButtonClick = onClick)
+        CatalogIconWidth.Wide ->
+          if (k.square)
+            KitStandardIconButtonSWideSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonSWide(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+      }
+    CatalogSize.Medium ->
+      when (k.width) {
+        CatalogIconWidth.Narrow ->
+          if (k.square)
+            KitStandardIconButtonMNarrowSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonMNarrow(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Uniform ->
+          if (k.square)
+            KitStandardIconButtonMUniformSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonMUniform(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Wide ->
+          if (k.square)
+            KitStandardIconButtonMWideSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonMWide(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+      }
+    CatalogSize.Large ->
+      when (k.width) {
+        CatalogIconWidth.Narrow ->
+          if (k.square)
+            KitStandardIconButtonLNarrowSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonLNarrow(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Uniform ->
+          if (k.square)
+            KitStandardIconButtonLUniformSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonLUniform(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Wide ->
+          if (k.square)
+            KitStandardIconButtonLWideSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonLWide(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+      }
+    CatalogSize.ExtraLarge ->
+      when (k.width) {
+        CatalogIconWidth.Narrow ->
+          if (k.square)
+            KitStandardIconButtonXlNarrowSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonXlNarrow(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Uniform ->
+          if (k.square)
+            KitStandardIconButtonXlUniformSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonXlUniform(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Wide ->
+          if (k.square)
+            KitStandardIconButtonXlWideSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitStandardIconButtonXlWide(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+      }
+  }
+}
+
+@CatalogComponent(
+  id = "IconButton/Outlined",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/57994:10192",
+  caption =
+    "Medium emphasis on a busy surface. Five sizes x three widths x two shapes fold in as variants.",
+)
+@CatalogModes
+@IconButtonMatrix
+@InteractionStates
+@ee.schimke.m3catalog.OutlinedIconButtonStickerExhaustiveKitCells
+@Composable
+fun OutlinedIconButtonSticker() = Sticker {
+  var on by toggleable(true)
+  val k = iconButtonKnobs()
+  val onClick = { on = !on }
+  when (k.size) {
+    CatalogSize.ExtraSmall ->
+      when (k.width) {
+        CatalogIconWidth.Narrow ->
+          if (k.square)
+            KitOutlinedIconButtonXsNarrowSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonXsNarrow(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Uniform ->
+          if (k.square)
+            KitOutlinedIconButtonXsUniformSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonXsUniform(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Wide ->
+          if (k.square)
+            KitOutlinedIconButtonXsWideSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonXsWide(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+      }
+    CatalogSize.Small ->
+      when (k.width) {
+        CatalogIconWidth.Narrow ->
+          if (k.square)
+            KitOutlinedIconButtonSNarrowSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonSNarrow(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Uniform ->
+          if (k.square)
+            KitOutlinedIconButtonSUniformSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButton(Modifier, enabled = k.enabled, on = on, onButtonClick = onClick)
+        CatalogIconWidth.Wide ->
+          if (k.square)
+            KitOutlinedIconButtonSWideSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonSWide(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+      }
+    CatalogSize.Medium ->
+      when (k.width) {
+        CatalogIconWidth.Narrow ->
+          if (k.square)
+            KitOutlinedIconButtonMNarrowSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonMNarrow(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Uniform ->
+          if (k.square)
+            KitOutlinedIconButtonMUniformSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonMUniform(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Wide ->
+          if (k.square)
+            KitOutlinedIconButtonMWideSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonMWide(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+      }
+    CatalogSize.Large ->
+      when (k.width) {
+        CatalogIconWidth.Narrow ->
+          if (k.square)
+            KitOutlinedIconButtonLNarrowSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonLNarrow(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Uniform ->
+          if (k.square)
+            KitOutlinedIconButtonLUniformSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonLUniform(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Wide ->
+          if (k.square)
+            KitOutlinedIconButtonLWideSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonLWide(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+      }
+    CatalogSize.ExtraLarge ->
+      when (k.width) {
+        CatalogIconWidth.Narrow ->
+          if (k.square)
+            KitOutlinedIconButtonXlNarrowSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonXlNarrow(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Uniform ->
+          if (k.square)
+            KitOutlinedIconButtonXlUniformSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonXlUniform(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+        CatalogIconWidth.Wide ->
+          if (k.square)
+            KitOutlinedIconButtonXlWideSquare(
+              Modifier,
+              enabled = k.enabled,
+              on = on,
+              onButtonClick = onClick,
+            )
+          else
+            KitOutlinedIconButtonXlWide(
               Modifier,
               enabled = k.enabled,
               on = on,

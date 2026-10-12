@@ -1,0 +1,130 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "outlined-icon-button",
+  "title": "KitOutlinedIconButton",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 200,
+    "heightDp": 200,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "outlined-icon-button": {
+      "name": "KitOutlinedIconButton",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "outlined-icon-button",
+        "arguments": {
+          "on": {
+            "type": "bool",
+            "value": true
+          },
+          "enabled": {
+            "type": "bool",
+            "value": true
+          }
+        }
+      }
+    },
+    "icon": {
+      "id": "icon",
+      "componentId": "m3catalog/favourite-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "on"
+        },
+        "contentDescription": {
+          "type": "resource",
+          "resourceKey": "label_favourite"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 24,
+          "heightDp": 24
+        }
+      ]
+    },
+    "button": {
+      "id": "button",
+      "componentId": "m3/outlined-icon-button",
+      "properties": {
+        "enabled": {
+          "type": "binding",
+          "value": "enabled"
+        },
+        "shape": {
+          "type": "shapeToken",
+          "value": "circle"
+        },
+        "contentColor": {
+          "type": "colorToken",
+          "value": "onSurfaceVariant"
+        },
+        "borderColor": {
+          "type": "colorToken",
+          "value": "outlineVariant"
+        }
+      },
+      "slots": {
+        "content": [
+          "icon"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 40,
+          "heightDp": 40
+        }
+      ],
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/box",
+      "properties": {
+        "contentAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "button"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 48,
+          "heightDp": 48
+        }
+      ]
+    }
+  }
+}
