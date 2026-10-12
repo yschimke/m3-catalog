@@ -1,5 +1,4 @@
 {
-  "$blocked": "NavigationRail/Wide (WideNavigationRailSticker). Refused: \"node `rail`.`state` is the enum value `expanded`, and nothing maps this catalog property's values to Kotlin members\". Needs a STATE_BUNDLES entry for m3/wide-navigation-rail: state -> rememberWideNavigationRailState(initialValue = WideNavigationRailValue.Collapsed|Expanded) (an enum-valued state argument). Its Middle cells are also refused (as the standard rail's are): \"`WideNavigationRail`.`arrangement` is androidx.compose.foundation.layout.Arrangement.Vertical, and this value is a androidx.compose.foundation.layout.Arrangement$Vertical\". Without `state` (and Middle), the document and its 8 cells export: transparent container, flat extended FAB header and expanded items are all expressible.",
   "variants": {
     "Middle": [
       {
@@ -656,5 +655,7 @@
       }
     ]
   },
-  "pairs": {}
+  "pairs": {
+    "WideNavigationRailSticker": "WideNavigationRailSticker"
+  }
 }

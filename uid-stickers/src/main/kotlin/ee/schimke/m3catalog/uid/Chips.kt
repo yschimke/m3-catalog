@@ -24,7 +24,8 @@ import org.jetbrains.compose.resources.stringResource
 // The body is `stickers/suggestion-chip.uid`, a `KitSuggestionChip` component whose `label` and
 // `enabled` are bindings and whose click is an action-free event. The kit's `Style` and `Show icon`
 // axes are cells of that document (`stickers/suggestion-chip.json`): `ElevatedSuggestionChip` is a
-// sibling function, so `Elevated` swaps the node's component, and `Icon` adds the stars glyph to its
+// sibling function, so `Elevated` swaps the node's component, and `Icon` adds the stars glyph to
+// its
 // icon slot. The shell reads the same knobs as the hand-written sticker and picks the cell; the
 // interaction and exhaustive kit cells come from its annotations, which are the hand-written
 // sticker's verbatim.
@@ -48,9 +49,22 @@ fun SuggestionChipSticker(icon: Boolean = false) = Sticker {
   val enabled = catalogChoice("status", "enabled", "enabled", "disabled") != "disabled"
   val elevated = catalogChoice("style", "outlined", "outlined", "elevated") == "elevated"
   when {
-    elevated && icon -> KitSuggestionChipElevatedIcon(Modifier, enabled = enabled, label = c.label, onChipClick = c.onClick)
-    elevated -> KitSuggestionChipElevated(Modifier, enabled = enabled, label = c.label, onChipClick = c.onClick)
-    icon -> KitSuggestionChipIcon(Modifier, enabled = enabled, label = c.label, onChipClick = c.onClick)
+    elevated && icon ->
+      KitSuggestionChipElevatedIcon(
+        Modifier,
+        enabled = enabled,
+        label = c.label,
+        onChipClick = c.onClick,
+      )
+    elevated ->
+      KitSuggestionChipElevated(
+        Modifier,
+        enabled = enabled,
+        label = c.label,
+        onChipClick = c.onClick,
+      )
+    icon ->
+      KitSuggestionChipIcon(Modifier, enabled = enabled, label = c.label, onChipClick = c.onClick)
     else -> KitSuggestionChip(Modifier, enabled = enabled, label = c.label, onChipClick = c.onClick)
   }
 }
