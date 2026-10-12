@@ -1,0 +1,192 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "segmented-buttons",
+  "title": "KitSegmentedButtons",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 310,
+    "heightDp": 40,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "segmented-buttons": {
+      "name": "KitSegmentedButtons",
+      "root": "row"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "segmented-buttons",
+        "arguments": {
+          "label0": {
+            "type": "resource",
+            "resourceKey": "segment_day"
+          },
+          "label1": {
+            "type": "resource",
+            "resourceKey": "segment_week"
+          },
+          "label2": {
+            "type": "resource",
+            "resourceKey": "segment_month"
+          },
+          "selected0": {
+            "type": "bool",
+            "value": true
+          },
+          "selected1": {
+            "type": "bool",
+            "value": false
+          },
+          "selected2": {
+            "type": "bool",
+            "value": false
+          }
+        }
+      }
+    },
+    "label0": {
+      "id": "label0",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label0"
+        }
+      },
+      "slots": {}
+    },
+    "segment0": {
+      "id": "segment0",
+      "componentId": "m3/segmented-button",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected0"
+        }
+      },
+      "slots": {
+        "label": [
+          "label0"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        }
+      ],
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "label1": {
+      "id": "label1",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label1"
+        }
+      },
+      "slots": {}
+    },
+    "segment1": {
+      "id": "segment1",
+      "componentId": "m3/segmented-button",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected1"
+        }
+      },
+      "slots": {
+        "label": [
+          "label1"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        }
+      ],
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "label2": {
+      "id": "label2",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label2"
+        }
+      },
+      "slots": {}
+    },
+    "segment2": {
+      "id": "segment2",
+      "componentId": "m3/segmented-button",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected2"
+        }
+      },
+      "slots": {
+        "label": [
+          "label2"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "weight",
+          "weight": 1
+        }
+      ],
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "row": {
+      "id": "row",
+      "componentId": "m3/single-choice-segmented-button-row",
+      "properties": {},
+      "slots": {
+        "content": [
+          "segment0",
+          "segment1",
+          "segment2"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 310
+        },
+        {
+          "type": "height",
+          "heightDp": 40
+        }
+      ]
+    }
+  }
+}
