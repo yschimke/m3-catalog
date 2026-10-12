@@ -67,7 +67,7 @@ jobs:
           # render meets this timeout, sharding is the answer, not a bigger number.
           timeout: '4800'
 
-      - uses: actions/setup-node@v7.0.0
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 24.21.0
 
@@ -87,7 +87,7 @@ jobs:
       - name: No undeclared duplicate renders
         run: node scripts/duplicate-renders.mjs
 
-      - uses: actions/upload-artifact@v7.0.1
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: compose-preview-handoff
           path: _compose_preview_handoff/
@@ -122,7 +122,7 @@ jobs:
           only: compose
           timeout: '4800'
 
-      - uses: actions/setup-node@v7.0.0
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 24.21.0
 
