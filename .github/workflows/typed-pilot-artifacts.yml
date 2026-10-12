@@ -27,8 +27,15 @@ on:
       - 'ui-builder/designs/**'
       - 'scripts/assemble-typed-pilot-artifacts*.mjs'
       - '.github/workflows/typed-pilot-artifacts.yml'
+  # The same inputs as a publish, so a change that would break the published pilot fails on its
+  # pull request rather than on main.
   pull_request:
     paths:
+      - 'catalog-typed-*/**'
+      - 'settings.gradle.kts'
+      - 'gradle/libs.versions.toml'
+      - 'ui-builder.policy.json'
+      - 'ui-builder/designs/**'
       - 'scripts/assemble-typed-pilot-artifacts*.mjs'
       - '.github/workflows/typed-pilot-artifacts.yml'
 

@@ -96,6 +96,9 @@ private val STYLE =
 
 private val COLOR = AdapterValueCodecs.color(M3_COLOR)
 
+/** `m3/text`'s unset letter spacing, as the wrapper (`TypedTextDefaults`) spells it. */
+const val LETTER_SPACING_UNSET: Float = Float.MIN_VALUE
+
 /** A property kept on the shelf for the canvas, which no parameter of any target can carry. */
 private val REFUSED = AdapterValueCodecs.String
 
@@ -134,8 +137,14 @@ class RealTextAdapter(record: ComponentRecord) :
       AdapterValueCodecs.unit("sp", positive = true),
       0f,
     )
+  // The wrapper's unset is `Float.MIN_VALUE` (the style's own spacing); an authored 0 is a real
+  // 0.sp, drawn and exported as such.
   val letterSpacingSp =
-    wireProperty(RealTextProperties::letterSpacingSp, AdapterValueCodecs.unit("sp"), 0f)
+    wireProperty(
+      RealTextProperties::letterSpacingSp,
+      AdapterValueCodecs.unit("sp"),
+      LETTER_SPACING_UNSET,
+    )
   val minLines = property(RealTextProperties::minLines, AdapterValueCodecs.Int, 1, bindable = false)
   val maxLines =
     property(RealTextProperties::maxLines, AdapterValueCodecs.Int, Int.MAX_VALUE, bindable = false)
@@ -160,7 +169,7 @@ class RealTextAdapter(record: ComponentRecord) :
           "fontStyle" to from(fontStyle),
           "fontSize" to from(fontSizeSp),
           "lineHeight" to from(lineHeightSp),
-          "letterSpacing" to from(letterSpacingSp, omitWhen = JsonPrimitive(0)),
+          "letterSpacing" to from(letterSpacingSp, omitWhen = JsonPrimitive(LETTER_SPACING_UNSET)),
           "textDecoration" to from(textDecoration, omitWhen = JsonPrimitive("none")),
           "textAlign" to from(textAlign),
           "minLines" to from(minLines, omitWhen = JsonPrimitive(1)),

@@ -83,6 +83,16 @@ class RealM3AdaptersTest {
   }
 
   @Test
+  fun `an authored zero letter spacing is written, only the unset sentinel is omitted`() {
+    val zero = node("m3/text", "letterSpacingSp" to wrapped("float", 0.0))
+    assertContains(zero.arguments.getValue("letterSpacing").toString(), "0")
+    val unset =
+      node("m3/text", "letterSpacingSp" to wrapped("float", TypedTextDefaults.letterSpacingSp))
+    assertTrue("letterSpacing" !in unset.arguments, "${unset.arguments}")
+    assertTrue("letterSpacing" !in node("m3/text").arguments)
+  }
+
+  @Test
   fun `a card's style picks the real card`() {
     assertTrue(node("m3/card").record.endsWith("CardKt.Card"))
     val elevated = node("m3/card", "style" to wrapped("enum", "elevated"))
