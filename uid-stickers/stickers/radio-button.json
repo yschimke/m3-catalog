@@ -1,0 +1,53 @@
+{
+  "variants": {
+    "Error": [
+      {
+        "type": "setProperty",
+        "nodeId": "radio",
+        "property": "selectedColor",
+        "value": {
+          "type": "colorToken",
+          "value": "error"
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "radio",
+        "property": "unselectedColor",
+        "value": {
+          "type": "colorToken",
+          "value": "error"
+        }
+      }
+    ],
+    "Disabled": [
+      {
+        "type": "deleteNode",
+        "nodeId": "radio"
+      },
+      {
+        "type": "addNode",
+        "parentId": "frame",
+        "slot": "children",
+        "node": {
+          "id": "radio",
+          "componentId": "m3/radio-button",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "selected"
+            },
+            "enabled": {
+              "type": "binding",
+              "value": "enabled"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ]
+  },
+  "pairs": {
+    "RadioSelected": "RadioSelected"
+  }
+}

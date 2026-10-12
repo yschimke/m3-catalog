@@ -1,0 +1,78 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "radio-button",
+  "title": "KitRadioButton",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 200,
+    "heightDp": 200,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "radio-button": {
+      "name": "KitRadioButton",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "radio-button",
+        "arguments": {
+          "selected": {
+            "type": "bool",
+            "value": true
+          },
+          "enabled": {
+            "type": "bool",
+            "value": true
+          }
+        }
+      }
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {
+        "children": [
+          "radio"
+        ]
+      },
+      "modifiers": []
+    },
+    "radio": {
+      "id": "radio",
+      "componentId": "m3/radio-button",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected"
+        },
+        "enabled": {
+          "type": "binding",
+          "value": "enabled"
+        }
+      },
+      "slots": {},
+      "eventBindings": {
+        "click": []
+      }
+    }
+  }
+}
