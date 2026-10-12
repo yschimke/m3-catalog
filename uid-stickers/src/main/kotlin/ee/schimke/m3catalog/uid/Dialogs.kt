@@ -10,6 +10,8 @@ import androidx.compose.material3.ExperimentalMaterial3ComponentOverrideApi
 import androidx.compose.material3.LocalBasicAlertDialogOverride
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import ee.schimke.composeai.preview.BuilderComponent
 import ee.schimke.composeai.preview.CatalogComponent
@@ -22,10 +24,15 @@ import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.dialog_action_1
 import ee.schimke.m3catalog.generated.resources.dialog_action_2
+import ee.schimke.m3catalog.generated.resources.dialog_add_account
+import ee.schimke.m3catalog.generated.resources.dialog_backup_title
 import ee.schimke.m3catalog.generated.resources.dialog_delete_body
 import ee.schimke.m3catalog.generated.resources.dialog_delete_title
+import ee.schimke.m3catalog.toggleable
 import generated.uibuilder.KitBasicDialog
 import generated.uibuilder.KitBasicDialogIcon
+import generated.uibuilder.KitListDialog
+import generated.uibuilder.KitListDialogIcon
 import org.jetbrains.compose.resources.stringResource
 
 // The body is `stickers/basic-dialog.uid`: a `KitBasicDialog` whose `AlertDialog` holds the title,
@@ -88,6 +95,71 @@ fun BasicDialog(icon: Boolean = false) = Sticker {
         text = text,
         confirmButton = confirm.label,
         dismissButton = dismiss.label,
+        onConfirmClick = confirm.onClick,
+        onDismissClick = dismiss.onClick,
+      )
+  }
+}
+
+// `ListDialog`'s body is `stickers/list-dialog.uid`: a `KitListDialog` whose text slot is a column
+// of
+// the supporting text over three transparent `ListItem`s (an avatar, the count and a checkbox),
+// separated by dividers. Each checkbox's `checked` is a binding and its change an action-free
+// toggle intent, so the three ticks live here (`toggleable`) and keep the 48dp touch target. The
+// hero icon is the document's `Icon` cell, the stars glyph in the dialog's `icon` slot.
+
+@CatalogComponent(
+  id = "Dialog/List",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/50723:10964",
+  caption = "A choice list in place of supporting text.",
+)
+@CatalogModes
+@OverrideVariant(name = "icon", booleans = ["icon=true"])
+@Composable
+fun ListDialog(icon: Boolean = false) = Sticker {
+  val confirm = counted(catalogText("confirmButton", stringResource(Res.string.dialog_action_1)))
+  val dismiss = counted(catalogText("dismissButton", stringResource(Res.string.dialog_action_2)))
+  val title = catalogText("title", stringResource(Res.string.dialog_backup_title))
+  val text = catalogText("text", stringResource(Res.string.dialog_delete_body))
+  val item = catalogText("item", stringResource(Res.string.dialog_add_account))
+  var check1 by toggleable(true)
+  var check2 by toggleable(true)
+  var check3 by toggleable(true)
+  val itemCount = localizedDigits("100+")
+  InlineDialogHost {
+    if (icon)
+      KitListDialogIcon(
+        Modifier,
+        title = title,
+        text = text,
+        item = item,
+        itemCount = itemCount,
+        check1Checked = check1,
+        check2Checked = check2,
+        check3Checked = check3,
+        confirmButton = confirm.label,
+        dismissButton = dismiss.label,
+        onCheck1CheckedChange = { check1 = !check1 },
+        onCheck2CheckedChange = { check2 = !check2 },
+        onCheck3CheckedChange = { check3 = !check3 },
+        onConfirmClick = confirm.onClick,
+        onDismissClick = dismiss.onClick,
+      )
+    else
+      KitListDialog(
+        Modifier,
+        title = title,
+        text = text,
+        item = item,
+        itemCount = itemCount,
+        check1Checked = check1,
+        check2Checked = check2,
+        check3Checked = check3,
+        confirmButton = confirm.label,
+        dismissButton = dismiss.label,
+        onCheck1CheckedChange = { check1 = !check1 },
+        onCheck2CheckedChange = { check2 = !check2 },
+        onCheck3CheckedChange = { check3 = !check3 },
         onConfirmClick = confirm.onClick,
         onDismissClick = dismiss.onClick,
       )

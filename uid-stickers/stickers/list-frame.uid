@@ -1,0 +1,1118 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-list-frame",
+  "title": "Kit list frame",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 280,
+    "heightDp": 384,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-list-frame": {
+      "name": "KitListFrame",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-list-frame",
+        "arguments": {
+          "headline0": {
+            "type": "resource",
+            "resourceKey": "list_item"
+          },
+          "headline1": {
+            "type": "resource",
+            "resourceKey": "list_item"
+          },
+          "headline2": {
+            "type": "resource",
+            "resourceKey": "list_item"
+          },
+          "headline3": {
+            "type": "resource",
+            "resourceKey": "list_item"
+          },
+          "headline4": {
+            "type": "resource",
+            "resourceKey": "list_item"
+          },
+          "headline5": {
+            "type": "resource",
+            "resourceKey": "list_item"
+          },
+          "supportingText0": {
+            "type": "resource",
+            "resourceKey": "list_supporting"
+          },
+          "supportingText1": {
+            "type": "resource",
+            "resourceKey": "list_supporting"
+          },
+          "supportingText2": {
+            "type": "resource",
+            "resourceKey": "list_supporting"
+          },
+          "supportingText3": {
+            "type": "resource",
+            "resourceKey": "list_supporting_long"
+          },
+          "supportingText4": {
+            "type": "resource",
+            "resourceKey": "list_supporting"
+          },
+          "supportingText5": {
+            "type": "resource",
+            "resourceKey": "list_supporting"
+          }
+        }
+      }
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "row0",
+          "row1",
+          "row2",
+          "row3",
+          "row4",
+          "row5"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 280
+        }
+      ]
+    },
+    "row0": {
+      "id": "row0",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {
+        "children": [
+          "item0"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    },
+    "item0": {
+      "id": "item0",
+      "componentId": "m3/list-item",
+      "properties": {
+        "containerColor": {
+          "type": "color",
+          "value": "#00000000"
+        }
+      },
+      "slots": {
+        "headline": [
+          "headline0"
+        ],
+        "supporting": [
+          "supporting0"
+        ],
+        "leadingContent": [
+          "stars0"
+        ],
+        "trailing": [
+          "shortcut0"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    },
+    "headline0": {
+      "id": "headline0",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "headline0"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -6
+        }
+      ]
+    },
+    "supporting0": {
+      "id": "supporting0",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "supportingText0"
+        },
+        "maxLines": {
+          "type": "int",
+          "value": 1
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -6
+        }
+      ]
+    },
+    "stars0": {
+      "id": "stars0",
+      "componentId": "m3catalog/rail-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "bool",
+          "value": false
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 20,
+          "heightDp": 20
+        }
+      ]
+    },
+    "shortcut0": {
+      "id": "shortcut0",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "key0",
+          "gap0",
+          "arrow0"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -4
+        }
+      ]
+    },
+    "key0": {
+      "id": "key0",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "\u2318C"
+        }
+      },
+      "slots": {}
+    },
+    "gap0": {
+      "id": "gap0",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 12
+        }
+      ]
+    },
+    "arrow0": {
+      "id": "arrow0",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "filled/arrowRight"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 10,
+          "heightDp": 10
+        }
+      ]
+    },
+    "row1": {
+      "id": "row1",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {
+        "children": [
+          "item1"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    },
+    "item1": {
+      "id": "item1",
+      "componentId": "m3/list-item",
+      "properties": {
+        "containerColor": {
+          "type": "color",
+          "value": "#00000000"
+        }
+      },
+      "slots": {
+        "headline": [
+          "headline1"
+        ],
+        "supporting": [
+          "supporting1"
+        ],
+        "leadingContent": [
+          "stars1"
+        ],
+        "trailing": [
+          "shortcut1"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    },
+    "headline1": {
+      "id": "headline1",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "headline1"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -6
+        }
+      ]
+    },
+    "supporting1": {
+      "id": "supporting1",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "supportingText1"
+        },
+        "maxLines": {
+          "type": "int",
+          "value": 1
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -6
+        }
+      ]
+    },
+    "stars1": {
+      "id": "stars1",
+      "componentId": "m3catalog/rail-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "bool",
+          "value": false
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 20,
+          "heightDp": 20
+        }
+      ]
+    },
+    "shortcut1": {
+      "id": "shortcut1",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "key1",
+          "gap1",
+          "arrow1"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -4
+        }
+      ]
+    },
+    "key1": {
+      "id": "key1",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "\u2318C"
+        }
+      },
+      "slots": {}
+    },
+    "gap1": {
+      "id": "gap1",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 12
+        }
+      ]
+    },
+    "arrow1": {
+      "id": "arrow1",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "filled/arrowRight"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 10,
+          "heightDp": 10
+        }
+      ]
+    },
+    "row2": {
+      "id": "row2",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {
+        "children": [
+          "item2"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    },
+    "item2": {
+      "id": "item2",
+      "componentId": "m3/list-item",
+      "properties": {
+        "containerColor": {
+          "type": "color",
+          "value": "#00000000"
+        }
+      },
+      "slots": {
+        "headline": [
+          "headline2"
+        ],
+        "supporting": [
+          "supporting2"
+        ],
+        "leadingContent": [
+          "stars2"
+        ],
+        "trailing": [
+          "shortcut2"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    },
+    "headline2": {
+      "id": "headline2",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "headline2"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -6
+        }
+      ]
+    },
+    "supporting2": {
+      "id": "supporting2",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "supportingText2"
+        },
+        "maxLines": {
+          "type": "int",
+          "value": 1
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -6
+        }
+      ]
+    },
+    "stars2": {
+      "id": "stars2",
+      "componentId": "m3catalog/rail-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "bool",
+          "value": false
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 20,
+          "heightDp": 20
+        }
+      ]
+    },
+    "shortcut2": {
+      "id": "shortcut2",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "key2",
+          "gap2",
+          "arrow2"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -4
+        }
+      ]
+    },
+    "key2": {
+      "id": "key2",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "\u2318C"
+        }
+      },
+      "slots": {}
+    },
+    "gap2": {
+      "id": "gap2",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 12
+        }
+      ]
+    },
+    "arrow2": {
+      "id": "arrow2",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "filled/arrowRight"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 10,
+          "heightDp": 10
+        }
+      ]
+    },
+    "row3": {
+      "id": "row3",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {
+        "children": [
+          "item3"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    },
+    "item3": {
+      "id": "item3",
+      "componentId": "m3/list-item",
+      "properties": {
+        "containerColor": {
+          "type": "color",
+          "value": "#00000000"
+        }
+      },
+      "slots": {
+        "headline": [
+          "headline3"
+        ],
+        "supporting": [
+          "supporting3"
+        ],
+        "leadingContent": [
+          "stars3"
+        ],
+        "trailing": [
+          "shortcut3"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    },
+    "headline3": {
+      "id": "headline3",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "headline3"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -6
+        }
+      ]
+    },
+    "supporting3": {
+      "id": "supporting3",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "supportingText3"
+        },
+        "maxLines": {
+          "type": "int",
+          "value": 1
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -6
+        }
+      ]
+    },
+    "stars3": {
+      "id": "stars3",
+      "componentId": "m3catalog/rail-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "bool",
+          "value": false
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 20,
+          "heightDp": 20
+        }
+      ]
+    },
+    "shortcut3": {
+      "id": "shortcut3",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "key3",
+          "gap3",
+          "arrow3"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -4
+        }
+      ]
+    },
+    "key3": {
+      "id": "key3",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "\u2318C"
+        }
+      },
+      "slots": {}
+    },
+    "gap3": {
+      "id": "gap3",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 12
+        }
+      ]
+    },
+    "arrow3": {
+      "id": "arrow3",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "filled/arrowRight"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 10,
+          "heightDp": 10
+        }
+      ]
+    },
+    "row4": {
+      "id": "row4",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {
+        "children": [
+          "item4"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    },
+    "item4": {
+      "id": "item4",
+      "componentId": "m3/list-item",
+      "properties": {
+        "containerColor": {
+          "type": "color",
+          "value": "#00000000"
+        }
+      },
+      "slots": {
+        "headline": [
+          "headline4"
+        ],
+        "supporting": [
+          "supporting4"
+        ],
+        "leadingContent": [
+          "stars4"
+        ],
+        "trailing": [
+          "shortcut4"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    },
+    "headline4": {
+      "id": "headline4",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "headline4"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -6
+        }
+      ]
+    },
+    "supporting4": {
+      "id": "supporting4",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "supportingText4"
+        },
+        "maxLines": {
+          "type": "int",
+          "value": 1
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -6
+        }
+      ]
+    },
+    "stars4": {
+      "id": "stars4",
+      "componentId": "m3catalog/rail-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "bool",
+          "value": false
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 20,
+          "heightDp": 20
+        }
+      ]
+    },
+    "shortcut4": {
+      "id": "shortcut4",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "key4",
+          "gap4",
+          "arrow4"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -4
+        }
+      ]
+    },
+    "key4": {
+      "id": "key4",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "\u2318C"
+        }
+      },
+      "slots": {}
+    },
+    "gap4": {
+      "id": "gap4",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 12
+        }
+      ]
+    },
+    "arrow4": {
+      "id": "arrow4",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "filled/arrowRight"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 10,
+          "heightDp": 10
+        }
+      ]
+    },
+    "row5": {
+      "id": "row5",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {
+        "children": [
+          "item5"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    },
+    "item5": {
+      "id": "item5",
+      "componentId": "m3/list-item",
+      "properties": {
+        "containerColor": {
+          "type": "color",
+          "value": "#00000000"
+        }
+      },
+      "slots": {
+        "headline": [
+          "headline5"
+        ],
+        "supporting": [
+          "supporting5"
+        ],
+        "leadingContent": [
+          "stars5"
+        ],
+        "trailing": [
+          "shortcut5"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 64
+        }
+      ]
+    },
+    "headline5": {
+      "id": "headline5",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "headline5"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -6
+        }
+      ]
+    },
+    "supporting5": {
+      "id": "supporting5",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "supportingText5"
+        },
+        "maxLines": {
+          "type": "int",
+          "value": 1
+        },
+        "overflow": {
+          "type": "enum",
+          "value": "ellipsis"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -6
+        }
+      ]
+    },
+    "stars5": {
+      "id": "stars5",
+      "componentId": "m3catalog/rail-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "bool",
+          "value": false
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 20,
+          "heightDp": 20
+        }
+      ]
+    },
+    "shortcut5": {
+      "id": "shortcut5",
+      "componentId": "layout/row",
+      "properties": {},
+      "slots": {
+        "children": [
+          "key5",
+          "gap5",
+          "arrow5"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "offset",
+          "xDp": -4
+        }
+      ]
+    },
+    "key5": {
+      "id": "key5",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "\u2318C"
+        }
+      },
+      "slots": {}
+    },
+    "gap5": {
+      "id": "gap5",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 12
+        }
+      ]
+    },
+    "arrow5": {
+      "id": "arrow5",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "filled/arrowRight"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 10,
+          "heightDp": 10
+        }
+      ]
+    }
+  }
+}

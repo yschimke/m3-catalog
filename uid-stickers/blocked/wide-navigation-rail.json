@@ -1,4 +1,660 @@
 {
-  "$blocked": "NavigationRail/Wide (WideNavigationRailSticker). Refused: \"node `rail`.`state` is the enum value `expanded`, and nothing maps this catalog property's values to Kotlin members\" (bound: \"node `rail`.state: no binding type mapping\"). Needs a STATE_BUNDLES entry for m3/wide-navigation-rail: state -> rememberWideNavigationRailState(initialValue = WideNavigationRailValue.Collapsed|Expanded); plus the standard rail's gaps (arrangement, colors.containerColor, null label).",
+  "$blocked": "NavigationRail/Wide (WideNavigationRailSticker). Refused: \"node `rail`.`state` is the enum value `expanded`, and nothing maps this catalog property's values to Kotlin members\". Needs a STATE_BUNDLES entry for m3/wide-navigation-rail: state -> rememberWideNavigationRailState(initialValue = WideNavigationRailValue.Collapsed|Expanded) (an enum-valued state argument). Its Middle cells are also refused (as the standard rail's are): \"`WideNavigationRail`.`arrangement` is androidx.compose.foundation.layout.Arrangement.Vertical, and this value is a androidx.compose.foundation.layout.Arrangement$Vertical\". Without `state` (and Middle), the document and its 8 cells export: transparent container, flat extended FAB header and expanded items are all expressible.",
+  "variants": {
+    "Middle": [
+      {
+        "type": "setProperty",
+        "nodeId": "rail",
+        "property": "arrangement",
+        "value": {
+          "type": "enum",
+          "value": "center"
+        }
+      }
+    ],
+    "No fab": [
+      {
+        "type": "deleteNode",
+        "nodeId": "fab"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab-gap"
+      }
+    ],
+    "No fab Middle": [
+      {
+        "type": "deleteNode",
+        "nodeId": "fab"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab-gap"
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "rail",
+        "property": "arrangement",
+        "value": {
+          "type": "enum",
+          "value": "center"
+        }
+      }
+    ],
+    "No menu": [
+      {
+        "type": "deleteNode",
+        "nodeId": "menu"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab-gap"
+      }
+    ],
+    "No menu Middle": [
+      {
+        "type": "deleteNode",
+        "nodeId": "menu"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab-gap"
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "rail",
+        "property": "arrangement",
+        "value": {
+          "type": "enum",
+          "value": "center"
+        }
+      }
+    ],
+    "No menu No fab": [
+      {
+        "type": "deleteNode",
+        "nodeId": "menu"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab-gap"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab"
+      }
+    ],
+    "No menu No fab Middle": [
+      {
+        "type": "deleteNode",
+        "nodeId": "menu"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab-gap"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab"
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "rail",
+        "property": "arrangement",
+        "value": {
+          "type": "enum",
+          "value": "center"
+        }
+      }
+    ],
+    "Four": [
+      {
+        "type": "addNode",
+        "parentId": "rail",
+        "slot": "content",
+        "node": {
+          "id": "saved",
+          "componentId": "m3/wide-navigation-rail-item",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            },
+            "railExpanded": {
+              "type": "bool",
+              "value": true
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "click": []
+          }
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "icon",
+        "node": {
+          "id": "saved-icon",
+          "componentId": "m3catalog/rail-stars-icon",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "label",
+        "node": {
+          "id": "saved-label",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "savedLabel"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Four Middle": [
+      {
+        "type": "addNode",
+        "parentId": "rail",
+        "slot": "content",
+        "node": {
+          "id": "saved",
+          "componentId": "m3/wide-navigation-rail-item",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            },
+            "railExpanded": {
+              "type": "bool",
+              "value": true
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "click": []
+          }
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "icon",
+        "node": {
+          "id": "saved-icon",
+          "componentId": "m3catalog/rail-stars-icon",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "label",
+        "node": {
+          "id": "saved-label",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "savedLabel"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "rail",
+        "property": "arrangement",
+        "value": {
+          "type": "enum",
+          "value": "center"
+        }
+      }
+    ],
+    "Four No fab": [
+      {
+        "type": "addNode",
+        "parentId": "rail",
+        "slot": "content",
+        "node": {
+          "id": "saved",
+          "componentId": "m3/wide-navigation-rail-item",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            },
+            "railExpanded": {
+              "type": "bool",
+              "value": true
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "click": []
+          }
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "icon",
+        "node": {
+          "id": "saved-icon",
+          "componentId": "m3catalog/rail-stars-icon",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "label",
+        "node": {
+          "id": "saved-label",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "savedLabel"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab-gap"
+      }
+    ],
+    "Four No fab Middle": [
+      {
+        "type": "addNode",
+        "parentId": "rail",
+        "slot": "content",
+        "node": {
+          "id": "saved",
+          "componentId": "m3/wide-navigation-rail-item",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            },
+            "railExpanded": {
+              "type": "bool",
+              "value": true
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "click": []
+          }
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "icon",
+        "node": {
+          "id": "saved-icon",
+          "componentId": "m3catalog/rail-stars-icon",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "label",
+        "node": {
+          "id": "saved-label",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "savedLabel"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab-gap"
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "rail",
+        "property": "arrangement",
+        "value": {
+          "type": "enum",
+          "value": "center"
+        }
+      }
+    ],
+    "Four No menu": [
+      {
+        "type": "addNode",
+        "parentId": "rail",
+        "slot": "content",
+        "node": {
+          "id": "saved",
+          "componentId": "m3/wide-navigation-rail-item",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            },
+            "railExpanded": {
+              "type": "bool",
+              "value": true
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "click": []
+          }
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "icon",
+        "node": {
+          "id": "saved-icon",
+          "componentId": "m3catalog/rail-stars-icon",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "label",
+        "node": {
+          "id": "saved-label",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "savedLabel"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "menu"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab-gap"
+      }
+    ],
+    "Four No menu Middle": [
+      {
+        "type": "addNode",
+        "parentId": "rail",
+        "slot": "content",
+        "node": {
+          "id": "saved",
+          "componentId": "m3/wide-navigation-rail-item",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            },
+            "railExpanded": {
+              "type": "bool",
+              "value": true
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "click": []
+          }
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "icon",
+        "node": {
+          "id": "saved-icon",
+          "componentId": "m3catalog/rail-stars-icon",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "label",
+        "node": {
+          "id": "saved-label",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "savedLabel"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "menu"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab-gap"
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "rail",
+        "property": "arrangement",
+        "value": {
+          "type": "enum",
+          "value": "center"
+        }
+      }
+    ],
+    "Four No menu No fab": [
+      {
+        "type": "addNode",
+        "parentId": "rail",
+        "slot": "content",
+        "node": {
+          "id": "saved",
+          "componentId": "m3/wide-navigation-rail-item",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            },
+            "railExpanded": {
+              "type": "bool",
+              "value": true
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "click": []
+          }
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "icon",
+        "node": {
+          "id": "saved-icon",
+          "componentId": "m3catalog/rail-stars-icon",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "label",
+        "node": {
+          "id": "saved-label",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "savedLabel"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "menu"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab-gap"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab"
+      }
+    ],
+    "Four No menu No fab Middle": [
+      {
+        "type": "addNode",
+        "parentId": "rail",
+        "slot": "content",
+        "node": {
+          "id": "saved",
+          "componentId": "m3/wide-navigation-rail-item",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            },
+            "railExpanded": {
+              "type": "bool",
+              "value": true
+            }
+          },
+          "slots": {},
+          "eventBindings": {
+            "click": []
+          }
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "icon",
+        "node": {
+          "id": "saved-icon",
+          "componentId": "m3catalog/rail-stars-icon",
+          "properties": {
+            "selected": {
+              "type": "binding",
+              "value": "savedSelected"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "saved",
+        "slot": "label",
+        "node": {
+          "id": "saved-label",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "savedLabel"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "menu"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab-gap"
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "fab"
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "rail",
+        "property": "arrangement",
+        "value": {
+          "type": "enum",
+          "value": "center"
+        }
+      }
+    ]
+  },
   "pairs": {}
 }

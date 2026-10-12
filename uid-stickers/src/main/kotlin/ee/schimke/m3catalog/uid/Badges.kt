@@ -21,7 +21,7 @@ import java.util.Locale
  * The catalog's `localizedDigits`, which `:catalog` keeps internal: ASCII digits in [locale]'s
  * numbering system.
  */
-private fun localizedDigits(value: String, locale: Locale = Locale.getDefault()): String {
+internal fun localizedDigits(value: String, locale: Locale = Locale.getDefault()): String {
   val zero = DecimalFormatSymbols.getInstance(locale).zeroDigit
   if (zero == '0') return value
   return buildString(value.length) {

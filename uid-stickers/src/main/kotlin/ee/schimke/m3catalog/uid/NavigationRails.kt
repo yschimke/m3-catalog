@@ -39,18 +39,19 @@ import generated.uibuilder.KitNavigationRailNoMenuNoLabels
 import org.jetbrains.compose.resources.stringResource
 
 // The body is `stickers/navigation-rail.uid`: a collapsed `WideNavigationRail`
-// (`m3/wide-navigation-
-// rail`, its default state) whose header is the menu button over the kit's flat FAB, and whose
-// three destinations are `m3/wide-navigation-rail-item`s with the stars glyph. Each item's
-// `selected` is a binding and its click an action-free event, so the selection lives here in the
-// shell (`selectable`), as the hand-written sticker keeps it. The kit's count, menu, FAB and label
-// axes change the tree, so they cross as sixteen cells (`stickers/navigation-rail.json`).
+// (`m3/wide-navigation-rail`, its default state) on a transparent container (the colour bundle),
+// whose header is the menu button over the kit's flat FAB, and whose three destinations are
+// `m3/wide-navigation-rail-item`s with the stars glyph. Each item's `selected` is a binding and its
+// click an action-free event, so the selection lives here in the shell (`selectable`), as the
+// hand-written sticker keeps it. The count, menu, FAB and label axes change the tree, so they cross
+// as sixteen cells (`stickers/navigation-rail.json`); a label-less item passes `label = null`. A
+// `count` below three draws three destinations.
 //
-// Not yet expressible, and the reason this shell has no `pairs` entry: the `alignment=middle` axis
-// (`arrangement = Arrangement.Center`; the exporter maps no values of `arrangement`), the
-// transparent container (`WideNavigationRail` takes `colors`, which no colour bundle builds), and a
-// label-less item, which the exporter writes as `label = {}` where the hand-written rail passes
-// `null`. A `count` below three draws three destinations.
+// Not yet expressible, and the reason this shell has no `pairs` entry (12 of 16 captures match):
+// the `alignment=middle` axis. The exporter maps `arrangement` to `Arrangement.Center` but types
+// the value `androidx.compose.foundation.layout.Arrangement$Vertical` (JVM-spelled), while
+// `WideNavigationRail`'s record types the parameter `Arrangement.Vertical`, so every cell that
+// sets it is refused.
 
 private val RAIL =
   listOf(Res.string.nav_home, Res.string.nav_search, Res.string.nav_you, Res.string.nav_saved)
