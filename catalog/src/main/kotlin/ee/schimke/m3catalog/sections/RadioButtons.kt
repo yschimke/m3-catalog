@@ -5,13 +5,10 @@ package ee.schimke.m3catalog.sections
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RadioButtonColors
-import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -20,6 +17,9 @@ import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.toggleable
+import generated.uibuilder.KitRadioButton
+import generated.uibuilder.KitRadioButtonDisabled
+import generated.uibuilder.KitRadioButtonError
 
 // Selection × status, the same two axes the kit gives the checkbox. A lone radio button cannot be
 // deselected by clicking it, so the live lane toggles it rather than pretending a single-button
@@ -36,14 +36,7 @@ private fun radioSelection(): String = catalogChoice("state", "selected", "selec
 private fun radioStatus(): String =
   catalogChoice("status", "enabled", "enabled", "disabled", "error")
 
-@Composable
-private fun radioColors(): RadioButtonColors =
-  if (radioStatus() == "error") {
-    val scheme = MaterialTheme.colorScheme
-    RadioButtonDefaults.colors(selectedColor = scheme.error, unselectedColor = scheme.error)
-  } else {
-    RadioButtonDefaults.colors()
-  }
+// --- Generated sticker bodies, from uid-stickers/RadioButtons.kt ---
 
 @CatalogComponent(
   id = "RadioButton/Selected",
@@ -60,12 +53,26 @@ private fun radioColors(): RadioButtonColors =
 @ee.schimke.m3catalog.RadioSelectedExhaustiveKitCells
 @Composable
 fun RadioSelected() = Sticker {
+  // The knobs, read in the hand-written sticker's order: status, selection, then status again.
   val enabled = radioStatus() != "disabled"
   var selected by toggleable(radioSelection() == "selected")
-  RadioButton(
-    selected = selected,
-    onClick = if (enabled) ({ selected = !selected }) else null,
-    enabled = enabled,
-    colors = radioColors(),
-  )
+  val error = radioStatus() == "error"
+  val m = Modifier
+  when {
+    !enabled -> KitRadioButtonDisabled(m, selected = selected, enabled = false)
+    error ->
+      KitRadioButtonError(
+        m,
+        selected = selected,
+        enabled = true,
+        onRadioClick = { selected = !selected },
+      )
+    else ->
+      KitRadioButton(
+        m,
+        selected = selected,
+        enabled = true,
+        onRadioClick = { selected = !selected },
+      )
+  }
 }

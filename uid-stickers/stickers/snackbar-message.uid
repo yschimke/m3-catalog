@@ -1,0 +1,90 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "snackbar-message",
+  "title": "Kit snackbar",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 344,
+    "heightDp": 68,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-snackbar": {
+      "name": "KitSnackbar",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-snackbar",
+        "arguments": {
+          "action": {
+            "type": "resource",
+            "resourceKey": "action_undo"
+          },
+          "dismissAction": {
+            "type": "resource",
+            "resourceKey": "action_dismiss"
+          },
+          "text": {
+            "type": "resource",
+            "resourceKey": "snackbar_short"
+          }
+        }
+      }
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {
+        "children": [
+          "snackbar"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 344
+        }
+      ]
+    },
+    "snackbar": {
+      "id": "snackbar",
+      "componentId": "m3/snackbar",
+      "properties": {},
+      "slots": {
+        "content": [
+          "message"
+        ]
+      }
+    },
+    "message": {
+      "id": "message",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "text"
+        }
+      },
+      "slots": {}
+    }
+  }
+}

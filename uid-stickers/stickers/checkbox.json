@@ -1,0 +1,141 @@
+{
+  "variants": {
+    "Error": [
+      {
+        "type": "setProperty",
+        "nodeId": "checkbox",
+        "property": "checkedColor",
+        "value": {
+          "type": "colorToken",
+          "value": "error"
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "checkbox",
+        "property": "uncheckedColor",
+        "value": {
+          "type": "colorToken",
+          "value": "error"
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "checkbox",
+        "property": "checkmarkColor",
+        "value": {
+          "type": "colorToken",
+          "value": "onError"
+        }
+      }
+    ],
+    "Disabled": [
+      {
+        "type": "deleteNode",
+        "nodeId": "checkbox"
+      },
+      {
+        "type": "addNode",
+        "parentId": "frame",
+        "slot": "children",
+        "node": {
+          "id": "checkbox",
+          "componentId": "m3/checkbox",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "checked"
+            },
+            "enabled": {
+              "type": "binding",
+              "value": "enabled"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Indeterminate": [
+      {
+        "type": "deleteNode",
+        "nodeId": "checkbox"
+      },
+      {
+        "type": "addNode",
+        "parentId": "frame",
+        "slot": "children",
+        "node": {
+          "id": "checkbox",
+          "componentId": "m3/tri-state-checkbox",
+          "properties": {
+            "state": {
+              "type": "enum",
+              "value": "indeterminate"
+            },
+            "enabled": {
+              "type": "binding",
+              "value": "enabled"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Indeterminate Error": [
+      {
+        "type": "deleteNode",
+        "nodeId": "checkbox"
+      },
+      {
+        "type": "addNode",
+        "parentId": "frame",
+        "slot": "children",
+        "node": {
+          "id": "checkbox",
+          "componentId": "m3/tri-state-checkbox",
+          "properties": {
+            "state": {
+              "type": "enum",
+              "value": "indeterminate"
+            },
+            "enabled": {
+              "type": "binding",
+              "value": "enabled"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "checkbox",
+        "property": "checkedColor",
+        "value": {
+          "type": "colorToken",
+          "value": "error"
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "checkbox",
+        "property": "uncheckedColor",
+        "value": {
+          "type": "colorToken",
+          "value": "error"
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "checkbox",
+        "property": "checkmarkColor",
+        "value": {
+          "type": "colorToken",
+          "value": "onError"
+        }
+      }
+    ]
+  },
+  "pairs": {
+    "CheckboxChecked": "CheckboxChecked"
+  }
+}

@@ -181,7 +181,8 @@ class CatalogVariantMatrixTest {
   fun `the toggle matrices match the sticker bodies`() {
     val text = File(sectionsDir, "ToggleButtons.kt").readText()
     val declared =
-      Regex("""catalogToggleSelected\(default = (true|false)\)""")
+      // A generated sticker's shell passes the default through its knob reader.
+      Regex("""(?:catalogToggleSelected|toggleButtonKnobs)\(default = (true|false)\b""")
         .findAll(text)
         .map { it.groupValues[1].toBooleanStrict() }
         .toList()

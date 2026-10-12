@@ -2,18 +2,8 @@
 
 package ee.schimke.m3catalog.sections
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CaptureGutter
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
@@ -29,6 +19,10 @@ import ee.schimke.m3catalog.generated.resources.action_dismiss
 import ee.schimke.m3catalog.generated.resources.action_undo
 import ee.schimke.m3catalog.generated.resources.snackbar_long
 import ee.schimke.m3catalog.generated.resources.snackbar_short
+import generated.uibuilder.KitSnackbar
+import generated.uibuilder.KitSnackbarAction
+import generated.uibuilder.KitSnackbarActionClose
+import generated.uibuilder.KitSnackbarClose
 import org.jetbrains.compose.resources.stringResource
 
 // Snackbars are composed directly rather than through a `SnackbarHost`: the host is a dispatcher
@@ -43,6 +37,8 @@ import org.jetbrains.compose.resources.stringResource
 // and got away with it only because the broken measurement below handed the message the whole bar
 // (#177); with the slots measured correctly the same copy spilled to a third line and the cell grew
 // past the kit's 68dp.
+
+// --- Generated sticker bodies, from uid-stickers/Snackbar.kt ---
 
 @CatalogComponent(
   id = "Snackbar/Message",
@@ -76,42 +72,32 @@ fun SnackbarMessage(close: Boolean = false) = Sticker {
   val undo = counted(catalogText("action", stringResource(Res.string.action_undo)))
   val dismiss = counted(stringResource(Res.string.action_dismiss))
   val long = catalogChoice("lines", "one", "one" to "One line", "two" to "Two lines") == "two"
-  // The kit's bar width belongs to the FRAME, not to the `Snackbar` (#177). `OneRowSnackbar`
-  // measures the action and dismiss slots with the constraints it was handed and then coerces the
-  // message's width up to `constraints.minWidth`, so a tight `Modifier.width(344.dp)` measured both
-  // slots at the full bar width: the message was laid out across them, the ✕ landed at x = 0 on top
-  // of the first word, and the action was placed at a negative x — off the bar entirely, which is
-  // why `action-close` published the same bytes as `close`. A `Box` gives the same 344dp with a
-  // loose minimum, which is what the component needs in order to divide it.
-  //
-  // The height is the component's own, for the same reason `ButtonFrame` keeps the frame off the
-  // button: `SnackbarTokens.SingleLineContainerHeight` is already 48dp, and two lines of
-  // body-medium plus `SnackbarVerticalPadding` either side come to exactly the kit's 68dp. Pinning
-  // it only ever took away the layout choice the component makes when the slots do not fit on one
-  // line.
-  Box(Modifier.width(344.dp)) {
-    Snackbar(
-      action =
-        if (
-          catalogChoice("configuration", "text", "text", "text+action").startsWith("text+action")
-        ) {
-          { TextButton(onClick = undo.onClick) { Text(undo.label) } }
-        } else null,
-      dismissAction =
-        if (close) {
-          {
-            IconButton(onClick = dismiss.onClick) {
-              Icon(Icons.Filled.Close, contentDescription = dismiss.label)
-            }
-          }
-        } else null,
-    ) {
-      Text(
-        catalogText(
-          "text",
-          stringResource(if (long) Res.string.snackbar_long else Res.string.snackbar_short),
-        )
+  val action =
+    catalogChoice("configuration", "text", "text", "text+action").startsWith("text+action")
+  val text =
+    catalogText(
+      "text",
+      stringResource(if (long) Res.string.snackbar_long else Res.string.snackbar_short),
+    )
+  val m = Modifier
+  when {
+    action && close ->
+      KitSnackbarActionClose(
+        m,
+        text = text,
+        action = undo.label,
+        dismissAction = dismiss.label,
+        onUndoClick = undo.onClick,
+        onCloseClick = dismiss.onClick,
       )
-    }
+    action -> KitSnackbarAction(m, text = text, action = undo.label, onUndoClick = undo.onClick)
+    close ->
+      KitSnackbarClose(
+        m,
+        text = text,
+        dismissAction = dismiss.label,
+        onCloseClick = dismiss.onClick,
+      )
+    else -> KitSnackbar(m, text = text)
   }
 }

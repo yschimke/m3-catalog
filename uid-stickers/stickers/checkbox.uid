@@ -1,0 +1,78 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "checkbox",
+  "title": "KitCheckbox",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 200,
+    "heightDp": 200,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "checkbox": {
+      "name": "KitCheckbox",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "checkbox",
+        "arguments": {
+          "checked": {
+            "type": "bool",
+            "value": true
+          },
+          "enabled": {
+            "type": "bool",
+            "value": true
+          }
+        }
+      }
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {
+        "children": [
+          "checkbox"
+        ]
+      },
+      "modifiers": []
+    },
+    "checkbox": {
+      "id": "checkbox",
+      "componentId": "m3/checkbox",
+      "properties": {
+        "checked": {
+          "type": "binding",
+          "value": "checked"
+        },
+        "enabled": {
+          "type": "binding",
+          "value": "enabled"
+        }
+      },
+      "slots": {},
+      "eventBindings": {
+        "checkedChange": []
+      }
+    }
+  }
+}

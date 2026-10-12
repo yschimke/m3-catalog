@@ -1,0 +1,59 @@
+{
+  "variants": {
+    "Icon": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "icon",
+        "node": {
+          "id": "icon",
+          "componentId": "m3catalog/stars-icon",
+          "properties": {},
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Elevated": [
+      {
+        "type": "setComponentId",
+        "nodeId": "chip",
+        "componentId": "m3/elevated-suggestion-chip"
+      }
+    ],
+    "Elevated icon": [
+      {
+        "type": "setComponentId",
+        "nodeId": "chip",
+        "componentId": "m3/elevated-suggestion-chip"
+      },
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "icon",
+        "node": {
+          "id": "icon",
+          "componentId": "m3catalog/stars-icon",
+          "properties": {},
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "pairs": {
+    "SuggestionChipSticker": "SuggestionChipSticker"
+  }
+}

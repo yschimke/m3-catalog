@@ -1,0 +1,46 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-loading-indicator",
+  "title": "Kit loading indicator",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 48,
+    "heightDp": 48,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-loading-indicator": {
+      "name": "KitLoadingIndicator",
+      "root": "indicator"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-loading-indicator",
+        "arguments": {}
+      }
+    },
+    "indicator": {
+      "id": "indicator",
+      "componentId": "m3/loading-indicator",
+      "properties": {},
+      "slots": {}
+    }
+  }
+}

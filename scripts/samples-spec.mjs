@@ -94,6 +94,8 @@ export const API_TO_KIT_COMPONENT = new Map([
   ["FilledIconButton", "IconButton/Filled"],
   ["FilledTonalIconButton", "IconButton/Tonal"],
   ["OutlinedIconButton", "IconButton/Outlined"],
+  // The plain IconButton draws no container: the kit's Standard cell, not the first-declared Filled one.
+  ["IconButton", "IconButton/Standard"],
   ["ElevatedToggleButton", "ToggleButton/Elevated"],
   ["OutlinedToggleButton", "ToggleButton/Outlined"],
   ["TonalToggleButton", "ToggleButton/Tonal"],

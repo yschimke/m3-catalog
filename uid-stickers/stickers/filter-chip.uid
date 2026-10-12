@@ -1,0 +1,86 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "filter-chip",
+  "title": "Kit filter chip",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 120,
+    "heightDp": 48,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-filter-chip": {
+      "name": "KitFilterChip",
+      "root": "chip"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-filter-chip",
+        "arguments": {
+          "selected": {
+            "type": "bool",
+            "value": true
+          },
+          "label": {
+            "type": "resource",
+            "resourceKey": "chip_unread"
+          },
+          "enabled": {
+            "type": "bool",
+            "value": true
+          }
+        }
+      }
+    },
+    "chip": {
+      "id": "chip",
+      "componentId": "m3/filter-chip",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "selected"
+        },
+        "enabled": {
+          "type": "binding",
+          "value": "enabled"
+        }
+      },
+      "slots": {
+        "label": [
+          "label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "label": {
+      "id": "label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label"
+        }
+      },
+      "slots": {}
+    }
+  }
+}

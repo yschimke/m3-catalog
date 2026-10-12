@@ -1,0 +1,78 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "switch",
+  "title": "KitSwitch",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 200,
+    "heightDp": 200,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "switch": {
+      "name": "KitSwitch",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "switch",
+        "arguments": {
+          "checked": {
+            "type": "bool",
+            "value": true
+          },
+          "enabled": {
+            "type": "bool",
+            "value": true
+          }
+        }
+      }
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/box",
+      "properties": {},
+      "slots": {
+        "children": [
+          "switch"
+        ]
+      },
+      "modifiers": []
+    },
+    "switch": {
+      "id": "switch",
+      "componentId": "m3/switch",
+      "properties": {
+        "checked": {
+          "type": "binding",
+          "value": "checked"
+        },
+        "enabled": {
+          "type": "binding",
+          "value": "enabled"
+        }
+      },
+      "slots": {},
+      "eventBindings": {
+        "checkedChange": []
+      }
+    }
+  }
+}

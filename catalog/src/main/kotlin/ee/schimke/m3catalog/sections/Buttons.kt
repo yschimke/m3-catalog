@@ -3,45 +3,27 @@
 
 package ee.schimke.m3catalog.sections
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CaptureGutter
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
-import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
+import ee.schimke.m3catalog.CatalogShape
 import ee.schimke.m3catalog.CatalogSize
 import ee.schimke.m3catalog.ContainerlessInteractionStates
+import ee.schimke.m3catalog.Counted
 import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.KitShadowGutter
 import ee.schimke.m3catalog.SizeShapeMatrix
 import ee.schimke.m3catalog.Sticker
-import ee.schimke.m3catalog.catalogButtonShape
-import ee.schimke.m3catalog.catalogButtonShapes
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.catalogEnabled
-import ee.schimke.m3catalog.catalogExpressive
 import ee.schimke.m3catalog.catalogText
 import ee.schimke.m3catalog.counted
 import ee.schimke.m3catalog.generated.resources.Res
@@ -50,6 +32,57 @@ import ee.schimke.m3catalog.generated.resources.label_filled
 import ee.schimke.m3catalog.generated.resources.label_outlined
 import ee.schimke.m3catalog.generated.resources.label_text
 import ee.schimke.m3catalog.generated.resources.label_tonal
+import generated.uibuilder.KitElevatedButton
+import generated.uibuilder.KitElevatedButtonL
+import generated.uibuilder.KitElevatedButtonLSquare
+import generated.uibuilder.KitElevatedButtonM
+import generated.uibuilder.KitElevatedButtonMSquare
+import generated.uibuilder.KitElevatedButtonSquare
+import generated.uibuilder.KitElevatedButtonXl
+import generated.uibuilder.KitElevatedButtonXlSquare
+import generated.uibuilder.KitElevatedButtonXs
+import generated.uibuilder.KitElevatedButtonXsSquare
+import generated.uibuilder.KitFilledButton
+import generated.uibuilder.KitFilledButtonL
+import generated.uibuilder.KitFilledButtonLSquare
+import generated.uibuilder.KitFilledButtonM
+import generated.uibuilder.KitFilledButtonMSquare
+import generated.uibuilder.KitFilledButtonSquare
+import generated.uibuilder.KitFilledButtonXl
+import generated.uibuilder.KitFilledButtonXlSquare
+import generated.uibuilder.KitFilledButtonXs
+import generated.uibuilder.KitFilledButtonXsSquare
+import generated.uibuilder.KitOutlinedButton
+import generated.uibuilder.KitOutlinedButtonL
+import generated.uibuilder.KitOutlinedButtonLSquare
+import generated.uibuilder.KitOutlinedButtonM
+import generated.uibuilder.KitOutlinedButtonMSquare
+import generated.uibuilder.KitOutlinedButtonSquare
+import generated.uibuilder.KitOutlinedButtonXl
+import generated.uibuilder.KitOutlinedButtonXlSquare
+import generated.uibuilder.KitOutlinedButtonXs
+import generated.uibuilder.KitOutlinedButtonXsSquare
+import generated.uibuilder.KitTextButton
+import generated.uibuilder.KitTextButtonL
+import generated.uibuilder.KitTextButtonLSquare
+import generated.uibuilder.KitTextButtonM
+import generated.uibuilder.KitTextButtonMSquare
+import generated.uibuilder.KitTextButtonSquare
+import generated.uibuilder.KitTextButtonXl
+import generated.uibuilder.KitTextButtonXlSquare
+import generated.uibuilder.KitTextButtonXs
+import generated.uibuilder.KitTextButtonXsSquare
+import generated.uibuilder.KitTonalButton
+import generated.uibuilder.KitTonalButtonL
+import generated.uibuilder.KitTonalButtonLSquare
+import generated.uibuilder.KitTonalButtonM
+import generated.uibuilder.KitTonalButtonMSquare
+import generated.uibuilder.KitTonalButtonSquare
+import generated.uibuilder.KitTonalButtonXl
+import generated.uibuilder.KitTonalButtonXlSquare
+import generated.uibuilder.KitTonalButtonXs
+import generated.uibuilder.KitTonalButtonXsSquare
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
 // The five common M3 buttons, highest to lowest emphasis.
@@ -69,57 +102,38 @@ import org.jetbrains.compose.resources.stringResource
 // parameter in common. So the branch cannot go away — but the four arguments both arms pass can be
 // resolved once, above it, instead of being written out per arm (#104).
 
-/**
- * The button's label at the type scale its size carries.
- *
- * M3 scales type with the container rather than holding one label size across a 32dp-to-136dp
- * range, so a size variant that changed only the box would render a correct height around visibly
- * wrong text.
- */
+// --- Content axes, folded under Button/Filled ---------------------------------------------------
+
+@CatalogVariant(
+  of = "Button/Filled",
+  props = ["content=label"],
+  caption = "Label only, vs the kit's icon + label default.",
+)
+@CatalogModes
 @Composable
-private fun SizedLabel(label: String) {
-  ProvideTextStyle(catalogButtonSize().labelStyle) { Text(label) }
+fun FilledButtonLabelOnly() = Sticker {
+  val c = counted(catalogText("label", stringResource(Res.string.label_filled)))
+  Button(onClick = c.onClick) { Text(c.label) }
 }
 
+// --- Generated sticker bodies, from uid-stickers/Buttons.kt ---
+
+/** The button's live knobs, read in the hand-written sticker's order. */
+private class ButtonKnobs(
+  val click: Counted,
+  val size: CatalogSize,
+  val enabled: Boolean,
+  val square: Boolean,
+)
+
 @Composable
-private fun FigmaButtonContent(label: String) {
+private fun buttonKnobs(label: StringResource): ButtonKnobs {
+  val click = counted(catalogText("label", stringResource(label)))
   val size = catalogButtonSize()
-  Icon(CatalogFilledStars, contentDescription = null, modifier = Modifier.size(size.iconSize))
-  Spacer(Modifier.width(size.iconSpacing))
-  SizedLabel(label)
+  val enabled = catalogEnabled()
+  val square = CatalogShape.Axis.current() == CatalogShape.Square
+  return ButtonKnobs(click, size, enabled, square)
 }
-
-/**
- * The cell a button sticker renders in: the size's container height, content centred.
- *
- * Identical for all five emphases, and that is the point: they publish one basis for their render
- * bounds at every size, so the sheet can lay them side by side and have the comparison be about the
- * design. Room for `Button/Elevated`'s Level 1 shadow is
- * [ee.schimke.composeai.preview.CaptureGutter] on that sticker's preview, not padding in here — a
- * gutter inside the frame would measure the button in a smaller box and grow its canvas, which is
- * what drew the elevated arm 7% smaller than its siblings (#179, and #102 for the crop the gutter
- * fixes).
- *
- * Both heights go through [kitHeight].
- */
-@Composable
-private fun ButtonFrame(size: CatalogSize, content: @Composable () -> Unit) {
-  val height = if (size == CatalogSize.Small) 48.dp else size.containerHeight
-  Box(modifier = Modifier.kitHeight(height), contentAlignment = Alignment.Center) { content() }
-}
-
-/**
- * The kit's height, exact at font scale 1 and a minimum above it (#256).
- *
- * At the kit's font scale the size's container height is exact, as the kit draws it — and it has to
- * stay exact there: as a minimum, the button's 48dp minimum interactive size would grow the XSmall
- * and Small cells' layout and move their pixels. At a raised font scale the label needs more room
- * than the kit's height, and `Button` grows with its `defaultMinSize` the way it does in an app; an
- * exact height squeezed the label's text box to 24dp and clipped it.
- */
-@Composable
-private fun Modifier.kitHeight(height: Dp): Modifier =
-  if (LocalDensity.current.fontScale > 1f) heightIn(min = height) else height(height)
 
 @CatalogComponent(
   id = "Button/Filled",
@@ -132,20 +146,50 @@ private fun Modifier.kitHeight(height: Dp): Modifier =
 @ee.schimke.m3catalog.FilledButtonExhaustiveKitCells
 @Composable
 fun FilledButton() = Sticker {
-  val c = counted(catalogText("label", stringResource(Res.string.label_filled)))
-  val size = catalogButtonSize()
-  ButtonFrame(size) {
-    val enabled = catalogEnabled()
-    val padding = size.contentPadding
-    val modifier = Modifier.kitHeight(size.containerHeight)
-    val content: @Composable RowScope.() -> Unit = { FigmaButtonContent(c.label) }
-    if (catalogExpressive()) {
-      val shapes = catalogButtonShapes(size)
-      Button(c.onClick, shapes, modifier, enabled, contentPadding = padding, content = content)
-    } else {
-      val shape = catalogButtonShape()
-      Button(c.onClick, modifier, enabled, shape, contentPadding = padding, content = content)
-    }
+  val k = buttonKnobs(Res.string.label_filled)
+  val label = k.click.label
+  val onClick = k.click.onClick
+  when (k.size) {
+    CatalogSize.ExtraSmall ->
+      if (k.square)
+        KitFilledButtonXsSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else KitFilledButtonXs(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Small ->
+      if (k.square)
+        KitFilledButtonSquare(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+      else KitFilledButton(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Medium ->
+      if (k.square)
+        KitFilledButtonMSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else KitFilledButtonM(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Large ->
+      if (k.square)
+        KitFilledButtonLSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else KitFilledButtonL(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.ExtraLarge ->
+      if (k.square)
+        KitFilledButtonXlSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else KitFilledButtonXl(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
   }
 }
 
@@ -160,34 +204,40 @@ fun FilledButton() = Sticker {
 @ee.schimke.m3catalog.TonalButtonExhaustiveKitCells
 @Composable
 fun TonalButton() = Sticker {
-  val c = counted(catalogText("label", stringResource(Res.string.label_tonal)))
-  val size = catalogButtonSize()
-  ButtonFrame(size) {
-    val enabled = catalogEnabled()
-    val pad = size.contentPadding
-    val modifier = Modifier.kitHeight(size.containerHeight)
-    val content: @Composable RowScope.() -> Unit = { FigmaButtonContent(c.label) }
-    if (catalogExpressive()) {
-      val shapes = catalogButtonShapes(size)
-      FilledTonalButton(
-        c.onClick,
-        shapes,
-        modifier,
-        enabled,
-        contentPadding = pad,
-        content = content,
-      )
-    } else {
-      val shape = catalogButtonShape()
-      FilledTonalButton(
-        c.onClick,
-        modifier,
-        enabled,
-        shape,
-        contentPadding = pad,
-        content = content,
-      )
-    }
+  val k = buttonKnobs(Res.string.label_tonal)
+  val label = k.click.label
+  val onClick = k.click.onClick
+  when (k.size) {
+    CatalogSize.ExtraSmall ->
+      if (k.square)
+        KitTonalButtonXsSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else KitTonalButtonXs(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Small ->
+      if (k.square)
+        KitTonalButtonSquare(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+      else KitTonalButton(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Medium ->
+      if (k.square)
+        KitTonalButtonMSquare(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+      else KitTonalButtonM(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Large ->
+      if (k.square)
+        KitTonalButtonLSquare(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+      else KitTonalButtonL(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.ExtraLarge ->
+      if (k.square)
+        KitTonalButtonXlSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else KitTonalButtonXl(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
   }
 }
 
@@ -202,20 +252,57 @@ fun TonalButton() = Sticker {
 @ee.schimke.m3catalog.OutlinedButtonStickerExhaustiveKitCells
 @Composable
 fun OutlinedButtonSticker() = Sticker {
-  val c = counted(catalogText("label", stringResource(Res.string.label_outlined)))
-  val size = catalogButtonSize()
-  ButtonFrame(size) {
-    val enabled = catalogEnabled()
-    val pad = size.contentPadding
-    val modifier = Modifier.kitHeight(size.containerHeight)
-    val content: @Composable RowScope.() -> Unit = { FigmaButtonContent(c.label) }
-    if (catalogExpressive()) {
-      val shapes = catalogButtonShapes(size)
-      OutlinedButton(c.onClick, shapes, modifier, enabled, contentPadding = pad, content = content)
-    } else {
-      val shape = catalogButtonShape()
-      OutlinedButton(c.onClick, modifier, enabled, shape, contentPadding = pad, content = content)
-    }
+  val k = buttonKnobs(Res.string.label_outlined)
+  val label = k.click.label
+  val onClick = k.click.onClick
+  when (k.size) {
+    CatalogSize.ExtraSmall ->
+      if (k.square)
+        KitOutlinedButtonXsSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else
+        KitOutlinedButtonXs(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Small ->
+      if (k.square)
+        KitOutlinedButtonSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else KitOutlinedButton(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Medium ->
+      if (k.square)
+        KitOutlinedButtonMSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else KitOutlinedButtonM(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Large ->
+      if (k.square)
+        KitOutlinedButtonLSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else KitOutlinedButtonL(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.ExtraLarge ->
+      if (k.square)
+        KitOutlinedButtonXlSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else
+        KitOutlinedButtonXl(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
   }
 }
 
@@ -231,20 +318,57 @@ fun OutlinedButtonSticker() = Sticker {
 @ee.schimke.m3catalog.ElevatedButtonStickerExhaustiveKitCells
 @Composable
 fun ElevatedButtonSticker() = Sticker {
-  val c = counted(catalogText("label", stringResource(Res.string.label_elevated)))
-  val size = catalogButtonSize()
-  ButtonFrame(size) {
-    val enabled = catalogEnabled()
-    val pad = size.contentPadding
-    val modifier = Modifier.kitHeight(size.containerHeight)
-    val content: @Composable RowScope.() -> Unit = { FigmaButtonContent(c.label) }
-    if (catalogExpressive()) {
-      val shapes = catalogButtonShapes(size)
-      ElevatedButton(c.onClick, shapes, modifier, enabled, contentPadding = pad, content = content)
-    } else {
-      val shape = catalogButtonShape()
-      ElevatedButton(c.onClick, modifier, enabled, shape, contentPadding = pad, content = content)
-    }
+  val k = buttonKnobs(Res.string.label_elevated)
+  val label = k.click.label
+  val onClick = k.click.onClick
+  when (k.size) {
+    CatalogSize.ExtraSmall ->
+      if (k.square)
+        KitElevatedButtonXsSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else
+        KitElevatedButtonXs(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Small ->
+      if (k.square)
+        KitElevatedButtonSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else KitElevatedButton(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Medium ->
+      if (k.square)
+        KitElevatedButtonMSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else KitElevatedButtonM(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Large ->
+      if (k.square)
+        KitElevatedButtonLSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else KitElevatedButtonL(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.ExtraLarge ->
+      if (k.square)
+        KitElevatedButtonXlSquare(
+          Modifier,
+          enabled = k.enabled,
+          label = label,
+          onButtonClick = onClick,
+        )
+      else
+        KitElevatedButtonXl(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
   }
 }
 
@@ -262,33 +386,29 @@ fun ElevatedButtonSticker() = Sticker {
 @ee.schimke.m3catalog.TextButtonStickerExhaustiveKitCells
 @Composable
 fun TextButtonSticker() = Sticker {
-  val c = counted(catalogText("label", stringResource(Res.string.label_text)))
-  val size = catalogButtonSize()
-  ButtonFrame(size) {
-    val enabled = catalogEnabled()
-    val pad = size.contentPadding
-    val modifier = Modifier.kitHeight(size.containerHeight)
-    val content: @Composable RowScope.() -> Unit = { FigmaButtonContent(c.label) }
-    if (catalogExpressive()) {
-      val shapes = catalogButtonShapes(size)
-      TextButton(c.onClick, shapes, modifier, enabled, contentPadding = pad, content = content)
-    } else {
-      val shape = catalogButtonShape()
-      TextButton(c.onClick, modifier, enabled, shape, contentPadding = pad, content = content)
-    }
+  val k = buttonKnobs(Res.string.label_text)
+  val label = k.click.label
+  val onClick = k.click.onClick
+  when (k.size) {
+    CatalogSize.ExtraSmall ->
+      if (k.square)
+        KitTextButtonXsSquare(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+      else KitTextButtonXs(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Small ->
+      if (k.square)
+        KitTextButtonSquare(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+      else KitTextButton(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Medium ->
+      if (k.square)
+        KitTextButtonMSquare(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+      else KitTextButtonM(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.Large ->
+      if (k.square)
+        KitTextButtonLSquare(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+      else KitTextButtonL(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+    CatalogSize.ExtraLarge ->
+      if (k.square)
+        KitTextButtonXlSquare(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
+      else KitTextButtonXl(Modifier, enabled = k.enabled, label = label, onButtonClick = onClick)
   }
-}
-
-// --- Content axes, folded under Button/Filled ---------------------------------------------------
-
-@CatalogVariant(
-  of = "Button/Filled",
-  props = ["content=label"],
-  caption = "Label only, vs the kit's icon + label default.",
-)
-@CatalogModes
-@Composable
-fun FilledButtonLabelOnly() = Sticker {
-  val c = counted(catalogText("label", stringResource(Res.string.label_filled)))
-  Button(onClick = c.onClick) { Text(c.label) }
 }

@@ -1,0 +1,219 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-bottom-app-bar",
+  "title": "Kit bottom app bar",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 412,
+    "heightDp": 80,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-bottom-app-bar": {
+      "name": "KitBottomAppBar",
+      "root": "bar"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-bottom-app-bar",
+        "arguments": {
+          "check": {
+            "type": "resource",
+            "resourceKey": "action_check"
+          },
+          "edit": {
+            "type": "resource",
+            "resourceKey": "action_edit"
+          },
+          "more": {
+            "type": "resource",
+            "resourceKey": "action_more"
+          },
+          "add": {
+            "type": "resource",
+            "resourceKey": "action_add"
+          }
+        }
+      }
+    },
+    "check-icon": {
+      "id": "check-icon",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "search"
+        },
+        "contentDescription": {
+          "type": "binding",
+          "value": "check"
+        }
+      },
+      "slots": {}
+    },
+    "check": {
+      "id": "check",
+      "componentId": "m3/icon-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "check-icon"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "edit-icon": {
+      "id": "edit-icon",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "outlined/delete"
+        },
+        "contentDescription": {
+          "type": "binding",
+          "value": "edit"
+        }
+      },
+      "slots": {}
+    },
+    "edit": {
+      "id": "edit",
+      "componentId": "m3/icon-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "edit-icon"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "more-icon": {
+      "id": "more-icon",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "outlined/download"
+        },
+        "contentDescription": {
+          "type": "binding",
+          "value": "more"
+        }
+      },
+      "slots": {}
+    },
+    "more": {
+      "id": "more",
+      "componentId": "m3/icon-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "more-icon"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "add-icon": {
+      "id": "add-icon",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "add"
+        },
+        "contentDescription": {
+          "type": "binding",
+          "value": "add"
+        }
+      },
+      "slots": {}
+    },
+    "add": {
+      "id": "add",
+      "componentId": "m3/icon-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "add-icon"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "fab-icon": {
+      "id": "fab-icon",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "add"
+        },
+        "contentDescription": {
+          "type": "binding",
+          "value": "add"
+        }
+      },
+      "slots": {}
+    },
+    "fab": {
+      "id": "fab",
+      "componentId": "m3/floating-action-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "fab-icon"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "bar": {
+      "id": "bar",
+      "componentId": "m3/bottom-app-bar",
+      "properties": {},
+      "slots": {
+        "actions": [
+          "check",
+          "edit",
+          "more",
+          "add"
+        ],
+        "floatingActionButton": [
+          "fab"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 412
+        }
+      ]
+    }
+  }
+}

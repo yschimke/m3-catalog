@@ -1,0 +1,286 @@
+{
+  "variants": {
+    "Icon": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "lead",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/event"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Brand": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "lead",
+          "componentId": "m3catalog/stars-icon",
+          "properties": {},
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Favicon": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "lead",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/person"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Avatar": [
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "lead",
+          "componentId": "m3/surface",
+          "properties": {
+            "shapeDp": {
+              "type": "float",
+              "value": 12
+            },
+            "containerColor": {
+              "type": "colorToken",
+              "value": "primaryContainer"
+            },
+            "contentColor": {
+              "type": "colorToken",
+              "value": "onPrimaryContainer"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "lead",
+        "slot": "content",
+        "node": {
+          "id": "lead-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/person"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 24,
+              "heightDp": 24
+            },
+            {
+              "type": "padding",
+              "startDp": 2,
+              "topDp": 2,
+              "endDp": 2,
+              "bottomDp": 2
+            }
+          ]
+        }
+      }
+    ],
+    "Elevated": [
+      {
+        "type": "setComponentId",
+        "nodeId": "chip",
+        "componentId": "m3/elevated-assist-chip"
+      }
+    ],
+    "Elevated icon": [
+      {
+        "type": "setComponentId",
+        "nodeId": "chip",
+        "componentId": "m3/elevated-assist-chip"
+      },
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "lead",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/event"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Elevated brand": [
+      {
+        "type": "setComponentId",
+        "nodeId": "chip",
+        "componentId": "m3/elevated-assist-chip"
+      },
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "lead",
+          "componentId": "m3catalog/stars-icon",
+          "properties": {},
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Elevated favicon": [
+      {
+        "type": "setComponentId",
+        "nodeId": "chip",
+        "componentId": "m3/elevated-assist-chip"
+      },
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "lead",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/person"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 18,
+              "heightDp": 18
+            }
+          ]
+        }
+      }
+    ],
+    "Elevated avatar": [
+      {
+        "type": "setComponentId",
+        "nodeId": "chip",
+        "componentId": "m3/elevated-assist-chip"
+      },
+      {
+        "type": "addNode",
+        "parentId": "chip",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "lead",
+          "componentId": "m3/surface",
+          "properties": {
+            "shapeDp": {
+              "type": "float",
+              "value": 12
+            },
+            "containerColor": {
+              "type": "colorToken",
+              "value": "primaryContainer"
+            },
+            "contentColor": {
+              "type": "colorToken",
+              "value": "onPrimaryContainer"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "lead",
+        "slot": "content",
+        "node": {
+          "id": "lead-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/person"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 24,
+              "heightDp": 24
+            },
+            {
+              "type": "padding",
+              "startDp": 2,
+              "topDp": 2,
+              "endDp": 2,
+              "bottomDp": 2
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "pairs": {
+    "AssistChipSticker": "AssistChipSticker"
+  }
+}

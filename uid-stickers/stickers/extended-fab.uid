@@ -1,0 +1,83 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "extended-fab",
+  "title": "KitExtendedFab",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 160,
+    "heightDp": 96,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "extended-fab": {
+      "name": "KitExtendedFab",
+      "root": "fab"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "extended-fab",
+        "arguments": {
+          "label": {
+            "type": "resource",
+            "resourceKey": "label_text"
+          }
+        }
+      }
+    },
+    "icon": {
+      "id": "icon",
+      "componentId": "m3catalog/stars-icon",
+      "properties": {},
+      "slots": {}
+    },
+    "label": {
+      "id": "label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label"
+        }
+      },
+      "slots": {}
+    },
+    "fab": {
+      "id": "fab",
+      "componentId": "m3/extended-floating-action-button",
+      "properties": {
+        "containerColor": {
+          "type": "colorToken",
+          "value": "primaryContainer"
+        }
+      },
+      "slots": {
+        "icon": [
+          "icon"
+        ],
+        "text": [
+          "label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    }
+  }
+}

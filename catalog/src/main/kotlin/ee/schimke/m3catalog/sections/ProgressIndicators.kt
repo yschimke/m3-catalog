@@ -7,10 +7,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.CircularWavyProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.LinearWavyProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,6 +23,8 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.CatalogModesLinearProgress
 import ee.schimke.m3catalog.CatalogModesLinearProgressExpressive
 import ee.schimke.m3catalog.Sticker
+import generated.uibuilder.KitCircularProgress
+import generated.uibuilder.KitLinearProgress
 
 // Determinate is the primary sticker on every one of these. An indeterminate indicator is an
 // animation, and a baked PNG freezes it at an arbitrary frame — so the published capture is the
@@ -39,49 +39,6 @@ import ee.schimke.m3catalog.Sticker
 // `progress` is a parameter knob: declared by the signature, seeded by ordinary argument
 // passing. The `@OverrideVariant` cells below seed it by name exactly as they did the
 // `previewOverrideFloat` lookup this replaced, and the body carries no harness call at all.
-
-@CatalogComponent(
-  id = "Progress/Linear",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8017",
-  caption = "Determinate linear progress. Values across the range fold in.",
-)
-@CatalogModesLinearProgress
-// `m3/progress-indicator`, not `m3/linear-progress-indicator`: the builder offers ONE progress
-// component with the shape as a property, which is a coarser cut than this catalog's, and it is
-// the id every saved design already stores.
-@BuilderComponent(component = "LinearProgressIndicator", id = "m3/progress-indicator")
-@OverrideVariant(name = "empty", floats = ["progress=0.0"])
-@OverrideVariant(name = "quarter", floats = ["progress=0.25"])
-@OverrideVariant(name = "full", floats = ["progress=1.0"])
-@ee.schimke.m3catalog.LinearProgressExhaustiveKitCells
-@Composable
-fun LinearProgress(progress: Float = 0.5f) = Sticker {
-  // Close over the argument: `progress = {}` is a plain lambda the indicator samples on each
-  // draw, not a @Composable scope.
-  val value = progress
-  Box(Modifier.width(405.dp).height(12.dp)) {
-    LinearProgressIndicator(
-      progress = { value },
-      modifier = Modifier.align(Alignment.Center).fillMaxWidth(),
-    )
-  }
-}
-
-@CatalogComponent(
-  id = "Progress/Circular",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8492",
-  caption = "Determinate circular progress. Values across the range fold in.",
-)
-@CatalogModes
-@OverrideVariant(name = "empty", floats = ["progress=0.0"])
-@OverrideVariant(name = "quarter", floats = ["progress=0.25"])
-@OverrideVariant(name = "full", floats = ["progress=1.0"])
-@ee.schimke.m3catalog.CircularProgressExhaustiveKitCells
-@Composable
-fun CircularProgress(progress: Float = 0.5f) = Sticker {
-  val value = progress
-  CircularProgressIndicator(progress = { value })
-}
 
 @CatalogVariant(
   of = "Progress/Linear",
@@ -114,4 +71,40 @@ fun LinearWavyProgress(progress: Float = 0.5f) = Sticker {
 fun CircularWavyProgress(progress: Float = 0.5f) = Sticker {
   val value = progress
   CircularWavyProgressIndicator(progress = { value })
+}
+
+// --- Generated sticker bodies, from uid-stickers/Progress.kt ---
+
+@CatalogComponent(
+  id = "Progress/Linear",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8017",
+  caption = "Determinate linear progress. Values across the range fold in.",
+)
+@CatalogModesLinearProgress
+// `m3/progress-indicator`, not `m3/linear-progress-indicator`: the builder offers ONE progress
+// component with the shape as a property, which is a coarser cut than this catalog's, and it is
+// the id every saved design already stores.
+@BuilderComponent(component = "LinearProgressIndicator", id = "m3/progress-indicator")
+@OverrideVariant(name = "empty", floats = ["progress=0.0"])
+@OverrideVariant(name = "quarter", floats = ["progress=0.25"])
+@OverrideVariant(name = "full", floats = ["progress=1.0"])
+@ee.schimke.m3catalog.LinearProgressExhaustiveKitCells
+@Composable
+fun LinearProgress(progress: Float = 0.5f) = Sticker {
+  KitLinearProgress(Modifier, progress = progress)
+}
+
+@CatalogComponent(
+  id = "Progress/Circular",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8492",
+  caption = "Determinate circular progress. Values across the range fold in.",
+)
+@CatalogModes
+@OverrideVariant(name = "empty", floats = ["progress=0.0"])
+@OverrideVariant(name = "quarter", floats = ["progress=0.25"])
+@OverrideVariant(name = "full", floats = ["progress=1.0"])
+@ee.schimke.m3catalog.CircularProgressExhaustiveKitCells
+@Composable
+fun CircularProgress(progress: Float = 0.5f) = Sticker {
+  KitCircularProgress(Modifier, progress = progress)
 }

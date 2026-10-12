@@ -1,0 +1,68 @@
+{
+  "variants": {
+    "Slot": [
+      {
+        "type": "deleteNode",
+        "nodeId": "content"
+      }
+    ],
+    "Elevated": [
+      {
+        "type": "setProperty",
+        "nodeId": "card",
+        "property": "style",
+        "value": {
+          "type": "enum",
+          "value": "elevated"
+        }
+      }
+    ],
+    "Elevated slot": [
+      {
+        "type": "setProperty",
+        "nodeId": "card",
+        "property": "style",
+        "value": {
+          "type": "enum",
+          "value": "elevated"
+        }
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "content"
+      }
+    ],
+    "Outlined": [
+      {
+        "type": "setProperty",
+        "nodeId": "card",
+        "property": "style",
+        "value": {
+          "type": "enum",
+          "value": "outlined"
+        }
+      }
+    ],
+    "Outlined slot": [
+      {
+        "type": "setProperty",
+        "nodeId": "card",
+        "property": "style",
+        "value": {
+          "type": "enum",
+          "value": "outlined"
+        }
+      },
+      {
+        "type": "deleteNode",
+        "nodeId": "content"
+      }
+    ]
+  },
+  "pairs": {
+    "FilledCard": "FilledCard",
+    "ElevatedCardSticker": "ElevatedCardSticker",
+    "OutlinedCardSticker": "OutlinedCardSticker",
+    "FilledCardUidGerman": "self:FilledCardHandWrittenGerman"
+  }
+}

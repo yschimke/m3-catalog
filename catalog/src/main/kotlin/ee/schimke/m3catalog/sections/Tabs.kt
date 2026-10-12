@@ -10,9 +10,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.PrimaryScrollableTabRow
-import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.SecondaryScrollableTabRow
-import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,6 +33,24 @@ import ee.schimke.m3catalog.generated.resources.tab_related
 import ee.schimke.m3catalog.generated.resources.tab_reviews
 import ee.schimke.m3catalog.generated.resources.tab_specs
 import ee.schimke.m3catalog.selectable
+import generated.uibuilder.KitPrimaryTabs
+import generated.uibuilder.KitPrimaryTabsIcon
+import generated.uibuilder.KitPrimaryTabsIconLabel
+import generated.uibuilder.KitPrimaryTabsIconLabelSelected1
+import generated.uibuilder.KitPrimaryTabsIconLabelSelected2
+import generated.uibuilder.KitPrimaryTabsIconSelected1
+import generated.uibuilder.KitPrimaryTabsIconSelected2
+import generated.uibuilder.KitPrimaryTabsSelected1
+import generated.uibuilder.KitPrimaryTabsSelected2
+import generated.uibuilder.KitSecondaryTabs
+import generated.uibuilder.KitSecondaryTabsIcon
+import generated.uibuilder.KitSecondaryTabsIconLabel
+import generated.uibuilder.KitSecondaryTabsIconLabelSelected0
+import generated.uibuilder.KitSecondaryTabsIconLabelSelected2
+import generated.uibuilder.KitSecondaryTabsIconSelected0
+import generated.uibuilder.KitSecondaryTabsIconSelected2
+import generated.uibuilder.KitSecondaryTabsSelected0
+import generated.uibuilder.KitSecondaryTabsSelected2
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -70,53 +86,6 @@ private fun tabText(label: String): (@Composable () -> Unit)? =
 @Composable
 private fun tabIcon(icon: ImageVector): (@Composable () -> Unit)? =
   if (tabContent() == "label") null else ({ Icon(icon, contentDescription = null) })
-
-@CatalogComponent(
-  id = "Tabs/Primary",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40116",
-  caption = "Top-level content categories under an app bar. Icon and icon+label fold in.",
-)
-@CatalogModes
-@OverrideVariant(name = "icon", strings = ["content=icon"])
-@OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
-@ee.schimke.m3catalog.PrimaryTabsExhaustiveKitCells
-@Composable
-fun PrimaryTabs() = Sticker {
-  var selected by selectable(0)
-  PrimaryTabRow(selectedTabIndex = selected, modifier = Modifier.width(360.dp)) {
-    TABS.take(3).forEachIndexed { index, (title, icon) ->
-      Tab(
-        selected = index == selected,
-        onClick = { selected = index },
-        text = tabText(catalogText("text", stringResource(title), index)),
-        icon = tabIcon(icon),
-      )
-    }
-  }
-}
-
-@CatalogComponent(
-  id = "Tabs/Secondary",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40047",
-  caption = "Nested categories within a primary tab. Icon and icon+label fold in.",
-)
-@CatalogModes
-@OverrideVariant(name = "icon", strings = ["content=icon"])
-@OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
-@Composable
-fun SecondaryTabs() = Sticker {
-  var selected by selectable(1)
-  SecondaryTabRow(selectedTabIndex = selected, modifier = Modifier.width(360.dp)) {
-    TABS.take(3).forEachIndexed { index, (title, icon) ->
-      Tab(
-        selected = index == selected,
-        onClick = { selected = index },
-        text = tabText(catalogText("text", stringResource(title), index)),
-        icon = tabIcon(icon),
-      )
-    }
-  }
-}
 
 @CatalogVariant(
   of = "Tabs/Primary",
@@ -159,5 +128,216 @@ fun SecondaryScrollableTabs() = Sticker {
         icon = tabIcon(icon),
       )
     }
+  }
+}
+
+// --- Generated sticker bodies, from uid-stickers/Tabs.kt ---
+
+@Composable
+private fun tabTexts(): List<String> =
+  listOf(
+    catalogText("text", stringResource(Res.string.tab_overview), 0),
+    catalogText("text", stringResource(Res.string.tab_specs), 1),
+    catalogText("text", stringResource(Res.string.tab_reviews), 2),
+  )
+
+@CatalogComponent(
+  id = "Tabs/Primary",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40116",
+  caption = "Top-level content categories under an app bar. Icon and icon+label fold in.",
+)
+@CatalogModes
+@OverrideVariant(name = "icon", strings = ["content=icon"])
+@OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
+@ee.schimke.m3catalog.PrimaryTabsExhaustiveKitCells
+@Composable
+fun PrimaryTabs() = Sticker {
+  var selected by selectable(0)
+  val content = catalogChoice("content", "label", "label", "icon", "icon+label")
+  val text = if (content == "icon") emptyList() else tabTexts()
+  val m = Modifier
+  when {
+    content == "label" && selected == 0 ->
+      KitPrimaryTabs(
+        modifier = m,
+        text0 = text[0],
+        text1 = text[1],
+        text2 = text[2],
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "label" && selected == 1 ->
+      KitPrimaryTabsSelected1(
+        modifier = m,
+        text0 = text[0],
+        text1 = text[1],
+        text2 = text[2],
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "label" && selected == 2 ->
+      KitPrimaryTabsSelected2(
+        modifier = m,
+        text0 = text[0],
+        text1 = text[1],
+        text2 = text[2],
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "icon+label" && selected == 0 ->
+      KitPrimaryTabsIconLabel(
+        modifier = m,
+        text0 = text[0],
+        text1 = text[1],
+        text2 = text[2],
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "icon+label" && selected == 1 ->
+      KitPrimaryTabsIconLabelSelected1(
+        modifier = m,
+        text0 = text[0],
+        text1 = text[1],
+        text2 = text[2],
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "icon+label" && selected == 2 ->
+      KitPrimaryTabsIconLabelSelected2(
+        modifier = m,
+        text0 = text[0],
+        text1 = text[1],
+        text2 = text[2],
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "icon" && selected == 0 ->
+      KitPrimaryTabsIcon(
+        modifier = m,
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "icon" && selected == 1 ->
+      KitPrimaryTabsIconSelected1(
+        modifier = m,
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "icon" && selected == 2 ->
+      KitPrimaryTabsIconSelected2(
+        modifier = m,
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    else -> {}
+  }
+}
+
+@CatalogComponent(
+  id = "Tabs/Secondary",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/54563:40047",
+  caption = "Nested categories within a primary tab. Icon and icon+label fold in.",
+)
+@CatalogModes
+@OverrideVariant(name = "icon", strings = ["content=icon"])
+@OverrideVariant(name = "icon-label", strings = ["content=icon+label"])
+@Composable
+fun SecondaryTabs() = Sticker {
+  var selected by selectable(1)
+  val content = catalogChoice("content", "label", "label", "icon", "icon+label")
+  val text = if (content == "icon") emptyList() else tabTexts()
+  val m = Modifier
+  when {
+    content == "label" && selected == 0 ->
+      KitSecondaryTabsSelected0(
+        modifier = m,
+        text0 = text[0],
+        text1 = text[1],
+        text2 = text[2],
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "label" && selected == 1 ->
+      KitSecondaryTabs(
+        modifier = m,
+        text0 = text[0],
+        text1 = text[1],
+        text2 = text[2],
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "label" && selected == 2 ->
+      KitSecondaryTabsSelected2(
+        modifier = m,
+        text0 = text[0],
+        text1 = text[1],
+        text2 = text[2],
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "icon+label" && selected == 0 ->
+      KitSecondaryTabsIconLabelSelected0(
+        modifier = m,
+        text0 = text[0],
+        text1 = text[1],
+        text2 = text[2],
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "icon+label" && selected == 1 ->
+      KitSecondaryTabsIconLabel(
+        modifier = m,
+        text0 = text[0],
+        text1 = text[1],
+        text2 = text[2],
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "icon+label" && selected == 2 ->
+      KitSecondaryTabsIconLabelSelected2(
+        modifier = m,
+        text0 = text[0],
+        text1 = text[1],
+        text2 = text[2],
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "icon" && selected == 0 ->
+      KitSecondaryTabsIconSelected0(
+        modifier = m,
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "icon" && selected == 1 ->
+      KitSecondaryTabsIcon(
+        modifier = m,
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    content == "icon" && selected == 2 ->
+      KitSecondaryTabsIconSelected2(
+        modifier = m,
+        onTab0Click = { selected = 0 },
+        onTab1Click = { selected = 1 },
+        onTab2Click = { selected = 2 },
+      )
+    else -> {}
   }
 }

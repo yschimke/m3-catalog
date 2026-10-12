@@ -1,0 +1,152 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-basic-dialog",
+  "title": "Kit basic dialog",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 312,
+    "heightDp": 240,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-basic-dialog": {
+      "name": "KitBasicDialog",
+      "root": "dialog"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-basic-dialog",
+        "arguments": {
+          "title": {
+            "type": "resource",
+            "resourceKey": "dialog_delete_title"
+          },
+          "text": {
+            "type": "resource",
+            "resourceKey": "dialog_delete_body"
+          },
+          "confirmButton": {
+            "type": "resource",
+            "resourceKey": "dialog_action_1"
+          },
+          "dismissButton": {
+            "type": "resource",
+            "resourceKey": "dialog_action_2"
+          }
+        }
+      }
+    },
+    "dialog": {
+      "id": "dialog",
+      "componentId": "m3/dialog",
+      "slots": {
+        "title": [
+          "title"
+        ],
+        "text": [
+          "body"
+        ],
+        "confirmButton": [
+          "confirm"
+        ],
+        "dismissButton": [
+          "dismiss"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 312
+        }
+      ],
+      "properties": {}
+    },
+    "title": {
+      "id": "title",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "title"
+        }
+      },
+      "slots": {}
+    },
+    "body": {
+      "id": "body",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "text"
+        }
+      },
+      "slots": {}
+    },
+    "confirm": {
+      "id": "confirm",
+      "componentId": "m3/text-button",
+      "slots": {
+        "content": [
+          "confirm-label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      },
+      "properties": {}
+    },
+    "confirm-label": {
+      "id": "confirm-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "confirmButton"
+        }
+      },
+      "slots": {}
+    },
+    "dismiss": {
+      "id": "dismiss",
+      "componentId": "m3/text-button",
+      "slots": {
+        "content": [
+          "dismiss-label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      },
+      "properties": {}
+    },
+    "dismiss-label": {
+      "id": "dismiss-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "dismissButton"
+        }
+      },
+      "slots": {}
+    }
+  }
+}

@@ -3,17 +3,12 @@
 
 package ee.schimke.m3catalog.sections
 
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxColors
-import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.Modifier
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.OverrideVariant
@@ -22,6 +17,11 @@ import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.toggleable
+import generated.uibuilder.KitCheckbox
+import generated.uibuilder.KitCheckboxDisabled
+import generated.uibuilder.KitCheckboxError
+import generated.uibuilder.KitCheckboxIndeterminate
+import generated.uibuilder.KitCheckboxIndeterminateError
 
 // The kit's checkbox matrix is selection × status: three selection values (checked, unchecked,
 // indeterminate) against three statuses (enabled, disabled, error). Both are states of one kit
@@ -46,18 +46,7 @@ private fun checkboxSelection(): String =
 private fun checkboxStatus(): String =
   catalogChoice("status", "enabled", "enabled", "disabled", "error")
 
-@Composable
-private fun checkboxColors(): CheckboxColors =
-  if (checkboxStatus() == "error") {
-    val scheme = MaterialTheme.colorScheme
-    CheckboxDefaults.colors(
-      checkedColor = scheme.error,
-      checkmarkColor = scheme.onError,
-      uncheckedColor = scheme.error,
-    )
-  } else {
-    CheckboxDefaults.colors()
-  }
+// --- Generated sticker bodies, from uid-stickers/Checkboxes.kt ---
 
 @CatalogComponent(
   id = "Checkbox/Checked",
@@ -81,26 +70,23 @@ private fun checkboxColors(): CheckboxColors =
 @ee.schimke.m3catalog.CheckboxCheckedExhaustiveKitCells
 @Composable
 fun CheckboxChecked() = Sticker {
+  // The knobs, read in the hand-written sticker's order: status (twice), then selection.
   val enabled = checkboxStatus() != "disabled"
-  val colors = checkboxColors()
+  val error = checkboxStatus() == "error"
+  val m = Modifier
   when (checkboxSelection()) {
     "indeterminate" ->
-      TriStateCheckbox(
-        state = ToggleableState.Indeterminate,
-        // Cycling the tri-state on the live lane would leave the sticker on whatever the last
-        // visitor clicked; the indeterminate frame is the one the kit specifies, so it stays put.
-        onClick = null,
-        enabled = enabled,
-        colors = colors,
-      )
+      if (error) KitCheckboxIndeterminateError(m, enabled = enabled)
+      else KitCheckboxIndeterminate(m, enabled = enabled)
     else -> {
       var checked by toggleable(checkboxSelection() == "checked")
-      Checkbox(
-        checked = checked,
-        onCheckedChange = if (enabled) ({ checked = it }) else null,
-        enabled = enabled,
-        colors = colors,
-      )
+      val toggle = { checked = !checked }
+      when {
+        !enabled -> KitCheckboxDisabled(m, checked = checked, enabled = false)
+        error ->
+          KitCheckboxError(m, checked = checked, enabled = true, onCheckboxCheckedChange = toggle)
+        else -> KitCheckbox(m, checked = checked, enabled = true, onCheckboxCheckedChange = toggle)
+      }
     }
   }
 }

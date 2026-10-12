@@ -1,0 +1,181 @@
+{
+  "variants": {
+    "Disabled": [
+      {
+        "type": "deleteNode",
+        "nodeId": "switch"
+      },
+      {
+        "type": "addNode",
+        "parentId": "frame",
+        "slot": "children",
+        "node": {
+          "id": "switch",
+          "componentId": "m3/switch",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "checked"
+            },
+            "enabled": {
+              "type": "binding",
+              "value": "enabled"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Icon On": [
+      {
+        "type": "addNode",
+        "parentId": "switch",
+        "slot": "thumbContent",
+        "node": {
+          "id": "thumb",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/check"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 16,
+              "heightDp": 16
+            }
+          ]
+        }
+      }
+    ],
+    "Icon Off": [
+      {
+        "type": "addNode",
+        "parentId": "switch",
+        "slot": "thumbContent",
+        "node": {
+          "id": "thumb",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/close"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 16,
+              "heightDp": 16
+            }
+          ]
+        }
+      }
+    ],
+    "Disabled Icon On": [
+      {
+        "type": "deleteNode",
+        "nodeId": "switch"
+      },
+      {
+        "type": "addNode",
+        "parentId": "frame",
+        "slot": "children",
+        "node": {
+          "id": "switch",
+          "componentId": "m3/switch",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "checked"
+            },
+            "enabled": {
+              "type": "binding",
+              "value": "enabled"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "switch",
+        "slot": "thumbContent",
+        "node": {
+          "id": "thumb",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/check"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 16,
+              "heightDp": 16
+            }
+          ]
+        }
+      }
+    ],
+    "Disabled Icon Off": [
+      {
+        "type": "deleteNode",
+        "nodeId": "switch"
+      },
+      {
+        "type": "addNode",
+        "parentId": "frame",
+        "slot": "children",
+        "node": {
+          "id": "switch",
+          "componentId": "m3/switch",
+          "properties": {
+            "checked": {
+              "type": "binding",
+              "value": "checked"
+            },
+            "enabled": {
+              "type": "binding",
+              "value": "enabled"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "switch",
+        "slot": "thumbContent",
+        "node": {
+          "id": "thumb",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/close"
+            }
+          },
+          "slots": {},
+          "modifiers": [
+            {
+              "type": "size",
+              "widthDp": 16,
+              "heightDp": 16
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "pairs": {
+    "SwitchOn": "SwitchOn"
+  }
+}

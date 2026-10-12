@@ -1,0 +1,141 @@
+{
+  "variants": {
+    "Action": [
+      {
+        "type": "addNode",
+        "parentId": "snackbar",
+        "slot": "action",
+        "node": {
+          "id": "undo",
+          "componentId": "m3/text-button",
+          "properties": {},
+          "slots": {},
+          "eventBindings": {
+            "click": []
+          }
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "undo",
+        "slot": "content",
+        "node": {
+          "id": "undo-label",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "action"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Close": [
+      {
+        "type": "addNode",
+        "parentId": "snackbar",
+        "slot": "dismissAction",
+        "node": {
+          "id": "close",
+          "componentId": "m3/icon-button",
+          "properties": {},
+          "slots": {},
+          "eventBindings": {
+            "click": []
+          }
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "close",
+        "slot": "content",
+        "node": {
+          "id": "close-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/close"
+            },
+            "contentDescription": {
+              "type": "binding",
+              "value": "dismissAction"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Action close": [
+      {
+        "type": "addNode",
+        "parentId": "snackbar",
+        "slot": "action",
+        "node": {
+          "id": "undo",
+          "componentId": "m3/text-button",
+          "properties": {},
+          "slots": {},
+          "eventBindings": {
+            "click": []
+          }
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "undo",
+        "slot": "content",
+        "node": {
+          "id": "undo-label",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "action"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "snackbar",
+        "slot": "dismissAction",
+        "node": {
+          "id": "close",
+          "componentId": "m3/icon-button",
+          "properties": {},
+          "slots": {},
+          "eventBindings": {
+            "click": []
+          }
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "close",
+        "slot": "content",
+        "node": {
+          "id": "close-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/close"
+            },
+            "contentDescription": {
+              "type": "binding",
+              "value": "dismissAction"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ]
+  },
+  "pairs": {
+    "SnackbarMessage": "SnackbarMessage"
+  }
+}

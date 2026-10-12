@@ -1,0 +1,130 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-list-item",
+  "title": "Kit list item",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 340,
+    "heightDp": 120,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-list-item": {
+      "name": "KitListItem",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-list-item",
+        "arguments": {
+          "headline": {
+            "type": "resource",
+            "resourceKey": "list_item"
+          },
+          "supportingText": {
+            "type": "resource",
+            "resourceKey": "list_supporting"
+          },
+          "supportingText2": {
+            "type": "resource",
+            "resourceKey": "list_last_seen"
+          },
+          "overline": {
+            "type": "resource",
+            "resourceKey": "list_overline"
+          },
+          "trailingText": {
+            "type": "string",
+            "value": "10:30"
+          },
+          "toggleChecked": {
+            "type": "bool",
+            "value": true
+          }
+        }
+      }
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/column",
+      "properties": {},
+      "slots": {
+        "children": [
+          "item"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 340
+        }
+      ]
+    },
+    "item": {
+      "id": "item",
+      "componentId": "m3/list-item",
+      "properties": {},
+      "slots": {
+        "headline": [
+          "headline"
+        ],
+        "supporting": [
+          "supporting"
+        ],
+        "leadingContent": [
+          "leading"
+        ]
+      }
+    },
+    "headline": {
+      "id": "headline",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "headline"
+        }
+      },
+      "slots": {}
+    },
+    "supporting": {
+      "id": "supporting",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "supportingText"
+        }
+      },
+      "slots": {}
+    },
+    "leading": {
+      "id": "leading",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "filled/person"
+        }
+      },
+      "slots": {}
+    }
+  }
+}

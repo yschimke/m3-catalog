@@ -1,0 +1,27 @@
+{
+  "$blocked": "DatePicker/Modal (DatePickerModalSticker). Refused: \"`DatePicker` has no parameter `selectedDate`\"; with `mode`: \"node `picker`.`mode` is the enum value `picker`, and nothing maps this catalog property's values to Kotlin members\"; cell [State]: \"node `picker`.state: no binding type mapping\". Needs a STATE_BUNDLES entry for m3/date-picker (selectedDate ISO -> initialSelectedDateMillis/initialDisplayedMonthMillis as Long, mode -> initialDisplayMode = DisplayMode.Picker|Input) or a binding type for a record's state-holder parameter, so the shell can own the state (Clear writes state.selectedDateMillis).",
+  "variants": {
+    "State": [
+      {
+        "type": "setProperty",
+        "nodeId": "picker",
+        "property": "state",
+        "value": {
+          "type": "binding",
+          "value": "state"
+        }
+      },
+      {
+        "type": "removeNodeProperty",
+        "nodeId": "picker",
+        "property": "selectedDate"
+      },
+      {
+        "type": "removeNodeProperty",
+        "nodeId": "picker",
+        "property": "mode"
+      }
+    ]
+  },
+  "pairs": {}
+}

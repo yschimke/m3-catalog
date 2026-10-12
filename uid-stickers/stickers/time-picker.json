@@ -1,0 +1,106 @@
+{
+  "variants": {
+    "12 hour": [
+      {
+        "type": "setProperty",
+        "nodeId": "picker",
+        "property": "is24Hour",
+        "value": {
+          "type": "bool",
+          "value": false
+        }
+      }
+    ],
+    "Input": [
+      {
+        "type": "setProperty",
+        "nodeId": "picker",
+        "property": "mode",
+        "value": {
+          "type": "enum",
+          "value": "input"
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "title",
+        "property": "input",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "toggle",
+        "property": "input",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "setModifiers",
+        "nodeId": "dialog",
+        "modifiers": [
+          {
+            "type": "width",
+            "widthDp": 264
+          }
+        ]
+      }
+    ],
+    "Input 12 hour": [
+      {
+        "type": "setProperty",
+        "nodeId": "picker",
+        "property": "mode",
+        "value": {
+          "type": "enum",
+          "value": "input"
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "title",
+        "property": "input",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "toggle",
+        "property": "input",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "setModifiers",
+        "nodeId": "dialog",
+        "modifiers": [
+          {
+            "type": "width",
+            "widthDp": 328
+          }
+        ]
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "picker",
+        "property": "is24Hour",
+        "value": {
+          "type": "bool",
+          "value": false
+        }
+      }
+    ]
+  },
+  "pairs": {
+    "TimePickerSticker": "TimePickerSticker",
+    "TimeInputSticker": "TimeInputSticker"
+  }
+}

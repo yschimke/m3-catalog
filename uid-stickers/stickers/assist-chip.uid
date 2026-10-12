@@ -1,0 +1,78 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "assist-chip",
+  "title": "Kit assist chip",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 120,
+    "heightDp": 48,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-assist-chip": {
+      "name": "KitAssistChip",
+      "root": "chip"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-assist-chip",
+        "arguments": {
+          "label": {
+            "type": "resource",
+            "resourceKey": "chip_add_to_calendar"
+          },
+          "enabled": {
+            "type": "bool",
+            "value": true
+          }
+        }
+      }
+    },
+    "chip": {
+      "id": "chip",
+      "componentId": "m3/assist-chip",
+      "properties": {
+        "enabled": {
+          "type": "binding",
+          "value": "enabled"
+        }
+      },
+      "slots": {
+        "label": [
+          "label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "label": {
+      "id": "label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label"
+        }
+      },
+      "slots": {}
+    }
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "text-button",
+  "title": "KitTextButton",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 200,
+    "heightDp": 48,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "text-button": {
+      "name": "KitTextButton",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "text-button",
+        "arguments": {
+          "label": {
+            "type": "resource",
+            "resourceKey": "label_text"
+          },
+          "enabled": {
+            "type": "bool",
+            "value": true
+          }
+        }
+      }
+    },
+    "icon": {
+      "id": "icon",
+      "componentId": "m3catalog/stars-icon",
+      "properties": {},
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "padding",
+          "startDp": 0,
+          "topDp": 0,
+          "endDp": 8,
+          "bottomDp": 0
+        },
+        {
+          "type": "size",
+          "widthDp": 20,
+          "heightDp": 20
+        }
+      ]
+    },
+    "label": {
+      "id": "label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelLarge"
+        }
+      },
+      "slots": {}
+    },
+    "button": {
+      "id": "button",
+      "componentId": "m3/text-button",
+      "properties": {
+        "enabled": {
+          "type": "binding",
+          "value": "enabled"
+        },
+        "shape": {
+          "type": "shapeToken",
+          "value": "circle"
+        },
+        "contentPadding": {
+          "type": "padding",
+          "startDp": 16,
+          "topDp": 10,
+          "endDp": 16,
+          "bottomDp": 10
+        }
+      },
+      "slots": {
+        "content": [
+          "icon",
+          "label"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 40
+        }
+      ],
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/box",
+      "properties": {
+        "contentAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "button"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 48
+        }
+      ]
+    }
+  }
+}

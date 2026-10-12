@@ -1,0 +1,1601 @@
+{
+  "variants": {
+    "Trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Leading": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Leading trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Supporting": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Supporting trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Supporting leading": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Supporting leading trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Error": [
+      {
+        "type": "setProperty",
+        "nodeId": "field",
+        "property": "isError",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Error trailing": [
+      {
+        "type": "setProperty",
+        "nodeId": "field",
+        "property": "isError",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Error leading": [
+      {
+        "type": "setProperty",
+        "nodeId": "field",
+        "property": "isError",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Error leading trailing": [
+      {
+        "type": "setProperty",
+        "nodeId": "field",
+        "property": "isError",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Label": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "label",
+        "node": {
+          "id": "label-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "labelText"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Label trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "label",
+        "node": {
+          "id": "label-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "labelText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Label leading": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "label",
+        "node": {
+          "id": "label-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "labelText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Label leading trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "label",
+        "node": {
+          "id": "label-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "labelText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Label supporting": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "label",
+        "node": {
+          "id": "label-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "labelText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Label supporting trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "label",
+        "node": {
+          "id": "label-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "labelText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Label supporting leading": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "label",
+        "node": {
+          "id": "label-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "labelText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Label supporting leading trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "label",
+        "node": {
+          "id": "label-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "labelText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Label error": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "label",
+        "node": {
+          "id": "label-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "labelText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "field",
+        "property": "isError",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Label error trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "label",
+        "node": {
+          "id": "label-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "labelText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "field",
+        "property": "isError",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Label error leading": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "label",
+        "node": {
+          "id": "label-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "labelText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "field",
+        "property": "isError",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Label error leading trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "label",
+        "node": {
+          "id": "label-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "labelText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "field",
+        "property": "isError",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Placeholder": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "placeholder",
+        "node": {
+          "id": "placeholder-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "placeholder"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Placeholder trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "placeholder",
+        "node": {
+          "id": "placeholder-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "placeholder"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Placeholder leading": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "placeholder",
+        "node": {
+          "id": "placeholder-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "placeholder"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Placeholder leading trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "placeholder",
+        "node": {
+          "id": "placeholder-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "placeholder"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Placeholder supporting": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "placeholder",
+        "node": {
+          "id": "placeholder-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "placeholder"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Placeholder supporting trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "placeholder",
+        "node": {
+          "id": "placeholder-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "placeholder"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Placeholder supporting leading": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "placeholder",
+        "node": {
+          "id": "placeholder-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "placeholder"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Placeholder supporting leading trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "placeholder",
+        "node": {
+          "id": "placeholder-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "placeholder"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Placeholder error": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "placeholder",
+        "node": {
+          "id": "placeholder-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "placeholder"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "field",
+        "property": "isError",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Placeholder error trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "placeholder",
+        "node": {
+          "id": "placeholder-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "placeholder"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "field",
+        "property": "isError",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Placeholder error leading": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "placeholder",
+        "node": {
+          "id": "placeholder-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "placeholder"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "field",
+        "property": "isError",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ],
+    "Placeholder error leading trailing": [
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "placeholder",
+        "node": {
+          "id": "placeholder-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "placeholder"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "setProperty",
+        "nodeId": "field",
+        "property": "isError",
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "supportingText",
+        "node": {
+          "id": "supporting-text",
+          "componentId": "m3/text",
+          "properties": {
+            "text": {
+              "type": "binding",
+              "value": "supportingText"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "leadingIcon",
+        "node": {
+          "id": "leading-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "search"
+            }
+          },
+          "slots": {}
+        }
+      },
+      {
+        "type": "addNode",
+        "parentId": "field",
+        "slot": "trailingIcon",
+        "node": {
+          "id": "trailing-icon",
+          "componentId": "m3/icon",
+          "properties": {
+            "iconKey": {
+              "type": "enum",
+              "value": "filled/cancel"
+            },
+            "contentDescription": {
+              "type": "resource",
+              "resourceKey": "action_clear"
+            }
+          },
+          "slots": {}
+        }
+      }
+    ]
+  },
+  "pairs": {
+    "OutlinedTextFieldSticker": "OutlinedTextFieldSticker"
+  }
+}

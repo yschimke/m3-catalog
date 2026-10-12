@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.4.20"
+kotlin = "2.4.21"
 ktfmt = "0.27.0"
 
 # Compose Multiplatform (desktop). 1.11.x is the first line that ships
@@ -42,7 +42,7 @@ ktfmt = "0.27.0"
 compose-multiplatform = "1.12.1"
 # `androidx.annotation.Sampled`, which every vendored AndroidX sample carries. Annotation-only and
 # multiplatform, so it resolves on the desktop JVM target `:samples-catalog` builds for.
-androidx-annotation = "1.10.0"
+androidx-annotation = "1.11.0"
 # `ViewModel` / `viewModelScope`, which two vendored AndroidX samples use. The JetBrains multiplatform
 # port, so it resolves on the desktop JVM target `:samples-catalog` builds for.
 jb-lifecycle = "2.11.0"
@@ -84,7 +84,7 @@ materialKolor = "5.0.1"
 # compose-ai-tools: the `ee.schimke.composeai.preview` Gradle plugin and the reusable CI
 # actions/workflows are one release — keep both pinned together (Renovate groups them; see
 # .github/renovate.json).
-composePreviewPlugin = "2.50.0"
+composePreviewPlugin = "2.51.0"
 # The daemon release BOM supplies each annotation and override module's published version.
 # These modules are versionless; releases may publish only a subset of them.
 composePreviewDaemon = "3.15.3"
