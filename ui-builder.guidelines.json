@@ -2,7 +2,7 @@
   "schema": "compose-ui-builder/catalog-guidelines/v1",
   "catalog": "m3-catalog",
   "platform": "mobile",
-  "version": 3,
+  "version": 4,
   "about": "Phone and tablet design guidance for designs and previews built from this catalog: adaptive layout from developer.android.com, and Material 3 (including M3 Expressive) component, colour, type and shape guidance from m3.material.io and the Compose Material 3 pages. Each rule quotes its source. A rule naming the screen surface is asked of whole screens (UI builder designs, which are shown at the phone and tablet frames); one naming component is also asked of a single component preview, which is shown as its one render.",
   "frames": [
     {
@@ -513,7 +513,7 @@
       "kind": "structure",
       "severity": "warning",
       "guidance": "Use on-primary on top of primary, and on-primary-container on top of primary-container, and the same for other accent and neutral colors to provide accessible contrast to the user.",
-      "check": "Where the design chooses colours itself, is text and icon content drawn in the on- role that pairs with the container behind it (onPrimary on primary, onSecondaryContainer on secondaryContainer, onSurface or onSurfaceVariant on the surface roles), rather than a hard-coded colour or a role from another pair? Answer not_applicable when the design leaves every colour to the components' defaults.",
+      "check": "Where the design chooses colours itself, is text and icon content drawn in the on- role that pairs with the container behind it (onPrimary on primary, onSecondaryContainer on secondaryContainer, onSurface or onSurfaceVariant on the surface roles), or in a high-contrast foreground paired with a semantic domain colour (such as weather conditions, status levels, transit lines or chart series), rather than an unpaired hard-coded colour or a role from another pair? Answer not_applicable when the design leaves every colour to the components' defaults.",
       "source": "https://developer.android.com/develop/ui/compose/designsystems/material3"
     },
     {
