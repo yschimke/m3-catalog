@@ -1,9 +1,9 @@
 # UI builder document stickers (prototype)
 
-50 of the catalog's 59 stickers, each defined as a UI builder document (a component the shell calls
-with the catalog's live knobs and click counters) instead of hand-written Compose, and each
-pixel-identical to the hand-written sticker on every capture. Readiness: [`CUTOVER.md`](CUTOVER.md);
-method: [`MIGRATING.md`](MIGRATING.md). Opt-in and
+The UI builder documents behind 50 of the catalog's 59 stickers. Those stickers are cut over: their
+bodies in `:catalog` call the components these documents export, checked in as
+`catalog/src/uid/kotlin`, and every capture is pixel-identical to the hand-written stickers they
+replaced. Status: [`CUTOVER.md`](CUTOVER.md); method: [`MIGRATING.md`](MIGRATING.md). Opt-in and
 unpublished. The findings and the recommendation are in
 [`docs/design/UID_STICKERS.md`](../docs/design/UID_STICKERS.md).
 

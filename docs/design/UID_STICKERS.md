@@ -1,8 +1,8 @@
 # Stickers defined as UI builder documents: investigation and prototype
 
-**Status: 50 of 59 stickers (84%) ready to cut over, opt-in (`-PuidStickers=true`), nothing
-published yet.** Every one of their 3,724 published captures is pixel-identical to the hand-written
-sticker's; the table and the cutover steps are in
+**Status: 50 of 59 stickers (84%) cut over.** Their bodies in `:catalog` are now the components the
+UI builder exports from their documents (checked in as `catalog/src/uid/kotlin`), and every one of
+`:catalog`'s 4,170 captures is pixel-identical to before the cutover; the table and the steps are in
 [`uid-stickers/CUTOVER.md`](../../uid-stickers/CUTOVER.md), the method in
 [`uid-stickers/MIGRATING.md`](../../uid-stickers/MIGRATING.md).
 

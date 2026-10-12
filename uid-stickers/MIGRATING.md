@@ -1,5 +1,10 @@
 # Migrating a sticker to a UI builder document
 
+> 50 stickers are already cut over (`CUTOVER.md`): their shells live in `:catalog`'s `sections/`
+> files and their generated components in `catalog/src/uid/kotlin`. To migrate one of the rest,
+> develop its shell in `uid-stickers/src/main/kotlin/ee/schimke/m3catalog/uid/` as below, check it
+> with `compare-local.py` against a `:catalog` render, then run `cutover.py` to move it in.
+
 A migrated sticker is ready to cut over when `compare-local.py` reports it `SAME`: every capture
 the hand-written `:catalog` sticker publishes (modes, override variants, interaction states,
 exhaustive kit cells) has a pixel-identical capture from the generated one. Cutting over is then a
