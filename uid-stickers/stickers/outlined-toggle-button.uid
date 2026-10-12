@@ -1,0 +1,154 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "outlined-toggle-button",
+  "title": "KitOutlinedToggleButton",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 200,
+    "heightDp": 48,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "outlined-toggle-button": {
+      "name": "KitOutlinedToggleButton",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "outlined-toggle-button",
+        "arguments": {
+          "checked": {
+            "type": "bool",
+            "value": false
+          },
+          "label": {
+            "type": "resource",
+            "resourceKey": "label_outlined"
+          },
+          "enabled": {
+            "type": "bool",
+            "value": true
+          }
+        }
+      }
+    },
+    "icon": {
+      "id": "icon",
+      "componentId": "m3catalog/selection-stars-icon",
+      "properties": {
+        "selected": {
+          "type": "binding",
+          "value": "checked"
+        }
+      },
+      "slots": {},
+      "modifiers": [
+        {
+          "type": "padding",
+          "startDp": 0,
+          "topDp": 0,
+          "endDp": 8,
+          "bottomDp": 0
+        },
+        {
+          "type": "size",
+          "widthDp": 20,
+          "heightDp": 20
+        }
+      ]
+    },
+    "label": {
+      "id": "label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "label"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelLarge"
+        }
+      },
+      "slots": {}
+    },
+    "toggle": {
+      "id": "toggle",
+      "componentId": "m3/outlined-toggle-button",
+      "properties": {
+        "checked": {
+          "type": "binding",
+          "value": "checked"
+        },
+        "enabled": {
+          "type": "binding",
+          "value": "enabled"
+        },
+        "shapes": {
+          "type": "enum",
+          "value": "s"
+        },
+        "contentPadding": {
+          "type": "padding",
+          "startDp": 16,
+          "topDp": 10,
+          "endDp": 16,
+          "bottomDp": 10
+        }
+      },
+      "slots": {
+        "content": [
+          "icon",
+          "label"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 40
+        }
+      ],
+      "eventBindings": {
+        "checkedChange": []
+      }
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/box",
+      "properties": {
+        "contentAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "toggle"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "height",
+          "heightDp": 48
+        }
+      ]
+    }
+  }
+}
