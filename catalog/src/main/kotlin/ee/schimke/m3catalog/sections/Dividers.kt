@@ -27,12 +27,24 @@ import ee.schimke.m3catalog.generated.resources.divider_below
 import ee.schimke.m3catalog.generated.resources.divider_left
 import ee.schimke.m3catalog.generated.resources.divider_right
 import ee.schimke.m3catalog.generated.resources.divider_section
+import generated.uibuilder.KitHorizontalDivider
+import generated.uibuilder.KitHorizontalDividerContext
+import generated.uibuilder.KitHorizontalDividerInsetContext
+import generated.uibuilder.KitHorizontalDividerInsetContextSubhead
+import generated.uibuilder.KitHorizontalDividerInsetPlain
+import generated.uibuilder.KitHorizontalDividerInsetSubhead
+import generated.uibuilder.KitHorizontalDividerPlain
+import generated.uibuilder.KitHorizontalDividerSubhead
+import generated.uibuilder.KitVerticalDivider
+import generated.uibuilder.KitVerticalDividerPlain
 import org.jetbrains.compose.resources.stringResource
 
 // A divider is a static separator: no state, nothing to click, so it ships no handler.
 //
 // The kit's default instances are the divider itself with no surrounding sample copy. Inset folds
 // onto the horizontal form.
+
+// --- Generated sticker bodies, from uid-stickers/Dividers.kt ---
 
 @CatalogComponent(
   id = "Divider/Horizontal",
@@ -45,29 +57,29 @@ import org.jetbrains.compose.resources.stringResource
 @OverrideVariant(name = "subhead", booleans = ["subhead=true"])
 @Composable
 fun HorizontalDividerSticker(context: Boolean = false, subhead: Boolean = false) = Sticker {
-  val inset = previewOverrideDp("inset", 0.dp)
-  Column(Modifier.width(280.dp)) {
-    if (context) {
-      Text(
-        catalogText("beforeText", stringResource(Res.string.divider_above)),
-        Modifier.padding(vertical = 8.dp),
+  val inset = previewOverrideDp("inset", 0.dp) > 0.dp
+  val before =
+    if (context) catalogText("beforeText", stringResource(Res.string.divider_above)) else ""
+  val sub = if (subhead) catalogText("subhead", stringResource(Res.string.divider_section)) else ""
+  val after =
+    if (context) catalogText("afterText", stringResource(Res.string.divider_below)) else ""
+  val m = Modifier
+  when {
+    inset && context && subhead ->
+      KitHorizontalDividerInsetContextSubhead(
+        m,
+        beforeText = before,
+        subhead = sub,
+        afterText = after,
       )
-    }
-    if (subhead) {
-      Text(
-        catalogText("subhead", stringResource(Res.string.divider_section)),
-        Modifier.padding(start = inset, top = 8.dp, bottom = 4.dp),
-        style = MaterialTheme.typography.titleSmall,
-        color = MaterialTheme.colorScheme.primary,
-      )
-    }
-    HorizontalDivider(Modifier.padding(start = inset))
-    if (context) {
-      Text(
-        catalogText("afterText", stringResource(Res.string.divider_below)),
-        Modifier.padding(vertical = 8.dp),
-      )
-    }
+    inset && context -> KitHorizontalDividerInsetContext(m, beforeText = before, afterText = after)
+    inset && subhead -> KitHorizontalDividerInsetSubhead(m, subhead = sub)
+    inset -> KitHorizontalDividerInsetPlain(m)
+    context && subhead ->
+      KitHorizontalDivider(m, beforeText = before, subhead = sub, afterText = after)
+    context -> KitHorizontalDividerContext(m, beforeText = before, afterText = after)
+    subhead -> KitHorizontalDividerSubhead(m, subhead = sub)
+    else -> KitHorizontalDividerPlain(m)
   }
 }
 
@@ -80,19 +92,13 @@ fun HorizontalDividerSticker(context: Boolean = false, subhead: Boolean = false)
 @OverrideVariant(name = "context", booleans = ["context=true"])
 @Composable
 fun VerticalDividerSticker(context: Boolean = false) = Sticker {
-  Row(Modifier.height(120.dp)) {
-    if (context) {
-      Text(
-        catalogText("beforeText", stringResource(Res.string.divider_left)),
-        Modifier.padding(horizontal = 8.dp),
-      )
-    }
-    VerticalDivider()
-    if (context) {
-      Text(
-        catalogText("afterText", stringResource(Res.string.divider_right)),
-        Modifier.padding(horizontal = 8.dp),
-      )
-    }
+  if (context) {
+    KitVerticalDivider(
+      Modifier,
+      beforeText = catalogText("beforeText", stringResource(Res.string.divider_left)),
+      afterText = catalogText("afterText", stringResource(Res.string.divider_right)),
+    )
+  } else {
+    KitVerticalDividerPlain(Modifier)
   }
 }

@@ -1,17 +1,18 @@
 @file:CatalogGroup(name = "Loading indicator", section = "Communication")
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
-
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.material3.ContainedLoadingIndicator
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
+import generated.uibuilder.KitLoadingIndicator
 
 // The expressive loading indicator: a morphing shape sequence, baked at its first frame (which is
 // deterministic) and animated on the live lane.
@@ -19,15 +20,6 @@ import ee.schimke.m3catalog.Sticker
 // The kit's axis is `Show container = True | False` — one boolean property of one set. Compose
 // models it as two composables rather than a parameter, so the contained form folds in as a
 // `@CatalogVariant`; `container=true` resolves back to the set's `Show container=True` node.
-
-@CatalogComponent(
-  id = "LoadingIndicator/Uncontained",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8556",
-  caption = "The shape-morph indicator on its own.",
-)
-@CatalogModes
-@Composable
-fun LoadingIndicatorSticker() = Sticker { LoadingIndicator() }
 
 @CatalogVariant(
   of = "LoadingIndicator/Uncontained",
@@ -37,3 +29,14 @@ fun LoadingIndicatorSticker() = Sticker { LoadingIndicator() }
 @CatalogModes
 @Composable
 fun ContainedLoadingIndicatorSticker() = Sticker { ContainedLoadingIndicator() }
+
+// --- Generated sticker bodies, from uid-stickers/LoadingIndicator.kt ---
+
+@CatalogComponent(
+  id = "LoadingIndicator/Uncontained",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58005:8556",
+  caption = "The shape-morph indicator on its own.",
+)
+@CatalogModes
+@Composable
+fun LoadingIndicatorSticker() = Sticker { KitLoadingIndicator(Modifier) }

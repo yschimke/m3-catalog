@@ -1,23 +1,18 @@
-// `:uid-stickers` — a PROTOTYPE: catalog stickers whose body is a UI builder `.uid` document.
+// `:uid-stickers` — the UI builder documents behind `:catalog`'s generated stickers.
 //
-// Opt-in (`-PuidStickers=true`), outside the published inventory, like `:adaptive-uid-pilot`.
-// `stickers/*.uid` is the sticker body; its sibling `stickers/<name>.json` lists its variant cells, each a
-// list of builder operations applied to the document. `generateUidStickers` exports every document
-// and variant through the UI builder's own exporter (`ScreenExportGate`, the same code behind the
-// builder's code pane) into `build/generated/uid`, and `src/main` wraps each generated composable
-// in the catalog's `Sticker` frame with the usual annotations. Nothing in the generated Kotlin is
-// catalog scaffolding, so the published source needs no cleaning: it IS what the builder exports.
-plugins {
-  alias(libs.plugins.kotlin.jvm)
-  alias(libs.plugins.compose.multiplatform)
-  alias(libs.plugins.compose.compiler)
-  id("ee.schimke.composeai.preview")
-}
+// `stickers/<name>.uid` is a sticker body (one component definition placed once) and its sibling
+// `stickers/<name>.json` lists its cells: builder operations applied before export.
+// `generateUidStickers` exports every document and cell through the UI builder's own exporter
+// (`ScreenExportGate.exportComponents`, the code behind the builder's code pane) into
+// `catalog/src/uid/kotlin`, where the catalog's stickers call them; `verifyUidStickers` fails
+// when that checked-in source is stale. Opt-in (`-PuidStickers=true`): the catalog itself builds
+// from the checked-in source, with no exporter.
+plugins { alias(libs.plugins.kotlin.jvm) }
 
 kotlin { jvmToolchain(21) }
 
 // `-PuidExportVersion=<x>-SNAPSHOT` tries an unreleased exporter published to Maven local.
-// `exportComponents` is newer than 3.107.0, so the prototype currently needs both:
+// `exportComponents` is newer than 3.107.0, so this currently needs both:
 // `-PuidExportVersion=3.107.1-SNAPSHOT -PscreenModelVersion=2.51.1-SNAPSHOT`.
 if (providers.gradleProperty("uidExportVersion").isPresent) {
   repositories {
@@ -30,20 +25,6 @@ if (providers.gradleProperty("uidExportVersion").isPresent) {
 val generator by sourceSets.creating
 
 dependencies {
-  implementation(platform(libs.composeai.contracts.bom))
-  implementation(platform(libs.composeai.daemon.bom))
-  implementation(project(":catalog"))
-  implementation(compose.desktop.currentOs)
-  implementation(libs.compose.material3)
-  implementation(libs.compose.material.icons.extended)
-  implementation(libs.compose.ui.tooling.preview)
-  implementation(libs.composeai.preview.annotations)
-  // `previewOverrideDp`, `previewOverrideInt` & co.: shells read the hand-written stickers' numeric
-  // knobs themselves.
-  implementation(libs.composeai.preview.overrides)
-  // `stringResource(Res.string.…)`, which the generated bodies call for the catalog's copy.
-  @Suppress("DEPRECATION") implementation(compose.components.resources)
-
   // The exporter the builder's code pane and the server's export.compose route run.
   "generatorImplementation"(
     "ee.schimke.composeai:compose-preview-ui-builder-export-jvm:" +
@@ -59,40 +40,54 @@ dependencies {
       version { strictly(pinned) }
     }
   }
-  // The Compose compiler plugin applies to every source set; it only needs the runtime present.
-  "generatorImplementation"(libs.compose.runtime)
 }
 
-val generatedDir = layout.buildDirectory.dir("generated/uid/kotlin")
+// The generated components are `:catalog` source, checked in (`catalog/src/uid/kotlin`), so the
+// catalog builds without this module or an exporter. Regenerate after editing a document, and
+// `verifyUidStickers` (in `check`) fails when the checked-in source is stale.
+val catalogGeneratedDir = rootProject.layout.projectDirectory.dir("catalog/src/uid/kotlin")
+val verifyDir = layout.buildDirectory.dir("uid-verify/kotlin")
+
+fun JavaExec.exportStickers(output: Any) {
+  group = "build"
+  classpath = generator.runtimeClasspath
+  mainClass = "ee.schimke.m3catalog.uid.GenerateUidStickersKt"
+  // The vocabulary is `:catalog`'s own published pair (its discovered record and builder policy),
+  // so a document can name only what the builder serves for `m3-catalog`.
+  val catalogDiscovery = project(":catalog").layout.buildDirectory.dir("compose-previews")
+  dependsOn(":catalog:composePreviewDiscover")
+  inputs.dir("stickers")
+  inputs.file("stickers.json")
+  inputs.file("builder-foundation-record.json")
+  inputs.files(fileTree(".") { include("project-components*.json") })
+  inputs.file(catalogDiscovery.map { it.file("components.json") })
+  inputs.file(catalogDiscovery.map { it.file("ui-builder.json") })
+  outputs.dir(output)
+  args(
+    layout.projectDirectory.asFile.absolutePath,
+    file(output).absolutePath,
+    catalogDiscovery.get().asFile.absolutePath,
+  )
+}
 
 val generateUidStickers by
   tasks.registering(JavaExec::class) {
-    group = "build"
-    description = "Exports every sticker document and variant cell to Kotlin with the UI builder."
-    classpath = generator.runtimeClasspath
-    mainClass = "ee.schimke.m3catalog.uid.GenerateUidStickersKt"
-    // The vocabulary is `:catalog`'s own published pair (its discovered record and builder policy),
-    // so a document can name only what the builder serves for `m3-catalog`.
-    val catalogDiscovery = project(":catalog").layout.buildDirectory.dir("compose-previews")
-    dependsOn(":catalog:composePreviewDiscover")
-    inputs.dir("stickers")
-    inputs.file("stickers.json")
-    inputs.file("builder-foundation-record.json")
-    inputs.files(fileTree(".") { include("project-components*.json") })
-    inputs.file(catalogDiscovery.map { it.file("components.json") })
-    inputs.file(catalogDiscovery.map { it.file("ui-builder.json") })
-    outputs.dir(generatedDir)
-    args(
-      layout.projectDirectory.asFile.absolutePath,
-      generatedDir.get().asFile.absolutePath,
-      catalogDiscovery.get().asFile.absolutePath,
-    )
+    description = "Exports every sticker document and cell into :catalog's checked-in source."
+    exportStickers(catalogGeneratedDir)
   }
 
-sourceSets.main { kotlin.srcDir(generateUidStickers) }
+val exportForVerify by
+  tasks.registering(JavaExec::class) {
+    description = "Exports every sticker document and cell to compare with the checked-in source."
+    exportStickers(verifyDir)
+  }
 
-// `:catalog`'s jar holds the sticker meta-annotations (`@CatalogModesKitContainer`,
-// `@InteractionStates`, the generated `…ExhaustiveKitCells`). Discovery scans a dependency jar only
-// when its coordinate looks preview-related or it holds a configured component library, so name
-// the catalog's package: the shells then carry exactly the hand-written stickers' annotations.
-composePreview { componentLibraryPrefixes.add("ee.schimke.m3catalog.") }
+val verifyUidStickers by
+  tasks.registering(Exec::class) {
+    group = "verification"
+    description = "Fails when catalog/src/uid/kotlin is not what the documents export."
+    dependsOn(exportForVerify)
+    commandLine("diff", "-r", verifyDir.get().asFile.absolutePath, catalogGeneratedDir.asFile.absolutePath)
+  }
+
+tasks.named("check") { dependsOn(verifyUidStickers) }

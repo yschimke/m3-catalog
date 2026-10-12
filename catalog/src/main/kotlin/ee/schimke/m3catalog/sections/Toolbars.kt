@@ -1,6 +1,5 @@
 @file:CatalogGroup(name = "Toolbars", section = "Actions")
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
-
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.Box
@@ -34,6 +33,8 @@ import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_add
 import ee.schimke.m3catalog.generated.resources.action_edit
 import ee.schimke.m3catalog.generated.resources.action_more
+import generated.uibuilder.KitHorizontalFloatingToolbar
+import generated.uibuilder.KitHorizontalFloatingToolbarVibrant
 import org.jetbrains.compose.resources.stringResource
 
 // The expressive floating toolbar: a small cluster of related actions floating over content.
@@ -101,28 +102,6 @@ private fun FloatingToolbarFrame(vertical: Boolean, content: @Composable () -> U
   Box(Modifier.padding(11.dp).then(extent), contentAlignment = Alignment.Center) { content() }
 }
 
-@CatalogComponent(
-  id = "Toolbar/HorizontalFloating",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58467:8210",
-  caption = "A floating cluster of related actions over the content. Vibrant folds in.",
-)
-@CatalogModes
-@OverrideVariant(name = "vibrant", strings = ["color=vibrant"])
-@Composable
-fun HorizontalFloatingToolbarSticker() = Sticker {
-  val vibrant = catalogChoice("color", "standard", "standard", "vibrant") == "vibrant"
-  FloatingToolbarFrame(vertical = false) {
-    HorizontalFloatingToolbar(
-      expanded = true,
-      colors =
-        if (vibrant) FloatingToolbarDefaults.vibrantFloatingToolbarColors()
-        else FloatingToolbarDefaults.standardFloatingToolbarColors(),
-    ) {
-      ToolbarActions()
-    }
-  }
-}
-
 @CatalogVariant(
   of = "Toolbar/HorizontalFloating",
   props = ["orientation=vertical"],
@@ -143,4 +122,35 @@ fun VerticalFloatingToolbarSticker() = Sticker {
       ToolbarActions()
     }
   }
+}
+
+// --- Generated sticker bodies, from uid-stickers/Toolbars.kt ---
+
+@CatalogComponent(
+  id = "Toolbar/HorizontalFloating",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58467:8210",
+  caption = "A floating cluster of related actions over the content. Vibrant folds in.",
+)
+@CatalogModes
+@OverrideVariant(name = "vibrant", strings = ["color=vibrant"])
+@Composable
+fun HorizontalFloatingToolbarSticker() = Sticker {
+  val vibrant = catalogChoice("color", "standard", "standard", "vibrant") == "vibrant"
+  val add = counted(stringResource(Res.string.action_add))
+  val edit = counted(stringResource(Res.string.action_edit))
+  val more = counted(stringResource(Res.string.action_more))
+  if (vibrant)
+    KitHorizontalFloatingToolbarVibrant(
+      Modifier,
+      onAddClick = add.onClick,
+      onEditClick = edit.onClick,
+      onMoreClick = more.onClick,
+    )
+  else
+    KitHorizontalFloatingToolbar(
+      Modifier,
+      onAddClick = add.onClick,
+      onEditClick = edit.onClick,
+      onMoreClick = more.onClick,
+    )
 }
