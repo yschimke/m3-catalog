@@ -170,8 +170,6 @@ jobs:
       # renders, merges and validates the lane, then stops short of the delivery branch.
       publish: ${{ github.ref == 'refs/heads/main' }}
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
-      scope-mapper: scripts/scope-systems.sh
-      scope-only: ${{ inputs.systems }}
       supersede-stale-runs: true
       artifact-repository: yschimke/m3-catalog-out
       spec: catalog.spec.json
@@ -352,8 +350,6 @@ jobs:
       # renders, merges and validates the lane, then stops short of the delivery branch.
       publish: ${{ github.ref == 'refs/heads/main' }}
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
-      scope-mapper: scripts/scope-systems.sh
-      scope-only: ${{ inputs.systems }}
       supersede-stale-runs: true
       artifact-repository: yschimke/m3-catalog-out
       spec: samples-catalog/catalog.spec.json
@@ -448,8 +444,6 @@ jobs:
       # renders, merges and validates the lane, then stops short of the delivery branch.
       publish: ${{ github.ref == 'refs/heads/main' }}
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
-      scope-mapper: scripts/scope-systems.sh
-      scope-only: ${{ inputs.systems }}
       supersede-stale-runs: true
       artifact-repository: yschimke/m3-catalog-out
       spec: ui-samples-catalog/catalog.spec.json
@@ -509,8 +503,6 @@ jobs:
       # renders, merges and validates the lane, then stops short of the delivery branch.
       publish: ${{ github.ref == 'refs/heads/main' }}
       # The scope and the concurrency, both inside the reusable workflow (see above `jobs:`).
-      scope-mapper: scripts/scope-systems.sh
-      scope-only: ${{ inputs.systems }}
       supersede-stale-runs: true
       artifact-repository: yschimke/m3-catalog-out
       spec: foundation-catalog/catalog.spec.json
