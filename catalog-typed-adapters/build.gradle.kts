@@ -31,6 +31,10 @@ kotlin {
     jvmMain.dependencies { implementation("ee.schimke.composeai:preview-discovery:0") }
     jvmTest.dependencies {
       implementation(kotlin("test"))
+      // The builder's own export, so the pilot pair's projections are exported end to end the way
+      // the editor exports them. Synthetic: substituted from the builder checkout, with no
+      // published fallback.
+      implementation("ee.schimke.composeai:ui-builder-export-source:0")
       implementation(libs.compose.ui.test.junit4)
       @Suppress("DEPRECATION") implementation(compose.desktop.currentOs)
     }
@@ -152,9 +156,17 @@ val rendererArchive by
 tasks.named<Test>("jvmTest") {
   // Both coordinates contain the same shared generator. Execute the JVM discovery variant only.
   classpath = classpath.filter { !it.name.startsWith("screen-model") }
+  // The builder's packaged foundation record, which a host joins to every catalog's record.
+  systemProperty(
+    "composeUiBuilderDir",
+    builderDirectory.map { it.canonicalPath }.getOrElse(""),
+  )
   val evidence = layout.buildDirectory.dir("render-evidence")
   systemProperty("typedRenderEvidence", evidence.get().asFile.absolutePath)
   outputs.dir(evidence)
+  val exportEvidence = layout.buildDirectory.dir("export-evidence")
+  systemProperty("typedExportEvidence", exportEvidence.get().asFile.absolutePath)
+  outputs.dir(exportEvidence)
 }
 
 generateTypedCatalog { classpath = classpath.filter { !it.name.startsWith("screen-model") } }
