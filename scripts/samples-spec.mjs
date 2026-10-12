@@ -91,6 +91,9 @@ export const API_TO_KIT_COMPONENT = new Map([
   ["TextButton", "Button/Text"],
   ["ElevatedCard", "Card/Elevated"],
   ["OutlinedCard", "Card/Outlined"],
+  // The bare `IconButton` is the kit's standard style. Named rather than left to "first cell": the
+  // family's declaration order moved when its stickers became generated shells.
+  ["IconButton", "IconButton/Standard"],
   ["FilledIconButton", "IconButton/Filled"],
   ["FilledTonalIconButton", "IconButton/Tonal"],
   ["OutlinedIconButton", "IconButton/Outlined"],
