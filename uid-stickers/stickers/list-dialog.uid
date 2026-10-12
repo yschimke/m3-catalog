@@ -1,0 +1,598 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-list-dialog",
+  "title": "Kit list dialog",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 312,
+    "heightDp": 480,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-list-dialog": {
+      "name": "KitListDialog",
+      "root": "dialog"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-list-dialog",
+        "arguments": {
+          "title": {
+            "type": "resource",
+            "resourceKey": "dialog_backup_title"
+          },
+          "text": {
+            "type": "resource",
+            "resourceKey": "dialog_delete_body"
+          },
+          "item": {
+            "type": "resource",
+            "resourceKey": "dialog_add_account"
+          },
+          "confirmButton": {
+            "type": "resource",
+            "resourceKey": "dialog_action_1"
+          },
+          "dismissButton": {
+            "type": "resource",
+            "resourceKey": "dialog_action_2"
+          },
+          "itemCount": {
+            "type": "string",
+            "value": "100+"
+          },
+          "check1Checked": {
+            "type": "bool",
+            "value": true
+          },
+          "check2Checked": {
+            "type": "bool",
+            "value": true
+          },
+          "check3Checked": {
+            "type": "bool",
+            "value": true
+          }
+        }
+      }
+    },
+    "dialog": {
+      "id": "dialog",
+      "componentId": "m3/dialog",
+      "slots": {
+        "title": [
+          "title"
+        ],
+        "text": [
+          "body"
+        ],
+        "confirmButton": [
+          "confirm"
+        ],
+        "dismissButton": [
+          "dismiss"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "width",
+          "widthDp": 312
+        }
+      ],
+      "properties": {}
+    },
+    "title": {
+      "id": "title",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "title"
+        }
+      },
+      "slots": {}
+    },
+    "body": {
+      "id": "body",
+      "componentId": "layout/column",
+      "slots": {
+        "children": [
+          "body-text",
+          "item-1",
+          "divider-1",
+          "item-2",
+          "divider-2",
+          "item-3"
+        ]
+      },
+      "properties": {}
+    },
+    "body-text": {
+      "id": "body-text",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "text"
+        }
+      },
+      "slots": {}
+    },
+    "divider-1": {
+      "id": "divider-1",
+      "componentId": "m3/horizontal-divider",
+      "properties": {},
+      "slots": {}
+    },
+    "divider-2": {
+      "id": "divider-2",
+      "componentId": "m3/horizontal-divider",
+      "properties": {},
+      "slots": {}
+    },
+    "confirm": {
+      "id": "confirm",
+      "componentId": "m3/text-button",
+      "slots": {
+        "content": [
+          "confirm-label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      },
+      "properties": {}
+    },
+    "confirm-label": {
+      "id": "confirm-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "confirmButton"
+        }
+      },
+      "slots": {}
+    },
+    "dismiss": {
+      "id": "dismiss",
+      "componentId": "m3/text-button",
+      "slots": {
+        "content": [
+          "dismiss-label"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      },
+      "properties": {}
+    },
+    "dismiss-label": {
+      "id": "dismiss-label",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "dismissButton"
+        }
+      },
+      "slots": {}
+    },
+    "item-1": {
+      "id": "item-1",
+      "componentId": "m3/list-item",
+      "properties": {
+        "containerColor": {
+          "type": "color",
+          "value": "#00000000"
+        }
+      },
+      "slots": {
+        "headline": [
+          "item-1-headline"
+        ],
+        "leadingContent": [
+          "item-1-avatar"
+        ],
+        "trailing": [
+          "item-1-trailing"
+        ]
+      }
+    },
+    "item-1-headline": {
+      "id": "item-1-headline",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "item"
+        }
+      },
+      "slots": {}
+    },
+    "item-1-avatar": {
+      "id": "item-1-avatar",
+      "componentId": "m3/surface",
+      "properties": {
+        "shapeDp": {
+          "type": "float",
+          "value": 20
+        },
+        "containerColor": {
+          "type": "colorToken",
+          "value": "primaryContainer"
+        },
+        "contentColor": {
+          "type": "colorToken",
+          "value": "onPrimaryContainer"
+        }
+      },
+      "slots": {
+        "content": [
+          "item-1-avatar-box"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 40,
+          "heightDp": 40
+        }
+      ]
+    },
+    "item-1-avatar-box": {
+      "id": "item-1-avatar-box",
+      "componentId": "layout/box",
+      "properties": {
+        "contentAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "item-1-avatar-letter"
+        ]
+      }
+    },
+    "item-1-avatar-letter": {
+      "id": "item-1-avatar-letter",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "A"
+        }
+      },
+      "slots": {}
+    },
+    "item-1-trailing": {
+      "id": "item-1-trailing",
+      "componentId": "layout/row",
+      "properties": {
+        "verticalAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "item-1-count",
+          "check1"
+        ]
+      }
+    },
+    "item-1-count": {
+      "id": "item-1-count",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "itemCount"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        }
+      },
+      "slots": {}
+    },
+    "item-2": {
+      "id": "item-2",
+      "componentId": "m3/list-item",
+      "properties": {
+        "containerColor": {
+          "type": "color",
+          "value": "#00000000"
+        }
+      },
+      "slots": {
+        "headline": [
+          "item-2-headline"
+        ],
+        "leadingContent": [
+          "item-2-avatar"
+        ],
+        "trailing": [
+          "item-2-trailing"
+        ]
+      }
+    },
+    "item-2-headline": {
+      "id": "item-2-headline",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "item"
+        }
+      },
+      "slots": {}
+    },
+    "item-2-avatar": {
+      "id": "item-2-avatar",
+      "componentId": "m3/surface",
+      "properties": {
+        "shapeDp": {
+          "type": "float",
+          "value": 20
+        },
+        "containerColor": {
+          "type": "colorToken",
+          "value": "primaryContainer"
+        },
+        "contentColor": {
+          "type": "colorToken",
+          "value": "onPrimaryContainer"
+        }
+      },
+      "slots": {
+        "content": [
+          "item-2-avatar-box"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 40,
+          "heightDp": 40
+        }
+      ]
+    },
+    "item-2-avatar-box": {
+      "id": "item-2-avatar-box",
+      "componentId": "layout/box",
+      "properties": {
+        "contentAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "item-2-avatar-letter"
+        ]
+      }
+    },
+    "item-2-avatar-letter": {
+      "id": "item-2-avatar-letter",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "A"
+        }
+      },
+      "slots": {}
+    },
+    "item-2-trailing": {
+      "id": "item-2-trailing",
+      "componentId": "layout/row",
+      "properties": {
+        "verticalAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "item-2-count",
+          "check2"
+        ]
+      }
+    },
+    "item-2-count": {
+      "id": "item-2-count",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "itemCount"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        }
+      },
+      "slots": {}
+    },
+    "item-3": {
+      "id": "item-3",
+      "componentId": "m3/list-item",
+      "properties": {
+        "containerColor": {
+          "type": "color",
+          "value": "#00000000"
+        }
+      },
+      "slots": {
+        "headline": [
+          "item-3-headline"
+        ],
+        "leadingContent": [
+          "item-3-avatar"
+        ],
+        "trailing": [
+          "item-3-trailing"
+        ]
+      }
+    },
+    "item-3-headline": {
+      "id": "item-3-headline",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "item"
+        }
+      },
+      "slots": {}
+    },
+    "item-3-avatar": {
+      "id": "item-3-avatar",
+      "componentId": "m3/surface",
+      "properties": {
+        "shapeDp": {
+          "type": "float",
+          "value": 20
+        },
+        "containerColor": {
+          "type": "colorToken",
+          "value": "primaryContainer"
+        },
+        "contentColor": {
+          "type": "colorToken",
+          "value": "onPrimaryContainer"
+        }
+      },
+      "slots": {
+        "content": [
+          "item-3-avatar-box"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "size",
+          "widthDp": 40,
+          "heightDp": 40
+        }
+      ]
+    },
+    "item-3-avatar-box": {
+      "id": "item-3-avatar-box",
+      "componentId": "layout/box",
+      "properties": {
+        "contentAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "item-3-avatar-letter"
+        ]
+      }
+    },
+    "item-3-avatar-letter": {
+      "id": "item-3-avatar-letter",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "A"
+        }
+      },
+      "slots": {}
+    },
+    "item-3-trailing": {
+      "id": "item-3-trailing",
+      "componentId": "layout/row",
+      "properties": {
+        "verticalAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "item-3-count",
+          "check3"
+        ]
+      }
+    },
+    "item-3-count": {
+      "id": "item-3-count",
+      "componentId": "m3/text",
+      "properties": {
+        "text": {
+          "type": "binding",
+          "value": "itemCount"
+        },
+        "style": {
+          "type": "enum",
+          "value": "labelSmall"
+        }
+      },
+      "slots": {}
+    },
+    "check1": {
+      "id": "check1",
+      "componentId": "m3/checkbox",
+      "properties": {
+        "checked": {
+          "type": "binding",
+          "value": "check1Checked"
+        }
+      },
+      "slots": {},
+      "eventBindings": {
+        "checkedChange": []
+      }
+    },
+    "check2": {
+      "id": "check2",
+      "componentId": "m3/checkbox",
+      "properties": {
+        "checked": {
+          "type": "binding",
+          "value": "check2Checked"
+        }
+      },
+      "slots": {},
+      "eventBindings": {
+        "checkedChange": []
+      }
+    },
+    "check3": {
+      "id": "check3",
+      "componentId": "m3/checkbox",
+      "properties": {
+        "checked": {
+          "type": "binding",
+          "value": "check3Checked"
+        }
+      },
+      "slots": {},
+      "eventBindings": {
+        "checkedChange": []
+      }
+    }
+  }
+}

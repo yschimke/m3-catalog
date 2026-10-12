@@ -272,9 +272,13 @@
       "id": "rail",
       "componentId": "m3/wide-navigation-rail",
       "properties": {
-        "state": {
+        "containerColor": {
+          "type": "color",
+          "value": "#00000000"
+        },
+        "arrangement": {
           "type": "enum",
-          "value": "expanded"
+          "value": "top"
         }
       },
       "slots": {
@@ -327,6 +331,14 @@
           "youLabel": {
             "type": "resource",
             "resourceKey": "nav_you"
+          },
+          "savedSelected": {
+            "type": "bool",
+            "value": false
+          },
+          "savedLabel": {
+            "type": "resource",
+            "resourceKey": "nav_saved"
           }
         }
       }
