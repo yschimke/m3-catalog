@@ -1,5 +1,6 @@
 @file:CatalogGroup(name = "Time pickers", section = "Selection")
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.Box
@@ -307,4 +308,6 @@ fun TimePickerSticker() = Sticker { TimePickerDialogFrameGenerated(seedInput = f
     ]
 )
 @Composable
-fun TimeInputSticker() = Sticker { KeyboardNavigable { TimePickerDialogFrameGenerated(seedInput = true) } }
+fun TimeInputSticker() = Sticker {
+  KeyboardNavigable { TimePickerDialogFrameGenerated(seedInput = true) }
+}

@@ -1,35 +1,23 @@
 @file:CatalogGroup(name = "Toggle buttons", section = "Actions")
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package ee.schimke.m3catalog.sections
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.ElevatedToggleButton
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedToggleButton
-import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleButton
-import androidx.compose.material3.TonalToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CaptureGutter
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.InteractionPreview
-import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogModes
-import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.CatalogShape
 import ee.schimke.m3catalog.CatalogSize
 import ee.schimke.m3catalog.InteractionStates
@@ -40,7 +28,6 @@ import ee.schimke.m3catalog.UnselectedToggleButtonMatrix
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.catalogEnabled
 import ee.schimke.m3catalog.catalogText
-import ee.schimke.m3catalog.catalogToggleButtonShapes
 import ee.schimke.m3catalog.catalogToggleSelected
 import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.label_elevated

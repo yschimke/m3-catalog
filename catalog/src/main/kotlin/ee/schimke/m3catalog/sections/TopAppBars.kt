@@ -1,8 +1,8 @@
 @file:CatalogGroup(name = "Top app bar", section = "Navigation")
 @file:OptIn(ExperimentalMaterial3Api::class)
+
 package ee.schimke.m3catalog.sections
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,17 +23,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.CatalogVariant
 import ee.schimke.composeai.preview.OverrideVariant
-import ee.schimke.m3catalog.CatalogImagePlaceholder
 import ee.schimke.m3catalog.CatalogModesCompact
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice

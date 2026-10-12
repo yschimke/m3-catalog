@@ -1,32 +1,20 @@
 @file:CatalogGroup(name = "Icon buttons", section = "Actions")
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package ee.schimke.m3catalog.sections
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FilledIconButton
-import androidx.compose.material3.FilledTonalIconButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.CatalogComponent
 import ee.schimke.composeai.preview.CatalogGroup
 import ee.schimke.composeai.preview.InteractionGesture
 import ee.schimke.composeai.preview.InteractionPreview
-import ee.schimke.m3catalog.CatalogFilledStars
 import ee.schimke.m3catalog.CatalogIconWidth
 import ee.schimke.m3catalog.CatalogModes
-import ee.schimke.m3catalog.CatalogOutlinedStars
 import ee.schimke.m3catalog.CatalogShape
 import ee.schimke.m3catalog.CatalogSize
 import ee.schimke.m3catalog.ContainerlessInteractionStates
@@ -35,14 +23,7 @@ import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogButtonSize
 import ee.schimke.m3catalog.catalogEnabled
-import ee.schimke.m3catalog.catalogExpressive
-import ee.schimke.m3catalog.catalogIconContainerSize
-import ee.schimke.m3catalog.catalogIconShape
-import ee.schimke.m3catalog.catalogIconShapes
 import ee.schimke.m3catalog.catalogIconWidth
-import ee.schimke.m3catalog.generated.resources.Res
-import ee.schimke.m3catalog.generated.resources.label_favourite
-import ee.schimke.m3catalog.iconButtonIconSize
 import ee.schimke.m3catalog.toggleable
 import generated.uibuilder.KitFilledIconButton
 import generated.uibuilder.KitFilledIconButtonLNarrow
@@ -164,7 +145,6 @@ import generated.uibuilder.KitTonalIconButtonXsUniform
 import generated.uibuilder.KitTonalIconButtonXsUniformSquare
 import generated.uibuilder.KitTonalIconButtonXsWide
 import generated.uibuilder.KitTonalIconButtonXsWideSquare
-import org.jetbrains.compose.resources.stringResource
 
 // Icon buttons carry no label, so they read as a favourite TOGGLE on the interactive lane rather
 // than taking the click tally: the glyph swaps between outlined and filled.
