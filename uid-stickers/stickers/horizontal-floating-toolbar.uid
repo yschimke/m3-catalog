@@ -1,0 +1,181 @@
+{
+  "schema": "compose-ui-builder-document/v1-candidate",
+  "id": "kit-horizontal-floating-toolbar",
+  "title": "Kit horizontal floating toolbar",
+  "revision": 0,
+  "catalogPin": {
+    "systemId": "m3-catalog",
+    "catalogRevision": "candidate",
+    "capabilityDigest": "candidate",
+    "nativeRuntimeId": "candidate"
+  },
+  "environment": {
+    "widthDp": 190,
+    "heightDp": 78,
+    "density": 2.625,
+    "theme": "light",
+    "locale": "en-US",
+    "fontScale": 1,
+    "layoutDirection": "ltr"
+  },
+  "roots": [
+    "place"
+  ],
+  "components": {
+    "kit-horizontal-floating-toolbar": {
+      "name": "KitHorizontalFloatingToolbar",
+      "root": "frame"
+    }
+  },
+  "nodes": {
+    "place": {
+      "id": "place",
+      "componentId": "design/component-instance",
+      "component": {
+        "componentKey": "kit-horizontal-floating-toolbar",
+        "arguments": {}
+      }
+    },
+    "add-icon": {
+      "id": "add-icon",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "share"
+        },
+        "contentDescription": {
+          "type": "resource",
+          "resourceKey": "action_add"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurfaceVariant"
+        }
+      },
+      "slots": {}
+    },
+    "add": {
+      "id": "add",
+      "componentId": "m3/icon-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "add-icon"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "edit-icon": {
+      "id": "edit-icon",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "filled/comment"
+        },
+        "contentDescription": {
+          "type": "resource",
+          "resourceKey": "action_edit"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurfaceVariant"
+        }
+      },
+      "slots": {}
+    },
+    "edit": {
+      "id": "edit",
+      "componentId": "m3/icon-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "edit-icon"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "more-icon": {
+      "id": "more-icon",
+      "componentId": "m3/icon",
+      "properties": {
+        "iconKey": {
+          "type": "enum",
+          "value": "download"
+        },
+        "contentDescription": {
+          "type": "resource",
+          "resourceKey": "action_more"
+        },
+        "color": {
+          "type": "colorToken",
+          "value": "onSurfaceVariant"
+        }
+      },
+      "slots": {}
+    },
+    "more": {
+      "id": "more",
+      "componentId": "m3/icon-button",
+      "properties": {},
+      "slots": {
+        "content": [
+          "more-icon"
+        ]
+      },
+      "eventBindings": {
+        "click": []
+      }
+    },
+    "toolbar": {
+      "id": "toolbar",
+      "componentId": "m3/horizontal-floating-toolbar",
+      "properties": {
+        "expanded": {
+          "type": "bool",
+          "value": true
+        }
+      },
+      "slots": {
+        "content": [
+          "add",
+          "edit",
+          "more"
+        ]
+      }
+    },
+    "frame": {
+      "id": "frame",
+      "componentId": "layout/box",
+      "properties": {
+        "contentAlignment": {
+          "type": "enum",
+          "value": "center"
+        }
+      },
+      "slots": {
+        "children": [
+          "toolbar"
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "padding",
+          "startDp": 11,
+          "topDp": 11,
+          "endDp": 11,
+          "bottomDp": 11
+        },
+        {
+          "type": "width",
+          "widthDp": 168
+        }
+      ]
+    }
+  }
+}
