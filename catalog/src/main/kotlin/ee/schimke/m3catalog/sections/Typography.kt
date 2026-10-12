@@ -15,10 +15,13 @@ import ee.schimke.m3catalog.CatalogModes
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.TypeScaleMatrix
 import ee.schimke.m3catalog.TypeScaleRole
+import generated.uibuilder.KitTypeScale
 
 // The fifteen roles are one closed axis, declared in `TypeScaleRole` (root package, beside the
 // other catalog axes) rather than as string literals here: the `when`, the drawn label and the
 // variant cells all come off the enum, and the cells arrive as `@TypeScaleMatrix` (#103).
+
+// --- Generated sticker bodies, from uid-stickers/Typography.kt ---
 
 @CatalogComponent(
   id = "Typography/Type scale",
@@ -30,5 +33,5 @@ import ee.schimke.m3catalog.TypeScaleRole
 @Composable
 fun TypeScaleRoleSticker() = Sticker {
   val role = TypeScaleRole.Axis.current()
-  Box(Modifier.width(400.dp).padding(vertical = 8.dp)) { Text(role.label, style = role.style) }
+  KitTypeScale(Modifier, label = role.label, style = role.style)
 }

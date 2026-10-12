@@ -1,6 +1,5 @@
 @file:CatalogGroup(name = "Switch", section = "Selection")
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
-
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.size
@@ -25,6 +24,12 @@ import ee.schimke.m3catalog.InteractionStates
 import ee.schimke.m3catalog.Sticker
 import ee.schimke.m3catalog.catalogChoice
 import ee.schimke.m3catalog.toggleable
+import generated.uibuilder.KitSwitch
+import generated.uibuilder.KitSwitchDisabled
+import generated.uibuilder.KitSwitchDisabledIconOff
+import generated.uibuilder.KitSwitchDisabledIconOn
+import generated.uibuilder.KitSwitchIconOff
+import generated.uibuilder.KitSwitchIconOn
 
 // Three axes, all parameters of one composable: selection (on / off), thumb icon (none / icon), and
 // status (enabled / disabled). The kit's icon switch carries a check when on and a cross when off,
@@ -37,6 +42,8 @@ private fun switchStatus(): String = catalogChoice("status", "enabled", "enabled
 
 @Composable
 private fun switchIcon(): Boolean = catalogChoice("content", "none", "none", "icon") == "icon"
+
+// --- Generated sticker bodies, from uid-stickers/Switches.kt ---
 
 @CatalogComponent(
   id = "Switch/On",
@@ -67,21 +74,18 @@ private fun switchIcon(): Boolean = catalogChoice("content", "none", "none", "ic
 @ee.schimke.m3catalog.SwitchOnExhaustiveKitCells
 @Composable
 fun SwitchOn() = Sticker {
+  // The knobs, read in the hand-written sticker's order: status, selection, then the thumb icon.
   val enabled = switchStatus() != "disabled"
   var checked by toggleable(switchSelection() == "on")
-  Switch(
-    checked = checked,
-    onCheckedChange = if (enabled) ({ checked = it }) else null,
-    enabled = enabled,
-    thumbContent =
-      if (!switchIcon()) null
-      else
-        ({
-          Icon(
-            if (checked) Icons.Filled.Check else Icons.Filled.Close,
-            contentDescription = null,
-            modifier = Modifier.size(SwitchDefaults.IconSize),
-          )
-        }),
-  )
+  val icon = switchIcon()
+  val toggle = { checked = !checked }
+  val m = Modifier
+  when {
+    !enabled && !icon -> KitSwitchDisabled(m, checked = checked, enabled = false)
+    !enabled && checked -> KitSwitchDisabledIconOn(m, checked = checked, enabled = false)
+    !enabled -> KitSwitchDisabledIconOff(m, checked = checked, enabled = false)
+    !icon -> KitSwitch(m, checked = checked, enabled = true, onSwitchCheckedChange = toggle)
+    checked -> KitSwitchIconOn(m, checked = checked, enabled = true, onSwitchCheckedChange = toggle)
+    else -> KitSwitchIconOff(m, checked = checked, enabled = true, onSwitchCheckedChange = toggle)
+  }
 }

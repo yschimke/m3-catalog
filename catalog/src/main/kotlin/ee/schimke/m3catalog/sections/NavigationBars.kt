@@ -1,6 +1,5 @@
 @file:CatalogGroup(name = "Navigation bar", section = "Navigation")
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
-
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.Row
@@ -34,6 +33,13 @@ import ee.schimke.m3catalog.generated.resources.nav_search
 import ee.schimke.m3catalog.generated.resources.nav_settings
 import ee.schimke.m3catalog.generated.resources.nav_you
 import ee.schimke.m3catalog.selectable
+import generated.uibuilder.KitShortNavigationBar
+import generated.uibuilder.KitShortNavigationBarFour
+import generated.uibuilder.KitShortNavigationBarFourNoLabels
+import generated.uibuilder.KitShortNavigationBarNoLabels
+import generated.uibuilder.KitShortNavigationBarThree
+import generated.uibuilder.KitShortNavigationBarThreeNoLabels
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
 // The bar owns its selected destination, so a click on the live lane really moves the indicator.
@@ -41,7 +47,9 @@ import org.jetbrains.compose.resources.stringResource
 // The kit's axes: DESTINATION COUNT (three to five), LABEL VISIBILITY (always / selected only /
 // never), and an optional badge.
 
-private val DESTINATIONS =
+// --- Generated sticker bodies, from uid-stickers/NavigationBars.kt ---
+
+private val DESTINATIONS_GENERATED: List<StringResource> =
   listOf(
     Res.string.nav_home,
     Res.string.nav_search,
@@ -72,26 +80,98 @@ private val DESTINATIONS =
 fun ShortNavigationBarSticker(count: Int = 3) = Sticker {
   val labels = catalogChoice("labels", "always", "always", "none")
   var selected by selectable(0)
-  ShortNavigationBar(Modifier.width(412.dp).height(64.dp)) {
-    // Give the broken equal-weight policy one full-width child, then divide that width correctly.
-    // Remove after https://github.com/yschimke/m3-catalog/issues/41 is fixed upstream.
-    Row(Modifier.fillMaxWidth()) {
-      DESTINATIONS.take(count).forEachIndexed { index, label ->
-        ShortNavigationBarItem(
-          selected = index == selected,
-          onClick = { selected = index },
-          icon = {
-            Icon(
-              if (index == selected) CatalogFilledStars else CatalogOutlinedStars,
-              contentDescription = null,
-            )
-          },
-          label =
-            if (labels == "none") null
-            else ({ Text(catalogText("label", stringResource(label), index)) }),
-          modifier = Modifier.weight(1f),
-        )
+  val n = count.coerceIn(3, 5)
+  val label =
+    if (labels == "none") emptyList()
+    else
+      DESTINATIONS_GENERATED.take(n).mapIndexed { index, res ->
+        catalogText("label", stringResource(res), index)
       }
-    }
+  val m = Modifier
+  when {
+    labels == "none" && n == 3 ->
+      KitShortNavigationBarThreeNoLabels(
+        modifier = m,
+        selected0 = selected == 0,
+        selected1 = selected == 1,
+        selected2 = selected == 2,
+        onItem0Click = { selected = 0 },
+        onItem1Click = { selected = 1 },
+        onItem2Click = { selected = 2 },
+      )
+    labels == "none" && n == 4 ->
+      KitShortNavigationBarFourNoLabels(
+        modifier = m,
+        selected0 = selected == 0,
+        selected1 = selected == 1,
+        selected2 = selected == 2,
+        selected3 = selected == 3,
+        onItem0Click = { selected = 0 },
+        onItem1Click = { selected = 1 },
+        onItem2Click = { selected = 2 },
+        onItem3Click = { selected = 3 },
+      )
+    labels == "none" ->
+      KitShortNavigationBarNoLabels(
+        modifier = m,
+        selected0 = selected == 0,
+        selected1 = selected == 1,
+        selected2 = selected == 2,
+        selected3 = selected == 3,
+        selected4 = selected == 4,
+        onItem0Click = { selected = 0 },
+        onItem1Click = { selected = 1 },
+        onItem2Click = { selected = 2 },
+        onItem3Click = { selected = 3 },
+        onItem4Click = { selected = 4 },
+      )
+    n == 3 ->
+      KitShortNavigationBarThree(
+        modifier = m,
+        selected0 = selected == 0,
+        label0 = label[0],
+        selected1 = selected == 1,
+        label1 = label[1],
+        selected2 = selected == 2,
+        label2 = label[2],
+        onItem0Click = { selected = 0 },
+        onItem1Click = { selected = 1 },
+        onItem2Click = { selected = 2 },
+      )
+    n == 4 ->
+      KitShortNavigationBarFour(
+        modifier = m,
+        selected0 = selected == 0,
+        label0 = label[0],
+        selected1 = selected == 1,
+        label1 = label[1],
+        selected2 = selected == 2,
+        label2 = label[2],
+        selected3 = selected == 3,
+        label3 = label[3],
+        onItem0Click = { selected = 0 },
+        onItem1Click = { selected = 1 },
+        onItem2Click = { selected = 2 },
+        onItem3Click = { selected = 3 },
+      )
+    else ->
+      KitShortNavigationBar(
+        modifier = m,
+        selected0 = selected == 0,
+        label0 = label[0],
+        selected1 = selected == 1,
+        label1 = label[1],
+        selected2 = selected == 2,
+        label2 = label[2],
+        selected3 = selected == 3,
+        label3 = label[3],
+        selected4 = selected == 4,
+        label4 = label[4],
+        onItem0Click = { selected = 0 },
+        onItem1Click = { selected = 1 },
+        onItem2Click = { selected = 2 },
+        onItem3Click = { selected = 3 },
+        onItem4Click = { selected = 4 },
+      )
   }
 }

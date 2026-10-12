@@ -1,6 +1,5 @@
 @file:CatalogGroup(name = "Chips", section = "Selection")
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
-
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.padding
@@ -51,6 +50,38 @@ import ee.schimke.m3catalog.generated.resources.chip_add_to_calendar
 import ee.schimke.m3catalog.generated.resources.chip_sounds_good
 import ee.schimke.m3catalog.generated.resources.chip_unread
 import ee.schimke.m3catalog.toggleable
+import generated.uibuilder.KitAssistChip
+import generated.uibuilder.KitAssistChipAvatar
+import generated.uibuilder.KitAssistChipBrand
+import generated.uibuilder.KitAssistChipElevated
+import generated.uibuilder.KitAssistChipElevatedAvatar
+import generated.uibuilder.KitAssistChipElevatedBrand
+import generated.uibuilder.KitAssistChipElevatedFavicon
+import generated.uibuilder.KitAssistChipElevatedIcon
+import generated.uibuilder.KitAssistChipFavicon
+import generated.uibuilder.KitAssistChipIcon
+import generated.uibuilder.KitFilterChip
+import generated.uibuilder.KitFilterChipCaret
+import generated.uibuilder.KitFilterChipCheck
+import generated.uibuilder.KitFilterChipCheckCaret
+import generated.uibuilder.KitFilterChipElevated
+import generated.uibuilder.KitFilterChipElevatedCaret
+import generated.uibuilder.KitFilterChipElevatedCheck
+import generated.uibuilder.KitFilterChipElevatedCheckCaret
+import generated.uibuilder.KitInputChip
+import generated.uibuilder.KitInputChipAvatar
+import generated.uibuilder.KitInputChipAvatarClosing
+import generated.uibuilder.KitInputChipBrand
+import generated.uibuilder.KitInputChipBrandClosing
+import generated.uibuilder.KitInputChipClosing
+import generated.uibuilder.KitInputChipFavicon
+import generated.uibuilder.KitInputChipFaviconClosing
+import generated.uibuilder.KitInputChipIcon
+import generated.uibuilder.KitInputChipIconClosing
+import generated.uibuilder.KitSuggestionChip
+import generated.uibuilder.KitSuggestionChipElevated
+import generated.uibuilder.KitSuggestionChipElevatedIcon
+import generated.uibuilder.KitSuggestionChipIcon
 import org.jetbrains.compose.resources.stringResource
 
 // The kit's four chip kinds are four components. Within each, the axes the kit varies are
@@ -74,41 +105,48 @@ private fun chipLeading(): String =
 private fun chipEnabled(): Boolean =
   catalogChoice("status", "enabled", "enabled", "disabled") != "disabled"
 
+// --- Generated sticker bodies, from uid-stickers/Chips.kt ---
+
+@CatalogComponent(
+  id = "Chip/Suggestion",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:28845",
+  caption =
+    "A dynamically generated action. Elevated and disabled fold in; the kit's selected cells " +
+      "stay excluded because SuggestionChip has no selection state.",
+)
+@CatalogModes
+@OverrideVariant(name = "elevated", strings = ["style=elevated"])
+@OverrideVariant(name = "disabled", strings = ["status=disabled"])
+@OverrideVariant(name = "icon", booleans = ["icon=true"])
+@InteractionStates
+@ee.schimke.m3catalog.SuggestionChipStickerExhaustiveKitCells
 @Composable
-private fun chipIcon(): (@Composable () -> Unit)? =
-  when (chipLeading()) {
-    "icon" -> ({
-        Icon(
-          Icons.Filled.Event,
-          contentDescription = null,
-          modifier = Modifier.size(AssistChipDefaults.IconSize),
-        )
-      })
-    "brand" -> ({
-        Icon(
-          CatalogFilledStars,
-          contentDescription = null,
-          modifier = Modifier.size(AssistChipDefaults.IconSize),
-        )
-      })
-    "favicon" -> ({
-        Icon(
-          Icons.Filled.Person,
-          contentDescription = null,
-          modifier = Modifier.size(AssistChipDefaults.IconSize),
-        )
-      })
-    "avatar" -> ({
-        Surface(color = MaterialTheme.colorScheme.primaryContainer, shape = CircleShape) {
-          Icon(
-            Icons.Filled.Person,
-            contentDescription = null,
-            modifier = Modifier.size(InputChipDefaults.AvatarSize).padding(2.dp),
-          )
-        }
-      })
-    else -> null
+fun SuggestionChipSticker(icon: Boolean = false) = Sticker {
+  val c = counted(catalogText("label", stringResource(Res.string.chip_sounds_good)))
+  val enabled = catalogChoice("status", "enabled", "enabled", "disabled") != "disabled"
+  val elevated = catalogChoice("style", "outlined", "outlined", "elevated") == "elevated"
+  when {
+    elevated && icon ->
+      KitSuggestionChipElevatedIcon(
+        Modifier,
+        enabled = enabled,
+        label = c.label,
+        onChipClick = c.onClick,
+      )
+    elevated ->
+      KitSuggestionChipElevated(
+        Modifier,
+        enabled = enabled,
+        label = c.label,
+        onChipClick = c.onClick,
+      )
+    icon ->
+      KitSuggestionChipIcon(Modifier, enabled = enabled, label = c.label, onChipClick = c.onClick)
+    else -> KitSuggestionChip(Modifier, enabled = enabled, label = c.label, onChipClick = c.onClick)
   }
+}
+
+// --- Generated sticker bodies, from uid-stickers/ChipsMore.kt ---
 
 @CatalogComponent(
   id = "Chip/Assist",
@@ -144,20 +182,29 @@ private fun chipIcon(): (@Composable () -> Unit)? =
 fun AssistChipSticker() = Sticker {
   val c = counted(catalogText("label", stringResource(Res.string.chip_add_to_calendar)))
   val enabled = chipEnabled()
-  if (chipElevated()) {
-    ElevatedAssistChip(
-      onClick = c.onClick,
-      label = { Text(c.label) },
-      enabled = enabled,
-      leadingIcon = chipIcon(),
-    )
-  } else {
-    AssistChip(
-      onClick = c.onClick,
-      label = { Text(c.label) },
-      enabled = enabled,
-      leadingIcon = chipIcon(),
-    )
+  val elevated = chipElevated()
+  val m = Modifier
+  when (chipLeading()) {
+    "icon" ->
+      if (elevated)
+        KitAssistChipElevatedIcon(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+      else KitAssistChipIcon(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+    "brand" ->
+      if (elevated)
+        KitAssistChipElevatedBrand(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+      else KitAssistChipBrand(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+    "favicon" ->
+      if (elevated)
+        KitAssistChipElevatedFavicon(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+      else KitAssistChipFavicon(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+    "avatar" ->
+      if (elevated)
+        KitAssistChipElevatedAvatar(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+      else KitAssistChipAvatar(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+    else ->
+      if (elevated)
+        KitAssistChipElevated(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
+      else KitAssistChip(m, enabled = enabled, label = c.label, onChipClick = c.onClick)
   }
 }
 
@@ -189,48 +236,77 @@ fun FilterChipSticker(trailing: Boolean = false) = Sticker {
     toggleable(catalogChoice("state", "selected", "selected", "unselected") == "selected")
   val enabled = chipEnabled()
   val labelText = catalogText("label", stringResource(Res.string.chip_unread))
-  val label: @Composable () -> Unit = { Text(labelText) }
   val showLeading = catalogChoice("configuration", "icon", "icon", "label") == "icon"
-  val check: (@Composable () -> Unit)? =
-    if (!selected || !showLeading) null
-    else
-      ({
-        Icon(
-          Icons.Filled.Check,
-          contentDescription = null,
-          modifier = Modifier.size(FilterChipDefaults.IconSize),
-        )
-      })
-  // The kit's `Show trailing icon` axis — the caret that says this chip opens a menu. Decorative
-  // beside its own label, so no contentDescription.
-  val caret: (@Composable () -> Unit)? =
-    if (!trailing) null
-    else
-      ({
-        Icon(
-          Icons.Filled.ArrowDropDown,
-          contentDescription = null,
-          modifier = Modifier.size(FilterChipDefaults.IconSize),
-        )
-      })
-  if (chipElevated()) {
-    ElevatedFilterChip(
-      selected = selected,
-      onClick = { selected = !selected },
-      label = label,
-      enabled = enabled,
-      leadingIcon = check,
-      trailingIcon = caret,
-    )
-  } else {
-    FilterChip(
-      selected = selected,
-      onClick = { selected = !selected },
-      label = label,
-      enabled = enabled,
-      leadingIcon = check,
-      trailingIcon = caret,
-    )
+  // The check mark is the selected state's leading icon: a cell, chosen by the live selection.
+  val check = selected && showLeading
+  val elevated = chipElevated()
+  val toggle = { selected = !selected }
+  val m = Modifier
+  when {
+    elevated && check && trailing ->
+      KitFilterChipElevatedCheckCaret(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
+    elevated && check ->
+      KitFilterChipElevatedCheck(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
+    elevated && trailing ->
+      KitFilterChipElevatedCaret(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
+    elevated ->
+      KitFilterChipElevated(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
+    check && trailing ->
+      KitFilterChipCheckCaret(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
+    check ->
+      KitFilterChipCheck(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
+    trailing ->
+      KitFilterChipCaret(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
+    else ->
+      KitFilterChip(
+        m,
+        selected = selected,
+        enabled = enabled,
+        label = labelText,
+        onChipClick = toggle,
+      )
   }
 }
 
@@ -264,66 +340,89 @@ fun FilterChipSticker(trailing: Boolean = false) = Sticker {
 fun InputChipSticker(closing: Boolean = true) = Sticker {
   var selected by
     toggleable(catalogChoice("state", "unselected", "selected", "unselected") == "selected")
-  InputChip(
-    selected = selected,
-    onClick = { selected = !selected },
-    label = { Text(catalogText("label", stringResource(Res.string.chip_unread))) },
-    enabled = chipEnabled(),
-    avatar = chipIcon(),
-    trailingIcon =
-      if (!closing) null
-      else
-        ({
-          Icon(
-            Icons.Filled.Close,
-            contentDescription = stringResource(Res.string.action_remove),
-            modifier = Modifier.size(InputChipDefaults.IconSize),
-          )
-        }),
-  )
-}
-
-@CatalogComponent(
-  id = "Chip/Suggestion",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/53923:28845",
-  caption =
-    "A dynamically generated action. Elevated and disabled fold in; the kit's selected cells " +
-      "stay excluded because SuggestionChip has no selection state.",
-)
-@CatalogModes
-@OverrideVariant(name = "elevated", strings = ["style=elevated"])
-@OverrideVariant(name = "disabled", strings = ["status=disabled"])
-@OverrideVariant(name = "icon", booleans = ["icon=true"])
-@InteractionStates
-@ee.schimke.m3catalog.SuggestionChipStickerExhaustiveKitCells
-@Composable
-fun SuggestionChipSticker(icon: Boolean = false) = Sticker {
-  val c = counted(catalogText("label", stringResource(Res.string.chip_sounds_good)))
+  val label = catalogText("label", stringResource(Res.string.chip_unread))
   val enabled = chipEnabled()
-  // The kit's `Show icon` axis. Decorative beside its own label, so no contentDescription.
-  val iconSlot: (@Composable () -> Unit)? =
-    if (!icon) null
-    else
-      ({
-        Icon(
-          CatalogFilledStars,
-          contentDescription = null,
-          modifier = Modifier.size(SuggestionChipDefaults.IconSize),
+  val toggle = { selected = !selected }
+  val m = Modifier
+  when (chipLeading()) {
+    "icon" ->
+      if (closing)
+        KitInputChipIconClosing(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
         )
-      })
-  if (chipElevated()) {
-    ElevatedSuggestionChip(
-      onClick = c.onClick,
-      label = { Text(c.label) },
-      enabled = enabled,
-      icon = iconSlot,
-    )
-  } else {
-    SuggestionChip(
-      onClick = c.onClick,
-      label = { Text(c.label) },
-      enabled = enabled,
-      icon = iconSlot,
-    )
+      else
+        KitInputChipIcon(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
+    "brand" ->
+      if (closing)
+        KitInputChipBrandClosing(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
+      else
+        KitInputChipBrand(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
+    "favicon" ->
+      if (closing)
+        KitInputChipFaviconClosing(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
+      else
+        KitInputChipFavicon(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
+    "avatar" ->
+      if (closing)
+        KitInputChipAvatarClosing(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
+      else
+        KitInputChipAvatar(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
+    else ->
+      if (closing)
+        KitInputChipClosing(
+          m,
+          selected = selected,
+          enabled = enabled,
+          label = label,
+          onChipClick = toggle,
+        )
+      else
+        KitInputChip(m, selected = selected, enabled = enabled, label = label, onChipClick = toggle)
   }
 }

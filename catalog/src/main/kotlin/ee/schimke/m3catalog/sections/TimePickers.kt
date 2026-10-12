@@ -1,6 +1,5 @@
 @file:CatalogGroup(name = "Time pickers", section = "Selection")
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
-
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.Box
@@ -47,6 +46,11 @@ import ee.schimke.m3catalog.generated.resources.Res
 import ee.schimke.m3catalog.generated.resources.action_cancel
 import ee.schimke.m3catalog.generated.resources.action_ok
 import ee.schimke.m3catalog.toggleable
+import ee.schimke.m3catalog.uid.PickerDialogHost
+import generated.uibuilder.KitTimePicker
+import generated.uibuilder.KitTimePicker12Hour
+import generated.uibuilder.KitTimePickerInput
+import generated.uibuilder.KitTimePickerInput12Hour
 import org.jetbrains.compose.resources.stringResource
 
 // Pinned to the kit's 20:00 example so the baked capture is deterministic across renders.
@@ -135,16 +139,6 @@ private fun TimePickerFrame(
   }
 }
 
-@CatalogComponent(
-  id = "TimePicker/Dial",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/52949:27946",
-  caption = "Clock dial for picking an hour and minute. 12-hour and the landscape layout fold in.",
-)
-@CatalogModes
-@OverrideVariant(name = "12-hour", strings = ["hours=12"])
-@Composable
-fun TimePickerSticker() = Sticker { TimePickerDialogFrame(seedInput = false) }
-
 /**
  * The landscape dial, which is a `@CatalogVariant` rather than another `@OverrideVariant` for one
  * reason: **`widthDp` belongs to the `@Preview`, not to the seed.**
@@ -223,6 +217,74 @@ private fun TimePickerDialogFrame(seedInput: Boolean, seedHorizontal: Boolean = 
   }
 }
 
+// --- Generated sticker bodies, from uid-stickers/TimePickers.kt ---
+
+@Composable
+private fun TimePickerDialogFrameGenerated(seedInput: Boolean) {
+  val is24Hour = catalogChoice("hours", "24", "24" to "24 hour", "12" to "12 hour") == "24"
+  // Read for its knob key only: the landscape layout is `TimePickerHorizontalSticker`'s, and the
+  // builder cannot yet spell `TimePickerLayoutType.Horizontal`.
+  catalogChoice("layout", "vertical", "vertical", "horizontal")
+  val hour = previewOverrideInt("hour", 20).takeIf { it in 0..23 } ?: 20
+  val minute = previewOverrideInt("minute", 0).takeIf { it in 0..59 } ?: 0
+  var input by toggleable(seedInput)
+  val cancel = counted(catalogText("dismissButton", stringResource(Res.string.action_cancel)))
+  val ok = counted(catalogText("confirmButton", stringResource(Res.string.action_ok)))
+  val toggle = { input = !input }
+  key(is24Hour, hour, minute) {
+    PickerDialogHost {
+      when {
+        input && is24Hour ->
+          KitTimePickerInput(
+            Modifier,
+            dismissButton = cancel.label,
+            confirmButton = ok.label,
+            onToggleClick = toggle,
+            onCancelClick = cancel.onClick,
+            onOkClick = ok.onClick,
+          )
+        input ->
+          KitTimePickerInput12Hour(
+            Modifier,
+            dismissButton = cancel.label,
+            confirmButton = ok.label,
+            onToggleClick = toggle,
+            onCancelClick = cancel.onClick,
+            onOkClick = ok.onClick,
+          )
+        is24Hour ->
+          KitTimePicker(
+            Modifier,
+            dismissButton = cancel.label,
+            confirmButton = ok.label,
+            onToggleClick = toggle,
+            onCancelClick = cancel.onClick,
+            onOkClick = ok.onClick,
+          )
+        else ->
+          KitTimePicker12Hour(
+            Modifier,
+            dismissButton = cancel.label,
+            confirmButton = ok.label,
+            onToggleClick = toggle,
+            onCancelClick = cancel.onClick,
+            onOkClick = ok.onClick,
+          )
+      }
+    }
+  }
+}
+
+@CatalogComponent(
+  id = "TimePicker/Dial",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/52949:27946",
+  caption = "Clock dial for picking an hour and minute. 12-hour and the landscape layout fold in.",
+)
+@CatalogModes
+@OverrideVariant(name = "12-hour", strings = ["hours=12"])
+@Composable
+fun TimePickerSticker() = Sticker { TimePickerDialogFrameGenerated(seedInput = false) }
+
 @CatalogComponent(
   id = "TimePicker/Input",
   reference = "figma:ocdacdEsnHipMJD3egzxKb/52949:28069",
@@ -245,9 +307,4 @@ private fun TimePickerDialogFrame(seedInput: Boolean, seedHorizontal: Boolean = 
     ]
 )
 @Composable
-fun TimeInputSticker() = Sticker {
-  // The catalog's clearest keyboard walk: two entry fields, the dial/keyboard toggle, then the
-  // dialog's dismiss and confirm. See [KeyboardNavigable] — off by default, so this sticker's baked
-  // renders are unchanged.
-  KeyboardNavigable { TimePickerDialogFrame(seedInput = true) }
-}
+fun TimeInputSticker() = Sticker { KeyboardNavigable { TimePickerDialogFrameGenerated(seedInput = true) } }

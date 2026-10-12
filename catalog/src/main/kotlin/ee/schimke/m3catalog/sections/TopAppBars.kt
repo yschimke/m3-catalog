@@ -1,6 +1,5 @@
 @file:CatalogGroup(name = "Top app bar", section = "Navigation")
 @file:OptIn(ExperimentalMaterial3Api::class)
-
 package ee.schimke.m3catalog.sections
 
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -47,6 +46,30 @@ import ee.schimke.m3catalog.generated.resources.action_more
 import ee.schimke.m3catalog.generated.resources.action_search
 import ee.schimke.m3catalog.generated.resources.appbar_title
 import ee.schimke.m3catalog.generated.resources.label_account
+import generated.uibuilder.KitSmallTopAppBar
+import generated.uibuilder.KitSmallTopAppBarNoActions
+import generated.uibuilder.KitSmallTopAppBarNoActionsOnScroll
+import generated.uibuilder.KitSmallTopAppBarNoActionsSmallImage
+import generated.uibuilder.KitSmallTopAppBarNoActionsSmallImageOnScroll
+import generated.uibuilder.KitSmallTopAppBarNoNav
+import generated.uibuilder.KitSmallTopAppBarNoNavNoActions
+import generated.uibuilder.KitSmallTopAppBarNoNavNoActionsOnScroll
+import generated.uibuilder.KitSmallTopAppBarNoNavNoActionsSmallImage
+import generated.uibuilder.KitSmallTopAppBarNoNavNoActionsSmallImageOnScroll
+import generated.uibuilder.KitSmallTopAppBarNoNavOnScroll
+import generated.uibuilder.KitSmallTopAppBarNoNavSmallImage
+import generated.uibuilder.KitSmallTopAppBarNoNavSmallImageOnScroll
+import generated.uibuilder.KitSmallTopAppBarNoNavTwoActions
+import generated.uibuilder.KitSmallTopAppBarNoNavTwoActionsOnScroll
+import generated.uibuilder.KitSmallTopAppBarNoNavTwoActionsSmallImage
+import generated.uibuilder.KitSmallTopAppBarNoNavTwoActionsSmallImageOnScroll
+import generated.uibuilder.KitSmallTopAppBarOnScroll
+import generated.uibuilder.KitSmallTopAppBarSmallImage
+import generated.uibuilder.KitSmallTopAppBarSmallImageOnScroll
+import generated.uibuilder.KitSmallTopAppBarTwoActions
+import generated.uibuilder.KitSmallTopAppBarTwoActionsOnScroll
+import generated.uibuilder.KitSmallTopAppBarTwoActionsSmallImage
+import generated.uibuilder.KitSmallTopAppBarTwoActionsSmallImageOnScroll
 import org.jetbrains.compose.resources.stringResource
 
 // One component. The kit's `App bar` set varies `Configuration` x `Elevation`, and `Configuration`
@@ -104,66 +127,6 @@ private fun Actions(
 }
 
 private const val W = 412
-
-@CatalogComponent(
-  id = "TopAppBar/Small",
-  reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20585",
-  caption =
-    "The app bar. Its four sizes, centred, image and search layouts, nav icon and actions fold in.",
-)
-@CatalogModesCompact
-@OverrideVariant(name = "no-nav", booleans = ["nav=false"])
-@OverrideVariant(name = "no-actions", ints = ["actions=0"])
-@OverrideVariant(name = "two-actions", ints = ["actions=2"])
-@OverrideVariant(name = "on-scroll", strings = ["elevation=on-scroll"])
-@OverrideVariant(name = "small-image", strings = ["content=small-image"])
-@Composable
-fun SmallTopAppBar(nav: Boolean = true, actions: Int = 1) = Sticker {
-  val navSlot = NavIcon(nav)
-  TopAppBar(
-    // The kit's `Configuration=Small-image` puts an image where the title goes. What that node
-    // actually shows is Figma's placeholder graphic, which this catalog already draws from
-    // `MaterialShapes` for its carousel items — so the cell reuses that rather than carrying the
-    // kit's raster into the repo, and it themes and scales as a consequence.
-    title = {
-      if (catalogChoice("content", "title", "title", "small-image") == "small-image") {
-        // 40dp and square: the kit's cell insets the band 56dp from each edge, centres it in the
-        // 64dp bar and gives it no corner of its own — the rounding an image placeholder carries
-        // in the carousel is the CAROUSEL's mask, not part of this graphic.
-        CatalogImagePlaceholder(
-          Modifier.fillMaxWidth().height(40.dp),
-          shape = RectangleShape,
-          scaleBasis = 122f,
-        )
-      } else {
-        Text(catalogText("title", stringResource(Res.string.appbar_title)))
-      }
-    },
-    navigationIcon = navSlot ?: {},
-    actions = Actions(actions),
-    // The kit's `Elevation` axis is not a shadow on this component — it is the container colour a
-    // bar takes once content has scrolled under it. A `TopAppBarScrollBehavior` seeded with an
-    // offset was the first attempt and rendered nothing: the colour transition is driven by a
-    // scroll this lane cannot make. So the cell paints `TopAppBarDefaults`' OWN scrolled colour,
-    // which is the value that behaviour would have reached rather than one picked here.
-    colors = catalogAppBarColors(),
-    modifier = Modifier.width(W.dp).height(64.dp),
-  )
-}
-
-/**
- * A pinned scroll behaviour reporting content already scrolled under the bar, or null for the
- * resting bar. Deterministic: the offset is seeded rather than produced by a gesture the baked lane
- * cannot make.
- */
-@Composable
-private fun catalogAppBarColors() =
-  TopAppBarDefaults.topAppBarColors(
-    containerColor =
-      if (catalogChoice("elevation", "flat", "flat", "on-scroll") == "on-scroll")
-        TopAppBarDefaults.topAppBarColors().scrolledContainerColor
-      else androidx.compose.ui.graphics.Color.Transparent
-  )
 
 @CatalogVariant(
   of = "TopAppBar/Small",
@@ -257,4 +220,216 @@ fun LargeTopAppBarSticker(nav: Boolean = true, actions: Int = 1) = Sticker {
       ),
     modifier = Modifier.width(W.dp).height(120.dp),
   )
+}
+
+// --- Generated sticker bodies, from uid-stickers/TopAppBars.kt ---
+
+@CatalogComponent(
+  id = "TopAppBar/Small",
+  reference = "figma:ocdacdEsnHipMJD3egzxKb/58114:20585",
+  caption =
+    "The app bar. Its four sizes, centred, image and search layouts, nav icon and actions fold in.",
+)
+@CatalogModesCompact
+@OverrideVariant(name = "no-nav", booleans = ["nav=false"])
+@OverrideVariant(name = "no-actions", ints = ["actions=0"])
+@OverrideVariant(name = "two-actions", ints = ["actions=2"])
+@OverrideVariant(name = "on-scroll", strings = ["elevation=on-scroll"])
+@OverrideVariant(name = "small-image", strings = ["content=small-image"])
+@Composable
+fun SmallTopAppBar(nav: Boolean = true, actions: Int = 1) = Sticker {
+  val back = counted(stringResource(Res.string.action_back))
+  val more = counted(stringResource(Res.string.action_more))
+  val search = counted(stringResource(Res.string.action_search))
+  val onScroll = catalogChoice("elevation", "flat", "flat", "on-scroll") == "on-scroll"
+  val image = catalogChoice("content", "title", "title", "small-image") == "small-image"
+  // The hand-written title slot reads the copy only when it draws the text.
+  val title = if (image) "" else catalogText("title", stringResource(Res.string.appbar_title))
+  val m = Modifier
+  if (nav) {
+    if (actions <= 0) {
+      if (!image) {
+        if (onScroll)
+          KitSmallTopAppBarNoActionsOnScroll(
+            m,
+            title = title,
+            back = back.label,
+            onBackClick = back.onClick,
+          )
+        else
+          KitSmallTopAppBarNoActions(
+            m,
+            title = title,
+            back = back.label,
+            onBackClick = back.onClick,
+          )
+      } else {
+        if (onScroll)
+          KitSmallTopAppBarNoActionsSmallImageOnScroll(
+            m,
+            back = back.label,
+            onBackClick = back.onClick,
+          )
+        else KitSmallTopAppBarNoActionsSmallImage(m, back = back.label, onBackClick = back.onClick)
+      }
+    } else if (actions == 1) {
+      if (!image) {
+        if (onScroll)
+          KitSmallTopAppBarOnScroll(
+            m,
+            title = title,
+            back = back.label,
+            search = search.label,
+            onBackClick = back.onClick,
+            onSearchClick = search.onClick,
+          )
+        else
+          KitSmallTopAppBar(
+            m,
+            title = title,
+            back = back.label,
+            search = search.label,
+            onBackClick = back.onClick,
+            onSearchClick = search.onClick,
+          )
+      } else {
+        if (onScroll)
+          KitSmallTopAppBarSmallImageOnScroll(
+            m,
+            back = back.label,
+            search = search.label,
+            onBackClick = back.onClick,
+            onSearchClick = search.onClick,
+          )
+        else
+          KitSmallTopAppBarSmallImage(
+            m,
+            back = back.label,
+            search = search.label,
+            onBackClick = back.onClick,
+            onSearchClick = search.onClick,
+          )
+      }
+    } else {
+      if (!image) {
+        if (onScroll)
+          KitSmallTopAppBarTwoActionsOnScroll(
+            m,
+            title = title,
+            back = back.label,
+            search = search.label,
+            more = more.label,
+            onBackClick = back.onClick,
+            onSearchClick = search.onClick,
+            onMoreClick = more.onClick,
+          )
+        else
+          KitSmallTopAppBarTwoActions(
+            m,
+            title = title,
+            back = back.label,
+            search = search.label,
+            more = more.label,
+            onBackClick = back.onClick,
+            onSearchClick = search.onClick,
+            onMoreClick = more.onClick,
+          )
+      } else {
+        if (onScroll)
+          KitSmallTopAppBarTwoActionsSmallImageOnScroll(
+            m,
+            back = back.label,
+            search = search.label,
+            more = more.label,
+            onBackClick = back.onClick,
+            onSearchClick = search.onClick,
+            onMoreClick = more.onClick,
+          )
+        else
+          KitSmallTopAppBarTwoActionsSmallImage(
+            m,
+            back = back.label,
+            search = search.label,
+            more = more.label,
+            onBackClick = back.onClick,
+            onSearchClick = search.onClick,
+            onMoreClick = more.onClick,
+          )
+      }
+    }
+  } else {
+    if (actions <= 0) {
+      if (!image) {
+        if (onScroll) KitSmallTopAppBarNoNavNoActionsOnScroll(m, title = title)
+        else KitSmallTopAppBarNoNavNoActions(m, title = title)
+      } else {
+        if (onScroll) KitSmallTopAppBarNoNavNoActionsSmallImageOnScroll(m)
+        else KitSmallTopAppBarNoNavNoActionsSmallImage(m)
+      }
+    } else if (actions == 1) {
+      if (!image) {
+        if (onScroll)
+          KitSmallTopAppBarNoNavOnScroll(
+            m,
+            title = title,
+            search = search.label,
+            onSearchClick = search.onClick,
+          )
+        else
+          KitSmallTopAppBarNoNav(
+            m,
+            title = title,
+            search = search.label,
+            onSearchClick = search.onClick,
+          )
+      } else {
+        if (onScroll)
+          KitSmallTopAppBarNoNavSmallImageOnScroll(
+            m,
+            search = search.label,
+            onSearchClick = search.onClick,
+          )
+        else
+          KitSmallTopAppBarNoNavSmallImage(m, search = search.label, onSearchClick = search.onClick)
+      }
+    } else {
+      if (!image) {
+        if (onScroll)
+          KitSmallTopAppBarNoNavTwoActionsOnScroll(
+            m,
+            title = title,
+            search = search.label,
+            more = more.label,
+            onSearchClick = search.onClick,
+            onMoreClick = more.onClick,
+          )
+        else
+          KitSmallTopAppBarNoNavTwoActions(
+            m,
+            title = title,
+            search = search.label,
+            more = more.label,
+            onSearchClick = search.onClick,
+            onMoreClick = more.onClick,
+          )
+      } else {
+        if (onScroll)
+          KitSmallTopAppBarNoNavTwoActionsSmallImageOnScroll(
+            m,
+            search = search.label,
+            more = more.label,
+            onSearchClick = search.onClick,
+            onMoreClick = more.onClick,
+          )
+        else
+          KitSmallTopAppBarNoNavTwoActionsSmallImage(
+            m,
+            search = search.label,
+            more = more.label,
+            onSearchClick = search.onClick,
+            onMoreClick = more.onClick,
+          )
+      }
+    }
+  }
 }
