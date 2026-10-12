@@ -160,10 +160,10 @@ jobs:
     permissions:
       contents: write
     # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
-    # PINNED TO compose-ai-tools#5887's head until a release carries `scope-mapper` and
+    # PINNED TO compose-ai-tools#5887's merge commit on main until a release carries `scope-mapper` and
     # `supersede-stale-runs`; move all four lanes to that tag before merging. v2.50.0 rejects both
     # inputs at parse time.
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@47d35868e9d6ed8577da2625ea9b648448aa35f3
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@4b20827b6e6eeb4eaa913caec8d37c0887631648
     with:
       system: m3-catalog
       # Only main publishes. A dispatch from a branch (e.g. to trial a new reusable-workflow pin)
@@ -345,7 +345,7 @@ jobs:
     permissions:
       contents: write
     # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@47d35868e9d6ed8577da2625ea9b648448aa35f3
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@4b20827b6e6eeb4eaa913caec8d37c0887631648
     with:
       system: m3-samples
       # Only main publishes. A dispatch from a branch (e.g. to trial a new reusable-workflow pin)
@@ -441,7 +441,7 @@ jobs:
     permissions:
       contents: write
     # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@47d35868e9d6ed8577da2625ea9b648448aa35f3
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@4b20827b6e6eeb4eaa913caec8d37c0887631648
     with:
       system: compose-ui-samples
       # Only main publishes. A dispatch from a branch (e.g. to trial a new reusable-workflow pin)
@@ -502,7 +502,7 @@ jobs:
     permissions:
       contents: write
     # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@47d35868e9d6ed8577da2625ea9b648448aa35f3
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@4b20827b6e6eeb4eaa913caec8d37c0887631648
     with:
       system: compose-foundation
       # Only main publishes. A dispatch from a branch (e.g. to trial a new reusable-workflow pin)
