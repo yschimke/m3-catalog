@@ -106,7 +106,7 @@
       "minimumReleaseAge": null
     },
     {
-      "description": "The daemon BOM rides in the compose-ai-tools PR, not one of its own. Each compose-preview plugin release bakes a minimum daemon (plugin-version.properties) and `verifyComposePreviewDaemonAlignment` fails the build when composePreviewDaemon is older, so a plugin bump split from its daemon bump is red until the daemon PR lands first (m3-catalog#594/#593 on 2.57.0 / 3.16.1). One group makes them land together; module versions still come from the BOM's constraints.",
+      "description": "The daemon BOM rides in the compose-ai-tools PR, not one of its own. Each compose-preview plugin release bakes a minimum daemon (plugin-version.properties), so a plugin bump split from its daemon bump runs a skewed pair until the daemon PR lands (#594/#593 on 2.57.0 / 3.16.1; wear-m3-catalog's alignment check turns the same split red). One group makes them land together; module versions still come from the BOM's constraints.",
       "matchPackageNames": [
         "ee.schimke.composeai:compose-preview-daemon-bom"
       ],
