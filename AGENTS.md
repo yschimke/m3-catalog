@@ -347,7 +347,9 @@ Wrapping changes none of the verification rules below; run the same tasks throug
 - `compose-ai-tools` is the exception in the other direction: the CLI, the Gradle plugin marker, the
   pinned CI action ref move together in a single PR, unscheduled and automerged. The annotations
   and override runtime belong to compose-preview-daemon: keep their aliases versionless and apply
-  its release BOM. The contracts BOM advances independently; Renovate tracks both BOM pins.
+  its release BOM, which Renovate groups into the compose-ai-tools PR: each plugin release requires
+  a minimum daemon, so a plugin bump split from its daemon bump fails
+  `verifyComposePreviewDaemonAlignment`. The contracts BOM advances independently.
 - Repository settings — squash-only merges, auto-merge, and the `Protect Main` ruleset — are applied
   centrally from [yschimke/renovate-config `repo-policy/`](https://github.com/yschimke/renovate-config/tree/main/repo-policy),
   shared with the other Compose Preview repositories. They need an admin token, so no workflow or
