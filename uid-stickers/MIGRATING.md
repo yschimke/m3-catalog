@@ -44,15 +44,21 @@ body swap, because the shell already carries the hand-written annotations and na
 5. **Pair it** in `stickers/<name>.json`: `"pairs": {"<Shell>": "<HandWritten>"}`.
 6. **Check:**
 
+   > Since the cut-over `:uid-stickers` is generator-only and renders nothing, so
+   > `compare-local.py` (which reads this module's own renders) has no lane here. The check is the
+   > catalog's own render: swap the sticker's body for the generated call and diff `:catalog`
+   > before and after. wear-m3-catalog and remote-m3-catalog compile their shells into the catalog
+   > behind `-PuidStickers=true` and pair them by package; that is the shape to adopt for a
+   > side-by-side lane.
+
    ```sh
-   scripts/agent-gradle.sh -PuidStickers=true -PuidExportVersion=3.107.1-SNAPSHOT \
-     -PscreenModelVersion=2.51.1-SNAPSHOT :uid-stickers:composePreviewRender
-   CATALOG_RENDERS=<dir with :catalog renders + previews.json> \
-     python3 uid-stickers/compare-local.py --only <Shell>
+   scripts/agent-gradle.sh -PuidStickers=true :uid-stickers:generateUidStickers
+   scripts/agent-gradle.sh :catalog:composePreviewRender   # before and after the swap
    ```
 
-   A `DIFF` is a real difference; read the generated Kotlin in
-   `build/generated/uid/kotlin/generated/uibuilder/` against the hand-written body.
+   Any pixel difference between the two renders is a real difference; read the generated Kotlin
+   in `catalog/src/uid/kotlin/` against the hand-written body. The PR's visual diff shows the same
+   comparison.
 
 ## Rules
 

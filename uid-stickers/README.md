@@ -19,14 +19,12 @@ unpublished. The findings and the recommendation are in
 | `annotations-of.py`, `add-project-component.py`, `tools/` | migration helpers |
 
 ```sh
-# Until the exporter's `exportComponents` is released, against Maven-local snapshots:
-scripts/agent-gradle.sh -PuidStickers=true -PuidExportVersion=3.107.1-SNAPSHOT \
-  -PscreenModelVersion=2.51.1-SNAPSHOT :uid-stickers:composePreviewRender
-CATALOG_RENDERS=catalog/build/compose-previews/renders python3 uid-stickers/compare-local.py  # after :catalog:composePreviewRender
+scripts/agent-gradle.sh -PuidStickers=true :uid-stickers:generateUidStickers  # rewrite catalog/src/uid/kotlin
+scripts/agent-gradle.sh -PuidStickers=true :uid-stickers:verifyUidStickers    # fail if it is stale
 ```
 
-The generated Kotlin lands in `build/generated/uid/kotlin`, and that file is the sticker's source as
-a reader should see it. `docs/evidence/uid-stickers/KitCard.generated.kt.txt` is a copy.
+The generated Kotlin lands in `catalog/src/uid/kotlin`, and that file is the sticker's source as a
+reader should see it. `docs/evidence/uid-stickers/KitCard.generated.kt.txt` is a copy.
 
 The copy in `stickers/*.uid` is the catalog's string resources (`resource` values), passed as the
 placement's arguments, so the builder shows translated copy and the shell's knobs default to it.

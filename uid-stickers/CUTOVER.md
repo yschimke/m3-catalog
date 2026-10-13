@@ -97,8 +97,9 @@ exhaustive kit cells) against the generated sticker's, pixel for pixel and frame
 
 ## Regenerating
 
-1. When the upstream changes are released, point `uidExportVersion` / `screenModelVersion` at the
-   releases (today: Maven-local snapshots of compose-ui-builder #732 and compose-ai-tools #5896).
+1. The exporter and generator are released (compose-ui-builder 3.111.0 and later carry #732 and
+   compose-ai-tools #5896); the exporter is the `uiBuilderExport` pin in
+   `gradle/libs.versions.toml`, which Renovate raises.
 2. Edit `uid-stickers/stickers/<name>.uid` or its cells, run `generateUidStickers`, and commit
    `catalog/src/uid/kotlin` with the document.
 3. The blocked stickers stay hand-written until the exporter grows their vocabulary; migrate one
