@@ -100,6 +100,9 @@ v3.109.0. The emitted Kotlin is not compiled here.
 1. Records and definitions for the components the committed designs use (this change).
 2. The pilot pair publishing them, and every committed design exported (this change).
 3. The pilot published to `m3-catalog-out`'s `design-artifacts/m3-catalog-typed-pilot`, beside
-   production, for an A/B comparison of the two exports (this change).
+   production, for an A/B comparison of the two exports (this change). `typed-pilot-artifacts.yml`
+   builds the pair, the runtime and `FullM3RendererTest`'s `<case>-typed.png` renders, and
+   compose-ai-tools' `typed-catalog-artifacts-reusable.yml` publishes them; the renders are the
+   catalog's images, without which a preview server refuses to load it.
 4. The rest of the shelf, then cutover: the production policy, runtime and `composeSourceExport`
    switch together.

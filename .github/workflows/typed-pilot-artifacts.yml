@@ -3,15 +3,20 @@ name: Typed pilot artifacts
 # Publishes the hidden `m3-catalog-typed-pilot` catalog to yschimke/m3-catalog-out's
 # `design-artifacts/m3-catalog-typed-pilot`, beside production's `design-artifacts/m3-catalog`, in
 # the same layout: catalog.json (with uiBuilderRuntime), components.json, ui-builder.json,
-# ui-builder/runtime.zip and the starter templates. A preview server serving both can then A/B
-# the pilot's typed Compose source export (compose-component-records v1, through the real Material
-# 3 records' export projections) against production's hand-written compose-material3 export.
+# ui-builder/runtime.zip, the starter templates and one typed render per component under images/.
+# A preview server serving both can then A/B the pilot's typed Compose source export
+# (compose-component-records v1, through the real Material 3 records' export projections) against
+# production's hand-written compose-material3 export.
 #
-# It is NOT a lane of design-artifacts.yml: the pilot renders no stickers, so the reusable
-# render-and-generate pipeline has nothing to do for it, and production's lanes stay untouched.
+# `build` builds the pair, the runtime and the typed renders with the catalog's own Gradle setup
+# and uploads them as ONE artifact; compose-ai-tools' typed-catalog-artifacts-reusable.yml checks,
+# assembles and publishes it, so no delivery logic is forked here (AGENTS.md). The images are
+# FullM3RendererTest's `<case>-typed.png` evidence: every typed registration rendered through its
+# adapter, pixel-identical to the real Material composable. Without them the server refuses the
+# catalog ("no usable images") and never stages its runtime.
+#
 # Nothing here reads or writes design-artifacts/m3-catalog. The pilot is absent from
 # .compose-preview/catalogs.json on purpose: a host serves it only when told to, unlisted.
-#
 # A pull request builds and assembles the branch content (and uploads it) without publishing.
 # See docs/design/TYPED_M3_REAL_RECORDS.md.
 
@@ -25,7 +30,6 @@ on:
       - 'gradle/libs.versions.toml'
       - 'ui-builder.policy.json'
       - 'ui-builder/designs/**'
-      - 'scripts/assemble-typed-pilot-artifacts*.mjs'
       - '.github/workflows/typed-pilot-artifacts.yml'
   # The same inputs as a publish, so a change that would break the published pilot fails on its
   # pull request rather than on main.
@@ -36,7 +40,6 @@ on:
       - 'gradle/libs.versions.toml'
       - 'ui-builder.policy.json'
       - 'ui-builder/designs/**'
-      - 'scripts/assemble-typed-pilot-artifacts*.mjs'
       - '.github/workflows/typed-pilot-artifacts.yml'
 
 permissions:
@@ -47,7 +50,6 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  PILOT: m3-catalog-typed-pilot
   # The same source pins the typed trial validates against (typed-catalog.yml).
   TOOLS_REF: 9310fba0525c3d146736f23aa95626cac5ac8e21 # compose-ai-tools v2.52.0
   BUILDER_REF: 34701265c982e3fb50f7d2f91332a705cff84bd7 # compose-ui-builder v3.109.0
@@ -82,41 +84,42 @@ jobs:
       - uses: gradle/actions/setup-gradle@v6.4.0
         with:
           cache-read-only: true
-      - uses: actions/setup-node@v7.1.0
-        with:
-          node-version: 24.21.0
-      - name: Test the assembler
-        working-directory: m3-catalog
-        run: node --test scripts/assemble-typed-pilot-artifacts.test.mjs
       # The pair, the export test that runs every committed design through it (a publish never
-      # carries a pair that test has not passed), and the runtime archive. The runtime id names
-      # the commit, as production's does.
-      - name: Generate the pilot pair and runtime
+      # carries a pair that test has not passed), the full-catalog render test that writes the
+      # typed images, and the runtime archive. The runtime id names the commit, as production's
+      # does. xvfb as typed-catalog.yml runs the same tests.
+      - name: Generate the pilot pair, renders and runtime
         working-directory: m3-catalog
         run: >-
-          ./gradlew
+          xvfb-run -a ./gradlew
           -PtypedM3Catalog=true -PtypedAdapterCatalog=true -PlocalBuilds=tools
           -PcomposeAiToolsDir=../compose-ai-tools -PcomposeUiBuilderDir=../compose-ui-builder
           -PlocalBuild.tools=../compose-ai-tools
           :catalog-typed-adapters:generateTypedCatalog
-          :catalog-typed-adapters:jvmTest --tests '*RealM3*'
+          :catalog-typed-adapters:jvmTest --tests '*RealM3*' --tests '*FullM3Renderer*'
           :catalog-typed-adapters:rendererArchive
-      - name: Assemble the delivery branch content
+      # The layout typed-catalog-artifacts-reusable.yml reads: the pair under catalog/, the
+      # templates at the paths ui-builder.json names (relative to the root), the runtime, and the
+      # renders under images/.
+      - name: Stage the inputs
         working-directory: m3-catalog
         run: |
           set -euo pipefail
-          node scripts/assemble-typed-pilot-artifacts.mjs \
-            --out "$RUNNER_TEMP/out" \
-            --source-repo "$GITHUB_REPOSITORY" --source-ref "$GITHUB_SHA"
-          # The archive's own manifest is the one whose bytes the assembler verified.
-          unzip -p catalog-typed-adapters/build/distributions/m3-catalog-typed-pilot-renderer.zip \
-            runtime-manifest.json |
-            cmp - catalog-typed-adapters/build/wasmRendererDist/runtime-manifest.json
-          find "$RUNNER_TEMP/out" -type f | sort
+          build=catalog-typed-adapters/build
+          in="$RUNNER_TEMP/inputs"
+          mkdir -p "$in/catalog" "$in/images"
+          cp "$build/catalog/components.json" "$build/catalog/ui-builder.json" "$in/catalog/"
+          cp -R ui-builder "$in/ui-builder"
+          cp "$build/distributions/m3-catalog-typed-pilot-renderer.zip" "$in/runtime.zip"
+          # The archive's own manifest is the one the build wrote.
+          unzip -p "$in/runtime.zip" runtime-manifest.json |
+            cmp - "$build/wasmRendererDist/runtime-manifest.json"
+          cp "$build"/render-evidence/full-catalog/*-typed.png "$in/images/"
+          find "$in" -type f | sort
       - uses: actions/upload-artifact@v7.0.2
         with:
-          name: m3-catalog-typed-pilot-out
-          path: ${{ runner.temp }}/out/
+          name: m3-catalog-typed-pilot-inputs
+          path: ${{ runner.temp }}/inputs/
           if-no-files-found: error
       - uses: actions/upload-artifact@v7.0.2
         if: always()
@@ -125,43 +128,30 @@ jobs:
           path: |
             m3-catalog/catalog-typed-adapters/build/catalog/readiness.json
             m3-catalog/catalog-typed-adapters/build/export-evidence/
+            m3-catalog/catalog-typed-adapters/build/render-evidence/
             m3-catalog/catalog-typed-adapters/build/reports/tests/
 
-  publish:
+  typed-pilot:
     needs: build
-    # Never from a fork or a pull request: only main and a dispatch publish.
-    if: ${{ github.repository == 'yschimke/m3-catalog' && github.event_name != 'pull_request' }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/download-artifact@v8.0.2
-        with:
-          name: m3-catalog-typed-pilot-out
-          path: out
-      # The delivery helper production's lane publishes with, from the same tools release.
-      - uses: actions/checkout@v7.0.1
-        with:
-          repository: yschimke/compose-ai-tools
-          ref: ${{ env.TOOLS_REF }}
-          path: compose-ai-tools
-          persist-credentials: false
-          sparse-checkout: .github/actions/apply/lib
-      - name: Publish to design-artifacts/m3-catalog-typed-pilot
-        env:
-          # The cross-repository token production's design-artifacts lanes already use.
-          GITHUB_TOKEN_INLINE: ${{ secrets.ARTIFACTS_TOKEN }}
-          REPO: yschimke/m3-catalog-out
-          TARGET_BRANCH: design-artifacts/m3-catalog-typed-pilot
-          SKIP_IF_UNCHANGED: '1'
-        run: |
-          set -euo pipefail
-          if [ -z "$GITHUB_TOKEN_INLINE" ]; then
-            echo "::error::ARTIFACTS_TOKEN is not available to this run."
-            exit 1
-          fi
-          # SKIP_IF_UNCHANGED: a byte-identical tree appends no commit. The runtime id names the
-          # commit, so in practice each qualifying push to main publishes once.
-          export MSG="typed pilot from ${GITHUB_REPOSITORY}@${GITHUB_SHA::12}"
-          helper="$GITHUB_WORKSPACE/compose-ai-tools/.github/actions/apply/lib/push-branch.sh"
-          cd out
-          bash "$helper"
+    permissions:
+      contents: read
+    uses: yschimke/compose-ai-tools/.github/workflows/typed-catalog-artifacts-reusable.yml@2581e77e27f94d6b0ae3e150700084aa158d5972 # v2.57.0
+    with:
+      system: m3-catalog-typed-pilot
+      artifact: m3-catalog-typed-pilot-inputs
+      templates-root: .
+      runtime-id-prefix: m3-typed-pilot-
+      images-path: images
+      image-variant: typed
+      image-section: Typed renders
+      title: Material 3 — typed pilot
+      library: |
+        org.jetbrains.compose.material3:material3
+        org.jetbrains.compose.material3:material3-adaptive-navigation-suite
+      artifact-repository: yschimke/m3-catalog-out
+      # Never from a fork or a pull request: only main and a dispatch publish, and only while
+      # this run's commit is still main's tip.
+      publish: ${{ github.repository == 'yschimke/m3-catalog' && github.event_name != 'pull_request' }}
+    secrets:
+      # The cross-repository token production's design-artifacts lanes already use.
+      artifacts_token: ${{ secrets.ARTIFACTS_TOKEN }}
