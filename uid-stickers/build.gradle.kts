@@ -11,9 +11,9 @@ plugins { alias(libs.plugins.kotlin.jvm) }
 
 kotlin { jvmToolchain(21) }
 
-// `-PuidExportVersion=<x>-SNAPSHOT` tries an unreleased exporter published to Maven local.
-// `exportComponents` is not in a release yet (3.109.0 is the latest), so this currently needs both:
-// `-PuidExportVersion=3.107.1-SNAPSHOT -PscreenModelVersion=2.51.1-SNAPSHOT`.
+// The released exporter (`exportComponents` since compose-ui-builder 3.108, its generator's toggle
+// intents since compose-ai-tools 2.53). `-PuidExportVersion=<x>-SNAPSHOT` tries an unreleased one
+// published to Maven local, with `-PscreenModelVersion=` for the generator it was built against.
 if (providers.gradleProperty("uidExportVersion").isPresent) {
   repositories {
     mavenLocal()
@@ -28,7 +28,7 @@ dependencies {
   // The exporter the builder's code pane and the server's export.compose route run.
   "generatorImplementation"(
     "ee.schimke.composeai:compose-preview-ui-builder-export-jvm:" +
-      providers.gradleProperty("uidExportVersion").getOrElse("3.108.0")
+      providers.gradleProperty("uidExportVersion").getOrElse("3.112.0")
   )
   // `-PscreenModelVersion=<x>-SNAPSHOT` pairs an unreleased exporter with the unreleased
   // generator it was built against.

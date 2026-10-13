@@ -44,9 +44,12 @@ body swap, because the shell already carries the hand-written annotations and na
 5. **Pair it** in `stickers/<name>.json`: `"pairs": {"<Shell>": "<HandWritten>"}`.
 6. **Check:**
 
+   > Since the cut-over `:uid-stickers` is generator-only and renders nothing, so a new shell has no
+   > render lane here yet. wear-m3-catalog and remote-m3-catalog compile their shells into the
+   > catalog behind `-PuidStickers=true` and pair them by package; that is the shape to adopt.
+
    ```sh
-   scripts/agent-gradle.sh -PuidStickers=true -PuidExportVersion=3.107.1-SNAPSHOT \
-     -PscreenModelVersion=2.51.1-SNAPSHOT :uid-stickers:composePreviewRender
+   scripts/agent-gradle.sh -PuidStickers=true :uid-stickers:generateUidStickers
    CATALOG_RENDERS=<dir with :catalog renders + previews.json> \
      python3 uid-stickers/compare-local.py --only <Shell>
    ```
