@@ -26,19 +26,17 @@ val generator by sourceSets.creating
 
 dependencies {
   // The exporter the builder's code pane and the server's export.compose route run.
-  "generatorImplementation"(
-    "ee.schimke.composeai:compose-preview-ui-builder-export-jvm:" +
-      providers.gradleProperty("uidExportVersion").getOrElse("3.112.0")
-  )
+  // `uiBuilderExport` in gradle/libs.versions.toml, which Renovate owns.
+  "generatorImplementation"(libs.composeai.ui.builder.export) {
+    providers.gradleProperty("uidExportVersion").orNull?.let { version { strictly(it) } }
+  }
   // `-PscreenModelVersion=<x>-SNAPSHOT` pairs an unreleased exporter with the unreleased
   // generator it was built against.
   providers.gradleProperty("screenModelVersion").orNull?.let { pinned ->
     "generatorImplementation"("ee.schimke.composeai:screen-model-jvm") {
       version { strictly(pinned) }
     }
-    "generatorImplementation"("ee.schimke.composeai:screen-model") {
-      version { strictly(pinned) }
-    }
+    "generatorImplementation"("ee.schimke.composeai:screen-model") { version { strictly(pinned) } }
   }
 }
 
@@ -87,7 +85,12 @@ val verifyUidStickers by
     group = "verification"
     description = "Fails when catalog/src/uid/kotlin is not what the documents export."
     dependsOn(exportForVerify)
-    commandLine("diff", "-r", verifyDir.get().asFile.absolutePath, catalogGeneratedDir.asFile.absolutePath)
+    commandLine(
+      "diff",
+      "-r",
+      verifyDir.get().asFile.absolutePath,
+      catalogGeneratedDir.asFile.absolutePath,
+    )
   }
 
 tasks.named("check") { dependsOn(verifyUidStickers) }

@@ -70,7 +70,8 @@ builder/project records ─┘   .exportComponents)            └─ build/gene
   `KitCard(header = catalogText("header", …), …, onActionClick = counted(…).onClick)`. That keeps the
   inventory annotation-first and the generated body free of catalog code.
 
-Regenerate it, against the released exporter (compose-ui-builder 3.112.0):
+Regenerate it, against the released exporter (the `uiBuilderExport` pin in
+`gradle/libs.versions.toml`):
 
 ```sh
 scripts/agent-gradle.sh -PuidStickers=true :uid-stickers:generateUidStickers  # rewrite catalog/src/uid/kotlin

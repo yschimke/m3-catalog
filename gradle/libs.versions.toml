@@ -90,6 +90,8 @@ composePreviewPlugin = "2.54.0"
 composePreviewDaemon = "3.16.0"
 composePreviewContracts = "3.30.0"
 uiBuilderSource = "3.30.0"
+# compose-ui-builder's exporter, run only by `:uid-stickers` (opt-in, `-PuidStickers=true`).
+uiBuilderExport = "3.112.0"
 
 [libraries]
 composeai-tools-bom = { module = "ee.schimke.composeai:compose-ai-tools-bom", version.ref = "composePreviewPlugin" }
@@ -124,6 +126,7 @@ composeai-contracts-bom = { module = "ee.schimke.composeai:compose-preview-contr
 composeai-daemon-bom = { module = "ee.schimke.composeai:compose-preview-daemon-bom", version.ref = "composePreviewDaemon" }
 composeai-preview-overrides = { module = "ee.schimke.composeai:data-preview-overrides-runtime" }
 composeai-preview-annotations = { module = "ee.schimke.composeai:preview-annotations" }
+composeai-ui-builder-export = { module = "ee.schimke.composeai:compose-preview-ui-builder-export-jvm", version.ref = "uiBuilderExport" }
 composeai-ui-builder-renderer-sdk-source = { module = "ee.schimke.composeai:ui-builder-renderer-sdk-source", version.ref = "uiBuilderSource" }
 
 [plugins]
