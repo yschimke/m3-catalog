@@ -106,11 +106,11 @@
       "minimumReleaseAge": null
     },
     {
-      "description": "Update this release BOM independently; module versions come from its constraints.",
+      "description": "The daemon BOM rides in the compose-ai-tools PR, not one of its own. Each compose-preview plugin release bakes a minimum daemon (plugin-version.properties), so a plugin bump split from its daemon bump runs a skewed pair until the daemon PR lands (#594/#593 on 2.57.0 / 3.16.1; wear-m3-catalog's alignment check turns the same split red). One group makes them land together; module versions still come from the BOM's constraints.",
       "matchPackageNames": [
         "ee.schimke.composeai:compose-preview-daemon-bom"
       ],
-      "groupName": "compose-preview-daemon",
+      "groupName": "compose-ai-tools",
       "rangeStrategy": "pin",
       "enabled": true,
       "schedule": [
