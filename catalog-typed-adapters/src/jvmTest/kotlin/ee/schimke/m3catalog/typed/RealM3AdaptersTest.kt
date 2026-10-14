@@ -59,6 +59,7 @@ class RealM3AdaptersTest {
       setOf(
         "m3/text",
         "m3/icon",
+        "m3/button",
         "m3/card",
         "m3/navigation-suite-item",
         "m3/navigation-suite-scaffold",
@@ -102,6 +103,26 @@ class RealM3AdaptersTest {
   }
 
   @Test
+  fun `a button's style picks the real button, as the hand exporter does`() {
+    for ((style, callable) in
+      listOf(
+        null to "ButtonKt.Button",
+        "filled" to "ButtonKt.Button",
+        "filledTonal" to "ButtonKt.FilledTonalButton",
+        "text" to "ButtonKt.TextButton",
+        "fab" to "FloatingActionButtonKt.FloatingActionButton",
+      )) {
+      val button =
+        if (style == null) node("m3/button")
+        else node("m3/button", "style" to wrapped("enum", style))
+      assertTrue(button.record.endsWith(callable), "$style: ${button.record}")
+    }
+    val disabled = node("m3/button", "enabled" to wrapped("bool", false))
+    assertEquals(setOf("enabled"), disabled.arguments.keys)
+    assertTrue("enabled" !in node("m3/button", "enabled" to wrapped("bool", true)).arguments)
+  }
+
+  @Test
   fun `what no parameter carries is left out of the projection, so the builder refuses it`() {
     // A host refuses a node that sets a property outside `ExportProjection.properties`, by name.
     for ((id, property) in
@@ -110,6 +131,7 @@ class RealM3AdaptersTest {
         "m3/card" to "stableKey",
         "m3/text" to "alignment",
         "m3/icon" to "iconName",
+        "m3/button" to "selected",
       )) {
       assertTrue(property !in projection(id).properties, "$id.$property")
       assertTrue(adapters.getValue(id).properties.any { it.name == property }, "$id.$property")

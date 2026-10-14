@@ -21,17 +21,21 @@ parameters are the overload a `LibraryCallable` picks:
 | --- | --- | --- |
 | `m3/text` | `material3.Text` | `text: String` and `color: Color`, not `AnnotatedString` or `ColorProducer` |
 | `m3/icon` | `material3.Icon` | `imageVector` and `tint: Color` |
+| `m3/button` | `Button`, `FilledTonalButton`, `TextButton`, `FloatingActionButton` | the `shape` overloads, not the expressive `shapes: ButtonShapes` ones |
 | `m3/card` | `Card`, `ElevatedCard`, `OutlinedCard` | not `onClick` (the clickable overload is chosen when a click is bound) |
 | `m3/navigation-suite-item` | `navigationsuite.NavigationSuiteItem` | its only overload |
 | `m3/navigation-suite-scaffold` | `navigationsuite.NavigationSuiteScaffold` | `navigationItems` and `primaryActionContent`, not the `NavigationSuiteScope` DSL |
 
-The card projections call `CardDefaults.{card,elevatedCard,outlinedCard}{Colors,Elevation}`, read
-with `discoverFactories`. The shared layouts (`layout/column`, `layout/box`, `layout/scaffold`,
+The card projections call `CardDefaults.{card,elevatedCard,outlinedCard}{Colors,Elevation}` and the
+button projections `ButtonDefaults.{button,filledTonalButton,textButton}Colors`, read with
+`discoverFactories`. The shared layouts (`layout/column`, `layout/box`, `layout/scaffold`,
 `layout/lazy-grid` and the two pane scaffolds) are not published here: a host joins
 compose-ui-builder's foundation record pack, and `RealM3ExportTest` joins it the same way, from the
 builder checkout's `compose-foundation-components-v1.json`.
 
-These five are exactly the components the committed designs under `ui-builder/designs/` use.
+These are the components the committed designs under `ui-builder/designs/` use, plus `m3/button`,
+which every adaptive design homeassistant-remotecompose and meshcore-mobile pin to `m3-catalog`
+uses: with it, all 38 of those export through the pilot too.
 
 ## The definitions
 
@@ -42,6 +46,7 @@ empty in `RealM3AdaptersTest`):
 | --- | --- |
 | `m3/text` | `text`, `style` (`MaterialTheme.typography.<role>`), `color`, weight, style, sizes in `sp`, alignment, decoration, line limits, `softWrap`, `overflow` |
 | `m3/icon` | `Icons.<style>.<Name>` from the host's icon table, `contentDescription`, `tint`, `Modifier.size(sizeDp.dp)` when set |
+| `m3/button` | the `style`'s button as the hand exporter picks it (`filled` or unset `Button`, `filledTonal`, `text`, `fab`), `enabled` when false, `ButtonDefaults.…Colors(containerColor)` (a FAB's own `containerColor`), `onClick`; children are its `RowScope` content |
 | `m3/card` | the `style`'s card, `CardDefaults.…Colors(containerColor)`, `CardDefaults.…Elevation(defaultElevation)`; children are its `ColumnScope` content |
 | `m3/navigation-suite-item` | `selected` (a literal or a `stateEquals` read), `enabled`, `onClick`, the `icon` and `label` slots |
 | `m3/navigation-suite-scaffold` | `containerColor`, `contentColor`, `navigationItems`, `primaryAction` as `primaryActionContent`, `content` |
@@ -81,6 +86,8 @@ Each is refused by name rather than approximated, or written differently on purp
 - A text's `alignment`: the hand exporter writes `Modifier.align(…)` through the parent box's
   `BoxScope`, which a projection's top-level modifier link cannot name. `weight` is the builder's
   own and still exports.
+- A button's `selected`: a toolbar item's selection the canvas draws, which no button parameter
+  carries. Refused (`exportRefuses`).
 - An icon's Material Symbols properties (`iconName`, `iconStyle`, the four axes, `iconAutoMirror`):
   they draw an outline the host records in the design's assets, which no `Icon` parameter carries.
 - A card's children are its `ColumnScope` content directly. The hand exporter wraps them in a `Box`

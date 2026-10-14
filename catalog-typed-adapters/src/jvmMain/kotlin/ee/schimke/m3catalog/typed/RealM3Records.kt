@@ -5,6 +5,7 @@ import ee.schimke.composeai.discovery.FactorySignature
 import ee.schimke.composeai.discovery.TypedAdapterDiscovery
 import ee.schimke.composeai.discovery.TypedAdapterDiscovery.LibraryCallable
 import ee.schimke.composeai.discovery.TypedComponentAdapter
+import ee.schimke.m3catalog.typed.real.RealButtonAdapter
 import ee.schimke.m3catalog.typed.real.RealCardAdapter
 import ee.schimke.m3catalog.typed.real.RealIconAdapter
 import ee.schimke.m3catalog.typed.real.RealNavigationSuiteItemAdapter
@@ -28,6 +29,9 @@ object RealM3Records {
   private fun card(name: String) =
     LibraryCallable("$MATERIAL3.CardKt", name, excluding = setOf("onClick"))
 
+  private fun button(name: String) =
+    LibraryCallable("$MATERIAL3.ButtonKt", name, excluding = setOf("shapes"))
+
   val callables: List<LibraryCallable> =
     listOf(
       // `text: String`, not `AnnotatedString`; a `color: Color`, not the `ColorProducer` overload.
@@ -46,6 +50,12 @@ object RealM3Records {
             "tint" to COLOR,
           ),
       ),
+      // The `shape` overloads the hand exporter calls, not the expressive `shapes: ButtonShapes`
+      // ones; `fab` is a separate family with no `enabled`.
+      button("Button"),
+      button("FilledTonalButton"),
+      button("TextButton"),
+      LibraryCallable("$MATERIAL3.FloatingActionButtonKt", "FloatingActionButton"),
       card("Card"),
       card("ElevatedCard"),
       card("OutlinedCard"),
@@ -58,13 +68,16 @@ object RealM3Records {
       ),
     )
 
-  /** The `CardDefaults` factories the card projection calls. */
+  /** The `CardDefaults` and `ButtonDefaults` factories the card and button projections call. */
   val factoryCallables: List<TypedAdapterDiscovery.Callable> =
     listOf("card", "elevatedCard", "outlinedCard").flatMap { kind ->
       listOf("${kind}Colors", "${kind}Elevation").map {
         TypedAdapterDiscovery.Callable("$MATERIAL3.CardDefaults", it)
       }
-    }
+    } +
+      listOf("button", "filledTonalButton", "textButton").map {
+        TypedAdapterDiscovery.Callable("$MATERIAL3.ButtonDefaults", "${it}Colors")
+      }
 
   fun discover(): ComponentRecordFile =
     TypedAdapterDiscovery.discoverLibrary(MODULE, "release", callables)
@@ -81,6 +94,13 @@ object RealM3Records {
     return listOf(
       RealTextAdapter(records.getValue("Text")),
       RealIconAdapter(records.getValue("Icon")),
+      RealButtonAdapter(
+        records.getValue("Button"),
+        records.getValue("FilledTonalButton"),
+        records.getValue("TextButton"),
+        records.getValue("FloatingActionButton"),
+        factories(),
+      ),
       RealCardAdapter(
         records.getValue("Card"),
         records.getValue("ElevatedCard"),
