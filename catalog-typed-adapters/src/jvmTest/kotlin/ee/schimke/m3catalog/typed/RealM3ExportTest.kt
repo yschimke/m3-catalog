@@ -119,6 +119,7 @@ class RealM3ExportTest {
     assertEquals(TypedM3Catalog.COMPONENT_RECORDS to 1, export.adapter to export.version)
     assertEquals(
       setOf(
+        "m3/button",
         "m3/card",
         "m3/icon",
         "m3/navigation-suite-item",

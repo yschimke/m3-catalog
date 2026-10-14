@@ -394,3 +394,77 @@ class RealNavigationSuiteScaffoldAdapter(record: ComponentRecord) :
     )
   }
 }
+
+data class RealButtonProperties(
+  val style: String,
+  val enabled: Boolean,
+  val containerColor: WireColor,
+  val selected: Boolean,
+  val onClick: () -> Unit,
+)
+
+/**
+ * `m3/button` as Material 3's buttons, picked by `style` as the hand exporter picks them: `filled`
+ * (the default) is `Button`, `filledTonal` is `FilledTonalButton`, `text` is `TextButton`, each
+ * with its own `ButtonDefaults` colours, and `fab` is `FloatingActionButton`, which has no
+ * `enabled` and takes `containerColor` directly. A click is the call's `onClick`; the children are
+ * the button's `RowScope` content (a FAB's plain content).
+ */
+class RealButtonAdapter(
+  button: ComponentRecord,
+  private val filledTonal: ComponentRecord,
+  private val text: ComponentRecord,
+  private val fab: ComponentRecord,
+  factories: List<FactorySignature>,
+) : TypedComponentAdapter<RealButtonProperties>("m3/button", button) {
+  val style =
+    wireProperty(
+      RealButtonProperties::style,
+      exported(ExportProjection.Codec.Text, setOf("filled", "filledTonal", "text", "fab")),
+      "",
+    )
+  val enabled =
+    property(RealButtonProperties::enabled, AdapterValueCodecs.Boolean, true, bindable = false)
+  val containerColor = wireProperty(RealButtonProperties::containerColor, COLOR, WireColor.Unset)
+  // A toolbar item's selection, which the canvas draws and no button parameter carries.
+  val selected = wireProperty(RealButtonProperties::selected, AdapterValueCodecs.Boolean, false)
+  val onClick = event(RealButtonProperties::onClick)
+  val content = slot("content", required = true)
+
+  private fun button(
+    record: ComponentRecord,
+    defaults: String,
+    variants: Set<String>?,
+    factories: List<FactorySignature>,
+  ) =
+    target(
+      record,
+      mapOf(
+        "enabled" to from(enabled, omitWhen = JsonPrimitive(true)),
+        "colors" to
+          call(
+            factories.named("$MATERIAL3.ButtonDefaults.${defaults}Colors"),
+            "containerColor" to from(containerColor),
+          ),
+      ),
+      variants = variants,
+      events = mapOf("click" to "onClick"),
+    )
+
+  init {
+    exportAs(
+      button(button, "button", null, factories),
+      button(button, "button", setOf("filled"), factories),
+      button(filledTonal, "filledTonalButton", setOf("filledTonal"), factories),
+      button(text, "textButton", setOf("text"), factories),
+      target(
+        fab,
+        mapOf("containerColor" to from(containerColor)),
+        variants = setOf("fab"),
+        events = mapOf("click" to "onClick"),
+      ),
+      variant = style,
+    )
+    exportRefuses(selected)
+  }
+}
