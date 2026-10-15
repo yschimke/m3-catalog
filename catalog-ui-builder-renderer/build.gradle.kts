@@ -86,6 +86,7 @@ kotlin {
       implementation(libs.composeai.ui.builder.renderer.sdk.source)
       implementation(libs.compose.material3)
       implementation(libs.compose.adaptive)
+      implementation(libs.compose.adaptive.layout)
       implementation(libs.compose.material3.adaptive.navigation.suite)
       implementation(libs.compose.material.icons.extended)
       @Suppress("DEPRECATION") implementation(compose.runtime)
@@ -97,6 +98,16 @@ kotlin {
 
 val uiBuilderCheckout =
   providers.gradleProperty("composeUiBuilderDir").map { rootProject.file(it).canonicalFile }
+
+val SDK_MATERIAL_ICON_DATA = "ui-builder-renderer-sdk/build/generated/materialIconData"
+
+/** `:ui-builder-renderer-sdk:generateMaterialIconData` in the included compose-ui-builder build. */
+val sdkMaterialIconData =
+  uiBuilderCheckout.orNull?.let { checkout ->
+    gradle.includedBuilds
+      .single { it.projectDir.canonicalFile == checkout }
+      .task(":ui-builder-renderer-sdk:generateMaterialIconData")
+  }
 
 val runtimeAssets =
   tasks.register<Sync>("runtimeAssets") {
@@ -115,6 +126,11 @@ val runtimeAssets =
       include("*.ttf", "fonts.json", "*OFL.txt", "LICENSE.txt")
       into("fonts")
     }
+    // The renderer SDK fetches Material icon vectors from `icons/` beside the page on first use;
+    // without the directory every `m3/icon` stays blank. The SDK writes it from the compiled JVM
+    // icon builders, so build it in the included compose-ui-builder checkout and copy it in.
+    sdkMaterialIconData?.let { dependsOn(it) }
+    from(uiBuilderCheckout.map { it.resolve(SDK_MATERIAL_ICON_DATA) }) { into("icons") }
     into(layout.buildDirectory.dir("runtimeAssets"))
   }
 
@@ -211,6 +227,7 @@ abstract class VerifyCatalogRendererRuntime : DefaultTask() {
           "m3CatalogRenderer.wasm",
           "skiko.mjs",
           "skiko.wasm",
+          "icons/icons-0.json",
         )
       check(names.containsAll(required)) { "renderer archive is missing ${required - names}" }
       check(names.none { it.startsWith('/') || it.contains("../") || '\\' in it }) {

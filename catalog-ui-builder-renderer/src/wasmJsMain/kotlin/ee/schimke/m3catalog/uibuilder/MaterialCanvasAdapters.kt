@@ -90,7 +90,8 @@ import ee.schimke.composeai.uibuilder.export.VariableFontText
 import ee.schimke.composeai.uibuilder.renderer.sdk.CanvasAdapterRegistry
 import ee.schimke.composeai.uibuilder.renderer.sdk.CanvasNodeScope
 import ee.schimke.composeai.uibuilder.renderer.sdk.canvasAdapterRegistry
-import ee.schimke.composeai.uibuilder.renderer.sdk.googleMaterialIconImageVector
+import ee.schimke.composeai.uibuilder.renderer.sdk.googleMaterialIcon
+import ee.schimke.composeai.uibuilder.renderer.sdk.rememberGoogleMaterialIconVector
 import kotlin.math.roundToInt
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
@@ -472,9 +473,14 @@ private fun CanvasAdapterRegistry.Builder.iconButton(id: String) {
 
 private fun CanvasAdapterRegistry.Builder.icon(id: String) {
   register(id) {
-    val vector = googleMaterialIconImageVector(string("iconKey"))
-    if (vector == null) Text("?", modifier.size(float("sizeDp", 24f).dp))
-    else
+    val key = string("iconKey")
+    // In the browser an icon's vector is fetched from `icons/` on first use, so the synchronous
+    // lookup answers null until then: wait for it rather than drawing "?" for every known icon.
+    val vector = rememberGoogleMaterialIconVector(key)
+    if (vector == null) {
+      if (googleMaterialIcon(key) == null) Text("?", modifier.size(float("sizeDp", 24f).dp))
+      else Box(modifier.size(float("sizeDp", 24f).dp))
+    } else
       Icon(
         vector,
         string("contentDescription").ifEmpty { null },

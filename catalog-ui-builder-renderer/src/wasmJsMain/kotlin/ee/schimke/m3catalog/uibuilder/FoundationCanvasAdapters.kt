@@ -5,6 +5,7 @@
 
 package ee.schimke.m3catalog.uibuilder
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -26,6 +28,8 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.carousel.HorizontalUncontainedCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
@@ -48,6 +52,58 @@ import kotlinx.serialization.json.floatOrNull
 
 /** Foundation donor adapters compiled into this catalog runtime, never interpreted by the host. */
 val foundationCanvasAdapters = canvasAdapterRegistry {
+  // The builder's own screen frames. The catalog record publishes them with no `canvas` id, so the
+  // runtime is asked for them under their component ids; without these every Material screen drew
+  // as one `layout/scaffold` error box.
+  register("layout/scaffold") {
+    val scope = this
+    val color = materialColor(string("containerColor"), MaterialTheme.colorScheme.background)
+    if (mode == CanvasMode.AuthoringUnrolled)
+      Column(modifier.background(color)) {
+        scope.Slot("topBar")
+        scope.Slot("content")
+      }
+    else
+      Scaffold(
+        modifier = modifier,
+        containerColor = color,
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
+        topBar = { scope.Slot("topBar") },
+        snackbarHost = { scope.Slot("snackbarHost") },
+        bottomBar = { scope.Slot("bottomBar") },
+        floatingActionButton = { scope.Slot("floatingActionButton") },
+      ) {
+        scope.Slot("content", Modifier.padding(it))
+      }
+  }
+  listOf("layout/list-detail-pane-scaffold", "layout/supporting-pane-scaffold").forEach { id ->
+    register(id) {
+      val scope = this
+      val listDetail = id == "layout/list-detail-pane-scaffold"
+      AdaptiveSupportingPaneScaffold(
+        unrolled = mode == CanvasMode.AuthoringUnrolled,
+        node = node,
+        modifier = modifier,
+        mainPane = { scope.Slot(if (listDetail) "listPane" else "mainPane", it) },
+        supportingPane = { scope.Slot(if (listDetail) "detailPane" else "supportingPane", it) },
+        extraPane =
+          if (scope.itemCount("extraPane") > 0) ({ next -> scope.Slot("extraPane", next) })
+          else null,
+      )
+    }
+  }
+  register("layout/flow-row") {
+    val canvas = this
+    FlowRow(
+      modifier = modifier,
+      horizontalArrangement = horizontalArrangement(),
+      verticalArrangement = verticalArrangement(),
+      // Absent and zero both mean "as many as fit".
+      maxItemsInEachRow = integer("maxItemsInEachRow").takeIf { it > 0 } ?: Int.MAX_VALUE,
+    ) {
+      canvas.Items("children") { Content() }
+    }
+  }
   register("layout/box") {
     val canvas = this
     Box(modifier = modifier, contentAlignment = alignmentFor(string("contentAlignment"))) {

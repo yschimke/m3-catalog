@@ -61,3 +61,28 @@ test("every id registered by constant is still a published canvas id", () => {
     assert.ok(canvasIds.includes(id), `${id} is no longer published; drop it from this table`);
   }
 });
+
+/**
+ * The builder's layout builtins the catalog record serves with no `canvas` id, so the runtime is
+ * asked for them under their component ids. `layout/scaffold` was missing, and every Material
+ * screen on the live canvas drew as a single `layout/scaffold` error box.
+ */
+const BUILDER_LAYOUT_IDS = [
+  "layout/box",
+  "layout/column",
+  "layout/row",
+  "layout/flow-row",
+  "layout/spacer",
+  "layout/lazy-row",
+  "layout/lazy-column",
+  "layout/lazy-grid",
+  "layout/horizontal-carousel",
+  "layout/scaffold",
+  "layout/list-detail-pane-scaffold",
+  "layout/supporting-pane-scaffold",
+];
+
+test("every builder layout builtin has a renderer adapter", () => {
+  const missing = BUILDER_LAYOUT_IDS.filter((id) => !source.includes(`"${id}"`));
+  assert.deepEqual(missing, [], "layout builtins with no adapter in catalog-ui-builder-renderer");
+});
