@@ -62,6 +62,7 @@ val foundationCanvasAdapters = canvasAdapterRegistry {
       Column(modifier.background(color)) {
         scope.Slot("topBar")
         scope.Slot("content")
+        scope.Slot("snackbarHost")
       }
     else
       Scaffold(
