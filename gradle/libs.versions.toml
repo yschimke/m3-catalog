@@ -84,14 +84,14 @@ materialKolor = "5.0.1"
 # compose-ai-tools: the `ee.schimke.composeai.preview` Gradle plugin and the reusable CI
 # actions/workflows are one release — keep both pinned together (Renovate groups them; see
 # .github/renovate.json).
-composePreviewPlugin = "2.57.0"
+composePreviewPlugin = "2.61.1"
 # The daemon release BOM supplies each annotation and override module's published version.
 # These modules are versionless; releases may publish only a subset of them.
-composePreviewDaemon = "3.16.1"
+composePreviewDaemon = "3.17.0"
 composePreviewContracts = "3.33.0"
 uiBuilderSource = "3.30.0"
 # compose-ui-builder's exporter, run only by `:uid-stickers` (opt-in, `-PuidStickers=true`).
-uiBuilderExport = "3.112.0"
+uiBuilderExport = "3.115.0"
 
 [libraries]
 composeai-tools-bom = { module = "ee.schimke.composeai:compose-ai-tools-bom", version.ref = "composePreviewPlugin" }
