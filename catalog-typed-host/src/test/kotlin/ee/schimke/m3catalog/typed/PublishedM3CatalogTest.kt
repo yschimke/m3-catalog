@@ -23,8 +23,10 @@ class PublishedM3CatalogTest {
         ComponentRecordFile.serializer(),
         Files.readString(directory.resolve("components.json")),
       )
-    // The 33 typed wrappers, and the 7 real Material 3 records their projections export to.
-    assertEquals(40, records.components.size)
+    // The 33 typed wrappers, and the 11 real Material 3 records their projections export to:
+    // Text, Icon, the four buttons (Button, FilledTonalButton, TextButton, FloatingActionButton),
+    // the three cards, NavigationSuiteItem and NavigationSuiteScaffold.
+    assertEquals(44, records.components.size)
     val published =
       Json.decodeFromString(
         UiBuilderCatalogFile.serializer(),
