@@ -130,6 +130,13 @@
         "at any time"
       ],
       "minimumReleaseAge": null
+    },
+    {
+      "description": "The tools release BOM advances when any module changes, while unchanged Gradle plugins keep their last published version. Keep the BOM on its own catalog ref/group so a BOM-only release cannot rewrite the plugin marker to a version that was never published. This is independent update tracking, not a compatibility pin.",
+      "matchPackageNames": [
+        "ee.schimke.composeai:compose-ai-tools-bom"
+      ],
+      "groupName": "compose-ai-tools-bom"
     }
   ],
   "customManagers": [
