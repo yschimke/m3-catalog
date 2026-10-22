@@ -164,7 +164,7 @@ jobs:
     # `ui-builder-renderer-standalone` and `semantics-workers`; anything older rejects them at parse
     # time, so all four lanes move together. Pin a release tag (or a commit on main), never a PR head:
     # a head commit stops resolving once its branch is deleted and the run fails at startup.
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.61.2
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.70.6
     with:
       system: m3-catalog
       # Only main publishes. A dispatch from a branch (e.g. to trial a new reusable-workflow pin)
@@ -346,7 +346,7 @@ jobs:
     permissions:
       contents: write
     # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.61.2
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.70.6
     with:
       system: m3-samples
       # Only main publishes. A dispatch from a branch (e.g. to trial a new reusable-workflow pin)
@@ -442,7 +442,7 @@ jobs:
     permissions:
       contents: write
     # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.61.2
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.70.6
     with:
       system: compose-ui-samples
       # Only main publishes. A dispatch from a branch (e.g. to trial a new reusable-workflow pin)
@@ -503,7 +503,7 @@ jobs:
     permissions:
       contents: write
     # No `concurrency:` — see the note above `jobs:`. `supersede-stale-runs` is the lane's group.
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.61.2
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v2.70.6
     with:
       system: compose-foundation
       # Only main publishes. A dispatch from a branch (e.g. to trial a new reusable-workflow pin)

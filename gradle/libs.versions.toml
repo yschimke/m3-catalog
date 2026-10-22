@@ -84,17 +84,20 @@ materialKolor = "5.0.1"
 # compose-ai-tools: the `ee.schimke.composeai.preview` Gradle plugin and the reusable CI
 # actions/workflows are one release — keep both pinned together (Renovate groups them; see
 # .github/renovate.json).
-composePreviewPlugin = "2.61.1"
+# The release BOM advances even when the plugin is unchanged. Never share these refs:
+# BOM 2.67.0 names compose-preview-plugin 2.66.0; a marker at 2.67.0 does not exist.
+composeAiTools = "2.70.5"
+composePreviewPlugin = "2.70.5"
 # The daemon release BOM supplies each annotation and override module's published version.
 # These modules are versionless; releases may publish only a subset of them.
-composePreviewDaemon = "3.17.0"
-composePreviewContracts = "3.35.0"
+composePreviewDaemon = "3.21.3"
+composePreviewContracts = "3.37.0"
 uiBuilderSource = "3.30.0"
 # compose-ui-builder's exporter, run only by `:uid-stickers` (opt-in, `-PuidStickers=true`).
-uiBuilderExport = "3.115.0"
+uiBuilderExport = "3.121.0"
 
 [libraries]
-composeai-tools-bom = { module = "ee.schimke.composeai:compose-ai-tools-bom", version.ref = "composePreviewPlugin" }
+composeai-tools-bom = { module = "ee.schimke.composeai:compose-ai-tools-bom", version.ref = "composeAiTools" }
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
 jb-lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "jb-lifecycle" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
