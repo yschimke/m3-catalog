@@ -52,7 +52,7 @@ jobs:
           cache-read-only: ${{ github.event_name == 'pull_request' }}
       - uses: actions/setup-node@v7.1.0
         with:
-          node-version: 24.22.2
+          node-version: 26.12.0
       - name: Validate parallel generation and renderer
         working-directory: m3-catalog
         run: xvfb-run -a scripts/validate-typed-m3-catalog.sh
