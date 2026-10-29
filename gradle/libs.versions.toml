@@ -87,14 +87,14 @@ materialKolor = "5.0.1"
 # The release BOM advances even when the plugin is unchanged. Never share these refs:
 # BOM 2.67.0 names compose-preview-plugin 2.66.0; a marker at 2.67.0 does not exist.
 composeAiTools = "2.72.0"
-composePreviewPlugin = "2.71.0"
+composePreviewPlugin = "2.74.1"
 # The daemon release BOM supplies each annotation and override module's published version.
 # These modules are versionless; releases may publish only a subset of them.
-composePreviewDaemon = "3.24.0"
+composePreviewDaemon = "3.26.0"
 composePreviewContracts = "3.39.0"
 uiBuilderSource = "3.30.0"
 # compose-ui-builder's exporter, run only by `:uid-stickers` (opt-in, `-PuidStickers=true`).
-uiBuilderExport = "3.123.0"
+uiBuilderExport = "3.124.0"
 
 [libraries]
 composeai-tools-bom = { module = "ee.schimke.composeai:compose-ai-tools-bom", version.ref = "composeAiTools" }
