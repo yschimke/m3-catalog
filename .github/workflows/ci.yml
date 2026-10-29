@@ -113,7 +113,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@v7.1.0
         with:
-          node-version: 24.22.1
+          node-version: 24.22.2
       - name: Install catalog validation driver
         run: |
           compose-ai-tools/.github/scripts/install-export-driver.sh \
@@ -227,7 +227,7 @@ jobs:
           cache-read-only: 'true'
       - uses: actions/setup-node@v7.1.0
         with:
-          node-version: 24.22.1
+          node-version: 24.22.2
 
       # The resolver itself is @design-parity/kit-index's to test, against its own slice of the
       # same kit. What is left here is the pair of invariants only this repo can check: that the
