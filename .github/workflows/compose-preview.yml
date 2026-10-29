@@ -69,7 +69,7 @@ jobs:
 
       - uses: actions/setup-node@v7.1.0
         with:
-          node-version: 24.22.1
+          node-version: 24.22.2
 
       # The render is the only place this repo can see its own pixels, so it is
       # the only place the duplicate-render scan can run. `_previews.json` is
@@ -124,7 +124,7 @@ jobs:
 
       - uses: actions/setup-node@v7.1.0
         with:
-          node-version: 24.22.1
+          node-version: 24.22.2
 
       - name: No undeclared duplicate renders
         run: node scripts/duplicate-renders.mjs
