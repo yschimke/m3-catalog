@@ -152,11 +152,11 @@ private fun policyPreviewSurfaces(): JsonElement = buildJsonObject {
     "native",
     buildJsonObject {
       put("fidelity", JsonPrimitive("authoritative"))
-      put("backend", JsonPrimitive("android"))
+      put("backend", JsonPrimitive("desktop"))
       put(
         "reason",
         JsonPrimitive(
-          "The generated Kotlin compiled against this module's own classpath and rendered under Robolectric — the same lane that produces this catalog's stickers."
+          "The generated Kotlin compiled against this module's own classpath and rendered by Skiko — the same Compose Multiplatform desktop lane that produces this catalog's stickers."
         ),
       )
     },
